@@ -1,0 +1,22 @@
+overwrite: true
+schema:
+  - https://graphql.fauna.com/graphql:
+      headers:
+        Authorization: Bearer fnADo0-YxNACABRjBX8ER9FjEkUOzluRKoPYKhwh
+documents: "src/**/*.graphql"
+generates:
+  src/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-urql"
+    config:
+      withComponent: false
+      withHooks: true
+      scalars:
+        Date: string
+        Time: string
+        Long: number
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

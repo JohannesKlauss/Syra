@@ -4,11 +4,21 @@
   "repository": "https://JohannesKlauss@github.com/JohannesKlauss/splinter.io",
   "author": "Johannes Klauss",
   "dependencies": {
+    "@material-ui/core": "^4.10.2",
+    "@material-ui/icons": "^4.9.1",
+    "graphql": "^15.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "recoil": "^0.0.10",
+    "urql": "^1.9.8"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "1.15.4",
+    "@graphql-codegen/introspection": "1.15.4",
+    "@graphql-codegen/typescript": "1.15.4",
+    "@graphql-codegen/typescript-operations": "1.15.4",
+    "@graphql-codegen/typescript-urql": "^1.15.4",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -22,7 +32,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "gql-gen": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {
     "extends": "react-app"
