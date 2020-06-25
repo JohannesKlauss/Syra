@@ -2492,6 +2492,13 @@
   dependencies:
     wonka "^4.0.14"
 
+"@urql/devtools@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@urql/devtools/-/devtools-2.0.2.tgz#0991bc3bb09444b162ef56518b76f64f286954fc"
+  integrity sha512-f3gIx4NDOuWdXC54m4VQlLKNtYHl6PITSEqexH6xiktzvH7QcwS5hNPg0Fkki8cas/DZtkmDpwxNV1uRZ5xlvA==
+  dependencies:
+    wonka ">= 4.0.9"
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"
@@ -12630,7 +12637,7 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
-wonka@^4.0.14:
+"wonka@>= 4.0.9", wonka@^4.0.14:
   version "4.0.14"
   resolved "https://registry.yarnpkg.com/wonka/-/wonka-4.0.14.tgz#77d680a84e575ed15a9f975eb87d6c530488f3a4"
   integrity sha512-v9vmsTxpZjrA8CYfztbuoTQSHEsG3ZH+NCYfasHm0V3GqBupXrjuuz0RJyUaw2cRO7ouW2js0P6i853/qxlDcA==
