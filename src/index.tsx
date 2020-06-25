@@ -7,7 +7,9 @@ import { createClient, Provider as UrqlProvider } from 'urql';
 const client = createClient({
   url: 'https://graphql.fauna.com/graphql',
   fetchOptions: () => ({
-    headers: { authorization: 'Bearer fnADo0-YxNACABRjBX8ER9FjEkUOzluRKoPYKhwh' },
+    headers: {
+      authorization: `Bearer ${process.env.REACT_APP_FAUNA_KEY}`
+    },
   }),
 });
 
