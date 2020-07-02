@@ -2,7 +2,7 @@ import React from 'react';
 import useAudioContext from '../hooks/audio/useAudioContext';
 import { Button, Container } from '@material-ui/core';
 import * as Tone from 'tone';
-import loadSoulPatch from '../soul/loadSoulPatch';
+import useSoulPatch from '../hooks/soul/useSoulPatch';
 
 interface Props {
 
@@ -10,6 +10,7 @@ interface Props {
 
 function SoulAudioInputTest({}: Props) {
   const context = useAudioContext();
+  const patch = useSoulPatch('soul/gain.wasm');
 
   let soulPatch: AudioWorkletNode;
 
@@ -20,11 +21,12 @@ function SoulAudioInputTest({}: Props) {
           context.resume();
         }
 
-        const patch = await loadSoulPatch('soul/gain.wasm');
-
         await context.audioWorklet.addModule('worklets/SoulWasmAudioWorkletProcessor.js');
 
-        console.log(patch);
+        if (patch == null) {
+          return;
+        }
+
         soulPatch = new AudioWorkletNode(context,"soul-wasm-audio-worklet-processor-new",{
           processorOptions: {
             module: patch.module,

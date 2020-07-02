@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { deepOrange, deepPurple, lightBlue, orange } from '@material-ui/core/colors';
-import SoulTest from './lab/SoulTest';
-import SoulAudioInputTest from './lab/SoulAudioInputTest';
+import AudioContextProvider from './lab/AudioContextProvider';
 
 function App() {
   const [darkState, setDarkState] = useState(true);
@@ -30,7 +29,7 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <SoulAudioInputTest/>
+      <AudioContextProvider/>
     </ThemeProvider>
   );
 }
