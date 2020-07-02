@@ -2,6 +2,7 @@ import React from 'react';
 import useAudioContext from '../hooks/audio/useAudioContext';
 import { Button, Container } from '@material-ui/core';
 import * as Tone from 'tone';
+import loadSoulPatch from '../soul/loadSoulPatch';
 
 interface Props {
 
@@ -10,33 +11,23 @@ interface Props {
 function SoulAudioInputTest({}: Props) {
   const context = useAudioContext();
 
+  let soulPatch: AudioWorkletNode;
+
   return (
     <Container>
       <Button onClick={async () => {
         if (context.state !== 'running') {
-          return;
+          context.resume();
         }
 
-        const obj = await WebAssembly.instantiateStreaming(fetch('soul/gain.wasm'));
-
-        // @ts-ignore
-        const moduleBuffer = new Uint8Array(obj.instance.exports.memory.buffer, obj.instance.exports.getDescription(), obj.instance.exports.getDescriptionLength());
-        let bufferContent = "";
-
-        for (let i = 0; i < moduleBuffer.length; i++)
-          bufferContent += String.fromCharCode(moduleBuffer[i]);
-        const descriptor =  JSON.parse(bufferContent);
-
-        console.log('buffer content', descriptor);
+        const patch = await loadSoulPatch('soul/gain.wasm');
 
         await context.audioWorklet.addModule('worklets/SoulWasmAudioWorkletProcessor.js');
 
-        // @ts-ignore
-        console.log('wasm', obj.instance.exports.getInData());
-
-        /*const soulPatch = new AudioWorkletNode(context,"soul-wasm-audio-worklet-processor-new",{
+        console.log(patch);
+        soulPatch = new AudioWorkletNode(context,"soul-wasm-audio-worklet-processor-new",{
           processorOptions: {
-            module: obj.module,
+            module: patch.module,
             sampleRate: Tone.context.rawContext.sampleRate,
             initialParamValues: '',
             bufferSize: 128,
@@ -49,8 +40,25 @@ function SoulAudioInputTest({}: Props) {
           outputChannelCount: [2]
         });
 
-        soulPatch.connect(context.destination);*/
-      }}>Play Audio Sample with Volume</Button>
+        const res = await fetch('audio/default.wav');
+        const arrayBuffer = await res.arrayBuffer();
+        const audioBuffer = await context.decodeAudioData(arrayBuffer);
+
+        const source = context.createBufferSource();
+        source.buffer = audioBuffer;
+        source.connect(soulPatch).connect(context.destination);
+        source.start();
+      }}>Load Gain Plugin with Volume Slider</Button>
+      <br/>
+      <input type="range" min={-40} max={0} defaultValue={-6} step={0.01} onChange={(e) => {
+        soulPatch.port.postMessage({
+          type: "PARAMETER_UPDATE",
+          value: {
+            parameterId: 1,
+            normalisedValue: parseInt(e.target.value)
+          }
+        });
+      }}/>
     </Container>
   );
 }

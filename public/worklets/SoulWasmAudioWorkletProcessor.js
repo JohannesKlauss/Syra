@@ -12,8 +12,11 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
     this.process = this.process.bind(this);
 
     this.port.onmessage = e => {
+      console.log('recieved msg', e);
+
       switch (e.data.type) {
         case "PARAMETER_UPDATE":
+          console.log('kommt an');
           this.instance.exports.onParameterUpdate(
             e.data.value.parameterId,
             e.data.value.normalisedValue
