@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
 import useAudioContext from '../hooks/audio/useAudioContext';
 import SoulAudioInputTest from './SoulAudioInputTest';
+import * as Tone from 'tone';
 
 interface Props {
 
@@ -13,8 +14,10 @@ function AudioContextProvider({}: Props) {
 
   return (
     <>
-      {!contextIsRunning && <Button onClick={() => {
-        context.resume();
+      {!contextIsRunning && <Button onClick={async () => {
+        await Tone.start();
+        await context.resume();
+
         setContextIsRunning(true);
       }}>
         Start AudioEngine

@@ -1,11 +1,5 @@
-import { useRef } from 'react';
+import * as Tone from 'tone';
 
 export default function useAudioContext() {
-  const ctx = useRef(new window.AudioContext());
-
-  if (ctx.current.state !== 'running') {
-    ctx.current.resume();
-  }
-
-  return ctx.current;
+  return Tone.context;
 }

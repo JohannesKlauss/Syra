@@ -1,8 +1,8 @@
 import React from 'react';
 import useAudioContext from '../hooks/audio/useAudioContext';
 import { Button, Container } from '@material-ui/core';
-import * as Tone from 'tone';
 import useSoulPatch from '../hooks/soul/useSoulPatch';
+import * as Tone from 'tone';
 
 interface Props {
 
@@ -10,55 +10,37 @@ interface Props {
 
 function SoulAudioInputTest({}: Props) {
   const context = useAudioContext();
-  const patch = useSoulPatch('soul/gain.wasm');
-
-  let soulPatch: AudioWorkletNode;
+  const soulPatch = useSoulPatch('soul/gain.wasm');
 
   return (
     <Container>
       <Button onClick={async () => {
         if (context.state !== 'running') {
-          context.resume();
+          await context.resume();
         }
 
-        await context.audioWorklet.addModule('worklets/SoulWasmAudioWorkletProcessor.js');
-
-        if (patch == null) {
+        if (soulPatch == null) {
           return;
         }
 
-        soulPatch = new AudioWorkletNode(context,"soul-wasm-audio-worklet-processor-new",{
-          processorOptions: {
-            module: patch.module,
-            sampleRate: Tone.context.rawContext.sampleRate,
-            initialParamValues: '',
-            bufferSize: 128,
-            totalInputs: 1,
-            totalOutputs: 1,
-            endpoints: JSON.stringify([])
-          },
-          numberOfInputs: 1,
-          numberOfOutputs: 1,
-          outputChannelCount: [2]
-        });
+        const player = new Tone.Player('audio/default.wav');
 
-        const res = await fetch('audio/default.wav');
-        const arrayBuffer = await res.arrayBuffer();
-        const audioBuffer = await context.decodeAudioData(arrayBuffer);
-
-        const source = context.createBufferSource();
-        source.buffer = audioBuffer;
-        source.connect(soulPatch).connect(context.destination);
-        source.start();
+        player.chain(soulPatch, Tone.Destination);
+        player.loop = true;
+        player.autostart = true;
       }}>Load Gain Plugin with Volume Slider</Button>
       <br/>
       <input type="range" min={-40} max={0} defaultValue={-6} step={0.01} onChange={(e) => {
+        if (soulPatch == null) {
+          return;
+        }
+
         soulPatch.port.postMessage({
-          type: "PARAMETER_UPDATE",
+          type: 'PARAMETER_UPDATE',
           value: {
             parameterId: 1,
-            normalisedValue: parseInt(e.target.value)
-          }
+            normalisedValue: parseInt(e.target.value),
+          },
         });
       }}/>
     </Container>

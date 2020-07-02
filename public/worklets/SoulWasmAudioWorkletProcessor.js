@@ -169,4 +169,4 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
   }
 }
 
-registerProcessor("soul-wasm-audio-worklet-processor-new", SoulWasmAudioWorkletProcessor);
+registerProcessor("soul-wasm-audio-worklet-processor", SoulWasmAudioWorkletProcessor);
