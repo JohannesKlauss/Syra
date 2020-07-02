@@ -10,7 +10,7 @@ const client = createClient({
   exchanges: [devtoolsExchange, ...defaultExchanges],
   fetchOptions: () => ({
     headers: {
-      authorization: `Bearer ${process.env.REACT_APP_FAUNA_KEY}`
+      authorization: `Bearer ${process.env.REACT_APP_FAUNA_KEY}`,
     },
   }),
 });
