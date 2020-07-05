@@ -1,5 +1,5 @@
 import React from 'react';
-import { SoulPatchParameter } from '../types/SoulPatchDescriptor';
+import { SoulPatchParameter } from '../../../types/SoulPatchDescriptor';
 import SliderParameter from './SliderParameter';
 
 interface Props {

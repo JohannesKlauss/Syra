@@ -1,9 +1,9 @@
 import React, { useCallback, useRef, useState } from 'react';
 import useAudioContext from '../hooks/audio/useAudioContext';
-import { Button, Container, IconButton } from '@material-ui/core';
+import { Button, IconButton, Typography } from '@material-ui/core';
 import useSoulPatch from '../hooks/soul/useSoulPatch';
 import * as Tone from 'tone';
-import ParameterList from './ParameterList';
+import ParameterList from '../ui/molecules/Parameters/ParameterList';
 import { PauseCircleFilled, PlayCircleFilled } from '@material-ui/icons';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 const SoulAudioInputTest = React.memo(({patchName}: Props) => {
   const context = useAudioContext();
-  const [soulPatchNode, soulPatch] = useSoulPatch(`soul/${patchName}.wasm`);
+  const [soulPatchNode, soulPatch] = useSoulPatch(`soul/plugins/${patchName}.wasm`);
   const playerRef = useRef<Tone.Player>();
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -44,8 +44,11 @@ const SoulAudioInputTest = React.memo(({patchName}: Props) => {
   }, [playerRef]);
 
   return (
-    <Container>
-      <Button onClick={onClick}>Load Gain Plugin with Volume Slider</Button>
+    <>
+      <Typography variant="h4" gutterBottom>
+        Plugin Test
+      </Typography>
+      <Button variant="contained" onClick={onClick}>Load Gain Plugin with Volume Slider</Button>
       <IconButton color="primary" component="span" onClick={onIconClick}>
         {isPlaying ? <PauseCircleFilled/> : <PlayCircleFilled/>}
       </IconButton>
@@ -54,7 +57,7 @@ const SoulAudioInputTest = React.memo(({patchName}: Props) => {
 
       {soulPatchNode && soulPatch &&
       <ParameterList port={soulPatchNode.port} parameters={soulPatch.descriptor.parameters}/>}
-    </Container>
+    </>
   );
 });
 

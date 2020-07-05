@@ -2,19 +2,20 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import whyDidYouRender from "@welldone-software/why-did-you-render";
+import whyDidYouRender from '@welldone-software/why-did-you-render';
+import { RecoilRoot } from 'recoil/dist';
 
 whyDidYouRender(React, {
   onlyLogs: true,
-  titleColor: "green",
-  diffNameColor: "aqua",
+  titleColor: 'green',
+  diffNameColor: 'aqua',
   trackAllPureComponents: true,
 });
 
 ReactDOM.render(
-  <React.StrictMode>
+  <RecoilRoot>
     <App/>
-  </React.StrictMode>,
+  </RecoilRoot>,
   document.getElementById('root'),
 );
 

@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
-import { SoulPatchParameter } from '../types/SoulPatchDescriptor';
+import React, { useCallback, useState } from 'react';
+import { SoulPatchParameter } from '../../../types/SoulPatchDescriptor';
 import { Grid, Slider, Typography } from '@material-ui/core';
 
 interface Props {
