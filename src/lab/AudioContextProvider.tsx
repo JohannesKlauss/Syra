@@ -24,7 +24,7 @@ function AudioContextProvider({}: Props) {
       }}>
         Start AudioEngine
       </Button>}
-      {contextIsRunning && <SoulAudioInputTest/>}
+      {contextIsRunning && <SoulAudioInputTest patchName={'freeverb'}/>}
     </>
   );
 }

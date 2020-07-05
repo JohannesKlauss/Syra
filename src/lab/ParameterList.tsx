@@ -7,12 +7,12 @@ interface Props {
   port: MessagePort;
 }
 
-function ParameterList({parameters, port}: Props) {
+const ParameterList = React.memo(({parameters, port}: Props) => {
   return (
     <div>
       {parameters.map(param => <SliderParameter parameter={param} port={port} key={param.id}/>)}
     </div>
   );
-}
+});
 
 export default ParameterList;

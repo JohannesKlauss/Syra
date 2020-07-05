@@ -24,8 +24,6 @@ const SliderParameter = React.memo(({ parameter, port }: Props) => {
     });
   }, [port, index]);
   
-  console.log(process.env.NODE_ENV);
-
   return (
       <Grid container spacing={2}>
         <Grid item xs>

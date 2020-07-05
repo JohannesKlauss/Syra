@@ -7,12 +7,12 @@ import ParameterList from './ParameterList';
 import { PauseCircleFilled, PlayCircleFilled } from '@material-ui/icons';
 
 interface Props {
-
+  patchName: string;
 }
 
-const SoulAudioInputTest = React.memo(({}: Props) => {
+const SoulAudioInputTest = React.memo(({patchName}: Props) => {
   const context = useAudioContext();
-  const [soulPatchNode, soulPatch] = useSoulPatch('soul/freeverb.wasm');
+  const [soulPatchNode, soulPatch] = useSoulPatch(`soul/${patchName}.wasm`);
   const playerRef = useRef<Tone.Player>();
   const [isPlaying, setIsPlaying] = useState(false);
 
