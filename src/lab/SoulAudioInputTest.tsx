@@ -12,7 +12,7 @@ interface Props {
 
 const SoulAudioInputTest = React.memo(({}: Props) => {
   const context = useAudioContext();
-  const [soulPatchNode, soulPatch] = useSoulPatch('soul/clipper.wasm');
+  const [soulPatchNode, soulPatch] = useSoulPatch('soul/freeverb.wasm');
   const playerRef = useRef<Tone.Player>();
   const [isPlaying, setIsPlaying] = useState(false);
 
