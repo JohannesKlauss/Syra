@@ -18,7 +18,9 @@ function AudioContextProvider({}: Props) {
         await Tone.start();
         await context.resume();
 
-        setContextIsRunning(true);
+        if (context.state === 'running') {
+          setContextIsRunning(true);
+        }
       }}>
         Start AudioEngine
       </Button>}

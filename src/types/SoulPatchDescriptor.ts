@@ -12,7 +12,7 @@ interface Properties {
   step: number;
 }
 
-interface Parameter {
+export interface SoulPatchParameter {
   group: string;
   id: string;
   index: number;
@@ -23,14 +23,14 @@ interface Parameter {
   step?: number;
   text: string;
   unit: string;
-  properties: Properties
+  properties: Properties;
 }
 
 interface Descriptor {
   description: string;
   inputBuses: Bus[];
   outputBuses: Bus[];
-  parameters: Parameter[];
+  parameters: SoulPatchParameter[];
 }
 
 export type SoulPatchDescriptor = Descriptor;

@@ -1,50 +1,64 @@
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import useAudioContext from '../hooks/audio/useAudioContext';
-import { Button, Container } from '@material-ui/core';
+import { Button, Container, IconButton } from '@material-ui/core';
 import useSoulPatch from '../hooks/soul/useSoulPatch';
 import * as Tone from 'tone';
+import ParameterList from './ParameterList';
+import { PauseCircleFilled, PlayCircleFilled } from '@material-ui/icons';
 
 interface Props {
 
 }
 
-function SoulAudioInputTest({}: Props) {
+const SoulAudioInputTest = ({}: Props) => {
   const context = useAudioContext();
-  const soulPatch = useSoulPatch('soul/gain.wasm');
+  const [soulPatchNode, soulPatch] = useSoulPatch('soul/gain.wasm');
+  const playerRef = useRef<Tone.Player>();
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const onClick = useCallback(async () => {
+    if (context.state !== 'running') {
+      await context.resume();
+    }
+
+    if (soulPatchNode == null) {
+      return;
+    }
+
+    const player = new Tone.Player('audio/default.wav');
+
+    player.chain(soulPatchNode, Tone.Destination);
+    // player.loop = true;
+
+    playerRef.current = player;
+  }, [soulPatchNode, context]);
+
+  const onIconClick = useCallback(() => {
+    if (playerRef.current?.state === 'started') {
+      setIsPlaying(false);
+      playerRef.current.stop();
+    } else if (playerRef.current) {
+      setIsPlaying(true);
+      playerRef.current.start();
+    }
+  }, [playerRef]);
 
   return (
     <Container>
-      <Button onClick={async () => {
-        if (context.state !== 'running') {
-          await context.resume();
-        }
+      <Button onClick={onClick}>Load Gain Plugin with Volume Slider</Button>
+      <IconButton color="primary" component="span" onClick={onIconClick}>
+        {isPlaying ? <PauseCircleFilled/> : <PlayCircleFilled/>}
+      </IconButton>
 
-        if (soulPatch == null) {
-          return;
-        }
-
-        const player = new Tone.Player('audio/default.wav');
-
-        player.chain(soulPatch, Tone.Destination);
-        player.loop = true;
-        player.autostart = true;
-      }}>Load Gain Plugin with Volume Slider</Button>
       <br/>
-      <input type="range" min={-40} max={0} defaultValue={-6} step={0.01} onChange={(e) => {
-        if (soulPatch == null) {
-          return;
-        }
 
-        soulPatch.port.postMessage({
-          type: 'PARAMETER_UPDATE',
-          value: {
-            parameterId: 1,
-            normalisedValue: parseInt(e.target.value),
-          },
-        });
-      }}/>
+      {soulPatchNode && soulPatch &&
+      <ParameterList port={soulPatchNode.port} parameters={soulPatch.descriptor.parameters}/>}
     </Container>
   );
-}
+};
+
+// @ts-ignore
+SoulAudioInputTest.whyDidYouRender = true;
 
 export default SoulAudioInputTest;

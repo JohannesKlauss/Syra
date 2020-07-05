@@ -2,18 +2,24 @@ import { useEffect, useState } from 'react';
 import loadSoulPatch from '../../soul/loadSoulPatch';
 import useAudioContext from '../audio/useAudioContext';
 import * as Tone from 'tone';
+import { SoulPatch } from '../../types/SoulPatch';
 
-export default function useSoulPatch(path: string) {
+export default function useSoulPatch(path: string): [AudioWorkletNode | null, SoulPatch | null] {
   const context = useAudioContext();
   const [audioWorkletNode, setAudioWorkletNode] = useState<AudioWorkletNode | null>(null);
+  const [patch, setPatch] = useState<SoulPatch | null>(null);
 
   useEffect(() => {
     async function loadPatch() {
       await context.addAudioWorkletModule('worklets/SoulWasmAudioWorkletProcessor.js', 'soul-wasm-audio-worklet-processor');
 
+      const patch = await loadSoulPatch(path);
+
+      setPatch(patch);
+
       const node = context.createAudioWorkletNode('soul-wasm-audio-worklet-processor', {
         processorOptions: {
-          module: (await loadSoulPatch(path)).module,
+          module: patch.module,
           sampleRate: Tone.context.rawContext.sampleRate,
           initialParamValues: '',
           bufferSize: 128,
@@ -32,5 +38,5 @@ export default function useSoulPatch(path: string) {
     loadPatch();
   }, [path, context]);
 
-  return audioWorkletNode;
+  return [audioWorkletNode, patch];
 }

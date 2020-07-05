@@ -1,25 +1,12 @@
-import React from 'react';
+import './wdyr';
 import ReactDOM from 'react-dom';
+import React from 'react';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createClient, Provider as UrqlProvider, defaultExchanges } from 'urql';
-import { devtoolsExchange } from '@urql/devtools';
-
-const client = createClient({
-  url: 'https://graphql.fauna.com/graphql',
-  exchanges: [devtoolsExchange, ...defaultExchanges],
-  fetchOptions: () => ({
-    headers: {
-      authorization: `Bearer ${process.env.REACT_APP_FAUNA_KEY}`,
-    },
-  }),
-});
 
 ReactDOM.render(
   <React.StrictMode>
-    <UrqlProvider value={client}>
-      <App/>
-    </UrqlProvider>
+    <App/>
   </React.StrictMode>,
   document.getElementById('root'),
 );
