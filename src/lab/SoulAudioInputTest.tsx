@@ -10,7 +10,7 @@ interface Props {
 
 }
 
-const SoulAudioInputTest = ({}: Props) => {
+const SoulAudioInputTest = React.memo(({}: Props) => {
   const context = useAudioContext();
   const [soulPatchNode, soulPatch] = useSoulPatch('soul/gain.wasm');
   const playerRef = useRef<Tone.Player>();
@@ -56,9 +56,9 @@ const SoulAudioInputTest = ({}: Props) => {
       <ParameterList port={soulPatchNode.port} parameters={soulPatch.descriptor.parameters}/>}
     </Container>
   );
-};
+});
 
 // @ts-ignore
-SoulAudioInputTest.whyDidYouRender = true;
+// SoulAudioInputTest.whyDidYouRender = true;
 
 export default SoulAudioInputTest;
