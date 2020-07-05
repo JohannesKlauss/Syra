@@ -1,7 +1,7 @@
 import React from 'react';
 import whyDidYouRender from "@welldone-software/why-did-you-render";
 
-export default function wdyrPatch () {
+(function wdyrPatch () {
   if (process.env.NODE_ENV === 'development') {
     console.log('Patch React with wdyr');
 
@@ -12,4 +12,4 @@ export default function wdyrPatch () {
       trackAllPureComponents: true,
     });
   }
-}
+})();

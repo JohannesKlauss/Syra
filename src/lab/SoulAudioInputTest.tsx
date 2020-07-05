@@ -12,7 +12,7 @@ interface Props {
 
 const SoulAudioInputTest = React.memo(({}: Props) => {
   const context = useAudioContext();
-  const [soulPatchNode, soulPatch] = useSoulPatch('soul/gain.wasm');
+  const [soulPatchNode, soulPatch] = useSoulPatch('soul/clipper.wasm');
   const playerRef = useRef<Tone.Player>();
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -28,7 +28,7 @@ const SoulAudioInputTest = React.memo(({}: Props) => {
     const player = new Tone.Player('audio/default.wav');
 
     player.chain(soulPatchNode, Tone.Destination);
-    // player.loop = true;
+    player.loop = true;
 
     playerRef.current = player;
   }, [soulPatchNode, context]);
@@ -59,6 +59,6 @@ const SoulAudioInputTest = React.memo(({}: Props) => {
 });
 
 // @ts-ignore
-// SoulAudioInputTest.whyDidYouRender = true;
+SoulAudioInputTest.whyDidYouRender = true;
 
 export default SoulAudioInputTest;
