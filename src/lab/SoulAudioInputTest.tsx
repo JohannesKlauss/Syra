@@ -11,27 +11,9 @@ interface Props {
 }
 
 const SoulAudioInputTest = React.memo(({patchName}: Props) => {
-  const context = useAudioContext();
   const [soulPatchNode, soulPatch] = useSoulPatch(`soul/plugins/${patchName}.wasm`);
   const playerRef = useRef<Tone.Player>();
   const [isPlaying, setIsPlaying] = useState(false);
-
-  const onClick = useCallback(async () => {
-    if (context.state !== 'running') {
-      await context.resume();
-    }
-
-    if (soulPatchNode == null) {
-      return;
-    }
-
-    const player = new Tone.Player('audio/default.wav');
-
-    player.chain(soulPatchNode, Tone.Destination);
-    player.loop = true;
-
-    playerRef.current = player;
-  }, [soulPatchNode, context]);
 
   const onIconClick = useCallback(() => {
     if (playerRef.current?.state === 'started') {
@@ -45,10 +27,6 @@ const SoulAudioInputTest = React.memo(({patchName}: Props) => {
 
   return (
     <>
-      <Typography variant="h4" gutterBottom>
-        Plugin Test
-      </Typography>
-      <Button variant="contained" onClick={onClick}>Load Gain Plugin with Volume Slider</Button>
       <IconButton color="primary" component="span" onClick={onIconClick}>
         {isPlaying ? <PauseCircleFilled/> : <PlayCircleFilled/>}
       </IconButton>
