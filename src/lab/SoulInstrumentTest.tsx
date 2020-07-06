@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import useSoulPatch from '../hooks/soul/useSoulPatch';
 import { Typography } from '@material-ui/core';
-import Piano from './Piano';
+import Piano from '../ui/molecules/Piano/Piano';
 import useSendMidiToSoul from '../hooks/soul/useSendMidiToSoul';
 import ParameterList from '../ui/molecules/Parameters/ParameterList';
 import * as Tone from 'tone';
