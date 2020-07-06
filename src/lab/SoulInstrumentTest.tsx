@@ -10,13 +10,12 @@ interface Props {
   instrument: string;
 }
 
-function SoulInstrumentTest({instrument}: Props) {
+function SoulInstrumentTest({ instrument }: Props) {
   const [soulPatchNode, soulPatch] = useSoulPatch(`soul/instruments/${instrument}.wasm`);
 
   const sendMidi = useSendMidiToSoul(soulPatchNode);
 
-  const onPlay = useCallback((msg: number = 144, note: number, velocity: number = 120) => sendMidi(msg, note, velocity), [sendMidi]);
-  const onStop = useCallback((msg: number = 128, note: number, velocity: number = 0) => sendMidi(msg, note, velocity), [sendMidi]);
+  const onNote = useCallback((msg: number, note: number, velocity: number = 120) => sendMidi(msg, note, velocity), [sendMidi]);
 
   if (soulPatchNode) {
     Tone.connect(soulPatchNode, Tone.Destination);
@@ -28,7 +27,7 @@ function SoulInstrumentTest({instrument}: Props) {
         Instrument MIDI Test
       </Typography>
       {soulPatch && soulPatchNode && <ParameterList parameters={soulPatch.descriptor.parameters} port={soulPatchNode.port}/>}
-      <Piano min={48} max={65} onPlay={onPlay} onStop={onStop}/>
+      {soulPatch && soulPatchNode && <Piano min={48} max={65} onNote={onNote}/>}
     </>
   );
 }

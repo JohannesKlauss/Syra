@@ -31,9 +31,7 @@ function AudioContextProvider() {
         setMidiDevice(WebMidi.inputs[0].name);
       }
     }, 1500); // TODO: THIS ISN'T CLEAN. THE EFFECT DOESN'T REALIZE THAT WebMidi inputs HAVE CHANGED.
-  }, [setMidiDevice, WebMidi.inputs.length]);
-
-  console.log(WebMidi.inputs.length);
+  }, [setMidiDevice]);
 
   return (
     <Container>
