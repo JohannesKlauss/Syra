@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { List, ListItem, ListItemSecondaryAction, ListItemText, ListSubheader, Switch } from '@material-ui/core';
+import { List, ListSubheader } from '@material-ui/core';
 import { ChannelContext } from '../providers/ChannelContext';
 import { useRecoilValue } from 'recoil/dist';
 import { channelState } from '../recoil/selectors/channel';

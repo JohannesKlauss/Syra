@@ -16,7 +16,7 @@ export const selectedChannelPlugins = atomFamily<SoulInstance[], string>({
   default: [],
 });
 
-export const channelPluginByIndex = selectorFamily<SoulInstance, { channelId: string, index: number }>({
+export const channelPluginByIndex = selectorFamily<SoulInstance | undefined, { channelId: string, index: number }>({
   key: 'findChannelPluginByUID',
   get: ({ channelId, index }) => ({ get }) => get(selectedChannelPlugins(channelId))[index],
   set: ({ channelId, index }) => ({get, set}, newPlugin) => {
