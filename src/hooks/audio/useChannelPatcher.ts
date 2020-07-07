@@ -1,21 +1,18 @@
 import { useRecoilValue } from 'recoil/dist';
 import { channelState } from '../../recoil/selectors/channel';
-import useSoulPatch from '../soul/useSoulPatch';
 import useTonePatcher from '../tone/useTonePatcher';
 import useSendMidiToSoul from '../soul/useSendMidiToSoul';
 
 export default function useChannelPatcher(id: string) {
-  const {soulInstrument, plugins} = useRecoilValue(channelState(id));
+  const {soulInstrument, soulPlugins} = useRecoilValue(channelState(id));
 
-  const onNote = useSendMidiToSoul(soulInstrument?.audioNode);
-  const [soulPluginNode, soulPlugin] = useSoulPatch(plugins[0]);
+  const onNote = useSendMidiToSoul(soulInstrument);
 
-  useTonePatcher([soulPluginNode], soulInstrument?.audioNode);
+  useTonePatcher(soulPlugins, soulInstrument);
 
   return {
     soulInstrument,
     onNote,
-    soulPlugin,
-    pluginPort: soulPluginNode?.port,
+    soulPlugins
   }
 }

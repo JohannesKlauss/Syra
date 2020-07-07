@@ -14,8 +14,8 @@ export default function useChannel(id: string) {
     setSelectedInstrument(await createSoulInstance(event.target.value as string, true));
   }, [setSelectedInstrument]);
 
-  const onChangePlugin = useCallback((event: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedPlugins([event.target.value as string]);
+  const onChangePlugin = useCallback(async (event: React.ChangeEvent<{ value: unknown }>) => {
+    setSelectedPlugins([await createSoulInstance(event.target.value as string)]);
   }, [setSelectedPlugins]);
 
   return {

@@ -1,22 +1,23 @@
 import { useEffect } from 'react';
 import * as Tone from 'tone';
+import { SoulInstance } from '../../types/SoulInstance';
 
-export default function useTonePatcher(plugins: [AudioWorkletNode | null], instrument?: AudioWorkletNode | null) {
+export default function useTonePatcher(plugins: SoulInstance[], instrument?: SoulInstance) {
   useEffect(() => {
-    const activePlugins = plugins.filter(plugin => plugin !== null) as [AudioWorkletNode];
+    const pluginNodes = plugins.map(plugin => plugin.audioNode);
 
     if (instrument) {
-      Tone.disconnect(instrument);
-      Tone.connectSeries(instrument, ...activePlugins, Tone.Destination);
+      Tone.disconnect(instrument.audioNode);
+      Tone.connectSeries(instrument.audioNode, ...pluginNodes, Tone.Destination);
     }
-    else if(activePlugins.length > 0) {
+    else if(plugins.length > 0) {
       // TODO: WHEN DEALING WITH AUDIO WE PROBABLY NEED A SOURCE AS A AUDIO NODE INSTEAD OF A INSTRUMENT
-      Tone.connectSeries(...activePlugins, Tone.Destination);
+      Tone.connectSeries(...pluginNodes, Tone.Destination);
     }
 
     return () => {
       if (instrument) {
-        Tone.disconnect(instrument);
+        Tone.disconnect(instrument.audioNode);
       }
     };
   }, [plugins, instrument]);

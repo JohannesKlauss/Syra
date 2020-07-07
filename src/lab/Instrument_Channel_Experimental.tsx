@@ -16,10 +16,10 @@ interface Props {
 function Instrument_Channel_Experimental({}: Props) {
   const id = useRef(uniqid('channel-'));
 
-  const [soulInstruments] = useRecoilState(availableSoulInstruments);
-  const [soulPlugins] = useRecoilState(availableSoulPlugins);
+  const [availableInstruments] = useRecoilState(availableSoulInstruments);
+  const [availablePlugins] = useRecoilState(availableSoulPlugins);
   const {onChangeInstrument, onChangePlugin} = useChannel(id.current);
-  const {soulPlugin, pluginPort, soulInstrument, onNote} = useChannelPatcher(id.current);
+  const {soulPlugins, soulInstrument, onNote} = useChannelPatcher(id.current);
 
   return (
     <>
@@ -28,16 +28,16 @@ function Instrument_Channel_Experimental({}: Props) {
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={3}>
-          <SoulPatchList label={'Instrument'} patches={soulInstruments} onChange={onChangeInstrument}/>
+          <SoulPatchList label={'Instrument'} patches={availableInstruments} onChange={onChangeInstrument}/>
         </Grid>
         <Grid item xs={9}>
           {soulInstrument && <SoulInstrument patch={soulInstrument.soulPatch} port={soulInstrument.audioNode.port} onNote={onNote}/>}
         </Grid>
         <Grid item xs={3}>
-          <SoulPatchList label={'Plugins'} patches={soulPlugins} onChange={onChangePlugin}/>
+          <SoulPatchList label={'Plugins'} patches={availablePlugins} onChange={onChangePlugin}/>
         </Grid>
         <Grid item xs={9}>
-          {soulPlugin && pluginPort && <ParameterList port={pluginPort} parameters={soulPlugin.descriptor.parameters}/>}
+          {soulPlugins.map((plugin, i) => <ParameterList key={i} port={plugin.audioNode.port} parameters={plugin.soulPatch.descriptor.parameters}/>)}
         </Grid>
       </Grid>
     </>

@@ -6,15 +6,15 @@ export const selectedChannelInstrument = atomFamily<SoulInstance | undefined, st
   default: undefined,
 });
 
-export const selectedChannelPlugins = atomFamily<string[], string>({
+export const selectedChannelPlugins = atomFamily<SoulInstance[], string>({
   key: 'selectedChannelPlugins',
   default: [],
 });
 
-export const channelState = selectorFamily<{ soulInstrument: SoulInstance | undefined, plugins: string[] }, string>({
+export const channelState = selectorFamily<{ soulInstrument: SoulInstance | undefined, soulPlugins: SoulInstance[] }, string>({
   key: `channelState`,
   get: (id) => ({get}) => ({
     soulInstrument: get(selectedChannelInstrument(id)),
-    plugins: get(selectedChannelPlugins(id)),
+    soulPlugins: get(selectedChannelPlugins(id)),
   }),
 });

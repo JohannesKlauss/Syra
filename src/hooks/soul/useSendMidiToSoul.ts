@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
+import { SoulInstance } from '../../types/SoulInstance';
 
-export default function useSendMidiToSoul(soulPatchNode?: AudioWorkletNode) {
+export default function useSendMidiToSoul(soulInstance?: SoulInstance) {
   return useCallback((msg: number, note: number, velocity: number) => {
     const value = new Uint8Array(3);
 
@@ -8,9 +9,9 @@ export default function useSendMidiToSoul(soulPatchNode?: AudioWorkletNode) {
     value[1] = note;
     value[2] = velocity;
 
-    soulPatchNode?.port.postMessage({
+    soulInstance?.audioNode.port.postMessage({
       type: "MIDI_MESSAGE",
       value
     });
-  }, [soulPatchNode]);
+  }, [soulInstance]);
 }

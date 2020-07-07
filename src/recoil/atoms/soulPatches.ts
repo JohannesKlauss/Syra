@@ -7,5 +7,5 @@ export const availableSoulPlugins = atom<string[]>({
 
 export const availableSoulInstruments = atom<string[]>({
   key: 'availableSoulInstruments',
-  default: ['piano'],
+  default: ['sineSynth'],
 });
