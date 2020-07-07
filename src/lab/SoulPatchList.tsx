@@ -5,9 +5,10 @@ interface Props {
   patches: string[];
   label: string;
   onChange: (event: React.ChangeEvent<{ value: unknown }>) => void;
+  multiple?: boolean;
 }
 
-const SoulPatchList = ({patches, onChange, label}: Props) => {
+const SoulPatchList = ({patches, onChange, label, multiple}: Props) => {
   return (
     <FormControl style={{minWidth: 120}}>
       <InputLabel id={`select-${label}`}>{label}</InputLabel>
@@ -15,7 +16,8 @@ const SoulPatchList = ({patches, onChange, label}: Props) => {
         labelId={`select-${label}`}
         id={`select-${label}`}
         onChange={onChange}
-        defaultValue={''}
+        defaultValue={multiple ? [''] : ''}
+        multiple={multiple}
       >
         {patches.map(patch => <MenuItem key={patch} value={patch}>{patch}</MenuItem>)}
       </Select>

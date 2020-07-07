@@ -34,7 +34,7 @@ function Instrument_Channel_Experimental({}: Props) {
           {soulInstrument && <SoulInstrument patch={soulInstrument.soulPatch} port={soulInstrument.audioNode.port} onNote={onNote}/>}
         </Grid>
         <Grid item xs={3}>
-          <SoulPatchList label={'Plugins'} patches={availablePlugins} onChange={onChangePlugin}/>
+          <SoulPatchList multiple label={'Plugins'} patches={availablePlugins} onChange={onChangePlugin}/>
         </Grid>
         <Grid item xs={9}>
           {soulPlugins.map((plugin, i) => <ParameterList key={i} port={plugin.audioNode.port} parameters={plugin.soulPatch.descriptor.parameters}/>)}
