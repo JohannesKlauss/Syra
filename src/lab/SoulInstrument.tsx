@@ -5,15 +5,15 @@ import { SoulPatch } from '../types/SoulPatch';
 import { MidiCallable } from '../hooks/ui/usePiano';
 
 interface Props {
-  instrument: SoulPatch;
+  patch: SoulPatch;
   port: MessagePort;
   onNote: MidiCallable;
 }
 
-function SoulInstrument({ instrument, port, onNote }: Props) {
+function SoulInstrument({ patch, port, onNote }: Props) {
   return (
     <>
-      <ParameterList parameters={instrument.descriptor.parameters} port={port}/>
+      <ParameterList parameters={patch.descriptor.parameters} port={port}/>
       <Piano min={48} max={65} onNote={onNote}/>
     </>
   );

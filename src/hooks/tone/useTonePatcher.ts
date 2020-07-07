@@ -10,6 +10,7 @@ export default function useTonePatcher(plugins: [AudioWorkletNode | null], instr
       Tone.connectSeries(instrument, ...activePlugins, Tone.Destination);
     }
     else if(activePlugins.length > 0) {
+      // TODO: WHEN DEALING WITH AUDIO WE PROBABLY NEED A SOURCE AS A AUDIO NODE INSTEAD OF A INSTRUMENT
       Tone.connectSeries(...activePlugins, Tone.Destination);
     }
 

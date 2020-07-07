@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import loadSoulPatch from '../../soul/loadSoulPatch';
+import loadSoulPatchWasm from '../../soul/loadSoulPatchWasm';
 import useAudioContext from '../audio/useAudioContext';
 import * as Tone from 'tone';
 import { SoulPatch } from '../../types/SoulPatch';
@@ -17,7 +17,7 @@ export default function useSoulPatch(path?: string, isInstrument?: boolean): [Au
         return;
       }
 
-      const patch = await loadSoulPatch(`soul/${isInstrument ? 'instruments' : 'plugins'}/${path}.wasm`);
+      const patch = await loadSoulPatchWasm(`soul/${isInstrument ? 'instruments' : 'plugins'}/${path}.wasm`);
 
       setPatch(patch);
 

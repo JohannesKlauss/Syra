@@ -19,7 +19,7 @@ function Instrument_Channel_Experimental({}: Props) {
   const [soulInstruments] = useRecoilState(availableSoulInstruments);
   const [soulPlugins] = useRecoilState(availableSoulPlugins);
   const {onChangeInstrument, onChangePlugin} = useChannel(id.current);
-  const {soulPlugin, pluginPort, soulInstrument, instrumentPort, onNote} = useChannelPatcher(id.current);
+  const {soulPlugin, pluginPort, soulInstrument, onNote} = useChannelPatcher(id.current);
 
   return (
     <>
@@ -31,7 +31,7 @@ function Instrument_Channel_Experimental({}: Props) {
           <SoulPatchList label={'Instrument'} patches={soulInstruments} onChange={onChangeInstrument}/>
         </Grid>
         <Grid item xs={9}>
-          {soulInstrument && instrumentPort && <SoulInstrument instrument={soulInstrument} port={instrumentPort} onNote={onNote}/>}
+          {soulInstrument && <SoulInstrument patch={soulInstrument.soulPatch} port={soulInstrument.audioNode.port} onNote={onNote}/>}
         </Grid>
         <Grid item xs={3}>
           <SoulPatchList label={'Plugins'} patches={soulPlugins} onChange={onChangePlugin}/>

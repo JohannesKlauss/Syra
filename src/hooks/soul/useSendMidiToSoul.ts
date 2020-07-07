@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-export default function useSendMidiToSoul(soulPatchNode: AudioWorkletNode | null) {
+export default function useSendMidiToSoul(soulPatchNode?: AudioWorkletNode) {
   return useCallback((msg: number, note: number, velocity: number) => {
     const value = new Uint8Array(3);
 

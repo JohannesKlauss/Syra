@@ -1,8 +1,9 @@
 import { atomFamily, selectorFamily } from 'recoil/dist';
+import { SoulInstance } from '../../types/SoulInstance';
 
-export const selectedChannelInstrument = atomFamily<string, string>({
+export const selectedChannelInstrument = atomFamily<SoulInstance | undefined, string>({
   key: 'selectedChannelInstrument',
-  default: '',
+  default: undefined,
 });
 
 export const selectedChannelPlugins = atomFamily<string[], string>({
@@ -10,15 +11,10 @@ export const selectedChannelPlugins = atomFamily<string[], string>({
   default: [],
 });
 
-export const channelState = selectorFamily<{ instrument: string, plugins: string[] }, string>({
+export const channelState = selectorFamily<{ soulInstrument: SoulInstance | undefined, plugins: string[] }, string>({
   key: `channelState`,
-  get: (id) => ({get}) => {
-    const instrument = get(selectedChannelInstrument(id));
-    const plugins = get(selectedChannelPlugins(id));
-
-    return {
-      instrument,
-      plugins
-    }
-  },
+  get: (id) => ({get}) => ({
+    soulInstrument: get(selectedChannelInstrument(id)),
+    plugins: get(selectedChannelPlugins(id)),
+  }),
 });
