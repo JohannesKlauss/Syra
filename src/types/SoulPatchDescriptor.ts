@@ -26,8 +26,19 @@ export interface SoulPatchParameter {
   properties: Properties;
 }
 
-interface Descriptor {
+interface SoulPatchMetaDescription {
+  UID: string;
+  isInstrument: boolean;
+  version: string;
+  name: string;
   description: string;
+  category: string;
+  manufacturer: string;
+  URL: string;
+}
+
+interface Descriptor {
+  description: SoulPatchMetaDescription;
   inputBuses: Bus[];
   outputBuses: Bus[];
   parameters: SoulPatchParameter[];

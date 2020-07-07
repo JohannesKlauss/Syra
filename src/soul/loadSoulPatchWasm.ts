@@ -1,7 +1,7 @@
 import { SoulPatchDescriptor } from '../types/SoulPatchDescriptor';
 import { SoulPatch } from '../types/SoulPatch';
 
-export default async function loadSoulPatchWasm(path: string): Promise<SoulPatch> {
+export default async function loadSoulPatchWasm(path: string, name: string): Promise<SoulPatch> {
   const patch = await WebAssembly.instantiateStreaming(fetch(path));
 
   // @ts-ignore

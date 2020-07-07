@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import SoulPatchList from './SoulPatchList';
 import { availableSoulInstruments, availableSoulPlugins } from '../recoil/atoms/soulPatches';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { Grid, Typography } from '@material-ui/core';
 import SoulInstrument from './SoulInstrument';
 import useChannel from '../hooks/audio/useChannel';
@@ -13,12 +13,12 @@ interface Props {
 
 }
 
-function Instrument_Channel_Experimental({}: Props) {
+function INSTRUMENT_CHANNEL_EXPERIMENTAL({}: Props) {
   const id = useRef(uniqid('channel-'));
 
-  const [availableInstruments] = useRecoilState(availableSoulInstruments);
-  const [availablePlugins] = useRecoilState(availableSoulPlugins);
-  const {onChangeInstrument, onChangePlugin} = useChannel(id.current);
+  const availableInstruments = useRecoilValue(availableSoulInstruments);
+  const availablePlugins = useRecoilValue(availableSoulPlugins);
+  // const {onChangeInstrument, onChangePlugin} = useChannel(id.current);
   const {soulPlugins, soulInstrument, onNote} = useChannelPatcher(id.current);
 
   return (
@@ -27,14 +27,11 @@ function Instrument_Channel_Experimental({}: Props) {
         Experimental Channel
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <SoulPatchList label={'Instrument'} patches={availableInstruments} onChange={onChangeInstrument}/>
-        </Grid>
         <Grid item xs={9}>
           {soulInstrument && <SoulInstrument patch={soulInstrument.soulPatch} port={soulInstrument.audioNode.port} onNote={onNote}/>}
         </Grid>
         <Grid item xs={3}>
-          <SoulPatchList multiple label={'Plugins'} patches={availablePlugins} onChange={onChangePlugin}/>
+          {/*<SoulPatchList label={'Plugins'} patches={availablePlugins} onChange={onChangePlugin}/>*/}
         </Grid>
         <Grid item xs={9}>
           {soulPlugins.map((plugin, i) => <ParameterList key={i} port={plugin.audioNode.port} parameters={plugin.soulPatch.descriptor.parameters}/>)}
@@ -44,4 +41,4 @@ function Instrument_Channel_Experimental({}: Props) {
   );
 }
 
-export default Instrument_Channel_Experimental;
+export default INSTRUMENT_CHANNEL_EXPERIMENTAL;

@@ -31,7 +31,7 @@ const SliderParameter = React.memo(({ parameter, port }: Props) => {
             {name}
           </Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <Slider defaultValue={initialValue as number}  min={minValue} max={maxValue} step={step} id={id} onChange={onChange}/>
         </Grid>
         <Grid item xs>

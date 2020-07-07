@@ -1,29 +1,31 @@
 import React, { useCallback } from 'react';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import {
-  selectedChannelInstrument,
   selectedChannelPlugins,
 } from '../../recoil/selectors/channel';
 import { createSoulInstance } from '../../soul/createSoulInstance';
+import { availableSoulPlugins } from '../../recoil/atoms/soulPatches';
 
 export default function useChannel(id: string) {
-  const [, setSelectedInstrument] = useRecoilState(selectedChannelInstrument(id));
-  const [, setSelectedPlugins] = useRecoilState(selectedChannelPlugins(id));
+  const availablePlugins = useRecoilValue(availableSoulPlugins);
+  const [selectedPlugins, setSelectedPlugins] = useRecoilState(selectedChannelPlugins(id));
 
-  const onChangeInstrument = useCallback(async (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedInstrument(await createSoulInstance(event.target.value as string, true));
-  }, [setSelectedInstrument]);
+  /*const onChangePlugin = useCallback(async (event: React.ChangeEvent<{ value: unknown }>) => {
+    const plugin = availablePlugins.find(plugin => plugin.UID === event.target.value as string);
 
-  const onChangePlugin = useCallback(async (event: React.ChangeEvent<{ value: unknown }>) => {
-    const selectedPlugins = (event.target.value as string[]).filter(val => val.length > 0);
+    console.log('selectedPlugins', selectedPlugins);
+    console.log('new', event.target.value);
 
-    const soulInstances = await selectedPlugins.map(async (plugin) => await createSoulInstance(plugin));
+    const newPlugin: string[] = (event.target.value as string[]).filter(val => val.length > 0 && selectedPlugins.find(instance => instance.soulPatch.descriptor.description.UID === val) === undefined);
 
-    Promise.all(soulInstances).then(result => setSelectedPlugins(result));
-  }, [setSelectedPlugins]);
+    if (newPlugin.length !== 1) {
+      throw new Error('You are trying to add zero or more than one plugin which is not possible.');
+    }
 
-  return {
-    onChangePlugin,
-    onChangeInstrument,
-  }
+    const newInstance = await createSoulInstance(newPlugin[0]);
+
+    setSelectedPlugins([...selectedPlugins, newInstance]);
+  }, [selectedPlugins, setSelectedPlugins, availablePlugins]);*/
+
+
 }

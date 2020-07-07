@@ -9,9 +9,9 @@ interface Props {
 
 const ParameterList = React.memo(({parameters, port}: Props) => {
   return (
-    <div>
+    <>
       {parameters.map(param => <SliderParameter parameter={param} port={port} key={param.id}/>)}
-    </div>
+    </>
   );
 });
 

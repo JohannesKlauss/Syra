@@ -19,6 +19,8 @@ function AudioContextProvider() {
     if (context.state === 'running') {
       setContextIsRunning(true);
     }
+
+    await Tone.context.addAudioWorkletModule('worklets/SoulWasmAudioWorkletProcessor.js', 'soul-wasm-audio-worklet-processor');
   }, [context]);
 
   const onChangeMidiDevice = useCallback((event: React.ChangeEvent<{ value: unknown }>) => {

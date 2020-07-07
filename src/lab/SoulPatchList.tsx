@@ -1,8 +1,9 @@
 import React from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { AvailableSoulPatch } from '../recoil/atoms/soulPatches';
 
 interface Props {
-  patches: string[];
+  patches: AvailableSoulPatch[];
   label: string;
   onChange: (event: React.ChangeEvent<{ value: unknown }>) => void;
   multiple?: boolean;
@@ -19,7 +20,7 @@ const SoulPatchList = ({patches, onChange, label, multiple}: Props) => {
         defaultValue={multiple ? [''] : ''}
         multiple={multiple}
       >
-        {patches.map(patch => <MenuItem key={patch} value={patch}>{patch}</MenuItem>)}
+        {patches.map(patch => <MenuItem key={patch.UID} value={patch.UID}>{patch.displayName}</MenuItem>)}
       </Select>
     </FormControl>
   );

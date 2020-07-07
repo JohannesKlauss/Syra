@@ -1,11 +1,44 @@
-import { atom } from 'recoil/dist';
+import { atom, selector, selectorFamily } from 'recoil/dist';
 
-export const availableSoulPlugins = atom<string[]>({
+export interface AvailableSoulPatch {
+  displayName: string;
+  pathWasm: string;
+  UID: string;
+}
+
+export const availableSoulPlugins = atom<AvailableSoulPatch[]>({
   key: 'availableSoulPlugins',
-  default: ['clipper', 'gain', 'freeverb'],
+  default: [
+    {
+      displayName: 'Clipper',
+      pathWasm: 'clipper',
+      UID: 'com.yourcompany.clipper'
+    },
+    {
+      displayName: 'Gain',
+      pathWasm: 'gain',
+      UID: 'com.yourcompany.gain'
+    },
+    {
+      displayName: 'Freeverb',
+      pathWasm: 'freeverb',
+      UID: 'com.yourcompany.freeverb'
+    }
+  ],
 });
 
-export const availableSoulInstruments = atom<string[]>({
+export const findAvailablePluginByUID = selectorFamily<AvailableSoulPatch | undefined, string>({
+  key: 'findAvailablePluginByUID',
+  get: UID => ({get}) => get(availableSoulPlugins).find(plugin => plugin.UID === UID),
+});
+
+export const availableSoulInstruments = atom<AvailableSoulPatch[]>({
   key: 'availableSoulInstruments',
-  default: ['sineSynth'],
+  default: [
+    {
+      displayName: 'SineSynth',
+      pathWasm: 'sineSynth',
+      UID: 'com.yourcompany.sineSynth'
+    }
+  ],
 });

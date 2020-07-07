@@ -1,11 +1,10 @@
 import * as Tone from 'tone';
 import loadSoulPatchWasm from './loadSoulPatchWasm';
 import { SoulInstance } from '../types/SoulInstance';
+import { AvailableSoulPatch } from '../recoil/atoms/soulPatches';
 
-export async function createSoulInstance (patchName: string, isInstrument?: boolean): Promise<SoulInstance> {
-    await Tone.context.addAudioWorkletModule('worklets/SoulWasmAudioWorkletProcessor.js', 'soul-wasm-audio-worklet-processor');
-
-    const soulPatch = await loadSoulPatchWasm(`soul/${isInstrument ? 'instruments' : 'plugins'}/${patchName}.wasm`);
+export async function createSoulInstance (patch: AvailableSoulPatch, isInstrument?: boolean): Promise<SoulInstance> {
+    const soulPatch = await loadSoulPatchWasm(`soul/${isInstrument ? 'instruments' : 'plugins'}/${patch.pathWasm}.wasm`, patch.UID);
 
     const audioNode = Tone.context.createAudioWorkletNode('soul-wasm-audio-worklet-processor', {
       processorOptions: {
