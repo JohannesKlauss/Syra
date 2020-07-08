@@ -1,18 +1,24 @@
 import React from 'react';
-import { SoulPatchParameter } from '../../../types/SoulPatchDescriptor';
 import SliderParameter from './SliderParameter';
+import { SoulInstance, SoulPatchParameter } from '../../../types/Soul';
+import { useRecoilValue } from 'recoil/dist';
+import { soulInstance } from '../../../recoil/selectors/channel';
 
 interface Props {
-  parameters: SoulPatchParameter[];
-  port: MessagePort;
+  soulInstanceId: string;
+  parameter?: SoulPatchParameter[];
 }
 
-const ParameterList = React.memo(({parameters, port}: Props) => {
+const ParameterList: React.FC<Props> = React.memo(({soulInstanceId}) => {
+  const patch = useRecoilValue(soulInstance(soulInstanceId));
+  const parameters = patch?.soulPatch.descriptor.parameters;
+
   return (
     <>
-      {parameters.map(param => <SliderParameter parameter={param} port={port} key={param.id}/>)}
+      {(parameters || []).map(param =>
+        <SliderParameter soulInstanceId={soulInstanceId} parameterId={param.id} key={param.id}/>)}
     </>
   );
 });
 
-export default ParameterList;
+export default React.memo(ParameterList);

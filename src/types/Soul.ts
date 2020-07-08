@@ -17,13 +17,14 @@ export interface SoulPatchParameter {
   id: string;
   index: number;
   initialValue: number | boolean;
+  value?: number | boolean;
   maxValue?: number;
   minValue?: number;
   name: string;
   step?: number;
   text: string;
   unit: string;
-  properties: Properties;
+  properties?: Properties;
 }
 
 interface SoulPatchMetaDescription {
@@ -45,3 +46,15 @@ interface Descriptor {
 }
 
 export type SoulPatchDescriptor = Descriptor;
+
+interface Patch {
+  descriptor: SoulPatchDescriptor;
+  module: WebAssembly.Module;
+}
+
+export type SoulPatch = Patch;
+
+export interface SoulInstance {
+  soulPatch: SoulPatch;
+  audioNode: AudioWorkletNode;
+}

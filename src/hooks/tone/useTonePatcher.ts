@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import * as Tone from 'tone';
-import { SoulInstance } from '../../types/SoulInstance';
+import { SoulInstance } from '../../types/Soul';
 
 export default function useTonePatcher(plugins: SoulInstance[], instrument?: SoulInstance) {
   useEffect(() => {

@@ -1,7 +1,7 @@
 import * as Tone from 'tone';
 import loadSoulPatchWasm from './loadSoulPatchWasm';
-import { SoulInstance } from '../types/SoulInstance';
 import { AvailableSoulPatch } from '../recoil/atoms/soulPatches';
+import { SoulInstance } from '../types/Soul';
 
 export async function createSoulInstance (patch: AvailableSoulPatch, isInstrument?: boolean): Promise<SoulInstance> {
     const soulPatch = await loadSoulPatchWasm(`soul/${isInstrument ? 'instruments' : 'plugins'}/${patch.pathWasm}.wasm`, patch.UID);

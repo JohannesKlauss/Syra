@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { SetterOrUpdater } from 'recoil/dist';
-import { AvailableSoulPatch } from '../recoil/atoms/soulPatches';
-import { createSoulInstance } from '../soul/createSoulInstance';
+import { AvailableSoulPatch } from '../../../recoil/atoms/soulPatches';
+import { createSoulInstance } from '../../../soul/createSoulInstance';
 import {
   Button,
   ButtonGroup,
@@ -14,7 +14,7 @@ import {
   Popper,
 } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import { SoulInstance } from '../types/SoulInstance';
+import { SoulInstance } from '../../../types/Soul';
 
 interface Props {
   patchList: AvailableSoulPatch[];
@@ -23,7 +23,7 @@ interface Props {
   activePatch?: SoulInstance;
 }
 
-const ChannelPatch: React.FunctionComponent<Props> = ({patchList, activePatch, setActivePatch, isInstrument, children}) => {
+const ChannelPatch: React.FunctionComponent<Props> = React.memo(({patchList, activePatch, setActivePatch, isInstrument, children}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
@@ -54,12 +54,7 @@ const ChannelPatch: React.FunctionComponent<Props> = ({patchList, activePatch, s
         </ButtonGroup>
         <Popper open={isMenuOpen} anchorEl={anchorRef.current} transition disablePortal style={{zIndex: 2}}>
           {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
-              }}
-            >
+            <Grow {...TransitionProps} style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}>
               <Paper>
                 <ClickAwayListener onClickAway={() => setIsMenuOpen(false)}>
                   <MenuList id="split-button-menu">
@@ -85,6 +80,6 @@ const ChannelPatch: React.FunctionComponent<Props> = ({patchList, activePatch, s
       </ListItem>
     </>
   );
-}
+});
 
 export default ChannelPatch;

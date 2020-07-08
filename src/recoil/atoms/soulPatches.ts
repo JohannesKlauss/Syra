@@ -1,4 +1,4 @@
-import { atom, selector, selectorFamily } from 'recoil/dist';
+import { atom } from 'recoil/dist';
 
 export interface AvailableSoulPatch {
   displayName: string;
@@ -23,13 +23,13 @@ export const availableSoulPlugins = atom<AvailableSoulPatch[]>({
       displayName: 'Freeverb',
       pathWasm: 'freeverb',
       UID: 'com.yourcompany.freeverb'
+    },
+    {
+      displayName: 'SimpleDelay',
+      pathWasm: 'simpleDelay',
+      UID: 'com.yourcompany.SimpleDelay'
     }
   ],
-});
-
-export const findAvailablePluginByUID = selectorFamily<AvailableSoulPatch | undefined, string>({
-  key: 'findAvailablePluginByUID',
-  get: UID => ({get}) => get(availableSoulPlugins).find(plugin => plugin.UID === UID),
 });
 
 export const availableSoulInstruments = atom<AvailableSoulPatch[]>({
