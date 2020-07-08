@@ -6,7 +6,7 @@ import AudioContextProvider from './providers/AudioContextProvider';
 import WebMidi from 'webmidi';
 
 function App() {
-  const [darkState, setDarkState] = useState(true);
+  const [darkState] = useState(true);
   const [isMidiEnabled, setIsMidiEnabled] = useState(false);
   const palletType = darkState ? "dark" : "light";
   const mainPrimaryColor = darkState ? orange[500] : lightBlue[500];
@@ -24,9 +24,9 @@ function App() {
     }
   });
 
-  const handleThemeChange = () => {
+  /*const handleThemeChange = () => {
     setDarkState(!darkState);
-  };
+  };*/
 
   WebMidi.enable(function (err) {
     if (err) {

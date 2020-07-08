@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
   Divider,
   List,
@@ -12,8 +12,6 @@ import { useRecoilValue } from 'recoil/dist';
 import { channelState } from '../recoil/selectors/channel';
 import ChannelPluginList from '../ui/molecules/ChannelStrip/ChannelPluginList';
 import VolumeFader from '../ui/atoms/slider/VolumeFader';
-import * as Tone from 'tone';
-import useAudioContext from '../hooks/audio/useAudioContext';
 import Pan from '../ui/atoms/slider/Pan';
 const uniqid = require('uniqid');
 
