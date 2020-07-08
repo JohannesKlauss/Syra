@@ -29,7 +29,10 @@ export const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId
         throw new Error(`Trying to create a patchParameter atom for "${parameterId}" parameter in patch "${soulInstanceId}". Either the patch or the parameter does not exist.`);
       }
 
-      return param;
+      return {
+        ...param,
+        value: param.initialValue,
+      };
     }
   })
 });

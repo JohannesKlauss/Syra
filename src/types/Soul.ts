@@ -17,7 +17,7 @@ export interface SoulPatchParameter {
   id: string;
   index: number;
   initialValue: number | boolean;
-  value?: number | boolean;
+  value: number | boolean;
   maxValue?: number;
   minValue?: number;
   name: string;

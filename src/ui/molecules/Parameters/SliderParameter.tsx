@@ -12,7 +12,7 @@ const SliderParameter = React.memo(({ soulInstanceId, parameterId }: Props) => {
   const patch = useRecoilValue(soulInstance(soulInstanceId));
   const [parameter, setParameter] = useRecoilState(soulPatchParameter({soulInstanceId, parameterId}));
 
-  const { minValue, maxValue, index, initialValue, value, step, name, unit, id } = parameter;
+  const { minValue, maxValue, index, value, step, name, unit, id } = parameter;
 
   const onChange = useCallback((_, newValue) => {
     patch?.audioNode.port.postMessage({
@@ -37,11 +37,11 @@ const SliderParameter = React.memo(({ soulInstanceId, parameterId }: Props) => {
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <Slider defaultValue={value as number || initialValue as number}  min={minValue} max={maxValue} step={step} id={id} onChange={onChange}/>
+          <Slider value={value as number} min={minValue} max={maxValue} step={step} id={id} onChange={onChange}/>
         </Grid>
         <Grid item xs>
           <Typography id="continuous-slider" gutterBottom>
-            {value || initialValue} {unit}
+            {value} {unit}
           </Typography>
         </Grid>
       </Grid>
