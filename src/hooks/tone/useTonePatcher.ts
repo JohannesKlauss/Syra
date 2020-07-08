@@ -1,19 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import * as Tone from 'tone';
 import { SoulInstance } from '../../types/Soul';
 
+const channel = new Tone.Channel(0, 0);
+
 export default function useTonePatcher(plugins: SoulInstance[], instrument?: SoulInstance) {
+  const setToneChannelPropsRef = useRef<Tone.Channel>();
+
+  useEffect(() => {
+    setToneChannelPropsRef.current = channel;
+  }, []);
+
   useEffect(() => {
     const pluginNodes = plugins.map(plugin => plugin.audioNode);
+    console.log('channel', channel.toString());
 
     if (instrument) {
       Tone.disconnect(instrument.audioNode);
-      Tone.connectSeries(instrument.audioNode, ...pluginNodes, Tone.Destination);
+      Tone.connectSeries(instrument.audioNode, ...pluginNodes, channel, Tone.Destination);
     }
     else if(plugins.length > 0) {
       // TODO: WHEN DEALING WITH AUDIO WE PROBABLY NEED A SOURCE AS A AUDIO NODE INSTEAD OF A INSTRUMENT
       Tone.disconnect(pluginNodes[0]);
-      Tone.connectSeries(...pluginNodes, Tone.Destination);
+      Tone.connectSeries(...pluginNodes, channel, Tone.Destination);
     }
 
     return () => {
@@ -25,4 +34,6 @@ export default function useTonePatcher(plugins: SoulInstance[], instrument?: Sou
       }
     };
   }, [plugins, instrument]);
+
+  return setToneChannelPropsRef.current;
 }

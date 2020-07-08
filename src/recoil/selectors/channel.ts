@@ -1,5 +1,6 @@
-import { atomFamily, selectorFamily } from 'recoil/dist';
+import { atom, atomFamily, selectorFamily } from 'recoil/dist';
 import { SoulInstance, SoulPatchParameter } from '../../types/Soul';
+import * as Tone from 'tone';
 
 export const channelName = atomFamily<string, string>({
   key: 'channelName',
@@ -11,6 +12,7 @@ export const isPatchActive = atomFamily<boolean, string>({
   default: true,
 });
 
+// TODO: WE HAVE TO FIND A DEFINITION FOR WHEN TO USE PATCH, PLUGIN, SOUL_INSTANCE, SOUL_PATCH, etc. RIGHT NOW THIS IS CONFUSING.
 export const soulInstance = atomFamily<SoulInstance | undefined, string>({
   key: 'soulInstance',
   default: undefined,
@@ -60,11 +62,17 @@ export const findSoulInstanceByChannelIdAndIndex = selectorFamily<SoulInstance, 
   }
 });
 
+export const channelToneChannelNode = atomFamily<Tone.Channel | undefined, string>({
+  key: 'channelToneChannelNode',
+  default: undefined,
+});
+
 interface ChannelState {
   name: string;
   soulInstrument?: SoulInstance;
   soulPlugins: SoulInstance[];
   soulPluginIds: string[];
+  toneChannel?: Tone.Channel; // TODO: THIS NAMING IS CONFUSING, SINCE THE WHOLE THING IS A CHANNEL, BUT THE SPECIFIC TONE COMPONENT IS ALSO CALLED CHANNEL.
 }
 
 export const channelState = selectorFamily<ChannelState, string>({
@@ -77,6 +85,12 @@ export const channelState = selectorFamily<ChannelState, string>({
       soulInstrument: get(soulInstance(channelId)),
       soulPlugins: get(findPluginsByIds(soulPluginIds)),
       soulPluginIds,
+      toneChannel: get(channelToneChannelNode(channelId)),
     }
   }
+});
+
+export const channelIds = atom<string[]>({
+  key: 'channelIds',
+  default: []
 });

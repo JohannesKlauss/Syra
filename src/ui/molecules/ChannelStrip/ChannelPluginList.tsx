@@ -12,7 +12,7 @@ function ChannelPluginList() {
 
   const onClick = useCallback(() => {
     setSoulPluginIds(currVal => [...currVal, uniqid(`${channelId}-plugin-`)]);
-  }, [setSoulPluginIds]);
+  }, [setSoulPluginIds, channelId]);
 
   return (
     <List subheader={<ListSubheader>Plugins</ListSubheader>}>

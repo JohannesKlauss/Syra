@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import {
   Divider,
   List,
@@ -11,6 +11,10 @@ import useTonePatcher from '../hooks/tone/useTonePatcher';
 import { useRecoilValue } from 'recoil/dist';
 import { channelState } from '../recoil/selectors/channel';
 import ChannelPluginList from '../ui/molecules/ChannelStrip/ChannelPluginList';
+import VolumeFader from '../ui/atoms/slider/VolumeFader';
+import * as Tone from 'tone';
+import useAudioContext from '../hooks/audio/useAudioContext';
+import Pan from '../ui/atoms/slider/Pan';
 const uniqid = require('uniqid');
 
 const Channel = styled('div')({
@@ -22,7 +26,11 @@ function UI_CHANNEL_EXPERIMENTAL() {
   const id = useRef(uniqid('channel-'));
   const { soulInstrument, soulPlugins, name } = useRecoilValue(channelState(id.current));
 
-  useTonePatcher(soulPlugins, soulInstrument);
+  const channel = useTonePatcher(soulPlugins, soulInstrument);
+
+  const onChangePanOrVolume = useCallback(newProps => {
+    channel && channel.set(newProps);
+  }, [channel]);
 
   return (
     <ChannelContext.Provider value={id.current}>
@@ -32,6 +40,9 @@ function UI_CHANNEL_EXPERIMENTAL() {
         </List>
         <Divider/>
         <ChannelPluginList/>
+        <Divider/>
+        <Pan onChange={onChangePanOrVolume}/>
+        <VolumeFader onChange={onChangePanOrVolume}/>
       </Channel>
     </ChannelContext.Provider>
   );
