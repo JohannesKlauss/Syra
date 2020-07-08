@@ -1,6 +1,6 @@
 import React from 'react';
 import SliderParameter from './SliderParameter';
-import { SoulInstance, SoulPatchParameter } from '../../../types/Soul';
+import { SoulPatchParameter } from '../../../types/Soul';
 import { useRecoilValue } from 'recoil/dist';
 import { soulInstance } from '../../../recoil/selectors/channel';
 

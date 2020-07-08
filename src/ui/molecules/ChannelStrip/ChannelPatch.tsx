@@ -34,7 +34,7 @@ const ChannelPatch: React.FunctionComponent<Props> = React.memo(({patchList, act
     if (patch) {
       setActivePatch(await createSoulInstance(patch, isInstrument));
     }
-  }, [patchList, setActivePatch]);
+  }, [patchList, setActivePatch, isInstrument]);
 
   return (
     <>

@@ -13,7 +13,7 @@ function ChannelInstrument() {
 
   return (
     <ChannelPatch activePatch={activeInstrument} patchList={availableInstruments} setActivePatch={setActiveInstrument} isInstrument>
-      {activeInstrument ? <SoulInstrument/> : null}
+      <SoulInstrument/>
     </ChannelPatch>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { availableSoulPlugins } from '../../../recoil/atoms/soulPatches';
 import ParameterList from '../Parameters/ParameterList';
@@ -13,9 +13,13 @@ function ChannelPlugin({id}: Props) {
   const [activePlugin, setActivePlugin] = useRecoilState(soulInstance(id));
   const availablePlugins = useRecoilValue(availableSoulPlugins);
 
+  const modalContent = useMemo(() => (
+    activePlugin ? <ParameterList soulInstanceId={id} parameter={activePlugin.soulPatch.descriptor.parameters}/> : null
+  ), [id, activePlugin]);
+
   return (
     <ChannelPatch activePatch={activePlugin} patchList={availablePlugins} setActivePatch={setActivePlugin}>
-      {activePlugin ? <ParameterList soulInstanceId={id} parameter={activePlugin.soulPatch.descriptor.parameters}/> : null}
+      {modalContent}
     </ChannelPatch>
   );
 }

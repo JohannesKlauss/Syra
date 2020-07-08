@@ -12,5 +12,5 @@ export default function useSendMidiToSoul(port?: MessagePort) {
       type: "MIDI_MESSAGE",
       value
     });
-  }, []);
+  }, [port]);
 }
