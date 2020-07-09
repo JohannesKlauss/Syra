@@ -1,14 +1,23 @@
 import { atom, atomFamily, selectorFamily } from 'recoil/dist';
 import { SoulInstance, SoulPatchParameter } from '../../types/Soul';
+import { ChannelType } from '../../types/Channel';
 
 export const channelName = atomFamily<string, string>({
   key: 'channelName',
-  default: id => id,
+  default: selectorFamily({
+    key: 'channelName/Default',
+    get: id => ({get}) => `Channel ${get(channelIds).length}`
+  }),
+});
+
+export const channelType = atomFamily<ChannelType, string>({
+  key: 'channelType',
+  default: ChannelType.INSTRUMENT,
 });
 
 export const isChannelArmed = atomFamily<boolean, string>({
   key: 'isChannelArmed',
-  default: true,
+  default: false,
 });
 
 export const isChannelSolo = atomFamily<boolean, string>({
@@ -71,6 +80,7 @@ interface ChannelState {
   isSolo: boolean;
   isMuted: boolean;
   isArmed: boolean;
+  channelType: ChannelType;
 }
 
 export const channelState = selectorFamily<ChannelState, string>({
@@ -86,6 +96,7 @@ export const channelState = selectorFamily<ChannelState, string>({
       isSolo: get(isChannelSolo(channelId)),
       isMuted: get(isChannelMuted(channelId)),
       isArmed: get(isChannelArmed(channelId)),
+      channelType: get(channelType(channelId)),
     }
   }
 });

@@ -1,5 +1,5 @@
 import React, { useCallback, useContext } from 'react';
-import { Button, List, ListItem, ListSubheader } from '@material-ui/core';
+import { Button, List, ListItem } from '@material-ui/core';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { useRecoilState } from 'recoil/dist';
 import { channelPluginIds } from '../../../recoil/selectors/channel';
@@ -15,7 +15,7 @@ function ChannelPluginList() {
   }, [setSoulPluginIds, channelId]);
 
   return (
-    <List subheader={<ListSubheader>Plugins</ListSubheader>}>
+    <List>
       {soulPluginIds.map((id) => (
         <ChannelPlugin key={id} id={id}/>
       ))}
