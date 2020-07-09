@@ -42,6 +42,7 @@ function NewChannelFab() {
     <>
       <Backdrop open={isOpen} />
       <SpeedDial
+        ariaLabel="Create new Channel"
         icon={<SpeedDialIcon />}
         onClose={() => setIsOpen(false)}
         onOpen={() => setIsOpen(true)}
