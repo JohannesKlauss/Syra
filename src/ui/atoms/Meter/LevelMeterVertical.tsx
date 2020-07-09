@@ -1,56 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { styled } from '@material-ui/core';
 import * as Tone from 'tone';
-import { makeStyles } from '@material-ui/core/styles';
-import { dBToAmplitude } from '../../../utils/audio';
+import Konva from 'konva';
+import { teal } from '@material-ui/core/colors';
 
-interface LevelBarProps {
-  transformValue: number;
-}
+const uniqid = require('uniqid');
 
 const LevelMeter = styled('div')({
-  width: 16,
+  width: 32,
   height: 160,
-  padding: 20,
   marginTop: 20,
   overflow: 'hidden',
   position: 'relative',
 });
-
-const Peak = styled('div')({
-  transform: ({ transformValue }: LevelBarProps) => `translateY(${100 - transformValue}%)`,
-  zIndex: 1,
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  bottom: 0,
-  position: 'absolute',
-  transition: 'transform 0.2s linear',
-  transformOrigin: 'left',
-});
-
-const Rms = styled('div')({
-  transform: ({ transformValue }: LevelBarProps) => `translateY(${100 - transformValue}%)`,
-  zIndex: 2,
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  bottom: 0,
-  position: 'absolute',
-  transition: 'transform 0.2s linear',
-  transformOrigin: 'left',
-});
-
-const useStyles = makeStyles(theme => ({
-  peak: {
-    backgroundColor: theme.palette.primary.light,
-  },
-  rms: {
-    backgroundColor: theme.palette.primary.main,
-  }
-}));
 
 interface Props {
   toneRmsMeter: Tone.Meter;
@@ -58,27 +20,57 @@ interface Props {
 }
 
 function LevelMeterVertical({ toneRmsMeter, tonePeakMeter }: Props) {
-  const classes = useStyles();
-  const [rms, setRms] = useState(80 - Math.abs(toneRmsMeter.getValue() as number));
-  const [peak, setPeak] = useState(80 - Math.abs(tonePeakMeter.getValue() as number));
+  const containerId = useRef(uniqid('konva-container-'));
+  const canvas = useRef<HTMLDivElement>(null);
 
-  /*useEffect(() => {
-    const interval = setInterval(() => {
-      setRms(80 - Math.abs(toneRmsMeter.getValue() as number));
-      setPeak(80 - Math.abs(tonePeakMeter.getValue() as number));
-    }, 20);
+  useEffect(() => {
+    if (canvas.current) {
+      const stage = new Konva.Stage({
+        container: containerId.current,
+        width: 32,
+        height: 160,
+      });
 
-    return () => clearInterval(interval);
-  }, []);*/
+      const layer = new Konva.Layer();
 
-  console.log('rms', rms);
+      const rms = new Konva.Rect({
+        x: 0,
+        y: 0,
+        width: 12,
+        height: 60,
+        fill: teal[700],
+        offsetY: -100,
+      });
+
+      const peak = new Konva.Rect({
+        x: 0,
+        y: 0,
+        width: 12,
+        height: 60,
+        fill: teal[200],
+        offsetY: -100,
+      });
+
+      layer.add(peak, rms);
+      stage.add(layer);
+
+      const anim = new Konva.Animation(() => {
+        const rmsHeight = 140 - Math.abs(0.01 + (toneRmsMeter.getValue() as number));
+        const peakHeight = 160 - Math.abs(0.01 + (tonePeakMeter.getValue() as number));
+
+        rms.height(rmsHeight);
+        rms.offsetY(-160 + rmsHeight);
+        peak.height(peakHeight);
+        peak.offsetY(-160 + peakHeight);
+      }, layer);
+
+      anim.start();
+    }
+  }, [canvas, containerId])
 
   return (
-    <LevelMeter>
-      <Rms transformValue={rms} className={classes.rms}/>
-      <Peak transformValue={peak} className={classes.peak}/>
-    </LevelMeter>
+    <LevelMeter id={containerId.current} ref={canvas}/>
   );
 }
 
-export default LevelMeterVertical;
+export default React.memo(LevelMeterVertical);

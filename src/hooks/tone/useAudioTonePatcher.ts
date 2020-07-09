@@ -15,7 +15,7 @@ export default function useAudioTonePatcher() {
   const [audioIn] = useState(toneAudioInputFactorySync());
   const [toneChannel] = useState(toneChannelFactory());
   const [toneRmsMeter] = useState(toneMeterFactory());
-  const [tonePeakMeter] = useState(toneMeterFactory(0));
+  const [tonePeakMeter] = useState(toneMeterFactory(0.4));
 
   useEffect(() => {
     toneChannel.set({ mute: isMuted || !isArmed });
