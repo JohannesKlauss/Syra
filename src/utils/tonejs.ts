@@ -2,7 +2,9 @@ import * as Tone from 'tone';
 
 export const toneChannelFactory = () => new Tone.Channel(0, 0);
 
-export const toneMeterFactory = () => new Tone.Meter();
+export const toneMeterFactory = (smoothing: number = 0.7) => new Tone.Meter({smoothing});
+
+export const toneDcMeterFactory = () => new Tone.DCMeter();
 
 export const toneAudioInputFactorySync = () => new Tone.UserMedia();
 

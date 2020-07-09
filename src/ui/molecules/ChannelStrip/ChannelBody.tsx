@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Divider } from '@material-ui/core';
+import { Divider, Grid } from '@material-ui/core';
 import ChannelPluginList from './ChannelPluginList';
 import Pan from '../../atoms/Slider/Pan';
 import VolumeFader from '../../atoms/Slider/VolumeFader';
@@ -10,7 +10,7 @@ interface Props {
   toneChannel: Tone.Channel;
 }
 
-function ChannelBody({toneChannel}: Props) {
+const ChannelBody: React.FC<Props> = React.memo(({ toneChannel, children }) => {
   const onChangePanOrVolume = useCallback(newProps => toneChannel.set(newProps), [toneChannel]);
 
   return (
@@ -19,11 +19,18 @@ function ChannelBody({toneChannel}: Props) {
       <ChannelPluginList/>
       <Divider/>
       <Pan onChange={onChangePanOrVolume}/>
-      <VolumeFader onChange={onChangePanOrVolume}/>
+      <Grid container justify="center" spacing={1}>
+        <Grid item>
+          <VolumeFader onChange={onChangePanOrVolume}/>
+        </Grid>
+        <Grid item>
+          {children}
+        </Grid>
+      </Grid>
       <Divider/>
       <ChannelLetterButtons/>
     </>
   );
-}
+});
 
 export default ChannelBody;

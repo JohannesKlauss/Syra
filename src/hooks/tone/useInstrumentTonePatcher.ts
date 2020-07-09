@@ -9,7 +9,8 @@ export default function useInstrumentTonePatcher() {
   const channelId = useContext(ChannelContext);
   const { soulInstrument, soulPlugins, isArmed, isMuted } = useRecoilValue(channelState(channelId));
   const [toneChannel] = useState(toneChannelFactory());
-  const [toneMeter] = useState(toneMeterFactory());
+  const [toneRmsMeter] = useState(toneMeterFactory());
+  const [tonePeakMeter] = useState(toneMeterFactory(0));
 
   useEffect(() => {
     const pluginNodes = soulPlugins.map(plugin => plugin.audioNode);
@@ -18,7 +19,7 @@ export default function useInstrumentTonePatcher() {
     if (soulInstrument) {
       !doConnect
         ? Tone.disconnect(soulInstrument.audioNode)
-        : Tone.connectSeries(soulInstrument.audioNode, ...pluginNodes, toneChannel, toneMeter, Tone.Destination);
+        : Tone.connectSeries(soulInstrument.audioNode, ...pluginNodes, toneChannel, toneRmsMeter, tonePeakMeter, Tone.Destination);
     }
 
     return () => {
@@ -26,7 +27,7 @@ export default function useInstrumentTonePatcher() {
         Tone.disconnect(soulInstrument.audioNode);
       }
     };
-  }, [soulPlugins, soulInstrument, isArmed, isMuted, toneChannel, toneMeter]);
+  }, [soulPlugins, soulInstrument, isArmed, isMuted, toneChannel, toneRmsMeter, tonePeakMeter]);
 
-  return toneChannel;
+  return {toneChannel, toneRmsMeter, tonePeakMeter};
 }

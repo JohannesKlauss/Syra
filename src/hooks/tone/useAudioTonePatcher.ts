@@ -3,18 +3,19 @@ import { ChannelContext } from '../../providers/ChannelContext';
 import { useRecoilValue } from 'recoil/dist';
 import { channelState } from '../../recoil/selectors/channel';
 import * as Tone from 'tone';
-import { toneAudioInputFactorySync, toneChannelFactory, toneMeterFactory } from '../../utils/tonejs';
+import {
+  toneAudioInputFactorySync,
+  toneChannelFactory,
+  toneMeterFactory,
+} from '../../utils/tonejs';
 
 export default function useAudioTonePatcher() {
   const channelId = useContext(ChannelContext);
   const { soulPlugins, isArmed, isMuted } = useRecoilValue(channelState(channelId));
-  console.log('before audioIn');
   const [audioIn] = useState(toneAudioInputFactorySync());
-  console.log('afterAudioIn');
   const [toneChannel] = useState(toneChannelFactory());
-  console.log('aftertoneChannel');
-  const [toneMeter] = useState(toneMeterFactory());
-  console.log('after tone meter');
+  const [toneRmsMeter] = useState(toneMeterFactory());
+  const [tonePeakMeter] = useState(toneMeterFactory(0));
 
   useEffect(() => {
     (async () => {
@@ -23,7 +24,7 @@ export default function useAudioTonePatcher() {
       if(isArmed && !isMuted) {
         await audioIn.open();
 
-        Tone.connectSeries(audioIn, ...pluginNodes, toneChannel, toneMeter, Tone.Destination);
+        Tone.connectSeries(audioIn, ...pluginNodes, toneChannel, toneRmsMeter, tonePeakMeter, Tone.Destination);
       }
       else {
         audioIn.close();
@@ -35,7 +36,7 @@ export default function useAudioTonePatcher() {
       audioIn.close();
       Tone.disconnect(audioIn);
     };
-  }, [audioIn, soulPlugins, isArmed, isMuted, toneChannel, toneMeter]);
+  }, [audioIn, soulPlugins, isArmed, isMuted, toneChannel, toneRmsMeter, tonePeakMeter]);
 
-  return toneChannel;
+  return {toneChannel, toneRmsMeter, tonePeakMeter};
 }

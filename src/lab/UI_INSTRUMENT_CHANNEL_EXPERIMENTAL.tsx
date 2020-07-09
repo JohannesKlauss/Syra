@@ -10,7 +10,7 @@ import ChannelHeader from '../ui/molecules/ChannelStrip/ChannelHeader';
 import useInstrumentTonePatcher from '../hooks/tone/useInstrumentTonePatcher';
 
 function UI_INSTRUMENT_CHANNEL_EXPERIMENTAL() {
-  const toneChannel = useInstrumentTonePatcher();
+  const { toneChannel } = useInstrumentTonePatcher();
   useMidiForChannel();
 
   return (
