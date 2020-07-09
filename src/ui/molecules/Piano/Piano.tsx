@@ -4,20 +4,19 @@ import React, { useState } from 'react';
 import * as Tone from 'tone';
 import { MidiNumbers } from 'piano-utils';
 import { getAllMidiNumbersInRange, getNaturalKeyWidthRatio, getRelativeKeyPosition } from '../../../utils/keyboardMidiHelper';
-import usePiano, { MidiCallable } from '../../../hooks/ui/usePiano';
+import usePiano from '../../../hooks/ui/usePiano';
 import { AccidentalKey, KeyLabel, NaturalKey, PianoContainer } from './styled';
 
 interface Props {
   min: number;
   max: number;
-  onNote: MidiCallable;
 }
 
 const Piano = (props: Props) => {
-  const { min, max, onNote } = props;
+  const { min, max } = props;
 
   const [isMousePressed, setMousePressed] = useState(false);
-  const [activeMidis, onEvent] = usePiano(onNote);
+  const [activeMidis, onEvent] = usePiano();
 
   const onMouseDown = (note: number) => {
     setMousePressed(true);

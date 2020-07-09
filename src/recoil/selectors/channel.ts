@@ -1,6 +1,5 @@
 import { atom, atomFamily, selectorFamily } from 'recoil/dist';
 import { SoulInstance, SoulPatchParameter } from '../../types/Soul';
-import * as Tone from 'tone';
 
 export const channelName = atomFamily<string, string>({
   key: 'channelName',
@@ -64,30 +63,14 @@ export const findPluginsByIds = selectorFamily<SoulInstance[], string[]>({
   get: ids => ({get}) => ids.map(id => get(soulInstance(id))).filter(patch => patch !== undefined) as SoulInstance[],
 });
 
-export const findSoulInstanceByChannelIdAndIndex = selectorFamily<SoulInstance, {channelId: string, index: number}>({
-  key: 'findSoulInstanceByChannelIdAndIndex',
-  get: ({channelId, index}) => ({get}) => {
-    const pluginId = get(channelPluginIds(channelId))[index];
-
-    if (pluginId == null) {
-      throw new Error(`There is no plugin on channel "${channelId}" at index ${index}`);
-    }
-
-    return get(soulInstance(pluginId))!;
-  }
-});
-
-export const channelToneChannelNode = atomFamily<Tone.Channel | undefined, string>({
-  key: 'channelToneChannelNode',
-  default: undefined,
-});
-
 interface ChannelState {
   name: string;
   soulInstrument?: SoulInstance;
   soulPlugins: SoulInstance[];
   soulPluginIds: string[];
-  toneChannel?: Tone.Channel; // TODO: THIS NAMING IS CONFUSING, SINCE THE WHOLE THING IS A CHANNEL, BUT THE SPECIFIC TONE COMPONENT IS ALSO CALLED CHANNEL.
+  isSolo: boolean;
+  isMuted: boolean;
+  isArmed: boolean;
 }
 
 export const channelState = selectorFamily<ChannelState, string>({
@@ -100,7 +83,9 @@ export const channelState = selectorFamily<ChannelState, string>({
       soulInstrument: get(soulInstance(channelId)),
       soulPlugins: get(findPluginsByIds(soulPluginIds)),
       soulPluginIds,
-      toneChannel: get(channelToneChannelNode(channelId)),
+      isSolo: get(isChannelSolo(channelId)),
+      isMuted: get(isChannelMuted(channelId)),
+      isArmed: get(isChannelArmed(channelId)),
     }
   }
 });

@@ -1,34 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import * as Tone from 'tone';
-import { SoulInstance } from '../../types/Soul';
+import { ChannelContext } from '../../providers/ChannelContext';
+import { useRecoilValue } from 'recoil/dist';
+import { channelState } from '../../recoil/selectors/channel';
 
 const channel = new Tone.Channel(0, 0);
 
-export default function useTonePatcher(plugins: SoulInstance[], instrument?: SoulInstance) {
+export default function useTonePatcher() {
+  const channelId = useContext(ChannelContext);
+  const { soulInstrument, soulPlugins, isArmed, isMuted } = useRecoilValue(channelState(channelId));
   const [toneChannelRef] = useState(channel);
 
   useEffect(() => {
-    const pluginNodes = plugins.map(plugin => plugin.audioNode);
+    const pluginNodes = soulPlugins.map(plugin => plugin.audioNode);
+    const doConnect = isArmed && !isMuted;
 
-    if (instrument) {
-      Tone.disconnect(instrument.audioNode);
-      Tone.connectSeries(instrument.audioNode, ...pluginNodes, channel, Tone.Destination);
-    }
-    else if(plugins.length > 0) {
+    if (soulInstrument) {
+      !doConnect
+        ? Tone.disconnect(soulInstrument.audioNode)
+        : Tone.connectSeries(soulInstrument.audioNode, ...pluginNodes, channel, Tone.Destination);
+    } else if (soulPlugins.length > 0) {
       // TODO: WHEN DEALING WITH AUDIO WE PROBABLY NEED A SOURCE AS A AUDIO NODE INSTEAD OF A INSTRUMENT
-      Tone.disconnect(pluginNodes[0]);
-      Tone.connectSeries(...pluginNodes, channel, Tone.Destination);
+      !doConnect
+        ? Tone.disconnect(pluginNodes[0])
+        : Tone.connectSeries(...pluginNodes, channel, Tone.Destination);
     }
 
     return () => {
-      if (instrument) {
-        Tone.disconnect(instrument.audioNode);
-      }
-      else if(plugins.length > 0) {
+      if (soulInstrument) {
+        Tone.disconnect(soulInstrument.audioNode);
+      } else if (soulPlugins.length > 0) {
         Tone.disconnect(pluginNodes[0]);
       }
     };
-  }, [plugins, instrument]);
+  }, [soulPlugins, soulInstrument, isArmed, isMuted]);
 
   return toneChannelRef;
 }

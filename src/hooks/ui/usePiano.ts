@@ -5,12 +5,11 @@ import useListenForMidiIn from '../audio/useListenForMidiIn';
 
 export type MidiCallable = (msg: number, note: number, velocity: number) => void;
 
-export default function usePiano(onNote: MidiCallable): [number[], MidiCallable] {
+export default function usePiano(): [number[], MidiCallable] {
   const [activeMidis, setActiveMidis] = useRecoilState(activeKeyboardMidiNotes);
 
+  // TODO: VELOCITY SHOULD BE UPDATED WHEN CHANGING, EVEN WHEN THE NOTE IS ALREADY IN THE STORE.
   const onEvent = useCallback((msg: number, note: number, velocity: number) => {
-    onNote(msg, note, velocity);
-
     if (msg === 144) {
       if (activeMidis.includes(note)) return;
 
@@ -21,7 +20,7 @@ export default function usePiano(onNote: MidiCallable): [number[], MidiCallable]
 
       setActiveMidis(currVal => currVal.filter(val => val !== note));
     }
-  }, [setActiveMidis, activeMidis, onNote]);
+  }, [setActiveMidis, activeMidis]);
 
   useListenForMidiIn(onEvent);
 

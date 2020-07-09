@@ -3,7 +3,13 @@ import { selectedMidiDevice } from '../../recoil/atoms/keyboardMidi';
 import WebMidi from 'webmidi';
 import { useEffect } from 'react';
 
-export default function useListenForMidiIn(onNote: (msg: number, note: number, velocity: number) => void) {
+/**
+ * This hook listens to MIDI in and triggers whatever callback is given.
+ *
+ * @param onNote
+ * @param doHaltTrigger In some cases (for example mute channel or unarmed channel) you don't want to actually execute the trigger. This is what this parameter is for.
+ */
+export default function useListenForMidiIn(onNote: (msg: number, note: number, velocity: number) => void, doHaltTrigger?: boolean) {
   const [midiDevice] = useRecoilState(selectedMidiDevice);
 
   useEffect(() => {
