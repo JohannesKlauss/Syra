@@ -7,6 +7,21 @@ export const channelName = atomFamily<string, string>({
   default: id => id,
 });
 
+export const isChannelArmed = atomFamily<boolean, string>({
+  key: 'isChannelArmed',
+  default: true,
+});
+
+export const isChannelSolo = atomFamily<boolean, string>({
+  key: 'isChannelSolo',
+  default: false,
+});
+
+export const isChannelMuted = atomFamily<boolean, string>({
+  key: 'isChannelMuted',
+  default: false,
+});
+
 export const isPatchActive = atomFamily<boolean, string>({
   key: 'isPatchActive',
   default: true,

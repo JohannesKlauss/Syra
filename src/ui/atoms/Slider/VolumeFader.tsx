@@ -7,7 +7,7 @@ interface Props {
 
 function VolumeFader({onChange}: Props) {
   return (
-    <Paper style={{height: 200, padding: 20,}}>
+    <Paper style={{height: 200, padding: 20, margin: '0 auto'}}>
       <Slider
         orientation="vertical"
         defaultValue={0}

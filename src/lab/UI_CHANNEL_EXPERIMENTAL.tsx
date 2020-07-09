@@ -11,8 +11,9 @@ import useTonePatcher from '../hooks/tone/useTonePatcher';
 import { useRecoilValue } from 'recoil/dist';
 import { channelState } from '../recoil/selectors/channel';
 import ChannelPluginList from '../ui/molecules/ChannelStrip/ChannelPluginList';
-import VolumeFader from '../ui/atoms/slider/VolumeFader';
-import Pan from '../ui/atoms/slider/Pan';
+import Pan from '../ui/atoms/Slider/Pan';
+import VolumeFader from '../ui/atoms/Slider/VolumeFader';
+import ChannelLetterButtons from '../ui/molecules/ChannelStrip/ChannelLetterButtons';
 const uniqid = require('uniqid');
 
 const Channel = styled('div')({
@@ -41,6 +42,8 @@ function UI_CHANNEL_EXPERIMENTAL() {
         <Divider/>
         <Pan onChange={onChangePanOrVolume}/>
         <VolumeFader onChange={onChangePanOrVolume}/>
+        <Divider/>
+        <ChannelLetterButtons/>
       </Channel>
     </ChannelContext.Provider>
   );

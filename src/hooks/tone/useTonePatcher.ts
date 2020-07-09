@@ -1,19 +1,14 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import * as Tone from 'tone';
 import { SoulInstance } from '../../types/Soul';
 
 const channel = new Tone.Channel(0, 0);
 
 export default function useTonePatcher(plugins: SoulInstance[], instrument?: SoulInstance) {
-  const setToneChannelPropsRef = useRef<Tone.Channel>();
-
-  useEffect(() => {
-    setToneChannelPropsRef.current = channel;
-  }, []);
+  const [toneChannelRef] = useState(channel);
 
   useEffect(() => {
     const pluginNodes = plugins.map(plugin => plugin.audioNode);
-    console.log('channel', channel.toString());
 
     if (instrument) {
       Tone.disconnect(instrument.audioNode);
@@ -35,5 +30,5 @@ export default function useTonePatcher(plugins: SoulInstance[], instrument?: Sou
     };
   }, [plugins, instrument]);
 
-  return setToneChannelPropsRef.current;
+  return toneChannelRef;
 }

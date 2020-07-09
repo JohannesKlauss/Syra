@@ -16,8 +16,8 @@ export default function useListenForMidiIn(onNote: (msg: number, note: number, v
 
     return () => {
       if (input) {
-        input.removeListener('noteon');
-        input.removeListener('noteoff');
+        input.removeListener('noteon', 'all', event => onNote(144, event.note.number, event.rawVelocity));
+        input.removeListener('noteoff', 'all', event => onNote(128, event.note.number, event.rawVelocity));
       }
     }
   }, [midiDevice, onNote]);
