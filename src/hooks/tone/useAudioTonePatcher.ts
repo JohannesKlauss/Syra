@@ -11,32 +11,34 @@ import {
 
 export default function useAudioTonePatcher() {
   const channelId = useContext(ChannelContext);
-  const { soulPlugins, isArmed, isMuted } = useRecoilValue(channelState(channelId));
+  const { soulPlugins, isArmed, isMuted, isSolo } = useRecoilValue(channelState(channelId));
   const [audioIn] = useState(toneAudioInputFactorySync());
   const [toneChannel] = useState(toneChannelFactory());
   const [toneRmsMeter] = useState(toneMeterFactory());
   const [tonePeakMeter] = useState(toneMeterFactory(0));
 
   useEffect(() => {
+    toneChannel.set({ mute: isMuted || !isArmed });
+  }, [isMuted, isArmed]);
+
+  useEffect(() => {
+    toneChannel.set({solo: isSolo});
+  }, [isSolo]);
+
+  useEffect(() => {
     (async () => {
       const pluginNodes = soulPlugins.map(plugin => plugin.audioNode);
 
-      if(isArmed && !isMuted) {
-        await audioIn.open();
+      await audioIn.open();
 
-        Tone.connectSeries(audioIn, ...pluginNodes, toneChannel, toneRmsMeter, tonePeakMeter, Tone.Destination);
-      }
-      else {
-        audioIn.close();
-        Tone.disconnect(audioIn)
-      }
+      Tone.connectSeries(audioIn, ...pluginNodes, toneChannel, toneRmsMeter, tonePeakMeter, Tone.Destination);
     })();
 
     return () => {
       audioIn.close();
       Tone.disconnect(audioIn);
     };
-  }, [audioIn, soulPlugins, isArmed, isMuted, toneChannel, toneRmsMeter, tonePeakMeter]);
+  }, [audioIn, soulPlugins, isArmed, toneChannel, toneRmsMeter, tonePeakMeter]);
 
-  return {toneChannel, toneRmsMeter, tonePeakMeter};
+  return { toneChannel, toneRmsMeter, tonePeakMeter };
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ChannelBody from '../ui/molecules/ChannelStrip/ChannelBody';
 import ChannelHeader from '../ui/molecules/ChannelStrip/ChannelHeader';
 import { List, ListSubheader } from '@material-ui/core';
