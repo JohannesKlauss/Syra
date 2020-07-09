@@ -1,12 +1,13 @@
-import { atom, atomFamily, selectorFamily } from 'recoil/dist';
+import { atom, atomFamily, selector, selectorFamily } from 'recoil/dist';
 import { SoulInstance, SoulPatchParameter } from '../../types/Soul';
 import { ChannelType } from '../../types/Channel';
+import { audioIn } from '../atoms/audioInOut';
 
 export const channelName = atomFamily<string, string>({
   key: 'channelName',
-  default: selectorFamily({
+  default: selector({
     key: 'channelName/Default',
-    get: id => ({get}) => `Channel ${get(channelIds).length}`
+    get: ({get}) => `Channel ${get(channelIds).length}`
   }),
 });
 
@@ -15,6 +16,7 @@ export const channelType = atomFamily<ChannelType, string>({
   default: ChannelType.INSTRUMENT,
 });
 
+// Whether the user clicked the record button the channel or not.
 export const isChannelArmed = atomFamily<boolean, string>({
   key: 'isChannelArmed',
   default: false,
@@ -30,12 +32,26 @@ export const isChannelMuted = atomFamily<boolean, string>({
   default: false,
 });
 
+// Whether an instrument or plugin is active or bypassed.
 export const isPatchActive = atomFamily<boolean, string>({
   key: 'isPatchActive',
   default: true,
 });
 
+// This represents the audio input channel of an AudioChannel. Currently there is only one possible due to this bug in chromium:
+// https://bugs.chromium.org/p/chromium/issues/detail?id=453876 Hopefully this finally gets fixed soon.
+// Since we don't have multiple input choices at hand this is currently not really used, since it just selects the audioIn state.
+// This is also why this is currently an atom instead of an atomFamily.
+export const channelAudioInput = atom({
+  key: 'channelAudioInput',
+  default: selector({
+    key: 'channelAudioInput/Default',
+    get: ({get}) => get(audioIn),
+  }),
+});
+
 // TODO: WE HAVE TO FIND A DEFINITION FOR WHEN TO USE PATCH, PLUGIN, SOUL_INSTANCE, SOUL_PATCH, etc. RIGHT NOW THIS IS CONFUSING.
+// This represents an instrument or plugin.
 export const soulInstance = atomFamily<SoulInstance | undefined, string>({
   key: 'soulInstance',
   default: undefined,
@@ -83,6 +99,8 @@ interface ChannelState {
   channelType: ChannelType;
 }
 
+// The complete channel state. You would not really use this to set state, because every atom is gettable with just the
+// channelId which gets provided by the ChannelContext anyway.
 export const channelState = selectorFamily<ChannelState, string>({
   key: `channelState`,
   get: channelId => ({ get }) => {

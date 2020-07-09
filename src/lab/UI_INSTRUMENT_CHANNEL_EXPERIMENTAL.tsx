@@ -7,8 +7,10 @@ import ChannelInstrument from '../ui/molecules/ChannelStrip/ChannelInstrument';
 import useMidiForChannel from '../hooks/audio/useMidiForChannel';
 import ChannelBody from '../ui/molecules/ChannelStrip/ChannelBody';
 import ChannelHeader from '../ui/molecules/ChannelStrip/ChannelHeader';
+import useInstrumentTonePatcher from '../hooks/tone/useInstrumentTonePatcher';
 
 function UI_INSTRUMENT_CHANNEL_EXPERIMENTAL() {
+  const toneChannel = useInstrumentTonePatcher();
   useMidiForChannel();
 
   return (
@@ -16,7 +18,7 @@ function UI_INSTRUMENT_CHANNEL_EXPERIMENTAL() {
       <List subheader={<ListSubheader><ChannelHeader/></ListSubheader>}>
         <ChannelInstrument/>
       </List>
-      <ChannelBody/>
+      <ChannelBody toneChannel={toneChannel}/>
     </>
   );
 }

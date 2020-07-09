@@ -3,13 +3,13 @@ import * as Tone from 'tone';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { useRecoilValue } from 'recoil/dist';
 import { channelState } from '../../recoil/selectors/channel';
+import { toneChannelFactory, toneMeterFactory } from '../../utils/tonejs';
 
-const toneChannelFactory = () => new Tone.Channel(0, 0);
-
-export default function useTonePatcher() {
+export default function useInstrumentTonePatcher() {
   const channelId = useContext(ChannelContext);
   const { soulInstrument, soulPlugins, isArmed, isMuted } = useRecoilValue(channelState(channelId));
   const [toneChannel] = useState(toneChannelFactory());
+  const [toneMeter] = useState(toneMeterFactory());
 
   useEffect(() => {
     const pluginNodes = soulPlugins.map(plugin => plugin.audioNode);
@@ -18,22 +18,15 @@ export default function useTonePatcher() {
     if (soulInstrument) {
       !doConnect
         ? Tone.disconnect(soulInstrument.audioNode)
-        : Tone.connectSeries(soulInstrument.audioNode, ...pluginNodes, toneChannel, Tone.Destination);
-    } else if (soulPlugins.length > 0) {
-      // TODO: WHEN DEALING WITH AUDIO WE PROBABLY NEED A SOURCE AS A AUDIO NODE INSTEAD OF A INSTRUMENT
-      !doConnect
-        ? Tone.disconnect(pluginNodes[0])
-        : Tone.connectSeries(...pluginNodes, toneChannel, Tone.Destination);
+        : Tone.connectSeries(soulInstrument.audioNode, ...pluginNodes, toneChannel, toneMeter, Tone.Destination);
     }
 
     return () => {
       if (soulInstrument) {
         Tone.disconnect(soulInstrument.audioNode);
-      } else if (soulPlugins.length > 0) {
-        Tone.disconnect(pluginNodes[0]);
       }
     };
-  }, [soulPlugins, soulInstrument, isArmed, isMuted, toneChannel]);
+  }, [soulPlugins, soulInstrument, isArmed, isMuted, toneChannel, toneMeter]);
 
   return toneChannel;
 }

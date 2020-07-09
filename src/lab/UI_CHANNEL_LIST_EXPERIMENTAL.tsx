@@ -1,11 +1,9 @@
 import React from 'react';
-import { GridList, IconButton, styled } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import { useRecoilState } from 'recoil/dist';
+import { GridList, styled } from '@material-ui/core';
+import { useRecoilValue } from 'recoil/dist';
 import { channelIds } from '../recoil/selectors/channel';
 import UI_BASE_CHANNEL_EXPERIMENTAL from './UI_BASE_CHANNEL_EXPERIMENTAL';
-
-const uniqid = require('uniqid');
+import NewChannelFab from '../ui/molecules/Fabs/NewChannelFab';
 
 const Container = styled(GridList)({
   flexWrap: 'nowrap',
@@ -19,20 +17,15 @@ const Flexer = styled('div')({
   alignItems: 'flex-end',
 });
 
-const AddButton = styled(IconButton)({});
-
 function UI_CHANNEL_LIST_EXPERIMENTAL() {
-  const [channels, setChannels] = useRecoilState(channelIds);
+  const channels = useRecoilValue(channelIds);
 
   return (
     <Flexer>
       <Container>
         {channels.map(id => <UI_BASE_CHANNEL_EXPERIMENTAL key={id} channelId={id}/>)}
       </Container>
-      <AddButton key={'new-channel'} color="primary" size={'small'}
-                 onClick={() => setChannels(currVal => [...currVal, uniqid('channel-')])}>
-        <AddIcon/>
-      </AddButton>
+      <NewChannelFab/>
     </Flexer>
   );
 }

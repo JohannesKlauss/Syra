@@ -21,6 +21,14 @@ function AudioContextProvider() {
     }
 
     await Tone.context.addAudioWorkletModule('worklets/SoulWasmAudioWorkletProcessor.js', 'soul-wasm-audio-worklet-processor');
+
+    navigator.mediaDevices.enumerateDevices()
+      .then(function(devices) {
+        devices.forEach(function(device) {
+          console.log(device.kind + ": " + device.label +
+            " id = " + device.deviceId);
+        });
+      })
   }, [context]);
 
   const onChangeMidiDevice = useCallback((event: React.ChangeEvent<{ value: unknown }>) => {

@@ -4,14 +4,14 @@ import ChannelPluginList from './ChannelPluginList';
 import Pan from '../../atoms/Slider/Pan';
 import VolumeFader from '../../atoms/Slider/VolumeFader';
 import ChannelLetterButtons from './ChannelLetterButtons';
-import useTonePatcher from '../../../hooks/tone/useTonePatcher';
+import * as Tone from 'tone';
 
-function ChannelBody() {
-  const channel = useTonePatcher();
+interface Props {
+  toneChannel: Tone.Channel;
+}
 
-  const onChangePanOrVolume = useCallback(newProps => {
-    channel && channel.set(newProps);
-  }, [channel]);
+function ChannelBody({toneChannel}: Props) {
+  const onChangePanOrVolume = useCallback(newProps => toneChannel.set(newProps), [toneChannel]);
 
   return (
     <>
