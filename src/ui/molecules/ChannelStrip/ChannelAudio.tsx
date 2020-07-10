@@ -1,10 +1,6 @@
 import React from 'react';
 
-interface Props {
-
-}
-
-function ChannelAudio({}: Props) {
+function ChannelAudio() {
   return (
     <>
       
