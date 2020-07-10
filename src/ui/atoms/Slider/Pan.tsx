@@ -7,7 +7,7 @@ interface Props {
 
 function Pan({onChange}: Props) {
   return (
-    <Paper style={{padding: 20,}}>
+    <Paper style={{paddingLeft: 20, paddingRight: 20}}>
       <Slider
         defaultValue={0}
         min={-1}

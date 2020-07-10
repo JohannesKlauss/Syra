@@ -8,12 +8,14 @@ import { mapDbToUiMeterVal } from '../../../utils/levelMeterMapping';
 const uniqid = require('uniqid');
 
 const LevelMeter = styled('div')({
-  width: 32,
+  width: '100%',
   height: 160,
   marginTop: 20,
   overflow: 'hidden',
   position: 'relative',
 });
+
+const METER_WIDTH = 24;
 
 interface Props {
   toneRmsMeter: Tone.Meter;
@@ -28,7 +30,7 @@ function LevelMeterVertical({ toneRmsMeter }: Props) {
     if (canvas.current) {
       const stage = new Konva.Stage({
         container: containerId.current,
-        width: 32,
+        width: METER_WIDTH,
         height: 160,
       });
 
@@ -37,7 +39,7 @@ function LevelMeterVertical({ toneRmsMeter }: Props) {
       const rms = new Konva.Rect({
         x: 0,
         y: 0,
-        width: 12,
+        width: METER_WIDTH,
         height: 0,
         fill: teal[700],
         offsetY: -100,

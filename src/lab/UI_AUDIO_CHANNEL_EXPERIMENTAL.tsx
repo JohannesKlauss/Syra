@@ -14,7 +14,7 @@ function UI_AUDIO_CHANNEL_EXPERIMENTAL() {
       <List subheader={<ListSubheader><ChannelHeader/></ListSubheader>}>
         <ChannelAudio/>
       </List>
-      <ChannelBody toneChannel={toneChannel}>
+      <ChannelBody toneChannel={toneChannel} toneRmsMeter={toneRmsMeter}>
         <LevelMeterVertical toneRmsMeter={toneRmsMeter}/>
       </ChannelBody>
     </>

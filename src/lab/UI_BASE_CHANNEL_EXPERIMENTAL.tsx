@@ -8,7 +8,7 @@ import { ChannelContext } from '../providers/ChannelContext';
 import { Paper, styled } from '@material-ui/core';
 
 const Channel = styled(Paper)({
-  maxWidth: 170,
+  maxWidth: 110,
   marginLeft: 1,
 });
 

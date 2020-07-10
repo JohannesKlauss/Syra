@@ -19,7 +19,7 @@ function UI_INSTRUMENT_CHANNEL_EXPERIMENTAL() {
       <List subheader={<ListSubheader><ChannelHeader/></ListSubheader>}>
         <ChannelInstrument/>
       </List>
-      <ChannelBody toneChannel={toneChannel}>
+      <ChannelBody toneChannel={toneChannel} toneRmsMeter={toneRmsMeter}>
         <LevelMeterVertical toneRmsMeter={toneRmsMeter}/>
       </ChannelBody>
     </>
