@@ -1,5 +1,6 @@
 import React from 'react';
 import { Slider, styled } from '@material-ui/core';
+import { mapVolumeFaderValToDb } from '../../../utils/volumeFaderMapping';
 
 interface Props {
   onChange: (props: any) => void;
@@ -16,11 +17,11 @@ function VolumeFader({onChange}: Props) {
     <Container>
       <Slider
         orientation="vertical"
-        defaultValue={0}
-        min={-100}
-        max={6}
-        step={0.1}
-        onChange={(_, newValue) => onChange({volume: newValue})}
+        defaultValue={180}
+        min={0}
+        max={240}
+        step={1}
+        onChange={(_, newValue) => onChange({volume: mapVolumeFaderValToDb(newValue as number)})}
       />
     </Container>
   );

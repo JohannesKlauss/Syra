@@ -7,10 +7,11 @@ import ChannelInstrument from '../ui/molecules/ChannelStrip/ChannelInstrument';
 import useMidiForChannel from '../hooks/audio/useMidiForChannel';
 import ChannelBody from '../ui/molecules/ChannelStrip/ChannelBody';
 import ChannelHeader from '../ui/molecules/ChannelStrip/ChannelHeader';
-import useInstrumentTonePatcher from '../hooks/tone/useInstrumentTonePatcher';
+import useInstrumentToneConnector from '../hooks/tone/useInstrumentToneConnector';
+import LevelMeterVertical from '../ui/atoms/Meter/LevelMeterVertical';
 
 function UI_INSTRUMENT_CHANNEL_EXPERIMENTAL() {
-  const { toneChannel } = useInstrumentTonePatcher();
+  const { toneChannel, toneRmsMeter } = useInstrumentToneConnector();
   useMidiForChannel();
 
   return (
@@ -18,7 +19,9 @@ function UI_INSTRUMENT_CHANNEL_EXPERIMENTAL() {
       <List subheader={<ListSubheader><ChannelHeader/></ListSubheader>}>
         <ChannelInstrument/>
       </List>
-      <ChannelBody toneChannel={toneChannel}/>
+      <ChannelBody toneChannel={toneChannel}>
+        <LevelMeterVertical toneRmsMeter={toneRmsMeter}/>
+      </ChannelBody>
     </>
   );
 }

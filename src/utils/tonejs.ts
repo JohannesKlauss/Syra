@@ -2,7 +2,7 @@ import * as Tone from 'tone';
 
 export const toneChannelFactory = () => new Tone.Channel(0, 0);
 
-export const toneMeterFactory = (smoothing: number = 0.9) => new Tone.Meter({smoothing});
+export const toneMeterFactory = (smoothing: number = 0.95) => new Tone.Meter({smoothing});
 
 export const toneDcMeterFactory = () => new Tone.DCMeter();
 

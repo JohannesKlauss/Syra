@@ -28,7 +28,7 @@ function NewChannelFab() {
     setChannelType(type);
 
     setNextChannelId(createNewChannelId());
-  }, [setChannelIds, nextChannelId, setNextChannelId]);
+  }, [setChannelIds, nextChannelId, setNextChannelId, setChannelType]);
 
   const actions = useMemo(() => ([
     { icon: <GraphicEqOutlinedIcon />, name: 'Audio', type: ChannelType.AUDIO },

@@ -3,11 +3,11 @@ import ChannelBody from '../ui/molecules/ChannelStrip/ChannelBody';
 import ChannelHeader from '../ui/molecules/ChannelStrip/ChannelHeader';
 import { List, ListSubheader } from '@material-ui/core';
 import ChannelAudio from '../ui/molecules/ChannelStrip/ChannelAudio';
-import useAudioTonePatcher from '../hooks/tone/useAudioTonePatcher';
+import useAudioToneConnector from '../hooks/tone/useAudioToneConnector';
 import LevelMeterVertical from '../ui/atoms/Meter/LevelMeterVertical';
 
 function UI_AUDIO_CHANNEL_EXPERIMENTAL() {
-  const { toneChannel, tonePeakMeter, toneRmsMeter } = useAudioTonePatcher();
+  const { toneChannel, toneRmsMeter } = useAudioToneConnector();
 
   return (
     <>
@@ -15,7 +15,7 @@ function UI_AUDIO_CHANNEL_EXPERIMENTAL() {
         <ChannelAudio/>
       </List>
       <ChannelBody toneChannel={toneChannel}>
-        <LevelMeterVertical toneRmsMeter={toneRmsMeter} tonePeakMeter={tonePeakMeter}/>
+        <LevelMeterVertical toneRmsMeter={toneRmsMeter}/>
       </ChannelBody>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Divider, Grid } from '@material-ui/core';
 import ChannelPluginList from './ChannelPluginList';
 import Pan from '../../atoms/Slider/Pan';
@@ -11,7 +11,14 @@ interface Props {
 }
 
 const ChannelBody: React.FC<Props> = React.memo(({ toneChannel, children }) => {
-  const onChangePanOrVolume = useCallback(newProps => toneChannel.set(newProps), [toneChannel]);
+  const [volumeFaderValue, setVolumeFaderValue] = useState(0);
+  const onChangePanOrVolume = useCallback(newProps => {
+    toneChannel.set(newProps);
+
+    if (newProps.volume) {
+      setVolumeFaderValue(newProps.volume.toFixed(1));
+    }
+  }, [toneChannel]);
 
   return (
     <>
@@ -21,6 +28,7 @@ const ChannelBody: React.FC<Props> = React.memo(({ toneChannel, children }) => {
       <Pan onChange={onChangePanOrVolume}/>
       <Grid container justify="center" spacing={1}>
         <Grid item>
+          {volumeFaderValue}
           <VolumeFader onChange={onChangePanOrVolume}/>
         </Grid>
         <Grid item>

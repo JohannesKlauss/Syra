@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { styled } from '@material-ui/core';
 import * as Tone from 'tone';
 import Konva from 'konva';
-import { teal } from '@material-ui/core/colors';
+import { amber, red, teal } from '@material-ui/core/colors';
+import { mapDbToUiMeterVal } from '../../../utils/levelMeterMapping';
 
 const uniqid = require('uniqid');
 
@@ -16,14 +17,14 @@ const LevelMeter = styled('div')({
 
 interface Props {
   toneRmsMeter: Tone.Meter;
-  tonePeakMeter: Tone.Meter;
 }
 
-function LevelMeterVertical({ toneRmsMeter, tonePeakMeter }: Props) {
+function LevelMeterVertical({ toneRmsMeter }: Props) {
   const containerId = useRef(uniqid('konva-container-'));
   const canvas = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // TODO: WRITE THIS IS A CLEANER WAY, THIS IS JUST HACKED IN HERE AS A Poc.
     if (canvas.current) {
       const stage = new Konva.Stage({
         container: containerId.current,
@@ -37,36 +38,31 @@ function LevelMeterVertical({ toneRmsMeter, tonePeakMeter }: Props) {
         x: 0,
         y: 0,
         width: 12,
-        height: 60,
+        height: 0,
         fill: teal[700],
         offsetY: -100,
       });
 
-      const peak = new Konva.Rect({
-        x: 0,
-        y: 0,
-        width: 12,
-        height: 60,
-        fill: teal[200],
-        offsetY: -100,
-      });
-
-      layer.add(peak, rms);
+      layer.add(rms);
       stage.add(layer);
 
       const anim = new Konva.Animation(() => {
-        const rmsHeight = 140 - Math.abs(0.01 + (toneRmsMeter.getValue() as number));
-        const peakHeight = 160 - Math.abs(0.01 + (tonePeakMeter.getValue() as number));
+        const val = toneRmsMeter.getValue() as number
+
+        let rmsHeight = mapDbToUiMeterVal(toneRmsMeter.getValue() as number);
+
+        if (isNaN(rmsHeight)) {
+          rmsHeight = 0;
+        }
 
         rms.height(rmsHeight);
         rms.offsetY(-160 + rmsHeight);
-        peak.height(peakHeight);
-        peak.offsetY(-160 + peakHeight);
+        rms.fill(val >= -4 ? (val >= -1 ? red[700] : amber[700]) : teal[700]);
       }, layer);
 
       anim.start();
     }
-  }, [canvas, containerId])
+  }, [canvas, containerId, toneRmsMeter]);
 
   return (
     <LevelMeter id={containerId.current} ref={canvas}/>
