@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { useRecoilValue } from 'recoil/dist';
-import { channelType } from '../recoil/selectors/channel';
-import { ChannelType } from '../types/Channel';
+import { channelType } from '../../recoil/selectors/channel';
+import { ChannelType } from '../../types/Channel';
 import UI_AUDIO_CHANNEL_EXPERIMENTAL from './UI_AUDIO_CHANNEL_EXPERIMENTAL';
 import UI_INSTRUMENT_CHANNEL_EXPERIMENTAL from './UI_INSTRUMENT_CHANNEL_EXPERIMENTAL';
-import { ChannelContext } from '../providers/ChannelContext';
+import { ChannelContext } from '../../providers/ChannelContext';
 import { Paper, styled } from '@material-ui/core';
 
 const Channel = styled(Paper)({

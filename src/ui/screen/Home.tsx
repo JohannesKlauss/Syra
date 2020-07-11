@@ -1,13 +1,12 @@
 import React from 'react';
-import useAudioContext from '../../hooks/audio/useAudioContext';
-import UI_CHANNEL_LIST_EXPERIMENTAL from '../../lab/UI_CHANNEL_LIST_EXPERIMENTAL';
+import UI_CHANNEL_LIST_EXPERIMENTAL from '../../lab/Channel/UI_CHANNEL_LIST_EXPERIMENTAL';
+import UI_ARRANGE_WINDOW_EXPERIMENTAL from '../../lab/ArrangeWindow/UI_ARRANGE_WINDOW_EXPERIMENTAL';
 
 function Home() {
-  const context = useAudioContext();
-
   return (
     <>
-      {context.state === 'running' && <UI_CHANNEL_LIST_EXPERIMENTAL/>}
+      <UI_ARRANGE_WINDOW_EXPERIMENTAL/>
+      <UI_CHANNEL_LIST_EXPERIMENTAL/>
     </>
   );
 }

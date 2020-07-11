@@ -5,17 +5,13 @@ import { useRecoilState } from 'recoil/dist';
 import { isChannelArmed, isChannelMuted, isChannelSolo } from '../../../recoil/selectors/channel';
 import { ChannelContext } from '../../../providers/ChannelContext';
 
-interface Props {
-
-}
-
 const Container = styled(Paper)({
   padding: 10,
 });
 
 const BUTTON_WIDTH = '33%';
 
-function ChannelLetterButtons({}: Props) {
+function ChannelLetterButtons() {
   const id = useContext(ChannelContext);
   const [isSolo, setIsSolo] = useRecoilState(isChannelSolo(id));
   const [isMuted, setIsMuted] = useRecoilState(isChannelMuted(id));

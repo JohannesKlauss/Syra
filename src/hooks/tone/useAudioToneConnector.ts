@@ -33,7 +33,7 @@ export default function useAudioToneConnector() {
     const pluginNodes = soulPlugins.map(plugin => plugin.audioNode);
 
     Tone.connectSeries(audioIn, ...pluginNodes, toneChannel, toneRmsMeter, Tone.Destination);
-  }, [audioIn, soulPlugins, isArmed, isMuted, toneChannel, toneRmsMeter]);
+  }, [audioIn, soulPlugins, isArmed, isMuted, toneChannel, toneRmsMeter, disconnect]);
 
   useEffect(() => {
     toneChannel.set({solo: isSolo});
@@ -43,7 +43,7 @@ export default function useAudioToneConnector() {
     (async () => await connect())();
 
     return () => disconnect();
-  }, [isMuted, isArmed]);
+  }, [isMuted, isArmed, connect, disconnect]);
 
   return { toneChannel, toneRmsMeter };
 }
