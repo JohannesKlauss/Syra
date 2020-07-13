@@ -5,7 +5,7 @@ export const projectBpm = atom({
   default: 120
 });
 
-// The project length in bars. At 120 bpm 120 bars equal 3:30 minutes.
+// The project length in bars. At 120 bpm 240 bars equal 7:00 minutes.
 export const projectLength = atom({
   key: 'projectLength',
   default: 240,

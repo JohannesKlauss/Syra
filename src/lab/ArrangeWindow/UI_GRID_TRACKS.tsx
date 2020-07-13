@@ -1,8 +1,6 @@
 import React from 'react';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
-import UI_GRID_BARS from './UI_GRID_BARS';
-import UI_GRID_TRANSPORT_CURSOR from './UI_GRID_TRANSPORT_CURSOR';
 import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowWidth } from '../../recoil/atoms/arrangeWindow';
 
@@ -11,23 +9,24 @@ interface ArrangeWindowProps {
 }
 
 const BaseContainer = styled(Box)({
+  overflow: 'hidden',
   backgroundColor: splinterTheme.palette.background.default,
-  width: ({windowWidth}: ArrangeWindowProps) => windowWidth,
-  height: 40,
   position: 'relative',
-  zIndex: 12,
-  borderBottom: `1px solid rgba(255, 255, 255, 0.3)`,
+  height: 600,
+  width: ({windowWidth}: ArrangeWindowProps) => windowWidth,
 });
 
-function UI_GRID_RULER() {
+interface Props {
+
+}
+
+function UI_GRID_TRACKS({}: Props) {
   const windowWidth = useRecoilValue(arrangeWindowWidth);
 
   return (
     <BaseContainer windowWidth={windowWidth}>
-      <UI_GRID_BARS/>
-      <UI_GRID_TRANSPORT_CURSOR/>
     </BaseContainer>
   );
 }
 
-export default React.memo(UI_GRID_RULER);
+export default UI_GRID_TRACKS;
