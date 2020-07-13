@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
@@ -36,6 +36,7 @@ const Playhead = styled('span')({
   display: 'inline-block',
   cursor: 'col-resize',
   willChange: 'transform',
+  pointerEvents: 'none',
   transform: ({ translateX }: PlayheadProps) => `translateX(${translateX}px)`,
   '&::before': {
     content: '"\\25BC"',
@@ -74,25 +75,23 @@ function UI_GRID_TRANSPORT_CURSOR({}: Props) {
   // TODO: These two should probably live in the recoil state.
   const translateX = useMemo(() => (playheadPos - 1) * (windowWidth / items.length), [items, windowWidth, playheadPos]);
 
-  const onClickTransport = useCallback(e => {
-    // @ts-ignore
+  const calcPlayheadPos = useCallback((e: any) => {
     const x = e.clientX - e.target.getBoundingClientRect().left + ARRANGE_GRID_OFFSET;
 
     setPlayheadPos(Math.round(x / snapWidth) + 1);
-  }, [snapWidth, setPlayheadPos]);
+  }, [setPlayheadPos, snapWidth]);
+
+  const onClickTransport = useCallback(e => {
+    if (!isCursorDragging) {
+      calcPlayheadPos(e);
+    }
+  }, [calcPlayheadPos, isCursorDragging]);
 
   const onPlayheadDrag = useCallback(e => {
     if (isCursorDragging) {
-      const x = e.clientX - e.target.getBoundingClientRect().left + ARRANGE_GRID_OFFSET;
-
-      if (Math.round(x / snapWidth) + 1 === 1) {
-        console.log('x', x);
-        console.log('snapWidth', snapWidth);
-      }
-
-      setPlayheadPos(Math.round(x / snapWidth) + 1);
+      calcPlayheadPos(e);
     }
-  }, [isCursorDragging, snapWidth]);
+  }, [calcPlayheadPos, isCursorDragging]);
 
   return (
     <BaseContainer windowWidth={windowWidth} onMouseDown={() => setIsCursorDragging(true)}

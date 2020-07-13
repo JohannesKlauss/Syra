@@ -13,7 +13,7 @@ interface ArrangeWindowProps {
 const BaseContainer = styled(Box)({
   backgroundColor: splinterTheme.palette.background.default,
   width: ({windowWidth}: ArrangeWindowProps) => windowWidth,
-  height: 40,
+  height: 60,
   position: 'relative',
   zIndex: 12,
   borderBottom: `1px solid rgba(255, 255, 255, 0.3)`,
