@@ -8,6 +8,7 @@ import {
   rulerItems,
   snapValueWidthInPixels,
 } from '../../recoil/atoms/arrangeWindow';
+import { ARRANGE_GRID_OFFSET } from '../../const/ui';
 
 interface BaseContainerProps {
   windowWidth: number;
@@ -23,7 +24,7 @@ const BaseContainer = styled(Box)({
   position: 'absolute',
   bottom: 0,
   height: 20,
-  marginLeft: -6,
+  marginLeft: ARRANGE_GRID_OFFSET,
 });
 
 const Playhead = styled('span')({
@@ -37,14 +38,15 @@ const Playhead = styled('span')({
   willChange: 'transform',
   transform: ({ translateX }: PlayheadProps) => `translateX(${translateX}px)`,
   '&::before': {
-    content: '"\\E62B"',
+    content: '"\\25BC"',
     bottom: '100%',
     color: 'white',
-    fontSize: 19,
-    left: -8,
+    fontSize: 28,
+    left: -7,
     position: 'absolute',
     textAlign: 'center',
     width: 30,
+    top: -28,
   },
   '&:after': {
     backgroundColor: 'white',
@@ -54,7 +56,7 @@ const Playhead = styled('span')({
     height: '100%',
     marginLeft: 7,
     marginTop: -1,
-    width: 1,
+    width: 2,
   },
 });
 
@@ -67,20 +69,35 @@ function UI_GRID_TRANSPORT_CURSOR({}: Props) {
   const items = useRecoilValue(rulerItems);
   const [playheadPos, setPlayheadPos] = useRecoilState(playheadPosition);
   const snapWidth = useRecoilValue(snapValueWidthInPixels);
+  const [isCursorDragging, setIsCursorDragging] = useState(false);
 
   // TODO: These two should probably live in the recoil state.
   const translateX = useMemo(() => (playheadPos - 1) * (windowWidth / items.length), [items, windowWidth, playheadPos]);
 
   const onClickTransport = useCallback(e => {
-    // -6 because the parent container has a marginleft of -6 pixels.
     // @ts-ignore
-    const x = e.clientX - e.target.getBoundingClientRect().left - 6;// TODO: THIS SHOULD BE A CONSTANT TO AVOID BUGS WHEN WE CHANGE LAYOUT.
+    const x = e.clientX - e.target.getBoundingClientRect().left + ARRANGE_GRID_OFFSET;
 
-    setPlayheadPos(Math.round((x - 6) / snapWidth) + 1);
+    setPlayheadPos(Math.round(x / snapWidth) + 1);
   }, [snapWidth, setPlayheadPos]);
 
+  const onPlayheadDrag = useCallback(e => {
+    if (isCursorDragging) {
+      const x = e.clientX - e.target.getBoundingClientRect().left + ARRANGE_GRID_OFFSET;
+
+      if (Math.round(x / snapWidth) + 1 === 1) {
+        console.log('x', x);
+        console.log('snapWidth', snapWidth);
+      }
+
+      setPlayheadPos(Math.round(x / snapWidth) + 1);
+    }
+  }, [isCursorDragging, snapWidth]);
+
   return (
-    <BaseContainer windowWidth={windowWidth} onClick={onClickTransport}>
+    <BaseContainer windowWidth={windowWidth} onMouseDown={() => setIsCursorDragging(true)}
+                   onMouseUp={() => setIsCursorDragging(false)} onMouseMove={onPlayheadDrag}
+                   onClick={onClickTransport}>
       <Playhead translateX={translateX}/>
     </BaseContainer>
   );

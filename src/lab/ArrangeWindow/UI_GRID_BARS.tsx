@@ -10,6 +10,7 @@ const Bars = styled(Box)({
   top: 0,
   width: '100%',
   pointerEvents: 'none',
+  userSelect: 'none',
   backgroundColor: splinterTheme.palette.background.paper,
 });
 

@@ -5,7 +5,7 @@ import { projectLength } from './project';
 // need it to be more detailed.
 export const playheadPosition = atom({
   key: 'playheadPosition',
-  default: 1,
+  default: 3,
 });
 
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.

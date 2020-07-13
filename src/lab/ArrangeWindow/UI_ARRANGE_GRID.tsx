@@ -3,6 +3,7 @@ import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import UI_GRID_RULER from './UI_GRID_RULER';
 import UI_GRID_TRACKS from './UI_GRID_TRACKS';
+import { ARRANGE_GRID_OFFSET } from '../../const/ui';
 
 const BaseContainer = styled(Box)({
   display: 'flex',
@@ -10,7 +11,7 @@ const BaseContainer = styled(Box)({
   overflowX: 'scroll',
   backgroundColor: splinterTheme.palette.background.default,
   marginLeft: 5,
-  paddingLeft: 12,
+  paddingLeft: ARRANGE_GRID_OFFSET * (-2),
 });
 
 function UI_ARRANGE_GRID() {
