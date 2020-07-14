@@ -3,8 +3,8 @@ import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import GridTransportCursor from '../ArrangeWindow/GridTransportCursor';
 import { useRecoilValue } from 'recoil/dist';
-import UI_GRID_RULER_BARS from './RulerBars';
 import { arrangeWindowStore } from '../../recoil/arrangeWindow';
+import RulerBars from './RulerBars';
 
 interface BaseContainerProps {
   windowWidth: number;
@@ -24,7 +24,7 @@ function Ruler() {
 
   return (
     <BaseContainer windowWidth={windowWidth}>
-      <UI_GRID_RULER_BARS/>
+      <RulerBars/>
       <GridTransportCursor/>
     </BaseContainer>
   );

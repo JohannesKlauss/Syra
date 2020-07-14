@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
-import UI_ARRANGE_GRID from './ArrangeGrid';
 import RulerSettings from '../Ruler/RulerSettings';
+import ArrangeGrid from './ArrangeGrid';
 
 const BaseContainer = styled(Container)({
   overflow: 'hidden',
@@ -18,7 +18,7 @@ function ArrangeWindow() {
 
       <RulerSettings/>
 
-      <UI_ARRANGE_GRID/>
+      <ArrangeGrid/>
     </BaseContainer>
   );
 }

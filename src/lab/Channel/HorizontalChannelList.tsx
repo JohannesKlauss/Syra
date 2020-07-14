@@ -1,9 +1,9 @@
 import React from 'react';
 import { GridList, styled } from '@material-ui/core';
 import { useRecoilValue } from 'recoil/dist';
-import UI_BASE_CHANNEL_EXPERIMENTAL from './BaseChannel';
 import NewChannelFab from '../../ui/molecules/Fabs/NewChannelFab';
 import { channelStore } from '../../recoil/channelStore';
+import BaseChannel from './BaseChannel';
 
 const Container = styled(GridList)({
   flexWrap: 'nowrap',
@@ -24,7 +24,7 @@ function HorizontalChannelList() {
   return (
     <Flexer>
       <Container>
-        {channels.map(id => <UI_BASE_CHANNEL_EXPERIMENTAL key={id} channelId={id}/>)}
+        {channels.map(id => <BaseChannel key={id} channelId={id}/>)}
       </Container>
       <NewChannelFab/>
     </Flexer>

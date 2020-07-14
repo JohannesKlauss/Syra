@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
-import UI_GRID_RULER from '../Ruler/Ruler';
 import GridTracks from './GridTracks';
 import { ARRANGE_GRID_OFFSET } from '../../const/ui';
+import Ruler from '../Ruler/Ruler';
 
 const BaseContainer = styled(Box)({
   display: 'flex',
@@ -17,7 +17,7 @@ const BaseContainer = styled(Box)({
 function ArrangeGrid() {
   return (
     <BaseContainer>
-      <UI_GRID_RULER/>
+      <Ruler/>
       <GridTracks/>
     </BaseContainer>
   );

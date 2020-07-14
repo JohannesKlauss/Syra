@@ -1,11 +1,11 @@
 import React from 'react';
 import HorizontalChannelList from '../../lab/Channel/HorizontalChannelList';
-import UI_ARRANGE_WINDOW_EXPERIMENTAL from '../../lab/ArrangeWindow/ArrangeWindow';
+import ArrangeWindow from '../../lab/ArrangeWindow/ArrangeWindow';
 
 function Home() {
   return (
     <>
-      <UI_ARRANGE_WINDOW_EXPERIMENTAL/>
+      <ArrangeWindow/>
       <HorizontalChannelList/>
     </>
   );
