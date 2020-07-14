@@ -74,8 +74,12 @@ function UI_GRID_TRANSPORT_CURSOR({}: Props) {
   const calcPlayheadPos = useCallback((e: any) => {
     const x = e.clientX - e.target.getBoundingClientRect().left + ARRANGE_GRID_OFFSET;
 
+    const exactPos = x / (snapWidth * (1 / snapValue));
+
+    const snappedPos = Math.round(exactPos * (1 / snapValue)) / (1 / snapValue) + 1;
+
     // TODO: ONCE WE FIGURE OUT THE ROUND THIS SHOULD BE A UTIL FUNCTION BECAUSE WE NEED THIS IN MULTIPLE PLACES.
-    setPlayheadPos(Math.round(x / (snapWidth * (1 / snapValue))) + 1);
+    setPlayheadPos(snappedPos);
   }, [setPlayheadPos, snapWidth, snapValue]);
 
   const onClickTransport = useCallback(e => {
