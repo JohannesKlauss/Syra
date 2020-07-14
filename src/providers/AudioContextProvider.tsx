@@ -29,7 +29,7 @@ function AudioContextProvider() {
 
   return (
     <BaseContainer>
-      <Grid container spacing={8}>
+      <Grid container spacing={2}>
         <Grid item xs={12}>
           <Grid container>
             <Grid item xs={4}>
@@ -40,7 +40,6 @@ function AudioContextProvider() {
                   id="midi-device-select"
                   value={midiDevice}
                   onChange={onChangeMidiDevice}
-
                 >
                   {WebMidi.inputs.map(input => <MenuItem key={input.name} value={input.name}>{input.manufacturer} {input.name}</MenuItem>)}
                 </Select>
