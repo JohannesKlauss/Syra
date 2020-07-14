@@ -1,17 +1,20 @@
 import React, { useCallback, useState } from 'react';
-import { Divider, Grid, Typography } from '@material-ui/core';
+import { Divider, Grid, Paper, styled, Typography } from '@material-ui/core';
 import ChannelPluginList from './ChannelPluginList';
 import Pan from '../../atoms/Slider/Pan';
 import VolumeFader from '../../atoms/Slider/VolumeFader';
 import ChannelLetterButtons from './ChannelLetterButtons';
 import * as Tone from 'tone';
 
+const SmrContainer = styled(Paper)({
+  padding: 10,
+});
+
 interface Props {
   toneChannel: Tone.Channel;
-  toneRmsMeter: Tone.Meter;
 }
 
-const ChannelBody: React.FC<Props> = React.memo(({ toneChannel, toneRmsMeter, children }) => {
+const ChannelBody: React.FC<Props> = React.memo(({ toneChannel, children }) => {
   const [volumeFaderValue, setVolumeFaderValue] = useState(0);
   const onChangePanOrVolume = useCallback(newProps => {
     toneChannel.set(newProps);
@@ -50,7 +53,9 @@ const ChannelBody: React.FC<Props> = React.memo(({ toneChannel, toneRmsMeter, ch
         </Grid>
       </Grid>
       <Divider/>
-      <ChannelLetterButtons/>
+      <SmrContainer>
+        <ChannelLetterButtons/>
+      </SmrContainer>
     </>
   );
 });

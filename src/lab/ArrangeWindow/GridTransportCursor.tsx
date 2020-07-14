@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil/dist';
+import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import {
   arrangeWindowStore,
 } from '../../recoil/arrangeWindow';
@@ -58,11 +58,7 @@ const Playhead = styled('span')({
   },
 });
 
-interface Props {
-
-}
-
-function GridTransportCursor({}: Props) {
+function GridTransportCursor() {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
   const setPlayheadPos = useSetRecoilState(arrangeWindowStore.playheadPosition);
   const snappedPlayheadPos = useRecoilValue(arrangeWindowStore.snappedPlayheadPosition);
@@ -75,7 +71,13 @@ function GridTransportCursor({}: Props) {
   const calcPlayheadPos = useCallback((e: any) => {
     const x = e.clientX - e.target.getBoundingClientRect().left + ARRANGE_GRID_OFFSET;
 
-    setPlayheadPos(x / (snapWidth * (1 / snapValue)) + 1);
+    let exactPos = x / (snapWidth * (1 / snapValue)) + 1;
+
+    if (exactPos < 1) {
+      exactPos = 1;
+    }
+
+    setPlayheadPos(exactPos);
   }, [setPlayheadPos, snapWidth, snapValue]);
 
   const onClickTransport = useCallback(e => {

@@ -19,7 +19,9 @@ const snappedPlayheadPosition = selector({
     const inverse = 1 / get(snapValue);
     const exactPos = get(playheadPosition);
 
-    return get(isSnapActive) ? Math.round(exactPos * inverse) / inverse : exactPos;
+    const snappedPos = get(isSnapActive) ? Math.round(exactPos * inverse) / inverse : exactPos;
+
+    return snappedPos >= 1 ? snappedPos : 1;
   }
 });
 

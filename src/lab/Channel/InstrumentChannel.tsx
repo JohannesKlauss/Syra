@@ -19,7 +19,7 @@ function InstrumentChannel() {
       <List subheader={<ListSubheader><ChannelHeader/></ListSubheader>}>
         <ChannelInstrument/>
       </List>
-      <ChannelBody toneChannel={toneChannel} toneRmsMeter={toneRmsMeter}>
+      <ChannelBody toneChannel={toneChannel}>
         <LevelMeterVertical toneRmsMeter={toneRmsMeter}/>
       </ChannelBody>
     </>

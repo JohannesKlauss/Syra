@@ -1,9 +1,16 @@
 import React, { useCallback, useEffect } from 'react';
-import { Container, FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { Box, Container, FormControl, Grid, InputLabel, MenuItem, Select, styled } from '@material-ui/core';
 import Home from '../ui/screen/Home';
 import { useRecoilState } from 'recoil/dist';
 import WebMidi from 'webmidi';
 import { keyboardMidiStore } from '../recoil/keyboardMidi';
+
+const BaseContainer = styled(Box)({
+  width: '100vw',
+  padding: 10,
+  marginLeft: 0,
+  marginRight: 0,
+});
 
 function AudioContextProvider() {
   const [midiDevice, setMidiDevice] = useRecoilState(keyboardMidiStore.selectedMidiDevice);
@@ -21,7 +28,7 @@ function AudioContextProvider() {
   }, [setMidiDevice]);
 
   return (
-    <Container>
+    <BaseContainer>
       <Grid container spacing={8}>
         <Grid item xs={12}>
           <Grid container>
@@ -45,7 +52,7 @@ function AudioContextProvider() {
           <Home/>
         </Grid>
       </Grid>
-    </Container>
+    </BaseContainer>
   );
 }
 
