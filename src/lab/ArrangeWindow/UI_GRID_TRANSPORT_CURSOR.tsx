@@ -66,18 +66,17 @@ function UI_GRID_TRANSPORT_CURSOR({}: Props) {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
   const [playheadPos, setPlayheadPos] = useRecoilState(arrangeWindowStore.playheadPosition);
   const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
-  const snap = useRecoilValue(arrangeWindowStore.snapValue);
+  const snapValue = useRecoilValue(arrangeWindowStore.snapValue);
   const [isCursorDragging, setIsCursorDragging] = useState(false);
 
-  const translateX = useMemo(() => (playheadPos - 1) * snapWidth, [playheadPos, snapWidth]);
-
-  console.log('pos', (playheadPos - 1) * snapWidth);
+  const translateX = useMemo(() => (playheadPos - 1) * (snapWidth * (1 / snapValue)), [playheadPos, snapWidth, snapValue]);
 
   const calcPlayheadPos = useCallback((e: any) => {
     const x = e.clientX - e.target.getBoundingClientRect().left + ARRANGE_GRID_OFFSET;
 
-    setPlayheadPos(Math.round(x / snapWidth) + 1);
-  }, [setPlayheadPos, snapWidth, snap]);
+    // TODO: ONCE WE FIGURE OUT THE ROUND THIS SHOULD BE A UTIL FUNCTION BECAUSE WE NEED THIS IN MULTIPLE PLACES.
+    setPlayheadPos(Math.round(x / (snapWidth * (1 / snapValue))) + 1);
+  }, [setPlayheadPos, snapWidth, snapValue]);
 
   const onClickTransport = useCallback(e => {
     if (!isCursorDragging) {

@@ -16,11 +16,7 @@ const BaseContainer = styled(Box)({
   width: ({windowWidth}: ArrangeWindowProps) => windowWidth,
 });
 
-interface Props {
-
-}
-
-function UI_GRID_TRACKS({}: Props) {
+function UI_GRID_TRACKS() {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
 
   return (
