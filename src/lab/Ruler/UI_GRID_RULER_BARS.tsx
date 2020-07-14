@@ -21,7 +21,7 @@ const RulerItem = styled('span')({
   paddingLeft: 4,
 });
 
-function UI_GRID_BARS() {
+function UI_GRID_RULER_BARS() {
   const items = useRecoilValue(rulerItems);
   const windowWidth = useRecoilValue(arrangeWindowWidth);
 
@@ -35,4 +35,4 @@ function UI_GRID_BARS() {
   );
 }
 
-export default React.memo(UI_GRID_BARS);
+export default React.memo(UI_GRID_RULER_BARS);

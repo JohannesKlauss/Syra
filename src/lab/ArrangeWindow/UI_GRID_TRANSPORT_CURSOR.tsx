@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import {
   arrangeWindowWidth,
   playheadPosition,
-  rulerItems,
+  rulerItems, snapValue,
   snapValueWidthInPixels,
 } from '../../recoil/atoms/arrangeWindow';
 import { ARRANGE_GRID_OFFSET } from '../../const/ui';
@@ -67,19 +67,20 @@ interface Props {
 
 function UI_GRID_TRANSPORT_CURSOR({}: Props) {
   const windowWidth = useRecoilValue(arrangeWindowWidth);
-  const items = useRecoilValue(rulerItems);
   const [playheadPos, setPlayheadPos] = useRecoilState(playheadPosition);
   const snapWidth = useRecoilValue(snapValueWidthInPixels);
+  const snap = useRecoilValue(snapValue);
   const [isCursorDragging, setIsCursorDragging] = useState(false);
 
-  // TODO: These two should probably live in the recoil state.
-  const translateX = useMemo(() => (playheadPos - 1) * (windowWidth / items.length), [items, windowWidth, playheadPos]);
+  const translateX = useMemo(() => (playheadPos - 1) * snapWidth, [playheadPos, snapWidth]);
+
+  console.log('pos', (playheadPos - 1) * snapWidth);
 
   const calcPlayheadPos = useCallback((e: any) => {
     const x = e.clientX - e.target.getBoundingClientRect().left + ARRANGE_GRID_OFFSET;
 
     setPlayheadPos(Math.round(x / snapWidth) + 1);
-  }, [setPlayheadPos, snapWidth]);
+  }, [setPlayheadPos, snapWidth, snap]);
 
   const onClickTransport = useCallback(e => {
     if (!isCursorDragging) {

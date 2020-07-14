@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
-import UI_GRID_RULER from './UI_GRID_RULER';
+import UI_GRID_RULER from '../Ruler/UI_GRID_RULER';
 import UI_GRID_TRACKS from './UI_GRID_TRACKS';
 import { ARRANGE_GRID_OFFSET } from '../../const/ui';
 

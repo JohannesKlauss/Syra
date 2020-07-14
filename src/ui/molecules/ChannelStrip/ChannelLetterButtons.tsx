@@ -1,5 +1,5 @@
 import React, { useCallback, useContext } from 'react';
-import LetterButton from '../../atoms/ChannelButtons/LetterButton';
+import LetterButton from '../../atoms/Buttons/LetterButton';
 import { Paper, styled } from '@material-ui/core';
 import { useRecoilState } from 'recoil/dist';
 import { isChannelArmed, isChannelMuted, isChannelSolo } from '../../../recoil/selectors/channel';

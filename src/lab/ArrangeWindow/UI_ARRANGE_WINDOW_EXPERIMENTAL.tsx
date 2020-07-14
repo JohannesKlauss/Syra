@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import UI_ARRANGE_GRID from './UI_ARRANGE_GRID';
+import UI_GRID_RULER_SETTINGS from '../Ruler/UI_GRID_RULER_SETTINGS';
 
 const BaseContainer = styled(Container)({
   overflow: 'hidden',
@@ -15,7 +16,7 @@ function UI_ARRANGE_WINDOW_EXPERIMENTAL() {
     <BaseContainer maxWidth={'xl'}>
       {/* THIS WOULD BE WHERE THE VERTICAL CHANNEL LIST LIVES*/}
 
-      {/* THIS WOULD BE WHERE THE TRANSPORT TRACKER LIVES */}
+      <UI_GRID_RULER_SETTINGS/>
 
       <UI_ARRANGE_GRID/>
     </BaseContainer>

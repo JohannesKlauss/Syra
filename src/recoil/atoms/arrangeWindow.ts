@@ -5,7 +5,7 @@ import { projectLength } from './project';
 // need it to be more detailed.
 export const playheadPosition = atom({
   key: 'playheadPosition',
-  default: 3,
+  default: 1,
 });
 
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.
@@ -23,7 +23,7 @@ export const snapValue = atom({
 
 export const snapValueWidthInPixels = selector({
   key: 'snapValueWidthInPixels',
-  get: ({get}) => get(arrangeWindowWidth) / get(rulerItems).length * get(snapValue)
+  get: ({get}) => get(arrangeWindowWidth) / (get(rulerItems).length * (1 / get(snapValue)))
 });
 
 export const arrangeWindowWidth = selector({
