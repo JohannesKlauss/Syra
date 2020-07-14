@@ -2,13 +2,13 @@ import React, { useCallback, useContext } from 'react';
 import { Button, List, ListItem } from '@material-ui/core';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { useRecoilState } from 'recoil/dist';
-import { channelPluginIds } from '../../../recoil/selectors/channel';
 import ChannelPlugin from './ChannelPlugin';
+import { channelStore } from '../../../recoil/channelStore';
 const uniqid = require('uniqid');
 
 function ChannelPluginList() {
   const channelId = useContext(ChannelContext);
-  const [soulPluginIds, setSoulPluginIds] = useRecoilState(channelPluginIds(channelId));
+  const [soulPluginIds, setSoulPluginIds] = useRecoilState(channelStore.pluginIds(channelId));
 
   const onClick = useCallback(() => {
     setSoulPluginIds(currVal => [...currVal, uniqid(`${channelId}-plugin-`)]);

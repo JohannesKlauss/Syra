@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Grid, Slider, Typography } from '@material-ui/core';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
-import { soulInstance, soulPatchParameter } from '../../../recoil/selectors/channel';
+import { channelStore } from '../../../recoil/channelStore';
 
 interface Props {
   soulInstanceId: string;
@@ -9,8 +9,8 @@ interface Props {
 }
 
 const SliderParameter = React.memo(({ soulInstanceId, parameterId }: Props) => {
-  const patch = useRecoilValue(soulInstance(soulInstanceId));
-  const [parameter, setParameter] = useRecoilState(soulPatchParameter({soulInstanceId, parameterId}));
+  const patch = useRecoilValue(channelStore.soulInstance(soulInstanceId));
+  const [parameter, setParameter] = useRecoilState(channelStore.soulPatchParameter({soulInstanceId, parameterId}));
 
   const { minValue, maxValue, index, value, step, name, unit, id } = parameter;
 

@@ -1,6 +1,6 @@
 import * as Tone from 'tone';
 import loadSoulPatchWasm from './loadSoulPatchWasm';
-import { AvailableSoulPatch } from '../recoil/atoms/soulPatches';
+import { AvailableSoulPatch } from '../recoil/soulPatches';
 import { SoulInstance } from '../types/Soul';
 
 export async function createSoulInstance (patch: AvailableSoulPatch, isInstrument?: boolean): Promise<SoulInstance> {

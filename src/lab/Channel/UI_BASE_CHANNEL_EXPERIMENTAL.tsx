@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import { useRecoilValue } from 'recoil/dist';
-import { channelType } from '../../recoil/selectors/channel';
 import { ChannelType } from '../../types/Channel';
 import UI_AUDIO_CHANNEL_EXPERIMENTAL from './UI_AUDIO_CHANNEL_EXPERIMENTAL';
 import UI_INSTRUMENT_CHANNEL_EXPERIMENTAL from './UI_INSTRUMENT_CHANNEL_EXPERIMENTAL';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { Paper, styled } from '@material-ui/core';
+import { channelStore } from '../../recoil/channelStore';
 
 const Channel = styled(Paper)({
   maxWidth: 110,
@@ -17,7 +17,7 @@ interface Props {
 }
 
 function UI_BASE_CHANNEL_EXPERIMENTAL({channelId}: Props) {
-  const type = useRecoilValue(channelType(channelId));
+  const type = useRecoilValue(channelStore.type(channelId));
 
   const ChannelComponent = useMemo(() => {
     switch(type) {

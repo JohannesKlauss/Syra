@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { useRecoilValue } from 'recoil/dist';
-import { arrangeWindowWidth, rulerItems } from '../../recoil/atoms/arrangeWindow';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
+import { arrangeWindowStore } from '../../recoil/arrangeWindow';
 
 const Bars = styled(Box)({
   height: 20,
@@ -22,8 +22,8 @@ const RulerItem = styled('span')({
 });
 
 function UI_GRID_RULER_BARS() {
-  const items = useRecoilValue(rulerItems);
-  const windowWidth = useRecoilValue(arrangeWindowWidth);
+  const items = useRecoilValue(arrangeWindowStore.rulerItems);
+  const windowWidth = useRecoilValue(arrangeWindowStore.width);
 
   // TODO: These two should probably live in the recoil state.
   const itemLength = useMemo(() => windowWidth / items.length, [items, windowWidth]);

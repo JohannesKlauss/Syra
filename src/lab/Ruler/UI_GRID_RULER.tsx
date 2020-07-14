@@ -3,9 +3,8 @@ import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import UI_GRID_TRANSPORT_CURSOR from '../ArrangeWindow/UI_GRID_TRANSPORT_CURSOR';
 import { useRecoilValue } from 'recoil/dist';
-import { arrangeWindowWidth } from '../../recoil/atoms/arrangeWindow';
-import UI_GRID_RULER_SETTINGS from './UI_GRID_RULER_SETTINGS';
 import UI_GRID_RULER_BARS from './UI_GRID_RULER_BARS';
+import { arrangeWindowStore } from '../../recoil/arrangeWindow';
 
 interface BaseContainerProps {
   windowWidth: number;
@@ -21,7 +20,7 @@ const BaseContainer = styled(Box)({
 });
 
 function UI_GRID_RULER() {
-  const windowWidth = useRecoilValue(arrangeWindowWidth);
+  const windowWidth = useRecoilValue(arrangeWindowStore.width);
 
   return (
     <BaseContainer windowWidth={windowWidth}>

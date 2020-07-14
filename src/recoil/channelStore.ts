@@ -1,40 +1,40 @@
 import { atom, atomFamily, selector, selectorFamily } from 'recoil/dist';
-import { SoulInstance, SoulPatchParameter } from '../../types/Soul';
-import { ChannelType } from '../../types/Channel';
-import { audioIn } from '../atoms/audioInOut';
+import { SoulInstance, SoulPatchParameter } from '../types/Soul';
+import { ChannelType } from '../types/Channel';
+import { audioInOutStore } from './audioInOut';
 
-export const channelName = atomFamily<string, string>({
-  key: 'channelName',
+const name = atomFamily<string, string>({
+  key: 'channel/name',
   default: selector({
-    key: 'channelName/Default',
-    get: ({get}) => `Channel ${get(channelIds).length}`
+    key: 'channel/name/Default',
+    get: ({get}) => `Channel ${get(ids).length}`
   }),
 });
 
-export const channelType = atomFamily<ChannelType, string>({
-  key: 'channelType',
+const type = atomFamily<ChannelType, string>({
+  key: 'channel/type',
   default: ChannelType.INSTRUMENT,
 });
 
 // Whether the user clicked the record button the channel or not.
-export const isChannelArmed = atomFamily<boolean, string>({
-  key: 'isChannelArmed',
+const isArmed = atomFamily<boolean, string>({
+  key: 'channel/isArmed',
   default: false,
 });
 
-export const isChannelSolo = atomFamily<boolean, string>({
-  key: 'isChannelSolo',
+const isSolo = atomFamily<boolean, string>({
+  key: 'channel/isSolo',
   default: false,
 });
 
-export const isChannelMuted = atomFamily<boolean, string>({
-  key: 'isChannelMuted',
+const isMuted = atomFamily<boolean, string>({
+  key: 'channel/isMuted',
   default: false,
 });
 
 // Whether an instrument or plugin is active or bypassed.
-export const isPatchActive = atomFamily<boolean, string>({
-  key: 'isPatchActive',
+const isPatchActive = atomFamily<boolean, string>({
+  key: 'channel/isPatchActive',
   default: true,
 });
 
@@ -42,25 +42,36 @@ export const isPatchActive = atomFamily<boolean, string>({
 // https://bugs.chromium.org/p/chromium/issues/detail?id=453876 Hopefully this finally gets fixed soon.
 // Since we don't have multiple input choices at hand this is currently not really used, since it just selects the audioIn state.
 // This is also why this is currently an atom instead of an atomFamily.
-export const channelAudioInput = atom({
-  key: 'channelAudioInput',
+const audioInput = atom({
+  key: 'channel/audioInput',
   default: selector({
-    key: 'channelAudioInput/Default',
-    get: ({get}) => get(audioIn),
+    key: 'channel/audioInput/Default',
+    get: ({get}) => get(audioInOutStore.audioIn),
   }),
 });
 
+const pluginIds = atomFamily<string[], string>({
+  key: 'channel/pluginIds',
+  default: [],
+});
+
+const findPluginsByIds = selectorFamily<SoulInstance[], string[]>({
+  key: 'channel/findPluginsByIds',
+  get: ids => ({get}) => ids.map(id => get(soulInstance(id))).filter(patch => patch !== undefined) as SoulInstance[],
+});
+
+
 // TODO: WE HAVE TO FIND A DEFINITION FOR WHEN TO USE PATCH, PLUGIN, SOUL_INSTANCE, SOUL_PATCH, etc. RIGHT NOW THIS IS CONFUSING.
 // This represents an instrument or plugin.
-export const soulInstance = atomFamily<SoulInstance | undefined, string>({
-  key: 'soulInstance',
+const soulInstance = atomFamily<SoulInstance | undefined, string>({
+  key: 'channel/soulInstance',
   default: undefined,
 });
 
-export const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
-  key: 'soulPatchParameter',
+const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
+  key: 'channel/soulPatchParameter',
   default: selectorFamily({
-    key: 'soulPatchParameter/Default',
+    key: 'channel/soulPatchParameter/Default',
     get: ({soulInstanceId, parameterId}) => ({get}) => {
       const instance = get(soulInstance(soulInstanceId));
 
@@ -78,16 +89,6 @@ export const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId
   })
 });
 
-export const channelPluginIds = atomFamily<string[], string>({
-  key: 'channelPluginIds',
-  default: [],
-});
-
-export const findPluginsByIds = selectorFamily<SoulInstance[], string[]>({
-  key: 'findPluginsByIds',
-  get: ids => ({get}) => ids.map(id => get(soulInstance(id))).filter(patch => patch !== undefined) as SoulInstance[],
-});
-
 interface ChannelState {
   name: string;
   soulInstrument?: SoulInstance;
@@ -101,25 +102,41 @@ interface ChannelState {
 
 // The complete channel state. You would not really use this to set state, because every atom is gettable with just the
 // channelId which gets provided by the ChannelContext anyway.
-export const channelState = selectorFamily<ChannelState, string>({
-  key: `channelState`,
+const state = selectorFamily<ChannelState, string>({
+  key: `channel/state`,
   get: channelId => ({ get }) => {
-    const soulPluginIds = get(channelPluginIds(channelId));
+    const soulPluginIds = get(pluginIds(channelId));
 
     return {
-      name: get(channelName(channelId)),
+      name: get(name(channelId)),
       soulInstrument: get(soulInstance(channelId)),
       soulPlugins: get(findPluginsByIds(soulPluginIds)),
       soulPluginIds,
-      isSolo: get(isChannelSolo(channelId)),
-      isMuted: get(isChannelMuted(channelId)),
-      isArmed: get(isChannelArmed(channelId)),
-      channelType: get(channelType(channelId)),
+      isSolo: get(isSolo(channelId)),
+      isMuted: get(isMuted(channelId)),
+      isArmed: get(isArmed(channelId)),
+      channelType: get(type(channelId)),
     }
   }
 });
 
-export const channelIds = atom<string[]>({
-  key: 'channelIds',
+const ids = atom<string[]>({
+  key: 'channel/ids',
   default: []
 });
+
+export const channelStore = {
+  name,
+  type,
+  isArmed,
+  isSolo,
+  isMuted,
+  isPatchActive,
+  audioInput,
+  pluginIds,
+  findPluginsByIds,
+  state,
+  ids,
+  soulPatchParameter,
+  soulInstance,
+};

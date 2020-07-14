@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import { useRecoilValue } from 'recoil/dist';
-import { arrangeWindowWidth } from '../../recoil/atoms/arrangeWindow';
+import { arrangeWindowStore } from '../../recoil/arrangeWindow';
 
 interface ArrangeWindowProps {
   windowWidth: number;
@@ -21,7 +21,7 @@ interface Props {
 }
 
 function UI_GRID_TRACKS({}: Props) {
-  const windowWidth = useRecoilValue(arrangeWindowWidth);
+  const windowWidth = useRecoilValue(arrangeWindowStore.width);
 
   return (
     <BaseContainer windowWidth={windowWidth}>

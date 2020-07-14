@@ -9,8 +9,8 @@ import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import { useSetRecoilState } from 'recoil/dist';
-import { channelIds, channelType } from '../../../recoil/selectors/channel';
 import { ChannelType } from '../../../types/Channel';
+import { channelStore } from '../../../recoil/channelStore';
 const uniqid = require('uniqid');
 
 const CHANNEL_ID_PREFIX = 'channel-';
@@ -20,8 +20,8 @@ const createNewChannelId = () => uniqid(CHANNEL_ID_PREFIX);
 function NewChannelFab() {
   const [nextChannelId, setNextChannelId] = useState(createNewChannelId());
   const [isOpen, setIsOpen] = useState(false);
-  const setChannelIds = useSetRecoilState(channelIds);
-  const setChannelType = useSetRecoilState(channelType(nextChannelId));
+  const setChannelIds = useSetRecoilState(channelStore.ids);
+  const setChannelType = useSetRecoilState(channelStore.type(nextChannelId));
 
   const onClick = useCallback((type: ChannelType) => {
     setChannelIds(currVal => [...currVal, nextChannelId]);

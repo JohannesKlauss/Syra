@@ -1,13 +1,10 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import {
-  arrangeWindowWidth,
-  playheadPosition,
-  rulerItems, snapValue,
-  snapValueWidthInPixels,
-} from '../../recoil/atoms/arrangeWindow';
+  arrangeWindowStore,
+} from '../../recoil/arrangeWindow';
 import { ARRANGE_GRID_OFFSET } from '../../const/ui';
 
 interface BaseContainerProps {
@@ -66,10 +63,10 @@ interface Props {
 }
 
 function UI_GRID_TRANSPORT_CURSOR({}: Props) {
-  const windowWidth = useRecoilValue(arrangeWindowWidth);
-  const [playheadPos, setPlayheadPos] = useRecoilState(playheadPosition);
-  const snapWidth = useRecoilValue(snapValueWidthInPixels);
-  const snap = useRecoilValue(snapValue);
+  const windowWidth = useRecoilValue(arrangeWindowStore.width);
+  const [playheadPos, setPlayheadPos] = useRecoilState(arrangeWindowStore.playheadPosition);
+  const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
+  const snap = useRecoilValue(arrangeWindowStore.snapValue);
   const [isCursorDragging, setIsCursorDragging] = useState(false);
 
   const translateX = useMemo(() => (playheadPos - 1) * snapWidth, [playheadPos, snapWidth]);

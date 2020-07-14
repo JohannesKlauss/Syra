@@ -2,7 +2,7 @@ import React from 'react';
 import SliderParameter from './SliderParameter';
 import { SoulPatchParameter } from '../../../types/Soul';
 import { useRecoilValue } from 'recoil/dist';
-import { soulInstance } from '../../../recoil/selectors/channel';
+import { channelStore } from '../../../recoil/channelStore';
 
 interface Props {
   soulInstanceId: string;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const ParameterList: React.FC<Props> = React.memo(({soulInstanceId}) => {
-  const patch = useRecoilValue(soulInstance(soulInstanceId));
+  const patch = useRecoilValue(channelStore.soulInstance(soulInstanceId));
   const parameters = patch?.soulPatch.descriptor.parameters;
 
   return (

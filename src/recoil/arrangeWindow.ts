@@ -1,51 +1,51 @@
 import { atom, selector } from 'recoil/dist';
-import { projectLength } from './project';
+import { projectStore } from './projectStore';
 
 // The position of the transport bar. currently we set this to 1 as bars, but this will most certainly change, since we
 // need it to be more detailed.
-export const playheadPosition = atom({
-  key: 'playheadPosition',
+const playheadPosition = atom({
+  key: 'arrangeWindow/playheadPosition',
   default: 1,
 });
 
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.
 // This goes from 1 to 11
-export const zoomLevel = atom({
-  key: 'zoomLevel',
+const zoomLevel = atom({
+  key: 'arrangeWindow/zoomLevel',
   default: 5,
 });
 
 // This is the value the grid snaps to. Default is 1 which stands for 1 bar. A quarter note would be 0.25, a sixteenth 0.0625 and so on.
-export const snapValue = atom({
-  key: 'snapValue',
+const snapValue = atom({
+  key: 'arrangeWindow/snapValue',
   default: 1,
 })
 
-export const snapValueWidthInPixels = selector({
-  key: 'snapValueWidthInPixels',
-  get: ({get}) => get(arrangeWindowWidth) / (get(rulerItems).length * (1 / get(snapValue)))
+const snapValueWidthInPixels = selector({
+  key: 'arrangeWindow/snapValueWidthInPixels',
+  get: ({get}) => get(width) / (get(rulerItems).length * (1 / get(snapValue)))
 });
 
-export const arrangeWindowWidth = selector({
-  key: 'arrangeWindowWidth',
+const width = selector({
+  key: 'arrangeWindow/width',
   get: ({get}) => get(zoomLevel) * 3600
 });
 
 // The resolution is measured in shown bars. So 4 means show every 4th bar as a number on the ruler.
-export const arrangeWindowResolution = selector({
-  key: 'arrangeWindowResolution',
+const resolution = selector({
+  key: 'arrangeWindow/resolution',
   get: () => 1
 });
 
-export const rulerItems = selector({
-  key: 'rulerItems',
+const rulerItems = selector({
+  key: 'arrangeWindow/rulerItems',
   get: ({get}) => {
-    const numOfItems = get(projectLength) / get(arrangeWindowResolution);
+    const numOfItems = get(projectStore.length) / get(resolution);
 
     const rulerItems = [];
 
     for (let i = 1; i <= numOfItems + 1; i++) {
-      rulerItems.push((i - 1) * get(arrangeWindowResolution));
+      rulerItems.push((i - 1) * get(resolution));
     }
 
     if (rulerItems[1] !== 1) {
@@ -56,4 +56,14 @@ export const rulerItems = selector({
 
     return rulerItems;
   }
-})
+});
+
+export const arrangeWindowStore = {
+  playheadPosition,
+  zoomLevel,
+  snapValue,
+  snapValueWidthInPixels,
+  width,
+  resolution,
+  rulerItems,
+};

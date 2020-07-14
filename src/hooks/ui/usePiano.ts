@@ -1,12 +1,12 @@
 import { useRecoilState } from 'recoil/dist';
-import { activeKeyboardMidiNotes } from '../../recoil/atoms/keyboardMidi';
 import { useCallback } from 'react';
 import useListenForMidiIn from '../audio/useListenForMidiIn';
+import { keyboardMidiStore } from '../../recoil/keyboardMidi';
 
 export type MidiCallable = (msg: number, note: number, velocity: number) => void;
 
 export default function usePiano(): [number[], MidiCallable] {
-  const [activeMidis, setActiveMidis] = useRecoilState(activeKeyboardMidiNotes);
+  const [activeMidis, setActiveMidis] = useRecoilState(keyboardMidiStore.activeKeyboardMidiNotes);
 
   // TODO: VELOCITY SHOULD BE UPDATED WHEN CHANGING, EVEN WHEN THE NOTE IS ALREADY IN THE STORE.
   const onEvent = useCallback((msg: number, note: number, velocity: number) => {

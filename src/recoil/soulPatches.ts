@@ -1,4 +1,4 @@
-import { atom } from 'recoil/dist';
+import { atom} from 'recoil/dist';
 
 export interface AvailableSoulPatch {
   displayName: string;
@@ -6,7 +6,7 @@ export interface AvailableSoulPatch {
   UID: string;
 }
 
-export const availableSoulPlugins = atom<AvailableSoulPatch[]>({
+const availableSoulPlugins = atom<AvailableSoulPatch[]>({
   key: 'availableSoulPlugins',
   default: [
     {
@@ -32,7 +32,7 @@ export const availableSoulPlugins = atom<AvailableSoulPatch[]>({
   ],
 });
 
-export const availableSoulInstruments = atom<AvailableSoulPatch[]>({
+const availableSoulInstruments = atom<AvailableSoulPatch[]>({
   key: 'availableSoulInstruments',
   default: [
     {
@@ -42,3 +42,8 @@ export const availableSoulInstruments = atom<AvailableSoulPatch[]>({
     }
   ],
 });
+
+export const soulPatchesStore = {
+  availableSoulPlugins,
+  availableSoulInstruments
+};

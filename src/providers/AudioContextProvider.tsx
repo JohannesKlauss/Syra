@@ -2,11 +2,11 @@ import React, { useCallback, useEffect } from 'react';
 import { Container, FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
 import Home from '../ui/screen/Home';
 import { useRecoilState } from 'recoil/dist';
-import { selectedMidiDevice } from '../recoil/atoms/keyboardMidi';
 import WebMidi from 'webmidi';
+import { keyboardMidiStore } from '../recoil/keyboardMidi';
 
 function AudioContextProvider() {
-  const [midiDevice, setMidiDevice] = useRecoilState(selectedMidiDevice);
+  const [midiDevice, setMidiDevice] = useRecoilState(keyboardMidiStore.selectedMidiDevice);
 
   const onChangeMidiDevice = useCallback((event: React.ChangeEvent<{ value: unknown }>) => {
     setMidiDevice(event.target.value as string);

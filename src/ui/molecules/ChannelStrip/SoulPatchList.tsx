@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import { AvailableSoulPatch } from '../../../recoil/atoms/soulPatches';
+import { AvailableSoulPatch } from '../../../recoil/soulPatches';
 
 interface Props {
   patches: AvailableSoulPatch[];

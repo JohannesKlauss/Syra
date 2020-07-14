@@ -1,17 +1,17 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { useRecoilValue } from 'recoil/dist';
-import { channelState } from '../../recoil/selectors/channel';
 import * as Tone from 'tone';
 import {
   toneAudioInputFactorySync,
   toneChannelFactory,
   toneMeterFactory,
 } from '../../utils/tonejs';
+import { channelStore } from '../../recoil/channelStore';
 
 export default function useAudioToneConnector() {
   const channelId = useContext(ChannelContext);
-  const { soulPlugins, isArmed, isMuted, isSolo } = useRecoilValue(channelState(channelId));
+  const { soulPlugins, isArmed, isMuted, isSolo } = useRecoilValue(channelStore.state(channelId));
   const [audioIn] = useState(toneAudioInputFactorySync());
   const [toneChannel] = useState(toneChannelFactory());
   const [toneRmsMeter] = useState(toneMeterFactory());
