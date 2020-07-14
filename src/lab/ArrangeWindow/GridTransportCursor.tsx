@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import {
   arrangeWindowStore,
 } from '../../recoil/arrangeWindow';
@@ -62,24 +62,20 @@ interface Props {
 
 }
 
-function UI_GRID_TRANSPORT_CURSOR({}: Props) {
+function GridTransportCursor({}: Props) {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
-  const [playheadPos, setPlayheadPos] = useRecoilState(arrangeWindowStore.playheadPosition);
+  const setPlayheadPos = useSetRecoilState(arrangeWindowStore.playheadPosition);
+  const snappedPlayheadPos = useRecoilValue(arrangeWindowStore.snappedPlayheadPosition);
   const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
   const snapValue = useRecoilValue(arrangeWindowStore.snapValue);
   const [isCursorDragging, setIsCursorDragging] = useState(false);
 
-  const translateX = useMemo(() => (playheadPos - 1) * (snapWidth * (1 / snapValue)), [playheadPos, snapWidth, snapValue]);
+  const translateX = useMemo(() => (snappedPlayheadPos - 1) * (snapWidth * (1 / snapValue)), [snappedPlayheadPos, snapWidth, snapValue]);
 
   const calcPlayheadPos = useCallback((e: any) => {
     const x = e.clientX - e.target.getBoundingClientRect().left + ARRANGE_GRID_OFFSET;
 
-    const exactPos = x / (snapWidth * (1 / snapValue));
-
-    const snappedPos = Math.round(exactPos * (1 / snapValue)) / (1 / snapValue) + 1;
-
-    // TODO: ONCE WE FIGURE OUT THE ROUND THIS SHOULD BE A UTIL FUNCTION BECAUSE WE NEED THIS IN MULTIPLE PLACES.
-    setPlayheadPos(snappedPos);
+    setPlayheadPos(x / (snapWidth * (1 / snapValue)) + 1);
   }, [setPlayheadPos, snapWidth, snapValue]);
 
   const onClickTransport = useCallback(e => {
@@ -103,4 +99,4 @@ function UI_GRID_TRANSPORT_CURSOR({}: Props) {
   );
 }
 
-export default UI_GRID_TRANSPORT_CURSOR;
+export default GridTransportCursor;

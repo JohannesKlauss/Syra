@@ -10,7 +10,7 @@ import ChannelHeader from '../../ui/molecules/ChannelStrip/ChannelHeader';
 import useInstrumentToneConnector from '../../hooks/tone/useInstrumentToneConnector';
 import LevelMeterVertical from '../../ui/atoms/Meter/LevelMeterVertical';
 
-function UI_INSTRUMENT_CHANNEL_EXPERIMENTAL() {
+function InstrumentChannel() {
   const { toneChannel, toneRmsMeter } = useInstrumentToneConnector();
   useMidiForChannel();
 
@@ -26,4 +26,4 @@ function UI_INSTRUMENT_CHANNEL_EXPERIMENTAL() {
   );
 }
 
-export default React.memo(UI_INSTRUMENT_CHANNEL_EXPERIMENTAL);
+export default React.memo(InstrumentChannel);

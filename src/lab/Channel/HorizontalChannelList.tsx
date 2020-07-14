@@ -1,7 +1,7 @@
 import React from 'react';
 import { GridList, styled } from '@material-ui/core';
 import { useRecoilValue } from 'recoil/dist';
-import UI_BASE_CHANNEL_EXPERIMENTAL from './UI_BASE_CHANNEL_EXPERIMENTAL';
+import UI_BASE_CHANNEL_EXPERIMENTAL from './BaseChannel';
 import NewChannelFab from '../../ui/molecules/Fabs/NewChannelFab';
 import { channelStore } from '../../recoil/channelStore';
 
@@ -18,7 +18,7 @@ const Flexer = styled('div')({
   marginTop: 20,
 });
 
-function UI_CHANNEL_LIST_EXPERIMENTAL() {
+function HorizontalChannelList() {
   const channels = useRecoilValue(channelStore.ids);
 
   return (
@@ -31,4 +31,4 @@ function UI_CHANNEL_LIST_EXPERIMENTAL() {
   );
 }
 
-export default UI_CHANNEL_LIST_EXPERIMENTAL;
+export default HorizontalChannelList;

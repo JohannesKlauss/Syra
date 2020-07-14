@@ -1,28 +1,33 @@
 import React from 'react';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
+import GridTransportCursor from '../ArrangeWindow/GridTransportCursor';
 import { useRecoilValue } from 'recoil/dist';
+import UI_GRID_RULER_BARS from './RulerBars';
 import { arrangeWindowStore } from '../../recoil/arrangeWindow';
 
-interface ArrangeWindowProps {
+interface BaseContainerProps {
   windowWidth: number;
 }
 
 const BaseContainer = styled(Box)({
-  overflow: 'hidden',
   backgroundColor: splinterTheme.palette.background.default,
+  width: ({windowWidth}: BaseContainerProps) => windowWidth,
+  height: 40,
   position: 'relative',
-  height: 370,
-  width: ({windowWidth}: ArrangeWindowProps) => windowWidth,
+  zIndex: 12,
+  borderBottom: `1px solid rgba(255, 255, 255, 0.3)`,
 });
 
-function UI_GRID_TRACKS() {
+function Ruler() {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
 
   return (
     <BaseContainer windowWidth={windowWidth}>
+      <UI_GRID_RULER_BARS/>
+      <GridTransportCursor/>
     </BaseContainer>
   );
 }
 
-export default UI_GRID_TRACKS;
+export default React.memo(Ruler);

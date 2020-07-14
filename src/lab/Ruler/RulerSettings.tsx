@@ -11,7 +11,7 @@ const BaseContainer = styled(Box)({
   backgroundColor: splinterTheme.palette.background.paper,
 });
 
-function UI_GRID_RULER_SETTINGS() {
+function RulerSettings() {
   const [gridSnapValue, setGridSnapValue] = useRecoilState(arrangeWindowStore.snapValue);
 
   const snapValueItems = useMemo(() => (
@@ -30,4 +30,4 @@ function UI_GRID_RULER_SETTINGS() {
   );
 }
 
-export default UI_GRID_RULER_SETTINGS;
+export default RulerSettings;

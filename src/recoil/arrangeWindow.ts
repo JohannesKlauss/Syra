@@ -1,11 +1,26 @@
 import { atom, selector } from 'recoil/dist';
 import { projectStore } from './projectStore';
 
+const isSnapActive = atom({
+  key: 'arrangeWindow/isSnapActive',
+  default: true,
+});
+
 // The position of the transport bar. currently we set this to 1 as bars, but this will most certainly change, since we
 // need it to be more detailed.
 const playheadPosition = atom({
   key: 'arrangeWindow/playheadPosition',
   default: 1,
+});
+
+const snappedPlayheadPosition = selector({
+  key: 'arrangeWindow/snappedPlayheadPosition',
+  get: ({get}) => {
+    const inverse = 1 / get(snapValue);
+    const exactPos = get(playheadPosition);
+
+    return get(isSnapActive) ? Math.round(exactPos * inverse) / inverse : exactPos;
+  }
 });
 
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.
@@ -60,6 +75,7 @@ const rulerItems = selector({
 
 export const arrangeWindowStore = {
   playheadPosition,
+  snappedPlayheadPosition,
   zoomLevel,
   snapValue,
   snapValueWidthInPixels,

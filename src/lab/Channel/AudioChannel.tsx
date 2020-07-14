@@ -6,7 +6,7 @@ import ChannelAudio from '../../ui/molecules/ChannelStrip/ChannelAudio';
 import useAudioToneConnector from '../../hooks/tone/useAudioToneConnector';
 import LevelMeterVertical from '../../ui/atoms/Meter/LevelMeterVertical';
 
-function UI_AUDIO_CHANNEL_EXPERIMENTAL() {
+function AudioChannel() {
   const { toneChannel, toneRmsMeter } = useAudioToneConnector();
 
   return (
@@ -21,4 +21,4 @@ function UI_AUDIO_CHANNEL_EXPERIMENTAL() {
   );
 }
 
-export default React.memo(UI_AUDIO_CHANNEL_EXPERIMENTAL);
+export default React.memo(AudioChannel);
