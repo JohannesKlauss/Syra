@@ -41,7 +41,7 @@ function LevelMeterVertical({ toneRmsMeter }: Props) {
         y: 0,
         width: METER_WIDTH,
         height: 0,
-        fill: teal[700],
+        fill: teal['A200'],
         offsetY: -100,
       });
 
@@ -59,7 +59,7 @@ function LevelMeterVertical({ toneRmsMeter }: Props) {
 
         rms.height(rmsHeight);
         rms.offsetY(-160 + rmsHeight);
-        rms.fill(val >= -4 ? (val >= -1 ? red[700] : amber[700]) : teal[700]);
+        rms.fill(val >= -4 ? (val >= -1 ? red['A200'] : amber['A200']) : teal['A200']);
       }, layer);
 
       anim.start();

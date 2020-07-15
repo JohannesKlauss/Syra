@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { ChannelContext } from '../../providers/ChannelContext';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import * as Tone from 'tone';
 import {
   toneAudioInputFactorySync,

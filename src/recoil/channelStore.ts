@@ -3,12 +3,18 @@ import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
 import { audioInOutStore } from './audioInOut';
 import { teal } from '@material-ui/core/colors';
+import * as Tone from 'tone';
+import { channelTypeToLabel } from '../utils/channelTypeToLabel';
 
 const name = atomFamily<string, string>({
   key: 'channel/name',
   default: selector({
     key: 'channel/name/Default',
-    get: ({get}) => `Channel ${get(ids).length}`
+    get: ({get}) => {
+      const channelIds = get(ids);
+      
+      return `${channelTypeToLabel(get(type(channelIds[channelIds.length - 1])))} ${channelIds.length}`;
+    }
   }),
 });
 
@@ -42,6 +48,11 @@ const isMuted = atomFamily<boolean, string>({
 const isPatchActive = atomFamily<boolean, string>({
   key: 'channel/isPatchActive',
   default: true,
+});
+
+const toneJsChannel = atomFamily<Tone.Channel | null, string>({
+  key: 'channel/toneJsChannel',
+  default: null,
 });
 
 // This represents the audio input channel of an AudioChannel. Currently there is only one possible due to this bug in chromium:
@@ -97,6 +108,7 @@ const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId: strin
 
 interface ChannelState {
   name: string;
+  color: string;
   soulInstrument?: SoulInstance;
   soulPlugins: SoulInstance[];
   soulPluginIds: string[];
@@ -104,6 +116,7 @@ interface ChannelState {
   isMuted: boolean;
   isArmed: boolean;
   channelType: ChannelType;
+  toneJsChannel: Tone.Channel | null;
 }
 
 // The complete channel state. You would not really use this to set state, because every atom is gettable with just the
@@ -123,6 +136,7 @@ const state = selectorFamily<ChannelState, string>({
       isMuted: get(isMuted(channelId)),
       isArmed: get(isArmed(channelId)),
       channelType: get(type(channelId)),
+      toneJsChannel: get(toneJsChannel(channelId)),
     }
   }
 });
@@ -147,4 +161,5 @@ export const channelStore = {
   ids,
   soulPatchParameter,
   soulInstance,
+  toneJsChannel,
 };
