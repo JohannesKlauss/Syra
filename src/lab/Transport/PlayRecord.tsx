@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import { Box, IconButton, styled } from '@material-ui/core';
 import { useSetRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindow';
+import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
 
 const BaseContainer = styled(Box)({
   marginLeft: 20,
@@ -13,17 +15,24 @@ const BaseContainer = styled(Box)({
 
 function PlayRecord() {
   const setPlayheadPosition = useSetRecoilState(arrangeWindowStore.playheadPosition);
+  const transport = useToneJsTransport();
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const onClickPlayPause = useCallback(() => {
+    transport.toggle();
+    setIsPlaying(currVal => !currVal);
+  }, [transport]);
 
   return (
     <BaseContainer>
       <IconButton color={'default'} component="span" onClick={() => setPlayheadPosition(1)}>
-        <SkipPreviousIcon />
+        <SkipPreviousIcon/>
       </IconButton>
-      <IconButton color={'primary'} component="span">
-        <PlayArrowIcon />
+      <IconButton color={'primary'} component="span" onClick={onClickPlayPause}>
+        {isPlaying ? <PauseIcon/> : <PlayArrowIcon/>}
       </IconButton>
       <IconButton color={'secondary'} component="span">
-        <FiberManualRecordIcon />
+        <FiberManualRecordIcon/>
       </IconButton>
     </BaseContainer>
   );

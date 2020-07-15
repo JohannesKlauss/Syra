@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, styled, TextField } from '@material-ui/core';
 import { useRecoilState } from 'recoil/dist';
 import { projectStore } from '../../recoil/projectStore';
+import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
 
 const CustomTextField = styled(TextField)({
   maxWidth: 60,
@@ -14,6 +15,11 @@ const BaseContainer = styled(Box)({
 
 function Bpm() {
   const [bpm, setBpm] = useRecoilState(projectStore.bpm);
+  const transport = useToneJsTransport();
+
+  useEffect(() => {
+    transport.set({bpm});
+  }, [bpm]);
 
   return (
     <BaseContainer>
