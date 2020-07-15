@@ -6,6 +6,7 @@ import { arrangeWindowStore } from '../../recoil/arrangeWindow';
 import { channelStore } from '../../recoil/channelStore';
 import { ChannelContext } from '../../providers/ChannelContext';
 import Track from '../Track/Track';
+import DropTrack from '../Track/DropTrack';
 
 interface ArrangeWindowProps {
   windowWidth: number;
@@ -31,6 +32,7 @@ function GridTracks() {
           <Track backgroundColor={i % 2 === 0 ? theme.palette.background.paper : theme.palette.background.default}/>
         </ChannelContext.Provider>
       ))}
+      <DropTrack/>
     </BaseContainer>
   );
 }
