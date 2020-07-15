@@ -18,7 +18,7 @@ const length = atom({
 const timeSignature = atom<TimeSignature>({
   key: 'project/timeSignature',
   default: {
-    beat: 4,
+    beats: 4,
     over: 4,
   },
 })

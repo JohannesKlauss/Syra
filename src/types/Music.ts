@@ -1,4 +1,4 @@
 export interface TimeSignature {
-  beat: number;
+  beats: number;
   over: number;
 }
