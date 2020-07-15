@@ -4,14 +4,18 @@ import { splinterTheme } from '../../theme';
 import RulerSettings from '../Ruler/RulerSettings';
 import ArrangeGrid from './ArrangeGrid';
 import VerticalChannelList from '../VerticalChannels/VerticalChannelList';
+import TransportView from '../Transport/TransportView';
 
 const BaseContainer = styled(Container)({
   overflow: 'hidden',
   width: '100%',
   height: '40vh',
-  display: 'flex',
   padding: '5px 0',
   backgroundColor: splinterTheme.palette.background.paper,
+});
+
+const Flexer = styled('div')({
+  display: 'flex',
 });
 
 const RightPane = styled(Box)({
@@ -22,11 +26,14 @@ const RightPane = styled(Box)({
 function ArrangeWindow() {
   return (
     <BaseContainer maxWidth={'xl'}>
-      <VerticalChannelList/>
-      <RightPane>
-        <RulerSettings/>
-        <ArrangeGrid/>
-      </RightPane>
+      <TransportView/>
+      <Flexer>
+        <VerticalChannelList/>
+        <RightPane>
+          <RulerSettings/>
+          <ArrangeGrid/>
+        </RightPane>
+      </Flexer>
     </BaseContainer>
   );
 }

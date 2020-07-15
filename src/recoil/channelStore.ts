@@ -12,7 +12,7 @@ const name = atomFamily<string, string>({
     key: 'channel/name/Default',
     get: ({get}) => {
       const channelIds = get(ids);
-      
+
       return `${channelTypeToLabel(get(type(channelIds[channelIds.length - 1])))} ${channelIds.length}`;
     }
   }),
