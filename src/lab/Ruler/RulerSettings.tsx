@@ -8,16 +8,19 @@ import { mapNumberToNote } from '../../utils/noteMapper';
 
 const BaseContainer = styled(Box)({
   width: '100%',
-  height: 30,
+  height: 40,
   display: 'flex',
   flexFlow: 'row-reverse',
   position: 'relative',
-  marginBottom: 10,
+  paddingBottom: 10,
   zIndex: 20,
+  paddingRight: 10,
+  borderBottom: `1px solid ${splinterTheme.palette.background.default}`,
   backgroundColor: splinterTheme.palette.background.paper,
 });
 
 function RulerSettings() {
+  const [isSnapActive, setIsSnapActive] = useRecoilState(arrangeWindowStore.isSnapActive);
   const [gridSnapValue, setGridSnapValue] = useRecoilState(arrangeWindowStore.snapValue);
 
   const snapValueItems = useMemo(() => (
@@ -29,7 +32,7 @@ function RulerSettings() {
 
   return (
     <BaseContainer>
-      <DropdownButton onClick={() => null} menuItems={snapValueItems}>
+      <DropdownButton color={isSnapActive ? 'primary' : 'default'} onClick={() => setIsSnapActive(currVal => !currVal)} menuItems={snapValueItems}>
         {mapNumberToNote(gridSnapValue)}
       </DropdownButton>
     </BaseContainer>

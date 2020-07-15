@@ -6,26 +6,27 @@ import {
   Grow,
   MenuList,
   Paper,
-  Popper,
+  Popper, PropTypes,
 } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 interface Props {
   onClick: () => void;
   menuItems: JSX.Element[];
+  color?: PropTypes.Color;
 }
 
-const DropdownButton: React.FC<Props> = React.memo(({ onClick, children, menuItems }) => {
+const DropdownButton: React.FC<Props> = React.memo(({ onClick, children, menuItems, color = 'primary' }) => {
   const anchorRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
-      <ButtonGroup variant="contained" color="primary" ref={anchorRef} size={'small'}>
+      <ButtonGroup variant="contained" color={color} ref={anchorRef} size={'small'}>
         <Button onClick={onClick} size={'small'}>
           {children}
         </Button>
-        <Button color="primary" size="small" onClick={() => setIsMenuOpen(prev => !prev)}>
+        <Button color={color} size="small" onClick={() => setIsMenuOpen(prev => !prev)}>
           <ArrowDropDownIcon/>
         </Button>
       </ButtonGroup>

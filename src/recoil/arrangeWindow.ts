@@ -81,6 +81,7 @@ export const arrangeWindowStore = {
   zoomLevel,
   snapValue,
   snapValueWidthInPixels,
+  isSnapActive,
   width,
   resolution,
   rulerItems,
