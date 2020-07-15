@@ -2,11 +2,13 @@ import React from 'react';
 import { Container, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import PlayRecord from './PlayRecord';
+import Bpm from './Bpm';
 
 const BaseContainer = styled(Container)({
   overflow: 'hidden',
   width: '100%',
   display: 'flex',
+  justifyContent: 'center',
   padding: '5px 0',
   marginBottom: 10,
   borderBottom: `1px solid ${splinterTheme.palette.background.default}`,
@@ -17,6 +19,7 @@ function TransportView() {
   return (
     <BaseContainer>
       <PlayRecord/>
+      <Bpm/>
     </BaseContainer>
   );
 }
