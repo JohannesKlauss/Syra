@@ -10,7 +10,7 @@ const BaseContainer = styled(Container)({
   width: '100%',
   height: '40vh',
   display: 'flex',
-  padding: 5,
+  padding: '5px 0',
   backgroundColor: splinterTheme.palette.background.paper,
 });
 

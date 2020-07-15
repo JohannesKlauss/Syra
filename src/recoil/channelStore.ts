@@ -2,6 +2,7 @@ import { atom, atomFamily, selector, selectorFamily } from 'recoil/dist';
 import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
 import { audioInOutStore } from './audioInOut';
+import { teal } from '@material-ui/core/colors';
 
 const name = atomFamily<string, string>({
   key: 'channel/name',
@@ -15,6 +16,11 @@ const type = atomFamily<ChannelType, string>({
   key: 'channel/type',
   default: ChannelType.INSTRUMENT,
 });
+
+const color = atomFamily<string, string>({
+  key: 'channel/color',
+  default: teal['400'],
+})
 
 // Whether the user clicked the record button the channel or not.
 const isArmed = atomFamily<boolean, string>({
@@ -109,6 +115,7 @@ const state = selectorFamily<ChannelState, string>({
 
     return {
       name: get(name(channelId)),
+      color: get(color(channelId)),
       soulInstrument: get(soulInstance(channelId)),
       soulPlugins: get(findPluginsByIds(soulPluginIds)),
       soulPluginIds,
@@ -128,6 +135,7 @@ const ids = atom<string[]>({
 export const channelStore = {
   name,
   type,
+  color,
   isArmed,
   isSolo,
   isMuted,

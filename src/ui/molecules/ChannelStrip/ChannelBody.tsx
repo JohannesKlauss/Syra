@@ -1,10 +1,21 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { Divider, Grid, Paper, styled, Typography } from '@material-ui/core';
 import ChannelPluginList from './ChannelPluginList';
 import Pan from '../../atoms/Slider/Pan';
 import VolumeFader from '../../atoms/Slider/VolumeFader';
 import ChannelLetterButtons from './ChannelLetterButtons';
 import * as Tone from 'tone';
+import { ChannelContext } from '../../../providers/ChannelContext';
+import { channelStore } from '../../../recoil/channelStore';
+import { useRecoilValue } from 'recoil/dist';
+
+interface ColoredDividerProps {
+  color: string;
+}
+
+const ColoredDivider = styled(Divider)({
+  backgroundColor: ({color}: ColoredDividerProps) => color,
+});
 
 const SmrContainer = styled(Paper)({
   padding: 10,
@@ -15,6 +26,8 @@ interface Props {
 }
 
 const ChannelBody: React.FC<Props> = React.memo(({ toneChannel, children }) => {
+  const channelId = useContext(ChannelContext);
+  const channelColor = useRecoilValue(channelStore.color(channelId));
   const [volumeFaderValue, setVolumeFaderValue] = useState(0);
   const onChangePanOrVolume = useCallback(newProps => {
     toneChannel.set(newProps);
@@ -52,7 +65,7 @@ const ChannelBody: React.FC<Props> = React.memo(({ toneChannel, children }) => {
           </Grid>
         </Grid>
       </Grid>
-      <Divider/>
+      <ColoredDivider color={channelColor}/>
       <SmrContainer>
         <ChannelLetterButtons/>
       </SmrContainer>

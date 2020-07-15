@@ -4,11 +4,12 @@ import { channelStore } from '../../recoil/channelStore';
 import { Box, styled, Typography } from '@material-ui/core';
 import VerticalChannel from './VerticalChannel';
 import { ChannelContext } from '../../providers/ChannelContext';
+import { splinterTheme } from '../../theme';
 
 const BaseContainer = styled(Box)({
-  width: 150,
+  width: 250,
   marginTop: 80,
-  borderTop: '1px solid white',
+  borderTop: `1px solid ${splinterTheme.palette.background.default}`,
 })
 
 function VerticalChannelList() {
