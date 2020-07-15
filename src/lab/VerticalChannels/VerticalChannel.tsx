@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useRecoilValue } from 'recoil/dist';
 import { channelStore } from '../../recoil/channelStore';
-import { Box, styled, Typography } from '@material-ui/core';
+import { Box, Card, CardContent, styled, Typography } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import { ChannelContext } from '../../providers/ChannelContext';
 import ChannelLetterButtons from '../../ui/molecules/ChannelStrip/ChannelLetterButtons';
@@ -10,13 +10,20 @@ interface BaseContainerProps {
   channelColor: string;
 }
 
-const BaseContainer = styled(Box)({
+const BaseCard = styled(Card)({
   width: '100%',
   borderBottom: `1px solid ${splinterTheme.palette.background.default}`,
   borderRight: ({channelColor}: BaseContainerProps) => `3px solid ${channelColor}`,
   height: 70,
   padding: 5,
+  display: 'flex',
+  flexDirection: 'column',
 });
+
+const CustomCardContent = styled(CardContent)({
+  paddingTop: 0,
+  paddingBottom: 0,
+})
 
 const SmrContainer = styled(Box)({
   padding: 0,
@@ -28,13 +35,14 @@ function VerticalChannel() {
   const color = useRecoilValue(channelStore.color(channelId));
 
   return (
-    <BaseContainer channelColor={color}>
-      <Typography gutterBottom align={'center'}>{name}</Typography>
-
-      <SmrContainer>
-        <ChannelLetterButtons/>
-      </SmrContainer>
-    </BaseContainer>
+    <BaseCard channelColor={color}>
+        <CustomCardContent>
+          <Typography variant="overline" display="block">{name}</Typography>
+        </CustomCardContent>
+        <SmrContainer>
+          <ChannelLetterButtons/>
+        </SmrContainer>
+    </BaseCard>
   );
 }
 
