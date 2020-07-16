@@ -18,8 +18,8 @@ function Click() {
     }
 
     const id = transport.scheduleRepeat((time) => {
-      osc.start(time + 0.05).stop(time + 0.1);
-    }, "4n", "0");
+      osc.start(time).stop(time + 0.05);
+    }, "4n", 0);
 
     return () => {
       transport.clear(id);

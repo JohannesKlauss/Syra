@@ -23,12 +23,12 @@ const PlayheadIndicator = styled('span')({
     content: '"\\25BC"',
     bottom: '100%',
     color: 'white',
-    fontSize: 28,
-    left: -7,
+    fontSize: 31,
+    left: -9,
     position: 'absolute',
     textAlign: 'center',
-    width: 30,
-    top: -28,
+    width: 32,
+    top: -31,
   },
   '&:after': {
     backgroundColor: 'white',
@@ -36,9 +36,9 @@ const PlayheadIndicator = styled('span')({
     content: '""',
     display: 'inline-block',
     height: '100%',
-    marginLeft: 7,
+    marginLeft: 6,
     marginTop: -1,
-    width: 2,
+    width: 1,
   },
 });
 
