@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { useRecoilValue } from 'recoil/dist';
 import * as Tone from 'tone';
@@ -21,11 +21,16 @@ export default function useAudioToneConnector() {
   const [toneChannel] = useState(toneChannelFactory());
   const [toneRmsMeter] = useState(toneMeterFactory());
   const [tonePlayers] = useState(tonePlayersFactory());
+  const playerSchedules = useRef<number[]>([]);
+
+  useEffect(() => {
+    transport.on('stop', () => tonePlayers.stopAll());
+  }, []);
 
   const disconnect = useCallback(() => {
     audioIn.close();
     Tone.disconnect(audioIn);
-  }, [audioIn, tonePlayers]);
+  }, [audioIn]);
 
   const connect = useCallback(async () => {
     if (isMuted) {
@@ -44,29 +49,33 @@ export default function useAudioToneConnector() {
 
       if (region.audioBuffer && !tonePlayers.has(id)) {
         tonePlayers.add(id, region.audioBuffer);
-
-        console.log('start', region.start);
-
-        transport.schedule(() => {
-          tonePlayers.player(id).set({mute: region.isMuted}).start(region.start);
-          tonePlayers.player(id).onstop = () => console.log('stop', id);
-        }, 0);
       }
+
+      const clearId = playerSchedules.current.shift();
+
+      if (clearId !== undefined) {
+        transport.clear(clearId);
+      }
+
+      const scheduleId = transport.schedule((time) => {
+        tonePlayers.player(id).set({ mute: region.isMuted }).start(time + 0.005);
+      }, region.start - (region.start === 0 ? 0 : 0.05));
+
+      playerSchedules.current.push(scheduleId);
     });
 
-
     Tone.connectSeries(tonePlayers, ...pluginNodes, toneChannel, toneRmsMeter, Tone.Destination);
-  }, [audioIn, soulPlugins, isArmed, isMuted, toneChannel, toneRmsMeter, disconnect, regions, regionIds]);
+  }, [audioIn, soulPlugins, isArmed, isMuted, toneChannel, toneRmsMeter, disconnect, regions, regionIds, playerSchedules, tonePlayers, transport]);
 
   useEffect(() => {
-    toneChannel.set({solo: isSolo});
+    toneChannel.set({ solo: isSolo });
   }, [isSolo, toneChannel]);
 
   useEffect(() => {
     (async () => await connect())();
 
     return () => disconnect();
-  }, [isMuted, isArmed, connect, disconnect, regions]);
+  }, [isMuted, isArmed, connect, disconnect]);
 
   return { toneChannel, toneRmsMeter };
 }

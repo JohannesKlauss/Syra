@@ -19,10 +19,9 @@ function PlayRecord() {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const onClickPlayPause = useCallback(() => {
-    console.log('is playing', isPlaying);
-    isPlaying ? transport.stop() : transport.start();
+    transport.toggle();
     setIsPlaying(currVal => !currVal);
-  }, [setIsPlaying, transport, isPlaying]);
+  }, [setIsPlaying, transport]);
 
   const onClickReset = useCallback(() => {
     transport.position = 0;
