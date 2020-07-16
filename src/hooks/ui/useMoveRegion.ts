@@ -9,7 +9,6 @@ export default function useMoveRegion(isSelected: boolean) {
   const [isDraggingActive, setIsDraggingActive] = useState(false);
   const pixelPerSecond = useRecoilValue(arrangeWindowStore.pixelPerSecond);
   const isSnapActive = useRecoilValue(arrangeWindowStore.isSnapActive);
-  const snapValue = useRecoilValue(arrangeWindowStore.snapValue);
   const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
   const [start, setStart] = useRecoilState(regionStore.start(id));
   const initialValues = useRef({ x: 0, offset: start });
@@ -20,9 +19,9 @@ export default function useMoveRegion(isSelected: boolean) {
       offset: start * pixelPerSecond,
     };
     setIsDraggingActive(isSelected);
-  }, [initialValues, setIsDraggingActive, isSelected, start]);
+  }, [initialValues, setIsDraggingActive, isSelected, start, pixelPerSecond]);
 
-  const onMouseUpLeave = useCallback(() => setIsDraggingActive(false), []);
+  const onMouseUpLeave = useCallback(() => setIsDraggingActive(false), [setIsDraggingActive]);
 
   const onMouseMove = useCallback((e) => {
     if (isDraggingActive) {
@@ -32,7 +31,7 @@ export default function useMoveRegion(isSelected: boolean) {
 
       setStart(snappedPos >= 0 ? snappedPos / pixelPerSecond : 0);
     }
-  }, [isDraggingActive, start, setStart, snapValue, isSnapActive, pixelPerSecond, initialValues]);
+  }, [isDraggingActive,  setStart, isSnapActive, pixelPerSecond, initialValues, snapWidth]);
 
   return {
     onMouseDown,
