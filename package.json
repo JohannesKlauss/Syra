@@ -48,7 +48,7 @@
     "@types/uniqid": "5.2.0",
     "@welldone-software/why-did-you-render": "4.2.5",
     "prettier": "2.0.5",
-    "typescript": "3.9.6"
+    "typescript": "3.9.7"
   },
   "scripts": {
     "start": "react-scripts start",

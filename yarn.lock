@@ -4873,11 +4873,6 @@ colorette@^1.2.0:
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.2.0.tgz#45306add826d196e8c87236ac05d797f25982e63"
   integrity sha512-soRSroY+OF/8OdA3PTQXwaDJeMc7TfknKKrxeSCencL2a4+Tx5zhxmmv7hdpCjhKBjehzp8+bwe/T68K0hpIjw==
 
-colors.css@~3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/colors.css/-/colors.css-3.0.0.tgz#511cf42fb8a7199a8cbef49c88a4ea4f1d8f9efc"
-  integrity sha1-URz0L7inGZqMvvSciKTqTx2Pnvw=
-
 colors@^1.1.2:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
@@ -6422,7 +6417,7 @@ eventemitter3@^3.1.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
-eventemitter3@^4.0.0, eventemitter3@~4.0.0:
+eventemitter3@^4.0.0:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.4.tgz#b5463ace635a083d018bdc7c917b4c5f10a85384"
   integrity sha512-rlaVLnVxtxvoyLsQQFBx53YmXHDxRIzzTLbdfxqi4yocpSjAxXwkU0cScM5JgSKMqEhrZpnvQ2D9gjylR0AimQ==
@@ -7866,11 +7861,6 @@ ini@^1.3.5:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
   integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
 
-inline-worker@~1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/inline-worker/-/inline-worker-1.1.0.tgz#55e96f54915a642b00872a2daa6fe832b424c98d"
-  integrity sha1-VelvVJFaZCsAhyotqm/oMrQkyY0=
-
 inquirer@6.5.0:
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-6.5.0.tgz#2303317efc9a4ea7ec2e2df6f86569b734accf42"
@@ -9308,11 +9298,6 @@ konva@7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/konva/-/konva-7.0.3.tgz#7841e4f8bfd1ce839cf38390b7e33d79a4b2ac34"
   integrity sha512-Qgq4DtzNeJdx2f5wDnhcvojddvYFYn/8dNvf0TrGe3sVyYMG3Jj/aVq37dfjYlOzvWPlE1aGcc0xqNRpnxHL5A==
-
-konva@~5.0.2:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/konva/-/konva-5.0.3.tgz#a6ff4da2dfdcd36c33459255c5b7d9fe3e908898"
-  integrity sha512-OF5nWlVapUleqEW+0Bn1xNMMydFpPyo4aKS4UmHX2tt6Qvk+5e0PrkhwcM0htL/M+M+RObCnm8IYCTrsT3bNKw==
 
 last-call-webpack-plugin@^3.0.0:
   version "3.0.0"
@@ -10857,16 +10842,6 @@ pbkdf2@^3.0.3:
     ripemd160 "^2.0.1"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
-
-peaks.js@^0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/peaks.js/-/peaks.js-0.21.0.tgz#3418953f7718e8e7060fc9afca625f356c425446"
-  integrity sha512-qKHnJXqwSOAR3RXWJdXWGz+hszgnIKxjnWYE4mkcLufYqw220w9+QvjMfW+lsI9n9Z49gBlXYQaJZbomGyYUNg==
-  dependencies:
-    colors.css "~3.0.0"
-    eventemitter3 "~4.0.0"
-    konva "~5.0.2"
-    waveform-data "~3.3.1"
 
 performance-now@^2.1.0:
   version "2.1.0"
@@ -14296,10 +14271,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.9.6:
-  version "3.9.6"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.6.tgz#8f3e0198a34c3ae17091b35571d3afd31999365a"
-  integrity sha512-Pspx3oKAPJtjNwE92YS05HQoY7z2SFyOpHo9MqJor3BXAGNaPUs83CuVp9VISFkSjyRfiTpmKuAYGJB7S7hOxw==
+typescript@3.9.7:
+  version "3.9.7"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
+  integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
 
 ua-parser-js@^0.7.18:
   version "0.7.21"
@@ -14642,13 +14617,6 @@ watchpack@^1.6.0, watchpack@^1.6.1:
   optionalDependencies:
     chokidar "^3.4.0"
     watchpack-chokidar2 "^2.0.0"
-
-waveform-data@~3.3.1:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/waveform-data/-/waveform-data-3.3.2.tgz#4801c7535e3116579fb501fb9f5cac0722ab63fa"
-  integrity sha512-F50MPz9tglSekTkaSKsqpNOYGI8Xl5yJkz6ivjUANNv2hkNaK7jPrQhdhfiWFBQVsCSRu8CFMkMMDKEVbJaXTg==
-  dependencies:
-    inline-worker "~1.1.0"
 
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"
