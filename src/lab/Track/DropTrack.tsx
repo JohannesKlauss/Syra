@@ -22,7 +22,7 @@ function DropTrack() {
     files.forEach(file => {
       // TODO: CURRENTLY THIS DOESN'T WORK FOR MULTIPLE FILES BECAUSE THE CHANNEL ID
       (async () => {
-        const createRegion = createChannel(ChannelType.AUDIO);
+        const createRegion = createChannel(ChannelType.AUDIO, file.name.split('.')[0]);
 
         await createRegion(file);
       })();

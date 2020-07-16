@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { styled } from '@material-ui/core';
 import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
-import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
+import usePlayheadAnimation from '../../hooks/ui/usePlayheadAnimation';
 
 interface PlayheadProps {
   translateX: number;
@@ -43,29 +43,12 @@ const PlayheadIndicator = styled('span')({
 });
 
 function Playhead() {
-  const transport = useToneJsTransport();
   const snappedPlayheadPos = useRecoilValue(arrangeWindowStore.snappedPlayheadPosition);
   const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
   const snapValue = useRecoilValue(arrangeWindowStore.snapValue);
-  const pixelPerSeconds = useRecoilValue(arrangeWindowStore.pixelPerSecond);
-  const [transportTranslate, setTransportTranslate] = useState(0);
-  const animRef = useRef<number>(0);
+  const transportTranslate = usePlayheadAnimation();
 
   const translateX = (snappedPlayheadPos - 1) * (snapWidth * (1 / snapValue));
-
-  const animate = () => {
-    setTransportTranslate(transport.seconds * pixelPerSeconds);
-
-    animRef.current = requestAnimationFrame(animate);
-  };
-
-  useEffect(() => {
-    animRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      cancelAnimationFrame(animRef.current);
-    }
-  }, [pixelPerSeconds]);
 
   return (
     <PlayheadIndicator translateX={translateX + transportTranslate}/>

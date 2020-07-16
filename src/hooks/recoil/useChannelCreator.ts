@@ -13,14 +13,19 @@ export default function useChannelCreator() {
 
   // TODO: FIGURE OUT A WAY TO UPDATE THESE FAST ENOUGH. WHEN DROPPING IN MULTIPLE FILES WE END UP WITH THE SAME CHANNEL ID.
   const setChannelType = useSetRecoilState(channelStore.type(nextChannelId.current));
+  const setChannelName = useSetRecoilState(channelStore.name(nextChannelId.current));
   const createRegion = useRegionCreator(nextChannelId.current);
 
-  return useCallback((type: ChannelType) => {
+  return useCallback((type: ChannelType, name?: string) => {
     setChannelIds(currVal => [...currVal, nextChannelId.current]);
     setChannelType(type);
+
+    if (name) {
+      setChannelName(name);
+    }
 
     nextChannelId.current = createNewId(CHANNEL_ID_PREFIX);
 
     return createRegion;
-  }, [setChannelIds, setChannelType, createRegion]);
+  }, [setChannelIds, setChannelType, createRegion, setChannelName]);
 }
