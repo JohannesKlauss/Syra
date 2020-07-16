@@ -13,7 +13,6 @@ interface BaseContainerProps {
 const BaseContainer = styled('div')({
   width: '100%',
   height: 70,
-  borderBottom: `1px solid ${splinterTheme.palette.background.paper}`,
   backgroundColor: ({ backgroundColor }: BaseContainerProps) => backgroundColor,
   position: 'relative',
 });

@@ -17,6 +17,7 @@ interface BaseContainerProps {
 
 const BaseContainer = styled(Paper)({
   margin: 0,
+  marginTop: 1,
   height: 68,
   willChange: 'transform',
   position: 'relative',
