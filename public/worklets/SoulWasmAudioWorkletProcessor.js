@@ -1,4 +1,5 @@
 // Based on https://github.com/GoogleChromeLabs/web-audio-samples/blob/master/audio-worklet/design-pattern/wasm/wasm-worklet-processor.js
+// This is taken from the https://soul.dev site itself. But we might have to tinker with it a bit and probably use a share audio buffer concept.
 
 class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
   /**

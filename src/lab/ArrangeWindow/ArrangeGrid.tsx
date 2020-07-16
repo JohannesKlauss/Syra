@@ -9,6 +9,7 @@ const BaseContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   overflowX: 'scroll',
+  overflowY: 'hidden',
   backgroundColor: splinterTheme.palette.background.default,
   paddingLeft: ARRANGE_GRID_OFFSET * (-2),
 });

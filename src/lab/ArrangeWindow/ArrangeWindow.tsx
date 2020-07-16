@@ -9,7 +9,7 @@ import TransportView from '../Transport/TransportView';
 const BaseContainer = styled(Container)({
   overflow: 'hidden',
   width: '100%',
-  height: '40vh',
+  maxHeight: '80vh',
   padding: '5px 0',
   backgroundColor: splinterTheme.palette.background.paper,
 });

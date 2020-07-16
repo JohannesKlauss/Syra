@@ -55,10 +55,15 @@ const findByIds = selectorFamily<RegionState[], string[]>({
   get: ids => ({get}) => ids.map(id => get(regionState(id))),
 });
 
+const findIdsByChannelId = selectorFamily<string[], string>({
+  key: 'region/findByChannelId',
+  get: channelId => ({get}) => get(ids(channelId)),
+});
+
 const findByChannelId = selectorFamily<RegionState[], string>({
   key: 'region/findByChannelId',
   get: channelId => ({get}) => get(ids(channelId)).map(id => get(regionState(id))),
-})
+});
 
 export const regionStore = {
   start,
@@ -67,6 +72,7 @@ export const regionStore = {
   regionState,
   ids,
   findByIds,
+  findIdsByChannelId,
   findByChannelId,
   isSolo,
   isMuted,

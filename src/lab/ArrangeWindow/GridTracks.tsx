@@ -16,7 +16,6 @@ const BaseContainer = styled(Box)({
   overflow: 'hidden',
   backgroundColor: splinterTheme.palette.background.default,
   position: 'relative',
-  height: 370,
   width: ({windowWidth}: ArrangeWindowProps) => windowWidth,
 });
 
