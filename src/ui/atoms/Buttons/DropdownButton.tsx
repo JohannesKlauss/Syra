@@ -16,7 +16,7 @@ interface Props {
   color?: PropTypes.Color;
 }
 
-const DropdownButton: React.FC<Props> = React.memo(({ onClick, children, menuItems, color = 'primary' }) => {
+const DropdownButton: React.FC<Props> = ({ onClick, children, menuItems, color = 'primary' }) => {
   const anchorRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -46,6 +46,6 @@ const DropdownButton: React.FC<Props> = React.memo(({ onClick, children, menuIte
       </Popper>
     </>
   );
-});
+};
 
 export default DropdownButton;

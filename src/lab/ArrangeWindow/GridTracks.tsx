@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, styled, useTheme } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import { useRecoilValue } from 'recoil/dist';
-import { arrangeWindowStore } from '../../recoil/arrangeWindow';
+import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import { channelStore } from '../../recoil/channelStore';
 import { ChannelContext } from '../../providers/ChannelContext';
 import Track from '../Track/Track';

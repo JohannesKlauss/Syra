@@ -19,7 +19,7 @@ function Bpm() {
 
   useEffect(() => {
     transport.set({bpm});
-  }, [bpm]);
+  }, [bpm, transport]);
 
   return (
     <BaseContainer>

@@ -1,22 +1,24 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef } from 'react';
 import { useSetRecoilState } from 'recoil/dist';
 import { channelStore } from '../../recoil/channelStore';
 import { ChannelType } from '../../types/Channel';
-const uniqid = require('uniqid');
+import { createNewId } from '../../utils/createNewId';
+import useRegionCreator from './useRegionCreator';
 
 const CHANNEL_ID_PREFIX = 'channel-';
 
-const createNewChannelId = () => uniqid(CHANNEL_ID_PREFIX);
-
 export default function useChannelCreator() {
-  const [nextChannelId, setNextChannelId] = useState(createNewChannelId());
+  const nextChannelId = useRef(createNewId(CHANNEL_ID_PREFIX));
   const setChannelIds = useSetRecoilState(channelStore.ids);
-  const setChannelType = useSetRecoilState(channelStore.type(nextChannelId));
+  const setChannelType = useSetRecoilState(channelStore.type(nextChannelId.current));
+  const createRegion = useRegionCreator(nextChannelId.current);
 
   return useCallback((type: ChannelType) => {
-    setChannelIds(currVal => [...currVal, nextChannelId]);
+    setChannelIds(currVal => [...currVal, nextChannelId.current]);
     setChannelType(type);
 
-    setNextChannelId(createNewChannelId());
-  }, [setChannelIds, nextChannelId, setNextChannelId, setChannelType]);
+    nextChannelId.current = createNewId(CHANNEL_ID_PREFIX);
+
+    return createRegion;
+  }, [setChannelIds, setChannelType, createRegion]);
 }

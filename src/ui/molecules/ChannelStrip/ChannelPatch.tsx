@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { SetterOrUpdater } from 'recoil/dist';
-import { AvailableSoulPatch } from '../../../recoil/soulPatches';
+import { AvailableSoulPatch } from '../../../recoil/soulPatchesStore';
 import { createSoulInstance } from '../../../soul/createSoulInstance';
 import {
   Container,

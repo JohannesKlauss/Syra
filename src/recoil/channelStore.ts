@@ -1,10 +1,11 @@
 import { atom, atomFamily, selector, selectorFamily } from 'recoil/dist';
 import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
-import { audioInOutStore } from './audioInOut';
+import { audioInOutStore } from './audioInOutStore';
 import { teal } from '@material-ui/core/colors';
 import * as Tone from 'tone';
 import { channelTypeToLabel } from '../utils/channelTypeToLabel';
+import { RegionState, regionStore } from './regionStore';
 
 const name = atomFamily<string, string>({
   key: 'channel/name',
@@ -117,27 +118,31 @@ interface ChannelState {
   isArmed: boolean;
   channelType: ChannelType;
   toneJsChannel: Tone.Channel | null;
+  regionIds: string[];
+  regions: RegionState[];
 }
 
 // The complete channel state. You would not really use this to set state, because every atom is gettable with just the
 // channelId which gets provided by the ChannelContext anyway.
 const state = selectorFamily<ChannelState, string>({
   key: `channel/state`,
-  get: channelId => ({ get }) => {
-    const soulPluginIds = get(pluginIds(channelId));
+  get: id => ({ get }) => {
+    const soulPluginIds = get(pluginIds(id));
 
     return {
-      name: get(name(channelId)),
-      color: get(color(channelId)),
-      soulInstrument: get(soulInstance(channelId)),
+      name: get(name(id)),
+      color: get(color(id)),
+      soulInstrument: get(soulInstance(id)),
       soulPlugins: get(findPluginsByIds(soulPluginIds)),
       soulPluginIds,
-      isSolo: get(isSolo(channelId)),
-      isMuted: get(isMuted(channelId)),
-      isArmed: get(isArmed(channelId)),
-      channelType: get(type(channelId)),
-      toneJsChannel: get(toneJsChannel(channelId)),
-    }
+      isSolo: get(isSolo(id)),
+      isMuted: get(isMuted(id)),
+      isArmed: get(isArmed(id)),
+      channelType: get(type(id)),
+      toneJsChannel: get(toneJsChannel(id)),
+      regionIds: get(regionStore.ids(id)),
+      regions: get(regionStore.findByChannelId(id))
+    };
   }
 });
 

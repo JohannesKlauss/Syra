@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'development') {
     onlyLogs: true,
     titleColor: 'green',
     diffNameColor: 'aqua',
-    trackAllPureComponents: true,
+    trackAllPureComponents: false,
   });
 }
 

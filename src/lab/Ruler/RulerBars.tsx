@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useRecoilValue } from 'recoil/dist';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
-import { arrangeWindowStore } from '../../recoil/arrangeWindow';
+import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 
 const Bars = styled(Box)({
   height: 20,

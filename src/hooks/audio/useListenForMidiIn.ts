@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil/dist';
 import WebMidi from 'webmidi';
 import { useEffect } from 'react';
-import { keyboardMidiStore } from '../../recoil/keyboardMidi';
+import { keyboardMidiStore } from '../../recoil/keyboardMidiStore';
 
 /**
  * This hook listens to MIDI in and triggers whatever callback is given.

@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil/dist';
 import { useCallback } from 'react';
 import useListenForMidiIn from '../audio/useListenForMidiIn';
-import { keyboardMidiStore } from '../../recoil/keyboardMidi';
+import { keyboardMidiStore } from '../../recoil/keyboardMidiStore';
 
 export type MidiCallable = (msg: number, note: number, velocity: number) => void;
 

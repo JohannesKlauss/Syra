@@ -3,7 +3,7 @@ import { Box, MenuItem, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import DropdownButton from '../../ui/atoms/Buttons/DropdownButton';
 import { useRecoilState } from 'recoil/dist';
-import { arrangeWindowStore } from '../../recoil/arrangeWindow';
+import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import { mapNumberToNote } from '../../utils/noteMapper';
 
 const BaseContainer = styled(Box)({

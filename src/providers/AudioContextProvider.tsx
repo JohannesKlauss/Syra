@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
-import { Box, Container, FormControl, Grid, InputLabel, MenuItem, Select, styled } from '@material-ui/core';
+import { Box, FormControl, Grid, InputLabel, MenuItem, Select, styled } from '@material-ui/core';
 import Home from '../ui/screen/Home';
 import { useRecoilState } from 'recoil/dist';
 import WebMidi from 'webmidi';
-import { keyboardMidiStore } from '../recoil/keyboardMidi';
+import { keyboardMidiStore } from '../recoil/keyboardMidiStore';
 
 const BaseContainer = styled(Box)({
   width: '100vw',

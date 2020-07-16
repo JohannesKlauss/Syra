@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import ParameterList from '../Parameters/ParameterList';
 import ChannelPatch from './ChannelPatch';
 import { channelStore } from '../../../recoil/channelStore';
-import { soulPatchesStore } from '../../../recoil/soulPatches';
+import { soulPatchesStore } from '../../../recoil/soulPatchesStore';
 
 interface Props {
   id: string;

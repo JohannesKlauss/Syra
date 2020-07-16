@@ -3,7 +3,7 @@ import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import GridTransportCursor from '../ArrangeWindow/GridTransportCursor';
 import { useRecoilValue } from 'recoil/dist';
-import { arrangeWindowStore } from '../../recoil/arrangeWindow';
+import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import RulerBars from './RulerBars';
 
 interface BaseContainerProps {

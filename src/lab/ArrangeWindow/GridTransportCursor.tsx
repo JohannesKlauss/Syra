@@ -4,7 +4,7 @@ import { splinterTheme } from '../../theme';
 import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import {
   arrangeWindowStore,
-} from '../../recoil/arrangeWindow';
+} from '../../recoil/arrangeWindowStore';
 import { ARRANGE_GRID_OFFSET } from '../../const/ui';
 
 interface BaseContainerProps {

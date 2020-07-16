@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil/dist';
 import { channelStore } from '../../recoil/channelStore';
-import { Box, styled, Typography } from '@material-ui/core';
+import { Box, styled } from '@material-ui/core';
 import VerticalChannel from './VerticalChannel';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { splinterTheme } from '../../theme';

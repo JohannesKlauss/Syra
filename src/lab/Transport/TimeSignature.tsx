@@ -23,7 +23,7 @@ function TimeSignature() {
         over: !isBeats ? value : timeSignature.over,
       });
     }
-  }, [setTimeSignature]);
+  }, [setTimeSignature, timeSignature]);
 
   return (
     <BaseContainer>

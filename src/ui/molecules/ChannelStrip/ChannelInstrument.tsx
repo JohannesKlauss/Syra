@@ -3,7 +3,7 @@ import { ChannelContext } from '../../../providers/ChannelContext';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import SoulInstrument from './SoulInstrument';
 import ChannelPatch from './ChannelPatch';
-import { soulPatchesStore } from '../../../recoil/soulPatches';
+import { soulPatchesStore } from '../../../recoil/soulPatchesStore';
 import { channelStore } from '../../../recoil/channelStore';
 
 function ChannelInstrument() {
