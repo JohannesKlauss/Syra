@@ -21,10 +21,16 @@ const timeSignature = atom<TimeSignature>({
     beats: 4,
     over: 4,
   },
-})
+});
+
+const isClickMuted = atom<boolean>({
+  key: 'project/isClickMuted',
+  default: true,
+});
 
 export const projectStore = {
   bpm,
   length,
   timeSignature,
+  isClickMuted,
 };

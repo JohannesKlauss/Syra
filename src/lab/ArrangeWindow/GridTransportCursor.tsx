@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
@@ -6,6 +6,8 @@ import {
   arrangeWindowStore,
 } from '../../recoil/arrangeWindowStore';
 import { ARRANGE_GRID_OFFSET } from '../../const/ui';
+import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
+import * as Tone from 'tone';
 
 interface BaseContainerProps {
   windowWidth: number;
@@ -59,6 +61,7 @@ const Playhead = styled('span')({
 });
 
 function GridTransportCursor() {
+  const transport = useToneJsTransport();
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
   const setPlayheadPos = useSetRecoilState(arrangeWindowStore.playheadPosition);
   const snappedPlayheadPos = useRecoilValue(arrangeWindowStore.snappedPlayheadPosition);
@@ -91,6 +94,16 @@ function GridTransportCursor() {
       calcPlayheadPos(e);
     }
   }, [calcPlayheadPos, isCursorDragging]);
+
+  useEffect(() => {
+    const id = transport.scheduleRepeat(() => {
+      setPlayheadPos(currVal => currVal + 0.25);
+    }, "4n", "0");
+
+    return () => {
+      transport.clear(id);
+    };
+  }, [transport, setPlayheadPos]);
 
   return (
     <BaseContainer windowWidth={windowWidth} onMouseDown={() => setIsCursorDragging(true)}

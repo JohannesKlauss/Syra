@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import PlayRecord from './PlayRecord';
 import Bpm from './Bpm';
 import TimeSignature from './TimeSignature';
+import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
+import Click from './Click';
 
 const BaseContainer = styled(Container)({
   overflow: 'hidden',
@@ -20,6 +22,7 @@ function TransportView() {
   return (
     <BaseContainer>
       <PlayRecord/>
+      <Click/>
       <Bpm/>
       <TimeSignature/>
     </BaseContainer>
