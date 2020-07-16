@@ -1,14 +1,14 @@
 import { atomFamily, selectorFamily } from 'recoil/dist';
 import * as Tone from 'tone';
 
-const start = atomFamily<string, string>({
+const start = atomFamily<number, string>({
   key: 'region/start',
-  default: '1:0:0', // This is actually Tone.TimeValue, but the type isn't exported from the lib.
+  default: 0, // This is measured in seconds.
 });
 
-const end = atomFamily<string, string>({
+const end = atomFamily<number, string>({
   key: 'region/end',
-  default: '2:0:0',
+  default: 0,
 });
 
 const isMuted = atomFamily<boolean, string>({
@@ -28,8 +28,8 @@ const audioBuffer = atomFamily<Tone.ToneAudioBuffer | null, string>({
 
 export interface RegionState {
   audioBuffer: Tone.ToneAudioBuffer | null;
-  start: string;
-  end: string;
+  start: number;
+  end: number;
   isMuted: boolean;
   isSolo: boolean;
 }

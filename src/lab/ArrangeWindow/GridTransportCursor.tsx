@@ -54,6 +54,7 @@ function GridTransportCursor() {
 
   return (
     <BaseContainer windowWidth={windowWidth} onMouseDown={() => setIsCursorDragging(true)}
+                   onMouseLeave={() => setIsCursorDragging(false)}
                    onMouseUp={() => setIsCursorDragging(false)} onMouseMove={onPlayheadDrag}
                    onClick={onClickTransport}>
       <Playhead/>

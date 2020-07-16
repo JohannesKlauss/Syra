@@ -56,12 +56,17 @@ const resolution = selector({
 
 const pixelPerSecond = selector({
   key: 'arrangeWindow/pixelPerSecond',
-  get: ({get}) => {
-    const pixelPerBeat = (get(width) / get(projectStore.length) / 4); // The project length is measured in bars. So we have to divide by 4 to get beats.
-    const beatsPerSecond = 1 / (get(projectStore.bpm) / 60);
+  get: ({get}) => get(pixelPerBeat) / get(beatsPerSecond),
+});
 
-    return pixelPerBeat / beatsPerSecond;
-  }
+const pixelPerBeat = selector({
+  key: 'arrangeWindow/pixelPerBeat',
+  get: ({get}) => (get(width) / get(projectStore.length) / 4),
+});
+
+const beatsPerSecond = selector({
+  key: 'arrangeWindow/beatsPerSecond',
+  get: ({get}) => 1 / (get(projectStore.bpm) / 60),
 });
 
 const rulerItems = selector({
@@ -96,4 +101,6 @@ export const arrangeWindowStore = {
   resolution,
   rulerItems,
   pixelPerSecond,
+  pixelPerBeat,
+  beatsPerSecond,
 };

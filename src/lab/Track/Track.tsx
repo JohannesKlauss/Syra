@@ -41,21 +41,16 @@ const Track = React.memo(({ backgroundColor }: Props) => {
   const channelId = useContext(ChannelContext);
   const createRegion = useRegionCreator(channelId);
 
-  const onDrop = useCallback(async (files: File[]) => {
+  /*const onDrop = useCallback(async (files: File[]) => {
     // TODO: WE SHOULD ALSO BE ABLE TO SUPPORT MIDI FILES LATER ON.
     files.forEach(file => {
       (async () => await createRegion(file))();
     });
   }, [createRegion]);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });*/
 
   return (
-    <BaseContainer backgroundColor={backgroundColor} {...getRootProps()}>
-      <input {...getInputProps()}/>
-      <DropIndicator doShow={isDragActive}>
-        <Typography variant="overline" color={'primary'}
-                    display="block">Drop audio here to add to track</Typography>
-      </DropIndicator>
+    <BaseContainer backgroundColor={backgroundColor} id={`track-${channelId}`}>
       <RegionList/>
     </BaseContainer>
   );
