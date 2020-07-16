@@ -3,7 +3,6 @@ import { styled, Typography } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { useDropzone } from 'react-dropzone';
-import useAudioContext from '../../hooks/audio/useAudioContext';
 import useRegionCreator from '../../hooks/recoil/useRegionCreator';
 import RegionList from './Region/RegionList';
 
@@ -40,7 +39,6 @@ interface Props {
 
 const Track = React.memo(({ backgroundColor }: Props) => {
   const channelId = useContext(ChannelContext);
-  const audioContext = useAudioContext();
   const createRegion = useRegionCreator(channelId);
 
   const onDrop = useCallback(async (files: File[]) => {
@@ -48,7 +46,7 @@ const Track = React.memo(({ backgroundColor }: Props) => {
     files.forEach(file => {
       (async () => await createRegion(file))();
     });
-  }, [audioContext, createRegion]);
+  }, [createRegion]);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (

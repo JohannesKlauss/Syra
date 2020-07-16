@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { styled, Typography } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
-import useAudioContext from '../../hooks/audio/useAudioContext';
 import { useDropzone } from 'react-dropzone';
 import useChannelCreator from '../../hooks/recoil/useChannelCreator';
 import { ChannelType } from '../../types/Channel';
@@ -16,7 +15,6 @@ const BaseContainer = styled('div')({
 });
 
 function DropTrack() {
-  const audioContext = useAudioContext();
   const createChannel = useChannelCreator();
 
   const onDrop = useCallback(async (files: File[]) => {
@@ -29,7 +27,7 @@ function DropTrack() {
         await createRegion(file);
       })();
     });
-  }, [audioContext, createChannel]);
+  }, [createChannel]);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (

@@ -14,11 +14,7 @@ const BaseContainer = styled(Box)({
   height: '100%',
 });
 
-interface Props {
-
-}
-
-function RegionList({}: Props) {
+function RegionList() {
   const channelId = useContext(ChannelContext);
   const regions = useRecoilValue(regionStore.findIdsByChannelId(channelId));
 

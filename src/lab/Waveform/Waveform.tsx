@@ -3,9 +3,11 @@ import React, { useEffect, useRef } from 'react';
 
 interface Props {
   audioBuffer?: AudioBuffer;
+  height: number;
+  width: number;
 }
 
-function WaveForm({ audioBuffer }: Props) {
+function Waveform({ audioBuffer, height, width }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -14,10 +16,9 @@ function WaveForm({ audioBuffer }: Props) {
     }
 
     const ctx = canvasRef.current.getContext('2d');
-    const width = 300;
     const length = audioBuffer.getChannelData(0).length;
     const step = Math.ceil( length / width); // TODO: THIS STEP RESOLUTION IS ACTUALLY DETERMINED BY THE ZOOM LEVEL OF THE ARRANGE WINDOW.
-    const halfHeight = 35; // TODO: THIS WILL BE DERIVED FROM THE arrangeWindowStore ONCE WE GET ZOOMABLE TRACKS GOING.
+    const halfHeight = height / 2;
 
     if(ctx) {
       ctx.fillStyle = '#fff';
@@ -48,11 +49,11 @@ function WaveForm({ audioBuffer }: Props) {
 
       ctx?.fillRect(i, (1 + min) * halfHeight, 1, Math.max(1, (max - min) * halfHeight));
     }
-  }, [audioBuffer, canvasRef]);
+  }, [audioBuffer, canvasRef, width, height]);
 
   return (
-    <canvas ref={canvasRef}/>
+    <canvas ref={canvasRef} width={width} height={height}/>
   );
 }
 
-export default WaveForm;
+export default Waveform;

@@ -30,7 +30,7 @@ function TimeSignature() {
 
       transport.set({timeSignature: beats * (4 / over)});
     }
-  }, [setTimeSignature, timeSignature]);
+  }, [setTimeSignature, timeSignature, transport]);
 
   return (
     <BaseContainer>

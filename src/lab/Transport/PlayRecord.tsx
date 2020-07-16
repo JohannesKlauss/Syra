@@ -21,11 +21,16 @@ function PlayRecord() {
   const onClickPlayPause = useCallback(() => {
     transport.toggle();
     setIsPlaying(currVal => !currVal);
-  }, [transport]);
+  }, [setIsPlaying, transport]);
+
+  const onClickReset = useCallback(() => {
+    transport.position = '0:0:0';
+    setPlayheadPosition(1);
+  }, [transport, setPlayheadPosition]);
 
   return (
     <BaseContainer>
-      <IconButton color={'default'} component="span" onClick={() => setPlayheadPosition(1)}>
+      <IconButton color={'default'} component="span" onClick={onClickReset}>
         <SkipPreviousIcon/>
       </IconButton>
       <IconButton color={'primary'} component="span" onClick={onClickPlayPause}>
