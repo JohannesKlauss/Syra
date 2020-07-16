@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, styled } from '@material-ui/core';
+import React, { useEffect, useRef } from 'react';
+import { Box, RootRef, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import GridTracks from './GridTracks';
 import { ARRANGE_GRID_OFFSET } from '../../const/ui';
@@ -15,11 +15,19 @@ const BaseContainer = styled(Box)({
 });
 
 function ArrangeGrid() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // TODO: ADD SCROLLING WHEN PLAYHEAD IS TRACKED AND NOT VISIBLE ANYMORE.
+  }, [containerRef]);
+
   return (
-    <BaseContainer>
-      <Ruler/>
-      <GridTracks/>
-    </BaseContainer>
+    <RootRef rootRef={containerRef}>
+      <BaseContainer>
+        <Ruler/>
+        <GridTracks/>
+      </BaseContainer>
+    </RootRef>
   );
 }
 
