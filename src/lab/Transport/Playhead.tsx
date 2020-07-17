@@ -48,7 +48,6 @@ const PlayheadIndicator = styled('span')({
 });
 
 function Playhead() {
-  const transport = useToneJsTransport();
   const snappedPlayheadPos = useRecoilValue(arrangeWindowStore.snappedPlayheadPosition);
   const beatsPerSecond = useRecoilValue(arrangeWindowStore.beatsPerSecond);
   const isRecording = useRecoilValue(projectStore.isRecording);
@@ -56,9 +55,7 @@ function Playhead() {
   const transportTranslate = usePlayheadAnimation();
 
   useEffect(() => {
-    transport.seconds = (snappedPlayheadPos - 1) * 4 * beatsPerSecond;
-
-    setTransportSeconds(transport.seconds);
+    setTransportSeconds((snappedPlayheadPos - 1) * 4 * beatsPerSecond);
   }, [snappedPlayheadPos, beatsPerSecond]);
 
   return (

@@ -9,6 +9,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
 import { projectStore } from '../../recoil/projectStore';
+import { transportStore } from '../../recoil/transportStore';
 
 const BaseContainer = styled(Box)({
   marginLeft: 20,
@@ -18,6 +19,7 @@ const BaseContainer = styled(Box)({
 function PlayRecord() {
   const setPlayheadPosition = useSetRecoilState(arrangeWindowStore.playheadPosition);
   const [isRecording, setIsRecording] = useRecoilState(projectStore.isRecording);
+  const setTransportSeconds = useSetRecoilState(transportStore.seconds);
   const transport = useToneJsTransport();
   const [isPlaying, setIsPlaying] = useState(false); // TODO: THIS SHOULD PROBABLY LIVE IN THE RECOIL STATE
 
@@ -37,8 +39,8 @@ function PlayRecord() {
 
   const onClickReset = useCallback(() => {
     setPlayheadPosition(1);
-    transport.seconds = 0;
-  }, [setPlayheadPosition, transport]);
+    setTransportSeconds(0);
+  }, [setPlayheadPosition]);
 
   const onClickRecord = useCallback(() => {
     if (isRecording) {
