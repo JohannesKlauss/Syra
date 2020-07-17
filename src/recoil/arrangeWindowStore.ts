@@ -69,6 +69,11 @@ const beatsPerSecond = selector({
   get: ({get}) => 1 / (get(projectStore.bpm) / 60),
 });
 
+const secondsPerBeat = selector({
+  key: 'arrangeWindow/secondsPerBeat',
+  get: ({get}) => 60 / get(projectStore.bpm),
+});
+
 const rulerItems = selector({
   key: 'arrangeWindow/rulerItems',
   get: ({get}) => {
@@ -103,4 +108,5 @@ export const arrangeWindowStore = {
   pixelPerSecond,
   pixelPerBeat,
   beatsPerSecond,
+  secondsPerBeat,
 };

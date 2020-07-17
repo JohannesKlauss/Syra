@@ -27,7 +27,7 @@ function GridTracks() {
   return (
     <BaseContainer windowWidth={windowWidth}>
       {channelIds.map((id, i) => (
-        <ChannelContext.Provider value={id}>
+        <ChannelContext.Provider key={id} value={id}>
           <Track backgroundColor={i % 2 === 0 ? theme.palette.background.paper : theme.palette.background.default}/>
         </ChannelContext.Provider>
       ))}
