@@ -9,6 +9,8 @@ export const toneAudioInputFactorySync = () => new Tone.UserMedia();
 
 export const tonePlayersFactory = (regionBuffers?: ToneAudioBuffersUrlMap) => new Tone.Players(regionBuffers);
 
+export const toneMergeFactory = () => new Tone.Merge();
+
 export const audioInputFactory = async () => {
   const audioInterface = new Tone.UserMedia();
 

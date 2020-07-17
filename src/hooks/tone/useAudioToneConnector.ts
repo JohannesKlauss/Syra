@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil/dist';
 import * as Tone from 'tone';
 import {
   toneAudioInputFactorySync,
-  toneChannelFactory,
+  toneChannelFactory, toneMergeFactory,
   toneMeterFactory, tonePlayersFactory,
 } from '../../utils/tonejs';
 import { channelStore } from '../../recoil/channelStore';
@@ -21,6 +21,7 @@ export default function useAudioToneConnector() {
   const [toneChannel] = useState(toneChannelFactory());
   const [toneRmsMeter] = useState(toneMeterFactory());
   const [tonePlayers] = useState(tonePlayersFactory());
+  const [toneMerge] = useState(toneMergeFactory());
   const playerSchedules = useRef<number[]>([]);
 
   useEffect(() => {
@@ -30,7 +31,8 @@ export default function useAudioToneConnector() {
   const disconnect = useCallback(() => {
     audioIn.close();
     Tone.disconnect(audioIn);
-  }, [audioIn]);
+    Tone.disconnect(tonePlayers);
+  }, [audioIn, tonePlayers]);
 
   const connect = useCallback(async () => {
     if (isMuted) {
@@ -64,10 +66,11 @@ export default function useAudioToneConnector() {
       playerSchedules.current.push(scheduleId);
     });
 
-    audioIn.fan()
+    audioIn.connect(toneMerge);
+    tonePlayers.connect(toneMerge);
 
-    Tone.connectSeries(tonePlayers, ...pluginNodes, toneChannel, toneRmsMeter, Tone.Destination);
-  }, [audioIn, soulPlugins, isArmed, isMuted, toneChannel, toneRmsMeter, disconnect, regions, regionIds, playerSchedules, tonePlayers, transport]);
+    Tone.connectSeries(toneMerge, ...pluginNodes, toneChannel, toneRmsMeter, Tone.Destination);
+  }, [audioIn, toneMerge, soulPlugins, isArmed, isMuted, toneChannel, toneRmsMeter, disconnect, regions, regionIds, playerSchedules, tonePlayers, transport]);
 
   useEffect(() => {
     toneChannel.set({ solo: isSolo });
