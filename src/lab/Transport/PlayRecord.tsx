@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import { Box, IconButton, styled } from '@material-ui/core';
-import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
+import { useSetRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
 
@@ -15,24 +15,18 @@ const BaseContainer = styled(Box)({
 
 function PlayRecord() {
   const setPlayheadPosition = useSetRecoilState(arrangeWindowStore.playheadPosition);
-  const playheadPosition = useRecoilValue(arrangeWindowStore.snappedPlayheadPosition);
-  const secondsPerBeat = useRecoilValue(arrangeWindowStore.secondsPerBeat);
   const transport = useToneJsTransport();
   const [isPlaying, setIsPlaying] = useState(false);
 
   const onClickPlayPause = useCallback(() => {
-    isPlaying ? transport.stop() : transport.start("+0.05", `+${(playheadPosition - 1) * 4 * secondsPerBeat}`);
+    isPlaying ? transport.stop() : transport.start("+0.05");
 
     setIsPlaying(currVal => !currVal);
-  }, [setIsPlaying, transport, isPlaying, playheadPosition, secondsPerBeat]);
+  }, [setIsPlaying, transport, isPlaying]);
 
   const onClickReset = useCallback(() => {
     setPlayheadPosition(1);
   }, [setPlayheadPosition]);
-
-  useEffect(() => {
-    transport.on('start', (...args) => console.log('started', args[1]));
-  }, []);
 
   return (
     <BaseContainer>

@@ -37,6 +37,8 @@ function GridTransportCursor() {
       exactPos = 1;
     }
 
+    console.log('exactPos', exactPos);
+
     setPlayheadPos(exactPos);
   }, [setPlayheadPos, snapWidth, snapValue]);
 
