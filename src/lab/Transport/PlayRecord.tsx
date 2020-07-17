@@ -26,7 +26,8 @@ function PlayRecord() {
 
   const onClickReset = useCallback(() => {
     setPlayheadPosition(1);
-  }, [setPlayheadPosition]);
+    transport.seconds = 0;
+  }, [setPlayheadPosition, transport]);
 
   return (
     <BaseContainer>

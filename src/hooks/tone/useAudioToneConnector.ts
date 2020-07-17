@@ -59,10 +59,12 @@ export default function useAudioToneConnector() {
 
       const scheduleId = transport.schedule((time) => {
         tonePlayers.player(id).set({ mute: region.isMuted }).start(time + 0.005);
-      }, region.start - (region.start === 0 ? 0 : 0.05));
+      }, region.start - (region.start === 0 ? 0 : 0.005));
 
       playerSchedules.current.push(scheduleId);
     });
+
+    audioIn.fan()
 
     Tone.connectSeries(tonePlayers, ...pluginNodes, toneChannel, toneRmsMeter, Tone.Destination);
   }, [audioIn, soulPlugins, isArmed, isMuted, toneChannel, toneRmsMeter, disconnect, regions, regionIds, playerSchedules, tonePlayers, transport]);
