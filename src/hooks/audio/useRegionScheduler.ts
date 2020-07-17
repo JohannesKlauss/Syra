@@ -4,11 +4,13 @@ import useToneAudioNodes from '../tone/useToneAudioNodes';
 import useToneJsTransport from '../tone/useToneJsTransport';
 import { useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../recoil/regionStore';
+import { transportStore } from '../../recoil/transportStore';
 
 export default function useRegionScheduler() {
   const transport = useToneJsTransport();
   const { players } = useToneAudioNodes();
   const regionId = useContext(RegionContext);
+  const transportSeconds = useRecoilValue(transportStore.seconds);
   const { start, audioBuffer, isMuted } = useRecoilValue(regionStore.regionState(regionId));
   const [scheduleId, setScheduleId] = useState<number | null>(null);
 
@@ -21,14 +23,18 @@ export default function useRegionScheduler() {
       transport.clear(scheduleId);
     }
 
-    console.log('reschedule');
+    let scheduleAt = start - (start === 0 ? 0 : 0.005);
+    let offset = 0;
+
+    if (transportSeconds > scheduleAt) {
+      offset = transportSeconds - scheduleAt;
+      scheduleAt = transportSeconds;
+    }
 
     const newScheduleId = transport.schedule(time => {
-      players.player(regionId).set({ mute: isMuted }).start(time + 0.005);
-
-      console.log('start at', start - (start === 0 ? 0 : 0.005));
-    }, start - (start === 0 ? 0 : 0.005));
+      players.player(regionId).set({ mute: isMuted }).start(time + 0.005, offset);
+    }, scheduleAt);
 
     setScheduleId(newScheduleId);
-  }, [start, audioBuffer, players, isMuted, transport]);
+  }, [start, audioBuffer, players, isMuted, transport, transportSeconds]);
 }

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { styled } from '@material-ui/core';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import usePlayheadAnimation from '../../hooks/ui/usePlayheadAnimation';
 import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
 import { projectStore } from '../../recoil/projectStore';
 import { red } from '@material-ui/core/colors';
+import { transportStore } from '../../recoil/transportStore';
 
 interface PlayheadProps {
   translateX: number;
@@ -51,10 +52,13 @@ function Playhead() {
   const snappedPlayheadPos = useRecoilValue(arrangeWindowStore.snappedPlayheadPosition);
   const beatsPerSecond = useRecoilValue(arrangeWindowStore.beatsPerSecond);
   const isRecording = useRecoilValue(projectStore.isRecording);
+  const setTransportSeconds = useSetRecoilState(transportStore.seconds);
   const transportTranslate = usePlayheadAnimation();
 
   useEffect(() => {
     transport.seconds = (snappedPlayheadPos - 1) * 4 * beatsPerSecond;
+
+    setTransportSeconds(transport.seconds);
   }, [snappedPlayheadPos, beatsPerSecond]);
 
   return (
