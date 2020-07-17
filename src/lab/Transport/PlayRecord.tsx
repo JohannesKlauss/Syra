@@ -2,11 +2,13 @@ import React, { useCallback, useState } from 'react';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
+import StopIcon from '@material-ui/icons/Stop';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import { Box, IconButton, styled } from '@material-ui/core';
-import { useSetRecoilState } from 'recoil/dist';
+import { useRecoilState, useSetRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
+import { projectStore } from '../../recoil/projectStore';
 
 const BaseContainer = styled(Box)({
   marginLeft: 20,
@@ -15,19 +17,39 @@ const BaseContainer = styled(Box)({
 
 function PlayRecord() {
   const setPlayheadPosition = useSetRecoilState(arrangeWindowStore.playheadPosition);
+  const [isRecording, setIsRecording] = useRecoilState(projectStore.isRecording);
   const transport = useToneJsTransport();
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false); // TODO: THIS SHOULD PROBABLY LIVE IN THE RECOIL STATE
 
   const onClickPlayPause = useCallback(() => {
-    isPlaying ? transport.stop() : transport.start("+0.05");
+    if (isRecording) {
+      return;
+    }
+
+    if (isPlaying) {
+      transport.stop();
+    } else {
+      transport.start('+0.05');
+    }
 
     setIsPlaying(currVal => !currVal);
-  }, [setIsPlaying, transport, isPlaying]);
+  }, [setIsPlaying, transport, isPlaying, isRecording, setIsRecording]);
 
   const onClickReset = useCallback(() => {
     setPlayheadPosition(1);
     transport.seconds = 0;
   }, [setPlayheadPosition, transport]);
+
+  const onClickRecord = useCallback(() => {
+    if (isRecording) {
+      setIsRecording(false);
+      transport.stop();
+    }
+    else {
+      setIsRecording(true);
+      transport.start('+0.05'); // TODO: THIS MIGHT CAUSE SYNCING ISSUES BETWEEN THE PLAYBACK AND THE RECORDING ITSELF.
+    }
+  }, [setIsRecording, isRecording]);
 
   return (
     <BaseContainer>
@@ -37,8 +59,8 @@ function PlayRecord() {
       <IconButton color={'primary'} component="span" onClick={onClickPlayPause}>
         {isPlaying ? <PauseIcon/> : <PlayArrowIcon/>}
       </IconButton>
-      <IconButton color={'secondary'} component="span">
-        <FiberManualRecordIcon/>
+      <IconButton color={'secondary'} component="span" onClick={onClickRecord}>
+        {isRecording ? <StopIcon/> : <FiberManualRecordIcon/>}
       </IconButton>
     </BaseContainer>
   );

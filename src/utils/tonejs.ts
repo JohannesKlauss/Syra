@@ -7,6 +7,8 @@ export const toneMeterFactory = (smoothing: number = 0.95) => new Tone.Meter({sm
 
 export const toneAudioInputFactorySync = () => new Tone.UserMedia();
 
+export const toneRecorderFactory = () => new Tone.Recorder();
+
 export const tonePlayersFactory = (regionBuffers?: ToneAudioBuffersUrlMap) => new Tone.Players(regionBuffers);
 
 export const toneMergeFactory = () => new Tone.Merge();

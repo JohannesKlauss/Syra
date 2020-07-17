@@ -15,12 +15,18 @@ interface BaseContainerProps {
   translateX: number;
 }
 
+const Wrapper = styled('div')({
+  width: '100%',
+  height: '100%',
+  position: 'relative',
+})
+
 const BaseContainer = styled(Paper)({
   margin: 0,
   marginTop: 1,
   height: 68,
   willChange: 'transform',
-  position: 'relative',
+  position: 'absolute',
   transform: ({ translateX }: BaseContainerProps) => `translateX(${translateX}px)`,
   backgroundColor: ({ color }: BaseContainerProps) => color,
   border: ({ isSelected, color }: BaseContainerProps) => `2px solid ${isSelected ? 'white' : color}`,
@@ -41,8 +47,10 @@ function Region() {
   return (
     <BaseContainer translateX={translateX} isSelected={isSelected} color={channelColor} style={{ width: regionWidth }}
                    onClick={() => setIsSelected(currVal => !currVal)}>
-      <MoveWrapper isSelected={isSelected}/>
-      {audioBuffer && <Waveform audioBuffer={audioBuffer.get()} height={68} width={regionWidth - 4}/>}
+      <Wrapper>
+        <MoveWrapper isSelected={isSelected}/>
+        {audioBuffer && <Waveform audioBuffer={audioBuffer.get()} height={68} width={regionWidth - 4}/>}
+      </Wrapper>
     </BaseContainer>
   );
 }

@@ -4,9 +4,12 @@ import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import usePlayheadAnimation from '../../hooks/ui/usePlayheadAnimation';
 import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
+import { projectStore } from '../../recoil/projectStore';
+import { red } from '@material-ui/core/colors';
 
 interface PlayheadProps {
   translateX: number;
+  isRecording: boolean;
 }
 
 const PlayheadIndicator = styled('span')({
@@ -23,7 +26,7 @@ const PlayheadIndicator = styled('span')({
   '&::before': {
     content: '"\\25BC"',
     bottom: '100%',
-    color: 'white',
+    color: ({isRecording}: PlayheadProps) => isRecording ? red[500] : 'white',
     fontSize: 31,
     left: -9,
     position: 'absolute',
@@ -32,7 +35,7 @@ const PlayheadIndicator = styled('span')({
     top: -31,
   },
   '&:after': {
-    backgroundColor: 'white',
+    backgroundColor: ({isRecording}: PlayheadProps) => isRecording ? red[500] : 'white',
     boxShadow: '0 0 4px 0 black',
     content: '""',
     display: 'inline-block',
@@ -47,6 +50,7 @@ function Playhead() {
   const transport = useToneJsTransport();
   const snappedPlayheadPos = useRecoilValue(arrangeWindowStore.snappedPlayheadPosition);
   const beatsPerSecond = useRecoilValue(arrangeWindowStore.beatsPerSecond);
+  const isRecording = useRecoilValue(projectStore.isRecording);
   const transportTranslate = usePlayheadAnimation();
 
   useEffect(() => {
@@ -54,7 +58,7 @@ function Playhead() {
   }, [snappedPlayheadPos, beatsPerSecond]);
 
   return (
-    <PlayheadIndicator translateX={transportTranslate}/>
+    <PlayheadIndicator translateX={transportTranslate} isRecording={isRecording}/>
   );
 }
 

@@ -1,15 +1,20 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useRef, useState } from 'react';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { useRecoilValue } from 'recoil/dist';
 import * as Tone from 'tone';
 import {
   toneAudioInputFactorySync,
   toneChannelFactory, toneMergeFactory,
-  toneMeterFactory, tonePlayersFactory,
+  toneMeterFactory, tonePlayersFactory, toneRecorderFactory,
 } from '../../utils/tonejs';
 import { channelStore } from '../../recoil/channelStore';
 import { regionStore } from '../../recoil/regionStore';
 import useToneJsTransport from './useToneJsTransport';
+import useRecorder from './useRecorder';
+import useAudioDisconnect from './useAudioDisconnect';
+import useSyncChannelToSolo from './useSyncChannelToSolo';
+import useSyncPlayersToTransport from './useSyncPlayersToTransport';
+import useConnectDisconnect from './useConnectDisconnect';
 
 export default function useAudioToneConnector() {
   const transport = useToneJsTransport();
@@ -22,17 +27,14 @@ export default function useAudioToneConnector() {
   const [toneRmsMeter] = useState(toneMeterFactory());
   const [tonePlayers] = useState(tonePlayersFactory());
   const [toneMerge] = useState(toneMergeFactory());
+  const [toneRecorder] = useState(toneRecorderFactory());
   const playerSchedules = useRef<number[]>([]);
 
-  useEffect(() => {
-    transport.on('stop', () => tonePlayers.stopAll());
-  }, []);
+  const disconnect = useAudioDisconnect(audioIn, tonePlayers);
 
-  const disconnect = useCallback(() => {
-    audioIn.close();
-    Tone.disconnect(audioIn);
-    Tone.disconnect(tonePlayers);
-  }, [audioIn, tonePlayers]);
+  useRecorder(isArmed, audioIn, toneRecorder);
+  useSyncChannelToSolo(isSolo, toneChannel);
+  useSyncPlayersToTransport(tonePlayers);
 
   const connect = useCallback(async () => {
     if (isMuted) {
@@ -41,7 +43,9 @@ export default function useAudioToneConnector() {
       return;
     }
 
-    isArmed ? await audioIn.open() : audioIn.close();
+    if (isArmed) {
+      await audioIn.open();
+    }
 
     const pluginNodes = soulPlugins.map(plugin => plugin.audioNode);
 
@@ -66,21 +70,13 @@ export default function useAudioToneConnector() {
       playerSchedules.current.push(scheduleId);
     });
 
-    audioIn.connect(toneMerge);
+    audioIn.fan(toneRecorder, toneMerge);
     tonePlayers.connect(toneMerge);
 
     Tone.connectSeries(toneMerge, ...pluginNodes, toneChannel, toneRmsMeter, Tone.Destination);
-  }, [audioIn, toneMerge, soulPlugins, isArmed, isMuted, toneChannel, toneRmsMeter, disconnect, regions, regionIds, playerSchedules, tonePlayers, transport]);
+  }, [audioIn, toneMerge, toneRecorder, soulPlugins, isMuted, isArmed, toneChannel, toneRmsMeter, disconnect, regions, regionIds, playerSchedules, tonePlayers, transport]);
 
-  useEffect(() => {
-    toneChannel.set({ solo: isSolo });
-  }, [isSolo, toneChannel]);
-
-  useEffect(() => {
-    (async () => await connect())();
-
-    return () => disconnect();
-  }, [isMuted, isArmed, connect, disconnect]);
+  useConnectDisconnect(connect, disconnect, isMuted, isArmed);
 
   return { toneChannel, toneRmsMeter };
 }

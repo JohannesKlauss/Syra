@@ -28,9 +28,15 @@ const isClickMuted = atom<boolean>({
   default: true,
 });
 
+const isRecording = atom<boolean>({
+  key: 'project/isRecording',
+  default: false,
+});
+
 export const projectStore = {
   bpm,
   length,
   timeSignature,
   isClickMuted,
+  isRecording,
 };
