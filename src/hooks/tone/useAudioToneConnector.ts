@@ -1,10 +1,7 @@
-import { useCallback, useContext, useRef, useState } from 'react';
+import { useCallback, useContext, useRef } from 'react';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { useRecoilValue } from 'recoil/dist';
 import * as Tone from 'tone';
-import {
-  toneMeterFactory,
-} from '../../utils/tonejs';
 import { channelStore } from '../../recoil/channelStore';
 import { regionStore } from '../../recoil/regionStore';
 import useToneJsTransport from './useToneJsTransport';
@@ -46,36 +43,6 @@ export default function useAudioToneConnector() {
     }
 
     const pluginNodes = soulPlugins.map(plugin => plugin.audioNode);
-
-    for (let i = 0; i < playerSchedules.current.length; i++) {
-      const clearId = playerSchedules.current[i];
-
-      if (clearId !== undefined) {
-        transport.clear(clearId);
-      }
-    }
-
-    // TODO: THIS APPROACH IS A WASTE OF PROCESSING POWER. IMPROVE THIS ONCE WE GET A HANG OF IT.
-    regions.forEach((region, i) => {
-      const id = regionIds[i];
-
-      if (region.audioBuffer && !players.has(id)) {
-        players.add(id, region.audioBuffer);
-      }
-
-      const clearId = playerSchedules.current.shift();
-
-      if (clearId !== undefined) {
-        transport.clear(clearId);
-      }
-
-      const scheduleId = transport.schedule((time) => {
-        players.player(id).set({ mute: region.isMuted }).start(time + 0.005);
-        console.log('start ' + id + ' at', region.start - (region.start === 0 ? 0 : 0.005));
-      }, region.start - (region.start === 0 ? 0 : 0.005));
-
-      playerSchedules.current.push(scheduleId);
-    });
 
     audioIn.fan(recorder, merge);
     players.connect(merge);

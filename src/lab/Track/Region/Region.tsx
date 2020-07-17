@@ -8,6 +8,7 @@ import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import MoveWrapper from './MoveWrapper';
+import useRegionScheduler from '../../../hooks/audio/useRegionScheduler';
 
 interface BaseContainerProps {
   color: string;
@@ -40,6 +41,8 @@ function Region() {
   const start = useRecoilValue(regionStore.start(id));
   const channelColor = useRecoilValue(channelStore.color(channelId));
   const pixelPerSecond = useRecoilValue(arrangeWindowStore.pixelPerSecond);
+
+  useRegionScheduler();
 
   const regionWidth = useMemo(() => pixelPerSecond * (audioBuffer?.duration ?? 0), [audioBuffer, pixelPerSecond]);
   const translateX = useMemo(() => pixelPerSecond * start, [pixelPerSecond, start]);
