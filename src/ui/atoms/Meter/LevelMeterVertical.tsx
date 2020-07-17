@@ -4,6 +4,7 @@ import * as Tone from 'tone';
 import Konva from 'konva';
 import { amber, red, teal } from '@material-ui/core/colors';
 import { mapDbToUiMeterVal } from '../../../utils/levelMeterMapping';
+import useToneAudioNodes from '../../../hooks/tone/useToneAudioNodes';
 
 const uniqid = require('uniqid');
 
@@ -17,13 +18,10 @@ const LevelMeter = styled('div')({
 
 const METER_WIDTH = 24;
 
-interface Props {
-  toneRmsMeter: Tone.Meter;
-}
-
-function LevelMeterVertical({ toneRmsMeter }: Props) {
+function LevelMeterVertical() {
   const containerId = useRef(uniqid('konva-container-'));
   const canvas = useRef<HTMLDivElement>(null);
+  const {rmsMeter} = useToneAudioNodes();
 
   useEffect(() => {
     // TODO: WRITE THIS IS A CLEANER WAY, THIS IS JUST HACKED IN HERE AS A Poc.
@@ -49,9 +47,9 @@ function LevelMeterVertical({ toneRmsMeter }: Props) {
       stage.add(layer);
 
       const anim = new Konva.Animation(() => {
-        const val = toneRmsMeter.getValue() as number
+        const val = rmsMeter.getValue() as number
 
-        let rmsHeight = mapDbToUiMeterVal(toneRmsMeter.getValue() as number);
+        let rmsHeight = mapDbToUiMeterVal(rmsMeter.getValue() as number);
 
         if (isNaN(rmsHeight)) {
           rmsHeight = 0;
@@ -64,7 +62,7 @@ function LevelMeterVertical({ toneRmsMeter }: Props) {
 
       anim.start();
     }
-  }, [canvas, containerId, toneRmsMeter]);
+  }, [canvas, containerId, rmsMeter]);
 
   return (
     <LevelMeter id={containerId.current} ref={canvas}/>

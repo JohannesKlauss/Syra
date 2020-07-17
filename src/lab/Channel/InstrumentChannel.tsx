@@ -11,7 +11,7 @@ import useInstrumentToneConnector from '../../hooks/tone/useInstrumentToneConnec
 import LevelMeterVertical from '../../ui/atoms/Meter/LevelMeterVertical';
 
 function InstrumentChannel() {
-  const { toneChannel, toneRmsMeter } = useInstrumentToneConnector();
+  useInstrumentToneConnector();
   useMidiForChannel();
 
   return (
@@ -19,9 +19,7 @@ function InstrumentChannel() {
       <List subheader={<ListSubheader><ChannelHeader/></ListSubheader>}>
         <ChannelInstrument/>
       </List>
-      <ChannelBody toneChannel={toneChannel}>
-        <LevelMeterVertical toneRmsMeter={toneRmsMeter}/>
-      </ChannelBody>
+      <ChannelBody/>
     </>
   );
 }

@@ -8,6 +8,8 @@ import * as Tone from 'tone';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
 import { useRecoilValue } from 'recoil/dist';
+import useToneAudioNodes from '../../../hooks/tone/useToneAudioNodes';
+import LevelMeterVertical from '../../atoms/Meter/LevelMeterVertical';
 
 interface ColoredDividerProps {
   color: string;
@@ -21,21 +23,18 @@ const SmrContainer = styled(Paper)({
   padding: 10,
 });
 
-interface Props {
-  toneChannel: Tone.Channel;
-}
-
-const ChannelBody: React.FC<Props> = React.memo(({ toneChannel, children }) => {
+const ChannelBody: React.FC = React.memo(() => {
   const channelId = useContext(ChannelContext);
   const channelColor = useRecoilValue(channelStore.color(channelId));
   const [volumeFaderValue, setVolumeFaderValue] = useState(0);
+  const {channel} = useToneAudioNodes();
   const onChangePanOrVolume = useCallback(newProps => {
-    toneChannel.set(newProps);
+    channel.set(newProps);
 
     if (newProps.volume) {
       setVolumeFaderValue(newProps.volume < -95 ? '-∞' : newProps.volume.toFixed(1));
     }
-  }, [toneChannel]);
+  }, [channel]);
 
   return (
     <>
@@ -61,7 +60,7 @@ const ChannelBody: React.FC<Props> = React.memo(({ toneChannel, children }) => {
             <VolumeFader onChange={onChangePanOrVolume}/>
           </Grid>
           <Grid item xs={6}>
-            {children}
+            <LevelMeterVertical/>
           </Grid>
         </Grid>
       </Grid>

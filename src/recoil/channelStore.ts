@@ -51,11 +51,6 @@ const isPatchActive = atomFamily<boolean, string>({
   default: true,
 });
 
-const toneJsChannel = atomFamily<Tone.Channel | null, string>({
-  key: 'channel/toneJsChannel',
-  default: null,
-});
-
 // This represents the audio input channel of an AudioChannel. Currently there is only one possible due to this bug in chromium:
 // https://bugs.chromium.org/p/chromium/issues/detail?id=453876 Hopefully this finally gets fixed soon.
 // Since we don't have multiple input choices at hand this is currently not really used, since it just selects the audioIn state.
@@ -107,6 +102,20 @@ const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId: strin
   })
 });
 
+const toneJsMap = atomFamily<Map<string, any>, string>({
+  key: 'channel/toneJsMap',
+  default: selectorFamily({
+    key: 'channel/toneJsMap/Default',
+    get: channelId => () => {
+      const map = new Map<string, any>();
+
+      map.set('channelId', channelId);
+
+      return map;
+    }
+  }),
+});
+
 interface ChannelState {
   name: string;
   color: string;
@@ -117,7 +126,7 @@ interface ChannelState {
   isMuted: boolean;
   isArmed: boolean;
   channelType: ChannelType;
-  toneJsChannel: Tone.Channel | null;
+  toneJsMap: Map<string, any>;
   regionIds: string[];
   regions: RegionState[];
 }
@@ -139,7 +148,7 @@ const state = selectorFamily<ChannelState, string>({
       isMuted: get(isMuted(id)),
       isArmed: get(isArmed(id)),
       channelType: get(type(id)),
-      toneJsChannel: get(toneJsChannel(id)),
+      toneJsMap: get(toneJsMap(id)),
       regionIds: get(regionStore.ids(id)),
       regions: get(regionStore.findByChannelId(id))
     };
@@ -166,5 +175,5 @@ export const channelStore = {
   ids,
   soulPatchParameter,
   soulInstance,
-  toneJsChannel,
+  toneJsMap,
 };

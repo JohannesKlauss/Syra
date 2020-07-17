@@ -1,11 +1,12 @@
 import { useContext, useEffect } from 'react';
-import * as Tone from 'tone';
 import { useRecoilValue } from 'recoil/dist';
 import { projectStore } from '../../recoil/projectStore';
 import { ChannelContext } from '../../providers/ChannelContext';
 import useRegionCreator from '../recoil/useRegionCreator';
+import useToneAudioNodes from './useToneAudioNodes';
 
-export default function useRecorder(isArmed: boolean, audioIn: Tone.UserMedia, toneRecorder: Tone.Recorder) {
+export default function useRecorder(isArmed: boolean) {
+  const {audioIn, recorder} = useToneAudioNodes();
   const channelId = useContext(ChannelContext);
   const createRegion = useRegionCreator(channelId);
   const isRecording = useRecoilValue(projectStore.isRecording);
@@ -18,13 +19,13 @@ export default function useRecorder(isArmed: boolean, audioIn: Tone.UserMedia, t
         await audioIn.open();
 
         if (isRecording) {
-          await toneRecorder.start();
-        } else if(toneRecorder.state === 'started') {
-          const data = await toneRecorder.stop();
+          await recorder.start();
+        } else if(recorder.state === 'started') {
+          const data = await recorder.stop();
 
           await createRegion(data);
         }
       }
     })();
-  }, [audioIn, toneRecorder, isRecording, isArmed]);
+  }, [audioIn, recorder, isRecording, isArmed]);
 }

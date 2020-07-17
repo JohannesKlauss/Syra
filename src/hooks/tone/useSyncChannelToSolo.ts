@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
 import * as Tone from 'tone';
+import useToneAudioNodes from './useToneAudioNodes';
 
-export default function useSyncChannelToSolo(isSolo: boolean, toneChannel: Tone.Channel) {
+export default function useSyncChannelToSolo(isSolo: boolean) {
+  const {channel} = useToneAudioNodes();
+
   useEffect(() => {
-    toneChannel.set({ solo: isSolo });
-  }, [isSolo, toneChannel]);
+    channel.set({ solo: isSolo });
+  }, [isSolo, channel]);
 }

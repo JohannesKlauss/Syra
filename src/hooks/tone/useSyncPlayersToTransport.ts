@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
 import useToneJsTransport from './useToneJsTransport';
-import * as Tone from 'tone';
+import useToneAudioNodes from './useToneAudioNodes';
 
-export default function useSyncPlayersToTransport(tonePlayers: Tone.Players) {
+export default function useSyncPlayersToTransport() {
   const transport = useToneJsTransport();
+  const {players} = useToneAudioNodes();
 
   useEffect(() => {
-    transport.on('stop', () => tonePlayers.stopAll());
+    transport.on('stop', () => {
+      players.stopAll();
+    });
   }, []);
 }

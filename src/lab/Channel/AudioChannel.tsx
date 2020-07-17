@@ -7,16 +7,14 @@ import useAudioToneConnector from '../../hooks/tone/useAudioToneConnector';
 import LevelMeterVertical from '../../ui/atoms/Meter/LevelMeterVertical';
 
 function AudioChannel() {
-  const { toneChannel, toneRmsMeter } = useAudioToneConnector();
+  useAudioToneConnector();
 
   return (
     <>
       <List subheader={<ListSubheader><ChannelHeader/></ListSubheader>}>
         <ChannelAudio/>
       </List>
-      <ChannelBody toneChannel={toneChannel}>
-        <LevelMeterVertical toneRmsMeter={toneRmsMeter}/>
-      </ChannelBody>
+      <ChannelBody/>
     </>
   );
 }
