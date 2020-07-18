@@ -28,6 +28,11 @@ const availableSoulPlugins = atom<AvailableSoulPatch[]>({
       displayName: 'SimpleDelay',
       pathWasm: 'simpleDelay',
       UID: 'com.yourcompany.SimpleDelay'
+    },
+    {
+      displayName: 'LookaheadLimiter',
+      pathWasm: 'lookaheadLimiter',
+      UID: 'com.yourcompany.LookaheadLimiter'
     }
   ],
 });

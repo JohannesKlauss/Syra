@@ -29,9 +29,9 @@ export default function useAudioToneConnector() {
   useSyncPlayersToTransport();
 
   const connect = useCallback(async () => {
-    if (isMuted) {
-      disconnect();
+    disconnect();
 
+    if (isMuted) {
       return;
     }
 
@@ -43,6 +43,8 @@ export default function useAudioToneConnector() {
 
     audioIn.fan(recorder, merge);
     players.connect(merge);
+
+    console.log('change', soulPlugins);
 
     Tone.connectSeries(merge, ...pluginNodes, channel, rmsMeter, Tone.Destination);
   }, [audioIn, merge, recorder, soulPlugins, isMuted, isArmed, channel, rmsMeter, disconnect, regions, regionIds, playerSchedules, players, transport]);
