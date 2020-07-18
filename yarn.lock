@@ -2450,10 +2450,10 @@
     lodash "^4.17.15"
     redent "^3.0.0"
 
-"@testing-library/react@10.4.6":
-  version "10.4.6"
-  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.6.tgz#70a7cac35ac8256c22a8cb0c4779e0efefd218c6"
-  integrity sha512-pVcm8v0HxCEzrtasbC2bdhWM0P5X9o8a/xfBugC97uVVTmhVeGHj+5CdE1JYi/i2K+mCyeq5YqzHLW/gB+K12w==
+"@testing-library/react@10.4.7":
+  version "10.4.7"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.7.tgz#fc14847fb70a5e93576b8f7f0d1490ead02a9061"
+  integrity sha512-hUYbum3X2f1ZKusKfPaooKNYqE/GtPiQ+D2HJaJ4pkxeNJQFVUEvAvEh9+3QuLdBeTWkDMNY5NSijc5+pGdM4Q==
   dependencies:
     "@babel/runtime" "^7.10.3"
     "@testing-library/dom" "^7.17.1"
@@ -2564,10 +2564,10 @@
     jest-diff "^25.2.1"
     pretty-format "^25.2.1"
 
-"@types/jest@26.0.4":
-  version "26.0.4"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.4.tgz#d2e513e85aca16992816f192582b5e67b0b15efb"
-  integrity sha512-4fQNItvelbNA9+sFgU+fhJo8ZFF+AS4Egk3GWwCW2jFtViukXbnztccafAdLhzE/0EiCogljtQQXP8aQ9J7sFg==
+"@types/jest@26.0.5":
+  version "26.0.5"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.5.tgz#23a8eecf4764a770ea8d3a0d1ea16b96c822035d"
+  integrity sha512-heU+7w8snfwfjtcj2H458aTx3m5unIToOJhx75ebHilBiiQ39OIdA18WkG4LP08YKeAoWAGvWg8s+22w/PeJ6w==
   dependencies:
     jest-diff "^25.2.1"
     pretty-format "^25.2.1"
@@ -3130,10 +3130,10 @@
     text-table "^0.2.0"
     webpack-log "^1.1.2"
 
-"@welldone-software/why-did-you-render@4.2.5":
-  version "4.2.5"
-  resolved "https://registry.yarnpkg.com/@welldone-software/why-did-you-render/-/why-did-you-render-4.2.5.tgz#005d06958d0c8a1ab3b92a3f4cfe3507b1806976"
-  integrity sha512-Uq4Gmi14bHDfWPGu1EuZKkdxlihXIyyfhAoP0nkA3qHTu8yit0iL1KO6Ldyno55otnjL3GHUY/MswMVvB5Ro8g==
+"@welldone-software/why-did-you-render@4.2.6":
+  version "4.2.6"
+  resolved "https://registry.yarnpkg.com/@welldone-software/why-did-you-render/-/why-did-you-render-4.2.6.tgz#2b956235dfacf1f51e57924adc5e261675af3e47"
+  integrity sha512-BJrqc1gKdE+sLyrICgjcwItuwT5nZorPgpTafpIHSpB1o4K0xY7P6wQfndt/mcXtTPwTQOuSpoyuoASl4b2mxQ==
   dependencies:
     lodash "^4"
 
@@ -14142,10 +14142,10 @@ toidentifier@1.0.0:
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
 
-tone@14.7.12:
-  version "14.7.12"
-  resolved "https://registry.yarnpkg.com/tone/-/tone-14.7.12.tgz#447d7987749ffbde1ebcae65c3cda70cb2b43619"
-  integrity sha512-bPHUGrUQqMmK5UqdYcsfqkVvTyujevj4iF0oxfV8MJ/zzQxAA44jIcGKrI8dDRlq+y53akZbPaammxWx0SaBXg==
+tone@14.7.19:
+  version "14.7.19"
+  resolved "https://registry.yarnpkg.com/tone/-/tone-14.7.19.tgz#a6464a04130b5500edf0ef29475178b0a72aa8be"
+  integrity sha512-6LDAl2wZWPVFtzSnuFnLC9VsPlabjzwQyvtfOMaBZmVvx95I+7IC4LSyRzk+YNY7gLm6anx/zFSlpi+dhb8oKw==
   dependencies:
     standardized-audio-context "^24.1.5"
     tslib "^1.10.0"
@@ -14271,10 +14271,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.9.6:
-  version "3.9.6"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.6.tgz#8f3e0198a34c3ae17091b35571d3afd31999365a"
-  integrity sha512-Pspx3oKAPJtjNwE92YS05HQoY7z2SFyOpHo9MqJor3BXAGNaPUs83CuVp9VISFkSjyRfiTpmKuAYGJB7S7hOxw==
+typescript@3.9.7:
+  version "3.9.7"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
+  integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
 
 ua-parser-js@^0.7.18:
   version "0.7.21"
