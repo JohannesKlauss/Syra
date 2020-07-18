@@ -46,7 +46,7 @@
     "@types/react": "16.9.43",
     "@types/react-dom": "16.9.8",
     "@types/uniqid": "5.2.0",
-    "@welldone-software/why-did-you-render": "4.2.5",
+    "@welldone-software/why-did-you-render": "4.2.6",
     "prettier": "2.0.5",
     "typescript": "3.9.6"
   },
