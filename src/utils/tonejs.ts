@@ -3,12 +3,6 @@ import { SetterOrUpdater } from 'recoil/dist';
 
 export const toneMeterFactory = (smoothing: number = 0.95) => new Tone.Meter({ smoothing });
 
-export const audioInputFactory = async () => {
-  const audioInterface = new Tone.UserMedia();
-
-  return await audioInterface.open();
-};
-
 type MemoizeToneJsFactory = <K extends Map<string, any>>(recoilState: [K, SetterOrUpdater<K>]) =>
   <T extends Tone.ToneAudioNode>(ctor: (({ new(): T }) | (() => T))) => T;
 

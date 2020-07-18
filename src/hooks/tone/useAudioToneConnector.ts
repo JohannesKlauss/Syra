@@ -12,9 +12,6 @@ import useSyncPlayersToTransport from './useSyncPlayersToTransport';
 import useConnectDisconnect from './useConnectDisconnect';
 import useToneAudioNodes from './useToneAudioNodes';
 
-// TODO: THIS WHOLE APPROACH IS SUB OPTIMAL. WE HAVE TO DO ALL THE CONNECTIONS AND SCHEDULING IN ONE PLACE, WHICH IS NOT CORRECT.
-// NORMALLY THE SCHEDULING WOULD BE INSIDE THE REGION, BUT WE ONLY CAN GET THIS DONE WHEN WE ARE FIXING THE RECOIL BUG.
-// CHANGING THE POSITION OF A REGION WHEN RUNNING A RECORDING OR PLAYBACK WILL CAUSE A DROPOUT, BECAUSE OF THE RECONNECTION.
 export default function useAudioToneConnector() {
   const transport = useToneJsTransport();
   const channelId = useContext(ChannelContext);

@@ -1,9 +1,7 @@
 import { atom, atomFamily, selector, selectorFamily } from 'recoil/dist';
 import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
-import { audioInOutStore } from './audioInOutStore';
 import { teal } from '@material-ui/core/colors';
-import * as Tone from 'tone';
 import { channelTypeToLabel } from '../utils/channelTypeToLabel';
 import { RegionState, regionStore } from './regionStore';
 
@@ -55,13 +53,6 @@ const isPatchActive = atomFamily<boolean, string>({
 // https://bugs.chromium.org/p/chromium/issues/detail?id=453876 Hopefully this finally gets fixed soon.
 // Since we don't have multiple input choices at hand this is currently not really used, since it just selects the audioIn state.
 // This is also why this is currently an atom instead of an atomFamily.
-const audioInput = atom({
-  key: 'channel/audioInput',
-  default: selector({
-    key: 'channel/audioInput/Default',
-    get: ({get}) => get(audioInOutStore.audioIn),
-  }),
-});
 
 const pluginIds = atomFamily<string[], string>({
   key: 'channel/pluginIds',
@@ -168,7 +159,6 @@ export const channelStore = {
   isSolo,
   isMuted,
   isPatchActive,
-  audioInput,
   pluginIds,
   findPluginsByIds,
   state,
