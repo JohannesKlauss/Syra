@@ -5,6 +5,7 @@ import GridTransportCursor from '../ArrangeWindow/GridTransportCursor';
 import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import RulerBars from './RulerBars';
+import BackgroundGrid from '../ArrangeWindow/BackgroundGrid';
 
 interface BaseContainerProps {
   windowWidth: number;
@@ -25,6 +26,7 @@ function Ruler() {
 
   return (
     <BaseContainer windowWidth={windowWidth}>
+      <BackgroundGrid/>
       <RulerBars/>
       <GridTransportCursor/>
     </BaseContainer>

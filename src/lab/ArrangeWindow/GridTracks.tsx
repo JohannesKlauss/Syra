@@ -7,13 +7,14 @@ import { channelStore } from '../../recoil/channelStore';
 import { ChannelContext } from '../../providers/ChannelContext';
 import Track from '../Track/Track';
 import DropTrack from '../Track/DropTrack';
+import BackgroundGrid from './BackgroundGrid';
 
 interface ArrangeWindowProps {
   windowWidth: number;
 }
 
 const BaseContainer = styled(Box)({
-  backgroundColor: splinterTheme.palette.background.default,
+  backgroundColor: (splinterTheme.palette.background.default),
   position: 'relative',
   width: ({windowWidth}: ArrangeWindowProps) => windowWidth,
 });
@@ -25,6 +26,7 @@ function GridTracks() {
 
   return (
     <BaseContainer windowWidth={windowWidth}>
+      <BackgroundGrid ticksFullHeight={true}/>
       {channelIds.map((id, i) => (
         <ChannelContext.Provider key={id} value={id}>
           <Track backgroundColor={i % 2 === 0 ? theme.palette.background.paper : theme.palette.background.default}/>

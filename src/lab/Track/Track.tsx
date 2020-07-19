@@ -1,10 +1,11 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { styled, Typography } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { useDropzone } from 'react-dropzone';
 import useRegionCreator from '../../hooks/recoil/useRegionCreator';
 import RegionList from './Region/RegionList';
+import { hexToRgb } from '../../utils/color';
 
 interface BaseContainerProps {
   backgroundColor: string;
@@ -40,16 +41,22 @@ const Track = React.memo(({ backgroundColor }: Props) => {
   const channelId = useContext(ChannelContext);
   const createRegion = useRegionCreator(channelId);
 
-  /*const onDrop = useCallback(async (files: File[]) => {
+  const background = useMemo(() => {
+    const rgb = hexToRgb(backgroundColor);
+
+    return `rgba(${rgb.red}, ${rgb.blue}, ${rgb.green}, 0.7)`;
+  }, [backgroundColor]);
+
+  const onDrop = useCallback(async (files: File[]) => {
     // TODO: WE SHOULD ALSO BE ABLE TO SUPPORT MIDI FILES LATER ON.
     files.forEach(file => {
       (async () => await createRegion(file))();
     });
   }, [createRegion]);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });*/
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <BaseContainer backgroundColor={backgroundColor} id={`track-${channelId}`}>
+    <BaseContainer backgroundColor={background} id={`track-${channelId}`}>
       <RegionList/>
     </BaseContainer>
   );

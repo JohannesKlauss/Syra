@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { Box, styled } from '@material-ui/core';
-import { splinterTheme } from '../../theme';
 import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import {
   arrangeWindowStore,
@@ -13,12 +12,13 @@ interface BaseContainerProps {
 }
 
 const BaseContainer = styled(Box)({
-  backgroundColor: splinterTheme.palette.background.default,
+  backgroundColor: 'transparent',
   width: ({ windowWidth }: BaseContainerProps) => windowWidth,
   position: 'absolute',
   bottom: 0,
   height: 20,
   marginLeft: ARRANGE_GRID_OFFSET,
+  zIndex: 2,
 });
 
 function GridTransportCursor() {

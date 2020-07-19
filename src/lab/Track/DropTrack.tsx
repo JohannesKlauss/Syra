@@ -6,11 +6,14 @@ import useChannelCreator from '../../hooks/recoil/useChannelCreator';
 import { ChannelType } from '../../types/Channel';
 
 const BaseContainer = styled('div')({
-  width: 400,
+  width: 'calc(100vw - 230px)',
   height: 70,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  zIndex: 1,
+  position: 'relative',
+  backgroundColor: splinterTheme.palette.background.paper,
   border: `1px dashed ${splinterTheme.palette.background.paper}`,
 });
 
