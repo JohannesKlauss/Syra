@@ -1,31 +1,40 @@
 import React, { useCallback, useContext, useState } from 'react';
-import { Divider, Grid, Paper, styled, Typography } from '@material-ui/core';
+import { Divider, Grid, Paper, styled, TextField, Typography } from '@material-ui/core';
 import ChannelPluginList from './ChannelPluginList';
 import Pan from '../../atoms/Slider/Pan';
 import VolumeFader from '../../atoms/Slider/VolumeFader';
 import ChannelLetterButtons from './ChannelLetterButtons';
-import * as Tone from 'tone';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import useToneAudioNodes from '../../../hooks/tone/useToneAudioNodes';
 import LevelMeterVertical from '../../atoms/Meter/LevelMeterVertical';
+import { determineTextColor } from '../../../utils/color';
 
 interface ColoredDividerProps {
-  color: string;
+  channelColor: string;
 }
 
 const ColoredDivider = styled(Divider)({
-  backgroundColor: ({color}: ColoredDividerProps) => color,
+  backgroundColor: ({channelColor}: ColoredDividerProps) => channelColor,
 });
 
 const SmrContainer = styled(Paper)({
   padding: 10,
 });
 
+const ChannelNameContainer = styled(Paper)({
+  backgroundColor: ({channelColor}: ColoredDividerProps) => channelColor,
+});
+
+const CustomTypography = styled(Typography)({
+  color: ({channelColor}: ColoredDividerProps) => determineTextColor(channelColor),
+});
+
 const ChannelBody: React.FC = React.memo(() => {
   const channelId = useContext(ChannelContext);
   const channelColor = useRecoilValue(channelStore.color(channelId));
+  const [channelName, setChannelName] = useRecoilState(channelStore.name(channelId));
   const [volumeFaderValue, setVolumeFaderValue] = useState(0);
   const {channel} = useToneAudioNodes();
   const onChangePanOrVolume = useCallback(newProps => {
@@ -64,10 +73,13 @@ const ChannelBody: React.FC = React.memo(() => {
           </Grid>
         </Grid>
       </Grid>
-      <ColoredDivider color={channelColor}/>
+      <ColoredDivider channelColor={channelColor}/>
       <SmrContainer>
         <ChannelLetterButtons/>
       </SmrContainer>
+      <ChannelNameContainer channelColor={channelColor}>
+        <CustomTypography channelColor={channelColor} variant="overline" display="block" align={'center'}>{channelName}</CustomTypography>
+      </ChannelNameContainer>
     </>
   );
 });

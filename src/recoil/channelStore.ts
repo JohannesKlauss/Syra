@@ -4,6 +4,7 @@ import { ChannelType } from '../types/Channel';
 import { teal } from '@material-ui/core/colors';
 import { channelTypeToLabel } from '../utils/channelTypeToLabel';
 import { RegionState, regionStore } from './regionStore';
+import { channelColors } from '../utils/channelColors';
 
 const name = atomFamily<string, string>({
   key: 'channel/name',
@@ -24,7 +25,10 @@ const type = atomFamily<ChannelType, string>({
 
 const color = atomFamily<string, string>({
   key: 'channel/color',
-  default: teal['400'],
+  default: selector({
+    key: 'channel/color/Default',
+    get: ({get}) => channelColors[get(ids).length % channelColors.length],
+  }),
 })
 
 // Whether the user clicked the record button the channel or not.

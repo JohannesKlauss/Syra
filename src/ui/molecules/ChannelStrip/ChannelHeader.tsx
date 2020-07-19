@@ -1,20 +1,28 @@
-import React, { useContext, useEffect } from 'react';
-import { TextField } from '@material-ui/core';
-import { useRecoilState } from 'recoil/dist';
-import { ChannelContext } from '../../../providers/ChannelContext';
-import { channelStore } from '../../../recoil/channelStore';
+import React, { useState } from 'react';
+import { Box, IconButton, styled } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ChannelMenu from '../ChannelMenu/ChannelMenu';
+
+const CustomBox = styled(Box)({
+  display: 'flex',
+});
 
 function ChannelHeader() {
-  const channelId = useContext(ChannelContext);
-  const [name, setName] = useRecoilState(channelStore.name(channelId));
-
-  // TODO: THIS IS A HACK, BECAUSE RECOIL UPDATES ALL OF THE DEFAULT VALUES ON THE channelName ATOM FAMILY IF IT HASN'T PREVIOUSLY BEEN SET.
-  useEffect(() => {
-    setName(name);
-  }, [setName, name]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-      <TextField value={name} onChange={e => setName(e.target.value)}/>
+    <CustomBox>
+      <IconButton
+        aria-label="more"
+        aria-controls="long-menu"
+        aria-haspopup="true"
+        onClick={() => setIsMenuOpen(currVal => !currVal)}
+      >
+        <MoreVertIcon/>
+      </IconButton>
+      <ChannelMenu isMenuOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}/>
+    </CustomBox>
+
   );
 }
 

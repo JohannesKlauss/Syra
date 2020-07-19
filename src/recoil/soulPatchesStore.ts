@@ -33,6 +33,11 @@ const availableSoulPlugins = atom<AvailableSoulPatch[]>({
       displayName: 'LookaheadLimiter',
       pathWasm: 'lookaheadLimiter',
       UID: 'com.yourcompany.LookaheadLimiter'
+    },
+    {
+      displayName: 'Distortion',
+      pathWasm: 'distortion',
+      UID: 'com.yourcompany.Distortion'
     }
   ],
 });
