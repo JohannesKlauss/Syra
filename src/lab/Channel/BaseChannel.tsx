@@ -8,7 +8,8 @@ import AudioChannel from './AudioChannel';
 import InstrumentChannel from './InstrumentChannel';
 
 const Channel = styled(Paper)({
-  maxWidth: 110,
+  maxWidth: 150,
+  width: 150,
   marginLeft: 1,
 });
 

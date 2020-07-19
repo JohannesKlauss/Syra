@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import {
   Button,
   ButtonGroup,
@@ -6,30 +6,43 @@ import {
   Grow,
   MenuList,
   Paper,
-  Popper, PropTypes,
+  Popper, PropTypes, styled,
 } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+
+const CustomButtonGroup = styled(ButtonGroup)({
+  maxHeight: 25,
+});
+
+const CustomArrowButton = styled(Button)({
+  flex: 1,
+});
 
 interface Props {
   onClick: () => void;
   menuItems: JSX.Element[];
   color?: PropTypes.Color;
+  prependingButton?: JSX.Element;
+  small?: boolean;
+  fullWidth?: boolean;
 }
 
-const DropdownButton: React.FC<Props> = ({ onClick, children, menuItems, color = 'primary' }) => {
+const DropdownButton: React.FC<Props> = ({ onClick, children, menuItems, color = 'primary', fullWidth, small }) => {
   const anchorRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const ButtonGroupComponent = useMemo(() => small ? CustomButtonGroup : ButtonGroup, [small]);
+
   return (
     <>
-      <ButtonGroup variant="contained" color={color} ref={anchorRef} size={'small'}>
+      <ButtonGroupComponent color={color} ref={anchorRef} variant={'text'} size={'small'} fullWidth={fullWidth}>
         <Button onClick={onClick} size={'small'}>
           {children}
         </Button>
-        <Button color={color} size="small" onClick={() => setIsMenuOpen(prev => !prev)}>
+        <CustomArrowButton color={color} size="small" onClick={() => setIsMenuOpen(prev => !prev)}>
           <ArrowDropDownIcon/>
-        </Button>
-      </ButtonGroup>
+        </CustomArrowButton>
+      </ButtonGroupComponent>
       <Popper open={isMenuOpen} anchorEl={anchorRef.current} transition disablePortal style={{ zIndex: 2 }}>
         {({ TransitionProps, placement }) => (
           <Grow {...TransitionProps}

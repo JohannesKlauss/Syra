@@ -10,10 +10,10 @@ function Pan({onChange}: Props) {
     <Paper style={{paddingLeft: 20, paddingRight: 20}}>
       <Slider
         defaultValue={0}
-        min={-1}
-        max={1}
-        step={0.1}
-        onChange={(_, newValue) => onChange({pan: newValue})}
+        min={-100}
+        max={100}
+        step={1}
+        onChange={(_, newValue) => onChange({pan: newValue as number / 100})}
       />
     </Paper>
   );
