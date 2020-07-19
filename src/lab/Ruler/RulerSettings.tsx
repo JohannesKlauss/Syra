@@ -1,10 +1,8 @@
-import React, { useMemo } from 'react';
-import { Box, MenuItem, styled } from '@material-ui/core';
+import React from 'react';
+import { Box, Divider, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
-import DropdownButton from '../../ui/atoms/Buttons/DropdownButton';
-import { useRecoilState } from 'recoil/dist';
-import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
-import { mapNumberToNote } from '../../utils/noteMapper';
+import RulerZoomInOut from './Settings/RulerZoomInOut';
+import RulerSnapSettings from './Settings/RulerSnapSettings';
 
 const BaseContainer = styled(Box)({
   width: '100%',
@@ -20,21 +18,11 @@ const BaseContainer = styled(Box)({
 });
 
 function RulerSettings() {
-  const [isSnapActive, setIsSnapActive] = useRecoilState(arrangeWindowStore.isSnapActive);
-  const [gridSnapValue, setGridSnapValue] = useRecoilState(arrangeWindowStore.snapValue);
-
-  const snapValueItems = useMemo(() => (
-    [0.0625, 0.125, 0.25, 0.5, 1, 2, 4].map(val => (
-      <MenuItem key={val} selected={val === gridSnapValue} onClick={() => setGridSnapValue(val)}>
-        {mapNumberToNote(val)}
-      </MenuItem>))
-  ), [gridSnapValue, setGridSnapValue]);
-
   return (
     <BaseContainer>
-      <DropdownButton color={isSnapActive ? 'primary' : 'default'} onClick={() => setIsSnapActive(currVal => !currVal)} menuItems={snapValueItems}>
-        {mapNumberToNote(gridSnapValue)}
-      </DropdownButton>
+      <RulerSnapSettings/>
+      <Divider variant={'inset'}/>
+      <RulerZoomInOut/>
     </BaseContainer>
   );
 }
