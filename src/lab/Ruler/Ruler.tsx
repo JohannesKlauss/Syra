@@ -14,8 +14,9 @@ const BaseContainer = styled(Box)({
   backgroundColor: splinterTheme.palette.background.default,
   width: ({windowWidth}: BaseContainerProps) => windowWidth,
   height: 40,
-  position: 'relative',
-  zIndex: 12,
+  position: 'sticky',
+  top: 0,
+  zIndex: 1,
   borderBottom: `1px solid rgba(255, 255, 255, 0.3)`,
 });
 

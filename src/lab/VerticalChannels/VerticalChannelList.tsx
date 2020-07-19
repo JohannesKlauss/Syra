@@ -8,7 +8,7 @@ import { splinterTheme } from '../../theme';
 
 const BaseContainer = styled(Box)({
   width: 250,
-  marginTop: 80,
+  marginTop: 40,
   borderTop: `1px solid ${splinterTheme.palette.background.default}`,
 })
 

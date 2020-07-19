@@ -50,7 +50,7 @@ const ChannelPatch: React.FunctionComponent<Props> = React.memo(({ patchList, ac
 
   const BypassButton = useMemo(() => (
     <Button onClick={() => null}>
-      <PowerSettingsNewIcon />
+      <PowerSettingsNewIcon/>
     </Button>
   ), []);
 
@@ -61,18 +61,16 @@ const ChannelPatch: React.FunctionComponent<Props> = React.memo(({ patchList, ac
           {children as JSX.Element}
         </Container>
       </Modal>}
-      <ListItem className={styles.listItem}>
-        <DropdownButton
-          onClick={() => setIsModalOpen(activePatch !== undefined)}
-          menuItems={menuItems}
-          fullWidth
-          small
-          menuPlacement={'right-start'}
-          prependingButton={BypassButton}
-        >
-          <Typography variant="overline" noWrap>{activePatch?.soulPatch.descriptor.description.name}</Typography>
-        </DropdownButton>
-      </ListItem>
+      <DropdownButton
+        onClick={() => setIsModalOpen(activePatch !== undefined)}
+        menuItems={menuItems}
+        fullWidth
+        small
+        menuPlacement={'right-start'}
+        prependingButton={BypassButton}
+      >
+        <Typography variant="overline" noWrap>{activePatch?.soulPatch.descriptor.description.name}</Typography>
+      </DropdownButton>
     </>
   );
 });

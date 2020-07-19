@@ -27,10 +27,10 @@ function ArrangeWindow() {
   return (
     <BaseContainer maxWidth={'xl'}>
       <TransportView/>
+      <RulerSettings/>
       <Flexer>
         <VerticalChannelList/>
         <RightPane>
-          <RulerSettings/>
           <ArrangeGrid/>
         </RightPane>
       </Flexer>

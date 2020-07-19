@@ -6,10 +6,9 @@ import { ARRANGE_GRID_OFFSET } from '../../const/ui';
 import Ruler from '../Ruler/Ruler';
 
 const BaseContainer = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
   overflowX: 'scroll',
   overflowY: 'hidden',
+  position: 'relative',
   backgroundColor: splinterTheme.palette.background.default,
   paddingLeft: ARRANGE_GRID_OFFSET * (-2),
 });

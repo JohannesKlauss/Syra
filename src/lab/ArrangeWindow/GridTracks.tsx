@@ -13,7 +13,6 @@ interface ArrangeWindowProps {
 }
 
 const BaseContainer = styled(Box)({
-  overflow: 'hidden',
   backgroundColor: splinterTheme.palette.background.default,
   position: 'relative',
   width: ({windowWidth}: ArrangeWindowProps) => windowWidth,

@@ -16,9 +16,7 @@ function InstrumentChannel() {
 
   return (
     <>
-      <List subheader={<ListSubheader><ChannelHeader/></ListSubheader>}>
-        <ChannelInstrument/>
-      </List>
+      <ChannelHeader/>
       <ChannelBody/>
     </>
   );
