@@ -67,6 +67,7 @@ const ChannelPatch: React.FunctionComponent<Props> = React.memo(({ patchList, ac
           menuItems={menuItems}
           fullWidth
           small
+          menuPlacement={'right-start'}
           prependingButton={BypassButton}
         >
           <Typography variant="overline" noWrap>{activePatch?.soulPatch.descriptor.description.name}</Typography>

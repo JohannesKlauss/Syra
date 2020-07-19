@@ -11,9 +11,7 @@ function AudioChannel() {
 
   return (
     <>
-      <List subheader={<ListSubheader><ChannelHeader/></ListSubheader>}>
-        <ChannelAudio/>
-      </List>
+      <ChannelHeader/>
       <ChannelBody/>
     </>
   );
