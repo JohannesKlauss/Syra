@@ -11,6 +11,7 @@ import useSyncChannelToSolo from './useSyncChannelToSolo';
 import useSyncPlayersToTransport from './useSyncPlayersToTransport';
 import useConnectDisconnect from './useConnectDisconnect';
 import useToneAudioNodes from './useToneAudioNodes';
+import { projectStore } from '../../recoil/projectStore';
 
 export default function useAudioToneConnector() {
   const transport = useToneJsTransport();
@@ -18,6 +19,7 @@ export default function useAudioToneConnector() {
   const { soulPlugins, isArmed, isMuted, isSolo } = useRecoilValue(channelStore.state(channelId));
   const regions = useRecoilValue(regionStore.findByChannelId(channelId));
   const regionIds = useRecoilValue(regionStore.ids(channelId));
+  const isSplinterRecording = useRecoilValue(projectStore.isRecording);
   const playerSchedules = useRef<number[]>([]);
 
   const {merge, players, channel, audioIn, recorder, rmsMeter} = useToneAudioNodes();
@@ -29,6 +31,11 @@ export default function useAudioToneConnector() {
   useSyncPlayersToTransport();
 
   const connect = useCallback(async () => {
+    // If splinter is recording we do not change anything in the tone connection.
+    if (recorder.state === 'started') {
+      return;
+    }
+
     disconnect();
 
     if (isMuted) {
@@ -47,7 +54,7 @@ export default function useAudioToneConnector() {
     console.log('change', soulPlugins);
 
     Tone.connectSeries(merge, ...pluginNodes, channel, rmsMeter, Tone.Destination);
-  }, [audioIn, merge, recorder, soulPlugins, isMuted, isArmed, channel, rmsMeter, disconnect, regions, regionIds, playerSchedules, players, transport]);
+  }, [isSplinterRecording, audioIn, merge, recorder, soulPlugins, isMuted, isArmed, channel, rmsMeter, disconnect, regions, regionIds, playerSchedules, players, transport]);
 
   useConnectDisconnect(connect, disconnect, isMuted, isArmed);
 }

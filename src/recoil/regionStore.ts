@@ -21,6 +21,12 @@ const isSolo = atomFamily<boolean, string>({
   default: false,
 });
 
+// Determines if the region is in a recording state. If so no player gets connected and no scheduling happens.
+const isRecording = atomFamily<boolean, string>({
+  key: 'region/isRecording',
+  default: false,
+});
+
 const audioBuffer = atomFamily<Tone.ToneAudioBuffer | null, string>({
   key: 'region/audioBuffer',
   default: null,
@@ -32,6 +38,7 @@ export interface RegionState {
   end: number;
   isMuted: boolean;
   isSolo: boolean;
+  isRecording: boolean;
 }
 
 const regionState = selectorFamily<RegionState, string>({
@@ -42,6 +49,7 @@ const regionState = selectorFamily<RegionState, string>({
     end: get(end(id)),
     isSolo: get(isSolo(id)),
     isMuted: get(isMuted(id)),
+    isRecording: get(isRecording(id)),
   }),
 });
 
@@ -76,4 +84,5 @@ export const regionStore = {
   findByChannelId,
   isSolo,
   isMuted,
+  isRecording,
 };

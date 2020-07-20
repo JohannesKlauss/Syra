@@ -11,16 +11,21 @@ export default function useRegionScheduler() {
   const { players } = useToneAudioNodes();
   const regionId = useContext(RegionContext);
   const transportSeconds = useRecoilValue(transportStore.seconds);
-  const { start, audioBuffer, isMuted } = useRecoilValue(regionStore.regionState(regionId));
+  const { start, audioBuffer, isMuted, isRecording } = useRecoilValue(regionStore.regionState(regionId));
   const [scheduleId, setScheduleId] = useState<number | null>(null);
 
   useEffect(() => {
-    if (audioBuffer && !players.has(regionId)) {
-      players.add(regionId, audioBuffer);
-    }
-
     if (scheduleId !== null) {
       transport.clear(scheduleId);
+    }
+
+    // When the region is being recorded or has an empty audio buffer we do not schedule anything.
+    if (isRecording || audioBuffer === null) {
+      return;
+    }
+
+    if (audioBuffer && !players.has(regionId)) {
+      players.add(regionId, audioBuffer);
     }
 
     let scheduleAt = start - (start === 0 ? 0 : 0.005);
