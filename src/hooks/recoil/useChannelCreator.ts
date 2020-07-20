@@ -27,5 +27,5 @@ export default function useChannelCreator() {
     nextChannelId.current = createNewId(CHANNEL_ID_PREFIX);
 
     return createRegion;
-  }, [setChannelIds, setChannelType, createRegion, setChannelName]);
+  }, [setChannelIds, setChannelType, createRegion, setChannelName, channelColor, channelName, setChannelColor]);
 }

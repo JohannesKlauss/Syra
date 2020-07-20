@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil/dist';
 import { projectStore } from '../../recoil/projectStore';
 import { ChannelContext } from '../../providers/ChannelContext';

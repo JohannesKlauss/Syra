@@ -17,5 +17,5 @@ export default function useAudioDisconnect() {
     Tone.disconnect(audioIn);
     Tone.disconnect(players);
     Tone.disconnect(merge);
-  }, [audioIn, players, isSplinterRecording]);
+  }, [audioIn, players, merge, isSplinterRecording]);
 }

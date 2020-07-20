@@ -5,11 +5,7 @@ import ZoomOutIcon from '@material-ui/icons/ZoomOut';
 import { useSetRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 
-interface Props {
-
-}
-
-function RulerZoomInOut({}: Props) {
+function RulerZoomInOut() {
   const setZoomLevel= useSetRecoilState(arrangeWindowStore.zoomLevel);
 
   return (

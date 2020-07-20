@@ -15,13 +15,17 @@ export default function useRegionScheduler() {
   const [scheduleId, setScheduleId] = useState<number | null>(null);
 
   useEffect(() => {
-    if (scheduleId !== null) {
-      transport.clear(scheduleId);
-    }
+    console.log('update');
 
     // When the region is being recorded or has an empty audio buffer we do not schedule anything.
     if (isRecording || audioBuffer === null) {
       return;
+    }
+
+    console.log('update scheduling', isRecording);
+
+    if (scheduleId !== null) {
+      transport.clear(scheduleId);
     }
 
     if (audioBuffer && !players.has(regionId)) {
@@ -41,5 +45,5 @@ export default function useRegionScheduler() {
     }, scheduleAt);
 
     setScheduleId(newScheduleId);
-  }, [start, audioBuffer, players, isMuted, transport, transportSeconds]);
+  }, [start, audioBuffer, players, isMuted, transport, transportSeconds, isRecording, regionId]);
 }

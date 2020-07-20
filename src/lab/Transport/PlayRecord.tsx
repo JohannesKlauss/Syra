@@ -35,12 +35,12 @@ function PlayRecord() {
     }
 
     setIsPlaying(currVal => !currVal);
-  }, [setIsPlaying, transport, isPlaying, isRecording, setIsRecording]);
+  }, [setIsPlaying, transport, isPlaying, isRecording]);
 
   const onClickReset = useCallback(() => {
     setPlayheadPosition(1);
     setTransportSeconds(0);
-  }, [setPlayheadPosition]);
+  }, [setPlayheadPosition, setTransportSeconds]);
 
   const onClickRecord = useCallback(() => {
     if (isRecording) {
@@ -51,7 +51,7 @@ function PlayRecord() {
       setIsRecording(true);
       transport.start('+0.05'); // TODO: THIS MIGHT CAUSE SYNCING ISSUES BETWEEN THE PLAYBACK AND THE RECORDING ITSELF.
     }
-  }, [setIsRecording, isRecording]);
+  }, [setIsRecording, isRecording, transport]);
 
   return (
     <BaseContainer>

@@ -5,11 +5,7 @@ import { useRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { MenuItem } from '@material-ui/core';
 
-interface Props {
-
-}
-
-function RulerSnapSettings({}: Props) {
+function RulerSnapSettings() {
   const [isSnapActive, setIsSnapActive] = useRecoilState(arrangeWindowStore.isSnapActive);
   const [gridSnapValue, setGridSnapValue] = useRecoilState(arrangeWindowStore.snapValue);
 

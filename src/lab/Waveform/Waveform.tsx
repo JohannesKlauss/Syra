@@ -10,6 +10,8 @@ interface Props {
 function Waveform({ audioBuffer, height, width }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  // TODO: THIS HAS TO BE HEAVILY OPTIMIZED. DURING RECORDING WE RECREATE EVERY LINE WHEN A NEW BUFFER CHUNK COMES IN.
+  // WHAT WE SHOULD DO IS CHECK THE RECORDING STATE OF THE REGION AND THEN JUST DRAW OUT THE NEW LINES AND KEEP THE OLD ONES.
   useEffect(() => {
     const draw = () => {
       if (canvasRef.current === null || audioBuffer == null) {

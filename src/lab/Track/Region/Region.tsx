@@ -52,7 +52,7 @@ function Region() {
     if (!isSplinterRecording) {
       setIsRecording(false);
     }
-  }, [isSplinterRecording]);
+  }, [isSplinterRecording, setIsRecording]);
 
   const regionWidth = useMemo(() => pixelPerSecond * (audioBuffer?.duration ?? 0), [audioBuffer, pixelPerSecond]);
   const translateX = useMemo(() => pixelPerSecond * start, [pixelPerSecond, start]);

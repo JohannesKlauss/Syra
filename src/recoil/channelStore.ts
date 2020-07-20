@@ -1,7 +1,6 @@
 import { atom, atomFamily, selector, selectorFamily } from 'recoil/dist';
 import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
-import { teal } from '@material-ui/core/colors';
 import { channelTypeToLabel } from '../utils/channelTypeToLabel';
 import { RegionState, regionStore } from './regionStore';
 import { channelColors } from '../utils/channelColors';

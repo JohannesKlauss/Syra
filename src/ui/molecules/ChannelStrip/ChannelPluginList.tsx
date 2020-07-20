@@ -1,5 +1,5 @@
 import React, { useCallback, useContext } from 'react';
-import { Button, List, ListItem, styled } from '@material-ui/core';
+import { Button, List, ListItem } from '@material-ui/core';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { useRecoilState } from 'recoil/dist';
 import ChannelPlugin from './ChannelPlugin';

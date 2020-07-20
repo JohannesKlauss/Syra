@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { styled } from '@material-ui/core';
-import * as Tone from 'tone';
 import Konva from 'konva';
 import { amber, red, teal } from '@material-ui/core/colors';
 import { mapDbToUiMeterVal } from '../../../utils/levelMeterMapping';

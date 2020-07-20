@@ -3,7 +3,6 @@ import { styled } from '@material-ui/core';
 import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import usePlayheadAnimation from '../../hooks/ui/usePlayheadAnimation';
-import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
 import { projectStore } from '../../recoil/projectStore';
 import { red } from '@material-ui/core/colors';
 import { transportStore } from '../../recoil/transportStore';
@@ -55,8 +54,9 @@ function Playhead() {
   const transportTranslate = usePlayheadAnimation();
 
   useEffect(() => {
+    console.log('update transport seconds', (snappedPlayheadPos - 1) * 4 * beatsPerSecond);
     setTransportSeconds((snappedPlayheadPos - 1) * 4 * beatsPerSecond);
-  }, [snappedPlayheadPos, beatsPerSecond]);
+  }, [snappedPlayheadPos, beatsPerSecond, setTransportSeconds]);
 
   return (
     <PlayheadIndicator translateX={transportTranslate} isRecording={isRecording}/>

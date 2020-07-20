@@ -17,7 +17,7 @@ function ChannelMenu({isMenuOpen, onClose}: Props) {
 
   const options = useMemo(() => ([
     <ChannelColorPicker activeColor={color} onChangeColor={setColor}/>,
-  ]), []);
+  ]), [color, setColor]);
 
   return (
     <div ref={divRef}>

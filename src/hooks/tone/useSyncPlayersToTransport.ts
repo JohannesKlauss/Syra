@@ -10,5 +10,5 @@ export default function useSyncPlayersToTransport() {
     transport.on('stop', () => {
       players.stopAll();
     });
-  }, []);
+  }, [transport, players]);
 }

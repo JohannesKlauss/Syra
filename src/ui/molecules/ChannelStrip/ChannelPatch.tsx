@@ -4,20 +4,13 @@ import { AvailableSoulPatch } from '../../../recoil/soulPatchesStore';
 import { createSoulInstance } from '../../../soul/createSoulInstance';
 import {
   Button,
-  Container, IconButton,
-  ListItem, MenuItem,
+  Container,
+  MenuItem,
   Modal, Typography,
 } from '@material-ui/core';
 import { SoulInstance } from '../../../types/Soul';
 import DropdownButton from '../../atoms/Buttons/DropdownButton';
-import { makeStyles } from '@material-ui/core/styles';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-
-const useStyles = makeStyles({
-  listItem: {
-    padding: '1px 3px',
-  },
-});
 
 interface Props {
   patchList: AvailableSoulPatch[];
@@ -28,7 +21,6 @@ interface Props {
 
 const ChannelPatch: React.FunctionComponent<Props> = React.memo(({ patchList, activePatch, setActivePatch, isInstrument, children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const styles = useStyles();
 
   const onChangePatch = useCallback(async (UID: string) => {
     const patch = patchList.find(patch => patch.UID === UID);
