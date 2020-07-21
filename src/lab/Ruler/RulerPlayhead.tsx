@@ -27,12 +27,12 @@ const PlayheadIndicator = styled('span')({
     content: '"\\25BC"',
     bottom: '100%',
     color: ({isRecording}: PlayheadProps) => isRecording ? red[500] : 'white',
-    fontSize: 31,
-    left: -9,
+    fontSize: 23,
+    left: -10,
     position: 'absolute',
     textAlign: 'center',
     width: 32,
-    top: -31,
+    top: -23,
   },
   '&:after': {
     backgroundColor: ({isRecording}: PlayheadProps) => isRecording ? red[500] : 'white',
@@ -46,7 +46,7 @@ const PlayheadIndicator = styled('span')({
   },
 });
 
-function Playhead() {
+function RulerPlayhead() {
   const snappedPlayheadPos = useRecoilValue(arrangeWindowStore.snappedPlayheadPosition);
   const beatsPerSecond = useRecoilValue(arrangeWindowStore.beatsPerSecond);
   const isRecording = useRecoilValue(projectStore.isRecording);
@@ -54,7 +54,6 @@ function Playhead() {
   const transportTranslate = usePlayheadAnimation();
 
   useEffect(() => {
-    console.log('update transport seconds', (snappedPlayheadPos - 1) * 4 * beatsPerSecond);
     setTransportSeconds((snappedPlayheadPos - 1) * 4 * beatsPerSecond);
   }, [snappedPlayheadPos, beatsPerSecond, setTransportSeconds]);
 
@@ -63,4 +62,4 @@ function Playhead() {
   );
 }
 
-export default Playhead;
+export default RulerPlayhead;

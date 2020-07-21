@@ -11,12 +11,12 @@ export default function useMoveRegion(isSelected: boolean) {
   const isSnapActive = useRecoilValue(arrangeWindowStore.isSnapActive);
   const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
   const [start, setStart] = useRecoilState(regionStore.start(id));
-  const initialValues = useRef({ x: 0, offset: start });
+  const initialValues = useRef({ x: 0, offsetStart: start });
 
   const onMouseDown = useCallback((e) => {
     initialValues.current = {
       x: e.clientX,
-      offset: start * pixelPerSecond,
+      offsetStart: start * pixelPerSecond,
     };
     setIsDraggingActive(isSelected);
   }, [initialValues, setIsDraggingActive, isSelected, start, pixelPerSecond]);
@@ -25,7 +25,7 @@ export default function useMoveRegion(isSelected: boolean) {
 
   const onMouseMove = useCallback((e) => {
     if (isDraggingActive) {
-      const x = initialValues.current.offset + e.clientX - initialValues.current.x;
+      const x = initialValues.current.offsetStart + e.clientX - initialValues.current.x;
       const inverse = 1 / snapWidth;
       const snappedPos = isSnapActive ? Math.round(x * inverse) / inverse : x;
 

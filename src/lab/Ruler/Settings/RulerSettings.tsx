@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box, Divider, styled } from '@material-ui/core';
-import { splinterTheme } from '../../theme';
-import RulerZoomInOut from './Settings/RulerZoomInOut';
-import RulerSnapSettings from './Settings/RulerSnapSettings';
+import { splinterTheme } from '../../../theme';
+import RulerZoomInOut from './RulerZoomInOut';
+import RulerSnapSettings from './RulerSnapSettings';
+import RulerCycleSettings from './RulerCycleSettings';
 
 const BaseContainer = styled(Box)({
   width: '100%',
@@ -23,6 +24,8 @@ function RulerSettings() {
       <RulerSnapSettings/>
       <Divider variant={'inset'}/>
       <RulerZoomInOut/>
+      <Divider variant={'inset'}/>
+      <RulerCycleSettings/>
     </BaseContainer>
   );
 }

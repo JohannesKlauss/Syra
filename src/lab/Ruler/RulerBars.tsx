@@ -19,6 +19,8 @@ const RulerItem = styled('span')({
   position: 'absolute',
   borderLeft: `1px solid rgba(255, 255, 255, 0.3)`,
   paddingLeft: 4,
+  pointerEvent: 'none',
+  zIndex: 3,
 });
 
 function RulerBars() {

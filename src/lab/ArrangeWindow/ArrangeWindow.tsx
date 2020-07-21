@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Container, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
-import RulerSettings from '../Ruler/RulerSettings';
+import RulerSettings from '../Ruler/Settings/RulerSettings';
 import ArrangeGrid from './ArrangeGrid';
 import VerticalChannelList from '../VerticalChannels/VerticalChannelList';
 import TransportView from '../Transport/TransportView';
@@ -16,11 +16,14 @@ const BaseContainer = styled(Container)({
 
 const Flexer = styled('div')({
   display: 'flex',
+  overflow: 'auto',
+  maxHeight: 200,
 });
 
 const RightPane = styled(Box)({
   width: '100%',
-  overflow: 'hidden',
+  overflowX: 'auto',
+  height: '100%',
 });
 
 function ArrangeWindow() {

@@ -10,8 +10,10 @@ const BaseContainer = styled(Box)({
   width: 250,
   marginTop: 40,
   borderTop: `1px solid ${splinterTheme.palette.background.default}`,
-})
-
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+});
 function VerticalChannelList() {
   const channels = useRecoilValue(channelStore.ids);
 

@@ -5,7 +5,7 @@ import {
   arrangeWindowStore,
 } from '../../recoil/arrangeWindowStore';
 import { ARRANGE_GRID_OFFSET } from '../../const/ui';
-import Playhead from '../Transport/Playhead';
+import RulerPlayhead from './RulerPlayhead';
 
 interface BaseContainerProps {
   windowWidth: number;
@@ -21,7 +21,7 @@ const BaseContainer = styled(Box)({
   zIndex: 2,
 });
 
-function GridTransportCursor() {
+function RulerTransportCursor() {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
   const setPlayheadPos = useSetRecoilState(arrangeWindowStore.playheadPosition);
   const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
@@ -57,9 +57,9 @@ function GridTransportCursor() {
                    onMouseLeave={() => setIsCursorDragging(false)}
                    onMouseUp={() => setIsCursorDragging(false)} onMouseMove={onPlayheadDrag}
                    onClick={onClickTransport}>
-      <Playhead/>
+      <RulerPlayhead/>
     </BaseContainer>
   );
 }
 
-export default GridTransportCursor;
+export default RulerTransportCursor;

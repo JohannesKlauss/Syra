@@ -1,11 +1,12 @@
 import React from 'react';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
-import GridTransportCursor from '../ArrangeWindow/GridTransportCursor';
+import RulerTransportCursor from './RulerTransportCursor';
 import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import RulerBars from './RulerBars';
 import BackgroundGrid from '../ArrangeWindow/BackgroundGrid';
+import RulerCycle from './Cycle/RulerCycle';
 
 interface BaseContainerProps {
   windowWidth: number;
@@ -28,7 +29,8 @@ function Ruler() {
     <BaseContainer windowWidth={windowWidth}>
       <BackgroundGrid/>
       <RulerBars/>
-      <GridTransportCursor/>
+      <RulerCycle/>
+      <RulerTransportCursor/>
     </BaseContainer>
   );
 }
