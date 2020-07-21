@@ -1,9 +1,10 @@
-import React, { useContext, useMemo, useRef } from 'react';
+import React, { useCallback, useContext, useMemo, useRef } from 'react';
 import { Menu, MenuItem } from '@material-ui/core';
 import ChannelColorPicker from './ChannelColorPicker';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
 import { useRecoilState } from 'recoil/dist';
+import { removeItemAtIndex } from '../../../utils/recoil';
 
 interface Props {
   isMenuOpen: boolean;
@@ -12,11 +13,19 @@ interface Props {
 
 function ChannelMenu({isMenuOpen, onClose}: Props) {
   const channelId = useContext(ChannelContext);
+  const [channelIds, setChannelIds] = useRecoilState(channelStore.ids);
   const [color, setColor] = useRecoilState(channelStore.color(channelId));
   const divRef = useRef<HTMLDivElement>(null);
 
+  const onDeleteChannel = useCallback(() => {
+    const index = channelIds.findIndex(val => val === channelId);
+
+    setChannelIds(currVal => removeItemAtIndex(currVal, index));
+  }, [setChannelIds, channelIds, channelId]);
+
   const options = useMemo(() => ([
-    <ChannelColorPicker activeColor={color} onChangeColor={setColor}/>,
+    <MenuItem><ChannelColorPicker activeColor={color} onChangeColor={setColor}/></MenuItem>,
+    <MenuItem onClick={onDeleteChannel}>Delete</MenuItem>,
   ]), [color, setColor]);
 
   return (
@@ -27,9 +36,7 @@ function ChannelMenu({isMenuOpen, onClose}: Props) {
         anchorEl={divRef.current}
       >
         {options.map((option, i) => (
-          <MenuItem key={i}>
-            {option}
-          </MenuItem>
+          <div key={i}>{option}</div>
         ))}
       </Menu>
     </div>

@@ -7,17 +7,17 @@ import VerticalChannelList from '../VerticalChannels/VerticalChannelList';
 import TransportView from '../Transport/TransportView';
 
 const BaseContainer = styled(Container)({
-  overflow: 'hidden',
   width: '100%',
-  maxHeight: '80vh',
+  maxHeight: '45vh',
   padding: '5px 0',
+  overflow: 'hidden',
   backgroundColor: splinterTheme.palette.background.paper,
 });
 
 const Flexer = styled('div')({
   display: 'flex',
+  maxHeight: 350,
   overflow: 'auto',
-  maxHeight: 200,
 });
 
 const RightPane = styled(Box)({
