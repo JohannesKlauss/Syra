@@ -21,6 +21,7 @@ const ColoredDivider = styled(Divider)({
 
 const SmrContainer = styled(Paper)({
   padding: 10,
+  background: 'transparent',
 });
 
 const ChannelNameContainer = styled(Paper)({

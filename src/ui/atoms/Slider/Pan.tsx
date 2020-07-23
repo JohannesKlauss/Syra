@@ -1,5 +1,11 @@
 import React from 'react';
-import { Paper, Slider } from '@material-ui/core';
+import { Paper, Slider, styled } from '@material-ui/core';
+
+const BaseContainer = styled(Paper)({
+  paddingLeft: 20,
+  paddingRight: 20,
+  background: 'transparent',
+})
 
 interface Props {
   onChange: (props: any) => void;
@@ -7,7 +13,7 @@ interface Props {
 
 function Pan({onChange}: Props) {
   return (
-    <Paper style={{paddingLeft: 20, paddingRight: 20}}>
+    <BaseContainer>
       <Slider
         defaultValue={0}
         min={-100}
@@ -15,7 +21,7 @@ function Pan({onChange}: Props) {
         step={1}
         onChange={(_, newValue) => onChange({pan: newValue as number / 100})}
       />
-    </Paper>
+    </BaseContainer>
   );
 }
 

@@ -1,6 +1,6 @@
 /* Inspiration is taken from ritz078's piano implementation. https://github.com/ritz078/raaga/blob/master/components/Piano/Piano.tsx */
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import * as Tone from 'tone';
 import { MidiNumbers } from 'piano-utils';
 import { getAllMidiNumbersInRange, getNaturalKeyWidthRatio, getRelativeKeyPosition } from '../../../utils/keyboardMidiHelper';
@@ -9,6 +9,9 @@ import useUpdateMidiStore from '../../../hooks/midi/useUpdateMidiStore';
 import { useRecoilValue } from 'recoil/dist';
 import { keyboardMidiStore } from '../../../recoil/keyboardMidiStore';
 import usePianoRoll from '../../../hooks/ui/usePianoRoll';
+import { OnMidiEvent } from '../../../types/Midi';
+import useListenForInternalPianoRoll from '../../../hooks/midi/useConnectPianoRollToSelectedChannel';
+import useConnectPianoRollToSelectedChannel from '../../../hooks/midi/useConnectPianoRollToSelectedChannel';
 
 interface Props {
   min: number;
@@ -19,7 +22,14 @@ const Piano = (props: Props) => {
   const { min, max } = props;
 
   const activeMidis = useRecoilValue(keyboardMidiStore.activeKeyboardMidiNotes);
-  const onEvent = useUpdateMidiStore();
+  const updateStore = useUpdateMidiStore();
+  const onNote = useConnectPianoRollToSelectedChannel();
+
+  const onEvent = useCallback<OnMidiEvent>((msg, note, velocity) => {
+    updateStore(msg, note, velocity);
+    onNote(msg, note, velocity);
+  }, [onNote, updateStore]);
+
   const {isMousePressed, onMouseUp, onMouseDown} = usePianoRoll(onEvent);
 
   const range = { first: min, last: max };
@@ -44,7 +54,7 @@ const Piano = (props: Props) => {
             onMouseDown={() => onMouseDown(note)}
             onMouseUp={() => onMouseUp(note)}
             onMouseEnter={isMousePressed ? () => onEvent(144, note, 120) : undefined}
-            onMouseLeave={() => onEvent(128, note, 0)}
+            onMouseLeave={isMousePressed ? () => onEvent(128, note, 0) : undefined}
             key={note}
             style={style}
           >

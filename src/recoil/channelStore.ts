@@ -143,9 +143,27 @@ const ids = atom<string[]>({
   default: []
 });
 
+const selectedId = atom<string>({
+  key: 'channel/selectedId',
+  default: '',
+})
+
 const findPluginsByIds = selectorFamily<SoulInstance[], string[]>({
   key: 'channel/findPluginsByIds',
   get: ids => ({get}) => ids.map(id => get(soulInstance(id))).filter(patch => patch !== undefined) as SoulInstance[],
+});
+
+const findSelectedChannel = selector({
+  key: 'channel/findSelectedChannel',
+  get: ({get}) => {
+    const id = get(selectedId);
+
+    if (id === '') {
+      return undefined;
+    }
+
+    return get(state(id));
+  },
 });
 
 export const channelStore = {
@@ -157,10 +175,12 @@ export const channelStore = {
   isMuted,
   isPatchActive,
   pluginIds,
-  findPluginsByIds,
   state,
   ids,
+  selectedId,
   soulPatchParameter,
   soulInstance,
   toneJsMap,
+  findPluginsByIds,
+  findSelectedChannel,
 };
