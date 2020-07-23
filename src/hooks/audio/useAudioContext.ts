@@ -1,5 +1,5 @@
 import * as Tone from 'tone';
 
 export default function useAudioContext() {
-  return Tone.context;
+  return Tone.getContext();
 }

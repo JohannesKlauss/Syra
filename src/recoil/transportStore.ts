@@ -5,28 +5,28 @@ import * as Tone from 'tone';
 
 const internalSeconds = atom({
   key: 'transport/internalSeconds',
-  default: Tone.Transport.seconds,
+  default: Tone.getTransport().seconds,
 });
 
 const seconds = selector<number>({
   key: 'transport/seconds',
   get: ({get}) => get(internalSeconds),
   set: ({set}, newValue) => {
-    Tone.Transport.seconds = newValue as number;
+    Tone.getTransport().seconds = newValue as number;
     set(internalSeconds, newValue as number);
   },
 });
 
 const internalLoopStart = atom({
   key: 'transport/internalLoopStart',
-  default: Tone.Transport.loopStart,
+  default: Tone.getTransport().loopStart,
 });
 
 const cycleStart = selector<number>({
   key: 'transport/cycleStart',
   get: ({get}) => get(internalLoopStart) as number,
   set: ({set}, newValue) => {
-    Tone.Transport.loopStart = newValue as number;
+    Tone.getTransport().loopStart = newValue as number;
     set(internalLoopStart, newValue as number);
   },
 });
@@ -36,9 +36,9 @@ const internalLoopEnd = atom<number>({
   default: selector({
     key: 'transport/internalLoopEnd/Default',
     get: () => {
-      Tone.Transport.loopEnd = 4;
+      Tone.getTransport().loopEnd = 4;
 
-      return Tone.Transport.loopEnd;
+      return Tone.getTransport().loopEnd as number;
     }
   }),
 });
@@ -47,21 +47,21 @@ const cycleEnd = selector<number>({
   key: 'transport/cycleEnd',
   get: ({get}) => get(internalLoopEnd) as number,
   set: ({set}, newValue) => {
-    Tone.Transport.loopEnd = newValue as number;
+    Tone.getTransport().loopEnd = newValue as number;
     set(internalLoopEnd, newValue as number);
   },
 });
 
 const internalLoop = atom({
   key: 'transport/internalLoop',
-  default: Tone.Transport.loop,
+  default: Tone.getTransport().loop,
 });
 
 const isCycleActive = selector<boolean>({
   key: 'transport/isCycleActive',
   get: ({get}) => get(internalLoop),
   set: ({set}, newValue) => {
-    Tone.Transport.loop = newValue as boolean;
+    Tone.getTransport().loop = newValue as boolean;
     set(internalLoop, newValue as boolean);
   }
 })

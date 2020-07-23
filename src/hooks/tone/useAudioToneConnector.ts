@@ -9,6 +9,7 @@ import useSyncChannelToSolo from './useSyncChannelToSolo';
 import useSyncPlayersToTransport from './useSyncPlayersToTransport';
 import useConnectDisconnect from './useConnectDisconnect';
 import useToneAudioNodes from './useToneAudioNodes';
+import useToneJsTransport from './useToneJsTransport';
 
 export default function useAudioToneConnector() {
   const channelId = useContext(ChannelContext);
@@ -40,10 +41,11 @@ export default function useAudioToneConnector() {
 
     const pluginNodes = soulPlugins.map(plugin => plugin.audioNode);
 
-    audioIn.fan(recorder, merge);
-    players.connect(merge);
-
-    console.log('change', soulPlugins);
+    audioIn.connect(recorder);
+    audioIn.connect(merge, 0, 0);
+    audioIn.connect(merge, 0, 1);
+    players.connect(merge, 0, 0);
+    players.connect(merge, 0, 1);
 
     Tone.connectSeries(merge, ...pluginNodes, channel, rmsMeter, Tone.Destination);
   }, [audioIn, merge, recorder, soulPlugins, isMuted, isArmed, channel, rmsMeter, disconnect, players]);

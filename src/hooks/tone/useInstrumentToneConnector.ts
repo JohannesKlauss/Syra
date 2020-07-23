@@ -22,7 +22,7 @@ export default function useInstrumentToneConnector() {
     const pluginNodes = soulPlugins.map(plugin => plugin.audioNode);
 
     if (soulInstrument) {
-      Tone.connectSeries(soulInstrument.audioNode, ...pluginNodes, channel, rmsMeter, Tone.Destination);
+      Tone.connectSeries(soulInstrument.audioNode, ...pluginNodes, channel, rmsMeter, Tone.getDestination());
     }
 
     return () => {

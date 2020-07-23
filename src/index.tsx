@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'development') {
 
 async function firstClick() {
   await Tone.start();
-  await Tone.context.addAudioWorkletModule('worklets/SoulWasmAudioWorkletProcessor.js', 'soul-wasm-audio-worklet-processor');
+  await Tone.getContext().addAudioWorkletModule('worklets/SoulWasmAudioWorkletProcessor.js', 'soul-wasm-audio-worklet-processor');
 
   document.body.removeEventListener('click', firstClick);
 }

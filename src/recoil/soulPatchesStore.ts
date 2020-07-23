@@ -38,6 +38,11 @@ const availableSoulPlugins = atom<AvailableSoulPatch[]>({
       displayName: 'Distortion',
       pathWasm: 'distortion',
       UID: 'com.yourcompany.Distortion'
+    },
+    {
+      displayName: 'PhaseFlip',
+      pathWasm: 'phaseFlip',
+      UID: 'com.yourcompany.PhaseFlip'
     }
   ],
 });
