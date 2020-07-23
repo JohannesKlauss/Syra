@@ -19,7 +19,7 @@ interface Props {
   activePatch?: SoulInstance;
 }
 
-const ChannelPatch: React.FunctionComponent<Props> = React.memo(({ patchList, activePatch, setActivePatch, isInstrument, children }) => {
+const SoulPluginOverlay: React.FunctionComponent<Props> = React.memo(({ patchList, activePatch, setActivePatch, isInstrument, children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onChangePatch = useCallback(async (UID: string) => {
@@ -67,4 +67,4 @@ const ChannelPatch: React.FunctionComponent<Props> = React.memo(({ patchList, ac
   );
 });
 
-export default ChannelPatch;
+export default SoulPluginOverlay;

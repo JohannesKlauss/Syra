@@ -1,10 +1,10 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil/dist';
-import { channelStore } from '../../recoil/channelStore';
+import { channelStore } from '../../../../recoil/channelStore';
 import { Box, styled } from '@material-ui/core';
 import VerticalChannel from './VerticalChannel';
-import { ChannelContext } from '../../providers/ChannelContext';
-import { splinterTheme } from '../../theme';
+import { ChannelContext } from '../../../../providers/ChannelContext';
+import { splinterTheme } from '../../../../theme';
 
 const BaseContainer = styled(Box)({
   width: 250,

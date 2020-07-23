@@ -9,7 +9,7 @@ interface Props {
   multiple?: boolean;
 }
 
-const SoulPatchList = ({patches, onChange, label, multiple}: Props) => {
+const AvailablePluginMenuList = ({patches, onChange, label, multiple}: Props) => {
   return (
     <FormControl style={{minWidth: 120}}>
       <InputLabel id={`select-${label}`}>{label}</InputLabel>
@@ -26,4 +26,4 @@ const SoulPatchList = ({patches, onChange, label, multiple}: Props) => {
   );
 };
 
-export default React.memo(SoulPatchList);
+export default React.memo(AvailablePluginMenuList);

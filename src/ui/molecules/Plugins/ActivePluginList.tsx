@@ -2,7 +2,7 @@ import React, { useCallback, useContext } from 'react';
 import { Button, List, ListItem } from '@material-ui/core';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { useRecoilState } from 'recoil/dist';
-import ChannelPlugin from './ChannelPlugin';
+import SoulPlugin from '../SoulPlugin/SoulPlugin';
 import { channelStore } from '../../../recoil/channelStore';
 import { makeStyles } from '@material-ui/core/styles';
 const uniqid = require('uniqid');
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   }
 });
 
-function ChannelPluginList() {
+function ActivePluginList() {
   const styles = useStyles();
   const channelId = useContext(ChannelContext);
   const [soulPluginIds, setSoulPluginIds] = useRecoilState(channelStore.pluginIds(channelId));
@@ -26,7 +26,7 @@ function ChannelPluginList() {
   return (
     <List>
       {soulPluginIds.map((id) => (
-        <ChannelPlugin key={id} id={id}/>
+        <SoulPlugin key={id} id={id}/>
       ))}
       <ListItem className={styles.listItem}>
         <Button onClick={onClick} fullWidth>Add Plugin</Button>
@@ -35,4 +35,4 @@ function ChannelPluginList() {
   );
 }
 
-export default ChannelPluginList;
+export default ActivePluginList;

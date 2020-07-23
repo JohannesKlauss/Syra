@@ -4,6 +4,8 @@ import Home from '../ui/screen/Home';
 import { useRecoilState } from 'recoil/dist';
 import WebMidi from 'webmidi';
 import { keyboardMidiStore } from '../recoil/keyboardMidiStore';
+import useListenForExternalMidiIn from '../hooks/midi/useListenForExternalMidiIn';
+import useUpdateMidiStore from '../hooks/midi/useUpdateMidiStore';
 
 const BaseContainer = styled(Box)({
   width: '100vw',
@@ -14,6 +16,7 @@ const BaseContainer = styled(Box)({
 
 function AudioContextProvider() {
   const [midiDevice, setMidiDevice] = useRecoilState(keyboardMidiStore.selectedMidiDevice);
+  useListenForExternalMidiIn(useUpdateMidiStore());
 
   const onChangeMidiDevice = useCallback((event: React.ChangeEvent<{ value: unknown }>) => {
     setMidiDevice(event.target.value as string);

@@ -9,7 +9,6 @@ import useSyncChannelToSolo from './useSyncChannelToSolo';
 import useSyncPlayersToTransport from './useSyncPlayersToTransport';
 import useConnectDisconnect from './useConnectDisconnect';
 import useToneAudioNodes from './useToneAudioNodes';
-import useToneJsTransport from './useToneJsTransport';
 
 export default function useAudioToneConnector() {
   const channelId = useContext(ChannelContext);

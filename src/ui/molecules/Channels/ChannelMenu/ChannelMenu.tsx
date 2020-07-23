@@ -1,10 +1,10 @@
 import React, { useCallback, useContext, useMemo, useRef } from 'react';
 import { Menu, MenuItem } from '@material-ui/core';
 import ChannelColorPicker from './ChannelColorPicker';
-import { ChannelContext } from '../../../providers/ChannelContext';
-import { channelStore } from '../../../recoil/channelStore';
+import { ChannelContext } from '../../../../providers/ChannelContext';
+import { channelStore } from '../../../../recoil/channelStore';
 import { useRecoilState } from 'recoil/dist';
-import { removeItemAtIndex } from '../../../utils/recoil';
+import { removeItemAtIndex } from '../../../../utils/recoil';
 
 interface Props {
   isMenuOpen: boolean;

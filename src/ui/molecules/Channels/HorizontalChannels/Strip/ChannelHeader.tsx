@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { Box, IconButton, styled } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ChannelMenu from '../ChannelMenu/ChannelMenu';
-import ChannelAudio from './ChannelAudio';
+import ChannelMenu from '../../ChannelMenu/ChannelMenu';
+import AudioChannelInput from './Input/AudioChannelInput';
 import { useRecoilValue } from 'recoil/dist';
-import { channelStore } from '../../../recoil/channelStore';
-import { ChannelContext } from '../../../providers/ChannelContext';
-import { ChannelType } from '../../../types/Channel';
-import ChannelInstrument from './ChannelInstrument';
+import { channelStore } from '../../../../../recoil/channelStore';
+import { ChannelContext } from '../../../../../providers/ChannelContext';
+import { ChannelType } from '../../../../../types/Channel';
+import InstrumentChannelInput from './Input/InstrumentChannelInput';
 
 const CustomBox = styled(Box)({
   display: 'flex',
@@ -20,7 +20,7 @@ function ChannelHeader() {
 
   return (
     <CustomBox>
-      {channelType === ChannelType.AUDIO ? <ChannelAudio/> : <ChannelInstrument/>}
+      {channelType === ChannelType.AUDIO ? <AudioChannelInput/> : <InstrumentChannelInput/>}
       <IconButton
         aria-label="more"
         aria-controls="long-menu"

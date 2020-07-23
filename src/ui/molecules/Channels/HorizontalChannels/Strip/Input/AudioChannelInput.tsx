@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListItem } from '@material-ui/core';
 
-function ChannelAudio() {
+function AudioChannelInput() {
   return (
     <ListItem>
       Input 1
@@ -9,4 +9,4 @@ function ChannelAudio() {
   );
 }
 
-export default ChannelAudio;
+export default AudioChannelInput;

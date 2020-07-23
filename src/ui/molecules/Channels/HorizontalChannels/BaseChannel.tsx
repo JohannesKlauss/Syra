@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import { useRecoilValue } from 'recoil/dist';
-import { ChannelType } from '../../types/Channel';
-import { ChannelContext } from '../../providers/ChannelContext';
+import { ChannelType } from '../../../../types/Channel';
+import { ChannelContext } from '../../../../providers/ChannelContext';
 import { Paper, styled } from '@material-ui/core';
-import { channelStore } from '../../recoil/channelStore';
+import { channelStore } from '../../../../recoil/channelStore';
 import AudioChannel from './AudioChannel';
 import InstrumentChannel from './InstrumentChannel';
 
-const Channel = styled(Paper)({
+const BaseContainer = styled(Paper)({
   maxWidth: 150,
   width: 150,
   marginLeft: 1,
@@ -31,9 +31,9 @@ function BaseChannel({channelId}: Props) {
 
   return (
     <ChannelContext.Provider value={channelId}>
-      <Channel>
+      <BaseContainer>
         {ChannelComponent}
-      </Channel>
+      </BaseContainer>
     </ChannelContext.Provider>
   );
 }

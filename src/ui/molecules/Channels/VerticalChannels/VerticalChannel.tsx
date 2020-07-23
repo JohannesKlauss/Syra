@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { useRecoilValue } from 'recoil/dist';
-import { channelStore } from '../../recoil/channelStore';
+import { channelStore } from '../../../../recoil/channelStore';
 import { Box, Card, CardContent, styled, Typography } from '@material-ui/core';
-import { splinterTheme } from '../../theme';
-import { ChannelContext } from '../../providers/ChannelContext';
-import ChannelLetterButtons from '../../ui/molecules/ChannelStrip/ChannelLetterButtons';
+import { splinterTheme } from '../../../../theme';
+import { ChannelContext } from '../../../../providers/ChannelContext';
+import ChannelLetterButtons from '../ChannelLetterButtons';
 
 interface BaseContainerProps {
   channelColor: string;

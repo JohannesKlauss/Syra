@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Grid, Slider, Typography } from '@material-ui/core';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
-import { channelStore } from '../../../recoil/channelStore';
+import { channelStore } from '../../../../recoil/channelStore';
 
 interface Props {
   soulInstanceId: string;

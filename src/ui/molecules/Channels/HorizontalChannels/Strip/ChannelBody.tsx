@@ -1,15 +1,15 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { Divider, Grid, Paper, styled, Typography } from '@material-ui/core';
-import ChannelPluginList from './ChannelPluginList';
-import Pan from '../../atoms/Slider/Pan';
-import VolumeFader from '../../atoms/Slider/VolumeFader';
-import ChannelLetterButtons from './ChannelLetterButtons';
-import { ChannelContext } from '../../../providers/ChannelContext';
-import { channelStore } from '../../../recoil/channelStore';
+import ActivePluginList from '../../../Plugins/ActivePluginList';
+import Pan from '../../../../atoms/Slider/Pan';
+import VolumeFader from '../../../../atoms/Slider/VolumeFader';
+import ChannelLetterButtons from '../../ChannelLetterButtons';
+import { ChannelContext } from '../../../../../providers/ChannelContext';
+import { channelStore } from '../../../../../recoil/channelStore';
 import { useRecoilValue } from 'recoil/dist';
-import useToneAudioNodes from '../../../hooks/tone/useToneAudioNodes';
-import LevelMeterVertical from '../../atoms/Meter/LevelMeterVertical';
-import { determineTextColor } from '../../../utils/color';
+import useToneAudioNodes from '../../../../../hooks/tone/useToneAudioNodes';
+import LevelMeterVertical from '../../../../atoms/Meter/LevelMeterVertical';
+import { determineTextColor } from '../../../../../utils/color';
 
 interface ColoredDividerProps {
   channelColor: string;
@@ -48,7 +48,7 @@ const ChannelBody: React.FC = React.memo(() => {
   return (
     <>
       <Divider/>
-      <ChannelPluginList/>
+      <ActivePluginList/>
       <Divider/>
       <Pan onChange={onChangePanOrVolume}/>
       <Grid container justify="center" spacing={1}>

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
-import ParameterList from '../Parameters/ParameterList';
-import ChannelPatch from './ChannelPatch';
+import ParameterList from './Parameters/ParameterList';
+import SoulPluginOverlay from './SoulPluginOverlay';
 import { channelStore } from '../../../recoil/channelStore';
 import { soulPatchesStore } from '../../../recoil/soulPatchesStore';
 
@@ -9,7 +9,7 @@ interface Props {
   id: string;
 }
 
-function ChannelPlugin({id}: Props) {
+function SoulPlugin({id}: Props) {
   const [activePlugin, setActivePlugin] = useRecoilState(channelStore.soulInstance(id));
   const availablePlugins = useRecoilValue(soulPatchesStore.availableSoulPlugins);
 
@@ -18,10 +18,10 @@ function ChannelPlugin({id}: Props) {
   ), [id, activePlugin]);
 
   return (
-    <ChannelPatch activePatch={activePlugin} patchList={availablePlugins} setActivePatch={setActivePlugin}>
+    <SoulPluginOverlay activePatch={activePlugin} patchList={availablePlugins} setActivePatch={setActivePlugin}>
       {modalContent}
-    </ChannelPatch>
+    </SoulPluginOverlay>
   );
 }
 
-export default ChannelPlugin;
+export default SoulPlugin;

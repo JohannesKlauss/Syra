@@ -52,21 +52,10 @@ const isPatchActive = atomFamily<boolean, string>({
   default: true,
 });
 
-// This represents the audio input channel of an AudioChannel. Currently there is only one possible due to this bug in chromium:
-// https://bugs.chromium.org/p/chromium/issues/detail?id=453876 Hopefully this finally gets fixed soon.
-// Since we don't have multiple input choices at hand this is currently not really used, since it just selects the audioIn state.
-// This is also why this is currently an atom instead of an atomFamily.
-
 const pluginIds = atomFamily<string[], string>({
   key: 'channel/pluginIds',
   default: [],
 });
-
-const findPluginsByIds = selectorFamily<SoulInstance[], string[]>({
-  key: 'channel/findPluginsByIds',
-  get: ids => ({get}) => ids.map(id => get(soulInstance(id))).filter(patch => patch !== undefined) as SoulInstance[],
-});
-
 
 // TODO: WE HAVE TO FIND A DEFINITION FOR WHEN TO USE PATCH, PLUGIN, SOUL_INSTANCE, SOUL_PATCH, etc. RIGHT NOW THIS IS CONFUSING.
 // This represents an instrument or plugin.
@@ -152,6 +141,11 @@ const state = selectorFamily<ChannelState, string>({
 const ids = atom<string[]>({
   key: 'channel/ids',
   default: []
+});
+
+const findPluginsByIds = selectorFamily<SoulInstance[], string[]>({
+  key: 'channel/findPluginsByIds',
+  get: ids => ({get}) => ids.map(id => get(soulInstance(id))).filter(patch => patch !== undefined) as SoulInstance[],
 });
 
 export const channelStore = {

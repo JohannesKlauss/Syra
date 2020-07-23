@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import * as Tone from 'tone';
 import { MidiNumbers } from 'piano-utils';
 import { getAllMidiNumbersInRange, getNaturalKeyWidthRatio, getRelativeKeyPosition } from '../../../utils/keyboardMidiHelper';
-import usePiano from '../../../hooks/ui/usePiano';
-import { AccidentalKey, KeyLabel, NaturalKey, PianoContainer } from './styled';
+import { AccidentalKey, KeyLabel, NaturalKey, PianoContainer } from './Piano.styled';
+import useUpdateMidiStore from '../../../hooks/midi/useUpdateMidiStore';
+import { useRecoilValue } from 'recoil/dist';
+import { keyboardMidiStore } from '../../../recoil/keyboardMidiStore';
+import usePianoRoll from '../../../hooks/ui/usePianoRoll';
 
 interface Props {
   min: number;
@@ -15,18 +18,9 @@ interface Props {
 const Piano = (props: Props) => {
   const { min, max } = props;
 
-  const [isMousePressed, setMousePressed] = useState(false);
-  const [activeMidis, onEvent] = usePiano();
-
-  const onMouseDown = (note: number) => {
-    setMousePressed(true);
-    onEvent(144, note, 120);
-  };
-
-  const onMouseUp = (note: number) => {
-    setMousePressed(false);
-    onEvent(128, note, 0);
-  };
+  const activeMidis = useRecoilValue(keyboardMidiStore.activeKeyboardMidiNotes);
+  const onEvent = useUpdateMidiStore();
+  const {isMousePressed, onMouseUp, onMouseDown} = usePianoRoll(onEvent);
 
   const range = { first: min, last: max };
   const midis = getAllMidiNumbersInRange(range);

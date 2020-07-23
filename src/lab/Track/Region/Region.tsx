@@ -62,7 +62,7 @@ function Region() {
                    onClick={() => setIsSelected(currVal => !currVal)}>
       <Wrapper>
         <MoveWrapper isSelected={isSelected}/>
-
+        {audioBuffer && <Waveform audioBuffer={audioBuffer.get()} height={68} width={regionWidth - 4}/>}
       </Wrapper>
     </BaseContainer>
   );

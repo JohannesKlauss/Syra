@@ -1,8 +1,8 @@
 import React from 'react';
 import { GridList, styled } from '@material-ui/core';
 import { useRecoilValue } from 'recoil/dist';
-import NewChannelFab from '../../ui/molecules/Fabs/NewChannelFab';
-import { channelStore } from '../../recoil/channelStore';
+import NewChannelFab from '../../Fabs/NewChannelFab';
+import { channelStore } from '../../../../recoil/channelStore';
 import BaseChannel from './BaseChannel';
 
 const Container = styled(GridList)({
