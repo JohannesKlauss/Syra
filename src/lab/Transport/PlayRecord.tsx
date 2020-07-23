@@ -10,6 +10,7 @@ import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
 import { projectStore } from '../../recoil/projectStore';
 import { transportStore } from '../../recoil/transportStore';
+import { useHotkeys } from '../../hooks/ui/useHotkeys';
 
 const BaseContainer = styled(Box)({
   marginLeft: 20,
@@ -52,6 +53,10 @@ function PlayRecord() {
       transport.start('+0.05'); // TODO: THIS MIGHT CAUSE SYNCING ISSUES BETWEEN THE PLAYBACK AND THE RECORDING ITSELF.
     }
   }, [setIsRecording, isRecording, transport]);
+
+  useHotkeys('space', () => onClickPlayPause(), [onClickPlayPause]);
+  useHotkeys('r', onClickRecord, [onClickRecord]);
+  useHotkeys('return', onClickReset, [onClickReset]);
 
   return (
     <BaseContainer>

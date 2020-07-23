@@ -24,15 +24,15 @@ export function useHotkeys<T extends Element>(keys: string, callback: KeyHandler
   const {enableOnTags, filter} = options || {};
 
   const ref = useRef<T | null>(null);
+
   const memoisedCallback = useCallback((keyboardEvent: KeyboardEvent, hotkeysEvent: HotkeysEvent) => {
     if (ref.current === null || document.activeElement === ReactDOM.findDOMNode(ref.current)) {
       callback(keyboardEvent, hotkeysEvent);
-
       return true;
     }
 
     return false;
-  }, deps && deps.concat(ref) || [ref]);
+  }, deps ? [ref, ...deps] : [ref]);
 
   useEffect(() => {
     if (options && (options as Options).enableOnTags) {
@@ -46,12 +46,10 @@ export function useHotkeys<T extends Element>(keys: string, callback: KeyHandler
 
     if (filter) hotkeys.filter = filter;
 
-    hotkeys(keys, (options as Options) || {}, (e, f) => {
-      memoisedCallback(e, f);
-    });
+    hotkeys(keys, (options as Options) || {}, memoisedCallback);
 
     return () => hotkeys.unbind(keys, memoisedCallback);
-  }, [memoisedCallback, options]);
+  }, [memoisedCallback, options, enableOnTags, filter, keys]);
 
   return ref;
 }
