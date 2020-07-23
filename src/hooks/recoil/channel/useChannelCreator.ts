@@ -1,9 +1,9 @@
 import { useCallback, useRef } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil/dist';
-import { channelStore } from '../../recoil/channelStore';
-import { ChannelType } from '../../types/Channel';
-import { createNewId } from '../../utils/createNewId';
-import useRegionCreator from './useRegionCreator';
+import { channelStore } from '../../../recoil/channelStore';
+import { ChannelType } from '../../../types/Channel';
+import { createNewId } from '../../../utils/createNewId';
+import useRegionCreator from '../useRegionCreator';
 
 const CHANNEL_ID_PREFIX = 'channel-';
 

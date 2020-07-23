@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { styled, Typography } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import { useDropzone } from 'react-dropzone';
-import useChannelCreator from '../../hooks/recoil/useChannelCreator';
+import useChannelCreator from '../../hooks/recoil/channel/useChannelCreator';
 import { ChannelType } from '../../types/Channel';
 
 const BaseContainer = styled('div')({

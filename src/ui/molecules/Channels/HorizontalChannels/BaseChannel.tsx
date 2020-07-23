@@ -6,6 +6,8 @@ import { Paper, styled, useTheme } from '@material-ui/core';
 import { channelStore } from '../../../../recoil/channelStore';
 import AudioChannel from './AudioChannel';
 import InstrumentChannel from './InstrumentChannel';
+import { useHotkeys } from '../../../../hooks/ui/useHotkeys';
+import useDeleteChannel from '../../../../hooks/recoil/channel/useDeleteChannel';
 
 interface BaseContainerProps {
   backgroundColor: string;
@@ -15,24 +17,28 @@ const BaseContainer = styled(Paper)({
   maxWidth: 150,
   width: 150,
   marginLeft: 1,
-  backgroundColor: ({backgroundColor}: BaseContainerProps) => backgroundColor,
+  backgroundColor: ({ backgroundColor }: BaseContainerProps) => backgroundColor,
+  '&:focus': {
+    outline: 'none',
+  }
 });
 
 interface Props {
   channelId: string;
 }
 
-function BaseChannel({channelId}: Props) {
+function BaseChannel({ channelId }: Props) {
   const theme = useTheme();
   const type = useRecoilValue(channelStore.type(channelId));
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
+  const hotkeysRef = useHotkeys('backspace', useDeleteChannel(channelId));
 
   const backgroundColor = useMemo(() => {
     return channelId === selectedChannelId ? '#606060' : theme.palette.background.paper;
   }, [channelId, selectedChannelId]);
 
   const ChannelComponent = useMemo(() => {
-    switch(type) {
+    switch (type) {
       case ChannelType.AUDIO:
         return <AudioChannel/>;
       case ChannelType.INSTRUMENT:
@@ -42,7 +48,8 @@ function BaseChannel({channelId}: Props) {
 
   return (
     <ChannelContext.Provider value={channelId}>
-      <BaseContainer backgroundColor={backgroundColor} onClick={() => setSelectedChannelId(channelId)}>
+      <BaseContainer backgroundColor={backgroundColor} onClick={() => setSelectedChannelId(channelId)}
+                     innerRef={hotkeysRef} tabIndex={0}>
         {ChannelComponent}
       </BaseContainer>
     </ChannelContext.Provider>
