@@ -47,8 +47,8 @@ const isMuted = atomFamily<boolean, string>({
 });
 
 // Whether an instrument or plugin is active or bypassed.
-const isPatchActive = atomFamily<boolean, string>({
-  key: 'channel/isPatchActive',
+const isPluginActive = atomFamily<boolean, string>({
+  key: 'channel/isPluginActive',
   default: true,
 });
 
@@ -150,8 +150,15 @@ const selectedId = atom<string>({
 
 const findPluginsByIds = selectorFamily<SoulInstance[], string[]>({
   key: 'channel/findPluginsByIds',
-  get: ids => ({get}) => ids.map(id => get(soulInstance(id))).filter(patch => patch !== undefined) as SoulInstance[],
+  get: ids => ({get}) =>
+    ids.map(id => get(soulInstance(id))).filter(patch => patch !== undefined) as SoulInstance[],
 });
+
+const findActivePluginsByIds = selectorFamily<SoulInstance[], string[]>({
+  key: 'channel/findActivePluginsByIds',
+  get: ids => ({get}) =>
+    ids.filter(id => get(isPluginActive(id))).map(id => get(soulInstance(id))).filter(patch => patch !== undefined) as SoulInstance[],
+})
 
 const findSelectedChannel = selector({
   key: 'channel/findSelectedChannel',
@@ -173,7 +180,7 @@ export const channelStore = {
   isArmed,
   isSolo,
   isMuted,
-  isPatchActive,
+  isPluginActive,
   pluginIds,
   state,
   ids,
@@ -182,5 +189,6 @@ export const channelStore = {
   soulInstance,
   toneJsMap,
   findPluginsByIds,
+  findActivePluginsByIds,
   findSelectedChannel,
 };

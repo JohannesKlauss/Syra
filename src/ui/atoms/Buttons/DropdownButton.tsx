@@ -28,7 +28,7 @@ interface Props {
   menuPlacement?: PopperPlacementType;
 }
 
-const DropdownButton: React.FC<Props> = ({ onClick, children, menuItems, color = 'primary', menuPlacement, fullWidth, small }) => {
+const DropdownButton: React.FC<Props> = ({ onClick, prependingButton, children, menuItems, color = 'primary', menuPlacement, fullWidth, small }) => {
   const anchorRef = useRef<HTMLButtonElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -37,6 +37,7 @@ const DropdownButton: React.FC<Props> = ({ onClick, children, menuItems, color =
   return (
     <>
       <ButtonGroupComponent color={color} variant={'text'} size={'small'} fullWidth={fullWidth}>
+        {prependingButton}
         <Button onClick={onClick} size={'small'}>
           {children}
         </Button>

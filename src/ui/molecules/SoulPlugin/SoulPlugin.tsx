@@ -3,10 +3,20 @@ import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import ParameterList from './Parameters/ParameterList';
 import { channelStore } from '../../../recoil/channelStore';
 import { soulPatchesStore } from '../../../recoil/soulPatchesStore';
-import { Button, Container, MenuItem, Modal, Typography } from '@material-ui/core';
+import { Button, Container, MenuItem, Modal, styled, Typography } from '@material-ui/core';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import DropdownButton from '../../atoms/Buttons/DropdownButton';
 import { createSoulInstance } from '../../../soul/createSoulInstance';
+
+const PowerButton = styled(Button)({
+  maxWidth: 28,
+  minWidth: 28,
+});
+
+const PowerIcon = styled(PowerSettingsNewIcon)({
+  width: 18,
+  height: 18,
+})
 
 interface Props {
   id: string;
@@ -15,6 +25,7 @@ interface Props {
 
 function SoulPlugin({id, isInstrument}: Props) {
   const [activePlugin, setActivePlugin] = useRecoilState( channelStore.soulInstance(id));
+  const [isPluginActive, setIsPluginActive] = useRecoilState(channelStore.isPluginActive(id));
   const patchList = useRecoilValue(isInstrument ? soulPatchesStore.availableSoulInstruments : soulPatchesStore.availableSoulPlugins);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -37,9 +48,9 @@ function SoulPlugin({id, isInstrument}: Props) {
   )), [onChangePatch, activePlugin, patchList]);
 
   const BypassButton = useMemo(() => (
-    <Button onClick={() => null}>
-      <PowerSettingsNewIcon/>
-    </Button>
+    <PowerButton onClick={() => setIsPluginActive(currVal => !currVal)}>
+      <PowerIcon width={20} height={20}/>
+    </PowerButton>
   ), []);
 
   return (
@@ -52,6 +63,7 @@ function SoulPlugin({id, isInstrument}: Props) {
       <DropdownButton
         onClick={() => setIsModalOpen(activePlugin !== undefined)}
         menuItems={menuItems}
+        color={isPluginActive ? 'primary' : 'default'}
         fullWidth
         small
         menuPlacement={'right-start'}

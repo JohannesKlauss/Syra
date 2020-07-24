@@ -12,7 +12,8 @@ import { projectStore } from '../../recoil/projectStore';
 export default function useAudioToneConnector() {
   const channelId = useContext(ChannelContext);
   const isRecording = useRecoilValue(projectStore.isRecording);
-  const { soulPlugins, isArmed, isMuted, isSolo } = useRecoilValue(channelStore.state(channelId));
+  const { soulPluginIds, isArmed, isMuted, isSolo } = useRecoilValue(channelStore.state(channelId));
+  const activePlugins = useRecoilValue(channelStore.findActivePluginsByIds(soulPluginIds));
 
   const {merge, players, channel, audioIn, rmsMeter} = useToneAudioNodes();
 
@@ -41,7 +42,7 @@ export default function useAudioToneConnector() {
         audioIn.close();
       }
 
-      const pluginNodes = soulPlugins.map(plugin => plugin.audioNode);
+      const pluginNodes = activePlugins.map(plugin => plugin.audioNode);
 
       audioIn.connect(merge, 0, 0);
       audioIn.connect(merge, 0, 1);
@@ -50,5 +51,5 @@ export default function useAudioToneConnector() {
 
       Tone.connectSeries(merge, ...pluginNodes, channel, rmsMeter, Tone.Destination);
     })();
-  }, [isRecording, audioIn, merge, soulPlugins, isMuted, isArmed, channel, rmsMeter, disconnect, players]);
+  }, [isRecording, audioIn, merge, activePlugins, isMuted, isArmed, channel, rmsMeter, disconnect, players]);
 }
