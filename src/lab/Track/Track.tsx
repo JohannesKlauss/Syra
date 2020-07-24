@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { HTMLAttributes, useCallback, useContext, useMemo } from 'react';
 import { styled, Typography } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import { ChannelContext } from '../../providers/ChannelContext';
@@ -11,7 +11,9 @@ interface BaseContainerProps {
   backgroundColor: string;
 }
 
-const BaseContainer = styled('div')({
+const BaseContainer = styled(
+  ({ backgroundColor, ...other }: BaseContainerProps & Omit<HTMLAttributes<HTMLDivElement>, keyof BaseContainerProps>) => <div {...other} />,
+)({
   width: '100%',
   height: 70,
   backgroundColor: ({ backgroundColor }: BaseContainerProps) => backgroundColor,
@@ -22,7 +24,9 @@ interface DropIndicatorProps {
   doShow: boolean;
 }
 
-const DropIndicator = styled('div')({
+const DropIndicator = styled(
+  ({ doShow, ...other }: DropIndicatorProps & Omit<HTMLAttributes<HTMLDivElement>, keyof DropIndicatorProps>) => <div {...other} />,
+)({
   opacity: ({doShow}: DropIndicatorProps) => doShow ? 1 : 0,
   top: 0,
   left: 0,

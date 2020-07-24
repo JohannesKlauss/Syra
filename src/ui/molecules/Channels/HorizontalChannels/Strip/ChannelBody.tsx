@@ -1,6 +1,15 @@
 import React, { useCallback, useContext, useState } from 'react';
-import { Divider, Grid, Paper, styled, Typography } from '@material-ui/core';
-import ActivePluginList from '../../../Plugins/ActivePluginList';
+import {
+  Divider,
+  DividerProps,
+  Grid,
+  Paper,
+  PaperProps,
+  styled,
+  Typography,
+  TypographyProps,
+} from '@material-ui/core';
+import ChannelPluginList from '../../../Plugins/ChannelPluginList';
 import Pan from '../../../../atoms/Slider/Pan';
 import VolumeFader from '../../../../atoms/Slider/VolumeFader';
 import ChannelLetterButtons from '../../ChannelLetterButtons';
@@ -15,7 +24,9 @@ interface ColoredDividerProps {
   channelColor: string;
 }
 
-const ColoredDivider = styled(Divider)({
+const ColoredDivider = styled(
+  ({ channelColor, ...other }: ColoredDividerProps & Omit<DividerProps, keyof ColoredDividerProps>) => <Divider {...other} />,
+)({
   backgroundColor: ({channelColor}: ColoredDividerProps) => channelColor,
 });
 
@@ -24,11 +35,15 @@ const SmrContainer = styled(Paper)({
   background: 'transparent',
 });
 
-const ChannelNameContainer = styled(Paper)({
+const ChannelNameContainer = styled(
+  ({ channelColor, ...other }: ColoredDividerProps & Omit<PaperProps, keyof ColoredDividerProps>) => <Paper {...other} />,
+)({
   backgroundColor: ({channelColor}: ColoredDividerProps) => channelColor,
 });
 
-const CustomTypography = styled(Typography)({
+const CustomTypography = styled(
+  ({ channelColor, ...other }: ColoredDividerProps & Omit<TypographyProps, keyof ColoredDividerProps>) => <Typography {...other} />,
+)({
   color: ({channelColor}: ColoredDividerProps) => determineTextColor(channelColor),
 });
 
@@ -49,7 +64,7 @@ const ChannelBody: React.FC = React.memo(() => {
   return (
     <>
       <Divider/>
-      <ActivePluginList/>
+      <ChannelPluginList/>
       <Divider/>
       <Pan onChange={onChangePanOrVolume}/>
       <Grid container justify="center" spacing={1}>

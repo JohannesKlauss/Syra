@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo, useRef } from 'react';
+import React, { useContext, useMemo, useRef } from 'react';
 import { Menu, MenuItem } from '@material-ui/core';
 import ChannelColorPicker from './ChannelColorPicker';
 import { ChannelContext } from '../../../../providers/ChannelContext';
@@ -20,7 +20,7 @@ function ChannelMenu({isMenuOpen, onClose}: Props) {
   const options = useMemo(() => ([
     <MenuItem><ChannelColorPicker activeColor={color} onChangeColor={setColor}/></MenuItem>,
     <MenuItem onClick={deleteChannel}>Delete</MenuItem>,
-  ]), [color, setColor]);
+  ]), [color, setColor, deleteChannel]);
 
   return (
     <div ref={divRef}>

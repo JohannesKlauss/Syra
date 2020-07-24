@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { ChannelType } from '../../../../types/Channel';
 import { ChannelContext } from '../../../../providers/ChannelContext';
-import { Paper, styled, useTheme } from '@material-ui/core';
+import { Box, BoxProps, styled, useTheme } from '@material-ui/core';
 import { channelStore } from '../../../../recoil/channelStore';
 import AudioChannel from './AudioChannel';
 import InstrumentChannel from './InstrumentChannel';
@@ -13,7 +13,9 @@ interface BaseContainerProps {
   backgroundColor: string;
 }
 
-const BaseContainer = styled(Paper)({
+const BaseContainer = styled(
+  ({ backgroundColor, ...other }: BaseContainerProps & Omit<BoxProps, keyof BaseContainerProps>) => <Box {...other} />,
+)({
   maxWidth: 150,
   width: 150,
   marginLeft: 1,
@@ -35,7 +37,7 @@ function BaseChannel({ channelId }: Props) {
 
   const backgroundColor = useMemo(() => {
     return channelId === selectedChannelId ? '#606060' : theme.palette.background.paper;
-  }, [channelId, selectedChannelId]);
+  }, [channelId, selectedChannelId, theme]);
 
   const ChannelComponent = useMemo(() => {
     switch (type) {

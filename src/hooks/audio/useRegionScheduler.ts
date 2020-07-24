@@ -1,10 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { RegionContext } from '../../providers/RegionContext';
 import useToneAudioNodes from '../tone/useToneAudioNodes';
-import useToneJsTransport from '../tone/useToneJsTransport';
 import { useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../recoil/regionStore';
-import { transportStore } from '../../recoil/transportStore';
 
 export default function useRegionScheduler() {
   const { players } = useToneAudioNodes();

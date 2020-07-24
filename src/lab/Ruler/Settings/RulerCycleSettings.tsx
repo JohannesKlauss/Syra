@@ -4,11 +4,7 @@ import { Button } from '@material-ui/core';
 import { useRecoilState } from 'recoil/dist';
 import { transportStore } from '../../../recoil/transportStore';
 
-interface Props {
-
-}
-
-function RulerCycleSettings({}: Props) {
+function RulerCycleSettings() {
   const [isCycleActive, setIsCycleActive] = useRecoilState(transportStore.isCycleActive);
 
   return (

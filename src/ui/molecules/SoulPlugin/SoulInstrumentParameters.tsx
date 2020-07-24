@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import Piano from '../Piano/Piano';
 import ParameterList from './Parameters/ParameterList';
 import { Grid } from '@material-ui/core';
 import { ChannelContext } from '../../../providers/ChannelContext';

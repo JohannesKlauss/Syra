@@ -16,4 +16,4 @@ const ids = atom<string[]>({
 export const audioBufferStore = {
   buffer,
   ids,
-}
+};

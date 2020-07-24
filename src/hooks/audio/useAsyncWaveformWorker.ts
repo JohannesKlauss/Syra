@@ -28,5 +28,5 @@ export default function useAsyncWaveformWorker() {
     };
 
     fileReader.readAsArrayBuffer(chunk);
-  }, []);
+  }, [ctx]);
 }

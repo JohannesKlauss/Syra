@@ -1,12 +1,15 @@
-import { Box, styled } from '@material-ui/core';
+import { Box, BoxProps, styled } from '@material-ui/core';
 import { ARRANGE_GRID_OFFSET } from '../../../const/ui';
 import { amber } from '@material-ui/core/colors';
+import React, { HTMLAttributes } from 'react';
 
 interface BaseContainerProps {
   windowWidth: number;
 }
 
-export const BaseContainer = styled(Box)({
+export const BaseContainer = styled(
+  ({ windowWidth, ...other }: BaseContainerProps & Omit<BoxProps, keyof BaseContainerProps>) => <Box {...other} />,
+)({
   backgroundColor: 'transparent',
   width: ({ windowWidth }: BaseContainerProps) => windowWidth,
   position: 'absolute',
@@ -22,7 +25,9 @@ interface CycleBarProps {
   cycleWidth: number;
 }
 
-export const CycleBar = styled('div')({
+export const CycleBar = styled(
+  ({ isCycleActive, cycleStartTranslateX, cycleWidth, ...other }: CycleBarProps & Omit<HTMLAttributes<HTMLDivElement>, keyof CycleBarProps>) => <div {...other} />,
+)({
   zIndex: 1,
   position: 'absolute',
   height: 20,
@@ -39,7 +44,9 @@ interface CycleHandleProps {
   isCycleActive: boolean;
 }
 
-export const CycleStartHandle = styled('div')({
+export const CycleStartHandle = styled(
+  ({ isCycleActive, ...other }: CycleHandleProps & Omit<HTMLAttributes<HTMLDivElement>, keyof CycleHandleProps>) => <div {...other} />,
+)({
   width: 20,
   cursor: 'ew-resize',
   height: 20,
@@ -49,7 +56,9 @@ export const CycleStartHandle = styled('div')({
   left: 0,
 });
 
-export const CycleEndHandle = styled('div')({
+export const CycleEndHandle = styled(
+  ({ isCycleActive, ...other }: CycleHandleProps & Omit<HTMLAttributes<HTMLDivElement>, keyof CycleHandleProps>) => <div {...other} />,
+)({
   width: 20,
   cursor: 'ew-resize',
   height: 20,

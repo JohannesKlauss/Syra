@@ -3,7 +3,7 @@ import { RegionContext } from '../../../providers/RegionContext';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../../recoil/regionStore';
 import Waveform from '../../Waveform/Waveform';
-import { Paper, styled } from '@material-ui/core';
+import { Paper, PaperProps, styled } from '@material-ui/core';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
@@ -24,7 +24,9 @@ const Wrapper = styled('div')({
   position: 'relative',
 })
 
-const BaseContainer = styled(Paper)({
+const BaseContainer = styled(
+  ({ color, isSelected, translateX, ...other }: BaseContainerProps & Omit<PaperProps, keyof BaseContainerProps>) => <Paper {...other} />,
+)({
   margin: 0,
   marginTop: 1,
   height: 68,

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext } from 'react';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { useRecoilState } from 'recoil/dist';
 import { channelStore } from '../../recoil/channelStore';

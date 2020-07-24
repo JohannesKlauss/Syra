@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, styled } from '@material-ui/core';
+import { Box, BoxProps, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import RulerTransportCursor from './RulerTransportCursor';
 import { useRecoilValue } from 'recoil/dist';
@@ -12,7 +12,9 @@ interface BaseContainerProps {
   windowWidth: number;
 }
 
-const BaseContainer = styled(Box)({
+const BaseContainer = styled(
+  ({ windowWidth, ...other }: BaseContainerProps & Omit<BoxProps, keyof BaseContainerProps>) => <Box {...other} />,
+)({
   backgroundColor: splinterTheme.palette.background.default,
   width: ({windowWidth}: BaseContainerProps) => windowWidth,
   height: 40,

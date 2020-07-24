@@ -1,4 +1,5 @@
 import { styled } from '@material-ui/core';
+import React, { HTMLAttributes } from 'react';
 
 export const PianoContainer = styled('div')({
   width: '100%',
@@ -13,7 +14,9 @@ interface KeyStyleProps {
   isActive: boolean;
 }
 
-export const NaturalKey = styled('div')({
+export const NaturalKey = styled(
+  ({ isActive, ...other }: KeyStyleProps & Omit<HTMLAttributes<HTMLDivElement>, keyof KeyStyleProps>) => <div {...other} />,
+)({
   zIndex: 0,
   borderWidth: '1px',
   borderColor: '#4a5568',
@@ -45,7 +48,9 @@ export const KeyLabel = styled('div')({
   display: 'flex',
 });
 
-export const AccidentalKey = styled('div')({
+export const AccidentalKey = styled(
+  ({ isActive, ...other }: KeyStyleProps & Omit<HTMLAttributes<HTMLDivElement>, keyof KeyStyleProps>) => <div {...other} />,
+)({
   height: ({isActive}: KeyStyleProps) => isActive ? '5.8rem' : '6rem',
   zIndex: 10,
   borderWidth: '1px',

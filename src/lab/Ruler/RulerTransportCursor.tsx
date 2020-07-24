@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Box, styled } from '@material-ui/core';
+import { Box, BoxProps, styled } from '@material-ui/core';
 import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import {
   arrangeWindowStore,
@@ -11,7 +11,9 @@ interface BaseContainerProps {
   windowWidth: number;
 }
 
-const BaseContainer = styled(Box)({
+const BaseContainer = styled(
+  ({ windowWidth, ...other }: BaseContainerProps & Omit<BoxProps, keyof BaseContainerProps>) => <Box {...other} />,
+)({
   backgroundColor: 'transparent',
   width: ({ windowWidth }: BaseContainerProps) => windowWidth,
   position: 'absolute',

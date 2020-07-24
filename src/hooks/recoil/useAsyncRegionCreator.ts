@@ -11,7 +11,6 @@ import { BUFFER_ID_PREFIX, REGION_ID_PREFIX } from '../../const/ids';
 export default function useAsyncRegionCreator(channelId: string) {
   const ctx = useAudioContext();
   const transport = useToneJsTransport();
-  const audioContext = useAudioContext();
   const nextRegionId = useRef(createNewId(REGION_ID_PREFIX));
   const nextBufferId = useRef(createNewId(BUFFER_ID_PREFIX));
 
@@ -46,5 +45,5 @@ export default function useAsyncRegionCreator(channelId: string) {
     return (blob: Blob) => {
       fileReader.readAsArrayBuffer(blob);
     }
-  }, [audioContext, setRegionIds, setBufferStoreIds, setBufferStore, setAudioBufferPointer, nextRegionId, nextBufferId, setIsRecording, setRegionStart]);
+  }, [setRegionIds, ctx, transport, setBufferStoreIds, setBufferStore, setAudioBufferPointer, nextRegionId, nextBufferId, setIsRecording, setRegionStart]);
 }

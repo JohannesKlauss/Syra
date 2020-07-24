@@ -1,7 +1,15 @@
 import React, { useContext, useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { channelStore } from '../../../../recoil/channelStore';
-import { Box, Card, CardContent, styled, Typography, useTheme } from '@material-ui/core';
+import {
+  Box,
+  Card,
+  CardContent,
+  CardProps,
+  styled,
+  Typography,
+  useTheme,
+} from '@material-ui/core';
 import { splinterTheme } from '../../../../theme';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import ChannelLetterButtons from '../ChannelLetterButtons';
@@ -13,7 +21,9 @@ interface BaseContainerProps {
   backgroundColor: string;
 }
 
-const BaseCard = styled(Card)({
+const BaseCard = styled(
+  ({ channelColor, backgroundColor, innerRef, ...other }: BaseContainerProps & Omit<CardProps, keyof BaseContainerProps>) => <Card {...other} />,
+)({
   width: '100%',
   borderBottom: `1px solid ${splinterTheme.palette.background.default}`,
   backgroundColor: ({ backgroundColor }: BaseContainerProps) => backgroundColor,
@@ -48,7 +58,7 @@ function VerticalChannel() {
 
   const backgroundColor = useMemo(() => {
     return channelId === selectedChannelId ? '#606060' : theme.palette.background.paper;
-  }, [channelId, selectedChannelId]);
+  }, [channelId, selectedChannelId, theme]);
 
   return (
     <BaseCard channelColor={color} backgroundColor={backgroundColor} onClick={() => setSelectedChannelId(channelId)}

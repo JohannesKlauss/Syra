@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { HTMLAttributes, useEffect } from 'react';
 import { styled } from '@material-ui/core';
 import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
@@ -12,7 +12,9 @@ interface PlayheadProps {
   isRecording: boolean;
 }
 
-const PlayheadIndicator = styled('span')({
+const PlayheadIndicator = styled(
+  ({ translateX, isRecording, ...other }: PlayheadProps & Omit<HTMLAttributes<HTMLSpanElement>, keyof PlayheadProps>) => <span {...other} />,
+)({
   zIndex: 12,
   width: 15,
   top: 20,
