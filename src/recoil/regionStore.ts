@@ -3,7 +3,6 @@ import * as Tone from 'tone';
 import { audioBufferStore } from './audioBufferStore';
 import { createNewId } from '../utils/createNewId';
 import { REGION_ID_PREFIX } from '../const/ids';
-import { create } from 'domain';
 
 const start = atomFamily<number, string>({
   key: 'region/start',
@@ -75,7 +74,7 @@ const duplicateRegionFromId = selectorFamily<RegionState, { originalRegionId: st
     const originalState = get(regionState(originalRegionId));
 
     set(audioBufferPointer(newId), get(audioBufferPointer(originalRegionId)));
-    set(start(newId), originalState.start);
+    set(start(newId), originalState.start + 1);
     set(end(newId), originalState.end);
     set(isSolo(newId), originalState.isSolo);
     set(isMuted(newId), originalState.isMuted);

@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import { regionStore } from '../../recoil/regionStore';
 import useDuplicateRegion from '../recoil/region/useDuplicateRegion';
+import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 
 export default function useMoveRegion(isSelected: boolean) {
   const id = useContext(RegionContext);
@@ -14,6 +15,7 @@ export default function useMoveRegion(isSelected: boolean) {
   const [start, setStart] = useRecoilState(regionStore.start(id));
   const initialValues = useRef({ x: 0, offsetStart: start });
   const duplicateRegion = useDuplicateRegion(id);
+  const isPressed = useIsHotkeyPressed();
 
   const onMouseDown = useCallback((e) => {
     initialValues.current = {
@@ -21,8 +23,13 @@ export default function useMoveRegion(isSelected: boolean) {
       offsetStart: start * pixelPerSecond,
     };
 
-    if (isSelected)
-    setIsDraggingActive(isSelected);
+    if (isSelected && isPressed('alt')) {
+      // @ts-ignore
+      duplicateRegion(null);
+    }
+    else {
+      setIsDraggingActive(isSelected);
+    }
   }, [initialValues, setIsDraggingActive, isSelected, start, pixelPerSecond]);
 
   const onMouseUpLeave = useCallback(() => setIsDraggingActive(false), [setIsDraggingActive]);
