@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { deepOrange, deepPurple, lightBlue, orange } from '@material-ui/core/colors';
-import AudioContextProvider from './providers/AudioContextProvider';
+import MidiProvider from './providers/MidiProvider';
 import WebMidi from 'webmidi';
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      {isMidiEnabled && <AudioContextProvider/>}
+      {isMidiEnabled && <MidiProvider/>}
     </ThemeProvider>
   );
 }

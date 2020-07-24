@@ -6,6 +6,7 @@ export const PianoContainer = styled('div')({
   overflowX: 'hidden',
   display: 'flex',
   justifyContent: 'center',
+  marginTop: 20,
 });
 
 interface KeyStyleProps {

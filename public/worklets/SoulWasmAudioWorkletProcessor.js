@@ -122,16 +122,13 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
    * System-invoked process callback function.
    * @param  {Array} inputs Incoming audio stream.
    * @param  {Array} outputs Outgoing audio stream.
-   * @param  {Object} parameters AudioParam data. // not to be confused with intial paramters!
+   * @param  {Object} parameters AudioParam data. // not to be confused with initial parameters!
    * @return {Boolean} Active source flag.
    */
   process(inputs, outputs, parameters) {
     if (!this.ready) return false;
-    // if (!this.ready) return false;
 
     let samplesToProcess = outputs[0][0].length;
-
-    // if (samplesToProcess > 256) return false;
 
     if ( (this.endpoints.totalInputs === 1) && (inputs[0].length >= 1) ) {
       this.channelInData[0].set(inputs[0][0]);

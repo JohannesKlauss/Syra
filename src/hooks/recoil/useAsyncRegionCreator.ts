@@ -9,6 +9,7 @@ import useToneJsTransport from '../tone/useToneJsTransport';
 const REGION_ID_PREFIX = 'region-';
 
 export default function useAsyncRegionCreator(channelId: string) {
+  const ctx = useAudioContext();
   const transport = useToneJsTransport();
   const audioContext = useAudioContext();
   const nextRegionId = useRef(createNewId(REGION_ID_PREFIX));
@@ -20,8 +21,13 @@ export default function useAsyncRegionCreator(channelId: string) {
 
   return useCallback(() => {
     const FIXED_REGION_ID = nextRegionId.current;
-    const chunks: Blob[] = [];
     const fileReader = new FileReader();
+
+    fileReader.onloadend = async () => {
+      const audioBuffer = await ctx.decodeAudioData(fileReader.result as ArrayBuffer);
+
+      setAudioBuffer(new Tone.ToneAudioBuffer(audioBuffer))
+    };
 
     setRegionIds(currVal => [...currVal, FIXED_REGION_ID]);
     setIsRecording(true);
@@ -29,22 +35,8 @@ export default function useAsyncRegionCreator(channelId: string) {
 
     nextRegionId.current = createNewId(REGION_ID_PREFIX);
 
-    fileReader.onloadend = async () => {
-      if (fileReader.result) {
-        const audioBuffer = await audioContext.decodeAudioData(fileReader.result as ArrayBuffer);
-        const toneBuffer = await new Tone.Buffer(audioBuffer);
-        setAudioBuffer(toneBuffer);
-      }
-    };
-
-    const read = () => {
-      fileReader.readAsArrayBuffer(new Blob(chunks, { type: 'audio/webm;codecs=opus' }));
-    };
-
-    return (data: Blob) => {
-      chunks.push(data);
-
-      requestAnimationFrame(read);
+    return (blob: Blob) => {
+      fileReader.readAsArrayBuffer(blob);
     }
   }, [audioContext, setRegionIds, setAudioBuffer, nextRegionId, setIsRecording, setRegionStart]);
 }

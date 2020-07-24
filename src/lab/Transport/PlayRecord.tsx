@@ -10,7 +10,7 @@ import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
 import { projectStore } from '../../recoil/projectStore';
 import { transportStore } from '../../recoil/transportStore';
-import { useHotkeys } from '../../hooks/ui/useHotkeys';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 const BaseContainer = styled(Box)({
   marginLeft: 20,

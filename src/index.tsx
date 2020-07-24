@@ -3,7 +3,7 @@ import React from 'react';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { RecoilRoot } from 'recoil/dist';
-import * as Tone from 'tone';
+import { audioSetup } from './audioSetup';
 
 if (process.env.NODE_ENV === 'development') {
   const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -16,14 +16,7 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-async function firstClick() {
-  await Tone.start();
-  await Tone.getContext().addAudioWorkletModule('worklets/SoulWasmAudioWorkletProcessor.js', 'soul-wasm-audio-worklet-processor');
-
-  document.body.removeEventListener('click', firstClick);
-}
-
-document.body.addEventListener('click', firstClick);
+audioSetup();
 
 ReactDOM.render(
   <RecoilRoot>

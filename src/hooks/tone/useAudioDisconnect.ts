@@ -13,7 +13,6 @@ export default function useAudioDisconnect() {
       return;
     }
 
-    audioIn.close();
     Tone.disconnect(audioIn);
     Tone.disconnect(players);
     Tone.disconnect(merge);

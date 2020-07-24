@@ -6,7 +6,7 @@ import { splinterTheme } from '../../../../theme';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import ChannelLetterButtons from '../ChannelLetterButtons';
 import useDeleteChannel from '../../../../hooks/recoil/channel/useDeleteChannel';
-import { useHotkeys } from '../../../../hooks/ui/useHotkeys';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 interface BaseContainerProps {
   channelColor: string;

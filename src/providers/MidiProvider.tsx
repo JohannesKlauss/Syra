@@ -14,7 +14,7 @@ const BaseContainer = styled(Box)({
   marginRight: 0,
 });
 
-function AudioContextProvider() {
+function MidiProvider() {
   const [midiDevice, setMidiDevice] = useRecoilState(keyboardMidiStore.selectedMidiDevice);
   useListenForExternalMidiIn(useUpdateMidiStore());
 
@@ -58,4 +58,4 @@ function AudioContextProvider() {
   );
 }
 
-export default AudioContextProvider;
+export default MidiProvider;

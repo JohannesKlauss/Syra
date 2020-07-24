@@ -1,6 +1,6 @@
 /* Inspiration is taken from ritz078's piano implementation. https://github.com/ritz078/raaga/blob/master/components/Piano/Piano.tsx */
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import * as Tone from 'tone';
 import { MidiNumbers } from 'piano-utils';
 import { getAllMidiNumbersInRange, getNaturalKeyWidthRatio, getRelativeKeyPosition } from '../../../utils/keyboardMidiHelper';
@@ -10,7 +10,6 @@ import { useRecoilValue } from 'recoil/dist';
 import { keyboardMidiStore } from '../../../recoil/keyboardMidiStore';
 import usePianoRoll from '../../../hooks/ui/usePianoRoll';
 import { OnMidiEvent } from '../../../types/Midi';
-import useListenForInternalPianoRoll from '../../../hooks/midi/useConnectPianoRollToSelectedChannel';
 import useConnectPianoRollToSelectedChannel from '../../../hooks/midi/useConnectPianoRollToSelectedChannel';
 
 interface Props {

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { useRecoilState } from 'recoil/dist';
 import { channelStore } from '../../recoil/channelStore';
@@ -16,7 +16,6 @@ export default function useToneAudioNodes() {
     players: factory(Tone.Players),
     channel: factory(Tone.Channel),
     audioIn: factory(Tone.UserMedia),
-    recorder: factory(Tone.Recorder),
     rmsMeter: factory(toneMeterFactory),
   }
 }
