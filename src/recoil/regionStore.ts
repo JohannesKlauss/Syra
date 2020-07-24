@@ -1,5 +1,6 @@
 import { atomFamily, selectorFamily } from 'recoil/dist';
 import * as Tone from 'tone';
+import { audioBufferStore } from './audioBufferStore';
 
 const start = atomFamily<number, string>({
   key: 'region/start',
@@ -27,8 +28,8 @@ const isRecording = atomFamily<boolean, string>({
   default: false,
 });
 
-const audioBuffer = atomFamily<Tone.ToneAudioBuffer | null, string>({
-  key: 'region/audioBuffer',
+const audioBufferPointer = atomFamily<string | null, string>({
+  key: 'region/audioBufferPointer',
   default: null,
 });
 
@@ -43,14 +44,32 @@ export interface RegionState {
 
 const regionState = selectorFamily<RegionState, string>({
   key: 'region/state',
-  get: id => ({get}) => ({
-    audioBuffer: get(audioBuffer(id)),
-    start: get(start(id)),
-    end: get(end(id)),
-    isSolo: get(isSolo(id)),
-    isMuted: get(isMuted(id)),
-    isRecording: get(isRecording(id)),
-  }),
+  get: id => ({get}) => {
+    let audioBuffer = null;
+    const bufferPointer = get(audioBufferPointer(id));
+
+    if (bufferPointer !== null) {
+      audioBuffer = get(audioBufferStore.buffer(bufferPointer));
+    }
+
+    return {
+      audioBuffer,
+      start: get(start(id)),
+      end: get(end(id)),
+      isSolo: get(isSolo(id)),
+      isMuted: get(isMuted(id)),
+      isRecording: get(isRecording(id)),
+    };
+  },
+});
+
+const audioBuffer = selectorFamily<Tone.ToneAudioBuffer | null, string>({
+  key: 'region/audioBuffer',
+  get: regionId => ({get}) => {
+    const pointer = get(audioBufferPointer(regionId));
+
+    return pointer !== null ? get(audioBufferStore.buffer(pointer)): null;
+  }
 });
 
 const ids = atomFamily<string[], string>({
@@ -77,6 +96,7 @@ export const regionStore = {
   start,
   end,
   audioBuffer,
+  audioBufferPointer,
   regionState,
   ids,
   findByIds,

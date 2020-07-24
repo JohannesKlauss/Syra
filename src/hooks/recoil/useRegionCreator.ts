@@ -4,14 +4,18 @@ import useAudioContext from '../audio/useAudioContext';
 import { useSetRecoilState } from 'recoil/dist';
 import { regionStore } from '../../recoil/regionStore';
 import * as Tone from 'tone';
-
-const REGION_ID_PREFIX = 'region-';
+import { BUFFER_ID_PREFIX, REGION_ID_PREFIX } from '../../const/ids';
+import { audioBufferStore } from '../../recoil/audioBufferStore';
 
 export default function useRegionCreator(channelId: string) {
   const audioContext = useAudioContext();
   const nextRegionId = useRef(createNewId(REGION_ID_PREFIX));
+  const nextBufferId = useRef(createNewId(BUFFER_ID_PREFIX));
 
-  const setAudioBuffer = useSetRecoilState(regionStore.audioBuffer(nextRegionId.current));
+  const setBufferStore = useSetRecoilState(audioBufferStore.buffer(nextBufferId.current));
+  const setBufferStoreIds = useSetRecoilState(audioBufferStore.ids);
+
+  const setAudioBufferPointer = useSetRecoilState(regionStore.audioBufferPointer(nextRegionId.current));
   const setRegionIds = useSetRecoilState(regionStore.ids(channelId));
 
   return useCallback(async (file: File | Blob) => {
@@ -20,9 +24,11 @@ export default function useRegionCreator(channelId: string) {
 
       if (toneBuffer.duration > 0) {
         setRegionIds(currVal => [...currVal, nextRegionId.current]);
-        setAudioBuffer(toneBuffer);
+        setBufferStoreIds(currVal => [...currVal, nextBufferId.current]);
+        setBufferStore(toneBuffer);
+        setAudioBufferPointer(nextBufferId.current);
 
         nextRegionId.current = createNewId(REGION_ID_PREFIX);
       }
-  }, [audioContext, setRegionIds, setAudioBuffer, nextRegionId]);
+  }, [audioContext, setRegionIds, setAudioBufferPointer, setBufferStore, setBufferStoreIds, nextBufferId, nextRegionId]);
 }
