@@ -11,6 +11,8 @@ import MoveWrapper from './MoveWrapper';
 import useRegionScheduler from '../../../hooks/audio/useRegionScheduler';
 import { red } from '@material-ui/core/colors';
 import { projectStore } from '../../../recoil/projectStore';
+import { useHotkeys } from 'react-hotkeys-hook';
+import useDeleteRegion from '../../../hooks/recoil/region/useDeleteRegion';
 
 interface BaseContainerProps {
   color: string;
@@ -47,6 +49,7 @@ function Region() {
   const [isRecording, setIsRecording] = useRecoilState(regionStore.isRecording(id));
   const channelColor = useRecoilValue(channelStore.color(channelId));
   const pixelPerSecond = useRecoilValue(arrangeWindowStore.pixelPerSecond);
+  const ref = useHotkeys('backspace', useDeleteRegion(id));
 
   useRegionScheduler();
 
@@ -61,7 +64,7 @@ function Region() {
 
   return (
     <BaseContainer translateX={translateX} isSelected={isSelected} color={isRecording ? red['500'] : channelColor} style={{ width: regionWidth }}
-                   onClick={() => setIsSelected(currVal => !currVal)}>
+                   onClick={() => setIsSelected(currVal => !currVal)} innerRef={ref} tabIndex={0}>
       <Wrapper>
         <MoveWrapper isSelected={isSelected}/>
         {audioBuffer && <Waveform audioBuffer={audioBuffer.get()} height={68} width={regionWidth - 4}/>}
