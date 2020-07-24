@@ -5,7 +5,6 @@ import * as Tone from 'tone';
 import { channelStore } from '../../recoil/channelStore';
 import useAudioDisconnect from './useAudioDisconnect';
 import useSyncChannelToSolo from './useSyncChannelToSolo';
-import useSyncPlayersToTransport from './useSyncPlayersToTransport';
 import useToneAudioNodes from './useToneAudioNodes';
 import useRecorder from '../audio/useRecorder';
 import { projectStore } from '../../recoil/projectStore';
@@ -21,7 +20,6 @@ export default function useAudioToneConnector() {
 
   useRecorder();
   useSyncChannelToSolo(isSolo);
-  useSyncPlayersToTransport();
 
   useEffect(() => {
     (async () => {
