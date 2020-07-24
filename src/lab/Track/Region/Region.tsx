@@ -17,6 +17,7 @@ import useDeleteRegion from '../../../hooks/recoil/region/useDeleteRegion';
 interface BaseContainerProps {
   color: string;
   isSelected: boolean;
+  isMuted: boolean;
   translateX: number;
 }
 
@@ -27,16 +28,20 @@ const Wrapper = styled('div')({
 })
 
 const BaseContainer = styled(
-  ({ color, isSelected, translateX, ...other }: BaseContainerProps & Omit<PaperProps, keyof BaseContainerProps>) => <Paper {...other} />,
+  ({ color, isSelected, isMuted, translateX, ...other }: BaseContainerProps & Omit<PaperProps, keyof BaseContainerProps>) => <Paper {...other} />,
 )({
   margin: 0,
   marginTop: 1,
   height: 68,
   willChange: 'transform',
   position: 'absolute',
+  opacity: ({isMuted}: BaseContainerProps) => isMuted ? 0.5 : 1,
   transform: ({ translateX }: BaseContainerProps) => `translateX(${translateX}px)`,
   backgroundColor: ({ color }: BaseContainerProps) => color,
   border: ({ isSelected, color }: BaseContainerProps) => `2px solid ${isSelected ? 'white' : color}`,
+  '&:focus': {
+    outline: 'none',
+  }
 });
 
 function Region() {
@@ -47,9 +52,10 @@ function Region() {
   const start = useRecoilValue(regionStore.start(id));
   const isSplinterRecording = useRecoilValue(projectStore.isRecording);
   const [isRecording, setIsRecording] = useRecoilState(regionStore.isRecording(id));
+  const [isMuted, setIsMuted] = useRecoilState(regionStore.isMuted(id));
   const channelColor = useRecoilValue(channelStore.color(channelId));
   const pixelPerSecond = useRecoilValue(arrangeWindowStore.pixelPerSecond);
-  const ref = useHotkeys('backspace', useDeleteRegion(id));
+  const ref = useHotkeys('m', () => setIsMuted(currVal => !currVal));
 
   useRegionScheduler();
 
@@ -64,7 +70,7 @@ function Region() {
 
   return (
     <BaseContainer translateX={translateX} isSelected={isSelected} color={isRecording ? red['500'] : channelColor} style={{ width: regionWidth }}
-                   onClick={() => setIsSelected(currVal => !currVal)} innerRef={ref} tabIndex={0}>
+                   onClick={() => setIsSelected(currVal => !currVal)} isMuted={isMuted} innerRef={ref} tabIndex={0}>
       <Wrapper>
         <MoveWrapper isSelected={isSelected}/>
         {audioBuffer && <Waveform audioBuffer={audioBuffer.get()} height={68} width={regionWidth - 4}/>}

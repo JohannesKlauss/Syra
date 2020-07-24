@@ -7,7 +7,7 @@ import { regionStore } from '../../recoil/regionStore';
 export default function useRegionScheduler() {
   const { players } = useToneAudioNodes();
   const regionId = useContext(RegionContext);
-  const { start, audioBuffer, isRecording } = useRecoilValue(regionStore.regionState(regionId));
+  const { start, audioBuffer, isRecording, isMuted } = useRecoilValue(regionStore.regionState(regionId));
 
   useEffect(() => {
     // When the region is being recorded or has an empty audio buffer we do not schedule anything.
@@ -19,6 +19,6 @@ export default function useRegionScheduler() {
       players.add(regionId, audioBuffer);
     }
 
-    players.player(regionId).unsync().sync().start(start + 0.001);
-  }, [start, audioBuffer, players, isRecording, regionId]);
+    players.player(regionId).set({mute: isMuted}).unsync().sync().start(start + 0.001);
+  }, [start, audioBuffer, players, isRecording, isMuted, regionId]);
 }
