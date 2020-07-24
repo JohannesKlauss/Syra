@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from 'react';
 import { ChannelContext } from '../../providers/ChannelContext';
-import useAsyncRegionCreator from '../recoil/useAsyncRegionCreator';
+import useAsyncRegionCreator from '../recoil/region/useAsyncRegionCreator';
 import { useRecoilValue } from 'recoil/dist';
 import { projectStore } from '../../recoil/projectStore';
 import { Recorder } from '../../audio/Recorder';

@@ -3,7 +3,7 @@ import { styled, Typography } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { useDropzone } from 'react-dropzone';
-import useRegionCreator from '../../hooks/recoil/useRegionCreator';
+import useRegionCreator from '../../hooks/recoil/region/useRegionCreator';
 import RegionList from './Region/RegionList';
 import { hexToRgb } from '../../utils/color';
 

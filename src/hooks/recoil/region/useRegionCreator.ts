@@ -1,11 +1,11 @@
 import { useCallback, useRef } from 'react';
-import { createNewId } from '../../utils/createNewId';
-import useAudioContext from '../audio/useAudioContext';
+import { createNewId } from '../../../utils/createNewId';
+import useAudioContext from '../../audio/useAudioContext';
 import { useSetRecoilState } from 'recoil/dist';
-import { regionStore } from '../../recoil/regionStore';
+import { regionStore } from '../../../recoil/regionStore';
 import * as Tone from 'tone';
-import { BUFFER_ID_PREFIX, REGION_ID_PREFIX } from '../../const/ids';
-import { audioBufferStore } from '../../recoil/audioBufferStore';
+import { BUFFER_ID_PREFIX, REGION_ID_PREFIX } from '../../../const/ids';
+import { audioBufferStore } from '../../../recoil/audioBufferStore';
 
 export default function useRegionCreator(channelId: string) {
   const audioContext = useAudioContext();

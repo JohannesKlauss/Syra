@@ -1,6 +1,9 @@
 import { atomFamily, selectorFamily } from 'recoil/dist';
 import * as Tone from 'tone';
 import { audioBufferStore } from './audioBufferStore';
+import { createNewId } from '../utils/createNewId';
+import { REGION_ID_PREFIX } from '../const/ids';
+import { create } from 'domain';
 
 const start = atomFamily<number, string>({
   key: 'region/start',
@@ -60,7 +63,28 @@ const regionState = selectorFamily<RegionState, string>({
       isMuted: get(isMuted(id)),
       isRecording: get(isRecording(id)),
     };
-  },
+  }
+});
+
+const duplicateRegionFromId = selectorFamily<RegionState, { originalRegionId: string, channelId: string }>({
+  key: 'region/duplicateRegion',
+  get: _ => () => createNewId(REGION_ID_PREFIX),
+  set: ({originalRegionId, channelId}) => ({set, get}, newValue) => {
+    const newId = createNewId(REGION_ID_PREFIX);
+
+    const originalState = get(regionState(originalRegionId));
+
+    set(audioBufferPointer(newId), get(audioBufferPointer(originalRegionId)));
+    set(start(newId), originalState.start);
+    set(end(newId), originalState.end);
+    set(isSolo(newId), originalState.isSolo);
+    set(isMuted(newId), originalState.isMuted);
+    set(isRecording(newId), false);
+
+    set(ids(channelId), [...get(ids(channelId)), newId]);
+
+    return newId;
+  }
 });
 
 const audioBuffer = selectorFamily<Tone.ToneAudioBuffer | null, string>({
@@ -105,4 +129,5 @@ export const regionStore = {
   isSolo,
   isMuted,
   isRecording,
+  duplicateRegionFromId,
 };

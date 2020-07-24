@@ -3,7 +3,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil/dist';
 import { channelStore } from '../../../recoil/channelStore';
 import { ChannelType } from '../../../types/Channel';
 import { createNewId } from '../../../utils/createNewId';
-import useRegionCreator from '../useRegionCreator';
+import useRegionCreator from '../region/useRegionCreator';
 
 const CHANNEL_ID_PREFIX = 'channel-';
 
