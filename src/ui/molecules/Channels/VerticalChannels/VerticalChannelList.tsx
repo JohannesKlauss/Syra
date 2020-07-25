@@ -5,11 +5,10 @@ import { Box, styled } from '@material-ui/core';
 import VerticalChannel from './VerticalChannel';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import { splinterTheme } from '../../../../theme';
+import VerticalChannelListHeader from '../../../../lab/ArrangeWindow/VerticalChannelListHeader';
 
 const BaseContainer = styled(Box)({
   width: 250,
-  marginTop: 40,
-  borderTop: `1px solid ${splinterTheme.palette.background.default}`,
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
@@ -19,6 +18,7 @@ function VerticalChannelList() {
 
   return (
     <BaseContainer>
+      <VerticalChannelListHeader/>
       {channels.map(id => (
         <ChannelContext.Provider key={id} value={id}>
           <VerticalChannel/>

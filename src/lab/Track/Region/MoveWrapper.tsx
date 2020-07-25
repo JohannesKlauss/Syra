@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@material-ui/core';
-import useMoveRegion from '../../../hooks/ui/useMoveRegion';
+import useMoveRegion from '../../../hooks/ui/region/useMoveRegion';
 import RegionPreview from './RegionPreview';
 
 const Wrapper = styled('div')({

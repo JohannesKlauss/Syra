@@ -30,6 +30,18 @@ const isRecording = atomFamily<boolean, string>({
   default: false,
 });
 
+// The seconds that the region get trimmed at the beginning (this is basically the offset)
+const trimStart = atomFamily<number, string>({
+  key: 'region/trimStart',
+  default: 0,
+});
+
+// The seconds that the region get trimmed at the end
+const trimEnd = atomFamily<number, string>({
+  key: 'region/trimEnd',
+  default: 0,
+});
+
 const audioBufferPointer = atomFamily<string | null, string>({
   key: 'region/audioBufferPointer',
   default: null,
@@ -42,6 +54,8 @@ export interface RegionState {
   isMuted: boolean;
   isSolo: boolean;
   isRecording: boolean;
+  trimStart: number;
+  trimEnd: number;
 }
 
 const regionState = selectorFamily<RegionState, string>({
@@ -61,6 +75,8 @@ const regionState = selectorFamily<RegionState, string>({
       isSolo: get(isSolo(id)),
       isMuted: get(isMuted(id)),
       isRecording: get(isRecording(id)),
+      trimEnd: get(trimEnd(id)),
+      trimStart: get(trimStart(id)),
     };
   }
 });
@@ -128,5 +144,7 @@ export const regionStore = {
   isSolo,
   isMuted,
   isRecording,
+  trimStart,
+  trimEnd,
   duplicateRegionFromId,
 };

@@ -1,11 +1,11 @@
 import { useCallback, useContext, useRef, useState } from 'react';
-import { RegionContext } from '../../providers/RegionContext';
+import { RegionContext } from '../../../providers/RegionContext';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
-import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
-import { regionStore } from '../../recoil/regionStore';
-import useDuplicateRegion from '../recoil/region/useDuplicateRegion';
+import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
+import { regionStore } from '../../../recoil/regionStore';
+import useDuplicateRegion from '../../recoil/region/useDuplicateRegion';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
-import useMovable from './useMovable';
+import useMovable from '../useMovable';
 
 export default function useMoveRegion() {
   const id = useContext(RegionContext);
