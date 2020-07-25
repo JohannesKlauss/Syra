@@ -51,7 +51,7 @@ function SoulPlugin({id, isInstrument}: Props) {
     <PowerButton onClick={() => setIsPluginActive(currVal => !currVal)}>
       <PowerIcon width={20} height={20}/>
     </PowerButton>
-  ), []);
+  ), [setIsPluginActive]);
 
   return (
     <>

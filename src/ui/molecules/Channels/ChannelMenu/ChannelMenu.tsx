@@ -4,7 +4,6 @@ import ChannelColorPicker from './ChannelColorPicker';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import { channelStore } from '../../../../recoil/channelStore';
 import { useRecoilState } from 'recoil/dist';
-import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';
 import useDeleteChannel from '../../../../hooks/recoil/channel/useDeleteChannel';
 
 interface Props {

@@ -21,7 +21,7 @@ export default function usePlayheadAnimation() {
     return () => {
       cancelAnimationFrame(animRef.current);
     }
-  }, [pixelPerSeconds]);
+  });
 
   return transportTranslate;
 }

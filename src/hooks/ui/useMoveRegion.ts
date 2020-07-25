@@ -30,7 +30,7 @@ export default function useMoveRegion(isSelected: boolean) {
     else {
       setIsDraggingActive(isSelected);
     }
-  }, [initialValues, setIsDraggingActive, isSelected, start, pixelPerSecond]);
+  }, [initialValues, setIsDraggingActive, isSelected, start, pixelPerSecond, duplicateRegion, isPressed]);
 
   const onMouseUpLeave = useCallback(() => setIsDraggingActive(false), [setIsDraggingActive]);
 

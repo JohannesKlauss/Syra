@@ -6,8 +6,6 @@ import { Box, BoxProps, styled, useTheme } from '@material-ui/core';
 import { channelStore } from '../../../../recoil/channelStore';
 import AudioChannel from './AudioChannel';
 import InstrumentChannel from './InstrumentChannel';
-import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';
-import { useHotkeys } from 'react-hotkeys-hook';
 
 interface BaseContainerProps {
   backgroundColor: string;

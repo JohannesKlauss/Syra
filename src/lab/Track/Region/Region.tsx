@@ -12,7 +12,6 @@ import useRegionScheduler from '../../../hooks/audio/useRegionScheduler';
 import { red } from '@material-ui/core/colors';
 import { projectStore } from '../../../recoil/projectStore';
 import { useHotkeys } from 'react-hotkeys-hook';
-import useDeleteRegion from '../../../hooks/recoil/region/useDeleteRegion';
 
 interface BaseContainerProps {
   color: string;

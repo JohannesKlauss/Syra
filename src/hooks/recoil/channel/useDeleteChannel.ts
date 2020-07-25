@@ -25,5 +25,5 @@ export default function useDeleteChannel() {
         return newIds;
       });
     }
-  }, [selectedChannelId, channelId, setChannelIds]);
+  }, [selectedChannelId, channelId, setChannelIds, channelIds, setSelectedChannelId]);
 }

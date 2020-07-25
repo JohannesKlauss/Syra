@@ -17,10 +17,16 @@ export default function useRecorder() {
   const recorder = useRef(new Recorder());
 
   useEffect(() => {
-    if (isRecording && isArmed) {
-      regionPushBuffer.current = createAsyncRegion();
+    recorder.current.onDataAvailable = onDataAvailable;
+  }, [onDataAvailable]);
 
-      recorder.current.onDataAvailable = onDataAvailable;
+  useEffect(() => {
+    if (isRecording && isArmed) {
+      if (recorder.current.isRecording()) {
+        return;
+      }
+
+      regionPushBuffer.current = createAsyncRegion();
 
       recorder.current.onComplete = blob => {
         regionPushBuffer.current && regionPushBuffer.current(blob);
@@ -31,5 +37,5 @@ export default function useRecorder() {
     } else {
       recorder.current.stop();
     }
-  }, [isRecording, recorder]);
+  }, [isRecording, recorder, isArmed, createAsyncRegion]);
 }

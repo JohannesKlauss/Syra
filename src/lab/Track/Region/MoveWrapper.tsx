@@ -1,8 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { styled } from '@material-ui/core';
 import useMoveRegion from '../../../hooks/ui/useMoveRegion';
-import useDuplicateRegion from '../../../hooks/recoil/region/useDuplicateRegion';
-import { RegionContext } from '../../../providers/RegionContext';
 
 const Wrapper = styled('div')({
   width: '100%',

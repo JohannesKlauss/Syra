@@ -15,6 +15,10 @@ const BaseContainer = styled('div')({
   position: 'relative',
   backgroundColor: splinterTheme.palette.background.paper,
   border: `1px dashed ${splinterTheme.palette.background.paper}`,
+  userSelect: 'none',
+  '&:focus': {
+    outline: 'none',
+  }
 });
 
 function DropTrack() {

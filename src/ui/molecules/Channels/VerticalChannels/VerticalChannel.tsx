@@ -14,7 +14,6 @@ import { splinterTheme } from '../../../../theme';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import ChannelLetterButtons from '../ChannelLetterButtons';
 import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';
-import { useHotkeys } from 'react-hotkeys-hook';
 import useMuteChannelHotkey from '../../../../hooks/hotkeys/channel/useMuteChannelHotkey';
 import useSoloChannelHotkey from '../../../../hooks/hotkeys/channel/useSoloChannelHotkey';
 

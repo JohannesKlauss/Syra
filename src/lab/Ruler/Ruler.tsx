@@ -22,6 +22,7 @@ const BaseContainer = styled(
   top: 0,
   zIndex: 1,
   borderBottom: `1px solid rgba(255, 255, 255, 0.3)`,
+  useSelect: 'none',
 });
 
 function Ruler() {

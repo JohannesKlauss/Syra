@@ -5,7 +5,7 @@ import PauseIcon from '@material-ui/icons/Pause';
 import StopIcon from '@material-ui/icons/Stop';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import { Box, IconButton, styled } from '@material-ui/core';
-import { useRecoilState, useSetRecoilState } from 'recoil/dist';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import useToneJsTransport from '../../hooks/tone/useToneJsTransport';
 import { projectStore } from '../../recoil/projectStore';
@@ -21,6 +21,8 @@ function PlayRecord() {
   const setPlayheadPosition = useSetRecoilState(arrangeWindowStore.playheadPosition);
   const [isRecording, setIsRecording] = useRecoilState(projectStore.isRecording);
   const setTransportSeconds = useSetRecoilState(transportStore.seconds);
+  const isCycleActive = useRecoilValue(transportStore.isCycleActive);
+  const cycleStart = useRecoilValue(transportStore.cycleStart);
   const transport = useToneJsTransport();
   const [isPlaying, setIsPlaying] = useState(false); // TODO: THIS SHOULD PROBABLY LIVE IN THE RECOIL STATE
 
@@ -32,11 +34,15 @@ function PlayRecord() {
     if (isPlaying) {
       transport.stop();
     } else {
+      if (isCycleActive) {
+        setTransportSeconds(cycleStart);
+      }
+
       transport.start('+0.05');
     }
 
     setIsPlaying(currVal => !currVal);
-  }, [setIsPlaying, transport, isPlaying, isRecording]);
+  }, [setIsPlaying, transport, isPlaying, isRecording, setTransportSeconds, cycleStart, isCycleActive]);
 
   const onClickReset = useCallback(() => {
     setPlayheadPosition(1);

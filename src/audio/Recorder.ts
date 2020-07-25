@@ -37,6 +37,10 @@ export class Recorder {
     });
   }
 
+  isRecording() {
+    return !this.stopped;
+  }
+
   start(callbackInterval: number) {
     this.shouldStop = false;
     this.stopped = false;
