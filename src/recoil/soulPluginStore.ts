@@ -25,12 +25,12 @@ const availableSoulPlugins = atom<AvailableSoulPatch[]>({
       UID: 'com.yourcompany.freeverb'
     },
     {
-      displayName: 'SimpleDelay',
+      displayName: 'Simple Delay',
       pathWasm: 'simpleDelay',
       UID: 'com.yourcompany.SimpleDelay'
     },
     {
-      displayName: 'LookaheadLimiter',
+      displayName: 'Lookahead Limiter',
       pathWasm: 'lookaheadLimiter',
       UID: 'com.yourcompany.LookaheadLimiter'
     },
@@ -40,7 +40,7 @@ const availableSoulPlugins = atom<AvailableSoulPatch[]>({
       UID: 'com.yourcompany.Distortion'
     },
     {
-      displayName: 'PhaseFlip',
+      displayName: 'Phase Flip',
       pathWasm: 'phaseFlip',
       UID: 'com.yourcompany.PhaseFlip'
     }
@@ -51,14 +51,14 @@ const availableSoulInstruments = atom<AvailableSoulPatch[]>({
   key: 'availableSoulInstruments',
   default: [
     {
-      displayName: 'SineSynth',
+      displayName: 'Sine Synth',
       pathWasm: 'sineSynth',
       UID: 'com.yourcompany.sineSynth'
     }
   ],
 });
 
-export const soulPatchesStore = {
+export const soulPluginStore = {
   availableSoulPlugins,
   availableSoulInstruments
 };

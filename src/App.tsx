@@ -4,6 +4,7 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { deepOrange, deepPurple, lightBlue, orange } from '@material-ui/core/colors';
 import MidiProvider from './providers/MidiProvider';
 import WebMidi from 'webmidi';
+import UiInteractionProvider from './providers/UiInteractionProvider';
 
 function App() {
   const [darkState] = useState(true);
@@ -40,7 +41,9 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      {isMidiEnabled && <MidiProvider/>}
+      <UiInteractionProvider>
+        {isMidiEnabled && <MidiProvider/>}
+      </UiInteractionProvider>
     </ThemeProvider>
   );
 }

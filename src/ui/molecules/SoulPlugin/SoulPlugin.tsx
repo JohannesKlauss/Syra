@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import ParameterList from './Parameters/ParameterList';
 import { channelStore } from '../../../recoil/channelStore';
-import { soulPatchesStore } from '../../../recoil/soulPatchesStore';
+import { soulPluginStore } from '../../../recoil/soulPluginStore';
 import { Button, Container, MenuItem, Modal, styled, Typography } from '@material-ui/core';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import DropdownButton from '../../atoms/Buttons/DropdownButton';
@@ -26,7 +26,7 @@ interface Props {
 function SoulPlugin({id, isInstrument}: Props) {
   const [activePlugin, setActivePlugin] = useRecoilState( channelStore.soulInstance(id));
   const [isPluginActive, setIsPluginActive] = useRecoilState(channelStore.isPluginActive(id));
-  const patchList = useRecoilValue(isInstrument ? soulPatchesStore.availableSoulInstruments : soulPatchesStore.availableSoulPlugins);
+  const patchList = useRecoilValue(isInstrument ? soulPluginStore.availableSoulInstruments : soulPluginStore.availableSoulPlugins);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onChangePatch = useCallback(async (UID: string) => {
@@ -54,7 +54,7 @@ function SoulPlugin({id, isInstrument}: Props) {
   ), [setIsPluginActive]);
 
   return (
-    <>
+    <div>
       {activePlugin && <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <Container>
           <ParameterList soulInstanceId={id} parameter={activePlugin.soulPatch.descriptor.parameters}/>
@@ -71,7 +71,7 @@ function SoulPlugin({id, isInstrument}: Props) {
       >
         <Typography variant="overline" noWrap>{activePlugin?.soulPatch.descriptor.description.name}</Typography>
       </DropdownButton>
-    </>
+    </div>
   );
 }
 

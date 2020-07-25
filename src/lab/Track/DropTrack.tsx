@@ -4,6 +4,7 @@ import { splinterTheme } from '../../theme';
 import { useDropzone } from 'react-dropzone';
 import useChannelCreator from '../../hooks/recoil/channel/useChannelCreator';
 import { ChannelType } from '../../types/Channel';
+import useIsDragOnDocument from '../../hooks/ui/useIsDragOnDocument';
 
 const BaseContainer = styled('div')({
   width: 'calc(100vw - 230px)',
@@ -23,6 +24,7 @@ const BaseContainer = styled('div')({
 
 function DropTrack() {
   const createChannel = useChannelCreator();
+  const isDragOnDocument = useIsDragOnDocument();
 
   const onDrop = useCallback(async (files: File[]) => {
     // TODO: WE SHOULD ALSO BE ABLE TO SUPPORT MIDI FILES LATER ON.
@@ -35,12 +37,12 @@ function DropTrack() {
       })();
     });
   }, [createChannel]);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
     <BaseContainer {...getRootProps()}>
       <input {...getInputProps()}/>
-      <Typography variant="overline" color={isDragActive ? 'primary' : 'initial'}
+      <Typography variant="overline" color={isDragOnDocument ? 'primary' : 'initial'}
                   display="block">Drop audio here to add new track</Typography>
     </BaseContainer>
   );

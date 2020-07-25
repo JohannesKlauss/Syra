@@ -16,7 +16,7 @@ const end = atomFamily<number, string>({
 
 const isMuted = atomFamily<boolean, string>({
   key: 'region/isMuted',
-  default: true,
+  default: false,
 });
 
 const isSolo = atomFamily<boolean, string>({
