@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect,  useState } from 'react';
 import { RegionContext } from '../../../providers/RegionContext';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../../recoil/regionStore';
@@ -6,12 +6,13 @@ import Waveform from '../../Waveform/Waveform';
 import { Paper, PaperProps, styled } from '@material-ui/core';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
-import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
-import MoveWrapper from './MoveWrapper';
 import useRegionScheduler from '../../../hooks/audio/useRegionScheduler';
 import { red } from '@material-ui/core/colors';
 import { projectStore } from '../../../recoil/projectStore';
 import { useHotkeys } from 'react-hotkeys-hook';
+import useRegionWidth from '../../../hooks/ui/region/useRegionWidth';
+import useSecondsToPixel from '../../../hooks/ui/useSecondsToPixel';
+import MoveWrapper from './MoveWrapper';
 
 interface BaseContainerProps {
   color: string;
@@ -53,7 +54,9 @@ function Region() {
   const [isRecording, setIsRecording] = useRecoilState(regionStore.isRecording(id));
   const [isMuted, setIsMuted] = useRecoilState(regionStore.isMuted(id));
   const channelColor = useRecoilValue(channelStore.color(channelId));
-  const pixelPerSecond = useRecoilValue(arrangeWindowStore.pixelPerSecond);
+  const translateX = useSecondsToPixel(start);
+  const regionWidth = useRegionWidth();
+
   const ref = useHotkeys('m', () => setIsMuted(currVal => !currVal));
 
   useRegionScheduler();
@@ -64,14 +67,12 @@ function Region() {
     }
   }, [isSplinterRecording, setIsRecording]);
 
-  const regionWidth = useMemo(() => pixelPerSecond * (audioBuffer?.duration ?? 0), [audioBuffer, pixelPerSecond]);
-  const translateX = useMemo(() => pixelPerSecond * start, [pixelPerSecond, start]);
 
   return (
     <BaseContainer translateX={translateX} isSelected={isSelected} color={isRecording ? red['500'] : channelColor} style={{ width: regionWidth }}
-                   onClick={() => setIsSelected(currVal => !currVal)} isMuted={isMuted} innerRef={ref} tabIndex={0}>
+                   onMouseDown={() => setIsSelected(true)} isMuted={isMuted} innerRef={ref} tabIndex={0}>
       <Wrapper>
-        <MoveWrapper isSelected={isSelected}/>
+        <MoveWrapper/>
         {audioBuffer && <Waveform audioBuffer={audioBuffer.get()} height={68} width={regionWidth - 4}/>}
       </Wrapper>
     </BaseContainer>

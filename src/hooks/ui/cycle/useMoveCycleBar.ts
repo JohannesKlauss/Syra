@@ -3,6 +3,7 @@ import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { transportStore } from '../../../recoil/transportStore';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useMovable from '../useMovable';
+import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 
 export default function useMoveCycleBar() {
   const [cycleStart, setCycleStart] = useRecoilState(transportStore.cycleStart);
@@ -11,6 +12,7 @@ export default function useMoveCycleBar() {
   const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
   const isSnapActive = useRecoilValue(arrangeWindowStore.isSnapActive);
   const pixelPerSecond = useRecoilValue(arrangeWindowStore.pixelPerSecond);
+  const isPressed = useIsHotkeyPressed();
 
   const [translateX, setTranslateX] = useState(pixelPerSecond * cycleStart);
 
@@ -28,7 +30,7 @@ export default function useMoveCycleBar() {
   const onMouseUp = useCallback(() => {
     setCycleStart(translateX / pixelPerSecond);
     setCycleEnd((translateX + cycleWidth) / pixelPerSecond);
-  }, [translateX, setCycleEnd, cycleWidth, pixelPerSecond, setCycleStart]);
+  }, [translateX, setCycleEnd, cycleWidth, pixelPerSecond, setCycleStart, isPressed]);
 
   const onMouseMove = useCallback(e => {
     const inverse = 1 / (snapWidth / 4); // Make the cycle snap value a quarter of the curent snap.
@@ -39,7 +41,7 @@ export default function useMoveCycleBar() {
       x = 1;
     }
 
-    const snappedPos = isSnapActive ? Math.round(x * inverse) / inverse : x;
+    const snappedPos = isSnapActive && !isPressed('ctrl') ? Math.round(x * inverse) / inverse : x;
 
     setTranslateX(snappedPos);
   }, [snapWidth, setTranslateX, isSnapActive]);

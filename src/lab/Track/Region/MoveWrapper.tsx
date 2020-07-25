@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { styled } from '@material-ui/core';
 import useMoveRegion from '../../../hooks/ui/useMoveRegion';
+import RegionPreview from './RegionPreview';
 
 const Wrapper = styled('div')({
   width: '100%',
@@ -11,15 +12,12 @@ const Wrapper = styled('div')({
   top: 0,
 });
 
-interface Props {
-  isSelected: boolean;
-}
-
-const MoveWrapper: React.FC<Props> = React.memo(({ isSelected, children }) => {
-  const {onMouseUpLeave, onMouseMove, onMouseDown} = useMoveRegion(isSelected);
+const MoveWrapper: React.FC = React.memo(({ children }) => {
+  const {onMouseDown, translateX, showPreview} = useMoveRegion();
 
   return (
-    <Wrapper onMouseDown={onMouseDown} onMouseUp={onMouseUpLeave} onMouseLeave={onMouseUpLeave} onMouseMove={onMouseMove}>
+    <Wrapper onMouseDown={onMouseDown}>
+      {showPreview && <RegionPreview translateX={translateX}/>}
       {children}
     </Wrapper>
   );

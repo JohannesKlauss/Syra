@@ -3,6 +3,7 @@ import { transportStore } from '../../../recoil/transportStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import useMovable from '../useMovable';
+import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 
 export default function useMoveCycleEnd() {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
@@ -12,6 +13,7 @@ export default function useMoveCycleEnd() {
   const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
   const isSnapActive = useRecoilValue(arrangeWindowStore.isSnapActive);
   const pixelPerSecond = useRecoilValue(arrangeWindowStore.pixelPerSecond);
+  const isPressed = useIsHotkeyPressed();
 
   const [isActive, setIsActive] = useState(false);
   const [translateX, setTranslateX] = useState(pixelPerSecond * cycleEnd);
@@ -40,10 +42,10 @@ export default function useMoveCycleEnd() {
       x = (pixelPerSecond * cycleStart) + (snapWidth / 4);
     }
 
-    const snappedPos = isSnapActive ? Math.round(x * inverse) / inverse : x;
+    const snappedPos = isSnapActive && !isPressed('ctrl') ? Math.round(x * inverse) / inverse : x;
 
     setTranslateX(snappedPos);
-  }, [snapWidth, isSnapActive, cycleStart, pixelPerSecond, windowWidth]);
+  }, [snapWidth, isSnapActive, cycleStart, pixelPerSecond, windowWidth, isPressed]);
 
   const movableTrigger = useMovable(onMouseMove, onMouseUp);
 
