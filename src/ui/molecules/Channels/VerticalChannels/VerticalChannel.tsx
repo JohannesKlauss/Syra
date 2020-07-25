@@ -13,8 +13,10 @@ import {
 import { splinterTheme } from '../../../../theme';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import ChannelLetterButtons from '../ChannelLetterButtons';
-import useDeleteChannel from '../../../../hooks/recoil/channel/useDeleteChannel';
+import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';
 import { useHotkeys } from 'react-hotkeys-hook';
+import useMuteChannelHotkey from '../../../../hooks/hotkeys/channel/useMuteChannelHotkey';
+import useSoloChannelHotkey from '../../../../hooks/hotkeys/channel/useSoloChannelHotkey';
 
 interface BaseContainerProps {
   channelColor: string;
@@ -54,7 +56,10 @@ function VerticalChannel() {
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
   const name = useRecoilValue(channelStore.name(channelId));
   const color = useRecoilValue(channelStore.color(channelId));
-  const hotkeysRef = useHotkeys('backspace', useDeleteChannel(channelId));
+
+  const hotkeysRef = useDeleteChannelHotkey();
+  useMuteChannelHotkey();
+  useSoloChannelHotkey();
 
   const backgroundColor = useMemo(() => {
     return channelId === selectedChannelId ? '#606060' : theme.palette.background.paper;

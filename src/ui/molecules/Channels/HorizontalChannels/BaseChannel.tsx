@@ -6,7 +6,7 @@ import { Box, BoxProps, styled, useTheme } from '@material-ui/core';
 import { channelStore } from '../../../../recoil/channelStore';
 import AudioChannel from './AudioChannel';
 import InstrumentChannel from './InstrumentChannel';
-import useDeleteChannel from '../../../../hooks/recoil/channel/useDeleteChannel';
+import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 interface BaseContainerProps {
@@ -33,7 +33,6 @@ function BaseChannel({ channelId }: Props) {
   const theme = useTheme();
   const type = useRecoilValue(channelStore.type(channelId));
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
-  const hotkeysRef = useHotkeys('backspace', useDeleteChannel(channelId));
 
   const backgroundColor = useMemo(() => {
     return channelId === selectedChannelId ? '#606060' : theme.palette.background.paper;
@@ -50,8 +49,7 @@ function BaseChannel({ channelId }: Props) {
 
   return (
     <ChannelContext.Provider value={channelId}>
-      <BaseContainer backgroundColor={backgroundColor} onClick={() => setSelectedChannelId(channelId)}
-                     innerRef={hotkeysRef} tabIndex={0}>
+      <BaseContainer backgroundColor={backgroundColor} onClick={() => setSelectedChannelId(channelId)}>
         {ChannelComponent}
       </BaseContainer>
     </ChannelContext.Provider>

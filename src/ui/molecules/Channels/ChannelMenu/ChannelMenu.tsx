@@ -4,6 +4,7 @@ import ChannelColorPicker from './ChannelColorPicker';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import { channelStore } from '../../../../recoil/channelStore';
 import { useRecoilState } from 'recoil/dist';
+import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';
 import useDeleteChannel from '../../../../hooks/recoil/channel/useDeleteChannel';
 
 interface Props {
@@ -15,7 +16,7 @@ function ChannelMenu({isMenuOpen, onClose}: Props) {
   const channelId = useContext(ChannelContext);
   const [color, setColor] = useRecoilState(channelStore.color(channelId));
   const divRef = useRef<HTMLDivElement>(null);
-  const deleteChannel = useDeleteChannel(channelId);
+  const deleteChannel = useDeleteChannel();
 
   const options = useMemo(() => ([
     <MenuItem><ChannelColorPicker activeColor={color} onChangeColor={setColor}/></MenuItem>,
