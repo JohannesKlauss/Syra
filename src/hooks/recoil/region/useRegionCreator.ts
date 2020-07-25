@@ -16,9 +16,10 @@ export default function useRegionCreator(channelId: string) {
   const setBufferStoreIds = useSetRecoilState(audioBufferStore.ids);
 
   const setAudioBufferPointer = useSetRecoilState(regionStore.audioBufferPointer(nextRegionId.current));
+  const setStart = useSetRecoilState(regionStore.start(nextRegionId.current));
   const setRegionIds = useSetRecoilState(regionStore.ids(channelId));
 
-  return useCallback(async (file: File | Blob) => {
+  return useCallback(async (file: File | Blob, start: number = 0) => {
       const audioBuffer = await audioContext.decodeAudioData(await file.arrayBuffer());
       const toneBuffer = await new Tone.Buffer(audioBuffer);
 
@@ -27,8 +28,9 @@ export default function useRegionCreator(channelId: string) {
         setBufferStoreIds(currVal => [...currVal, nextBufferId.current]);
         setBufferStore(toneBuffer);
         setAudioBufferPointer(nextBufferId.current);
+        setStart(start);
 
         nextRegionId.current = createNewId(REGION_ID_PREFIX);
       }
-  }, [audioContext, setRegionIds, setAudioBufferPointer, setBufferStore, setBufferStoreIds, nextBufferId, nextRegionId]);
+  }, [audioContext, setRegionIds, setAudioBufferPointer, setBufferStore, setStart, setBufferStoreIds, nextBufferId, nextRegionId]);
 }
