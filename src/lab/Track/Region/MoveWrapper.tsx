@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { styled } from '@material-ui/core';
 import useMoveRegion from '../../../hooks/ui/useMoveRegion';
 import RegionPreview from './RegionPreview';

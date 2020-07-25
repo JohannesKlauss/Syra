@@ -30,7 +30,7 @@ export default function useMoveCycleBar() {
   const onMouseUp = useCallback(() => {
     setCycleStart(translateX / pixelPerSecond);
     setCycleEnd((translateX + cycleWidth) / pixelPerSecond);
-  }, [translateX, setCycleEnd, cycleWidth, pixelPerSecond, setCycleStart, isPressed]);
+  }, [translateX, setCycleEnd, cycleWidth, pixelPerSecond, setCycleStart]);
 
   const onMouseMove = useCallback(e => {
     const inverse = 1 / (snapWidth / 4); // Make the cycle snap value a quarter of the curent snap.
@@ -44,7 +44,7 @@ export default function useMoveCycleBar() {
     const snappedPos = isSnapActive && !isPressed('ctrl') ? Math.round(x * inverse) / inverse : x;
 
     setTranslateX(snappedPos);
-  }, [snapWidth, setTranslateX, isSnapActive]);
+  }, [snapWidth, setTranslateX, isSnapActive, isPressed]);
 
   const movableTrigger = useMovable(onMouseMove, onMouseUp);
 

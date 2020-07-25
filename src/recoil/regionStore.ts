@@ -68,13 +68,13 @@ const regionState = selectorFamily<RegionState, string>({
 const duplicateRegionFromId = selectorFamily<RegionState, { originalRegionId: string, channelId: string }>({
   key: 'region/duplicateRegion',
   get: _ => () => createNewId(REGION_ID_PREFIX),
-  set: ({originalRegionId, channelId}) => ({set, get}, newValue) => {
+  set: ({originalRegionId, channelId}) => ({set, get}) => {
     const newId = createNewId(REGION_ID_PREFIX);
 
     const originalState = get(regionState(originalRegionId));
 
     set(audioBufferPointer(newId), get(audioBufferPointer(originalRegionId)));
-    set(start(newId), originalState.start + 1);
+    set(start(newId), originalState.start);
     set(end(newId), originalState.end);
     set(isSolo(newId), originalState.isSolo);
     set(isMuted(newId), originalState.isMuted);
