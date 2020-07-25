@@ -57,7 +57,7 @@ function Region() {
   const translateX = useSecondsToPixel(start);
   const regionWidth = useRegionWidth();
 
-  const ref = useHotkeys('m', () => setIsMuted(currVal => !currVal));
+  const ref = useHotkeys('ctrl+m', () => setIsMuted(currVal => !currVal));
 
   useRegionScheduler();
 

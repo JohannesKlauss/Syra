@@ -9,7 +9,7 @@ export default function useSoloChannelHotkey() {
   const selectedChannelId = useRecoilValue(channelStore.selectedId);
   const setIsSolo = useSetRecoilState(channelStore.isSolo(channelId));
 
-  useHotkeys('m', () => {
+  useHotkeys('s', () => {
     if (channelId === selectedChannelId) {
       setIsSolo(currVal => !currVal);
     }
