@@ -38,7 +38,7 @@ export default function useMoveRegion() {
 
     setStart(pixelToSeconds(pos));
     setShowPreview(false);
-  }, [isPressed, duplicateRegion, setStart, start, secondsToPixel, pixelToSeconds, translateX, setShowPreview, initialValues]);
+  }, [isPressed, duplicateRegion, setStart, start, secondsToPixel, pixelToSeconds, translateX, trimStart, setShowPreview, initialValues]);
 
   const onMouseMove = useCallback((e) => {
     const x = e.clientX - initialValues.current;

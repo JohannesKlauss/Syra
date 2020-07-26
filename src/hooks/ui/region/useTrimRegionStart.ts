@@ -55,11 +55,9 @@ export default function useTrimRegionStart() {
       newVal = -start; // In that case we set the newVal to be exactly -start, because the User tried to drag the trimStart out of bounds.
     }
 
-    console.log('set trimstart to', newVal);
-
     setTrimStart(newVal);
     setShowPreview(false);
-  }, [setShowPreview, setTrimStart, translateX, pixelToSeconds]);
+  }, [setShowPreview, setTrimStart, start, translateX, pixelToSeconds]);
 
   const movableTrigger = useMovable(onMouseMove, onMouseUp);
 
@@ -68,7 +66,7 @@ export default function useTrimRegionStart() {
     setWidth(initialWidth);
 
     movableTrigger();
-  }, [initialX, trimStart, trimEnd, movableTrigger, secondsToPixel, setWidth]);
+  }, [initialX, trimStart, movableTrigger, initialWidth, secondsToPixel, setWidth]);
 
   return {onMouseDown, width, showPreview, translateX};
 }
