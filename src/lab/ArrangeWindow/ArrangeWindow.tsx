@@ -5,6 +5,8 @@ import RulerSettings from '../Ruler/Settings/RulerSettings';
 import ArrangeGrid from './ArrangeGrid';
 import VerticalChannelList from '../../ui/molecules/Channels/VerticalChannels/VerticalChannelList';
 import TransportView from '../Transport/TransportView';
+import useListenForExternalMidiIn from '../../hooks/midi/useListenForExternalMidiIn';
+import useUpdateMidiStore from '../../hooks/midi/useUpdateMidiStore';
 
 const BaseContainer = styled(Container)({
   width: '100%',
@@ -27,6 +29,8 @@ const RightPane = styled(Box)({
 });
 
 function ArrangeWindow() {
+  useListenForExternalMidiIn(useUpdateMidiStore());
+
   return (
     <BaseContainer maxWidth={'xl'}>
       <TransportView/>

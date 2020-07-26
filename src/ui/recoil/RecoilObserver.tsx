@@ -3,6 +3,7 @@ import { Snapshot, useRecoilTransactionObserver_UNSTABLE } from 'recoil/dist';
 import { Button } from '@material-ui/core';
 import { channelStore } from '../../recoil/channelStore';
 
+// TODO: THIS WAS THOUGHT AS A DEV TOOL FOR RECOIL, BUT I GUESS WE SHOULD WAIT FOR THE OFFICIAL ONE.
 function RecoilObserver() {
   const [snapshot, setSnapshot] = useState<Snapshot>();
 
