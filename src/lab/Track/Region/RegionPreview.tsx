@@ -22,6 +22,7 @@ const BaseContainer = styled(
 )({
   opacity: 0.65,
   marginTop: ({ width }: BaseContainerProps) => width ? 0 : -2,
+  marginLeft: -2,
   border: ({ width }: BaseContainerProps) => width
     ? `0px 2px 0px 0px solid white`
     : '2px solid white',
@@ -31,6 +32,7 @@ const BaseContainer = styled(
   position: 'relative',
   transform: ({ translateX }: BaseContainerProps) => `translateX(${translateX}px)`,
   zIndex: 2,
+  overflow: 'hidden',
 });
 
 const DuplicateIcon = styled(ControlPointIcon)({
@@ -41,10 +43,11 @@ const DuplicateIcon = styled(ControlPointIcon)({
 
 interface Props {
   translateX: number;
+  offsetX?: number;
   width?: number;
 }
 
-function RegionPreview({ translateX, width }: Props) {
+function RegionPreview({ translateX, width, offsetX }: Props) {
   const channelId = useContext(ChannelContext);
   const regionId = useContext(RegionContext);
   const channelColor = useRecoilValue(channelStore.color(channelId));
@@ -55,7 +58,7 @@ function RegionPreview({ translateX, width }: Props) {
   return (
     <BaseContainer color={channelColor} translateX={translateX} width={width}>
       {isPressed('alt') && <DuplicateIcon color={'action'}/>}
-      {audioBuffer && <Waveform audioBuffer={audioBuffer.get()} height={68} width={regionWidth - 4}/>}
+      {audioBuffer && <Waveform audioBuffer={audioBuffer.get()} height={68} width={regionWidth - 4} offsetX={offsetX}/>}
     </BaseContainer>
   );
 }

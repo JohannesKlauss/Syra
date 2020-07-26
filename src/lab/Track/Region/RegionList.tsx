@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import { Box, styled } from '@material-ui/core';
+import { Box, RootRef, styled } from '@material-ui/core';
 import { useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../../recoil/regionStore';
 import { RegionContext } from '../../../providers/RegionContext';
 import Region from './Region';
+import { TrackRefContext } from '../../../providers/TrackContext';
 
 const BaseContainer = styled(Box)({
   top: 0,
@@ -17,15 +18,20 @@ const BaseContainer = styled(Box)({
 function RegionList() {
   const channelId = useContext(ChannelContext);
   const regions = useRecoilValue(regionStore.findIdsByChannelId(channelId));
+  const trackRef = useRef<HTMLDivElement>(null);
 
   return (
-    <BaseContainer>
-      {regions.map(id => (
-        <RegionContext.Provider key={id} value={id}>
-          <Region/>
-        </RegionContext.Provider>
-      ))}
-    </BaseContainer>
+    <RootRef rootRef={trackRef}>
+      <BaseContainer>
+        <TrackRefContext.Provider value={trackRef}>
+          {regions.map(id => (
+            <RegionContext.Provider key={id} value={id}>
+              <Region/>
+            </RegionContext.Provider>
+          ))}
+        </TrackRefContext.Provider>
+      </BaseContainer>
+    </RootRef>
   );
 }
 

@@ -1,13 +1,23 @@
 /** Inspiration for this is taken from https://stackoverflow.com/a/25838151/735226 */
 import React, { useEffect, useRef } from 'react';
+import { styled } from '@material-ui/core';
 
 interface Props {
   audioBuffer?: AudioBuffer;
   height: number;
   width: number;
+  offsetX?: number;
 }
 
-function Waveform({ audioBuffer, height, width }: Props) {
+interface CanvasProps {
+  offsetX: number;
+}
+
+const CustomCanvas = styled('canvas')({
+  marginLeft: ({offsetX}: CanvasProps) => offsetX,
+});
+
+function Waveform({ audioBuffer, height, width, offsetX = 0 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // TODO: THIS HAS TO BE HEAVILY OPTIMIZED. DURING RECORDING WE RECREATE EVERY LINE WHEN A NEW BUFFER CHUNK COMES IN.
@@ -58,7 +68,7 @@ function Waveform({ audioBuffer, height, width }: Props) {
   }, [audioBuffer, canvasRef, width, height]);
 
   return (
-    <canvas ref={canvasRef} width={width} height={height}/>
+    <CustomCanvas ref={canvasRef} width={width} height={height} offsetX={offsetX}/>
   );
 }
 

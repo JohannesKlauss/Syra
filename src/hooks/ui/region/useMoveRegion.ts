@@ -1,6 +1,6 @@
 import { useCallback, useContext, useRef, useState } from 'react';
 import { RegionContext } from '../../../providers/RegionContext';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../../recoil/regionStore';
 import useDuplicateRegion from '../../recoil/region/useDuplicateRegion';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
@@ -15,37 +15,42 @@ export default function useMoveRegion() {
   const calcSnappedX = useSnapCtrlPixelCalc();
 
   const id = useContext(RegionContext);
+  const trimStart = useRecoilValue(regionStore.trimStart(id));
   const [start, setStart] = useRecoilState(regionStore.start(id));
   const [translateX, setTranslateX] = useState(secondsToPixel(start));
   const [showPreview, setShowPreview] = useState(false);
-  const initialValues = useRef({ x: 0 });
+  const initialValues = useRef(0);
 
   const duplicateRegion = useDuplicateRegion(id);
   const isPressed = useIsHotkeyPressed();
 
-  const onMouseUp = useCallback(() => {
+  const onMouseUp = useCallback((e) => {
+    if (e.clientX === initialValues.current) {
+      return;
+    }
+
     if (isPressed('alt')) {
       // @ts-ignore
       duplicateRegion();
     }
 
-    const pos = translateX + secondsToPixel(start);
+    const pos = Math.max(translateX + secondsToPixel(start), -secondsToPixel(trimStart));
 
-    setStart(pos >= 0 ? pixelToSeconds(pos) : 0);
+    setStart(pixelToSeconds(pos));
     setShowPreview(false);
-  }, [isPressed, duplicateRegion, setStart, start, secondsToPixel, pixelToSeconds, translateX, setShowPreview]);
+  }, [isPressed, duplicateRegion, setStart, start, secondsToPixel, pixelToSeconds, translateX, setShowPreview, initialValues]);
 
   const onMouseMove = useCallback((e) => {
-    setTranslateX(calcSnappedX(e.clientX - initialValues.current.x));
+    const x = e.clientX - initialValues.current;
+
+    setTranslateX(calcSnappedX(x));
     setShowPreview(true);
   }, [calcSnappedX, initialValues, setShowPreview, setTranslateX]);
 
   const movableTrigger = useMovable(onMouseMove, onMouseUp);
 
   const onMouseDown = useCallback((e) => {
-    initialValues.current = {
-      x: e.clientX,
-    };
+    initialValues.current = e.clientX;
 
     setTranslateX(secondsToPixel(start));
 

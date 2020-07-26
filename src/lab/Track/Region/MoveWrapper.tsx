@@ -1,7 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { styled } from '@material-ui/core';
 import useMoveRegion from '../../../hooks/ui/region/useMoveRegion';
 import RegionPreview from './RegionPreview';
+import { useRecoilValue } from 'recoil/dist';
+import { RegionContext } from '../../../providers/RegionContext';
+import { regionStore } from '../../../recoil/regionStore';
+import useSecondsToPixel from '../../../hooks/ui/useSecondsToPixel';
+import { TrackRefContext } from '../../../providers/TrackContext';
+import ReactDOM from 'react-dom';
+import useTrimmedRegionWidth from '../../../hooks/ui/region/useTrimmedRegionWidth';
 
 const Wrapper = styled('div')({
   width: '100%',
@@ -18,7 +25,13 @@ interface Props {
 }
 
 const MoveWrapper: React.FC<Props> = React.memo(({ children, onManipulateEnd, onManipulateStart }) => {
+  const trackRef = useContext(TrackRefContext);
   const {onMouseDown, translateX, showPreview} = useMoveRegion();
+  const regionId = useContext(RegionContext);
+  const start = useRecoilValue(regionStore.start(regionId));
+  const trimStart = useRecoilValue(regionStore.trimStart(regionId));
+  const secondsToPixel = useSecondsToPixel();
+  const trimmedRegionWith = useTrimmedRegionWidth();
 
   useEffect(() => {
     showPreview ? onManipulateStart() : onManipulateEnd();
@@ -26,7 +39,10 @@ const MoveWrapper: React.FC<Props> = React.memo(({ children, onManipulateEnd, on
 
   return (
     <Wrapper onMouseDown={onMouseDown}>
-      {showPreview && <RegionPreview translateX={translateX}/>}
+      {showPreview && trackRef?.current && ReactDOM.createPortal(
+        <RegionPreview width={trimmedRegionWith} translateX={translateX + secondsToPixel(start + trimStart)} offsetX={-secondsToPixel(trimStart)}/>,
+        trackRef.current
+      )}
       {children}
     </Wrapper>
   );

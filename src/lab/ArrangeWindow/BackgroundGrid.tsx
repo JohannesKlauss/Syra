@@ -25,9 +25,9 @@ function BackgroundGrid({ticksFullHeight}: Props) {
         <defs>
           <pattern id="grid-pattern" x="0" y="0" width={snapValueWidth} height="100%" patternUnits="userSpaceOnUse">
             <rect width="0.5" height="3240" x="0" y="0" stroke={'#808080'}/>
-            <rect width="0.5" height="3240" x="20" y={ticksFullHeight ? '0' : '30'} stroke={'#505050'}/>
-            <rect width="0.5" height="3240" x="40" y={ticksFullHeight ? '0' : '30'} stroke={'#505050'}/>
-            <rect width="0.5" height="3240" x="60" y={ticksFullHeight ? '0' : '30'} stroke={'#505050'}/>
+            <rect width="0.5" height="3240" x={snapValueWidth * 0.25} y={ticksFullHeight ? '0' : '30'} stroke={'#505050'}/>
+            <rect width="0.5" height="3240" x={snapValueWidth * 0.5} y={ticksFullHeight ? '0' : '30'} stroke={'#505050'}/>
+            <rect width="0.5" height="3240" x={snapValueWidth * 0.75} y={ticksFullHeight ? '0' : '30'} stroke={'#505050'}/>
           </pattern>
         </defs>
         <rect fill="url(#grid-pattern)" x="0" y="0" width={windowWidth} height={'100%'}/>
