@@ -20,7 +20,7 @@ const BaseContainer = styled(
   ({ color, translateX, width, ...other }: BaseContainerProps & Omit<PaperProps, keyof BaseContainerProps>) =>
     <Paper {...other} />,
 )({
-  opacity: 0.85,
+  opacity: 0.65,
   marginTop: ({ width }: BaseContainerProps) => width ? 0 : -2,
   border: ({ width }: BaseContainerProps) => width
     ? `0px 2px 0px 0px solid white`

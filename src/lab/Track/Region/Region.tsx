@@ -40,7 +40,7 @@ const BaseContainer = styled(
   height: 68,
   willChange: 'transform',
   position: 'absolute',
-  overflow: ({ isUnderManipulation }: BaseContainerProps) => isUnderManipulation ? 'visible' : 'hidden',
+  overflow: ({ isUnderManipulation }: BaseContainerProps) => isUnderManipulation ? 'initial' : 'hidden',
   width: ({ width }: BaseContainerProps) => width,
   opacity: ({ isMuted }: BaseContainerProps) => isMuted ? 0.5 : 1,
   transform: ({ translateX }: BaseContainerProps) => `translateX(${translateX}px)`,
@@ -53,7 +53,8 @@ const BaseContainer = styled(
 
 function Region() {
   const [isSelected, setIsSelected] = useState(false);
-  const [isUnderManipulation, setIsUnderManipulation] = useState(false);
+  const [isMoving, setIsMoving] = useState(false);
+  const [isTrimming, setIsTrimming] = useState(false);
 
   const theme = useTheme();
   const channelId = useContext(ChannelContext);
@@ -71,6 +72,8 @@ function Region() {
   const ref = useHotkeys('ctrl+m', () => setIsMuted(currVal => !currVal));
 
   useRegionScheduler();
+
+  const isUnderManipulation = isMoving || isTrimming;
 
   useEffect(() => {
     if (!isSplinterRecording) {
@@ -94,9 +97,10 @@ function Region() {
                    isUnderManipulation={isUnderManipulation}
                    onMouseDown={() => setIsSelected(true)} isMuted={isMuted} innerRef={ref} tabIndex={0}>
       <Wrapper>
-        <MoveWrapper/>
-        <TrimWrapper onManipulateStart={() => setIsUnderManipulation(true)}
-                     onManipulateEnd={() => setIsUnderManipulation(false)}/>
+        <MoveWrapper onManipulateStart={() => setIsMoving(true)}
+                     onManipulateEnd={() => setIsMoving(false)}/>
+        <TrimWrapper onManipulateStart={() => setIsTrimming(true)}
+                     onManipulateEnd={() => setIsTrimming(false)}/>
         {audioBuffer && <Waveform audioBuffer={audioBuffer.get()} height={68} width={regionWidth - 4}/>}
       </Wrapper>
     </BaseContainer>
