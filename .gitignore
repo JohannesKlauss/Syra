@@ -5,6 +5,10 @@
 .graphqlconfig
 codegen.yml
 
+# cypress
+.nyc_output
+coverage
+
 # Logs
 logs
 *.log

@@ -22,9 +22,6 @@ export default function useRegionScheduler() {
     const player = players.player(regionId);
     const duration = player.buffer.duration ?? 0;
 
-    console.log('duration', duration);
-    console.log('trimmed', duration - trimEnd - trimStart);
-
     players.player(regionId).set({mute: isMuted}).unsync().sync().start(start + 0.001, trimStart, duration - trimEnd - trimStart);
   }, [start, audioBuffer, players, isRecording, isMuted, regionId, trimEnd, trimStart]);
 }

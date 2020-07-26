@@ -41,7 +41,7 @@ function DropTrack() {
 
   return (
     <BaseContainer {...getRootProps()}>
-      <input {...getInputProps()}/>
+      <input {...getInputProps()} data-cy={'drop-track-input'}/>
       <Typography variant="overline" color={isDragOnDocument ? 'primary' : 'initial'}
                   display="block">Drop audio here to add new track</Typography>
     </BaseContainer>
