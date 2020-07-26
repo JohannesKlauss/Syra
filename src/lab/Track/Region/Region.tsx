@@ -65,7 +65,7 @@ function Region() {
   const [isRecording, setIsRecording] = useRecoilState(regionStore.isRecording(id));
   const [isMuted, setIsMuted] = useRecoilState(regionStore.isMuted(id));
   const channelColor = useRecoilValue(channelStore.color(channelId));
-  const translateX = useSecondsToPixel(start);
+  const translateX = useSecondsToPixel();
   const regionWidth = useRegionWidth();
   const trimmedRegionWidth = useTrimmedRegionWidth();
 
@@ -92,8 +92,8 @@ function Region() {
   }, [isRecording, channelColor, isUnderManipulation, theme]);
 
   return (
-    <BaseContainer translateX={translateX} isSelected={isSelected} color={color}
-                   width={isUnderManipulation ? regionWidth : trimmedRegionWidth}
+    <BaseContainer translateX={translateX(start)} isSelected={isSelected} color={color}
+                   width={isTrimming ? regionWidth : trimmedRegionWidth}
                    isUnderManipulation={isUnderManipulation}
                    onMouseDown={() => setIsSelected(true)} isMuted={isMuted} innerRef={ref} tabIndex={0}>
       <Wrapper>

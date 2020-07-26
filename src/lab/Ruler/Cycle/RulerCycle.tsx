@@ -6,13 +6,14 @@ import { BaseContainer, CycleBar, CycleEndHandle, CycleStartHandle } from './Rul
 import useMoveCycleBar from '../../../hooks/ui/cycle/useMoveCycleBar';
 import useMoveCycleStart from '../../../hooks/ui/cycle/useMoveCycleStart';
 import useMoveCycleEnd from '../../../hooks/ui/cycle/useMoveCycleEnd';
+import useSecondsToPixel from '../../../hooks/ui/useSecondsToPixel';
 
 function RulerCycle() {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
   const cycleStart = useRecoilValue(transportStore.cycleStart);
   const cycleEnd = useRecoilValue(transportStore.cycleEnd);
   const isCycleActive = useRecoilValue(transportStore.isCycleActive);
-  const pixelPerSecond = useRecoilValue(arrangeWindowStore.pixelPerSecond);
+  const secondsToPixel = useSecondsToPixel();
 
   const { onMouseDown, translateX } = useMoveCycleBar();
   const { onMouseDown: onMouseDownCycleStart, translateX: startTranslateX, isActive: isStartHandleActive } = useMoveCycleStart();
@@ -21,10 +22,10 @@ function RulerCycle() {
   let cycleWidth = 0;
 
   if (!isStartHandleActive && !isEndHandleActive) {
-    cycleWidth = pixelPerSecond * cycleEnd - pixelPerSecond * cycleStart;
+    cycleWidth = secondsToPixel(cycleEnd) - secondsToPixel(cycleStart);
   }
   else if(isStartHandleActive) {
-    cycleWidth = pixelPerSecond * cycleEnd - startTranslateX;
+    cycleWidth = secondsToPixel(cycleEnd) - startTranslateX;
   }
   else if(isEndHandleActive) {
     cycleWidth = endTranslateX - translateX;

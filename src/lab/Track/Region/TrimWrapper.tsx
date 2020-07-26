@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { styled } from '@material-ui/core';
 import RegionPreview from './RegionPreview';
 import useTrimRegionEnd from '../../../hooks/ui/region/useTrimRegionEnd';
+import useTrimRegionStart from '../../../hooks/ui/region/useTrimRegionStart';
 
 const TrimStartHandle = styled('div')({
   position: 'absolute',
@@ -27,16 +28,19 @@ interface Props {
 }
 
 function TrimWrapper({onManipulateStart, onManipulateEnd}: Props) {
-  const {onMouseDown: onMouseDownEndHandle, showPreview, width} = useTrimRegionEnd();
+  const {onMouseDown: onMouseDownEndHandle, showPreview: showPreviewForEnd, width: endWidth} = useTrimRegionEnd();
+  const {onMouseDown: onMouseDownStartHandle, showPreview: showPreviewForStart, width: startWidth, translateX} = useTrimRegionStart();
+
 
   useEffect(() => {
-    showPreview ? onManipulateStart() : onManipulateEnd();
-  }, [showPreview, onManipulateEnd, onManipulateStart]);
+    showPreviewForEnd || showPreviewForStart ? onManipulateStart() : onManipulateEnd();
+  }, [showPreviewForEnd, showPreviewForStart, onManipulateEnd, onManipulateStart]);
 
   return (
     <>
-      {showPreview && <RegionPreview translateX={0} width={width}/>}
-      <TrimStartHandle/>
+      {showPreviewForStart && <RegionPreview translateX={translateX} width={startWidth}/>}
+      {showPreviewForEnd && <RegionPreview translateX={0} width={endWidth}/>}
+      <TrimStartHandle onMouseDown={onMouseDownStartHandle}/>
       <TrimEndHandle onMouseDown={onMouseDownEndHandle}/>
     </>
   );

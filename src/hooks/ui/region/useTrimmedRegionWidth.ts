@@ -1,15 +1,16 @@
-import { useContext, useMemo } from 'react';
+import { useContext } from 'react';
 import { RegionContext } from '../../../providers/RegionContext';
 import { useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../../recoil/regionStore';
-import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useRegionWidth from './useRegionWidth';
+import useSecondsToPixel from '../useSecondsToPixel';
 
 export default function useTrimmedRegionWidth() {
   const id = useContext(RegionContext);
   const trimEnd = useRecoilValue(regionStore.trimEnd(id));
+  const trimStart = useRecoilValue(regionStore.trimStart(id));
   const initialWidth = useRegionWidth();
-  const pixelPerSecond = useRecoilValue(arrangeWindowStore.pixelPerSecond);
+  const secondsToPixel = useSecondsToPixel();
 
-  return useMemo(() => initialWidth - trimEnd * pixelPerSecond, [initialWidth, trimEnd, pixelPerSecond]);
+  return initialWidth - secondsToPixel(trimEnd) - secondsToPixel(trimStart);
 }

@@ -7,8 +7,8 @@ import useRegionCreator from '../../hooks/recoil/region/useRegionCreator';
 import RegionList from './Region/RegionList';
 import { hexToRgb } from '../../utils/color';
 import useIsDragOnDocument from '../../hooks/ui/useIsDragOnDocument';
-import { useRecoilValue } from 'recoil/dist';
-import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
+import usePixelToSeconds from '../../hooks/ui/usePixelToSeconds';
+import useSnapCtrlPixelCalc from '../../hooks/ui/useSnapCtrlPixelCalc';
 
 interface BaseContainerProps {
   backgroundColor: string;
@@ -50,10 +50,9 @@ interface Props {
 const Track = React.memo(({ backgroundColor }: Props) => {
   const channelId = useContext(ChannelContext);
   const createRegion = useRegionCreator(channelId);
-  const pixelPerSecond = useRecoilValue(arrangeWindowStore.pixelPerSecond);
-  const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
-  const isSnapActive = useRecoilValue(arrangeWindowStore.isSnapActive);
   const isDragOnDocument = useIsDragOnDocument();
+  const pixelToSeconds = usePixelToSeconds();
+  const calcSnappedX = useSnapCtrlPixelCalc();
 
   const background = useMemo(() => {
     const rgb = hexToRgb(backgroundColor);
@@ -64,15 +63,13 @@ const Track = React.memo(({ backgroundColor }: Props) => {
   // TODO: WE SHOULD ALSO BE ABLE TO SUPPORT MIDI FILES LATER ON.
   const onDrop = useCallback(async (files: File[], _, e) => {
     const x = e.clientX - e.target.getBoundingClientRect().left; // x position within the track.
-    const inverse = 1 / snapWidth;
-    const snappedPos = isSnapActive ? Math.round(x * inverse) / inverse : x;
 
     if (files.length > 0) {
       // On a Region we only use the first file.
       // TODO: THE SUBSEQUENT files should be move to the tracks beneath this one or create complete new channels.
-      await createRegion(files[0], snappedPos / pixelPerSecond);
+      await createRegion(files[0], pixelToSeconds(calcSnappedX(x)));
     }
-  }, [createRegion, pixelPerSecond, snapWidth, isSnapActive]);
+  }, [createRegion, pixelToSeconds, calcSnappedX]);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (

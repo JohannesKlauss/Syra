@@ -1,19 +1,22 @@
 import { useCallback, useContext, useRef, useState } from 'react';
 import { RegionContext } from '../../../providers/RegionContext';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
-import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
+import { useRecoilState } from 'recoil/dist';
 import { regionStore } from '../../../recoil/regionStore';
 import useDuplicateRegion from '../../recoil/region/useDuplicateRegion';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 import useMovable from '../useMovable';
+import usePixelToSeconds from '../usePixelToSeconds';
+import useSecondsToPixel from '../useSecondsToPixel';
+import useSnapCtrlPixelCalc from '../useSnapCtrlPixelCalc';
 
 export default function useMoveRegion() {
+  const pixelToSeconds = usePixelToSeconds();
+  const secondsToPixel = useSecondsToPixel();
+  const calcSnappedX = useSnapCtrlPixelCalc();
+
   const id = useContext(RegionContext);
-  const pixelPerSecond = useRecoilValue(arrangeWindowStore.pixelPerSecond);
-  const isSnapActive = useRecoilValue(arrangeWindowStore.isSnapActive);
-  const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
   const [start, setStart] = useRecoilState(regionStore.start(id));
-  const [translateX, setTranslateX] = useState(start * pixelPerSecond);
+  const [translateX, setTranslateX] = useState(secondsToPixel(start));
   const [showPreview, setShowPreview] = useState(false);
   const initialValues = useRef({ x: 0 });
 
@@ -26,20 +29,16 @@ export default function useMoveRegion() {
       duplicateRegion();
     }
 
-    const pos = translateX + start * pixelPerSecond;
+    const pos = translateX + secondsToPixel(start);
 
-    setStart(pos >= 0 ? pos / pixelPerSecond : 0);
+    setStart(pos >= 0 ? pixelToSeconds(pos) : 0);
     setShowPreview(false);
-  }, [isPressed, duplicateRegion, setStart, start, pixelPerSecond, translateX, setShowPreview]);
+  }, [isPressed, duplicateRegion, setStart, start, secondsToPixel, pixelToSeconds, translateX, setShowPreview]);
 
   const onMouseMove = useCallback((e) => {
-    const x = e.clientX - initialValues.current.x;
-    const inverse = 1 / (snapWidth / 4);
-    const snappedPos = isSnapActive && !isPressed('ctrl') ? Math.round(x * inverse) / inverse : x;
-
-    setTranslateX(snappedPos);
+    setTranslateX(calcSnappedX(e.clientX - initialValues.current.x));
     setShowPreview(true);
-  }, [isSnapActive, initialValues, snapWidth, isPressed, setShowPreview]);
+  }, [calcSnappedX, initialValues, setShowPreview, setTranslateX]);
 
   const movableTrigger = useMovable(onMouseMove, onMouseUp);
 
@@ -48,10 +47,10 @@ export default function useMoveRegion() {
       x: e.clientX,
     };
 
-    setTranslateX(start * pixelPerSecond);
+    setTranslateX(secondsToPixel(start));
 
     movableTrigger();
-  }, [initialValues, start, pixelPerSecond, setTranslateX, movableTrigger]);
+  }, [initialValues, start, secondsToPixel, setTranslateX, movableTrigger]);
 
   return {
     onMouseDown,
