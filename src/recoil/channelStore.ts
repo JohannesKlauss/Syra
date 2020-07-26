@@ -1,7 +1,6 @@
 import { atom, atomFamily, selector, selectorFamily } from 'recoil/dist';
 import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
-import { channelTypeToLabel } from '../utils/channelTypeToLabel';
 import { RegionState, regionStore } from './regionStore';
 import { channelColors } from '../utils/channelColors';
 
@@ -12,7 +11,7 @@ const name = atomFamily<string, string>({
     get: ({get}) => {
       const channelIds = get(ids);
 
-      return `${channelTypeToLabel(get(type(channelIds[channelIds.length - 1])))} ${channelIds.length}`;
+      return `channel ${channelIds.length}`;
     }
   }),
 });
