@@ -20,8 +20,6 @@ export default function useRegionCreator(channelId: string) {
   const setRegionIds = useSetRecoilState(regionStore.ids(channelId));
 
   return useCallback(async (file: File | Blob, start: number = 0) => {
-    console.log('file', file);
-
     const audioBuffer = await audioContext.decodeAudioData(await file.arrayBuffer());
     const toneBuffer = await new Tone.Buffer(audioBuffer);
 

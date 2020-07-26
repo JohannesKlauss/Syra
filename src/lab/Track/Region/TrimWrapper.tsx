@@ -1,11 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@material-ui/core';
 import RegionPreview from './RegionPreview';
 import useTrimRegionEnd from '../../../hooks/ui/region/useTrimRegionEnd';
-import { RegionContext } from '../../../providers/RegionContext';
-import { regionStore } from '../../../recoil/regionStore';
-import { useRecoilValue } from 'recoil/dist';
-import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 
 const TrimStartHandle = styled('div')({
   position: 'absolute',
@@ -31,18 +27,15 @@ interface Props {
 }
 
 function TrimWrapper({onManipulateStart, onManipulateEnd}: Props) {
-  const regionId = useContext(RegionContext);
-  const start = useRecoilValue(regionStore.start(regionId));
-  const pixelPerSecond = useRecoilValue(arrangeWindowStore.pixelPerSecond);
   const {onMouseDown: onMouseDownEndHandle, showPreview, width} = useTrimRegionEnd();
 
   useEffect(() => {
     showPreview ? onManipulateStart() : onManipulateEnd();
-  }, [showPreview]);
+  }, [showPreview, onManipulateEnd, onManipulateStart]);
 
   return (
     <>
-      {showPreview && <RegionPreview translateX={start * pixelPerSecond} width={width}/>}
+      {showPreview && <RegionPreview translateX={0} width={width}/>}
       <TrimStartHandle/>
       <TrimEndHandle onMouseDown={onMouseDownEndHandle}/>
     </>

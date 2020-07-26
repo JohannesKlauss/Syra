@@ -86,7 +86,7 @@ function Region() {
     }
 
     return channelColor;
-  }, [isRecording, channelColor, isUnderManipulation]);
+  }, [isRecording, channelColor, isUnderManipulation, theme]);
 
   return (
     <BaseContainer translateX={translateX} isSelected={isSelected} color={color}

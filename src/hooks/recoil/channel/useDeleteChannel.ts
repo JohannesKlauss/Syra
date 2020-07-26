@@ -11,8 +11,6 @@ export default function useDeleteChannel() {
 
   return useCallback(() => {
     if (selectedChannelId === channelId) {
-      console.log('delete', channelId);
-
       const index = channelIds.findIndex(val => val === channelId);
 
       setChannelIds(currVal => {

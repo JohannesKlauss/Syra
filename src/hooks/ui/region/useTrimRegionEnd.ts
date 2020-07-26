@@ -42,7 +42,7 @@ export default function useTrimRegionEnd() {
     initialX.current = e.clientX + trimEnd * pixelPerSecond;
 
     movableTrigger();
-  }, [initialX, trimEnd, pixelPerSecond]);
+  }, [initialX, trimEnd, pixelPerSecond, movableTrigger]);
 
   return {onMouseDown, width, showPreview};
 }
