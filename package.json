@@ -24,7 +24,7 @@
     "react-router-dom": "5.2.0",
     "react-scripts": "3.4.1",
     "recoil": "0.0.10",
-    "tone": "14.7.35",
+    "tone": "14.7.38",
     "uniqid": "5.2.0",
     "urql": "1.9.8",
     "webmidi": "2.5.1"
