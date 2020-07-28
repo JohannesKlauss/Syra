@@ -4,15 +4,13 @@ import { ChannelType } from '../types/Channel';
 import { RegionState, regionStore } from './regionStore';
 import { channelColors } from '../utils/channelColors';
 
+let lastChannelNum = 1;
+
 const name = atomFamily<string, string>({
   key: 'channel/name',
   default: selector({
     key: 'channel/name/Default',
-    get: ({get}) => {
-      const channelIds = get(ids);
-
-      return `channel ${channelIds.length}`;
-    }
+    get: () => `Channel ${lastChannelNum++}`,
   }),
 });
 
