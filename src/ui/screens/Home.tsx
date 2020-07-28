@@ -1,6 +1,6 @@
 import React from 'react';
 import HorizontalChannelList from '../molecules/Channels/HorizontalChannels/HorizontalChannelList';
-import ArrangeWindow from '../../lab/ArrangeWindow/ArrangeWindow';
+import ArrangeWindow from '../molecules/ArrangeWindow/ArrangeWindow';
 import Piano from '../molecules/Piano/Piano';
 import MidiProvider from '../../providers/MidiProvider';
 

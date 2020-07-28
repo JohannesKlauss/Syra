@@ -5,6 +5,7 @@ import WebMidi from 'webmidi';
 import { keyboardMidiStore } from '../recoil/keyboardMidiStore';
 import { Skeleton } from '@material-ui/lab';
 import { orange } from '@material-ui/core/colors';
+import RegionObserver from '../ui/recoil/RegionObserver';
 
 const BaseContainer = styled(Box)({
   width: '100vw',
@@ -73,6 +74,9 @@ const MidiProvider: React.FC = ({ children }) => {
                   }
                 </Select>
               </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <RegionObserver/>
             </Grid>
           </Grid>
         </Grid>

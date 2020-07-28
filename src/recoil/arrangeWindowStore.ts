@@ -1,6 +1,12 @@
 import { atom, selector } from 'recoil/dist';
 import { projectStore } from './projectStore';
 import { ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH, ZOOM_RESOLUTION_MAP } from '../const/ui';
+import { EditMode } from '../types/RegionManipulation';
+
+const editMode = atom<EditMode>({
+  key: 'arrangeWindow/editMode',
+  default: EditMode.DEFAULT,
+})
 
 const isSnapActive = atom({
   key: 'arrangeWindow/isSnapActive',
@@ -100,6 +106,7 @@ const rulerItems = selector({
 });
 
 export const arrangeWindowStore = {
+  editMode,
   playheadPosition,
   snappedPlayheadPosition,
   zoomLevel,

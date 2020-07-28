@@ -4,11 +4,13 @@ import { audioBufferStore } from './audioBufferStore';
 import { createNewId } from '../utils/createNewId';
 import { REGION_ID_PREFIX } from '../const/ids';
 
+// Sets the time that region plays in relation to the transport.
 const start = atomFamily<number, string>({
   key: 'region/start',
-  default: 0, // This is measured in seconds.
+  default: 0, // This is measured in seconds. This value is referring to the transport, not the audio buffer.
 });
 
+// This is currently unused and I am not sure if this is even needed.
 const end = atomFamily<number, string>({
   key: 'region/end',
   default: 0,
@@ -30,13 +32,13 @@ const isRecording = atomFamily<boolean, string>({
   default: false,
 });
 
-// The seconds that the region get trimmed at the beginning (this is basically the offset)
+// The seconds that the region get trimmed at the beginning (this is basically the offset in relation to the audio buffer)
 const trimStart = atomFamily<number, string>({
   key: 'region/trimStart',
   default: 0,
 });
 
-// The seconds that the region get trimmed at the end
+// The seconds that the region get trimmed at the end (also in relation to the audio buffer)
 const trimEnd = atomFamily<number, string>({
   key: 'region/trimEnd',
   default: 0,
@@ -91,10 +93,34 @@ const duplicateRegionFromId = selectorFamily<RegionState, { originalRegionId: st
 
     set(audioBufferPointer(newId), get(audioBufferPointer(originalRegionId)));
     set(start(newId), originalState.start);
-    set(end(newId), originalState.end);
     set(isSolo(newId), originalState.isSolo);
     set(isMuted(newId), originalState.isMuted);
-    set(isRecording(newId), false);
+    set(trimStart(newId), originalState.trimStart);
+    set(trimEnd(newId), originalState.trimEnd);
+
+    set(ids(channelId), [...get(ids(channelId)), newId]);
+
+    return newId;
+  }
+});
+
+const cutRegionById = selectorFamily<number, { originalRegionId: string, channelId: string }>({
+  key: 'region/duplicateRegion',
+  get: _ => () => createNewId(REGION_ID_PREFIX),
+  set: ({originalRegionId, channelId}) => ({set, get}, cutAt) => {
+    const newId = createNewId(REGION_ID_PREFIX);
+
+    const originalState = get(regionState(originalRegionId));
+
+    set(audioBufferPointer(newId), get(audioBufferPointer(originalRegionId)));
+    set(start(newId), originalState.start);
+    set(isSolo(newId), originalState.isSolo);
+    set(isMuted(newId), originalState.isMuted);
+    set(trimEnd(newId), originalState.trimEnd);
+
+    set(trimStart(newId), originalState.trimStart + (cutAt as number));
+
+    set(trimEnd(originalRegionId), (originalState.audioBuffer?.duration ?? 0) - (originalState.trimStart + (cutAt as number)));
 
     set(ids(channelId), [...get(ids(channelId)), newId]);
 
@@ -147,4 +173,5 @@ export const regionStore = {
   trimStart,
   trimEnd,
   duplicateRegionFromId,
+  cutRegionById,
 };

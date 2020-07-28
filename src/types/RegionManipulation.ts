@@ -5,3 +5,8 @@ export enum RegionManipulation {
   CUT,
   DUPLICATE,
 }
+
+export enum EditMode {
+  DEFAULT,
+  CUT,
+}

@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../../recoil/regionStore';
 import useSecondsToPixel from '../useSecondsToPixel';
 
+// THIS IS THE ORIGINAL REGION WIDTH WITH UNALTERED START AND END. FOR THE CURRENT REPRESENTATION OF REGION, USE useTrimmedRegionWidth
 export default function useRegionWidth() {
   const id = useContext(RegionContext);
   const audioBuffer = useRecoilValue(regionStore.audioBuffer(id));
