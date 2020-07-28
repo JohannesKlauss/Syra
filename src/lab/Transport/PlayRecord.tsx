@@ -32,7 +32,10 @@ function PlayRecord() {
     }
 
     if (isPlaying) {
+      const pos = transport.seconds;
       transport.stop();
+
+      setTransportSeconds(pos);
     } else {
       if (isCycleActive) {
         setTransportSeconds(cycleStart);
@@ -56,7 +59,7 @@ function PlayRecord() {
     }
     else {
       setIsRecording(true);
-      transport.start('+0.05'); // TODO: THIS MIGHT CAUSE SYNCING ISSUES BETWEEN THE PLAYBACK AND THE RECORDING ITSELF.
+      transport.start('+0.05');
     }
   }, [setIsRecording, isRecording, transport]);
 
