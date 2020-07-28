@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil/dist';
 import { Box, styled } from '@material-ui/core';
 import { splinterTheme } from '../../theme';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
+import { numberToMusicalBarTime } from '../../utils/noteMapper';
 
 const Bars = styled(Box)({
   height: 20,
@@ -28,11 +29,11 @@ function RulerBars() {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
 
   // TODO: These two should probably live in the recoil state.
-  const itemLength = useMemo(() => windowWidth / items.length, [items, windowWidth]);
+  const itemLength = useMemo(() => Math.floor(windowWidth / items.length), [items, windowWidth]);
 
   return (
     <Bars>
-      {items.map((item, i) => <RulerItem key={item} style={{left: `${i * itemLength}px`}}>{item}</RulerItem>)}
+      {items.map((item, i) => <RulerItem key={item} style={{left: `${i * itemLength}px`}}>{numberToMusicalBarTime(item)}</RulerItem>)}
     </Bars>
   );
 }

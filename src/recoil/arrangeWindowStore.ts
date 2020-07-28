@@ -1,5 +1,6 @@
 import { atom, selector } from 'recoil/dist';
 import { projectStore } from './projectStore';
+import { ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH, ZOOM_RESOLUTION_MAP } from '../const/ui';
 
 const isSnapActive = atom({
   key: 'arrangeWindow/isSnapActive',
@@ -18,7 +19,6 @@ const snappedPlayheadPosition = selector({
   get: ({get}) => {
     const inverse = 1 / get(snapValue);
     const exactPos = get(playheadPosition);
-
     const snappedPos = get(isSnapActive) ? Math.round(exactPos * inverse) / inverse : exactPos;
 
     return snappedPos >= 1 ? snappedPos : 1;
@@ -40,18 +40,18 @@ const snapValue = atom({
 
 const snapValueWidthInPixels = selector({
   key: 'arrangeWindow/snapValueWidthInPixels',
-  get: ({get}) => get(width) / (get(rulerItems).length * (1 / get(snapValue)))
+  get: ({get}) => get(width) / ((get(projectStore.length) / get(resolution) * (1 / get(snapValue))))
 });
 
 const width = selector({
   key: 'arrangeWindow/width',
-  get: ({get}) => get(zoomLevel) * 3600
+  get: ({get}) => ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH[get(zoomLevel)],
 });
 
 // The resolution is measured in shown bars. So 4 means show every 4th bar as a number on the ruler.
 const resolution = selector({
   key: 'arrangeWindow/resolution',
-  get: () => 1
+  get: ({get}) => ZOOM_RESOLUTION_MAP[get(zoomLevel)],
 });
 
 const pixelPerSecond = selector({
@@ -74,21 +74,25 @@ const secondsPerBeat = selector({
   get: ({get}) => 60 / get(projectStore.bpm),
 });
 
+// TODO: CALCULATING THIS SHOULD HAPPEN IN THE LOWEST SUPPORTED TIME SIGNATURE BASE (e.g. 16ths or 32nds)
+// BECAUSE OF POSSIBLE TIME SIGNATURE CHANGES ALONG THE WAY.
 const rulerItems = selector({
   key: 'arrangeWindow/rulerItems',
   get: ({get}) => {
-    const numOfItems = get(projectStore.length) / get(resolution);
+    const rulerResolution = get(resolution);
+    const barResolution = rulerResolution / 4; // Currently the lowest supported time sig base is 4ths.
+    const projectLength = get(projectStore.length);
+    const rulerItems = [1]; // We always start with bar 1.1.1
+    let barNumber = 1;
 
-    const rulerItems = [];
+    while (barNumber + barResolution < projectLength + 1) {
+      // We could surely simplify this. Currently we go through in a lower interval to catch all time sig changes.
+      // Even though we only support one at the moment. But in general there has to be a smarter algorithm for this.
+      barNumber += barResolution;
 
-    for (let i = 1; i <= numOfItems + 1; i++) {
-      rulerItems.push((i - 1) * get(resolution));
-    }
-
-    if (rulerItems[1] !== 1) {
-      rulerItems[0] = 1;
-    } else {
-      rulerItems.shift();
+      if ((rulerResolution <= 1 && barNumber % rulerResolution === 0) || (rulerResolution > 1 && barNumber % rulerResolution === 1)) {
+        rulerItems.push(barNumber);
+      }
     }
 
     return rulerItems;
