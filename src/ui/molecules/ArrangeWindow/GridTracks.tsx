@@ -8,7 +8,6 @@ import { ChannelContext } from '../../../providers/ChannelContext';
 import Track from '../Track/Track';
 import DropTrack from '../Track/DropTrack';
 import BackgroundGrid from './BackgroundGrid';
-import ReactDOM from 'react-dom';
 import GridContextMenu from './GridContextMenu';
 import { useHotkeys } from 'react-hotkeys-hook';
 

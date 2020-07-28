@@ -2,13 +2,6 @@
 import React, { useEffect, useRef } from 'react';
 import { styled } from '@material-ui/core';
 
-interface Props {
-  audioBuffer?: AudioBuffer;
-  height: number;
-  width: number;
-  offsetX?: number;
-}
-
 interface CanvasProps {
   offsetX: number;
 }
@@ -17,7 +10,15 @@ const CustomCanvas = styled('canvas')({
   marginLeft: ({offsetX}: CanvasProps) => offsetX,
 });
 
-function Waveform({ audioBuffer, height, width, offsetX = 0 }: Props) {
+interface Props {
+  audioBuffer?: AudioBuffer;
+  height: number;
+  width: number;
+  color?: string;
+  offsetX?: number;
+}
+
+function Waveform({ audioBuffer, height, width, offsetX = 0, color = '#fff' }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // TODO: THIS HAS TO BE HEAVILY OPTIMIZED. DURING RECORDING WE RECREATE EVERY LINE WHEN A NEW BUFFER CHUNK COMES IN.
@@ -34,7 +35,7 @@ function Waveform({ audioBuffer, height, width, offsetX = 0 }: Props) {
       const halfHeight = height / 2;
 
       if (ctx) {
-        ctx.fillStyle = '#fff';
+        ctx.fillStyle = color;
       }
 
       for (let i = 0; i < width; i++) {
@@ -65,7 +66,7 @@ function Waveform({ audioBuffer, height, width, offsetX = 0 }: Props) {
     };
 
     requestAnimationFrame(draw);
-  }, [audioBuffer, canvasRef, width, height]);
+  }, [audioBuffer, canvasRef, width, height, color]);
 
   return (
     <CustomCanvas ref={canvasRef} width={width} height={height} offsetX={offsetX}/>

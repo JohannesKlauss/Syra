@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useCallback, useContext, useMemo, useState } from 'react';
+import React, { HTMLAttributes, useCallback, useContext, useMemo } from 'react';
 import { styled, Typography } from '@material-ui/core';
 import { splinterTheme } from '../../../theme';
 import { ChannelContext } from '../../../providers/ChannelContext';
