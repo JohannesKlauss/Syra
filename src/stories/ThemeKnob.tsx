@@ -5,6 +5,7 @@ import { splinterTheme } from '../theme';
 import { retroWaveTheme } from '../theme/retroWave';
 import { CssBaseline } from '@material-ui/core';
 import { audioSetup } from '../audioSetup';
+import { RecoilRoot } from 'recoil/dist';
 
 const themes: {[key: string]: any} = { Splinter: splinterTheme, RetroWave: retroWaveTheme };
 const themeNames = Object.keys(themes);
@@ -22,7 +23,9 @@ export const ThemeKnob: React.FC = ({ children }) => {
   return (
     <ThemeProvider theme={themes[theme]}>
       <CssBaseline />
-      {children}
+      <RecoilRoot>
+        {children}
+      </RecoilRoot>
     </ThemeProvider>
   );
 };

@@ -6,12 +6,8 @@ function memoizedPath(bufferId: string): (points: number[][], resolution: number
     const key = `${bufferId}.${points[0].length}.${resolution}.${halfHeight}`;
 
     if (cache[key]) {
-      console.log('from cache', key);
-
       return cache[key];
     }
-
-    console.log('recalc');
 
     const width = (resolution + 1) * points[0].length;
     const canvasTemp = document.createElement('canvas');
