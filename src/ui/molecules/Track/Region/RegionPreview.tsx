@@ -3,12 +3,12 @@ import { ChannelContext } from '../../../../providers/ChannelContext';
 import { useRecoilValue } from 'recoil/dist';
 import { channelStore } from '../../../../recoil/channelStore';
 import useRegionWidth from '../../../../hooks/ui/region/useRegionWidth';
-import Waveform from '../../Waveform/Waveform';
 import { Paper, PaperProps, styled } from '@material-ui/core';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { regionStore } from '../../../../recoil/regionStore';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
+import SmoothWaveform from '../../Waveform/SmoothWaveform';
 
 interface BaseContainerProps {
   color: string;
@@ -58,7 +58,8 @@ function RegionPreview({ translateX, width, offsetX }: Props) {
   return (
     <BaseContainer color={channelColor} translateX={translateX} width={width}>
       {isPressed('alt') && <DuplicateIcon color={'action'}/>}
-      {audioBuffer && <Waveform audioBuffer={audioBuffer.get()} height={68} width={regionWidth - 4} offsetX={offsetX}/>}
+      {audioBuffer &&
+      <SmoothWaveform buffer={audioBuffer.get()} height={68} width={regionWidth - 4} offsetX={offsetX} smoothing={2}/>}
     </BaseContainer>
   );
 }

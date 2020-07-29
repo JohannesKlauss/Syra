@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useState } from 'react';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../../../recoil/regionStore';
-import Waveform from '../../Waveform/Waveform';
 import useRegionScheduler from '../../../../hooks/audio/useRegionScheduler';
 import { useHotkeys } from 'react-hotkeys-hook';
 import useRegionWidth from '../../../../hooks/ui/region/useRegionWidth';
@@ -16,6 +15,7 @@ import { EditMode, RegionManipulation } from '../../../../types/RegionManipulati
 import { BaseContainer, Wrapper } from './Region.styled';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import CutWrapper from './Manipulations/CutWrapper';
+import SmoothWaveform from '../../Waveform/SmoothWaveform';
 
 function Region() {
   const [isSelected, setIsSelected] = useState(false);
@@ -81,8 +81,8 @@ function Region() {
         {editMode === EditMode.CUT && <CutWrapper onManipulateStart={() => setIsCutting(true)}
                                                   onManipulateEnd={() => setIsCutting(false)}/>}
 
-        {audioBuffer && <Waveform audioBuffer={audioBuffer.get()} height={68} width={regionWidth - 4}
-                                  offsetX={-secondsToPixel(trimStart)}/>}
+        {audioBuffer && <SmoothWaveform buffer={audioBuffer.get()} height={68} width={regionWidth - 4}
+                                        offsetX={-secondsToPixel(trimStart)} smoothing={2}/>}
       </Wrapper>
     </BaseContainer>
   );

@@ -1,49 +1,74 @@
 import React, { useEffect, useRef } from 'react';
 import { styled } from '@material-ui/core';
-import { smoothWaveformAlgorithm } from '../../../utils/waveform';
+import { createCachedWaveformFactory } from '../../../utils/waveform';
+import useAudioContext from '../../../hooks/audio/useAudioContext';
+import { createNewId } from '../../../utils/createNewId';
 
 interface CanvasProps {
   offsetX: number;
+  origWidth: number; // This is to support sharp edges on retina displays.
+  origHeight: number;
 }
 
 const CustomCanvas = styled('canvas')({
-  marginLeft: ({offsetX}: CanvasProps) => offsetX,
+  marginLeft: ({ offsetX }: CanvasProps) => offsetX,
+  width: ({origWidth}: CanvasProps) => origWidth,
+  height: ({origHeight}: CanvasProps) => origHeight,
 });
 
 interface Props {
-  audioBuffer?: AudioBuffer;
+  buffer?: AudioBuffer | ArrayBuffer;
+  bufferId?: string;
   height: number;
   width: number;
+  smoothing?: number;
   color?: string;
   offsetX?: number;
 }
 
-function SmoothWaveform({audioBuffer, height, width, color = '#fff', offsetX = 0}: Props) {
+const SmoothWaveform: React.FC<Props> = React.memo(({ buffer, height, width, color = '#fff', offsetX = 0, smoothing, bufferId }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const audioContext = useAudioContext();
+  const waveformCreator = useRef(createCachedWaveformFactory(bufferId || createNewId('buffer-')));
 
   useEffect(() => {
-    const draw = () => {
-      if (canvasRef.current === null || audioBuffer == null) {
+    const draw = async () => {
+      if (canvasRef.current === null || buffer == null) {
         return;
       }
 
       const ctx = canvasRef.current.getContext('2d');
 
       if (ctx) {
-        smoothWaveformAlgorithm(audioBuffer, width, height, color, ctx);
+        const audioBuffer = (buffer instanceof ArrayBuffer) ? await audioContext.decodeAudioData(buffer) : buffer;
+
+        console.log('create');
+        waveformCreator.current(audioBuffer, width, height, color, ctx, smoothing);
       }
     };
 
     requestAnimationFrame(draw);
-  }, [audioBuffer, canvasRef, width, height, color]);
+  }, [buffer, canvasRef, width, height, color, audioContext, smoothing]);
+
+  useEffect(() => {
+    const ctx = canvasRef.current && canvasRef.current.getContext('2d');
+
+    if (ctx && canvasRef.current) {
+      const scale = window.devicePixelRatio;
+
+      canvasRef.current.width = Math.floor(width * scale);
+      canvasRef.current.height = Math.floor(height * scale);
+
+      ctx.scale(scale, scale);
+    }
+  }, [width, height, canvasRef])
 
   return (
-    <>
-      Test
-      <CustomCanvas ref={canvasRef} width={width} height={height} offsetX={offsetX}/>
-
-    </>
+    <CustomCanvas ref={canvasRef} width={width} height={height} offsetX={offsetX} origWidth={width} origHeight={height}/>
   );
-}
+});
+
+// @ts-ignore
+SmoothWaveform.whyDidYouRender = true;
 
 export default SmoothWaveform;
