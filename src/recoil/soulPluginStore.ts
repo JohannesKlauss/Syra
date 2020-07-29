@@ -20,6 +20,11 @@ const availableSoulPlugins = atom<AvailableSoulPatch[]>({
       UID: 'com.yourcompany.gain'
     },
     {
+      displayName: 'Compressor',
+      pathWasm: 'compressor',
+      UID: 'com.yourcompany.Compressor'
+    },
+    {
       displayName: 'Freeverb',
       pathWasm: 'freeverb',
       UID: 'com.yourcompany.freeverb'
