@@ -16,7 +16,7 @@ function VerticalChannelList() {
   const channels = useRecoilValue(channelStore.ids);
 
   return (
-    <BaseContainer>
+    <BaseContainer data-cy={'vertical-channel-list'}>
       <VerticalChannelListHeader/>
       {channels.map(id => (
         <ChannelContext.Provider key={id} value={id}>

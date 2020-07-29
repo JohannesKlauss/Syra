@@ -29,8 +29,10 @@ function DropTrack() {
   const onDrop = useCallback(async (files: File[]) => {
     // TODO: WE SHOULD ALSO BE ABLE TO SUPPORT MIDI FILES LATER ON.
     files.forEach(file => {
-      // TODO: CURRENTLY THIS DOESN'T WORK FOR MULTIPLE FILES BECAUSE THE CHANNEL ID
+      // TODO: CURRENTLY THIS DOESN'T WORK FOR MULTIPLE FILES BECAUSE THE CHANNEL ID STAYS THE SAME. SO EACH REGION GETS ATTACHED TO THE SAME CHANNEL.
       (async () => {
+        console.log('file', await file.arrayBuffer());
+
         const createRegion = createChannel(ChannelType.AUDIO, file.name.split('.')[0]);
 
         await createRegion(file);
@@ -40,7 +42,7 @@ function DropTrack() {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <BaseContainer {...getRootProps()}>
+    <BaseContainer {...getRootProps()} data-cy={'drop-track-zone'}>
       <input {...getInputProps()} data-cy={'drop-track-input'}/>
       <Typography variant="overline" color={isDragOnDocument ? 'primary' : 'initial'}
                   display="block">Drop audio here to add new track</Typography>

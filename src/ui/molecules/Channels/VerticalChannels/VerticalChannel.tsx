@@ -66,7 +66,7 @@ function VerticalChannel() {
 
   return (
     <BaseCard channelColor={color} backgroundColor={backgroundColor} onClick={() => setSelectedChannelId(channelId)}
-              innerRef={hotkeysRef} tabIndex={0}>
+              innerRef={hotkeysRef} tabIndex={0} data-cy={channelId}>
       <CustomCardContent>
         <Typography variant="overline" display="block">{name}</Typography>
       </CustomCardContent>
