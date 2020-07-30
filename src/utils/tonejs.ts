@@ -10,7 +10,7 @@ export const toneJsFactory: MemoizeToneJsFactory = (recoilState) => {
   const [map, setMap] = recoilState;
 
   return <T>(ctor: (({ new(): T }) | (() => T))) => {
-    // TODO: USING CTOR NAME as id is probably not a good idea, because we might need multiple instances of the same class.
+    // TODO: USING CTOR NAME as id is probably not a good idea, because we might need multiple instances of the same class in one channel.
     if (map.has(ctor.name)) {
       return map.get(ctor.name)!;
     }
