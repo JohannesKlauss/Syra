@@ -10399,10 +10399,10 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-konva@7.0.3:
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/konva/-/konva-7.0.3.tgz#7841e4f8bfd1ce839cf38390b7e33d79a4b2ac34"
-  integrity sha512-Qgq4DtzNeJdx2f5wDnhcvojddvYFYn/8dNvf0TrGe3sVyYMG3Jj/aVq37dfjYlOzvWPlE1aGcc0xqNRpnxHL5A==
+konva@7.0.4:
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-7.0.4.tgz#9b4f535825c0cea0fbfb320a236e893f6514a091"
+  integrity sha512-5fJdzktseg5tPcB97DPuFNoVOmbk5GmOdbDoQ+oN7fDQq+xLRbTQfdQ8vSlFL5PUkpXCf3hKX0RXq2KJfoYVfg==
 
 labeled-stream-splicer@^2.0.0:
   version "2.0.2"
