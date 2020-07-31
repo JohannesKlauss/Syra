@@ -30,12 +30,13 @@ interface RegionFirstLoopProps {
 
 // The "first loop" is the main region. Every dragged out loop is regarded as second loop and on.
 export const RegionFirstLoop = styled(
-  ({ width, color, ...other }: RegionFirstLoopProps & Omit<HTMLAttributes<HTMLDivElement>, keyof RegionFirstLoopProps>) => <div {...other} />,
+  ({ width, color, ...other }: RegionFirstLoopProps & Omit<HTMLAttributes<HTMLDivElement>, keyof RegionFirstLoopProps>) =>
+    <div {...other} />,
 )({
   height: '100%',
   position: 'relative',
   cursor: 'move',
   overflow: 'hidden',
-  width: ({width}: RegionFirstLoopProps) => width,
-  backgroundColor: ({color}: RegionFirstLoopProps) => color,
+  width: ({ width }: RegionFirstLoopProps) => width,
+  backgroundColor: ({ color }: RegionFirstLoopProps) => color,
 });

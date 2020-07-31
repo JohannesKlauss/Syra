@@ -120,11 +120,18 @@ export function createCachedWaveformFactory(bufferId: string) {
 
 export function createWindowedWaveformFactory(bufferId: string) {
   return (audioBuffer: AudioBuffer, line: Konva.Line, width: number, height: number, smoothing: number = 2) => {
+    let t = performance.now();
+
     const { positiveValues, negativeValues } = smoothWaveformAlgorithm(audioBuffer, width, height, smoothing);
 
     const pos = createPathPoints(positiveValues, smoothing, height / 2);
-    const neg = createPathPoints(negativeValues, smoothing, height / 2)
+    const neg = createPathPoints(negativeValues, smoothing, height / 2);
+
+    console.log('calc', performance.now() - t);
+    t = performance.now();
 
     line.setAttr('points', [...pos, ...neg]);
+
+    console.log('set', performance.now() - t);
   };
 }

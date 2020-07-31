@@ -80,8 +80,6 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
       height,
     });
 
-    console.log('add');
-
     konvaLayer.current.add(konvaPolygon.current);
     konvaStage.current?.add(konvaLayer.current);
   }, []);
@@ -112,12 +110,12 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   // Redraw waveform
   useEffect(() => {
     if (audioBuffer.current instanceof AudioBuffer) {
-      const t = performance.now();
+      let t = performance.now();
       waveformCreator.current(audioBuffer.current, konvaPolygon.current, completeWidth, height, smoothing);
-
+      console.log('calc waveform', performance.now() - t);
+      t = performance.now();
       konvaLayer.current.draw();
-
-      console.log('redraw waveform', performance.now() - t);
+console.log('draw waveform', performance.now() - t);
     }
   }, [audioBuffer, completeWidth, height, smoothing, konvaPolygon, konvaLayer]);
 

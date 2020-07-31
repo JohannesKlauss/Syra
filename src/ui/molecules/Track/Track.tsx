@@ -4,7 +4,7 @@ import { splinterTheme } from '../../../theme';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { useDropzone } from 'react-dropzone';
 import useRegionCreator from '../../../hooks/recoil/region/useRegionCreator';
-import RegionList from './Region/RegionList';
+import RegionList from './Regions/RegionList';
 import { hexToRgb } from '../../../utils/color';
 import useIsDragOnDocument from '../../../hooks/ui/useIsDragOnDocument';
 import usePixelToSeconds from '../../../hooks/ui/usePixelToSeconds';
