@@ -1,13 +1,13 @@
-import { withKnobs, files, number, boolean } from '@storybook/addon-knobs';
-import React from 'react';
-import Region from './Region';
+import { boolean, files, number, withKnobs } from '@storybook/addon-knobs';
 import { ThemeKnob } from '../../../../stories/ThemeKnob';
 import StorybookRegion from '../../../../stories/StorybookRegion';
+import React from 'react';
+import AudioRegion from './AudioRegion';
 
 export default {
-  component: Region,
-  title: 'Region',
-  decorators: [withKnobs],
+  component: AudioRegion,
+  title: 'AudioRegion',
+  decorators: [withKnobs, (story: CallableFunction) => <div style={{ height: 70 }}>{story()}</div>],
 };
 
 const state = {
@@ -35,7 +35,7 @@ export const Default = () => {
   return (
     <ThemeKnob>
       <StorybookRegion {...state}>
-        <Region/>
+        <AudioRegion/>
       </StorybookRegion>
     </ThemeKnob>
   );

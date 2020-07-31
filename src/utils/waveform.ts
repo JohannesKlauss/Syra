@@ -1,3 +1,5 @@
+import Konva from "konva";
+
 function memoizedPath(bufferId: string): (points: number[][], resolution: number, halfHeight: number, color: string) => HTMLCanvasElement {
   const cache: { [name: string]: HTMLCanvasElement } = {}; // Key is composed of {bufferId}.{points.length}.{resolution}.{halfHeight}
   const scale = window.devicePixelRatio;
@@ -52,7 +54,21 @@ function createPath(points: number[], resolution: number, halfHeight: number) {
   return path;
 }
 
-function smoothWaveformAlgorithm(audioBuffer: AudioBuffer, width: number, height: number, color: string, smoothing: number = 2) {
+function createPathPoints(points: number[], resolution: number, halfHeight: number) {
+  const pathPoints = [0, halfHeight];
+
+  for (let i = 0; i < points.length; i++) {
+    if (i === points.length - 1) {
+      pathPoints.push(i * resolution + 1, halfHeight);
+    } else {
+      pathPoints.push((i + 1) * resolution, halfHeight - points[i + 1] * halfHeight);
+    }
+  }
+
+  return pathPoints;
+}
+
+function smoothWaveformAlgorithm(audioBuffer: AudioBuffer, width: number, height: number, smoothing: number = 2) {
   const length = audioBuffer.getChannelData(0).length;
   const step = Math.ceil(length / (width / smoothing));
 
@@ -93,11 +109,22 @@ export function createCachedWaveformFactory(bufferId: string) {
   const pathCreator = memoizedPath(bufferId);
 
   return (audioBuffer: AudioBuffer, width: number, height: number, color: string, ctx: CanvasRenderingContext2D, smoothing: number = 2) => {
-    const { positiveValues, negativeValues } = smoothWaveformAlgorithm(audioBuffer, width, height, color, smoothing);
+    const { positiveValues, negativeValues } = smoothWaveformAlgorithm(audioBuffer, width, height, smoothing);
 
     const canvas = pathCreator([positiveValues, negativeValues], smoothing, height / 2, color);
 
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(canvas, 0, 0);
+  };
+}
+
+export function createWindowedWaveformFactory(bufferId: string) {
+  return (audioBuffer: AudioBuffer, line: Konva.Line, width: number, height: number, smoothing: number = 2) => {
+    const { positiveValues, negativeValues } = smoothWaveformAlgorithm(audioBuffer, width, height, smoothing);
+
+    const pos = createPathPoints(positiveValues, smoothing, height / 2);
+    const neg = createPathPoints(negativeValues, smoothing, height / 2)
+
+    line.setAttr('points', [...pos, ...neg]);
   };
 }

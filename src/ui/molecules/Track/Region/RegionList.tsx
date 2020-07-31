@@ -4,8 +4,8 @@ import { Box, RootRef, styled } from '@material-ui/core';
 import { useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../../../recoil/regionStore';
 import { RegionContext } from '../../../../providers/RegionContext';
-import Region from './Region';
 import { TrackRefContext } from '../../../../providers/TrackContext';
+import AudioRegion from '../AudioRegion/AudioRegion';
 
 const BaseContainer = styled(Box)({
   top: 0,
@@ -26,7 +26,7 @@ function RegionList() {
         <TrackRefContext.Provider value={trackRef}>
           {regions.map(id => (
             <RegionContext.Provider key={id} value={id}>
-              <Region/>
+              <AudioRegion/>
             </RegionContext.Provider>
           ))}
         </TrackRefContext.Provider>

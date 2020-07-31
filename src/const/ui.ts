@@ -1,4 +1,5 @@
 export const ARRANGE_GRID_OFFSET = -6;
+export const ARRANGE_GRID_CHANNEL_LIST_GAP = ARRANGE_GRID_OFFSET * (-2);
 
 // This defines the arrange window width based on the zoom level.
 // For now this is taken from bandlab, but it's far from ideal and we should be more leaning toward the way Logic X does it.
@@ -15,6 +16,21 @@ export const ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH: {[name: number]: number} = {
   9: 576000,
   10: 1152000,
   11: 2304000,
+};
+
+// This defines the height of a default track based on the zoom level.
+export const ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT: {[name: number]: number} = {
+  1: 20,
+  2: 30,
+  3: 45,
+  4: 60,
+  5: 70,
+  6: 80,
+  7: 95,
+  8: 110,
+  9: 130,
+  10: 150,
+  11: 180,
 };
 
 // This defines the ruler resolution based on the zoom level. Zoom level is the key, resolution the value.

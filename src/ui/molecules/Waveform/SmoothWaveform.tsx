@@ -3,6 +3,7 @@ import { styled } from '@material-ui/core';
 import { createCachedWaveformFactory } from '../../../utils/waveform';
 import useAudioContext from '../../../hooks/audio/useAudioContext';
 import { createNewId } from '../../../utils/createNewId';
+import useCanvasScaling from '../../../hooks/ui/useCanvasScaling';
 
 interface CanvasProps {
   offsetX: number;
@@ -42,7 +43,6 @@ const SmoothWaveform: React.FC<Props> = React.memo(({ buffer, height, width, col
       if (ctx) {
         const audioBuffer = (buffer instanceof ArrayBuffer) ? await audioContext.decodeAudioData(buffer) : buffer;
 
-        console.log('create');
         waveformCreator.current(audioBuffer, width, height, color, ctx, smoothing);
       }
     };
@@ -50,18 +50,7 @@ const SmoothWaveform: React.FC<Props> = React.memo(({ buffer, height, width, col
     requestAnimationFrame(draw);
   }, [buffer, canvasRef, width, height, color, audioContext, smoothing]);
 
-  useEffect(() => {
-    const ctx = canvasRef.current && canvasRef.current.getContext('2d');
-
-    if (ctx && canvasRef.current) {
-      const scale = window.devicePixelRatio;
-
-      canvasRef.current.width = Math.floor(width * scale);
-      canvasRef.current.height = Math.floor(height * scale);
-
-      ctx.scale(scale, scale);
-    }
-  }, [width, height, canvasRef])
+  useCanvasScaling(canvasRef, width, height);
 
   return (
     <CustomCanvas ref={canvasRef} width={width} height={height} offsetX={offsetX} origWidth={width} origHeight={height}/>

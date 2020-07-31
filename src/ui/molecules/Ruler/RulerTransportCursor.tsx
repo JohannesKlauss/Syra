@@ -4,7 +4,6 @@ import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import {
   arrangeWindowStore,
 } from '../../../recoil/arrangeWindowStore';
-import { ARRANGE_GRID_OFFSET } from '../../../const/ui';
 import RulerPlayhead from './RulerPlayhead';
 
 interface BaseContainerProps {
@@ -19,7 +18,6 @@ const BaseContainer = styled(
   position: 'absolute',
   bottom: 0,
   height: 20,
-  marginLeft: ARRANGE_GRID_OFFSET,
   zIndex: 2,
 });
 
@@ -31,7 +29,7 @@ function RulerTransportCursor() {
   const [isCursorDragging, setIsCursorDragging] = useState(false);
 
   const calcPlayheadPos = useCallback((e: any) => {
-    const x = e.clientX - e.target.getBoundingClientRect().left + ARRANGE_GRID_OFFSET;
+    const x = e.clientX - e.target.getBoundingClientRect().left;
 
     let exactPos = x / (snapWidth * (1 / snapValue)) + 1;
 

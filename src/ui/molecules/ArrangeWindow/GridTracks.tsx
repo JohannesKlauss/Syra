@@ -6,7 +6,6 @@ import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { channelStore } from '../../../recoil/channelStore';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import Track from '../Track/Track';
-import DropTrack from '../Track/DropTrack';
 import BackgroundGrid from './BackgroundGrid';
 import GridContextMenu from './GridContextMenu';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -54,7 +53,6 @@ function GridTracks() {
           <Track backgroundColor={i % 2 === 0 ? theme.palette.background.paper : theme.palette.background.default}/>
         </ChannelContext.Provider>
       ))}
-      <DropTrack/>
       <GridContextMenu show={showMenu} x={mousePos.x} y={mousePos.y} onClose={() => setShowMenu(false)}/>
     </BaseContainer>
   );

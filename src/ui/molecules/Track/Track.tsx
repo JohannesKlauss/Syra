@@ -9,16 +9,19 @@ import { hexToRgb } from '../../../utils/color';
 import useIsDragOnDocument from '../../../hooks/ui/useIsDragOnDocument';
 import usePixelToSeconds from '../../../hooks/ui/usePixelToSeconds';
 import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
+import { useRecoilValue } from 'recoil/dist';
+import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 
 interface BaseContainerProps {
   backgroundColor: string;
+  height: number;
 }
 
 const BaseContainer = styled(
-  ({ backgroundColor, ...other }: BaseContainerProps & Omit<HTMLAttributes<HTMLDivElement>, keyof BaseContainerProps>) => <div {...other} />,
+  ({ backgroundColor, height, ...other }: BaseContainerProps & Omit<HTMLAttributes<HTMLDivElement>, keyof BaseContainerProps>) => <div {...other} />,
 )({
   width: '100%',
-  height: 70,
+  height: ({height}: BaseContainerProps) => height,
   backgroundColor: ({ backgroundColor }: BaseContainerProps) => backgroundColor,
   position: 'relative',
   '&:focus': {
@@ -49,6 +52,7 @@ interface Props {
 
 const Track = React.memo(({ backgroundColor }: Props) => {
   const channelId = useContext(ChannelContext);
+  const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
   const createRegion = useRegionCreator(channelId);
   const isDragOnDocument = useIsDragOnDocument();
   const pixelToSeconds = usePixelToSeconds();
@@ -73,7 +77,7 @@ const Track = React.memo(({ backgroundColor }: Props) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <BaseContainer {...getRootProps()} backgroundColor={background} id={`track-${channelId}`}>
+    <BaseContainer {...getRootProps()} backgroundColor={background} id={`track-${channelId}`} height={trackHeight}>
       {isDragOnDocument && <input {...getInputProps()} />}
       <DropIndicator doShow={isDragOnDocument}>
         <Typography variant="overline" color={isDragActive ? 'primary' : 'initial'} display={'block'}>

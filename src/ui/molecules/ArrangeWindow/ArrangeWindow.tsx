@@ -7,6 +7,7 @@ import VerticalChannelList from '../Channels/VerticalChannels/VerticalChannelLis
 import TransportView from '../Transport/TransportView';
 import useListenForExternalMidiIn from '../../../hooks/midi/useListenForExternalMidiIn';
 import useUpdateMidiStore from '../../../hooks/midi/useUpdateMidiStore';
+import { ARRANGE_GRID_CHANNEL_LIST_GAP } from '../../../const/ui';
 
 const BaseContainer = styled(Container)({
   width: '100%',
@@ -26,6 +27,8 @@ const RightPane = styled(Box)({
   width: '100%',
   overflowX: 'auto',
   height: '100%',
+  paddingLeft: ARRANGE_GRID_CHANNEL_LIST_GAP,
+  background: splinterTheme.palette.background.default,
 });
 
 function ArrangeWindow() {

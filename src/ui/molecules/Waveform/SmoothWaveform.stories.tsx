@@ -7,7 +7,7 @@ import { encodeB64ToArrayBuffer } from '../../../utils/binary';
 export default {
   component: SmoothWaveform,
   title: 'SmoothWaveform',
-  decorators: [withKnobs, (story: CallableFunction) => <div style={{ margin: '1rem', border: '1px solid white' }}>{story()}</div>],
+  decorators: [withKnobs],
 };
 
 export const Default = () => {

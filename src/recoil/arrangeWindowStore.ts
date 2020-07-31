@@ -1,12 +1,27 @@
 import { atom, selector } from 'recoil/dist';
 import { projectStore } from './projectStore';
-import { ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH, ZOOM_RESOLUTION_MAP } from '../const/ui';
+import {
+  ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT,
+  ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH,
+  ZOOM_RESOLUTION_MAP,
+} from '../const/ui';
 import { EditMode } from '../types/RegionManipulation';
+import { RefObject } from 'react';
+
+const viewportWidth = atom({
+  key: 'arrangeWindow/viewportWidth',
+  default: 0,
+});
+
+const ref = atom<RefObject<HTMLDivElement> | undefined>({
+  key: 'arrangeWindow/ref',
+  default: undefined,
+})
 
 const editMode = atom<EditMode>({
   key: 'arrangeWindow/editMode',
   default: EditMode.DEFAULT,
-})
+});
 
 const isSnapActive = atom({
   key: 'arrangeWindow/isSnapActive',
@@ -38,6 +53,13 @@ const zoomLevel = atom({
   default: 5,
 });
 
+// This is the zoom level. The zoom level defines how tracks are visible in the arrange window.
+// This goes from 1 to 11
+const verticalZoomLevel = atom({
+  key: 'arrangeWindow/verticalZoomLevel',
+  default: 5,
+});
+
 // This is the value the grid snaps to. Default is 1 which stands for 1 bar. A quarter note would be 0.25, a sixteenth 0.0625 and so on.
 const snapValue = atom({
   key: 'arrangeWindow/snapValue',
@@ -52,6 +74,11 @@ const snapValueWidthInPixels = selector({
 const width = selector({
   key: 'arrangeWindow/width',
   get: ({get}) => ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH[get(zoomLevel)],
+});
+
+const trackHeight = selector({
+  key: 'arrangeWindow/trackHeight',
+  get: ({get}) => ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[get(verticalZoomLevel)],
 });
 
 // The resolution is measured in shown bars. So 4 means show every 4th bar as a number on the ruler.
@@ -106,14 +133,18 @@ const rulerItems = selector({
 });
 
 export const arrangeWindowStore = {
+  viewportWidth,
+  ref,
   editMode,
   playheadPosition,
   snappedPlayheadPosition,
   zoomLevel,
+  verticalZoomLevel,
   snapValue,
   snapValueWidthInPixels,
   isSnapActive,
   width,
+  trackHeight,
   resolution,
   rulerItems,
   pixelPerSecond,
