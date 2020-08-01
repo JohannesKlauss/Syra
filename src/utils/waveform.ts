@@ -1,4 +1,5 @@
-import Konva from "konva";
+import Konva from 'konva';
+import { createPointCloud, windowedWaveformAlgorithm } from './windowedWaveformAlgorithm';
 
 function memoizedPath(bufferId: string): (points: number[][], resolution: number, halfHeight: number, color: string) => HTMLCanvasElement {
   const cache: { [name: string]: HTMLCanvasElement } = {}; // Key is composed of {bufferId}.{points.length}.{resolution}.{halfHeight}
@@ -134,4 +135,11 @@ export function createWindowedWaveformFactory(bufferId: string) {
 
     console.log('set', performance.now() - t);
   };
+}
+
+export function createWindowedWaveformV2Factory(audioBuffer: AudioBuffer, completeWidth: number, height: number, smoothing: number = 2) {
+  const steps = Math.ceil(completeWidth / smoothing);
+  const peakValues = windowedWaveformAlgorithm(audioBuffer, steps);
+
+  return createPointCloud(peakValues, smoothing, height / 2);
 }

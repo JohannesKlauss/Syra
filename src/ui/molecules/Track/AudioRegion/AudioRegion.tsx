@@ -17,6 +17,14 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import useRegionSplinterRecordingSync from '../../../../hooks/ui/region/useRegionSplinterRecordingSync';
 import useRegionScheduler from '../../../../hooks/audio/useRegionScheduler';
 
+/**
+ * The AudioRegion is built a bit complicated.
+ *
+ * The region is shown as a container with the channel color as background.
+ * But the waveform is actually a canvas that scrolls with the arrange grid viewport and only shows that visible part
+ * of the waveform to greatly reduce the number of calculations and draw calls. To each region basically has a waveform
+ * canvas that scrolls over the region like a magnifying glass and shows the respective part of that waveform.
+ */
 function AudioRegion() {
   const pixelToSeconds = usePixelToSeconds();
   const regionId = useContext(RegionContext);
@@ -54,7 +62,7 @@ function AudioRegion() {
     <BaseContainer isMuted={isMuted} left={left} onMouseDown={onMouseDown} innerRef={ref}>
       <RegionFirstLoop width={width} color={color}>
         <WindowedWaveform paddingLeft={paddingLeft} completeWidth={completeWidth - 4} color={determineTextColor(color)}
-                          smoothing={2} buffer={buffer?.get()} height={trackHeight} offset={left}/>
+                          smoothing={1.2} buffer={buffer?.get()} height={trackHeight} offset={left}/>
         <TrimStartHandle onChange={onChangeTrimStart} onMouseUp={onMouseUp}/>
         <TrimEndHandle onChange={onChangeTrimEnd} onMouseUp={onMouseUp}/>
       </RegionFirstLoop>

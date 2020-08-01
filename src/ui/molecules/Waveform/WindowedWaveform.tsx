@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import { styled } from '@material-ui/core';
 import useAudioContext from '../../../hooks/audio/useAudioContext';
-import { createWindowedWaveformFactory } from '../../../utils/waveform';
+import { createWindowedWaveformFactory, createWindowedWaveformV2Factory } from '../../../utils/waveform';
 import { createNewId } from '../../../utils/createNewId';
 import Konva from 'konva';
 import { useRecoilValue } from 'recoil/dist';
@@ -42,24 +42,6 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
   const currentScrollPos = useRef(0);
 
-  const offsetChange = useCallback((pos?: number) => {
-    if (pos) {
-      currentScrollPos.current = pos;
-    }
-
-    const translateX = Math.max(0, currentScrollPos.current - offset);
-
-    konvaLayer.current?.setAttr('offsetX', translateX + paddingLeft).draw();
-
-    containerRef.current && containerRef.current.style.setProperty('left', `${translateX}px`);
-  }, [containerRef, offset, paddingLeft, currentScrollPos]);
-
-  useScrollPosition(offsetChange, [offsetChange], arrangeWindowRef);
-
-  useEffect(() => {
-    offsetChange();
-  }, [offsetChange]);
-
   const konvaStage = useRef<Konva.Stage>();
   const konvaLayer = useRef(new Konva.Layer({
     offsetX: paddingLeft + offset,
@@ -71,6 +53,24 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
     closed: true,
     shadowForStrokeEnabled: false,
   }));
+
+  const offsetChange = useCallback((pos?: number) => {
+    if (pos) {
+      currentScrollPos.current = pos;
+    }
+
+    const translateX = Math.max(0, currentScrollPos.current - offset - 2);
+
+    konvaLayer.current?.setAttr('offsetX', translateX + paddingLeft).draw();
+
+    containerRef.current && containerRef.current.style.setProperty('left', `${translateX}px`);
+  }, [containerRef, offset, paddingLeft, currentScrollPos, konvaLayer]);
+
+  useScrollPosition(offsetChange, [offsetChange], arrangeWindowRef);
+
+  useEffect(() => {
+    offsetChange();
+  }, [offsetChange]);
 
   // Connect the konva instances.
   useEffect(() => {
@@ -108,16 +108,30 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   }, [viewportWidth, height, konvaStage]);
 
   // Redraw waveform
+  /*useEffect(() => {
+    if (audioBuffer.current instanceof AudioBuffer) {
+      waveformCreator.current(audioBuffer.current, konvaPolygon.current, completeWidth, height, smoothing);
+      konvaLayer.current.draw();
+    }
+  }, [audioBuffer, completeWidth, height, smoothing, konvaPolygon, konvaLayer]);*/
+
   useEffect(() => {
     if (audioBuffer.current instanceof AudioBuffer) {
       let t = performance.now();
-      waveformCreator.current(audioBuffer.current, konvaPolygon.current, completeWidth, height, smoothing);
-      console.log('calc waveform', performance.now() - t);
+
+      const pointCloud = createWindowedWaveformV2Factory(audioBuffer.current, completeWidth, height, smoothing);
+
+      console.log('calc ', performance.now() - t);
       t = performance.now();
+
+      konvaPolygon.current.setAttr('points', pointCloud);
+
+      console.log('set ', performance.now() - t);
+
       konvaLayer.current.draw();
-console.log('draw waveform', performance.now() - t);
+
     }
-  }, [audioBuffer, completeWidth, height, smoothing, konvaPolygon, konvaLayer]);
+  }, [audioBuffer, height, smoothing, konvaLayer, konvaPolygon, completeWidth, smoothing]);
 
   return (
     <Waveform id={containerId.current} ref={containerRef} width={viewportWidth} height={height}/>
