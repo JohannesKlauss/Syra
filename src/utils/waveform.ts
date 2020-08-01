@@ -1,141 +1,59 @@
-import Konva from 'konva';
-import { createPointCloud, windowedWaveformAlgorithm } from './windowedWaveformAlgorithm';
+export function createPointCloud(values: Float32Array, smoothing: number, halfHeight: number) {
+  const pointCloud = [0, halfHeight];
+  const halfLength = values.length / 2;
 
-function memoizedPath(bufferId: string): (points: number[][], resolution: number, halfHeight: number, color: string) => HTMLCanvasElement {
-  const cache: { [name: string]: HTMLCanvasElement } = {}; // Key is composed of {bufferId}.{points.length}.{resolution}.{halfHeight}
-  const scale = window.devicePixelRatio;
-
-  return (points: number[][], resolution: number, halfHeight: number, color: string) => {
-    const key = `${bufferId}.${points[0].length}.${resolution}.${halfHeight}`;
-
-    if (cache[key]) {
-      return cache[key];
+  for (let i = 0; i < values.length; i++) {
+    if (i === halfLength) {
+      pointCloud.push(0, halfHeight);
     }
 
-    const width = (resolution + 1) * points[0].length;
-    const canvasTemp = document.createElement('canvas');
-
-    const tCtx = canvasTemp.getContext('2d');
-
-    if (tCtx) {
-      tCtx && tCtx.scale(scale, scale);
-
-      canvasTemp.width = Math.floor(width * scale);
-      canvasTemp.height = Math.floor(halfHeight * 2 * scale);
-
-      tCtx.clearRect(0, 0, width, halfHeight * 2);
-      tCtx.fillStyle = color;
-      tCtx.fill(createPath(points[0], resolution, halfHeight));
-      tCtx.fill(createPath(points[1], resolution, halfHeight));
-
-      cache[key] = tCtx.canvas;
-
-      return tCtx.canvas;
-    }
-
-    throw new Error('Waveform Caching: Temporary canvas is not available.');
-  };
-}
-
-function createPath(points: number[], resolution: number, halfHeight: number) {
-  const path = new Path2D();
-  path.moveTo(0, halfHeight);
-
-  for (let i = 0; i < points.length; i++) {
-    if (i === points.length - 1) {
-      path.lineTo(i * resolution + 1, halfHeight);
-      path.lineTo(0, halfHeight);
-    } else {
-      path.lineTo((i + 1) * resolution, halfHeight - points[i + 1] * halfHeight);
-    }
+    pointCloud.push(i < halfLength ? (i + 1) * smoothing : (i - halfLength + 1) * smoothing, halfHeight - (values[i + 1] || 0) * halfHeight);
   }
 
-  path.closePath();
+  // Update the last value to end in the middle zero line of the canvas.
+  pointCloud[pointCloud.length - 1] = halfHeight;
+  pointCloud[(pointCloud.length / 2) - 1] = halfHeight;
 
-  return path;
+  return pointCloud;
 }
 
-function createPathPoints(points: number[], resolution: number, halfHeight: number) {
-  const pathPoints = [0, halfHeight];
+/**
+ * Reads a windowed part of a given audioBuffer
+ * @param audioBuffer The buffer to read the values from
+ * @param steps       The number of steps. This acts as resolution.
+ */
+export function windowedWaveformAlgorithm(audioBuffer: AudioBuffer, steps: number) {
+  const mathAbs = Math.abs, mathMax = Math.max, mathMin = Math.min; // Local copies for performance increase
 
-  for (let i = 0; i < points.length; i++) {
-    if (i === points.length - 1) {
-      pathPoints.push(i * resolution + 1, halfHeight);
-    } else {
-      pathPoints.push((i + 1) * resolution, halfHeight - points[i + 1] * halfHeight);
-    }
-  }
-
-  return pathPoints;
-}
-
-function smoothWaveformAlgorithm(audioBuffer: AudioBuffer, width: number, height: number, smoothing: number = 2) {
   const length = audioBuffer.getChannelData(0).length;
-  const step = Math.ceil(length / (width / smoothing));
+  const sampleStep = Math.ceil(length / steps); // This number indicates how many samples are grouped together.
+  const peakValues = new Float32Array(steps * 2); // Stores the peak values. Positives go to first half, negatives to second half.
+  const channelLeftData = audioBuffer.getChannelData(0); // If the buffer has only one channel, the left one is mono.
+  const channelRightData = audioBuffer.numberOfChannels > 1 ? audioBuffer.getChannelData(1) : new Float32Array(length);
 
-  const negativeValues = [];
-  const positiveValues = [];
+  let k = 0, min = 1, max = -1;
 
-  for (let i = 0; i < Math.ceil(width / smoothing); i++) {
-    let min = 1, max = -1;
+  for (let i = 0; i < steps; i++) {
+    min = 0;
+    max = 0;
 
-    for (let j = 0; j < step; j++) {
-      let bufferVal = 0;
+    for (let j = 0; j < sampleStep; j++) {
+      const dataLeft = channelLeftData[(i * sampleStep) + j]; // (i * step) is the bucket or starting index of the bucket.
+      const dataRight = channelRightData[(i * sampleStep) + j];
 
-      for (let k = 0; k < audioBuffer.numberOfChannels; k++) {
-        const data = audioBuffer.getChannelData(k);
-
-        if (Math.abs(data[(i * step) + j]) > Math.abs(bufferVal)) { // (i * step) is the bucket or starting index of the bucket.
-          bufferVal = data[(i * step) + j];
-        }
-      }
-
-      if (bufferVal < min) {
-        min = bufferVal;
-      }
-
-      if (bufferVal > max) {
-        max = bufferVal;
-      }
+      max = mathMax(mathAbs(dataLeft), mathAbs(dataRight), max);
+      min = mathMin(dataLeft, dataRight, min);
     }
 
-    negativeValues.push(min);
-    positiveValues.push(max);
+    peakValues[k] = max;
+    peakValues[k + steps] = min;
+
+    k++;
   }
 
-  return { negativeValues, positiveValues };
+  return peakValues;
 }
 
-export function createCachedWaveformFactory(bufferId: string) {
-  const pathCreator = memoizedPath(bufferId);
-
-  return (audioBuffer: AudioBuffer, width: number, height: number, color: string, ctx: CanvasRenderingContext2D, smoothing: number = 2) => {
-    const { positiveValues, negativeValues } = smoothWaveformAlgorithm(audioBuffer, width, height, smoothing);
-
-    const canvas = pathCreator([positiveValues, negativeValues], smoothing, height / 2, color);
-
-    ctx.clearRect(0, 0, width, height);
-    ctx.drawImage(canvas, 0, 0);
-  };
-}
-
-export function createWindowedWaveformFactory(bufferId: string) {
-  return (audioBuffer: AudioBuffer, line: Konva.Line, width: number, height: number, smoothing: number = 2) => {
-    let t = performance.now();
-
-    const { positiveValues, negativeValues } = smoothWaveformAlgorithm(audioBuffer, width, height, smoothing);
-
-    const pos = createPathPoints(positiveValues, smoothing, height / 2);
-    const neg = createPathPoints(negativeValues, smoothing, height / 2);
-
-    console.log('calc', performance.now() - t);
-    t = performance.now();
-
-    line.setAttr('points', [...pos, ...neg]);
-
-    console.log('set', performance.now() - t);
-  };
-}
 
 export function createWindowedWaveformV2Factory(audioBuffer: AudioBuffer, completeWidth: number, height: number, smoothing: number = 2) {
   const steps = Math.ceil(completeWidth / smoothing);

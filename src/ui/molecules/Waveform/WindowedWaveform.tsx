@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import { styled } from '@material-ui/core';
 import useAudioContext from '../../../hooks/audio/useAudioContext';
-import { createWindowedWaveformFactory, createWindowedWaveformV2Factory } from '../../../utils/waveform';
+import { createWindowedWaveformV2Factory } from '../../../utils/waveform';
 import { createNewId } from '../../../utils/createNewId';
 import Konva from 'konva';
 import { useRecoilValue } from 'recoil/dist';
@@ -38,7 +38,6 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   const viewportWidth = useRecoilValue(arrangeWindowStore.viewportWidth);
   const audioBuffer = useRef(buffer);
   const audioContext = useAudioContext();
-  const waveformCreator = useRef(createWindowedWaveformFactory(bufferId || createNewId('buffer-')));
   const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
   const currentScrollPos = useRef(0);
 
@@ -107,29 +106,13 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
     });
   }, [viewportWidth, height, konvaStage]);
 
-  // Redraw waveform
-  /*useEffect(() => {
-    if (audioBuffer.current instanceof AudioBuffer) {
-      waveformCreator.current(audioBuffer.current, konvaPolygon.current, completeWidth, height, smoothing);
-      konvaLayer.current.draw();
-    }
-  }, [audioBuffer, completeWidth, height, smoothing, konvaPolygon, konvaLayer]);*/
-
   useEffect(() => {
     if (audioBuffer.current instanceof AudioBuffer) {
-      let t = performance.now();
-
       const pointCloud = createWindowedWaveformV2Factory(audioBuffer.current, completeWidth, height, smoothing);
-
-      console.log('calc ', performance.now() - t);
-      t = performance.now();
 
       konvaPolygon.current.setAttr('points', pointCloud);
 
-      console.log('set ', performance.now() - t);
-
       konvaLayer.current.draw();
-
     }
   }, [audioBuffer, height, smoothing, konvaLayer, konvaPolygon, completeWidth, smoothing]);
 
