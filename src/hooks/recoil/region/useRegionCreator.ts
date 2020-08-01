@@ -30,6 +30,7 @@ export default function useRegionCreator(channelId: string) {
       setAudioBufferPointer(nextBufferId.current);
       setStart(start);
 
+      nextBufferId.current = createNewId(BUFFER_ID_PREFIX);
       nextRegionId.current = createNewId(REGION_ID_PREFIX);
     }
   }, [audioContext, setRegionIds, setAudioBufferPointer, setBufferStore, setStart, setBufferStoreIds, nextBufferId, nextRegionId]);

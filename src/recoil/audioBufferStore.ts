@@ -8,6 +8,13 @@ const buffer = atomFamily<Tone.ToneAudioBuffer | null, string>({
   default: null,
 });
 
+// String here does not refer to the buffer id alone, but a combined format of all parameters that define the shape
+// of a waveform. Buffer Id, width, height and smoothing. Format will be like: BUFFER_ID.WIDTH.HEIGHT.SMOOTHING
+const waveform = atomFamily<number[], string>({
+  key: 'audioBuffer/waveform',
+  default: [],
+});
+
 const ids = atom<string[]>({
   key: 'audioBuffer/ids',
   default: [],
@@ -15,5 +22,6 @@ const ids = atom<string[]>({
 
 export const audioBufferStore = {
   buffer,
+  waveform,
   ids,
 };

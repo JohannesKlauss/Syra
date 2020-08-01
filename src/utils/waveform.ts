@@ -18,7 +18,6 @@ export function createPointCloud(values: Float32Array, smoothing: number, halfHe
 }
 
 /**
- * Reads a windowed part of a given audioBuffer
  * @param audioBuffer The buffer to read the values from
  * @param steps       The number of steps. This acts as resolution.
  */
@@ -54,9 +53,8 @@ export function windowedWaveformAlgorithm(audioBuffer: AudioBuffer, steps: numbe
   return peakValues;
 }
 
-
-export function createWindowedWaveformV2Factory(audioBuffer: AudioBuffer, completeWidth: number, height: number, smoothing: number = 2) {
-  const steps = Math.ceil(completeWidth / smoothing);
+export function createWindowedWaveformV2Factory(audioBuffer: AudioBuffer, width: number, height: number, smoothing: number = 2) {
+  const steps = Math.ceil(width / smoothing);
   const peakValues = windowedWaveformAlgorithm(audioBuffer, steps);
 
   return createPointCloud(peakValues, smoothing, height / 2);

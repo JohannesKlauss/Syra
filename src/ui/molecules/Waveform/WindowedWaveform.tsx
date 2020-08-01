@@ -1,12 +1,14 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useLayoutEffect, useRef } from 'react';
 import { styled } from '@material-ui/core';
 import useAudioContext from '../../../hooks/audio/useAudioContext';
 import { createWindowedWaveformV2Factory } from '../../../utils/waveform';
 import { createNewId } from '../../../utils/createNewId';
 import Konva from 'konva';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useScrollPosition from '../../../hooks/ui/useScrollPosition';
+import { audioBufferStore } from '../../../recoil/audioBufferStore';
+import { ChannelContext } from '../../../providers/ChannelContext';
 
 interface WaveformProps {
   width: number; // This is to support sharp edges on retina displays.
@@ -23,7 +25,7 @@ const Waveform = styled('div')({
 
 interface Props {
   buffer?: AudioBuffer | ArrayBuffer;
-  bufferId?: string;
+  bufferId: string | null;
   height: number;
   completeWidth: number;
   paddingLeft: number; // This is the padding created by the trimStart.
@@ -33,10 +35,17 @@ interface Props {
 }
 
 function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offset, paddingLeft, smoothing, bufferId }: Props) {
+  const pointCloudId = `${bufferId}.${completeWidth}.${height}.${smoothing}`;
+
+  const channelId = useContext(ChannelContext);
+
+  console.log(channelId, pointCloudId);
+
   const containerId = useRef(createNewId());
   const containerRef = useRef<HTMLDivElement>(null);
   const viewportWidth = useRecoilValue(arrangeWindowStore.viewportWidth);
   const audioBuffer = useRef(buffer);
+  const [waveformPointCloud, setWaveformPointCloud] = useRecoilState(audioBufferStore.waveform(pointCloudId));
   const audioContext = useAudioContext();
   const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
   const currentScrollPos = useRef(0);
@@ -106,15 +115,27 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
     });
   }, [viewportWidth, height, konvaStage]);
 
+  // Recalculate the wave form or get it from the recoil cache.
   useEffect(() => {
-    if (audioBuffer.current instanceof AudioBuffer) {
-      const pointCloud = createWindowedWaveformV2Factory(audioBuffer.current, completeWidth, height, smoothing);
-
-      konvaPolygon.current.setAttr('points', pointCloud);
-
+    if (waveformPointCloud.length > 0) {
+      konvaPolygon.current.setAttr('points', waveformPointCloud);
       konvaLayer.current.draw();
     }
-  }, [audioBuffer, height, smoothing, konvaLayer, konvaPolygon, completeWidth, smoothing]);
+  }, [konvaLayer, konvaPolygon, waveformPointCloud]);
+
+  const calcWaveform = useCallback(() => {
+    if (audioBuffer.current instanceof AudioBuffer && completeWidth > 0) {
+      return createWindowedWaveformV2Factory(audioBuffer.current, completeWidth, height, smoothing);
+    }
+
+    return [];
+  }, [audioBuffer, completeWidth, height, smoothing]);
+
+  useEffect(() => {
+    if (waveformPointCloud.length === 0) {
+      setWaveformPointCloud(calcWaveform());
+    }
+  }, [waveformPointCloud, setWaveformPointCloud, calcWaveform]);
 
   return (
     <Waveform id={containerId.current} ref={containerRef} width={viewportWidth} height={height}/>

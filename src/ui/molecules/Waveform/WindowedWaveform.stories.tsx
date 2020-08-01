@@ -30,7 +30,7 @@ export const Default = () => {
   return (
     <ThemeKnob>
       <WindowedWaveform buffer={arrayBuffer} completeWidth={completeWidth} offset={offset} paddingLeft={paddingLeft}
-                        height={height} smoothing={smoothing} color={selectedColor}/>
+                        height={height} smoothing={smoothing} color={selectedColor} bufferId={'buffer-MOCK'}/>
     </ThemeKnob>
   );
 };
