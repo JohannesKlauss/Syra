@@ -9,7 +9,7 @@ export function createPointCloud(values: Float32Array, smoothing: number, halfHe
       pointCloud.push(0, halfHeight);
     }
 
-    pointCloud.push(i < halfLength ? (i + 1) * smoothing : (i - halfLength + 1) * smoothing, halfHeight - values[i + 1] * halfHeight);
+    pointCloud.push(i < halfLength ? (i + 1) * smoothing : (i - halfLength + 1) * smoothing, halfHeight - (values[i + 1] || 0) * halfHeight);
   }
 
   // Update the last value to end in the middle zero line of the canvas.
@@ -27,48 +27,26 @@ export function createPointCloud(values: Float32Array, smoothing: number, halfHe
  * @param steps       The number of steps. This acts as resolution.
  */
 export function windowedWaveformAlgorithm(audioBuffer: AudioBuffer, steps: number) {
-  let t = performance.now();
+  const mathAbs = Math.abs, mathMax = Math.max, mathMin = Math.min; // Local copies for performance increase
 
   const length = audioBuffer.getChannelData(0).length;
   const sampleStep = Math.ceil(length / steps); // This number indicates how many samples are grouped together.
-
   const peakValues = new Float32Array(steps * 2); // Stores the peak values. Positives go to first half, negatives to second half.
-
   const channelLeftData = audioBuffer.getChannelData(0); // If the buffer has only one channel, the left one is mono.
-
-
   const channelRightData = audioBuffer.numberOfChannels > 1 ? audioBuffer.getChannelData(1) : new Float32Array(length);
-  console.log('array creation', performance.now() - t);
 
-  t = performance.now();
-
-  let k = 0, min = 1, max = -1, bufferVal = 0;
+  let k = 0, min = 1, max = -1;
 
   for (let i = 0; i < steps; i++) {
-    min = 1;
-    max = -1;
+    min = 0;
+    max = 0;
 
     for (let j = 0; j < sampleStep; j++) {
-      bufferVal = 0;
-
-      const dataLeft = channelLeftData[(i * sampleStep) + j];
+      const dataLeft = channelLeftData[(i * sampleStep) + j]; // (i * step) is the bucket or starting index of the bucket.
       const dataRight = channelRightData[(i * sampleStep) + j];
 
-      if (Math.abs(dataLeft) > Math.abs(bufferVal)) { // (i * step) is the bucket or starting index of the bucket.
-        bufferVal = dataLeft;
-      }
-
-      if (Math.abs(dataRight) > Math.abs(dataRight)) {
-        bufferVal = dataRight;
-      }
-
-      if (bufferVal < min) {
-        min = bufferVal;
-      }
-
-      if (bufferVal > max) {
-        max = bufferVal;
-      }
+      max = mathMax(mathAbs(dataLeft), mathAbs(dataRight), max);
+      min = mathMin(dataLeft, dataRight, min);
     }
 
     peakValues[k] = max;
@@ -76,8 +54,6 @@ export function windowedWaveformAlgorithm(audioBuffer: AudioBuffer, steps: numbe
 
     k++;
   }
-
-  console.log('peakValues', performance.now() - t);
 
   return peakValues;
 }
