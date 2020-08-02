@@ -1,6 +1,5 @@
-import React, { useCallback, useContext, useRef, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import {
-  ClickAwayListener,
   Divider,
   Grid,
   Typography,
@@ -11,18 +10,16 @@ import VolumeFader from '../../../../atoms/Slider/VolumeFader';
 import ChannelLetterButtons from '../../ChannelLetterButtons';
 import { ChannelContext } from '../../../../../providers/ChannelContext';
 import { channelStore } from '../../../../../recoil/channelStore';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil/dist';
 import useToneAudioNodes from '../../../../../hooks/tone/useToneAudioNodes';
 import LevelMeterVertical from '../../../../atoms/Meter/LevelMeterVertical';
-import { ChannelNameContainer, ColoredDivider, SmrContainer, CustomTypography } from './ChannelBody.styled';
+import { ColoredDivider, SmrContainer } from './ChannelBody.styled';
+import ChannelName from '../../ChannelName';
 
 const ChannelBody: React.FC = React.memo(() => {
   const channelId = useContext(ChannelContext);
   const channelColor = useRecoilValue(channelStore.color(channelId));
-  const [channelName, setChannelName] = useRecoilState(channelStore.name(channelId));
   const [volumeFaderValue, setVolumeFaderValue] = useState(0);
-  const [isEditingName, setIsEditingName] = useState(false);
-  const editedName = useRef(channelName);
 
   const { channel } = useToneAudioNodes();
   const onChangePanOrVolume = useCallback(newProps => {
@@ -32,13 +29,6 @@ const ChannelBody: React.FC = React.memo(() => {
       setVolumeFaderValue(newProps.volume < -95 ? '-∞' : newProps.volume.toFixed(1));
     }
   }, [channel]);
-
-  const updateName = useCallback(() => {
-    console.log('test');
-
-    setIsEditingName(false);
-    setChannelName(editedName.current);
-  }, [setIsEditingName, setChannelName, editedName]);
 
   return (
     <>
@@ -72,22 +62,7 @@ const ChannelBody: React.FC = React.memo(() => {
       <SmrContainer>
         <ChannelLetterButtons/>
       </SmrContainer>
-      <ClickAwayListener onClickAway={updateName}>
-        <ChannelNameContainer channelColor={channelColor}>
-          <CustomTypography
-            channelColor={channelColor}
-            variant="overline"
-            display="block"
-            align={'center'}
-            onDoubleClick={() => setIsEditingName(true)}
-            contentEditable={isEditingName}
-            // @ts-ignore
-            onInput={(e) => editedName.current = e.target.innerText}
-          >
-            {channelName}
-          </CustomTypography>
-        </ChannelNameContainer>
-      </ClickAwayListener>
+      <ChannelName backgroundColor={channelColor}/>
     </>
   );
 });

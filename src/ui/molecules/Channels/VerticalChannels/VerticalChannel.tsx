@@ -18,6 +18,7 @@ import useMuteChannelHotkey from '../../../../hooks/hotkeys/channel/useMuteChann
 import useSoloChannelHotkey from '../../../../hooks/hotkeys/channel/useSoloChannelHotkey';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT } from '../../../../const/ui';
+import ChannelName from '../ChannelName';
 
 interface BaseContainerProps {
   channelColor: string;
@@ -72,7 +73,7 @@ function VerticalChannel() {
     <BaseCard channelColor={color} backgroundColor={backgroundColor} onClick={() => setSelectedChannelId(channelId)}
               innerRef={hotkeysRef} tabIndex={0} data-cy={channelId} height={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}>
       <CustomCardContent>
-        <Typography variant="overline" display="block">{name}</Typography>
+        <ChannelName />
       </CustomCardContent>
       <SmrContainer>
         <ChannelLetterButtons/>

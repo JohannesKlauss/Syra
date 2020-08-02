@@ -16,18 +16,3 @@ export const SmrContainer = styled(Paper)({
   padding: 10,
   background: 'transparent',
 });
-
-export const ChannelNameContainer = styled(
-  ({ channelColor, ...other }: ColoredDividerProps & Omit<PaperProps, keyof ColoredDividerProps>) => <Paper {...other} />,
-)({
-  backgroundColor: ({channelColor}: ColoredDividerProps) => channelColor,
-});
-
-export const CustomTypography = styled(
-  ({ channelColor, ...other }: ColoredDividerProps & Omit<TypographyProps, keyof ColoredDividerProps>) => <Typography {...other} />,
-)({
-  color: ({channelColor}: ColoredDividerProps) => determineTextColor(channelColor),
-  '&:focus': {
-    outline: 'none',
-  }
-});
