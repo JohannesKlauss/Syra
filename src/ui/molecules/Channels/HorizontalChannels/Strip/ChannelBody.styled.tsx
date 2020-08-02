@@ -1,5 +1,4 @@
-import { Divider, DividerProps, Paper, PaperProps, styled, Typography, TypographyProps } from '@material-ui/core';
-import { determineTextColor } from '../../../../../utils/color';
+import { Divider, DividerProps, Paper, styled } from '@material-ui/core';
 import React from 'react';
 
 interface ColoredDividerProps {

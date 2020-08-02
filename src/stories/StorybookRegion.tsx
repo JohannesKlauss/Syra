@@ -6,7 +6,6 @@ import { RegionContext } from '../providers/RegionContext';
 import { audioBufferStore } from '../recoil/audioBufferStore';
 import useAudioContext from '../hooks/audio/useAudioContext';
 import { encodeB64ToArrayBuffer } from '../utils/binary';
-import * as Tone from 'tone';
 
 interface Props extends RegionState {
   files: string[];
@@ -43,9 +42,8 @@ const StorybookRegion: React.FC<Props> = ({children, ...props}) => {
 
     (async () => {
       const arrayBuffer = encodeB64ToArrayBuffer(files[0].split(',')[1]);
-      const toneBuffer = await new Tone.Buffer(await ctx.decodeAudioData(arrayBuffer));
 
-      setAudioBuffer(toneBuffer);
+      setAudioBuffer(await ctx.decodeAudioData(arrayBuffer));
     })();
   }, [start, trimEnd, trimStart, isRecording, isMuted, isSolo, end, files]);
 

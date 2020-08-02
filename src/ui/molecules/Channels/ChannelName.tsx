@@ -21,6 +21,7 @@ export const CustomTypography = styled(
   ({ channelColor, ...other }: CustomTypographyProps & Omit<TypographyProps, keyof CustomTypographyProps>) => <Typography {...other} />,
 )({
   color: ({channelColor}: CustomTypographyProps) => channelColor ? determineTextColor(channelColor) : 'white',
+  userSelect: 'none',
 });
 
 export const ChannelNameContainer = styled(

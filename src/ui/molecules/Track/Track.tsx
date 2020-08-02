@@ -3,7 +3,6 @@ import { styled, Typography } from '@material-ui/core';
 import { splinterTheme } from '../../../theme';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { useDropzone } from 'react-dropzone';
-import useRegionCreator from '../../../hooks/recoil/region/useRegionCreator';
 import RegionList from './Regions/RegionList';
 import { hexToRgb } from '../../../utils/color';
 import useIsDragOnDocument from '../../../hooks/ui/useIsDragOnDocument';
@@ -11,6 +10,7 @@ import usePixelToSeconds from '../../../hooks/ui/usePixelToSeconds';
 import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
 import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
+import useCreateRegion from '../../../hooks/recoil/region/useCreateRegion';
 
 interface BaseContainerProps {
   backgroundColor: string;
@@ -53,7 +53,7 @@ interface Props {
 const Track = React.memo(({ backgroundColor }: Props) => {
   const channelId = useContext(ChannelContext);
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
-  const createRegion = useRegionCreator(channelId);
+  const createRegion = useCreateRegion();
   const isDragOnDocument = useIsDragOnDocument();
   const pixelToSeconds = usePixelToSeconds();
   const calcSnappedX = useSnapCtrlPixelCalc();
@@ -71,9 +71,9 @@ const Track = React.memo(({ backgroundColor }: Props) => {
     if (files.length > 0) {
       // On a Region we only use the first file.
       // TODO: THE SUBSEQUENT files should be move to the tracks beneath this one or create complete new channels.
-      await createRegion(files[0], pixelToSeconds(calcSnappedX(x)));
+      await createRegion(channelId, files[0], pixelToSeconds(calcSnappedX(x)));
     }
-  }, [createRegion, pixelToSeconds, calcSnappedX]);
+  }, [createRegion, pixelToSeconds, calcSnappedX, channelId]);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (

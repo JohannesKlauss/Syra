@@ -9,11 +9,11 @@ import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import { ChannelType } from '../../../types/Channel';
-import useChannelCreator from '../../../hooks/recoil/channel/useChannelCreator';
+import useCreateChannel from '../../../hooks/recoil/channel/useCreateChannel';
 
 function NewChannelFab() {
   const [isOpen, setIsOpen] = useState(false);
-  const onClick = useChannelCreator();
+  const createChannel = useCreateChannel();
 
   const actions = useMemo(() => ([
     { icon: <GraphicEqOutlinedIcon />, name: 'Audio', type: ChannelType.AUDIO },
@@ -40,7 +40,7 @@ function NewChannelFab() {
             tooltipTitle={action.name}
             tooltipOpen
             tooltipPlacement={'right'}
-            onClick={() => onClick(action.type)}
+            onClick={() => createChannel(action.type)}
           />
         ))}
       </SpeedDial>

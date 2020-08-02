@@ -3,11 +3,11 @@ import { createNewId } from '../../../utils/createNewId';
 import useAudioContext from '../../audio/useAudioContext';
 import { useSetRecoilState } from 'recoil/dist';
 import { regionStore } from '../../../recoil/regionStore';
-import * as Tone from 'tone';
 import useToneJsTransport from '../../tone/useToneJsTransport';
 import { audioBufferStore } from '../../../recoil/audioBufferStore';
 import { BUFFER_ID_PREFIX, REGION_ID_PREFIX } from '../../../const/ids';
 
+// TODO: REFACTOR THIS TO BE COMPLIANT WITH THE NEW useChannelCreator and useRegionCreator
 export default function useAsyncRegionCreator(channelId: string) {
   const ctx = useAudioContext();
   const transport = useToneJsTransport();
@@ -31,7 +31,7 @@ export default function useAsyncRegionCreator(channelId: string) {
       const audioBuffer = await ctx.decodeAudioData(fileReader.result as ArrayBuffer);
 
       setBufferStoreIds(currVal => [...currVal, FIXED_BUFFER_ID]);
-      setBufferStore(new Tone.ToneAudioBuffer(audioBuffer));
+      setBufferStore(audioBuffer);
     };
 
     setRegionIds(currVal => [...currVal, FIXED_REGION_ID]);

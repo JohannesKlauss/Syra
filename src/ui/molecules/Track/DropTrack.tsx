@@ -2,12 +2,13 @@ import React, { useCallback, useRef } from 'react';
 import { styled, Typography } from '@material-ui/core';
 import { splinterTheme } from '../../../theme';
 import { useDropzone } from 'react-dropzone';
-import useChannelCreator from '../../../hooks/recoil/channel/useChannelCreator';
 import { ChannelType } from '../../../types/Channel';
 import useIsDragOnDocument from '../../../hooks/ui/useIsDragOnDocument';
 import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useScrollPosition from '../../../hooks/ui/useScrollPosition';
+import useCreateChannel from '../../../hooks/recoil/channel/useCreateChannel';
+import useCreateRegion from '../../../hooks/recoil/region/useCreateRegion';
 
 const BaseContainer = styled('div')({
   width: 'calc(100vw - 230px)',
@@ -27,7 +28,8 @@ const BaseContainer = styled('div')({
 });
 
 function DropTrack() {
-  const createChannel = useChannelCreator();
+  const createChannel = useCreateChannel();
+  const createRegion = useCreateRegion();
   const isDragOnDocument = useIsDragOnDocument();
   const ref = useRef<HTMLDivElement>(null);
   const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
@@ -36,16 +38,13 @@ function DropTrack() {
   }, [ref, arrangeWindowRef], arrangeWindowRef);
 
   const onDrop = useCallback(async (files: File[]) => {
-    // TODO: WE SHOULD ALSO BE ABLE TO SUPPORT MIDI FILES LATER ON.
-    files.forEach(file => {
-      // TODO: CURRENTLY THIS DOESN'T WORK FOR MULTIPLE FILES BECAUSE THE CHANNEL ID STAYS THE SAME. SO EACH REGION GETS ATTACHED TO THE SAME CHANNEL.
+    files.forEach((file, i) => {
       (async () => {
-        const createRegion = createChannel(ChannelType.AUDIO, file.name.split('.')[0]);
-
-        await createRegion(file);
+        const channelId = await createChannel(ChannelType.AUDIO, i, file.name.split('.')[0]);
+        await createRegion(channelId, file, 0);
       })();
     });
-  }, [createChannel]);
+  }, [createChannel, createRegion]);
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (

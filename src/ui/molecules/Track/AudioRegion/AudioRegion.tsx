@@ -63,7 +63,7 @@ function AudioRegion() {
     <BaseContainer isMuted={isMuted} left={left} onMouseDown={onMouseDown} innerRef={ref}>
       <RegionFirstLoop width={width} color={color}>
         <WindowedWaveform paddingLeft={paddingLeft} completeWidth={completeWidth - 4} color={determineTextColor(color)}
-                          smoothing={3} buffer={buffer?.get()} height={trackHeight} offset={left} bufferId={bufferId}/>
+                          smoothing={3} buffer={buffer} height={trackHeight} offset={left} bufferId={bufferId}/>
         <TrimStartHandle onChange={onChangeTrimStart} onMouseUp={onMouseUp}/>
         <TrimEndHandle onChange={onChangeTrimEnd} onMouseUp={onMouseUp}/>
       </RegionFirstLoop>

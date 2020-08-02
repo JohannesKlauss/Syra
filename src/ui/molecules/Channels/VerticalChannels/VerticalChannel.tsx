@@ -7,7 +7,6 @@ import {
   CardContent,
   CardProps,
   styled,
-  Typography,
   useTheme,
 } from '@material-ui/core';
 import { splinterTheme } from '../../../../theme';
@@ -57,7 +56,6 @@ function VerticalChannel() {
   const theme = useTheme();
   const channelId = useContext(ChannelContext);
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
-  const name = useRecoilValue(channelStore.name(channelId));
   const color = useRecoilValue(channelStore.color(channelId));
   const verticalZoomLevel = useRecoilValue(arrangeWindowStore.verticalZoomLevel);
 

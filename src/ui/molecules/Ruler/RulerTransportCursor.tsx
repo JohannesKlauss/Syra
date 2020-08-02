@@ -9,7 +9,6 @@ import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
 import useMovable from '../../../hooks/ui/useMovable';
 import { transportStore } from '../../../recoil/transportStore';
 import usePixelToSeconds from '../../../hooks/ui/usePixelToSeconds';
-import { projectStore } from '../../../recoil/projectStore';
 
 interface BaseContainerProps {
   windowWidth: number;

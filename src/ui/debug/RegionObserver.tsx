@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Snapshot, useRecoilTransactionObserver_UNSTABLE } from 'recoil/dist';
-import { Button } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import { regionStore } from '../../recoil/regionStore';
 import { channelStore } from '../../recoil/channelStore';
 import { audioBufferStore } from '../../recoil/audioBufferStore';
@@ -37,10 +37,10 @@ function RegionObserver() {
   }, [snapshot]);
 
   return (
-    <>
+    <Grid>
       <Button variant={'text'} onClick={dumpStore}>Dump Region Store</Button>
       <Button variant={'text'} onClick={dumpBufferStore}>Dump Buffer Store</Button>
-    </>
+    </Grid>
   );
 }
 

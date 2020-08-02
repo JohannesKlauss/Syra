@@ -1,5 +1,4 @@
 import { atomFamily, selectorFamily } from 'recoil/dist';
-import * as Tone from 'tone';
 import { audioBufferStore } from './audioBufferStore';
 import { createNewId } from '../utils/createNewId';
 import { REGION_ID_PREFIX } from '../const/ids';
@@ -50,7 +49,7 @@ const audioBufferPointer = atomFamily<string | null, string>({
 });
 
 export interface RegionState {
-  audioBuffer: Tone.ToneAudioBuffer | null;
+  audioBuffer: AudioBuffer | null;
   start: number;
   end: number;
   isMuted: boolean;
@@ -83,9 +82,10 @@ const regionState = selectorFamily<RegionState, string>({
   }
 });
 
+// TODO: THIS IS A HACK. LET'S USE useRecoilCallback FOR THIS.
 const duplicateRegionFromId = selectorFamily<RegionState, { originalRegionId: string, channelId: string }>({
   key: 'region/duplicateRegion',
-  get: _ => () => createNewId(REGION_ID_PREFIX),
+  get: _ => () => createNewId(REGION_ID_PREFIX) as unknown as RegionState,
   set: ({originalRegionId, channelId}) => ({set, get}) => {
     const newId = createNewId(REGION_ID_PREFIX);
 
@@ -104,9 +104,10 @@ const duplicateRegionFromId = selectorFamily<RegionState, { originalRegionId: st
   }
 });
 
+// TODO: THIS WHOLE THING IS A HACK. LET'S USE useRecoilCallback for this task.
 const cutRegionById = selectorFamily<number, { originalRegionId: string, channelId: string }>({
   key: 'region/duplicateRegion',
-  get: _ => () => createNewId(REGION_ID_PREFIX),
+  get: _ => () => createNewId(REGION_ID_PREFIX) as unknown as number,
   set: ({originalRegionId, channelId}) => ({set, get}, cutAt) => {
     const newId = createNewId(REGION_ID_PREFIX);
 
@@ -128,7 +129,7 @@ const cutRegionById = selectorFamily<number, { originalRegionId: string, channel
   }
 });
 
-const audioBuffer = selectorFamily<Tone.ToneAudioBuffer | null, string>({
+const audioBuffer = selectorFamily<AudioBuffer | null, string>({
   key: 'region/audioBuffer',
   get: regionId => ({get}) => {
     const pointer = get(audioBufferPointer(regionId));

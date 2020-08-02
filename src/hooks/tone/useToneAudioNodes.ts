@@ -17,5 +17,5 @@ export default function useToneAudioNodes() {
     channel: factory(Tone.Channel),
     audioIn: factory(Tone.UserMedia),
     rmsMeter: factory(toneMeterFactory),
-  }
+  };
 }

@@ -2,7 +2,7 @@ import { atom, atomFamily, selector, selectorFamily } from 'recoil/dist';
 import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
 import { RegionState, regionStore } from './regionStore';
-import { channelColors } from '../utils/channelColors';
+import { cyan } from '@material-ui/core/colors';
 
 let lastChannelNum = 1;
 
@@ -21,10 +21,7 @@ const type = atomFamily<ChannelType, string>({
 
 const color = atomFamily<string, string>({
   key: 'channel/color',
-  default: selector({
-    key: 'channel/color/Default',
-    get: ({get}) => channelColors[get(ids).length % channelColors.length],
-  }),
+  default: cyan[400],
 })
 
 // Whether the user clicked the record button the channel or not.
@@ -143,7 +140,7 @@ const ids = atom<string[]>({
 const selectedId = atom<string>({
   key: 'channel/selectedId',
   default: '',
-})
+});
 
 const findPluginsByIds = selectorFamily<SoulInstance[], string[]>({
   key: 'channel/findPluginsByIds',

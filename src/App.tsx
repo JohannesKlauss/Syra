@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { CssBaseline, Modal, ThemeProvider, Button, Container, Paper } from '@material-ui/core';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { deepOrange, deepPurple, lightBlue, orange } from '@material-ui/core/colors';
 import UiInteractionProvider from './providers/UiInteractionProvider';
 import SplinterRouter from './providers/SplinterRouter';
+import { useHotkeys } from 'react-hotkeys-hook';
+import Debugger from './ui/debug/Debugger';
 
 function App() {
+  const [showDebugMenu, setShowDebugMenu] = useState(false);
   const [darkState] = useState(true);
-  const palletType = darkState ? "dark" : "light";
+  const palletType = darkState ? 'dark' : 'light';
   const mainPrimaryColor = darkState ? orange[500] : lightBlue[500];
   const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
 
@@ -15,13 +18,15 @@ function App() {
     palette: {
       type: palletType,
       primary: {
-        main: mainPrimaryColor
+        main: mainPrimaryColor,
       },
       secondary: {
-        main: mainSecondaryColor
-      }
-    }
+        main: mainSecondaryColor,
+      },
+    },
   });
+
+  useHotkeys('shift+d', () => setShowDebugMenu(currVal => !currVal));
 
   /*const handleThemeChange = () => {
     setDarkState(!darkState);
@@ -29,10 +34,16 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
+      <CssBaseline/>
       <UiInteractionProvider>
         <SplinterRouter/>
       </UiInteractionProvider>
+      <Modal open={showDebugMenu} onClose={() => setShowDebugMenu(false)} keepMounted={false} unselectable={'on'} style={{maxHeight: '100vh'}}>
+        <Paper style={{overflowY: 'scroll', maxHeight: '100vh'}}>
+          <Button onClick={() => setShowDebugMenu(false)}>Close</Button>
+          <Debugger/>
+        </Paper>
+      </Modal>
     </ThemeProvider>
   );
 }

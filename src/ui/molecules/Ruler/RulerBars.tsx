@@ -28,7 +28,7 @@ function RulerBars() {
   const items = useRecoilValue(arrangeWindowStore.rulerItems);
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
 
-  // TODO: These two should probably live in the recoil state.
+  // TODO: These two should probably live in the debug state.
   const itemLength = useMemo(() => Math.floor(windowWidth / items.length), [items, windowWidth]);
 
   return (

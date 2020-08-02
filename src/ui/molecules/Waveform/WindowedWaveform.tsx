@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import { styled } from '@material-ui/core';
 import useAudioContext from '../../../hooks/audio/useAudioContext';
 import { createWindowedWaveformV2 } from '../../../utils/waveform';
@@ -8,7 +8,6 @@ import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useScrollPosition from '../../../hooks/ui/useScrollPosition';
 import { audioBufferStore } from '../../../recoil/audioBufferStore';
-import { ChannelContext } from '../../../providers/ChannelContext';
 
 interface WaveformProps {
   width: number; // This is to support sharp edges on retina displays.
@@ -24,7 +23,7 @@ const Waveform = styled('div')({
 });
 
 interface Props {
-  buffer?: AudioBuffer | ArrayBuffer;
+  buffer?: AudioBuffer | ArrayBuffer | null;
   bufferId: string | null;
   height: number;
   completeWidth: number;
@@ -115,7 +114,7 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
     });
   }, [viewportWidth, height, konvaStage]);
 
-  // Recalculate the wave form or get it from the recoil cache.
+  // Recalculate the wave form or get it from the debug cache.
   useEffect(() => {
     if (waveformPointCloud.length !== 0) {
       konvaPolygon.current.setAttr('points', waveformPointCloud);
