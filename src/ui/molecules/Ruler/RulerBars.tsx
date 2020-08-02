@@ -5,15 +5,15 @@ import { splinterTheme } from '../../../theme';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { numberToMusicalBarTime } from '../../../utils/noteMapper';
 
-const Bars = styled(Box)({
+const Bars = styled(Box)(({theme}) => ({
   height: 20,
   position: 'absolute',
   top: 0,
   width: '100%',
   pointerEvents: 'none',
   userSelect: 'none',
-  backgroundColor: splinterTheme.palette.background.paper,
-});
+  backgroundColor: theme.palette.background.paper,
+}));
 
 const RulerItem = styled('span')({
   display: 'inline-block',

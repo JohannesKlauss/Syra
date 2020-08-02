@@ -10,7 +10,7 @@ import useScrollPosition from '../../../hooks/ui/useScrollPosition';
 import useCreateChannel from '../../../hooks/recoil/channel/useCreateChannel';
 import useCreateRegion from '../../../hooks/recoil/region/useCreateRegion';
 
-const BaseContainer = styled('div')({
+const BaseContainer = styled('div')(({theme}) => ({
   width: 'calc(100vw - 230px)',
   height: 70,
   display: 'flex',
@@ -19,13 +19,13 @@ const BaseContainer = styled('div')({
   zIndex: 1,
   position: 'relative',
   willChange: 'transform',
-  backgroundColor: splinterTheme.palette.background.paper,
-  border: `1px dashed ${splinterTheme.palette.background.paper}`,
+  backgroundColor: theme.palette.background.paper,
+  border: `1px dashed ${theme.palette.background.paper}`,
   userSelect: 'none',
   '&:focus': {
     outline: 'none',
   }
-});
+}));
 
 function DropTrack() {
   const createChannel = useCreateChannel();

@@ -9,13 +9,13 @@ import useListenForExternalMidiIn from '../../../hooks/midi/useListenForExternal
 import useUpdateMidiStore from '../../../hooks/midi/useUpdateMidiStore';
 import { ARRANGE_GRID_CHANNEL_LIST_GAP } from '../../../const/ui';
 
-const BaseContainer = styled(Container)({
+const BaseContainer = styled(Container)(({theme}) => ({
   width: '100%',
   maxHeight: '45vh',
   padding: '5px 0',
   overflow: 'hidden',
-  backgroundColor: splinterTheme.palette.background.paper,
-});
+  backgroundColor: theme.palette.background.paper,
+}));
 
 const Flexer = styled('div')({
   display: 'flex',
@@ -23,13 +23,13 @@ const Flexer = styled('div')({
   overflow: 'auto',
 });
 
-const RightPane = styled(Box)({
+const RightPane = styled(Box)(({theme}) => ({
   width: '100%',
   overflowX: 'auto',
   height: '100%',
   paddingLeft: ARRANGE_GRID_CHANNEL_LIST_GAP,
-  background: splinterTheme.palette.background.default,
-});
+  background: theme.palette.background.default,
+}));
 
 function ArrangeWindow() {
   useListenForExternalMidiIn(useUpdateMidiStore());

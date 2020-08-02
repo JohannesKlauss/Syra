@@ -5,7 +5,7 @@ import RulerZoomInOut from './RulerZoomInOut';
 import RulerSnapSettings from './RulerSnapSettings';
 import RulerCycleSettings from './RulerCycleSettings';
 
-const BaseContainer = styled(Box)({
+const BaseContainer = styled(Box)(({theme}) => ({
   width: '100%',
   height: 40,
   display: 'flex',
@@ -14,9 +14,9 @@ const BaseContainer = styled(Box)({
   paddingBottom: 10,
   zIndex: 20,
   paddingRight: 10,
-  borderBottom: `1px solid ${splinterTheme.palette.background.default}`,
-  backgroundColor: splinterTheme.palette.background.paper,
-});
+  borderBottom: `1px solid ${theme.palette.background.default}`,
+  backgroundColor: theme.palette.background.paper,
+}));
 
 function RulerSettings() {
   return (

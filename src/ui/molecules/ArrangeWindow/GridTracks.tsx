@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Box, BoxProps, styled, useTheme } from '@material-ui/core';
+import { Box, BoxProps, styled, Theme, useTheme } from '@material-ui/core';
 import { splinterTheme } from '../../../theme';
 import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
@@ -16,11 +16,11 @@ interface ArrangeWindowProps {
 
 const BaseContainer = styled(
   ({ windowWidth, ...other }: ArrangeWindowProps & Omit<BoxProps, keyof ArrangeWindowProps>) => <Box {...other} />,
-)({
-  backgroundColor: (splinterTheme.palette.background.default),
+)<Theme, ArrangeWindowProps>(({ theme, windowWidth }) => ({
+  backgroundColor: theme.palette.background.default,
   position: 'relative',
-  width: ({ windowWidth }: ArrangeWindowProps) => windowWidth,
-});
+  width: windowWidth,
+}));
 
 function GridTracks() {
   const theme = useTheme();

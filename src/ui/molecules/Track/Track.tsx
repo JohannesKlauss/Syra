@@ -1,5 +1,5 @@
 import React, { HTMLAttributes, useCallback, useContext, useMemo } from 'react';
-import { styled, Typography } from '@material-ui/core';
+import { styled, Theme, Typography } from '@material-ui/core';
 import { splinterTheme } from '../../../theme';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { useDropzone } from 'react-dropzone';
@@ -35,16 +35,16 @@ interface DropIndicatorProps {
 
 const DropIndicator = styled(
   ({ doShow, ...other }: DropIndicatorProps & Omit<HTMLAttributes<HTMLDivElement>, keyof DropIndicatorProps>) => <div {...other} />,
-)({
-  display: ({doShow}: DropIndicatorProps) => doShow ? 'flex' : 'none',
+)<Theme, DropIndicatorProps>(({theme, doShow}) => ({
+  display: doShow ? 'flex' : 'none',
   opacity: 0.5,
   paddingLeft: 150,
   top: 0,
   left: 0,
   height: '100%',
   alignItems: 'center',
-  backgroundColor: splinterTheme.palette.background.paper,
-});
+  backgroundColor: theme.palette.background.paper,
+}));
 
 interface Props {
   backgroundColor: string;

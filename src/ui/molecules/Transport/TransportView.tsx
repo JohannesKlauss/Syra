@@ -6,16 +6,16 @@ import Bpm from './Bpm';
 import TimeSignature from './TimeSignature';
 import Click from './Click';
 
-const BaseContainer = styled(Container)({
+const BaseContainer = styled(Container)(({theme}) => ({
   overflow: 'hidden',
   width: '100%',
   display: 'flex',
   justifyContent: 'center',
   padding: '5px 0',
   marginBottom: 10,
-  borderBottom: `1px solid ${splinterTheme.palette.background.default}`,
-  backgroundColor: splinterTheme.palette.background.paper,
-});
+  borderBottom: `1px solid ${theme.palette.background.default}`,
+  backgroundColor: theme.palette.background.paper,
+}));
 
 function TransportView() {
   return (

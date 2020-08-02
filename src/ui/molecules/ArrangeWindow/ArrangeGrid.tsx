@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Box, RootRef, styled } from '@material-ui/core';
+import { Box, RootRef, styled, Theme, useTheme } from '@material-ui/core';
 import { splinterTheme } from '../../../theme';
 import GridTracks from './GridTracks';
 import Ruler from '../Ruler/Ruler';
@@ -8,12 +8,12 @@ import { useSetRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import DropTrack from '../Track/DropTrack';
 
-const BaseContainer = styled(Box)({
+const BaseContainer = styled(Box)(({theme}) => ({
   overflowX: 'scroll',
   overflowY: 'hidden',
   position: 'relative',
-  backgroundColor: splinterTheme.palette.background.default,
-});
+  backgroundColor: theme.palette.background.default,
+}));
 
 function ArrangeGrid() {
   const containerRef = useRef<HTMLDivElement | null>(null);

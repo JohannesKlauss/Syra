@@ -1,39 +1,22 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { CssBaseline, Modal, ThemeProvider, Button, Paper } from '@material-ui/core';
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import { deepOrange, deepPurple, lightBlue, orange } from '@material-ui/core/colors';
 import UiInteractionProvider from './providers/UiInteractionProvider';
 import SplinterRouter from './providers/SplinterRouter';
 import { useHotkeys } from 'react-hotkeys-hook';
 import Debugger from './ui/debug/Debugger';
+import { splinterTheme } from './theme';
+import { retroWaveTheme } from './theme/retroWave';
 
 function App() {
   const [showDebugMenu, setShowDebugMenu] = useState(false);
   const [darkState] = useState(true);
-  const palletType = darkState ? 'dark' : 'light';
-  const mainPrimaryColor = darkState ? orange[500] : lightBlue[500];
-  const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
 
-  const darkTheme = createMuiTheme({
-    palette: {
-      type: palletType,
-      primary: {
-        main: mainPrimaryColor,
-      },
-      secondary: {
-        main: mainSecondaryColor,
-      },
-    },
-  });
+  const theme = useMemo(() => darkState ? splinterTheme : retroWaveTheme, [darkState]);
 
   useHotkeys('shift+d', () => setShowDebugMenu(currVal => !currVal));
 
-  /*const handleThemeChange = () => {
-    setDarkState(!darkState);
-  };*/
-
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline/>
       <UiInteractionProvider>
         <SplinterRouter/>
