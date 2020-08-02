@@ -64,11 +64,23 @@ const isCycleActive = selector<boolean>({
     Tone.getTransport().loop = newValue as boolean;
     set(internalLoop, newValue as boolean);
   }
-})
+});
+
+const isRecording = atom<boolean>({
+  key: 'transport/isRecording',
+  default: false,
+});
+
+const isPlaying = atom<boolean>({
+  key: 'transport/isPlaying',
+  default: false,
+});
 
 export const transportStore = {
   seconds,
   cycleStart,
   cycleEnd,
   isCycleActive,
+  isRecording,
+  isPlaying,
 };

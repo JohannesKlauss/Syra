@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
@@ -8,7 +8,6 @@ import { Box, IconButton, styled } from '@material-ui/core';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
-import { projectStore } from '../../../recoil/projectStore';
 import { transportStore } from '../../../recoil/transportStore';
 import { useHotkeys } from 'react-hotkeys-hook';
 
@@ -19,12 +18,12 @@ const BaseContainer = styled(Box)({
 
 function PlayRecord() {
   const setPlayheadPosition = useSetRecoilState(arrangeWindowStore.playheadPosition);
-  const [isRecording, setIsRecording] = useRecoilState(projectStore.isRecording);
+  const [isRecording, setIsRecording] = useRecoilState(transportStore.isRecording);
+  const [isPlaying, setIsPlaying] = useRecoilState(transportStore.isPlaying);
   const setTransportSeconds = useSetRecoilState(transportStore.seconds);
   const isCycleActive = useRecoilValue(transportStore.isCycleActive);
   const cycleStart = useRecoilValue(transportStore.cycleStart);
   const transport = useToneJsTransport();
-  const [isPlaying, setIsPlaying] = useState(false); // TODO: THIS SHOULD PROBABLY LIVE IN THE RECOIL STATE
 
   const onClickPlayPause = useCallback(() => {
     if (isRecording) {

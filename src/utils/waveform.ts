@@ -53,7 +53,7 @@ export function windowedWaveformAlgorithm(audioBuffer: AudioBuffer, steps: numbe
   return peakValues;
 }
 
-export function createWindowedWaveformV2Factory(audioBuffer: AudioBuffer, width: number, height: number, smoothing: number = 2) {
+export function createWindowedWaveformV2(audioBuffer: AudioBuffer, width: number, height: number, smoothing: number = 2) {
   const steps = Math.ceil(width / smoothing);
   const peakValues = windowedWaveformAlgorithm(audioBuffer, steps);
 

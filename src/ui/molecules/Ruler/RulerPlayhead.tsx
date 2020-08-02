@@ -50,7 +50,7 @@ const PlayheadIndicator = styled(
 function RulerPlayhead() {
   const snappedPlayheadPos = useRecoilValue(arrangeWindowStore.snappedPlayheadPosition);
   const beatsPerSecond = useRecoilValue(arrangeWindowStore.beatsPerSecond);
-  const isRecording = useRecoilValue(projectStore.isRecording);
+  const isRecording = useRecoilValue(transportStore.isRecording);
   const setTransportSeconds = useSetRecoilState(transportStore.seconds);
   const transportTranslate = usePlayheadAnimation();
 

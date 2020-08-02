@@ -3,13 +3,13 @@ import LetterButton from '../../atoms/Buttons/LetterButton';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
-import { projectStore } from '../../../recoil/projectStore';
+import { transportStore } from '../../../recoil/transportStore';
 
 const BUTTON_WIDTH = '33%';
 
 function ChannelLetterButtons() {
   const id = useContext(ChannelContext);
-  const isSplinterRecording = useRecoilValue(projectStore.isRecording);
+  const isSplinterRecording = useRecoilValue(transportStore.isRecording);
   const [isSolo, setIsSolo] = useRecoilState(channelStore.isSolo(id));
   const [isMuted, setIsMuted] = useRecoilState(channelStore.isMuted(id));
   const [isArmed, setIsArmed] = useRecoilState(channelStore.isArmed(id));

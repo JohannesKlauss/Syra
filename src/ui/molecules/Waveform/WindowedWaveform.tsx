@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useLayoutEffect, useRef } from 'react';
 import { styled } from '@material-ui/core';
 import useAudioContext from '../../../hooks/audio/useAudioContext';
-import { createWindowedWaveformV2Factory } from '../../../utils/waveform';
+import { createWindowedWaveformV2 } from '../../../utils/waveform';
 import { createNewId } from '../../../utils/createNewId';
 import Konva from 'konva';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
@@ -37,10 +37,6 @@ interface Props {
 function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offset, paddingLeft, smoothing, bufferId }: Props) {
   const pointCloudId = `${bufferId}.${completeWidth}.${height}.${smoothing}`;
 
-  const channelId = useContext(ChannelContext);
-
-  console.log(channelId, pointCloudId);
-
   const containerId = useRef(createNewId());
   const containerRef = useRef<HTMLDivElement>(null);
   const viewportWidth = useRecoilValue(arrangeWindowStore.viewportWidth);
@@ -49,6 +45,10 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   const audioContext = useAudioContext();
   const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
   const currentScrollPos = useRef(0);
+
+  if (audioBuffer.current instanceof AudioBuffer && waveformPointCloud.length === 0 && completeWidth > 0) {
+    setWaveformPointCloud(createWindowedWaveformV2(audioBuffer.current, completeWidth, height, smoothing));
+  }
 
   const konvaStage = useRef<Konva.Stage>();
   const konvaLayer = useRef(new Konva.Layer({
@@ -117,25 +117,11 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
 
   // Recalculate the wave form or get it from the recoil cache.
   useEffect(() => {
-    if (waveformPointCloud.length > 0) {
+    if (waveformPointCloud.length !== 0) {
       konvaPolygon.current.setAttr('points', waveformPointCloud);
       konvaLayer.current.draw();
     }
   }, [konvaLayer, konvaPolygon, waveformPointCloud]);
-
-  const calcWaveform = useCallback(() => {
-    if (audioBuffer.current instanceof AudioBuffer && completeWidth > 0) {
-      return createWindowedWaveformV2Factory(audioBuffer.current, completeWidth, height, smoothing);
-    }
-
-    return [];
-  }, [audioBuffer, completeWidth, height, smoothing]);
-
-  useEffect(() => {
-    if (waveformPointCloud.length === 0) {
-      setWaveformPointCloud(calcWaveform());
-    }
-  }, [waveformPointCloud, setWaveformPointCloud, calcWaveform]);
 
   return (
     <Waveform id={containerId.current} ref={containerRef} width={viewportWidth} height={height}/>

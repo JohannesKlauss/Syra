@@ -7,11 +7,11 @@ import useAudioDisconnect from './useAudioDisconnect';
 import useSyncChannelToSolo from './useSyncChannelToSolo';
 import useToneAudioNodes from './useToneAudioNodes';
 import useRecorder from '../audio/useRecorder';
-import { projectStore } from '../../recoil/projectStore';
+import { transportStore } from '../../recoil/transportStore';
 
 export default function useAudioToneConnector() {
   const channelId = useContext(ChannelContext);
-  const isRecording = useRecoilValue(projectStore.isRecording);
+  const isRecording = useRecoilValue(transportStore.isRecording);
   const { soulPluginIds, isArmed, isMuted, isSolo } = useRecoilValue(channelStore.state(channelId));
   const activePlugins = useRecoilValue(channelStore.findActivePluginsByIds(soulPluginIds));
 
