@@ -1,9 +1,7 @@
-import React, { HTMLAttributes, useEffect } from 'react';
+import React, { HTMLAttributes} from 'react';
 import { styled } from '@material-ui/core';
-import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
-import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
+import { useRecoilValue} from 'recoil/dist';
 import usePlayheadAnimation from '../../../hooks/ui/usePlayheadAnimation';
-import { projectStore } from '../../../recoil/projectStore';
 import { red } from '@material-ui/core/colors';
 import { transportStore } from '../../../recoil/transportStore';
 
@@ -48,15 +46,8 @@ const PlayheadIndicator = styled(
 });
 
 function RulerPlayhead() {
-  const snappedPlayheadPos = useRecoilValue(arrangeWindowStore.snappedPlayheadPosition);
-  const beatsPerSecond = useRecoilValue(arrangeWindowStore.beatsPerSecond);
   const isRecording = useRecoilValue(transportStore.isRecording);
-  const setTransportSeconds = useSetRecoilState(transportStore.seconds);
   const transportTranslate = usePlayheadAnimation();
-
-  useEffect(() => {
-    setTransportSeconds((snappedPlayheadPos - 1) * 4 * beatsPerSecond);
-  }, [snappedPlayheadPos, beatsPerSecond, setTransportSeconds]);
 
   return (
     <PlayheadIndicator translateX={transportTranslate} isRecording={isRecording}/>

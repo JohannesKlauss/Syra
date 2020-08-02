@@ -1,10 +1,15 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Box, BoxProps, styled } from '@material-ui/core';
 import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import {
   arrangeWindowStore,
 } from '../../../recoil/arrangeWindowStore';
 import RulerPlayhead from './RulerPlayhead';
+import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
+import useMovable from '../../../hooks/ui/useMovable';
+import { transportStore } from '../../../recoil/transportStore';
+import usePixelToSeconds from '../../../hooks/ui/usePixelToSeconds';
+import { projectStore } from '../../../recoil/projectStore';
 
 interface BaseContainerProps {
   windowWidth: number;
@@ -22,41 +27,28 @@ const BaseContainer = styled(
 });
 
 function RulerTransportCursor() {
+  const pixelToSeconds = usePixelToSeconds();
+  const setTransportSeconds = useSetRecoilState(transportStore.seconds);
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
   const setPlayheadPos = useSetRecoilState(arrangeWindowStore.playheadPosition);
-  const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
-  const snapValue = useRecoilValue(arrangeWindowStore.snapValue);
-  const [isCursorDragging, setIsCursorDragging] = useState(false);
+  const calcSnappedPos = useSnapCtrlPixelCalc();
 
-  const calcPlayheadPos = useCallback((e: any) => {
-    const x = e.clientX - e.target.getBoundingClientRect().left;
+  const onMouseInteraction = useCallback(e => {
+    const position = calcSnappedPos(e.clientX - e.target.getBoundingClientRect().left);
 
-    let exactPos = x / (snapWidth * (1 / snapValue)) + 1;
+    setPlayheadPos(position);
+    setTransportSeconds(pixelToSeconds(position));
+  }, [setPlayheadPos, calcSnappedPos, pixelToSeconds, setTransportSeconds]);
 
-    if (exactPos < 1) {
-      exactPos = 1;
-    }
+  const onMovableTrigger = useMovable(onMouseInteraction, onMouseInteraction);
 
-    setPlayheadPos(exactPos);
-  }, [setPlayheadPos, snapWidth, snapValue]);
-
-  const onClickTransport = useCallback(e => {
-    if (!isCursorDragging) {
-      calcPlayheadPos(e);
-    }
-  }, [calcPlayheadPos, isCursorDragging]);
-
-  const onPlayheadDrag = useCallback(e => {
-    if (isCursorDragging) {
-      calcPlayheadPos(e);
-    }
-  }, [calcPlayheadPos, isCursorDragging]);
+  const onMouseDown = useCallback((e) => {
+    onMouseInteraction(e);
+    onMovableTrigger();
+  }, [onMouseInteraction, onMovableTrigger]);
 
   return (
-    <BaseContainer windowWidth={windowWidth} onMouseDown={() => setIsCursorDragging(true)}
-                   onMouseLeave={() => setIsCursorDragging(false)}
-                   onMouseUp={() => setIsCursorDragging(false)} onMouseMove={onPlayheadDrag}
-                   onClick={onClickTransport}>
+    <BaseContainer windowWidth={windowWidth} onMouseDown={onMouseDown}>
       <RulerPlayhead/>
     </BaseContainer>
   );

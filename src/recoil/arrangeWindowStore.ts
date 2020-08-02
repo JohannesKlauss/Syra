@@ -35,17 +35,6 @@ const playheadPosition = atom({
   default: 1,
 });
 
-const snappedPlayheadPosition = selector({
-  key: 'arrangeWindow/snappedPlayheadPosition',
-  get: ({get}) => {
-    const inverse = 1 / get(snapValue);
-    const exactPos = get(playheadPosition);
-    const snappedPos = get(isSnapActive) ? Math.round(exactPos * inverse) / inverse : exactPos;
-
-    return snappedPos >= 1 ? snappedPos : 1;
-  }
-});
-
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.
 // This goes from 1 to 11
 const zoomLevel = atom({
@@ -137,7 +126,6 @@ export const arrangeWindowStore = {
   ref,
   editMode,
   playheadPosition,
-  snappedPlayheadPosition,
   zoomLevel,
   verticalZoomLevel,
   snapValue,

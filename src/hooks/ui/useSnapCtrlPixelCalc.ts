@@ -10,7 +10,7 @@ export default function useSnapCtrlPixelCalc() {
 
   const inverse = 1 / (snapWidth / 4);
 
-  return useCallback(x =>
+  return useCallback((x: number) =>
     isSnapActive && !isPressed('ctrl') ? Math.round(x * inverse) / inverse : x
     , [isSnapActive, isPressed, inverse]);
 }
