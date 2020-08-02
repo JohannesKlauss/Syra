@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, BoxProps, styled, Theme } from '@material-ui/core';
-import { splinterTheme } from '../../../theme';
 import RulerTransportCursor from './RulerTransportCursor';
 import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';

@@ -9,7 +9,6 @@ import {
   styled, Theme,
   useTheme,
 } from '@material-ui/core';
-import { splinterTheme } from '../../../../theme';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import ChannelLetterButtons from '../ChannelLetterButtons';
 import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';

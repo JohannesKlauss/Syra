@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { Box, BoxProps, styled, Theme, useTheme } from '@material-ui/core';
-import { splinterTheme } from '../../../theme';
 import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { channelStore } from '../../../recoil/channelStore';

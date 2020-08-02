@@ -1,6 +1,5 @@
 import React, { HTMLAttributes, useCallback, useContext, useMemo } from 'react';
 import { styled, Theme, Typography } from '@material-ui/core';
-import { splinterTheme } from '../../../theme';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { useDropzone } from 'react-dropzone';
 import RegionList from './Regions/RegionList';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { styled } from '@material-ui/core';
-import { splinterTheme } from '../../../theme';
 
 const BaseContainer = styled('div')(({theme}) => ({
   height: 40,

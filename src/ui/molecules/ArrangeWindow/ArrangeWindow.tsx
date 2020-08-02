@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Container, styled } from '@material-ui/core';
-import { splinterTheme } from '../../../theme';
 import RulerSettings from '../Ruler/Settings/RulerSettings';
 import ArrangeGrid from './ArrangeGrid';
 import VerticalChannelList from '../Channels/VerticalChannels/VerticalChannelList';

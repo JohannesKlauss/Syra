@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, styled } from '@material-ui/core';
-import { splinterTheme } from '../../../theme';
 import PlayRecord from './PlayRecord';
 import Bpm from './Bpm';
 import TimeSignature from './TimeSignature';

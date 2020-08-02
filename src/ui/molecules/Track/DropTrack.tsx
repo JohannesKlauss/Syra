@@ -1,6 +1,5 @@
 import React, { useCallback, useRef } from 'react';
 import { styled, Typography } from '@material-ui/core';
-import { splinterTheme } from '../../../theme';
 import { useDropzone } from 'react-dropzone';
 import { ChannelType } from '../../../types/Channel';
 import useIsDragOnDocument from '../../../hooks/ui/useIsDragOnDocument';

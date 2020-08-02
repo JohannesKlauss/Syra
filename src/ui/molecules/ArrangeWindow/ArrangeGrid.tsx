@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Box, RootRef, styled, Theme, useTheme } from '@material-ui/core';
-import { splinterTheme } from '../../../theme';
+import { Box, RootRef, styled } from '@material-ui/core';
 import GridTracks from './GridTracks';
 import Ruler from '../Ruler/Ruler';
 import useWindowSize from '../../../hooks/ui/useWindowResize';
