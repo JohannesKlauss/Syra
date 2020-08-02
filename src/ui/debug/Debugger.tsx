@@ -6,6 +6,7 @@ import { channelStore } from '../../recoil/channelStore';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { RegionContext } from '../../providers/RegionContext';
 import DebugNodes from './DebugNodes';
+import DebugChannel from './recoil/DebugChannel';
 
 function Debugger() {
   const [selectedChannelId, setSelectedChannelId] = useState('');
@@ -34,7 +35,7 @@ function Debugger() {
           <Typography variant="subtitle2">NOTE: This will alter a lot of the core functionality. Using this debugger will
             likely create a need to reload the project before it's usable with the normal UI again.</Typography>
         </Grid>
-        <Grid item sm={4}>
+        <Grid item sm={6}>
           <FormControl>
             <InputLabel id="channelId">Channel Id</InputLabel>
             <Select autoWidth labelId={'channelId'} value={selectedChannelId}
@@ -47,7 +48,7 @@ function Debugger() {
           </FormControl>
 
         </Grid>
-        <Grid item sm={4}>
+        <Grid item sm={6}>
           <FormControl>
             <InputLabel id="regionId">Region Id</InputLabel>
             <Select autoWidth labelId={'regionId'} value={selectedRegionId}
@@ -58,6 +59,10 @@ function Debugger() {
 
         </Grid>
         <ChannelContext.Provider value={selectedChannelId}>
+          <Grid item sm={6}>
+            <DebugChannel/>
+          </Grid>
+
           <RegionContext.Provider value={selectedRegionId}>
             <Grid item sm={12}>
               {selectedRegionId !== '' && <DebugNodes/>}

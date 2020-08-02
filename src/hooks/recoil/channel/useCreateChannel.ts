@@ -12,7 +12,6 @@ export default function useCreateChannel() {
 
     const channelIds = await snapshot.getLoadable(channelStore.ids).contents as string[];
 
-    set(channelStore.ids, currVal => [...currVal, newChannelId]);
     set(channelStore.type(newChannelId), type);
     set(channelStore.selectedId, newChannelId);
     set(channelStore.color(newChannelId), channelColors[(channelIds.length + queueIndex + 1) % channelColors.length])
@@ -20,6 +19,8 @@ export default function useCreateChannel() {
     if (channelName) {
       set(channelStore.name(newChannelId), channelName);
     }
+
+    set(channelStore.ids, currVal => [...currVal, newChannelId]);
 
     return newChannelId;
   }, []);

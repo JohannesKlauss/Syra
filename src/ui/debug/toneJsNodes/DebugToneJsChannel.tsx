@@ -13,7 +13,7 @@ import {
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 
-function DebugChannel() {
+function DebugToneJsChannel() {
   const { channel } = useToneAudioNodes();
 
   return (
@@ -33,7 +33,7 @@ function DebugChannel() {
               </TableCell>
               <TableCell width={150}>
                 <Slider
-                  defaultValue={channel.volume.value}
+                  value={channel.volume.value}
                   min={-100}
                   max={6}
                   step={0.1}
@@ -50,7 +50,7 @@ function DebugChannel() {
               </TableCell>
               <TableCell width={150}>
                 <Slider
-                  defaultValue={channel.volume.value}
+                  value={channel.volume.value}
                   min={-100}
                   max={100}
                   step={1}
@@ -67,7 +67,7 @@ function DebugChannel() {
               </TableCell>
               <TableCell>
                 <Checkbox
-                  defaultChecked={channel.muted}
+                  checked={channel.muted}
                   onChange={(_, newValue) => channel.set({mute: newValue})}
                 />
               </TableCell>
@@ -81,7 +81,7 @@ function DebugChannel() {
               </TableCell>
               <TableCell>
                 <Checkbox
-                  defaultChecked={channel.solo}
+                  checked={channel.solo}
                   onChange={(_, newValue) => channel.set({solo: newValue})}
                 />
               </TableCell>
@@ -101,4 +101,4 @@ function DebugChannel() {
   );
 }
 
-export default DebugChannel;
+export default DebugToneJsChannel;

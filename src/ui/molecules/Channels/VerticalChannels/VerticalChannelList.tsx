@@ -12,6 +12,7 @@ const BaseContainer = styled(Box)({
   flexDirection: 'column',
   height: '100%',
 });
+
 function VerticalChannelList() {
   const channels = useRecoilValue(channelStore.ids);
 
