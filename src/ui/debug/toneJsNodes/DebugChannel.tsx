@@ -1,7 +1,6 @@
 import React from 'react';
 import useToneAudioNodes from '../../../hooks/tone/useToneAudioNodes';
 import {
-  Button,
   Checkbox,
   Grid,
   Paper,

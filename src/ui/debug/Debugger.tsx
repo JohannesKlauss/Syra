@@ -5,14 +5,9 @@ import { regionStore } from '../../recoil/regionStore';
 import { channelStore } from '../../recoil/channelStore';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { RegionContext } from '../../providers/RegionContext';
-import DebugPlayers from './toneJsNodes/DebugPlayers';
 import DebugNodes from './DebugNodes';
 
-interface Props {
-
-}
-
-function Debugger({}: Props) {
+function Debugger() {
   const [selectedChannelId, setSelectedChannelId] = useState('');
   const [selectedRegionId, setSelectedRegionId] = useState('');
 

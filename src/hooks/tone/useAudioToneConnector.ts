@@ -42,8 +42,6 @@ export default function useAudioToneConnector() {
         audioIn.close();
       }
 
-      console.log('connect for', channelId);
-
       const pluginNodes = activePlugins.map(plugin => plugin.audioNode);
 
       audioIn.connect(merge, 0, 0);

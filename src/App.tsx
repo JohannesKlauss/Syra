@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CssBaseline, Modal, ThemeProvider, Button, Container, Paper } from '@material-ui/core';
+import { CssBaseline, Modal, ThemeProvider, Button, Paper } from '@material-ui/core';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { deepOrange, deepPurple, lightBlue, orange } from '@material-ui/core/colors';
 import UiInteractionProvider from './providers/UiInteractionProvider';
