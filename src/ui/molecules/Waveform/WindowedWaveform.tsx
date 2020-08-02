@@ -46,13 +46,15 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   const currentScrollPos = useRef(0);
 
   if (audioBuffer.current instanceof AudioBuffer && waveformPointCloud.length === 0 && completeWidth > 0) {
+    console.log('create waveform');
+
     setWaveformPointCloud(createWindowedWaveformV2(audioBuffer.current, completeWidth, height, smoothing));
   }
 
   const konvaStage = useRef<Konva.Stage>();
   const konvaLayer = useRef(new Konva.Layer({
     offsetX: paddingLeft + offset,
-    clipWidth: viewportWidth,
+    clipWidth: Math.min(viewportWidth, completeWidth),
   }));
   const konvaPolygon = useRef(new Konva.Line({
     points: [],
@@ -62,16 +64,27 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   }));
 
   const offsetChange = useCallback((pos?: number) => {
-    if (pos) {
-      currentScrollPos.current = pos;
+    if (containerRef.current && konvaLayer.current && konvaStage.current) {
+      if (pos) {
+        currentScrollPos.current = pos;
+      }
+
+      const translateX = Math.max(0, currentScrollPos.current - offset);
+      const width = translateX > completeWidth - viewportWidth ? viewportWidth - translateX : Math.min(viewportWidth, completeWidth);
+
+      if (width > 4) {
+        containerRef.current.style.setProperty('left', `${translateX}px`);
+        containerRef.current.style.setProperty('width', `${width}px`);
+
+        konvaStage.current.setAttr('width', width);
+
+        konvaLayer.current.setAttrs({
+          offsetX: translateX + paddingLeft,
+          clipWidth: width,
+        }).draw();
+      }
     }
-
-    const translateX = Math.max(0, currentScrollPos.current - offset - 2);
-
-    konvaLayer.current?.setAttr('offsetX', translateX + paddingLeft).draw();
-
-    containerRef.current && containerRef.current.style.setProperty('left', `${translateX}px`);
-  }, [containerRef, offset, paddingLeft, currentScrollPos, konvaLayer]);
+  }, [containerRef, offset, paddingLeft, currentScrollPos, konvaLayer, konvaStage, viewportWidth, completeWidth]);
 
   useScrollPosition(offsetChange, [offsetChange], arrangeWindowRef);
 
@@ -83,7 +96,7 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   useEffect(() => {
     konvaStage.current = new Konva.Stage({
       container: containerId.current,
-      width: viewportWidth,
+      width: Math.min(viewportWidth, completeWidth),
       height,
     });
 
@@ -109,10 +122,10 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   // Update width and height of stage.
   useLayoutEffect(() => {
     konvaStage.current?.setAttrs({
-      width: viewportWidth,
+      width: Math.min(viewportWidth, completeWidth),
       height,
     });
-  }, [viewportWidth, height, konvaStage]);
+  }, [viewportWidth, completeWidth, height, konvaStage]);
 
   // Recalculate the wave form or get it from the debug cache.
   useEffect(() => {
@@ -123,7 +136,7 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   }, [konvaLayer, konvaPolygon, waveformPointCloud]);
 
   return (
-    <Waveform id={containerId.current} ref={containerRef} width={viewportWidth} height={height}/>
+    <Waveform id={containerId.current} ref={containerRef} width={Math.min(viewportWidth, completeWidth)} height={height}/>
   );
 }
 

@@ -16,12 +16,11 @@ const R_ID = 'region-MOCK';
 const A_ID = 'buffer-MOCK';
 
 const StorybookRegion: React.FC<Props> = ({children, ...props}) => {
-  const {start, trimEnd, trimStart, isRecording, isMuted, isSolo, end, files} = props;
+  const {start, trimEnd, trimStart, isRecording, isMuted, isSolo, files} = props;
 
   const ctx = useAudioContext();
 
   const setStart = useSetRecoilState(regionStore.start(R_ID));
-  const setEnd = useSetRecoilState(regionStore.end(R_ID));
   const setTrimStart = useSetRecoilState(regionStore.trimStart(R_ID));
   const setTrimEnd = useSetRecoilState(regionStore.trimEnd(R_ID));
   const setIsSolo = useSetRecoilState(regionStore.isSolo(R_ID));
@@ -33,7 +32,6 @@ const StorybookRegion: React.FC<Props> = ({children, ...props}) => {
   useEffect(() => {
     setAudioBufferPointer(A_ID);
     setStart(start);
-    setEnd(end);
     setTrimStart(trimStart);
     setTrimEnd(trimEnd);
     setIsSolo(isSolo);
@@ -45,7 +43,7 @@ const StorybookRegion: React.FC<Props> = ({children, ...props}) => {
 
       setAudioBuffer(await ctx.decodeAudioData(arrayBuffer));
     })();
-  }, [start, trimEnd, trimStart, isRecording, isMuted, isSolo, end, files]);
+  }, [start, trimEnd, trimStart, isRecording, isMuted, isSolo, files]);
 
   return (
     <ChannelContext.Provider value={C_ID}>
