@@ -7,27 +7,38 @@ import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 function RulerZoomInOut() {
-  const [zoomLevel, setZoomLevel] = useRecoilState(arrangeWindowStore.zoomLevel);
+  const [horizontalZoomLevel, setHorizontalZoomLevel] = useRecoilState(arrangeWindowStore.horizontalZoomLevel);
+  const [, setVerticalZoomLevel] = useRecoilState(arrangeWindowStore.verticalZoomLevel);
 
-  const zoomIn = useCallback(() => setZoomLevel(currVal => currVal < 11 ? currVal + 1 : 11), [setZoomLevel]);
-  const zoomOut = useCallback(() => setZoomLevel(currVal => currVal > 1 ? currVal - 1 : 1), [setZoomLevel]);
+  const horizontalZoomIn = useCallback(() => setHorizontalZoomLevel(currVal => currVal < 11 ? currVal + 1 : 11), [setHorizontalZoomLevel]);
+  const horizontalZoomOut = useCallback(() => setHorizontalZoomLevel(currVal => currVal > 1 ? currVal - 1 : 1), [setHorizontalZoomLevel]);
 
   useHotkeys('command+right', e => {
     e.preventDefault();
-    zoomIn();
+    horizontalZoomIn();
   });
 
   useHotkeys('command+left', e => {
     e.preventDefault();
-    zoomOut();
+    horizontalZoomOut();
+  });
+
+  useHotkeys('command+up', e => {
+    e.preventDefault();
+    setVerticalZoomLevel(currVal => currVal > 1 ? currVal - 1 : 1);
+  });
+
+  useHotkeys('command+down', e => {
+    e.preventDefault();
+    setVerticalZoomLevel(currVal => currVal < 11 ? currVal + 1 : 11)
   });
 
   return (
     <ButtonGroup variant={'text'} size={'small'}>
-      <Button size={'small'} onClick={zoomIn} disabled={zoomLevel === 11}>
+      <Button size={'small'} onClick={horizontalZoomIn} disabled={horizontalZoomLevel === 11}>
         <ZoomInIcon/>
       </Button>
-      <Button size="small" onClick={zoomOut} disabled={zoomLevel === 1}>
+      <Button size="small" onClick={horizontalZoomOut} disabled={horizontalZoomLevel === 1}>
         <ZoomOutIcon/>
       </Button>
     </ButtonGroup>

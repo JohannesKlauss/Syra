@@ -37,8 +37,8 @@ const playheadPosition = atom({
 
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.
 // This goes from 1 to 11
-const zoomLevel = atom({
-  key: 'arrangeWindow/zoomLevel',
+const horizontalZoomLevel = atom({
+  key: 'arrangeWindow/horizontalZoomLevel',
   default: 5,
 });
 
@@ -62,7 +62,7 @@ const snapValueWidthInPixels = selector({
 
 const width = selector({
   key: 'arrangeWindow/width',
-  get: ({get}) => ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH[get(zoomLevel)],
+  get: ({get}) => ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH[get(horizontalZoomLevel)],
 });
 
 const trackHeight = selector({
@@ -73,7 +73,7 @@ const trackHeight = selector({
 // The resolution is measured in shown bars. So 4 means show every 4th bar as a number on the ruler.
 const resolution = selector({
   key: 'arrangeWindow/resolution',
-  get: ({get}) => ZOOM_RESOLUTION_MAP[get(zoomLevel)],
+  get: ({get}) => ZOOM_RESOLUTION_MAP[get(horizontalZoomLevel)],
 });
 
 const pixelPerSecond = selector({
@@ -126,7 +126,7 @@ export const arrangeWindowStore = {
   ref,
   editMode,
   playheadPosition,
-  zoomLevel,
+  horizontalZoomLevel,
   verticalZoomLevel,
   snapValue,
   snapValueWidthInPixels,

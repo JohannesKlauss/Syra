@@ -18,19 +18,19 @@ export const ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH: {[name: number]: number} = {
   11: 2304000,
 };
 
-// This defines the height of a default track based on the zoom level.
+// This defines the default height of a track based on the vertical zoom level.
 export const ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT: {[name: number]: number} = {
-  1: 20,
-  2: 30,
-  3: 45,
-  4: 60,
-  5: 70,
-  6: 80,
-  7: 95,
-  8: 110,
-  9: 130,
-  10: 150,
-  11: 180,
+  1: 30,
+  2: 45,
+  3: 60,
+  4: 70,
+  5: 80,
+  6: 95,
+  7: 110,
+  8: 130,
+  9: 150,
+  10: 180,
+  11: 230,
 };
 
 // This defines the ruler resolution based on the zoom level. Zoom level is the key, resolution the value.

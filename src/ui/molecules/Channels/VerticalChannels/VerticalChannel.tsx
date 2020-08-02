@@ -16,20 +16,23 @@ import ChannelLetterButtons from '../ChannelLetterButtons';
 import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';
 import useMuteChannelHotkey from '../../../../hooks/hotkeys/channel/useMuteChannelHotkey';
 import useSoloChannelHotkey from '../../../../hooks/hotkeys/channel/useSoloChannelHotkey';
+import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
+import { ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT } from '../../../../const/ui';
 
 interface BaseContainerProps {
   channelColor: string;
   backgroundColor: string;
+  height: number;
 }
 
 const BaseCard = styled(
-  ({ channelColor, backgroundColor, innerRef, ...other }: BaseContainerProps & Omit<CardProps, keyof BaseContainerProps>) => <Card {...other} />,
+  ({ channelColor, height, backgroundColor, innerRef, ...other }: BaseContainerProps & Omit<CardProps, keyof BaseContainerProps>) => <Card {...other} />,
 )({
   width: '100%',
   borderBottom: `1px solid ${splinterTheme.palette.background.default}`,
   backgroundColor: ({ backgroundColor }: BaseContainerProps) => backgroundColor,
   borderRight: ({ channelColor }: BaseContainerProps) => `3px solid ${channelColor}`,
-  height: 70,
+  height: ({ height }: BaseContainerProps) => height,
   padding: 5,
   display: 'flex',
   flexDirection: 'column',
@@ -55,6 +58,7 @@ function VerticalChannel() {
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
   const name = useRecoilValue(channelStore.name(channelId));
   const color = useRecoilValue(channelStore.color(channelId));
+  const verticalZoomLevel = useRecoilValue(arrangeWindowStore.verticalZoomLevel);
 
   const hotkeysRef = useDeleteChannelHotkey();
   useMuteChannelHotkey();
@@ -66,7 +70,7 @@ function VerticalChannel() {
 
   return (
     <BaseCard channelColor={color} backgroundColor={backgroundColor} onClick={() => setSelectedChannelId(channelId)}
-              innerRef={hotkeysRef} tabIndex={0} data-cy={channelId}>
+              innerRef={hotkeysRef} tabIndex={0} data-cy={channelId} height={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}>
       <CustomCardContent>
         <Typography variant="overline" display="block">{name}</Typography>
       </CustomCardContent>
