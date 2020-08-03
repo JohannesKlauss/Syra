@@ -58,7 +58,7 @@ function VerticalChannel() {
   const color = useRecoilValue(channelStore.color(channelId));
   const verticalZoomLevel = useRecoilValue(arrangeWindowStore.verticalZoomLevel);
 
-  const hotkeysRef = useDeleteChannelHotkey();
+  useDeleteChannelHotkey();
   useMuteChannelHotkey();
   useSoloChannelHotkey();
 
@@ -68,7 +68,7 @@ function VerticalChannel() {
 
   return (
     <BaseCard channelColor={color} backgroundColor={backgroundColor} onClick={() => setSelectedChannelId(channelId)}
-              innerRef={hotkeysRef} tabIndex={0} data-cy={channelId} height={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}>
+              tabIndex={0} data-cy={channelId} height={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}>
       <CustomCardContent>
         <ChannelName />
       </CustomCardContent>
