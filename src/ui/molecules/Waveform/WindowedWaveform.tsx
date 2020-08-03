@@ -8,6 +8,7 @@ import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useScrollPosition from '../../../hooks/ui/useScrollPosition';
 import { audioBufferStore } from '../../../recoil/audioBufferStore';
+import useTrimmedRegionWidth from '../../../hooks/ui/region/useTrimmedRegionWidth';
 
 interface WaveformProps {
   width: number; // This is to support sharp edges on retina displays.
@@ -44,6 +45,7 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   const audioContext = useAudioContext();
   const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
   const currentScrollPos = useRef(0);
+  const trimmedWidth = useTrimmedRegionWidth();
 
   if (audioBuffer.current instanceof AudioBuffer && waveformPointCloud.length === 0 && completeWidth > 0) {
     setWaveformPointCloud(createWindowedWaveformV2(audioBuffer.current, completeWidth, height, smoothing));
@@ -52,7 +54,7 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   const konvaStage = useRef<Konva.Stage>();
   const konvaLayer = useRef(new Konva.Layer({
     offsetX: paddingLeft + offset,
-    clipWidth: Math.min(viewportWidth, completeWidth),
+    clipWidth: Math.min(viewportWidth, trimmedWidth),
   }));
   const konvaPolygon = useRef(new Konva.Line({
     points: [],
@@ -68,21 +70,19 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
       }
 
       const translateX = Math.max(0, currentScrollPos.current - offset);
-      const width = translateX > completeWidth - viewportWidth ? viewportWidth - translateX : Math.min(viewportWidth, completeWidth);
+      const width = translateX > trimmedWidth - viewportWidth ? Math.min(viewportWidth, trimmedWidth) - translateX : Math.min(viewportWidth, trimmedWidth);
 
       if (width > 4) {
         containerRef.current.style.setProperty('left', `${translateX}px`);
         containerRef.current.style.setProperty('width', `${width}px`);
 
         konvaStage.current.setAttr('width', width);
+        konvaLayer.current.setAttr('offsetX', translateX + paddingLeft);
 
-        konvaLayer.current.setAttrs({
-          offsetX: translateX + paddingLeft,
-          clipWidth: width,
-        }).draw();
+        requestAnimationFrame(() => konvaLayer.current.draw());
       }
     }
-  }, [containerRef, offset, paddingLeft, currentScrollPos, konvaLayer, konvaStage, viewportWidth, completeWidth]);
+  }, [offset, paddingLeft, currentScrollPos, viewportWidth, trimmedWidth]);
 
   useScrollPosition(offsetChange, [offsetChange], arrangeWindowRef);
 
@@ -94,7 +94,7 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   useEffect(() => {
     konvaStage.current = new Konva.Stage({
       container: containerId.current,
-      width: Math.min(viewportWidth, completeWidth),
+      width: Math.min(viewportWidth, trimmedWidth),
       height,
     });
 
@@ -120,10 +120,10 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   // Update width and height of stage.
   useLayoutEffect(() => {
     konvaStage.current?.setAttrs({
-      width: Math.min(viewportWidth, completeWidth),
+      width: Math.min(viewportWidth, trimmedWidth),
       height,
     });
-  }, [viewportWidth, completeWidth, height, konvaStage]);
+  }, [viewportWidth, trimmedWidth, height, konvaStage]);
 
   // Recalculate the wave form or get it from the debug cache.
   useEffect(() => {
@@ -134,7 +134,7 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   }, [konvaLayer, konvaPolygon, waveformPointCloud]);
 
   return (
-    <Waveform id={containerId.current} ref={containerRef} width={Math.min(viewportWidth, completeWidth)} height={height}/>
+    <Waveform id={containerId.current} ref={containerRef} width={Math.min(viewportWidth, trimmedWidth)} height={height}/>
   );
 }
 
