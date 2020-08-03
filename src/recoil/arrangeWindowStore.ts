@@ -10,7 +10,7 @@ import { RefObject } from 'react';
 
 const viewportWidth = atom({
   key: 'arrangeWindow/viewportWidth',
-  default: 0,
+  default: 800,
 });
 
 const ref = atom<RefObject<HTMLDivElement> | undefined>({

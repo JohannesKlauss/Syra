@@ -38,11 +38,13 @@ const StorybookRegion: React.FC<Props> = ({children, ...props}) => {
     setIsMuted(isMuted);
     setIsRecording(isRecording);
 
-    (async () => {
-      const arrayBuffer = encodeB64ToArrayBuffer(files[0].split(',')[1]);
+    if (files.length > 0) {
+      (async () => {
+        const arrayBuffer = encodeB64ToArrayBuffer(files[0].split(',')[1]);
 
-      setAudioBuffer(await ctx.decodeAudioData(arrayBuffer));
-    })();
+        setAudioBuffer(await ctx.decodeAudioData(arrayBuffer));
+      })();
+    }
   }, [start, trimEnd, trimStart, isRecording, isMuted, isSolo, files]);
 
   return (

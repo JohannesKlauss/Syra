@@ -7,7 +7,7 @@ import AudioRegion from './AudioRegion';
 export default {
   component: AudioRegion,
   title: 'AudioRegion',
-  decorators: [withKnobs, (story: CallableFunction) => <div style={{ height: 70 }}>{story()}</div>],
+  decorators: [withKnobs, (story: CallableFunction) => <div style={{ height: 80 }}>{story()}</div>],
 };
 
 const state = {

@@ -10,7 +10,6 @@ import TrimEndHandle from './Manipulations/TrimEndHandle';
 import useDeltaXTracker from '../../../../hooks/ui/region/useDeltaXTracker';
 import usePixelToSeconds from '../../../../hooks/ui/usePixelToSeconds';
 import WindowedWaveform from '../../Waveform/WindowedWaveform';
-import { determineTextColor } from '../../../../utils/color';
 import useRegionWidth from '../../../../hooks/ui/region/useRegionWidth';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { useHotkeys, useIsHotkeyPressed } from 'react-hotkeys-hook';
@@ -33,13 +32,11 @@ function AudioRegion() {
   const pixelToSeconds = usePixelToSeconds();
   const regionId = useContext(RegionContext);
   const [isMuted, setIsMuted] = useRecoilState(regionStore.isMuted(regionId));
-  const buffer = useRecoilValue(regionStore.audioBuffer(regionId));
   const bufferId = useRecoilValue(regionStore.audioBufferPointer(regionId));
   const trimStart = useRecoilValue(regionStore.trimStart(regionId));
   const setStart = useSetRecoilState(regionStore.start(regionId));
   const editMode = useRecoilValue(arrangeWindowStore.editMode);
   const color = useRegionColor(false);
-  const completeWidth = useRegionWidth();
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
   const isPressed = useIsHotkeyPressed();
   const [isMoving, setIsMoving] = useState(false);
@@ -96,8 +93,8 @@ function AudioRegion() {
       {isDuplicating && <ClonedAudioRegion/>}
       <BaseContainer isMuted={isMuted} left={left} onMouseDown={onMoveStart} innerRef={ref} onClick={onClick} isMoving={isMoving}>
         <RegionFirstLoop width={width} color={color}>
-          <WindowedWaveform paddingLeft={paddingLeft} completeWidth={completeWidth - 4} color={determineTextColor(color)}
-                            smoothing={3} buffer={buffer} height={trackHeight} offset={left} bufferId={bufferId}/>
+          <WindowedWaveform paddingLeft={paddingLeft} color={color}
+                            smoothing={3} height={trackHeight} offset={left} bufferId={bufferId}/>
           <TrimStartHandle onChange={onChangeTrimStart} onMouseUp={onMouseUp}/>
           <TrimEndHandle onChange={onChangeTrimEnd} onMouseUp={onMouseUp}/>
         </RegionFirstLoop>

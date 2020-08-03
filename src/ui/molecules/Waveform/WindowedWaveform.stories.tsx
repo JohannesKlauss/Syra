@@ -15,7 +15,6 @@ export const Default = () => {
   const accept = '.wav, .mp3';
   let arrayBuffer: ArrayBuffer | undefined = undefined;
 
-  const completeWidth = number('Width', 300, {}, 'Parameters');
   const height = number('Height', 70, {}, 'Parameters');
   const offset = number('offset', 0, {}, 'Parameters');
   const paddingLeft = number('paddingLeft', 0, {}, 'Parameters');
@@ -29,7 +28,7 @@ export const Default = () => {
 
   return (
     <ThemeKnob>
-      <WindowedWaveform buffer={arrayBuffer} completeWidth={completeWidth} offset={offset} paddingLeft={paddingLeft}
+      <WindowedWaveform offset={offset} paddingLeft={paddingLeft}
                         height={height} smoothing={smoothing} color={selectedColor} bufferId={'buffer-MOCK'}/>
     </ThemeKnob>
   );

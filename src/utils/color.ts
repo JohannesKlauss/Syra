@@ -2,10 +2,10 @@ export function determineTextColor(backgroundColor: string): string {
   const {red, green, blue} = hexToRgb(backgroundColor);
 
   if (red * 0.299 + green * 0.587 + blue * 0.114 > 150) {
-    return '#000';
+    return '#000000';
   }
 
-  return '#fff';
+  return '#ffffff';
 }
 
 function hexToComponent(hex: string, startIndex: number) {
@@ -28,4 +28,8 @@ export function hexToRgb(hex: string) {
     green: hexToComponent(hex, 1),
     blue: hexToComponent(hex, 1)
   }
+}
+
+export function colorStringToHexNumber(color: string) {
+  return (parseInt(color.substr(1), 16) << 8) / 256
 }
