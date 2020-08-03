@@ -35,16 +35,6 @@ const availableSoulPlugins = atom<AvailableSoulPatch[]>({
       UID: 'com.yourcompany.SimpleDelay'
     },
     {
-      displayName: 'Lookahead Limiter',
-      pathWasm: 'lookaheadLimiter',
-      UID: 'com.yourcompany.LookaheadLimiter'
-    },
-    {
-      displayName: 'Distortion',
-      pathWasm: 'distortion',
-      UID: 'com.yourcompany.Distortion'
-    },
-    {
       displayName: 'Phase Flip',
       pathWasm: 'phaseFlip',
       UID: 'com.yourcompany.PhaseFlip'
