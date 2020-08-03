@@ -19,6 +19,7 @@ interface BaseContainerProps {
 const BaseContainer = styled(
   ({ backgroundColor, height, ...other }: BaseContainerProps & Omit<HTMLAttributes<HTMLDivElement>, keyof BaseContainerProps>) => <div {...other} />,
 )({
+  opacity: 0.8,
   width: '100%',
   height: ({height}: BaseContainerProps) => height,
   backgroundColor: ({ backgroundColor }: BaseContainerProps) => backgroundColor,

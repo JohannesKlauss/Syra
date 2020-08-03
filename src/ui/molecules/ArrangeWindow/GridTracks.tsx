@@ -19,6 +19,7 @@ const BaseContainer = styled(
   backgroundColor: theme.palette.background.default,
   position: 'relative',
   width: windowWidth,
+  zIndex: 0,
 }));
 
 function GridTracks() {
