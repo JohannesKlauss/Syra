@@ -4,7 +4,7 @@ import { channelStore } from '../../../../recoil/channelStore';
 import { Box, styled } from '@material-ui/core';
 import VerticalChannel from './VerticalChannel';
 import { ChannelContext } from '../../../../providers/ChannelContext';
-import VerticalChannelListHeader from '../../ArrangeWindow/VerticalChannelListHeader';
+import VerticalChannelListHeader from './VerticalChannelListHeader';
 
 const BaseContainer = styled(Box)({
   width: 250,
