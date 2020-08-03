@@ -5,6 +5,7 @@ import { Box, styled } from '@material-ui/core';
 import VerticalChannel from './VerticalChannel';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import VerticalChannelListHeader from './VerticalChannelListHeader';
+import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';
 
 const BaseContainer = styled(Box)({
   width: 250,
@@ -15,6 +16,7 @@ const BaseContainer = styled(Box)({
 
 function VerticalChannelList() {
   const channels = useRecoilValue(channelStore.ids);
+  useDeleteChannelHotkey();
 
   return (
     <BaseContainer data-cy={'vertical-channel-list'}>

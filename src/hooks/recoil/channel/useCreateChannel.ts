@@ -21,6 +21,7 @@ export default function useCreateChannel() {
     }
 
     set(channelStore.ids, currVal => [...currVal, newChannelId]);
+    set(channelStore.selectedId, newChannelId);
 
     return newChannelId;
   }, []);

@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import ChannelLetterButtons from '../ChannelLetterButtons';
-import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';
 import useMuteChannelHotkey from '../../../../hooks/hotkeys/channel/useMuteChannelHotkey';
 import useSoloChannelHotkey from '../../../../hooks/hotkeys/channel/useSoloChannelHotkey';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
@@ -58,7 +57,6 @@ function VerticalChannel() {
   const color = useRecoilValue(channelStore.color(channelId));
   const verticalZoomLevel = useRecoilValue(arrangeWindowStore.verticalZoomLevel);
 
-  useDeleteChannelHotkey();
   useMuteChannelHotkey();
   useSoloChannelHotkey();
 
