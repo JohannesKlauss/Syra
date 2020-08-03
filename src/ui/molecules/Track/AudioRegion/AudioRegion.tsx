@@ -18,6 +18,8 @@ import useRegionSplinterRecordingSync from '../../../../hooks/ui/region/useRegio
 import useRegionScheduler from '../../../../hooks/audio/useRegionScheduler';
 import ClonedAudioRegion from './ClonedAudioRegion';
 import useDuplicateRegion from '../../../../hooks/recoil/region/useDuplicateRegion';
+import { EditMode } from '../../../../types/RegionManipulation';
+import useCutRegion from '../../../../hooks/recoil/region/useCutRegion';
 
 /**
  * The AudioRegion is built a bit complicated and unintuitive.
@@ -35,12 +37,14 @@ function AudioRegion() {
   const bufferId = useRecoilValue(regionStore.audioBufferPointer(regionId));
   const trimStart = useRecoilValue(regionStore.trimStart(regionId));
   const setStart = useSetRecoilState(regionStore.start(regionId));
+  const editMode = useRecoilValue(arrangeWindowStore.editMode);
   const color = useRegionColor(false);
   const completeWidth = useRegionWidth();
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
   const isPressed = useIsHotkeyPressed();
   const [isMoving, setIsMoving] = useState(false);
   const duplicateRegion = useDuplicateRegion(regionId);
+  const cutRegion = useCutRegion(regionId);
 
   const { left, width, paddingLeft, onChangeTrimStart, onChangeTrimEnd, onChangeMove, onMouseUp } = useAudioRegionManipulation();
 
@@ -66,9 +70,19 @@ function AudioRegion() {
   const deltaXTracker = useDeltaXTracker(onChangeMove, onMoveEnd);
 
   const onMoveStart = useCallback((e) => {
-    deltaXTracker(e);
-    setIsMoving(true);
-  }, [deltaXTracker, setIsMoving]);
+    if (editMode === EditMode.DEFAULT) {
+      deltaXTracker(e);
+      setIsMoving(true);
+    }
+  }, [deltaXTracker, setIsMoving, editMode]);
+
+  const onClick = useCallback((e) => {
+    if (editMode === EditMode.CUT) {
+      console.log('cut at', pixelToSeconds(e.clientX - e.target.getBoundingClientRect().left));
+
+      cutRegion(pixelToSeconds(e.clientX - e.target.getBoundingClientRect().left));
+    }
+  }, [editMode, cutRegion, cutRegion, pixelToSeconds]);
 
   const ref = useHotkeys('ctrl+m', () => setIsMuted(currVal => !currVal));
 
@@ -80,7 +94,7 @@ function AudioRegion() {
   return (
     <>
       {isDuplicating && <ClonedAudioRegion/>}
-      <BaseContainer isMuted={isMuted} left={left} onMouseDown={onMoveStart} innerRef={ref}>
+      <BaseContainer isMuted={isMuted} left={left} onMouseDown={onMoveStart} innerRef={ref} onClick={onClick} isMoving={isMoving}>
         <RegionFirstLoop width={width} color={color}>
           <WindowedWaveform paddingLeft={paddingLeft} completeWidth={completeWidth - 4} color={determineTextColor(color)}
                             smoothing={3} buffer={buffer} height={trackHeight} offset={left} bufferId={bufferId}/>

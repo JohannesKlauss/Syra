@@ -21,7 +21,7 @@ function ClonedAudioRegion() {
   const {left, width, paddingLeft} = useStaticRegionPosition();
 
   return (
-    <BaseContainer isMuted={isMuted} left={left}>
+    <BaseContainer isMuted={isMuted} left={left} isMoving={false}>
       <RegionFirstLoop width={width} color={theme.palette.background.paper}>
         <WindowedWaveform paddingLeft={paddingLeft} completeWidth={completeWidth - 4} color={theme.palette.background.default}
                           smoothing={3} buffer={buffer} height={trackHeight} offset={left} bufferId={bufferId}/>

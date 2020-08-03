@@ -49,6 +49,14 @@ function DebugRegion() {
             </TableRow>
             <TableRow>
               <TableCell>
+                Buffer Duration:
+              </TableCell>
+              <TableCell>
+                {audioBuffer?.duration ?? '-'} seconds
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
                 Buffer Pointer:
               </TableCell>
               <TableCell>
@@ -93,7 +101,7 @@ function DebugRegion() {
                 Start:
               </TableCell>
               <TableCell>
-                <TextField value={start} type={'number'} onChange={(e) => setStart(parseInt(e.target.value))} />
+                <TextField value={start} type={'number'} onChange={(e) => setStart(parseFloat(e.target.value))} />
               </TableCell>
             </TableRow>
             <TableRow>
@@ -101,7 +109,7 @@ function DebugRegion() {
                 Trim Start:
               </TableCell>
               <TableCell>
-                <TextField value={trimStart} type={'number'} onChange={(e) => setTrimStart(parseInt(e.target.value))} />
+                <TextField value={trimStart} type={'number'} onChange={(e) => setTrimStart(parseFloat(e.target.value))} />
               </TableCell>
             </TableRow>
             <TableRow>
@@ -109,7 +117,7 @@ function DebugRegion() {
                 Trim End:
               </TableCell>
               <TableCell>
-                <TextField value={trimEnd} type={'number'} onChange={(e) => setTrimEnd(parseInt(e.target.value))} />
+                <TextField value={trimEnd} type={'number'} onChange={(e) => setTrimEnd(parseFloat(e.target.value))} />
               </TableCell>
             </TableRow>
           </TableContainer>

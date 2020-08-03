@@ -49,8 +49,7 @@ function DebugChannel() {
                 Type:
               </TableCell>
               <TableCell>
-                {channelTypeMap[type]!.icon}
-                <Typography variant={'overline'}>{channelTypeMap[type]!.name}</Typography>
+                <Typography variant={'overline'}>{channelTypeMap[type]!.icon} {channelTypeMap[type]!.name}</Typography>
               </TableCell>
             </TableRow>
             <TableRow>

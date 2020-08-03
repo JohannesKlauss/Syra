@@ -3,11 +3,12 @@ import React, { HTMLAttributes } from 'react';
 
 interface BaseContainerProps {
   isMuted: boolean;
+  isMoving: boolean;
   left: number;
 }
 
 export const BaseContainer = styled(
-  ({ isMuted, left, ...other }: BaseContainerProps & Omit<PaperProps, keyof BaseContainerProps>) =>
+  ({ isMuted, isMoving, left, ...other }: BaseContainerProps & Omit<PaperProps, keyof BaseContainerProps>) =>
     <Paper {...other} />,
 )({
   margin: 0,
@@ -18,6 +19,7 @@ export const BaseContainer = styled(
   opacity: ({ isMuted }: BaseContainerProps) => isMuted ? 0.5 : 1,
   left: ({ left }: BaseContainerProps) => left,
   border: `2px solid white`,
+  zIndex: ({isMoving}: BaseContainerProps) => isMoving ? 10 : 1,
   '&:focus': {
     outline: 'none',
   },

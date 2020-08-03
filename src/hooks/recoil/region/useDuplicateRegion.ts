@@ -24,5 +24,5 @@ export default function useDuplicateRegion(originalRegionId: string) {
     set(regionStore.ids(channelId), currVal => [...currVal, newRegionId]);
 
     return newRegionId;
-  }, [originalRegionId, channelId, audioBufferPointer]);
+  }, [originalRegionId, channelId, audioBufferPointer, originalState]);
 }
