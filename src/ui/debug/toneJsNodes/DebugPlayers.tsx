@@ -28,6 +28,15 @@ function DebugPlayers() {
 
   const { players } = useToneAudioNodes();
 
+  if (!players.has(regionId)) {
+    return (
+      <>
+        <ErrorOutlineIcon color={'secondary'}/>
+        <Typography variant={'overline'}>No Player assigned to this region</Typography>
+      </>
+    )
+  }
+
   return (
     <>
       <Grid container spacing={3}>

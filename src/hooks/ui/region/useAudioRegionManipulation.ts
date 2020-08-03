@@ -74,13 +74,13 @@ export default function useAudioRegionManipulation() {
     setDeltaXMove(0);
   }, [setDeltaXTrimStart, setDeltaXTrimEnd, setDeltaXMove]);
 
- return useMemo(() => ({
-    left,
-    width,
-    onChangeTrimStart,
-    onChangeTrimEnd,
-    onChangeMove,
-    onMouseUp,
-    paddingLeft,
-  }), [left, width, onChangeTrimStart, onChangeTrimEnd, onChangeMove, onMouseUp, paddingLeft]);
+ return {
+   left,
+   width,
+   onChangeTrimStart,
+   onChangeTrimEnd,
+   onChangeMove,
+   onMouseUp,
+   paddingLeft,
+ };
 }

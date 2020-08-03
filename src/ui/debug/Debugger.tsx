@@ -7,6 +7,7 @@ import { ChannelContext } from '../../providers/ChannelContext';
 import { RegionContext } from '../../providers/RegionContext';
 import DebugNodes from './DebugNodes';
 import DebugChannel from './recoil/DebugChannel';
+import DebugRegion from './recoil/DebugRegion';
 
 function Debugger() {
   const [selectedChannelId, setSelectedChannelId] = useState('');
@@ -46,7 +47,6 @@ function Debugger() {
               {channelIds.map(id => <MenuItem value={id} key={id}>{id}</MenuItem>)}
             </Select>
           </FormControl>
-
         </Grid>
         <Grid item sm={6}>
           <FormControl>
@@ -56,14 +56,15 @@ function Debugger() {
               {regionIds.map(id => <MenuItem value={id} key={id}>{id}</MenuItem>)}
             </Select>
           </FormControl>
-
         </Grid>
         <ChannelContext.Provider value={selectedChannelId}>
           <Grid item sm={6}>
             <DebugChannel/>
           </Grid>
-
           <RegionContext.Provider value={selectedRegionId}>
+            <Grid item sm={6}>
+              <DebugRegion/>
+            </Grid>
             <Grid item sm={12}>
               {selectedRegionId !== '' && <DebugNodes/>}
             </Grid>

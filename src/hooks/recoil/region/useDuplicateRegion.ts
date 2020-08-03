@@ -14,9 +14,6 @@ export default function useDuplicateRegion(originalRegionId: string) {
   return useRecoilCallback(({set}) => () => {
     const newRegionId = createNewId(REGION_ID_PREFIX);
 
-    console.log('duplicate');
-    console.log(originalRegionId, newRegionId);
-
     set(regionStore.audioBufferPointer(newRegionId), audioBufferPointer);
     set(regionStore.start(newRegionId), originalState.start);
     set(regionStore.isSolo(newRegionId), originalState.isSolo);
@@ -27,5 +24,5 @@ export default function useDuplicateRegion(originalRegionId: string) {
     set(regionStore.ids(channelId), currVal => [...currVal, newRegionId]);
 
     return newRegionId;
-  }, [originalRegionId, channelId]);
+  }, [originalRegionId, channelId, audioBufferPointer]);
 }

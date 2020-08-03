@@ -46,8 +46,6 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
   const currentScrollPos = useRef(0);
 
   if (audioBuffer.current instanceof AudioBuffer && waveformPointCloud.length === 0 && completeWidth > 0) {
-    console.log('create waveform');
-
     setWaveformPointCloud(createWindowedWaveformV2(audioBuffer.current, completeWidth, height, smoothing));
   }
 
