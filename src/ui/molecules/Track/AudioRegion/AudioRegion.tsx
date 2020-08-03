@@ -37,6 +37,7 @@ function AudioRegion() {
   const bufferId = useRecoilValue(regionStore.audioBufferPointer(regionId));
   const trimStart = useRecoilValue(regionStore.trimStart(regionId));
   const setStart = useSetRecoilState(regionStore.start(regionId));
+  const waveformSmoothing = useRecoilValue(arrangeWindowStore.waveformSmoothing);
   const editMode = useRecoilValue(arrangeWindowStore.editMode);
   const color = useRegionColor(false);
   const completeWidth = useRegionWidth();
@@ -97,7 +98,7 @@ function AudioRegion() {
       <BaseContainer isMuted={isMuted} left={left} onMouseDown={onMoveStart} innerRef={ref} onClick={onClick} isMoving={isMoving}>
         <RegionFirstLoop width={width} color={color}>
           <WindowedWaveform paddingLeft={paddingLeft} completeWidth={completeWidth - 4} color={determineTextColor(color)}
-                            smoothing={3} buffer={buffer} height={trackHeight} offset={left} bufferId={bufferId}/>
+                            smoothing={waveformSmoothing} buffer={buffer} height={trackHeight} offset={left} bufferId={bufferId}/>
           <TrimStartHandle onChange={onChangeTrimStart} onMouseUp={onMouseUp}/>
           <TrimEndHandle onChange={onChangeTrimEnd} onMouseUp={onMouseUp}/>
         </RegionFirstLoop>

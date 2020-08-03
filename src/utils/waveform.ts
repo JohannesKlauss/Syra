@@ -54,7 +54,7 @@ export function windowedWaveformAlgorithm(audioBuffer: AudioBuffer, steps: numbe
 }
 
 export function createWindowedWaveformV2(audioBuffer: AudioBuffer, width: number, height: number, smoothing: number = 2) {
-  const steps = Math.ceil(width / smoothing);
+  const steps = Math.ceil(width / smoothing) + 1;
   const peakValues = windowedWaveformAlgorithm(audioBuffer, steps);
 
   return createPointCloud(peakValues, smoothing, height / 2);

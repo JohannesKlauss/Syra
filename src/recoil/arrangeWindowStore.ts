@@ -8,6 +8,11 @@ import {
 import { EditMode } from '../types/RegionManipulation';
 import { RefObject } from 'react';
 
+const waveformSmoothing = atom({
+  key: 'arrangeWindow/waveformSmoothing',
+  default: 3,
+})
+
 const viewportWidth = atom({
   key: 'arrangeWindow/viewportWidth',
   default: 0,
@@ -122,6 +127,7 @@ const rulerItems = selector({
 });
 
 export const arrangeWindowStore = {
+  waveformSmoothing,
   viewportWidth,
   ref,
   editMode,

@@ -16,6 +16,7 @@ function ClonedAudioRegion() {
   const buffer = useRecoilValue(regionStore.audioBuffer(regionId));
   const bufferId = useRecoilValue(regionStore.audioBufferPointer(regionId));
   const completeWidth = useRegionWidth();
+  const waveformSmoothing = useRecoilValue(arrangeWindowStore.waveformSmoothing);
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
 
   const {left, width, paddingLeft} = useStaticRegionPosition();
@@ -24,7 +25,7 @@ function ClonedAudioRegion() {
     <BaseContainer isMuted={isMuted} left={left} isMoving={false}>
       <RegionFirstLoop width={width} color={theme.palette.background.paper}>
         <WindowedWaveform paddingLeft={paddingLeft} completeWidth={completeWidth - 4} color={theme.palette.background.default}
-                          smoothing={3} buffer={buffer} height={trackHeight} offset={left} bufferId={bufferId}/>
+                          smoothing={waveformSmoothing} buffer={buffer} height={trackHeight} offset={left} bufferId={bufferId}/>
       </RegionFirstLoop>
     </BaseContainer>
   );
