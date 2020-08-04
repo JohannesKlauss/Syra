@@ -26,7 +26,7 @@ function Debugger() {
     if (selectedRegionId === '' && regionIds.length > 0) {
       setSelectedRegionId(regionIds[0]);
     }
-  }, [selectedChannelId, regionIds]);
+  }, [selectedChannelId, regionIds, selectedRegionId]);
 
   return (
     <Container maxWidth={'xl'}>

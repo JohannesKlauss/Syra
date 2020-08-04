@@ -59,6 +59,7 @@
     "cypress": "4.11.0",
     "cypress-file-upload": "4.0.7",
     "prettier": "2.0.5",
+    "recoilize": "0.1.1",
     "typescript": "3.9.7"
   },
   "scripts": {
@@ -131,7 +132,8 @@
       "@typescript-eslint/no-empty-interface": 0,
       "@typescript-eslint/no-var-requires": 0,
       "react": [
-        "warn", {
+        "warn",
+        {
           "additionalHooks": "useRecoilCallback"
         }
       ]

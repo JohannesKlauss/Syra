@@ -66,7 +66,7 @@ function AudioRegion() {
 
       return newVal;
     });
-  }, [setStart, onMouseUp, pixelToSeconds, trimStart, setIsMoving, duplicateRegion]);
+  }, [setStart, onMouseUp, pixelToSeconds, trimStart, setIsMoving, duplicateRegion, isPressed]);
 
   const deltaXTracker = useDeltaXTracker(onChangeMove, onMoveEnd);
 
@@ -83,7 +83,7 @@ function AudioRegion() {
 
       cutRegion(pixelToSeconds(e.clientX - e.target.getBoundingClientRect().left));
     }
-  }, [editMode, cutRegion, cutRegion, pixelToSeconds]);
+  }, [editMode, cutRegion, cutRegion, pixelToSeconds, cutRegion]);
 
   const ref = useHotkeys('ctrl+m', () => setIsMuted(currVal => !currVal));
 

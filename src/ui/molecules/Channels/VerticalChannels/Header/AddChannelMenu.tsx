@@ -36,7 +36,7 @@ function AddChannelMenu() {
         onClose={handleClose}
       >
           {actions.map(action => (
-            <MenuItem onClick={() => onClick(action.type)}>
+            <MenuItem onClick={() => onClick(action.type)} key={action.type}>
               <ListItemIcon>
                 {action.icon}
               </ListItemIcon>
