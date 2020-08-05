@@ -22,12 +22,17 @@ export const CustomTypography = styled(
 )({
   color: ({channelColor}: CustomTypographyProps) => channelColor ? determineTextColor(channelColor) : 'white',
   userSelect: 'none',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
 });
 
 export const ChannelNameContainer = styled(
   ({ channelColor, ...other }: CustomTypographyProps & Omit<PaperProps, keyof CustomTypographyProps>) => <Paper {...other} />,
 )({
   backgroundColor: ({channelColor}: CustomTypographyProps) => channelColor ?? 'transparent',
+  whiteSpace: 'nowrap',
+  paddingLeft: 5,
+  paddingRight: 5,
 });
 
 interface Props {

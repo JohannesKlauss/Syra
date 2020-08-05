@@ -1,4 +1,5 @@
 export const routes = {
-  Editor: '/',
+  LandingPage: '/',
+  Editor: '/syra',
   NewProject: '/new',
 }

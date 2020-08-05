@@ -12,12 +12,12 @@ import { transportStore } from '../../../recoil/transportStore';
 import { useHotkeys } from 'react-hotkeys-hook';
 import useSecondsToPixel from '../../../hooks/ui/useSecondsToPixel';
 import { buttonInfo } from '../../../utils/text';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 const BaseContainer = styled(Box)({
   marginLeft: 20,
   marginRight: 20,
   flex: 1,
+  display: 'flex',
 });
 
 function PlayRecord() {

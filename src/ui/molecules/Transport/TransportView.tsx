@@ -10,6 +10,7 @@ import TimeInformation from './TimeInformation';
 const BaseContainer = styled(Container)(({theme}) => ({
   overflow: 'hidden',
   width: '100%',
+  maxWidth: '100%',
   display: 'flex',
   justifyContent: 'center',
   padding: '5px 0',
@@ -31,6 +32,8 @@ function TransportView() {
       <TimeInformation/>
       <RightPane>
         <Click/>
+      </RightPane>
+      <RightPane>
         <Bpm/>
         <TimeSignature/>
       </RightPane>

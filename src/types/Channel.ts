@@ -6,3 +6,12 @@ export enum ChannelType {
   VCA_GROUP,
   MIX_GROUP,
 }
+
+export enum ChannelNode {
+  CHANNEL_ID = 'channelId',
+  MERGE = 'merge',
+  PLAYERS = 'players',
+  AUDIO_IN = 'audioIn',
+  CHANNEL = 'channel',
+  METER = 'meter',
+}

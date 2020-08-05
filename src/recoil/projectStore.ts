@@ -11,6 +11,11 @@ const bpm = atom({
   default: 120
 });
 
+const lastAnalyzedBpmFromImport = atom<number | null>({
+  key: 'project/lastAnalyzedBpmFromImport',
+  default: null,
+})
+
 // The project length in bars. At 120 bpm 240 bars equal 7:00 minutes.
 // TODO: THIS SHOULD BE AN ARRAY OF OBJECTS SO WE CAN CHANGE THE BPM DURING THE PROJECT.
 const length = atom({
@@ -39,4 +44,5 @@ export const projectStore = {
   length,
   timeSignature,
   isClickMuted,
+  lastAnalyzedBpmFromImport,
 };
