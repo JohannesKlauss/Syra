@@ -1,15 +1,15 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useRef } from 'react';
 import { styled, Typography } from '@material-ui/core';
 import { useDropzone } from 'react-dropzone';
-import { ChannelType } from '../../../types/Channel';
 import useIsDragOnDocument from '../../../hooks/ui/useIsDragOnDocument';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useScrollPosition from '../../../hooks/ui/useScrollPosition';
-import useCreateChannel from '../../../hooks/recoil/channel/useCreateChannel';
-import useCreateRegion from '../../../hooks/recoil/region/useCreateRegion';
+import useOnDropTrack from '../../../hooks/ui/arrangeGrid/useOnDropTrack';
+import { projectStore } from '../../../recoil/projectStore';
+import InfoAction from '../../organisms/InfoAction';
 
-const BaseContainer = styled('div')(({theme}) => ({
+const BaseContainer = styled('div')(({ theme }) => ({
   width: 'calc(100vw - 230px)',
   height: 70,
   display: 'flex',
@@ -23,35 +23,44 @@ const BaseContainer = styled('div')(({theme}) => ({
   userSelect: 'none',
   '&:focus': {
     outline: 'none',
-  }
+  },
 }));
 
 function DropTrack() {
-  const createChannel = useCreateChannel();
-  const createRegion = useCreateRegion();
+  const onDrop = useOnDropTrack();
   const isDragOnDocument = useIsDragOnDocument();
   const ref = useRef<HTMLDivElement>(null);
   const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
+
   useScrollPosition((pos) => {
     ref.current && ref.current.style.setProperty('transform', `translateX(${pos}px)`);
   }, [ref, arrangeWindowRef], arrangeWindowRef);
 
-  const onDrop = useCallback(async (files: File[]) => {
-    files.forEach((file, i) => {
-      (async () => {
-        const channelId = await createChannel(ChannelType.AUDIO, i, file.name.split('.')[0]);
-        await createRegion(channelId, file, 0);
-      })();
-    });
-  }, [createChannel, createRegion]);
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
+  const [bpm, setBpm] = useRecoilState(projectStore.bpm);
+  const [lastAnalyzedBpmFromImport, setLastAnalyzedBpmFromImport] = useRecoilState(projectStore.lastAnalyzedBpmFromImport);
+
+  const isInfoActionOpen = lastAnalyzedBpmFromImport !== null && bpm !== lastAnalyzedBpmFromImport;
+
+  const text = `Your imported track has a tempo of ${lastAnalyzedBpmFromImport}bpm. Would you like to update your project?`;
+
   return (
-    <BaseContainer {...getRootProps()} data-cy={'drop-track-zone'} ref={ref}>
-      <input {...getInputProps()} data-cy={'drop-track-input'}/>
-      <Typography variant="overline" color={isDragOnDocument ? 'primary' : 'initial'}
-                  display="block">Drop audio here to add new track</Typography>
-    </BaseContainer>
+    <>
+      <BaseContainer {...getRootProps()} data-cy={'drop-track-zone'} ref={ref}>
+        <input {...getInputProps()} data-cy={'drop-track-input'}/>
+        <Typography variant="overline" color={isDragOnDocument ? 'primary' : 'initial'}
+                    display="block">Drop audio here to add new track</Typography>
+      </BaseContainer>
+
+      <InfoAction severity={'info'} open={isInfoActionOpen} text={text}
+                  onCancel={() => setLastAnalyzedBpmFromImport(null)}
+                  onConfirm={() => {
+                    setBpm(lastAnalyzedBpmFromImport!);
+                    setLastAnalyzedBpmFromImport(null);
+                  }}
+      />
+    </>
   );
 }
 
