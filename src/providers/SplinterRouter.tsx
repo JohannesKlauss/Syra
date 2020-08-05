@@ -11,7 +11,7 @@ function SplinterRouter() {
   console.log('ac', audioContext.state);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter >
       <Switch>
         <Route path={routes.NewProject}>
           <NewProject/>
