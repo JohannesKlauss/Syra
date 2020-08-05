@@ -72,7 +72,7 @@ function TopBar() {
 
   return (
     <div>
-      <AppBar position="static" color={'transparent'}>
+      <AppBar color={'transparent'}>
         <Toolbar>
           <Typography variant="h6" noWrap>
             Syra

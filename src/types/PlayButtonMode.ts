@@ -1,0 +1,5 @@
+export enum PlayButtonMode {
+  START_AT_CYCLE,
+  START_AT_SELECTED_REGION,
+  STARt_AT_LAST_SET_CURSOR_POSITION,
+}

@@ -78,7 +78,7 @@ function PlayRecord() {
         <SkipPreviousIcon/>
       </IconButton>
       <IconButton color={'primary'} component="span" onClick={onClickPlayPause} title={buttonInfo('Play and Pause project', 'Space')}>
-        {isPlaying ? <PauseIcon/> : <><PlayArrowIcon/><ArrowDropDownIcon/></>}
+        {isPlaying ? <PauseIcon/> : <PlayArrowIcon/>}
       </IconButton>
       <IconButton color={'secondary'} component="span" onClick={onClickRecord} title={buttonInfo('Start and Stop recording', 'R')}>
         {isRecording ? <StopIcon/> : <FiberManualRecordIcon/>}

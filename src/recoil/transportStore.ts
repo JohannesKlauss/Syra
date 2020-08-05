@@ -1,5 +1,6 @@
 import { atom, selector } from 'recoil/dist';
 import * as Tone from 'tone';
+import { PlayButtonMode } from '../types/PlayButtonMode';
 
 // Internal atoms are just used to sync everything with the transport itself. Never expose them to the rest of the app.
 
@@ -76,6 +77,11 @@ const isPlaying = atom<boolean>({
   default: false,
 });
 
+const playButtonModes = atom<PlayButtonMode[]>({
+  key: 'transport/playButtonModes',
+  default: [],
+});
+
 export const transportStore = {
   seconds,
   cycleStart,
@@ -83,4 +89,5 @@ export const transportStore = {
   isCycleActive,
   isRecording,
   isPlaying,
+  playButtonModes,
 };

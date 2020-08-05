@@ -8,12 +8,13 @@ import useListenForExternalMidiIn from '../../../hooks/midi/useListenForExternal
 import useUpdateMidiStore from '../../../hooks/midi/useUpdateMidiStore';
 import { ARRANGE_GRID_CHANNEL_LIST_GAP } from '../../../const/ui';
 
-const BaseContainer = styled(Container)(({theme}) => ({
+const BaseContainer = styled(Container)(({ theme }) => ({
   width: '100%',
   maxHeight: '45vh',
   padding: '5px 0',
   overflow: 'hidden',
   backgroundColor: theme.palette.background.paper,
+  boxShadow: theme.shadows[1],
 }));
 
 const Flexer = styled('div')({
@@ -22,7 +23,7 @@ const Flexer = styled('div')({
   overflow: 'auto',
 });
 
-const RightPane = styled(Box)(({theme}) => ({
+const RightPane = styled(Box)(({ theme }) => ({
   width: '100%',
   overflowX: 'auto',
   height: '100%',
