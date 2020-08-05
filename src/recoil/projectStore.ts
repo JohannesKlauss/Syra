@@ -1,6 +1,11 @@
 import { atom } from 'recoil/dist';
 import { TimeSignature } from '../types/Music';
 
+const name = atom({
+  key: 'project/name',
+  default: 'New Project',
+});
+
 const bpm = atom({
   key: 'project/bpm',
   default: 120
@@ -29,6 +34,7 @@ const isClickMuted = atom<boolean>({
 });
 
 export const projectStore = {
+  name,
   bpm,
   length,
   timeSignature,

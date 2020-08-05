@@ -11,4 +11,24 @@ export const splinterTheme = unstable_createMuiStrictModeTheme({
       main: deepOrange[900],
     },
   },
+  typography: {
+    h1: {
+      fontWeight: 100,
+    },
+    h2: {
+      fontWeight: 100,
+    },
+    h3: {
+      fontWeight: 100,
+    },
+    h4: {
+      fontWeight: 100,
+    },
+    h5: {
+      fontWeight: 100,
+    },
+    h6: {
+      fontWeight: 300,
+    },
+  },
 });
