@@ -12,10 +12,10 @@ export default function useToneAudioNodes() {
   const factory = toneJsFactory(toneJsMapState);
 
   return {
-    merge: factory(Tone.Merge),
-    players: factory(Tone.Players),
-    channel: factory(Tone.Channel),
-    audioIn: factory(Tone.UserMedia),
-    rmsMeter: factory(toneMeterFactory),
+    merge: factory(Tone.Merge, 'merge'),
+    players: factory(Tone.Players, 'players'),
+    channel: factory(Tone.Channel, 'channel'),
+    audioIn: factory(Tone.UserMedia, 'userMedia'),
+    rmsMeter: factory(toneMeterFactory, 'meter'),
   };
 }
