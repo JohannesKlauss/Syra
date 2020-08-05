@@ -8,6 +8,10 @@ export default function useListenForExternalMidiIn(onMidiEvent: OnMidiEvent) {
   const [midiDevice] = useRecoilState(keyboardMidiStore.selectedMidiDevice);
 
   useEffect(() => {
+    if (midiDevice === null) {
+      return;
+    }
+
     const input = WebMidi.getInputByName(midiDevice);
 
     if (input) {
