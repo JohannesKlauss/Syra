@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import {
   AppBar,
   Badge,
@@ -8,7 +8,7 @@ import {
   InputBase,
   Theme,
   Toolbar,
-  Typography, useTheme,
+  Typography,
 } from '@material-ui/core';
 import { projectStore } from '../../recoil/projectStore';
 import { useRecoilState } from 'recoil/dist';
@@ -17,8 +17,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles } from '@material-ui/core/styles';
-import { keyboardMidiStore } from '../../recoil/keyboardMidiStore';
-import WebMidi from 'webmidi';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,27 +70,6 @@ function TopBar() {
   const classes = useStyles();
   const [name, setName] = useRecoilState(projectStore.name);
 
-  const [midiDevice, setMidiDevice] = useRecoilState(keyboardMidiStore.selectedMidiDevice);
-  const [isMidiEnabled, setIsMidiEnabled] = useRecoilState(keyboardMidiStore.isMidiEnabled);
-
-  const onChangeMidiDevice = useCallback((event: React.ChangeEvent<{ value: unknown }>) => {
-    setMidiDevice(event.target.value as string);
-  }, [setMidiDevice]);
-
-  useEffect(() => {
-    WebMidi.enable(function(error) {
-      if (error === undefined) {
-        setIsMidiEnabled(true);
-      } else {
-        console.log('Could not enable MIDI');
-      }
-
-      if (WebMidi.inputs.length > 0) {
-        setMidiDevice(WebMidi.inputs[0].name);
-      }
-    });
-  });
-
   return (
     <div>
       <AppBar position="static" color={'transparent'}>
@@ -107,7 +84,10 @@ function TopBar() {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              onChange={e => setName(e.target.value)}
+              onChange={e => {
+                setName(e.target.value);
+                document.title = `Syra - ${e.target.value}`;
+              }}
             />
             <div className={classes.editIcon}>
               <EditIcon />
@@ -125,10 +105,7 @@ function TopBar() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              edge="end"
-              color="inherit"
-            >
+            <IconButton edge="end" color="inherit">
               <AccountCircle />
             </IconButton>
           </div>

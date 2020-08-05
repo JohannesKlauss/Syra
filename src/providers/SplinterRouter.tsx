@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from '../ui/screens/Home';
+import Editor from '../ui/screens/Editor';
 import NewProject from '../ui/screens/NewProject';
 import useAudioContext from '../hooks/audio/useAudioContext';
 
@@ -14,7 +14,7 @@ function SplinterRouter() {
       <BrowserRouter>
         <Switch>
           <Route path={"/"}>
-            <Home/>
+            <Editor/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -28,7 +28,7 @@ function SplinterRouter() {
           <NewProject/>
         </Route>
         <Route path={"/"}>
-          <Home/>
+          <Editor/>
         </Route>
       </Switch>
     </BrowserRouter>

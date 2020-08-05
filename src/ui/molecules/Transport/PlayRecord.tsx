@@ -10,10 +10,12 @@ import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { transportStore } from '../../../recoil/transportStore';
 import { useHotkeys } from 'react-hotkeys-hook';
+import useSecondsToPixel from '../../../hooks/ui/useSecondsToPixel';
 
 const BaseContainer = styled(Box)({
   marginLeft: 20,
   marginRight: 20,
+  flex: 1,
 });
 
 function PlayRecord() {
@@ -24,6 +26,7 @@ function PlayRecord() {
   const isCycleActive = useRecoilValue(transportStore.isCycleActive);
   const cycleStart = useRecoilValue(transportStore.cycleStart);
   const transport = useToneJsTransport();
+  const secondsToPixel = useSecondsToPixel();
 
   const onClickPlayPause = useCallback(() => {
     if (isRecording) {
@@ -34,6 +37,7 @@ function PlayRecord() {
       const pos = transport.seconds;
       transport.stop();
 
+      setPlayheadPosition(secondsToPixel(pos));
       setTransportSeconds(pos);
     } else {
       if (isCycleActive) {
