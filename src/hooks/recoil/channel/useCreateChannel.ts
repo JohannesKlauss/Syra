@@ -7,6 +7,7 @@ import { channelColors } from '../../../utils/channelColors';
 
 export default function useCreateChannel() {
   // The queueIndex state which file index of the dropped array is currently processed.
+  // This is only useful on drop or import actions. TODO: CONSIDER MOVING THIS TO THE LAST SPOT
   return useRecoilCallback(({set, snapshot}) => async (type: ChannelType, queueIndex: number = 0, channelName?: string, channelId?: string) => {
     const newChannelId = channelId ?? createNewId(CHANNEL_ID_PREFIX);
 

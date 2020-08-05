@@ -7,6 +7,7 @@ import { editorStore } from '../../../recoil/editorStore';
 import useUpdateView from '../../../hooks/recoil/editor/useUpdateView';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { View } from '../../../types/View';
+import { buttonInfo } from '../../../utils/text';
 
 const CustomTuneIcon = styled(TuneIcon)({
   transform: 'rotate(90deg)',
@@ -29,11 +30,11 @@ function ViewToggles() {
   return (
     <BaseContainer>
       <ButtonGroup variant={'text'} size={'small'}>
-        <Button size={'small'} onClick={() => updateView(View.PIANO_ROLL)}
+        <Button size={'small'} onClick={() => updateView(View.PIANO_ROLL)} title={buttonInfo('Toggle Piano roll', 'P')}
                 color={showPianoRoll ? 'primary' : 'default'}>
           <StraightenIcon/>
         </Button>
-        <Button size="small" onClick={() => updateView(View.MIXER)} color={showMixer ? 'primary' : 'default'}>
+        <Button size="small" onClick={() => updateView(View.MIXER)} color={showMixer ? 'primary' : 'default'} title={buttonInfo('Toggle Mixer', 'X')}>
           <CustomTuneIcon/>
         </Button>
       </ButtonGroup>

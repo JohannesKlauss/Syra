@@ -83,7 +83,7 @@ function AudioRegion() {
 
       cutRegion(pixelToSeconds(e.clientX - e.target.getBoundingClientRect().left));
     }
-  }, [editMode, cutRegion, cutRegion, pixelToSeconds, cutRegion]);
+  }, [editMode, cutRegion, pixelToSeconds]);
 
   const ref = useHotkeys('ctrl+m', () => setIsMuted(currVal => !currVal));
 

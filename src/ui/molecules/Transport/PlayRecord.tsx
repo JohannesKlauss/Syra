@@ -11,6 +11,8 @@ import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { transportStore } from '../../../recoil/transportStore';
 import { useHotkeys } from 'react-hotkeys-hook';
 import useSecondsToPixel from '../../../hooks/ui/useSecondsToPixel';
+import { buttonInfo } from '../../../utils/text';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 const BaseContainer = styled(Box)({
   marginLeft: 20,
@@ -48,7 +50,7 @@ function PlayRecord() {
     }
 
     setIsPlaying(currVal => !currVal);
-  }, [setIsPlaying, transport, isPlaying, isRecording, setTransportSeconds, cycleStart, isCycleActive]);
+  }, [setIsPlaying, transport, isPlaying, isRecording, setTransportSeconds, cycleStart, isCycleActive, secondsToPixel, setPlayheadPosition]);
 
   const onClickReset = useCallback(() => {
     setPlayheadPosition(1);
@@ -72,13 +74,13 @@ function PlayRecord() {
 
   return (
     <BaseContainer>
-      <IconButton color={'default'} component="span" onClick={onClickReset}>
+      <IconButton color={'default'} component="span" onClick={onClickReset} title={buttonInfo('Reset to project start', 'Return')}>
         <SkipPreviousIcon/>
       </IconButton>
-      <IconButton color={'primary'} component="span" onClick={onClickPlayPause}>
-        {isPlaying ? <PauseIcon/> : <PlayArrowIcon/>}
+      <IconButton color={'primary'} component="span" onClick={onClickPlayPause} title={buttonInfo('Play and Pause project', 'Space')}>
+        {isPlaying ? <PauseIcon/> : <><PlayArrowIcon/><ArrowDropDownIcon/></>}
       </IconButton>
-      <IconButton color={'secondary'} component="span" onClick={onClickRecord}>
+      <IconButton color={'secondary'} component="span" onClick={onClickRecord} title={buttonInfo('Start and Stop recording', 'R')}>
         {isRecording ? <StopIcon/> : <FiberManualRecordIcon/>}
       </IconButton>
     </BaseContainer>

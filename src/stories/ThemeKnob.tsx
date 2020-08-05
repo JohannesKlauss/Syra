@@ -24,9 +24,7 @@ export const ThemeKnob: React.FC = ({ children }) => {
     <ThemeProvider theme={themes[theme]}>
       <CssBaseline/>
       <RecoilRoot>
-        <div style={{ margin: '1rem', border: '1px solid white', height: '100%', position: 'relative' }}>
-          {children}
-        </div>
+        {children}
       </RecoilRoot>
     </ThemeProvider>
   );

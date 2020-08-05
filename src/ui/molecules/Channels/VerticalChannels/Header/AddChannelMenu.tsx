@@ -4,6 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import useAvailableChannels from '../../../../../hooks/ui/channels/useAvailableChannels';
 import useCreateChannel from '../../../../../hooks/recoil/channel/useCreateChannel';
 import { ChannelType } from '../../../../../types/Channel';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 function AddChannelMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -24,9 +25,12 @@ function AddChannelMenu() {
     await createChannel(type);
   };
 
+  useHotkeys('alt+cmd+a', () => {(async () => await createChannel(ChannelType.AUDIO))()});
+  useHotkeys('alt+cmd+s', () => {(async () => await createChannel(ChannelType.INSTRUMENT))()});
+
   return (
     <>
-      <IconButton onClick={handleClick} size={'small'}>
+      <IconButton onClick={handleClick} size={'small'} title={'Add Channel'}>
         <AddIcon/>
       </IconButton>
       <Menu
