@@ -5,6 +5,7 @@ import ZoomOutIcon from '@material-ui/icons/ZoomOut';
 import { useRecoilState } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { buttonInfo } from '../../../../utils/text';
 
 function RulerZoomInOut() {
   const [horizontalZoomLevel, setHorizontalZoomLevel] = useRecoilState(arrangeWindowStore.horizontalZoomLevel);
@@ -35,10 +36,10 @@ function RulerZoomInOut() {
 
   return (
     <ButtonGroup variant={'text'} size={'small'}>
-      <Button size={'small'} onClick={horizontalZoomIn} disabled={horizontalZoomLevel === 11}>
+      <Button size={'small'} onClick={horizontalZoomIn} disabled={horizontalZoomLevel === 11} title={buttonInfo('Vertical Zoom In', 'Cmd+Right')}>
         <ZoomInIcon/>
       </Button>
-      <Button size="small" onClick={horizontalZoomOut} disabled={horizontalZoomLevel === 1}>
+      <Button size="small" onClick={horizontalZoomOut} disabled={horizontalZoomLevel === 1} title={buttonInfo('Vertical Zoom Out', 'Cmd+Left')}>
         <ZoomOutIcon/>
       </Button>
     </ButtonGroup>

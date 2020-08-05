@@ -40,7 +40,7 @@ function ChannelName({backgroundColor}: Props) {
   const [isEditingName, setIsEditingName] = useState(false);
 
   return (
-    <ChannelNameContainer channelColor={backgroundColor}>
+    <ChannelNameContainer channelColor={backgroundColor} elevation={0}>
       {isEditingName
         ? <ClickAwayListener onClickAway={() => setIsEditingName(false)}>
           <TextField size={'small'} defaultValue={name} onChange={(e) => setName(e.target.value)}/>

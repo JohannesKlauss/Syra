@@ -1,34 +1,22 @@
 import React, { useCallback } from 'react';
-import { Container, Grid, Typography, Button, TextField } from '@material-ui/core';
-import { useHistory } from "react-router-dom";
-import * as Tone from 'tone';
-import { projectStore } from '../../recoil/projectStore';
-import { useRecoilState } from 'recoil/dist';
+import NewProjectDialog from '../organisms/dialogues/NewProjectDialog';
+import useProjectSetup from '../../hooks/recoil/project/useProjectSetup';
+import { ChannelType } from '../../types/Channel';
+import { useHistory } from 'react-router-dom';
+import { routes } from '../../const/routes';
 
 function NewProject() {
+  const setupProject = useProjectSetup();
   const history = useHistory();
-  const [name, setName] = useRecoilState(projectStore.name);
 
-  const onClick = useCallback(async () => {
-    await Tone.start();
+  const handleCreate = useCallback(async (channelType: ChannelType, numChannels: number) => {
+    await setupProject(channelType, numChannels);
 
-    history.push('/');
-  }, [history]);
+    history.push(routes.Editor);
+  }, [setupProject]);
 
   return (
-    <Container>
-      <Grid container spacing={3} alignItems={'center'} justify={'center'} alignContent={'center'}>
-        <Grid item sm={12}>
-          <Typography variant={'h4'} align={'center'}>New Syra Project</Typography>
-        </Grid>
-        <Grid item sm={6}>
-          <TextField label={'Project name'} value={name} onChange={e => setName(e.target.value)} fullWidth/>
-        </Grid>
-        <Grid item sm={6}>
-          <Button variant={'contained'} onClick={onClick}>Create new Project</Button>
-        </Grid>
-      </Grid>
-    </Container>
+    <NewProjectDialog open={true} onCreate={handleCreate} onCancel={() => window.close()}/>
   );
 }
 

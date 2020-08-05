@@ -1,34 +1,23 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from '../ui/screens/Home';
-import NewProject from '../ui/screens/NewProject';
+import Editor from '../ui/screens/Editor';
 import useAudioContext from '../hooks/audio/useAudioContext';
+import NewProject from '../ui/screens/NewProject';
+import { routes } from '../const/routes';
 
 function SplinterRouter() {
   const audioContext = useAudioContext();
 
   console.log('ac', audioContext.state);
 
-  if (process.env.NODE_ENV === 'development') {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route path={"/"}>
-            <Home/>
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    )
-  }
-
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={"/new"}>
+        <Route path={routes.NewProject}>
           <NewProject/>
         </Route>
-        <Route path={"/"}>
-          <Home/>
+        <Route path={routes.Editor}>
+          <Editor/>
         </Route>
       </Switch>
     </BrowserRouter>

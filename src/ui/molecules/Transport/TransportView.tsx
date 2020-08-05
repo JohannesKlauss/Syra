@@ -4,6 +4,8 @@ import PlayRecord from './PlayRecord';
 import Bpm from './Bpm';
 import TimeSignature from './TimeSignature';
 import Click from './Click';
+import ViewToggles from '../ViewToggles/ViewToggles';
+import TimeInformation from './TimeInformation';
 
 const BaseContainer = styled(Container)(({theme}) => ({
   overflow: 'hidden',
@@ -16,13 +18,22 @@ const BaseContainer = styled(Container)(({theme}) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
+const RightPane = styled('div')({
+  flex: 1,
+  display: 'flex',
+});
+
 function TransportView() {
   return (
     <BaseContainer>
+      <ViewToggles/>
       <PlayRecord/>
-      <Click/>
-      <Bpm/>
-      <TimeSignature/>
+      <TimeInformation/>
+      <RightPane>
+        <Click/>
+        <Bpm/>
+        <TimeSignature/>
+      </RightPane>
     </BaseContainer>
   );
 }
