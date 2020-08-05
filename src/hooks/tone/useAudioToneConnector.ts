@@ -35,11 +35,15 @@ export default function useAudioToneConnector() {
         return;
       }
 
-      if (isArmed) {
-        await audioIn.open();
-      }
-      else {
-        audioIn.close();
+      try {
+        if (isArmed) {
+          await audioIn.open();
+        }
+        else {
+          audioIn.close();
+        }
+      } catch(e) {
+        console.error("Could not open Audio Input", e);
       }
 
       const pluginNodes = activePlugins.map(plugin => plugin.audioNode);
