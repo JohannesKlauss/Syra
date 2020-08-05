@@ -57,7 +57,7 @@
     "@types/react-router-dom": "5.1.5",
     "@types/uniqid": "5.2.0",
     "@welldone-software/why-did-you-render": "4.2.7",
-    "cypress": "4.12.0",
+    "cypress": "4.12.1",
     "cypress-file-upload": "4.0.7",
     "prettier": "2.0.5",
     "recoilize": "0.1.1",
