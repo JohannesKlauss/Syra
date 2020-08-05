@@ -3,7 +3,7 @@ import { TimeSignature } from '../types/Music';
 
 const name = atom({
   key: 'project/name',
-  default: 'New Project',
+  default: 'New Syra Project',
 });
 
 const bpm = atom({
