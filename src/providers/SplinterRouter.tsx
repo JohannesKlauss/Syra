@@ -1,15 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Editor from '../ui/screens/Editor';
-import useAudioContext from '../hooks/audio/useAudioContext';
 import NewProject from '../ui/screens/NewProject';
 import { routes } from '../const/routes';
+import LandingPageDecider from '../ui/screens/LandingPageDecider';
 
 function SplinterRouter() {
-  const audioContext = useAudioContext();
-
-  console.log('ac', audioContext.state);
-
   return (
     <BrowserRouter >
       <Switch>
@@ -18,6 +14,9 @@ function SplinterRouter() {
         </Route>
         <Route path={routes.Editor}>
           <Editor/>
+        </Route>
+        <Route path={routes.LandingPage}>
+          <LandingPageDecider/>
         </Route>
       </Switch>
     </BrowserRouter>

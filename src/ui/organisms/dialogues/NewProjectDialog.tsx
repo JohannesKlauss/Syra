@@ -45,7 +45,7 @@ function NewProjectDialog({onCreate, open, onCancel}: Props) {
 
   return (
     <Dialog open={open}>
-      <DialogTitle>Welcome To Syra - Create New Project</DialogTitle>
+      <DialogTitle>Welcome To Syra - Create a new Project</DialogTitle>
       <DialogContent>
         <DialogContentText>
           <Typography variant={'body2'}>

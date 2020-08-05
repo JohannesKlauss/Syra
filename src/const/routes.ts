@@ -1,5 +1,5 @@
 export const routes = {
-  LandingPage: process.env.NODE_ENV === 'development' ? '/syra' : '/new',
+  LandingPage: '/',
   Editor: '/syra',
   NewProject: '/new',
 }
