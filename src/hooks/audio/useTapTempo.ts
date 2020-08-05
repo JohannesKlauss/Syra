@@ -7,7 +7,6 @@ function calcTapTempo(defaultTempo: number = 120) {
   let xsum  = 0;
   let xxsum = 0;
   let ysum  = 0;
-  let yysum = 0;
   let xysum = 0;
   
   function reset (currTime: number) {
@@ -16,13 +15,12 @@ function calcTapTempo(defaultTempo: number = 120) {
     xsum  = 0;
     xxsum = 0;
     ysum  = 0;
-    yysum = 0;
     xysum = 0;
   }
 
   function countBeat(currTime: number) {
     // Reset tap tempo when there wasn't any input for 2 seconds.
-    if (startTime == undefined || currTime - startTime - beatTimes[beatTimes.length - 1] > 2000) {
+    if (startTime === undefined || currTime - startTime - beatTimes[beatTimes.length - 1] > 2000) {
       reset(currTime);
     }
 
@@ -36,7 +34,6 @@ function calcTapTempo(defaultTempo: number = 120) {
     xsum  += x;
     xxsum += x * x;
     ysum  += y;
-    yysum += y * y;
     xysum += x * y;
 
     if (beatCount >= 2) {

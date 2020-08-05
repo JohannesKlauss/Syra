@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { RegionContext } from '../../../providers/RegionContext';
-import useToneAudioNodes from '../../../hooks/tone/useToneAudioNodes';
 import {
   Button,
   Checkbox,
@@ -17,16 +16,19 @@ import { regionStore } from '../../../recoil/regionStore';
 import CheckIcon from '@material-ui/icons/Check';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import CloseIcon from '@material-ui/icons/Close';
+import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
+import { ChannelContext } from '../../../providers/ChannelContext';
 
 function DebugPlayers() {
   const regionId = useContext(RegionContext);
+  const channelId = useContext(ChannelContext);
 
   const [isPlaying, setIsPlaying] = useState(false);
 
   const audioBufferPointer = useRecoilValue(regionStore.audioBufferPointer(regionId));
   const audioBuffer = useRecoilValue(regionStore.audioBuffer(regionId));
 
-  const { players } = useToneAudioNodes();
+  const { players } = useBackboneChannel(channelId);
 
   if (!players.has(regionId)) {
     return (

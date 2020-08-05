@@ -13,7 +13,7 @@ function NewProject() {
     await setupProject(channelType, numChannels);
 
     history.push(routes.Editor);
-  }, [setupProject]);
+  }, [setupProject, history]);
 
   return (
     <NewProjectDialog open={true} onCreate={handleCreate} onCancel={() => window.close()}/>

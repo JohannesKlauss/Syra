@@ -11,17 +11,17 @@ import ChannelLetterButtons from '../../ChannelLetterButtons';
 import { ChannelContext } from '../../../../../providers/ChannelContext';
 import { channelStore } from '../../../../../recoil/channelStore';
 import { useRecoilValue } from 'recoil/dist';
-import useToneAudioNodes from '../../../../../hooks/tone/useToneAudioNodes';
 import LevelMeterVertical from '../../../../atoms/Meter/LevelMeterVertical';
 import { ColoredDivider, SmrContainer } from './ChannelBody.styled';
 import ChannelName from '../../ChannelName';
+import useBackboneChannel from '../../../../../hooks/tone/BackboneMixer/useBackboneChannel';
 
 const ChannelBody: React.FC = React.memo(() => {
   const channelId = useContext(ChannelContext);
   const channelColor = useRecoilValue(channelStore.color(channelId));
   const [volumeFaderValue, setVolumeFaderValue] = useState(0);
 
-  const { channel } = useToneAudioNodes();
+  const { channel } = useBackboneChannel(channelId);
   const onChangePanOrVolume = useCallback(newProps => {
     channel.set(newProps);
 

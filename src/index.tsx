@@ -4,6 +4,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { RecoilRoot } from 'recoil/dist';
 import { audioSetup } from './audioSetup';
+import { BackboneMixerContext, instantiateMixer } from './providers/BackboneMixerContext';
 
 if (process.env.NODE_ENV === 'development') {
   const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -22,7 +23,9 @@ const root = document.getElementById('root');
 
 ReactDOM.render(
   <RecoilRoot>
-    <App/>
+    <BackboneMixerContext.Provider value={instantiateMixer()}>
+      <App/>
+    </BackboneMixerContext.Provider>
   </RecoilRoot>,
   root,
 );

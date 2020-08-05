@@ -1,13 +1,11 @@
-import { useContext, useEffect, useRef } from 'react';
-import { ChannelContext } from '../../providers/ChannelContext';
+import { useEffect, useRef } from 'react';
 import useAsyncRegionCreator from '../recoil/region/useAsyncRegionCreator';
 import { useRecoilValue } from 'recoil/dist';
 import { Recorder } from '../../audio/Recorder';
 import { channelStore } from '../../recoil/channelStore';
 import { transportStore } from '../../recoil/transportStore';
 
-export default function useRecorder() {
-  const channelId = useContext(ChannelContext);
+export default function useRecorder(channelId: string) {
   const isArmed = useRecoilValue(channelStore.isArmed(channelId));
   const createAsyncRegion = useAsyncRegionCreator(channelId);
   const isRecording = useRecoilValue(transportStore.isRecording);

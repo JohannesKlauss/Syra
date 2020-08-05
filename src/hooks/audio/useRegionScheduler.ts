@@ -1,11 +1,13 @@
 import { useContext, useEffect } from 'react';
 import { RegionContext } from '../../providers/RegionContext';
-import useToneAudioNodes from '../tone/useToneAudioNodes';
 import { useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../recoil/regionStore';
+import useBackboneChannel from '../tone/BackboneMixer/useBackboneChannel';
+import { ChannelContext } from '../../providers/ChannelContext';
 
 export default function useRegionScheduler() {
-  const { players } = useToneAudioNodes();
+  const channelId = useContext(ChannelContext);
+  const { players } = useBackboneChannel(channelId);
   const regionId = useContext(RegionContext);
   const { start, audioBuffer, isRecording, isMuted, trimEnd, trimStart } = useRecoilValue(regionStore.regionState(regionId));
 
