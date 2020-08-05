@@ -10,7 +10,7 @@ import { projectStore } from '../../../recoil/projectStore';
 export default function useCreateRegion() {
   const audioContext = useAudioContext();
 
-  return useRecoilCallback(({ set }) => async (channelId: string, file: File, start: number = 0, regionId?: string) => {
+  return useRecoilCallback(({ set }) => async (channelId: string, file: File, start: number = 0, analyzeTempo: boolean = false, regionId?: string) => {
     const newRegionId = regionId ?? createNewId(REGION_ID_PREFIX);
     const newBufferId = createNewId(BUFFER_ID_PREFIX);
 
@@ -24,17 +24,21 @@ export default function useCreateRegion() {
       set(regionStore.audioBufferPointer(newRegionId), newBufferId);
       set(regionStore.start(newRegionId), start);
 
-      let analyzedTempo: number | null = null;
+      if (analyzeTempo) {
+console.log('go into it');
+        // TODO: This could probably be its own hook.
+        let analyzedTempo: number | null = null;
 
-      try {
-        analyzedTempo = await analyze(audioBuffer);
-      } catch (e) {
-      }
+        try {
+          analyzedTempo = await analyze(audioBuffer);
+        } catch (e) {
+        }
 
-      if (analyzedTempo) {
-        analyzedTempo = Math.round(analyzedTempo * 100) / 100;
+        if (analyzedTempo) {
+          analyzedTempo = Math.round(analyzedTempo * 100) / 100;
 
-        set(projectStore.lastAnalyzedBpmFromImport, analyzedTempo);
+          set(projectStore.lastAnalyzedBpmFromImport, analyzedTempo);
+        }
       }
     }
   }, []);

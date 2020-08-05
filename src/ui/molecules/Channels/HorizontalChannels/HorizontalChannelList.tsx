@@ -12,11 +12,19 @@ const Container = styled(GridList)({
   overflowX: 'scroll',
 });
 
-const Flexer = styled('div')({
+const Flexer = styled('div')(({theme}) => ({
   display: 'flex',
   alignItems: 'flex-end',
-  marginTop: 20,
-});
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  background: theme.palette.background.default,
+  borderRadius: theme.shape.borderRadius,
+  paddingTop: 2,
+  borderTop: `2px solid ${theme.palette.info.light}`,
+  zIndex: 1,
+  width: '100%',
+}));
 
 function HorizontalChannelList() {
   const channels = useRecoilValue(channelStore.ids);

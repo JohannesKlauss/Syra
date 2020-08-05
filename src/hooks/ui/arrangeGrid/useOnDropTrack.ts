@@ -11,7 +11,7 @@ export default function useOnDropTrack() {
     files.forEach((file, i) => {
       (async () => {
         const channelId = await createChannel(ChannelType.AUDIO, i, file.name.split('.')[0]);
-        await createRegion(channelId, file, 0);
+        await createRegion(channelId, file, 0, i === 0);
       })();
     });
   }, [createChannel, createRegion]);

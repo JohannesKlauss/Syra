@@ -10,7 +10,7 @@ import { ARRANGE_GRID_CHANNEL_LIST_GAP } from '../../../const/ui';
 
 const BaseContainer = styled(Container)(({ theme }) => ({
   width: '100%',
-  maxHeight: '45vh',
+  maxHeight: 'calc(100vh - 64px)',
   padding: '5px 0',
   overflow: 'hidden',
   backgroundColor: theme.palette.background.paper,
@@ -19,7 +19,7 @@ const BaseContainer = styled(Container)(({ theme }) => ({
 
 const Flexer = styled('div')({
   display: 'flex',
-  maxHeight: 350,
+  maxHeight: 'calc(100vh - 163px)',
   overflow: 'auto',
 });
 
