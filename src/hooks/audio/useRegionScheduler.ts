@@ -15,6 +15,8 @@ export default function useRegionScheduler() {
       return;
     }
 
+    console.log('players', players);
+
     if (audioBuffer && !players.has(regionId)) {
       players.add(regionId, audioBuffer);
     }
