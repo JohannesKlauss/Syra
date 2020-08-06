@@ -32,7 +32,7 @@ const BaseContainer = styled('div')({
   top: 0,
   left: 0,
   cursor: 'text',
-  zIndex: 1,
+  zIndex: 10,
 });
 
 interface MarqueeIndicatorProps {
@@ -44,6 +44,7 @@ const MarqueeIndicator = styled(
 )<Theme, MarqueeIndicatorProps>(({left}) => ({
   borderLeft: `1px solid white`,
   height: '200%',
+  marginTop: 1,
   position: 'absolute',
   left,
   animation: 'marqueeBlink 1.2s infinite ease-in-out',
