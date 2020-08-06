@@ -12,6 +12,7 @@ import { transportStore } from '../../../recoil/transportStore';
 import { useHotkeys } from 'react-hotkeys-hook';
 import useSecondsToPixel from '../../../hooks/ui/useSecondsToPixel';
 import { buttonInfo } from '../../../utils/text';
+import useAudioContext from '../../../hooks/audio/useAudioContext';
 
 const BaseContainer = styled(Box)({
   marginLeft: 20,
@@ -21,6 +22,7 @@ const BaseContainer = styled(Box)({
 });
 
 function PlayRecord() {
+  const ctx = useAudioContext();
   const setPlayheadPosition = useSetRecoilState(arrangeWindowStore.playheadPosition);
   const [isRecording, setIsRecording] = useRecoilState(transportStore.isRecording);
   const [isPlaying, setIsPlaying] = useRecoilState(transportStore.isPlaying);
@@ -65,6 +67,7 @@ function PlayRecord() {
     else {
       setIsRecording(true);
       transport.start('+0.05');
+      const s = ctx.rawContext.currentTime;
     }
   }, [setIsRecording, isRecording, transport]);
 

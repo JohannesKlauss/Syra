@@ -17,6 +17,8 @@ export class Recorder {
 
   private startedAtContextTime: number = 0;
 
+  private dataTimeCorrelation: number[] = [];
+
   private offset: number = 0;
 
   constructor() {
@@ -27,11 +29,7 @@ export class Recorder {
       });
 
       this.mediaRecorder.addEventListener('dataavailable', (e: BlobEvent) => {
-        const s = Tone.getTransport().seconds;
-
-        if (s > this.startedAtTransportTime && this.offset === 0) {
-          this.offset = Tone.getContext().currentTime - this.startedAtContextTime;
-        }
+        this.dataTimeCorrelation.push(e.data.size, Tone.getContext().currentTime);
 
         if (e.data.size > 0) {
           this.recordedChunks.push(e.data);
@@ -48,7 +46,7 @@ export class Recorder {
       this.mediaRecorder.addEventListener('stop', () => {
         const data = new Blob(this.recordedChunks, { type: 'audio/webm' });
 
-        this.onComplete && this.onComplete(data, this.offset - 0.76); // Unsure if this is the actual system latency?
+        this.onComplete && this.onComplete(data, this.calcOffset() + 0.05 + 0.18); // Unsure if this is the actual roundtrip latency?
       });
     });
   }
@@ -61,13 +59,52 @@ export class Recorder {
     this.shouldStop = false;
     this.stopped = false;
     this.recordedChunks = [];
+    this.dataTimeCorrelation = [];
     this.offset = 0;
     this.startedAtContextTime = Tone.getContext().currentTime;
+    console.log('start recording', this.startedAtContextTime);
     this.startedAtTransportTime = Tone.getTransport().seconds;
     this.mediaRecorder?.start(callbackInterval);
   }
 
   stop() {
     this.shouldStop = true;
+  }
+
+  private calcOffset() {
+    const durationsPerCycle = [];
+
+    for (let i = 3; i < this.dataTimeCorrelation.length; i += 2) {
+      const prevTime = this.dataTimeCorrelation[i - 2];
+      const time = this.dataTimeCorrelation[i];
+
+      if (time > this.startedAtContextTime && prevTime > this.startedAtContextTime && prevTime !== 0 && time !== 0) {
+        durationsPerCycle.push(time - prevTime);
+      }
+    }
+
+    const meanDurationPerSample = durationsPerCycle.reduce((prev, curr) => prev + curr, 0) / durationsPerCycle.length;
+
+    console.log('meanDurationPerBlock', meanDurationPerSample);
+    console.log('block Length', meanDurationPerSample * durationsPerCycle.length);
+
+    let offset: number = 0;
+    let i: number = 1;
+
+    do {
+      const time = this.dataTimeCorrelation[i];
+
+      if (time > offset) {
+        offset = time - this.startedAtContextTime;
+
+        break;
+      }
+
+      i += 2;
+    } while(offset === 0);
+
+    console.log('offset', Math.max(offset - 1, 0));
+
+    return Math.max(offset - 1, 0);
   }
 }

@@ -12,6 +12,18 @@ function mixerNodeFactory<T extends Tone.ToneAudioNode>(nodes: Map<string, Tone.
   return nodes.get(nodeType)!;
 }
 
+function recorderFactory(nodes: Map<string, any>): AudioWorkletNode | null {
+  if (!nodes.has('recorder') || nodes.get('recorder') === null) {
+    try {
+      nodes.set('recorder', Tone.getContext().createAudioWorkletNode('recorder-worklet'));
+    } catch (e) {
+      nodes.set('recorder', null);
+    }
+  }
+
+  return nodes.get('recorder') as AudioWorkletNode | null;
+}
+
 export function instantiateMixer() {
   const channels = new Map<string, Map<string, any>>();
 
@@ -34,21 +46,28 @@ export function instantiateMixer() {
       players: mixerNodeFactory(nodes, ChannelNode.PLAYERS, Tone.Players) as Tone.Players,
       channel: mixerNodeFactory(nodes, ChannelNode.CHANNEL, Tone.Channel) as Tone.Channel,
       rmsMeter: mixerNodeFactory(nodes, ChannelNode.METER, Tone.Meter) as Tone.Meter,
+      recorder: recorderFactory(nodes),
     };
 
     const disconnect = () => {
       Tone.disconnect(retNodes.audioIn);
       Tone.disconnect(retNodes.players);
-      Tone.disconnect(retNodes.merge);
     };
 
     const rewireAudio = (plugins: AudioWorkletNode[]) => {
+      console.log('rewire');
+
       disconnect();
 
-      retNodes.audioIn.connect(retNodes.merge, 0, 0);
-      retNodes.players.connect(retNodes.merge, 0, 1);
+      const split = new Tone.Split(2);
 
-      Tone.connectSeries(retNodes.merge, ...plugins, retNodes.channel, retNodes.rmsMeter, Tone.Destination);
+      if (retNodes.recorder) {
+        Tone.connectSeries(retNodes.audioIn, retNodes.recorder);
+      } else {
+        // retNodes.audioIn.connect(Tone.Destination);
+      }
+
+      Tone.connect(retNodes.players, Tone.Destination);
     };
 
     const updateArming = async (isArmed: boolean = false) => {
