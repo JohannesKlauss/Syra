@@ -20,9 +20,7 @@ export const BaseContainer = styled(
   left: ({ left }: BaseContainerProps) => left,
   border: `2px solid white`,
   zIndex: ({isMoving}: BaseContainerProps) => isMoving ? 10 : 1,
-  '&:focus': {
-    outline: 'none',
-  },
+  
 });
 
 interface RegionFirstLoopProps {
@@ -37,8 +35,16 @@ export const RegionFirstLoop = styled(
 )({
   height: '100%',
   position: 'relative',
-  cursor: 'move',
   overflow: 'hidden',
   width: ({ width }: RegionFirstLoopProps) => width,
   backgroundColor: ({ color }: RegionFirstLoopProps) => color,
+});
+
+export const Manipulations = styled('div')({
+  height: '50%',
+  width: '100%',
+  position: 'absolute',
+  cursor: 'move',
+  bottom: 0,
+  left: 0,
 });
