@@ -1,5 +1,8 @@
-import { atomFamily, selectorFamily } from 'recoil/dist';
+import { atomFamily, selectorFamily, useRecoilValue } from 'recoil/dist';
 import { audioBufferStore } from './audioBufferStore';
+import useRegionWidth from '../hooks/ui/region/useRegionWidth';
+import useSecondsToPixel from '../hooks/ui/useSecondsToPixel';
+import { arrangeWindowStore } from './arrangeWindowStore';
 
 // Sets the time that region plays in relation to the transport.
 const start = atomFamily<number, string>({
@@ -101,6 +104,23 @@ const findByChannelId = selectorFamily<RegionState[], string>({
   get: channelId => ({get}) => get(ids(channelId)).map(id => get(regionState(id))),
 });
 
+// This returns the pixel boundaries of the region in relation to the channel track.
+const occupiedArea = selectorFamily<[number, number], string>({
+  key: 'region/occupiedArea',
+  get: regionId => ({get}) => {
+    const startVal = get(start(regionId));
+    const trimEndVal = get(trimEnd(regionId));
+    const trimStartVal = get(trimStart(regionId));
+    const audioBufferVal = get(audioBuffer(regionId));
+    const secondsToPixel = (seconds: number) => get(arrangeWindowStore.pixelPerSecond) * seconds
+
+    const initialWidth = secondsToPixel(audioBufferVal?.duration ?? 0);
+    const trimmedWidth = initialWidth - secondsToPixel(trimEndVal) - secondsToPixel(trimStartVal);
+
+    return [startVal, startVal + trimmedWidth];
+  }
+});
+
 export const regionStore = {
   start,
   audioBuffer,
@@ -115,4 +135,5 @@ export const regionStore = {
   findByIds,
   findIdsByChannelId,
   findByChannelId,
+  occupiedArea,
 };

@@ -125,7 +125,6 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
     });
   }, [viewportWidth, trimmedWidth, height, konvaStage]);
 
-  // Recalculate the wave form or get it from the debug cache.
   useEffect(() => {
     if (waveformPointCloud.length !== 0) {
       konvaPolygon.current.setAttr('points', waveformPointCloud);

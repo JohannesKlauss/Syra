@@ -1,6 +1,8 @@
 import { BucketTestingStrategy } from '../types/Ranges';
 import { linearRangeMapFactory } from './rangeMapper';
 
+// Input Bucket values refer to dB.
+// Output Bucket values refer to pixel height of the level meter.
 const buckets = [
   {
     inputRange: {

@@ -37,8 +37,8 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) 
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
   const isPressed = useIsHotkeyPressed();
   const [isMoving, setIsMoving] = useState(false);
-  const duplicateRegion = useDuplicateRegion(regionId);
-  const cutRegion = useCutRegion(regionId);
+  const duplicateRegion = useDuplicateRegion();
+  const cutRegion = useCutRegion();
 
   const { left, width, paddingLeft, onChangeTrimStart, onChangeTrimEnd, onChangeMove, onMouseUp } = useAudioRegionManipulation();
 
@@ -54,7 +54,7 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) 
     setIsMoving(false);
 
     if (isPressed('alt')) {
-      duplicateRegion();
+      duplicateRegion(regionId);
     }
 
     onMouseUp();
@@ -80,15 +80,13 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) 
 
   const onClick = useCallback((e) => {
     if (editMode === EditMode.CUT) {
-      console.log('cut at', pixelToSeconds(e.clientX - e.target.getBoundingClientRect().left));
-
-      cutRegion(pixelToSeconds(e.clientX - e.target.getBoundingClientRect().left));
+      cutRegion(regionId, pixelToSeconds(e.clientX - e.target.getBoundingClientRect().left));
     }
   }, [editMode, cutRegion, pixelToSeconds]);
 
   return (
     <RegionFirstLoop width={width} color={color}>
-      <WindowedWaveform paddingLeft={paddingLeft} completeWidth={completeWidth - 4} color={determineTextColor(color)}
+      <WindowedWaveform paddingLeft={paddingLeft} completeWidth={completeWidth} color={determineTextColor(color)}
                         smoothing={waveformSmoothing} buffer={buffer} height={trackHeight} offset={left}
                         bufferId={bufferId}/>
       <Manipulations onMouseDown={onMoveStart} onClick={onClick}>

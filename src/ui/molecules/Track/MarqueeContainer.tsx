@@ -5,6 +5,8 @@ import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
 import { styled, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ChannelContext } from '../../../providers/ChannelContext';
+import { useHotkeys } from 'react-hotkeys-hook';
+import useCutRegionAtMarqueeIndicator from '../../../hooks/recoil/track/useCutRegionAtMarqueeIndicator';
 
 const useStyles = makeStyles({
   '@global': {
@@ -59,6 +61,9 @@ function MarqueeContainer() {
   const [marqueeChannelPosition, setMarqueeChannelPosition] = useRecoilState(arrangeWindowStore.marqueeChannelPosition);
   const [marqueePosition, setMarqueePosition] = useRecoilState(arrangeWindowStore.marqueePosition);
   const calcSnappedX = useSnapCtrlPixelCalc();
+  const maybeCutRegion = useCutRegionAtMarqueeIndicator();
+
+  useHotkeys('b', maybeCutRegion);
 
   const onSetMarquee = useCallback((e) => {
     const y = e.clientY - e.target.getBoundingClientRect().top;

@@ -1,17 +1,17 @@
 import { useRecoilCallback, useRecoilValue } from 'recoil/dist';
-import { regionStore } from '../../../recoil/regionStore';
+import { RegionState, regionStore } from '../../../recoil/regionStore';
 import { useContext } from 'react';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { createNewId } from '../../../utils/createNewId';
 import { REGION_ID_PREFIX } from '../../../const/ids';
 
-export default function useDuplicateRegion(originalRegionId: string) {
+export default function useDuplicateRegion() {
   const channelId = useContext(ChannelContext);
 
-  const originalState = useRecoilValue(regionStore.regionState(originalRegionId));
-  const audioBufferPointer = useRecoilValue(regionStore.audioBufferPointer(originalRegionId));
+  return useRecoilCallback(({set, snapshot}) => (originalRegionId: string) => {
+    const originalState = snapshot.getLoadable(regionStore.regionState(originalRegionId)).contents as RegionState;
+    const audioBufferPointer = snapshot.getLoadable(regionStore.audioBufferPointer(originalRegionId)).contents as string;
 
-  return useRecoilCallback(({set}) => () => {
     const newRegionId = createNewId(REGION_ID_PREFIX);
 
     set(regionStore.audioBufferPointer(newRegionId), audioBufferPointer);
@@ -24,5 +24,5 @@ export default function useDuplicateRegion(originalRegionId: string) {
     set(regionStore.ids(channelId), currVal => [...currVal, newRegionId]);
 
     return newRegionId;
-  }, [originalRegionId, channelId, audioBufferPointer, originalState]);
+  }, [channelId]);
 }
