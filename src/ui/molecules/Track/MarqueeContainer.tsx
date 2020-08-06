@@ -47,7 +47,7 @@ const MarqueeIndicator = styled(
   marginTop: 1,
   position: 'absolute',
   left,
-  animation: 'marqueeBlink 1.2s infinite ease-in-out',
+  animation: 'marqueeBlink 1s infinite ease-in-out',
 }));
 
 function MarqueeContainer() {

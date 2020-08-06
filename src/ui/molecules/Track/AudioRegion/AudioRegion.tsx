@@ -38,7 +38,7 @@ function AudioRegion() {
   return (
     <>
       {isDuplicating && <ClonedAudioRegion/>}
-      <BaseContainer isMuted={isMuted} left={left} innerRef={hotkeysRef} isMoving={isMoving}>
+      <BaseContainer isMuted={isMuted} left={left} innerRef={hotkeysRef} isMoving={isMoving} tabIndex={-1}>
         <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)} onChangeIsMoving={isMoving => setIsMoving(isMoving)}/>
       </BaseContainer>
     </>

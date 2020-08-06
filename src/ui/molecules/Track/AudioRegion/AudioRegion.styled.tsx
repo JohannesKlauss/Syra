@@ -20,9 +20,7 @@ export const BaseContainer = styled(
   left: ({ left }: BaseContainerProps) => left,
   border: `2px solid white`,
   zIndex: ({isMoving}: BaseContainerProps) => isMoving ? 10 : 1,
-  '&:focus': {
-    outline: 'none',
-  },
+  
 });
 
 interface RegionFirstLoopProps {

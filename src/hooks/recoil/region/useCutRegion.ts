@@ -10,13 +10,13 @@ export default function useCutRegion(originalRegionId: string) {
 
   const originalState = useRecoilValue(regionStore.regionState(originalRegionId));
 
-  // cutAt is in seconds not pixel!
+  // cutAt is in seconds, not pixel!
   return useRecoilCallback(({set}) => (cutAt: number) => {
-    const slicePosition = (originalState.audioBuffer?.duration ?? 0) - originalState.trimStart - cutAt - originalState.trimEnd;
+    const slicePosition = originalState.trimStart + cutAt;
     const newRegionId = duplicateRegion();
 
     set(regionStore.trimEnd(originalRegionId), (originalState.audioBuffer?.duration ?? 0) - slicePosition);
-    set(regionStore.trimStart(newRegionId), originalState.trimStart + cutAt);
+    set(regionStore.trimStart(newRegionId), slicePosition);
 
     return newRegionId;
   }, [originalRegionId, channelId, duplicateRegion, originalState]);
