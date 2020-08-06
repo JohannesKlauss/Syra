@@ -1,7 +1,7 @@
 import { unstable_createMuiStrictModeTheme } from '@material-ui/core';
 import { deepOrange, orange } from '@material-ui/core/colors';
 
-export const splinterTheme = unstable_createMuiStrictModeTheme({
+export const defaultTheme = unstable_createMuiStrictModeTheme({
   palette: {
     type: 'dark',
     primary: {

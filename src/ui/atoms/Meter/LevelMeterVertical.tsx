@@ -47,10 +47,18 @@ function LevelMeterVertical() {
       layer.add(rms);
       stage.add(layer);
 
+      let max = -1000;
+
       const anim = new Konva.Animation(() => {
         const val = rmsMeter.getValue() as number
 
-        let rmsHeight = mapDbToUiMeterVal(rmsMeter.getValue() as number);
+        if (val > max) {
+          max = val;
+
+          console.log('val', val);
+        }
+
+        let rmsHeight = mapDbToUiMeterVal(val);
 
         if (isNaN(rmsHeight)) {
           rmsHeight = 0;

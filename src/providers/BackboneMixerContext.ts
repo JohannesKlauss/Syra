@@ -46,8 +46,6 @@ export function instantiateMixer() {
       disconnect();
 
       retNodes.audioIn.connect(retNodes.merge, 0, 0);
-      retNodes.audioIn.connect(retNodes.merge, 0, 1);
-      retNodes.players.connect(retNodes.merge, 0, 0);
       retNodes.players.connect(retNodes.merge, 0, 1);
 
       Tone.connectSeries(retNodes.merge, ...plugins, retNodes.channel, retNodes.rmsMeter, Tone.Destination);

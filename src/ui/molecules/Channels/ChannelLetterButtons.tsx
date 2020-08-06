@@ -9,7 +9,7 @@ const BUTTON_WIDTH = '33%';
 
 function ChannelLetterButtons() {
   const id = useContext(ChannelContext);
-  const isSplinterRecording = useRecoilValue(transportStore.isRecording);
+  const isDawRecording = useRecoilValue(transportStore.isRecording);
   const [isSolo, setIsSolo] = useRecoilState(channelStore.isSolo(id));
   const [isMuted, setIsMuted] = useRecoilState(channelStore.isMuted(id));
   const [isArmed, setIsArmed] = useRecoilState(channelStore.isArmed(id));
@@ -18,12 +18,12 @@ function ChannelLetterButtons() {
   const onClickMute = useCallback(() => setIsMuted(currVal => !currVal), [setIsMuted]);
 
   const onClickRecord = useCallback(() => {
-    if (isSplinterRecording) {
+    if (isDawRecording) {
       return;
     }
 
     setIsArmed(currVal => !currVal);
-  }, [setIsArmed, isSplinterRecording]);
+  }, [setIsArmed, isDawRecording]);
   
   return (
     <>

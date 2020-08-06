@@ -5,7 +5,7 @@ import NewProject from '../ui/screens/NewProject';
 import { routes } from '../const/routes';
 import LandingPageDecider from '../ui/screens/LandingPageDecider';
 
-function SplinterRouter() {
+function AppRouter() {
   return (
     <BrowserRouter >
       <Switch>
@@ -23,4 +23,4 @@ function SplinterRouter() {
   );
 }
 
-export default SplinterRouter;
+export default AppRouter;

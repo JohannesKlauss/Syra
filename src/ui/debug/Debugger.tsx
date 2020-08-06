@@ -32,7 +32,7 @@ function Debugger() {
     <Container maxWidth={'xl'}>
       <Grid container spacing={3}>
         <Grid item sm={12}>
-          <Typography variant="h4">Splinter Debugger</Typography>
+          <Typography variant="h4">Debugger</Typography>
           <Typography variant="subtitle2">NOTE: This will alter a lot of the core functionality. Using this debugger will
             likely create a need to reload the project before it's usable with the normal UI again.</Typography>
         </Grid>

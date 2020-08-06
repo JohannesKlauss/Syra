@@ -14,7 +14,7 @@ import { determineTextColor } from '../../../../utils/color';
 import useRegionWidth from '../../../../hooks/ui/region/useRegionWidth';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { useHotkeys, useIsHotkeyPressed } from 'react-hotkeys-hook';
-import useRegionSplinterRecordingSync from '../../../../hooks/ui/region/useRegionSplinterRecordingSync';
+import useRegionDawRecordingSync from '../../../../hooks/ui/region/useRegionDawRecordingSync';
 import useRegionScheduler from '../../../../hooks/audio/useRegionScheduler';
 import ClonedAudioRegion from './ClonedAudioRegion';
 import useDuplicateRegion from '../../../../hooks/recoil/region/useDuplicateRegion';
@@ -87,7 +87,7 @@ function AudioRegion() {
 
   const ref = useHotkeys('ctrl+m', () => setIsMuted(currVal => !currVal));
 
-  useRegionSplinterRecordingSync();
+  useRegionDawRecordingSync();
   useRegionScheduler();
 
   const isDuplicating = isPressed('alt') && isMoving;
