@@ -25,7 +25,6 @@ export default function useCreateRegion() {
       set(regionStore.start(newRegionId), start);
 
       if (analyzeTempo) {
-console.log('go into it');
         // TODO: This could probably be its own hook.
         let analyzedTempo: number | null = null;
 

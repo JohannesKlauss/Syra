@@ -73,7 +73,7 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
       const width = translateX > trimmedWidth - viewportWidth ? Math.min(viewportWidth, trimmedWidth) - translateX : Math.min(viewportWidth, trimmedWidth);
 
       if (width > 4) {
-        containerRef.current.style.setProperty('left', `${translateX - 2}px`);
+        containerRef.current.style.setProperty('left', `${translateX}px`);
         containerRef.current.style.setProperty('width', `${width}px`);
 
         konvaStage.current.setAttr('width', width);
