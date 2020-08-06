@@ -7,9 +7,10 @@ import { hexToRgb } from '../../../utils/color';
 import useIsDragOnDocument from '../../../hooks/ui/useIsDragOnDocument';
 import usePixelToSeconds from '../../../hooks/ui/usePixelToSeconds';
 import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useCreateRegion from '../../../hooks/recoil/region/useCreateRegion';
+import MarqueeContainer from './MarqueeContainer';
 
 interface BaseContainerProps {
   backgroundColor: string;
@@ -77,7 +78,7 @@ const Track = React.memo(({ backgroundColor }: Props) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <BaseContainer {...getRootProps()} backgroundColor={background} id={`track-${channelId}`} height={trackHeight} onClick={e => console.log(e.clientX)}>
+    <BaseContainer {...getRootProps()} backgroundColor={background} id={`track-${channelId}`} height={trackHeight}>
       {isDragOnDocument && <input {...getInputProps()} />}
       <DropIndicator doShow={isDragOnDocument}>
         <Typography variant="overline" color={isDragActive ? 'primary' : 'initial'} display={'block'}>
@@ -85,6 +86,7 @@ const Track = React.memo(({ backgroundColor }: Props) => {
         </Typography>
       </DropIndicator>
       <RegionList/>
+      <MarqueeContainer/>
     </BaseContainer>
   );
 });

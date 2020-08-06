@@ -37,8 +37,16 @@ export const RegionFirstLoop = styled(
 )({
   height: '100%',
   position: 'relative',
-  cursor: 'move',
   overflow: 'hidden',
   width: ({ width }: RegionFirstLoopProps) => width,
   backgroundColor: ({ color }: RegionFirstLoopProps) => color,
+});
+
+export const Manipulations = styled('div')({
+  height: '50%',
+  width: '100%',
+  position: 'absolute',
+  cursor: 'move',
+  bottom: 0,
+  left: 0,
 });

@@ -18,6 +18,7 @@ const viewportWidth = atom({
   default: 0,
 });
 
+// The ref object of the arrange window itself. Used to track scrolling inside the arrange window.
 const ref = atom<RefObject<HTMLDivElement> | undefined>({
   key: 'arrangeWindow/ref',
   default: undefined,
@@ -28,6 +29,17 @@ const editMode = atom<EditMode>({
   default: EditMode.DEFAULT,
 });
 
+const marqueePosition = atom<null | number>({
+  key: 'arrangeWindow/marqueePosition',
+  default: null,
+});
+
+// determines on which channel the marquee should be displayed.
+const marqueeChannelPosition = atom<null | string>({
+  key: 'arrangeWindow/marqueeChannelPosition',
+  default: null,
+});
+
 const isSnapActive = atom({
   key: 'arrangeWindow/isSnapActive',
   default: true,
@@ -35,6 +47,7 @@ const isSnapActive = atom({
 
 // The position of the transport bar. currently we set this to 1 as bars, but this will most certainly change, since we
 // need it to be more detailed.
+// TODO: WE SHOULD REFACTOR THIS. IT MAKES WAY MORE SENSE TO STORE THAT AS A PIXEL VALUE NOT A MUSICAL VALUE.
 const playheadPosition = atom({
   key: 'arrangeWindow/playheadPosition',
   default: 1,
@@ -145,4 +158,6 @@ export const arrangeWindowStore = {
   pixelPerBeat,
   beatsPerSecond,
   secondsPerBeat,
+  marqueePosition,
+  marqueeChannelPosition,
 };
