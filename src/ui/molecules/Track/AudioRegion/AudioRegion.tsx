@@ -78,6 +78,8 @@ function AudioRegion() {
   }, [deltaXTracker, setIsMoving, editMode]);
 
   const onClick = useCallback((e) => {
+    console.log('y', e.clientY - e.target.getBoundingClientRect().top);
+
     if (editMode === EditMode.CUT) {
       console.log('cut at', pixelToSeconds(e.clientX - e.target.getBoundingClientRect().left));
 
@@ -85,7 +87,7 @@ function AudioRegion() {
     }
   }, [editMode, cutRegion, pixelToSeconds]);
 
-  const ref = useHotkeys('ctrl+m', () => setIsMuted(currVal => !currVal));
+  const hotkeysRef = useHotkeys('ctrl+m', () => setIsMuted(currVal => !currVal));
 
   useRegionDawRecordingSync();
   useRegionScheduler();
@@ -95,7 +97,7 @@ function AudioRegion() {
   return (
     <>
       {isDuplicating && <ClonedAudioRegion/>}
-      <BaseContainer isMuted={isMuted} left={left} onMouseDown={onMoveStart} innerRef={ref} onClick={onClick} isMoving={isMoving}>
+      <BaseContainer isMuted={isMuted} left={left} onMouseDown={onMoveStart} innerRef={hotkeysRef} onClick={onClick} isMoving={isMoving}>
         <RegionFirstLoop width={width} color={color}>
           <WindowedWaveform paddingLeft={paddingLeft} completeWidth={completeWidth - 4} color={determineTextColor(color)}
                             smoothing={waveformSmoothing} buffer={buffer} height={trackHeight} offset={left} bufferId={bufferId}/>

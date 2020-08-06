@@ -69,7 +69,7 @@ const Track = React.memo(({ backgroundColor }: Props) => {
     const x = e.clientX - e.target.getBoundingClientRect().left; // x position within the track.
 
     if (files.length > 0) {
-      // On a Region we only use the first file.
+      // On a existing track we only use the first file.
       // TODO: THE SUBSEQUENT files should be move to the tracks beneath this one or create complete new channels.
       await createRegion(channelId, files[0], pixelToSeconds(calcSnappedX(x)));
     }
@@ -77,7 +77,7 @@ const Track = React.memo(({ backgroundColor }: Props) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <BaseContainer {...getRootProps()} backgroundColor={background} id={`track-${channelId}`} height={trackHeight}>
+    <BaseContainer {...getRootProps()} backgroundColor={background} id={`track-${channelId}`} height={trackHeight} onClick={e => console.log(e.clientX)}>
       {isDragOnDocument && <input {...getInputProps()} />}
       <DropIndicator doShow={isDragOnDocument}>
         <Typography variant="overline" color={isDragActive ? 'primary' : 'initial'} display={'block'}>
