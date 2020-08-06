@@ -5,6 +5,7 @@ import useTrimmedRegionWidth from './useTrimmedRegionWidth';
 import useSecondsToPixel from '../useSecondsToPixel';
 import { RegionContext } from '../../../providers/RegionContext';
 import useRegionWidth from './useRegionWidth';
+import useSnapCtrlPixelCalc from '../useSnapCtrlPixelCalc';
 
 export default function useAudioRegionManipulation() {
   const regionId = useContext(RegionContext);
@@ -13,6 +14,7 @@ export default function useAudioRegionManipulation() {
   const originalWidth = useRegionWidth();
   const trimmedRegionWidth = useTrimmedRegionWidth();
   const secondsToPixel = useSecondsToPixel();
+  const calcSnappedX = useSnapCtrlPixelCalc();
   const [positionWidth, setPositionWidth] = useState(trimmedRegionWidth);
   const [positionLeft, setPositionLeft] = useState(secondsToPixel(trimStart + start));
   const [deltaXTrimStart, setDeltaXTrimStart] = useState(0);
@@ -33,8 +35,8 @@ export default function useAudioRegionManipulation() {
       padding = secondsToPixel(trimStart);
     }
 
-    return padding;
-  }, [deltaXTrimStart, secondsToPixel, trimStart, left])
+    return calcSnappedX(padding);
+  }, [deltaXTrimStart, secondsToPixel, trimStart, left, calcSnappedX])
 
   useEffect(() => {
     let
@@ -42,6 +44,8 @@ export default function useAudioRegionManipulation() {
       width = trimmedRegionWidth;
 
     left = deltaXTrimStart < trimmedRegionWidth ? left + deltaXTrimStart + deltaXMove : trimmedRegionWidth - 5;
+
+    left = deltaXTrimStart !== 0 || deltaXMove !== 0 ? calcSnappedX(left) : left;
 
     if (deltaXTrimStart < 0 && deltaXMove === 0 && left <= trimStartLeftMin) {
       left = trimStartLeftMin;
@@ -52,17 +56,17 @@ export default function useAudioRegionManipulation() {
     }
 
     if (deltaXTrimEnd !== 0 && -deltaXTrimEnd < trimmedRegionWidth) {
-      width = width + deltaXTrimEnd;
+      width = calcSnappedX(width + deltaXTrimEnd);
     }
 
     if (width < 50) {
-      left -= 50 - width;
+      left = left - 50 - width;
       width = 50;
     }
 
     setPositionWidth(width);
     setPositionLeft(left);
-  }, [deltaXTrimStart, deltaXTrimEnd, trimStartLeftMin, deltaXMove, trimmedRegionWidth, secondsToPixel, trimStart, start]);
+  }, [deltaXTrimStart, deltaXTrimEnd, trimStartLeftMin, deltaXMove, trimmedRegionWidth, secondsToPixel, trimStart, start, calcSnappedX]);
 
   const onChangeTrimStart = useCallback((deltaX: number) => setDeltaXTrimStart(deltaX), [setDeltaXTrimStart]);
   const onChangeTrimEnd = useCallback((deltaX: number) => setDeltaXTrimEnd(deltaX), [setDeltaXTrimEnd]);
