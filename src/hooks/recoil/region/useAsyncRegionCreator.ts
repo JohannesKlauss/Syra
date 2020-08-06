@@ -1,49 +1,59 @@
-import { useCallback, useRef } from 'react';
 import { createNewId } from '../../../utils/createNewId';
 import useAudioContext from '../../audio/useAudioContext';
-import { useSetRecoilState } from 'recoil/dist';
+import { useRecoilCallback } from 'recoil/dist';
 import { regionStore } from '../../../recoil/regionStore';
 import useToneJsTransport from '../../tone/useToneJsTransport';
 import { audioBufferStore } from '../../../recoil/audioBufferStore';
 import { BUFFER_ID_PREFIX, REGION_ID_PREFIX } from '../../../const/ids';
 
 // TODO: REFACTOR THIS TO BE COMPLIANT WITH THE NEW useChannelCreator and useRegionCreator
-export default function useAsyncRegionCreator(channelId: string) {
+export default function useAsyncRegionCreator() {
   const ctx = useAudioContext();
   const transport = useToneJsTransport();
-  const nextRegionId = useRef(createNewId(REGION_ID_PREFIX));
-  const nextBufferId = useRef(createNewId(BUFFER_ID_PREFIX));
 
-  const setBufferStore = useSetRecoilState(audioBufferStore.buffer(nextBufferId.current));
-  const setBufferStoreIds = useSetRecoilState(audioBufferStore.ids);
-
-  const setRegionStart = useSetRecoilState(regionStore.start(nextRegionId.current));
-  const setIsRecording = useSetRecoilState(regionStore.isRecording(nextRegionId.current));
-  const setAudioBufferPointer = useSetRecoilState(regionStore.audioBufferPointer(nextRegionId.current));
-  const setRegionIds = useSetRecoilState(regionStore.ids(channelId));
-
-  return useCallback(() => {
-    const FIXED_REGION_ID = nextRegionId.current;
-    const FIXED_BUFFER_ID = nextBufferId.current;
+  return useRecoilCallback(({ set }) => (channelId: string) => {
+    const newRegionId = createNewId(REGION_ID_PREFIX);
+    const newBufferId = createNewId(BUFFER_ID_PREFIX);
     const fileReader = new FileReader();
+    let recordingOffset = 0;
 
     fileReader.onloadend = async () => {
       const audioBuffer = await ctx.decodeAudioData(fileReader.result as ArrayBuffer);
+      const data: Float32Array[] = [];
 
-      setBufferStoreIds(currVal => [...currVal, FIXED_BUFFER_ID]);
-      setBufferStore(audioBuffer);
+      if (recordingOffset < 0) {
+        return;
+      }
+
+      for (let channel = 0; channel < audioBuffer.numberOfChannels; channel++) {
+        let channelData = audioBuffer.getChannelData(channel);
+
+        data[channel] = channelData.slice(recordingOffset * audioBuffer.sampleRate + 1);
+      }
+
+      const trimmedBuffer = ctx.createBuffer(
+        audioBuffer.numberOfChannels,
+        data[0].length,
+        audioBuffer.sampleRate,
+      );
+
+      for (let channel = 0; channel < trimmedBuffer.numberOfChannels; channel++) {
+        trimmedBuffer.copyToChannel(data[channel], channel);
+      }
+
+      set(audioBufferStore.ids, currVal => [...currVal, newBufferId]);
+      set(audioBufferStore.buffer(newBufferId), trimmedBuffer);
     };
 
-    setRegionIds(currVal => [...currVal, FIXED_REGION_ID]);
-    setAudioBufferPointer(FIXED_BUFFER_ID);
-    setIsRecording(true);
-    setRegionStart(transport.seconds);
+    set(regionStore.ids(channelId), currVal => [...currVal, newRegionId]);
+    set(regionStore.audioBufferPointer(newRegionId), newBufferId);
+    set(regionStore.isRecording(newRegionId), true);
+    set(regionStore.start(newRegionId), transport.seconds);
 
-    nextRegionId.current = createNewId(REGION_ID_PREFIX);
-    nextBufferId.current = createNewId(BUFFER_ID_PREFIX);
+    return (blob: Blob, offset: number) => {
+      recordingOffset = offset;
 
-    return (blob: Blob) => {
       fileReader.readAsArrayBuffer(blob);
-    }
-  }, [setRegionIds, ctx, transport, setBufferStoreIds, setBufferStore, setAudioBufferPointer, nextRegionId, nextBufferId, setIsRecording, setRegionStart]);
+    };
+  }, [transport, ctx]);
 }

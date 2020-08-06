@@ -7,9 +7,9 @@ import { transportStore } from '../../recoil/transportStore';
 
 export default function useRecorder(channelId: string) {
   const isArmed = useRecoilValue(channelStore.isArmed(channelId));
-  const createAsyncRegion = useAsyncRegionCreator(channelId);
+  const createAsyncRegion = useAsyncRegionCreator();
   const isRecording = useRecoilValue(transportStore.isRecording);
-  const regionPushBuffer = useRef<(blob: Blob) => void>();
+  const regionPushBuffer = useRef<(blob: Blob, offset: number) => void>();
   const recorder = useRef(new Recorder());
 
   useEffect(() => {
@@ -18,10 +18,10 @@ export default function useRecorder(channelId: string) {
         return;
       }
 
-      regionPushBuffer.current = createAsyncRegion();
+      regionPushBuffer.current = createAsyncRegion(channelId);
 
-      recorder.current.onComplete = blob => {
-        regionPushBuffer.current && regionPushBuffer.current(blob);
+      recorder.current.onComplete = (blob, offset) => {
+        regionPushBuffer.current && regionPushBuffer.current(blob, offset);
       };
 
       // TODO: THE RECORDER ISN'T SAMPLE ACCURATE. FIND A WAY TO HACK IN A MARKER THAT IS SYNCED TO THE TRANSPORT TIME.
@@ -29,5 +29,5 @@ export default function useRecorder(channelId: string) {
     } else {
       recorder.current.stop();
     }
-  }, [isRecording, recorder, isArmed, createAsyncRegion]);
+  }, [isRecording, recorder, isArmed, createAsyncRegion, channelId]);
 }
