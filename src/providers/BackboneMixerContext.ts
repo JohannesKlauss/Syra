@@ -24,8 +24,29 @@ function recorderFactory(nodes: Map<string, any>): AudioWorkletNode | null {
   return nodes.get('recorder') as AudioWorkletNode | null;
 }
 
+interface RecorderMetaInfo {
+  transportStartedAt: number;
+  transportStoppedAt: number;
+}
+
+function audioNodesFactory(nodes: Map<string, any>) {
+  return {
+    _ID: nodes.get('_ID'),
+    audioIn: mixerNodeFactory(nodes, ChannelNode.AUDIO_IN, Tone.UserMedia) as Tone.UserMedia,
+    merge: mixerNodeFactory(nodes, ChannelNode.MERGE, Tone.Merge) as Tone.Merge,
+    players: mixerNodeFactory(nodes, ChannelNode.PLAYERS, Tone.Players) as Tone.Players,
+    channel: mixerNodeFactory(nodes, ChannelNode.CHANNEL, Tone.Channel) as Tone.Channel,
+    rmsMeter: mixerNodeFactory(nodes, ChannelNode.METER, Tone.Meter) as Tone.Meter,
+    recorder: recorderFactory(nodes),
+  };
+}
+
 export function instantiateMixer() {
   const channels = new Map<string, Map<string, any>>();
+  const recorderMetaInfo: RecorderMetaInfo = {
+    transportStartedAt: -1,
+    transportStoppedAt: -1,
+  };
 
   const getNodesByChannelId = (channelId: string) => {
     if (!channels.has(channelId)) {
@@ -39,15 +60,7 @@ export function instantiateMixer() {
   const channel = (channelId: string) => {
     const nodes = getNodesByChannelId(channelId);
 
-    const retNodes = {
-      _ID: nodes.get('_ID'),
-      audioIn: mixerNodeFactory(nodes, ChannelNode.AUDIO_IN, Tone.UserMedia) as Tone.UserMedia,
-      merge: mixerNodeFactory(nodes, ChannelNode.MERGE, Tone.Merge) as Tone.Merge,
-      players: mixerNodeFactory(nodes, ChannelNode.PLAYERS, Tone.Players) as Tone.Players,
-      channel: mixerNodeFactory(nodes, ChannelNode.CHANNEL, Tone.Channel) as Tone.Channel,
-      rmsMeter: mixerNodeFactory(nodes, ChannelNode.METER, Tone.Meter) as Tone.Meter,
-      recorder: recorderFactory(nodes),
-    };
+    const retNodes = audioNodesFactory(nodes);
 
     const disconnect = () => {
       Tone.disconnect(retNodes.audioIn);
@@ -67,7 +80,7 @@ export function instantiateMixer() {
         // retNodes.audioIn.connect(Tone.Destination);
       }
 
-      Tone.connect(retNodes.players, Tone.Destination);
+      Tone.connectSeries(retNodes.players, ...plugins, retNodes.rmsMeter, Tone.Destination);
     };
 
     const updateArming = async (isArmed: boolean = false) => {
@@ -87,16 +100,25 @@ export function instantiateMixer() {
       ...retNodes,
       rewireAudio,
       disconnect,
-      updateArming
+      updateArming,
     }
   }
 
   const add = channel;
 
+  const values: Readonly<RecorderMetaInfo> = recorderMetaInfo;
+  const setTransportStart = (contextTime: number) => recorderMetaInfo.transportStartedAt = contextTime;
+  const setTransportStop = (contextTime: number) => recorderMetaInfo.transportStoppedAt = contextTime;
+
   return {
     channelIds: () => channels.keys(),
     channel,
     add,
+    meta: {
+      values,
+      setTransportStart,
+      setTransportStop,
+    }
   }
 }
 

@@ -1,4 +1,5 @@
-// The basis of this is this gist by Andrey Salomatin: https://gist.github.com/flpvsk/047140b31c968001dc563998f7440cc1
+// The basis of this is this buggy gist by Andrey Salomatin: https://gist.github.com/flpvsk/047140b31c968001dc563998f7440cc1
+// We carved out the bugs and added sample accurate recording capabilities.
 
 class RecorderWorkletProcessor extends AudioWorkletProcessor {
   static get parameterDescriptors() {
@@ -10,8 +11,10 @@ class RecorderWorkletProcessor extends AudioWorkletProcessor {
 
   constructor() {
     super();
-    this._bufferSize = 32768;
+    this._bufferSize = 2048;
     this._buffer = new Float32Array(this._bufferSize);
+    this._recordingStartedAt = null;
+    this._recordingStoppedAt = null;
     this._initBuffer();
   }
 
@@ -52,10 +55,13 @@ class RecorderWorkletProcessor extends AudioWorkletProcessor {
 
   _recordingStopped() {
     this.port.postMessage({
-      eventType: 'stop'
+      eventType: 'stop',
+      startedAt: this._recordingStartedAt,
+      stoppedAt: this._recordingStoppedAt,
     });
   }
 
+  // This processes a block of 128 samples.
   process(inputs, outputs, parameters) {
     // Let sound pass through unaltered.
     const output = outputs[0];
@@ -72,6 +78,7 @@ class RecorderWorkletProcessor extends AudioWorkletProcessor {
     // Fill buffer if recording is active
     const isRecordingValues = parameters.isRecording;
 
+    // If the param changes the array has a length of 128, so the change is sample accurate.
     const sampleParam = isRecordingValues.length === 128;
 
     if (input && input.length > 0) {
@@ -81,11 +88,17 @@ class RecorderWorkletProcessor extends AudioWorkletProcessor {
         const shouldRecord = isRecordingValues[sampleParam ? i : 0] === 1;
 
         if (!shouldRecord && !this._isBufferEmpty()) {
+          this._recordingStoppedAt = currentTime;
+
           this._flush();
           this._recordingStopped();
         }
 
         if (shouldRecord) {
+          if (this._recordingStartedAt === null) {
+            this._recordingStartedAt = currentTime;
+          }
+
           this._appendToBuffer(inputChannel[i]);
         }
       }

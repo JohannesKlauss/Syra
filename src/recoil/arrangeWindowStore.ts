@@ -10,7 +10,7 @@ import { RefObject } from 'react';
 
 const waveformSmoothing = atom({
   key: 'arrangeWindow/waveformSmoothing',
-  default: 3,
+  default: 2,
 })
 
 const viewportWidth = atom({
