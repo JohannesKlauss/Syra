@@ -100,7 +100,7 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', offse
 
     konvaLayer.current.add(konvaPolygon.current);
     konvaStage.current?.add(konvaLayer.current);
-  }, []);
+  });
 
   // When the buffer changes we decode it.
   useEffect(() => {

@@ -73,7 +73,7 @@ function MarqueeContainer() {
       setMarqueePosition(calcSnappedX(x));
       setMarqueeChannelPosition(channelId);
     }
-  }, [calcSnappedX, trackHeight]);
+  }, [calcSnappedX, trackHeight, setMarqueePosition, setMarqueeChannelPosition, channelId]);
 
   return (
     <BaseContainer onClick={onSetMarquee}>

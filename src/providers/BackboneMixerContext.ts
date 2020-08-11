@@ -70,14 +70,12 @@ export function instantiateMixer() {
     const rewireAudio = (plugins: AudioWorkletNode[]) => {
       console.log('rewire');
 
-      disconnect();
+      //disconnect();
 
       const split = new Tone.Split(2);
 
       if (retNodes.recorder) {
         Tone.connectSeries(retNodes.audioIn, retNodes.recorder);
-      } else {
-        // retNodes.audioIn.connect(Tone.Destination);
       }
 
       Tone.connectSeries(retNodes.players, ...plugins, retNodes.rmsMeter, Tone.Destination);
@@ -96,11 +94,23 @@ export function instantiateMixer() {
       }
     }
 
+    const updateInputMonitoring = (isInputMonitoringActive: boolean) => {
+      if (retNodes.recorder) {
+        if (isInputMonitoringActive) {
+          Tone.connect(retNodes.recorder, Tone.Destination);
+        }
+        else {
+          Tone.disconnect(retNodes.recorder);
+        }
+      }
+    };
+
     return {
       ...retNodes,
       rewireAudio,
       disconnect,
       updateArming,
+      updateInputMonitoring,
     }
   }
 

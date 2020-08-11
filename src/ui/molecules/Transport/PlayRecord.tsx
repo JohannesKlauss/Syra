@@ -65,7 +65,7 @@ function PlayRecord() {
     }
 
     setIsPlaying(currVal => !currVal);
-  }, [setIsPlaying, transport, isPlaying, isRecording, setTransportSeconds, cycleStart, isCycleActive, secondsToPixel, setPlayheadPosition]);
+  }, [setIsPlaying, transport, isPlaying, isRecording, setTransportSeconds, cycleStart, isCycleActive, secondsToPixel, setPlayheadPosition, bpm, length]);
 
   const onClickReset = useCallback(() => {
     setPlayheadPosition(1);
@@ -84,7 +84,7 @@ function PlayRecord() {
 
       setTransportStart(ctx.rawContext.currentTime + 0.05);
     }
-  }, [setIsRecording, isRecording, transport]);
+  }, [setIsRecording, isRecording, transport, setTransportStart, setTransportStop, ctx]);
 
   useHotkeys('space', () => onClickPlayPause(), [onClickPlayPause]);
   useHotkeys('r', onClickRecord, [onClickRecord]);

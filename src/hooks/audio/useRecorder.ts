@@ -37,7 +37,7 @@ export default function useRecorder(channelId: string) {
         param && param.setValueAtTime(0, ctx.currentTime + 0.5);
       }
     }
-  }, [isRecording, isArmed, createAsyncRegion, channelId]);
+  }, [isRecording, isArmed, createAsyncRegion, channelId, recorderNode]);
 
   useEffect(() => {
     if (recorderNode) {
@@ -79,5 +79,5 @@ export default function useRecorder(channelId: string) {
         }
       };
     }
-  }, [recorderNode, recordedChunks, regionPushBuffer]);
+  }, [recorderNode, recordedChunks, regionPushBuffer, ctx]);
 }

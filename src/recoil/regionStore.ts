@@ -1,7 +1,5 @@
-import { atomFamily, selectorFamily, useRecoilValue } from 'recoil/dist';
+import { atomFamily, selectorFamily} from 'recoil/dist';
 import { audioBufferStore } from './audioBufferStore';
-import useRegionWidth from '../hooks/ui/region/useRegionWidth';
-import useSecondsToPixel from '../hooks/ui/useSecondsToPixel';
 import { arrangeWindowStore } from './arrangeWindowStore';
 
 // Sets the time that region plays in relation to the transport.

@@ -20,7 +20,7 @@ function ChannelMenu({isMenuOpen, onClose}: Props) {
   const options = useMemo(() => ([
     <MenuItem><ChannelColorPicker activeColor={color} onChangeColor={setColor}/></MenuItem>,
     <MenuItem onClick={() => deleteChannel(channelId)}>Delete</MenuItem>,
-  ]), [color, setColor, deleteChannel]);
+  ]), [color, setColor, deleteChannel, channelId]);
 
   return (
     <div ref={divRef}>

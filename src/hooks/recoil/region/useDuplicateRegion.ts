@@ -1,4 +1,4 @@
-import { useRecoilCallback, useRecoilValue } from 'recoil/dist';
+import { useRecoilCallback } from 'recoil/dist';
 import { RegionState, regionStore } from '../../../recoil/regionStore';
 import { useContext } from 'react';
 import { ChannelContext } from '../../../providers/ChannelContext';

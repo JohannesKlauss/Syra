@@ -44,11 +44,11 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) 
 
   useEffect(() => {
     onChangeIsMoving(isMoving);
-  }, [isMoving]);
+  }, [isMoving, onChangeIsMoving]);
 
   useLayoutEffect(() => {
     onUpdateLeftOffset(left);
-  }, [left]);
+  }, [left, onUpdateLeftOffset]);
 
   const onMoveEnd = useCallback((deltaX: number) => {
     setIsMoving(false);
@@ -67,7 +67,7 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) 
 
       return newVal;
     });
-  }, [setStart, onMouseUp, pixelToSeconds, trimStart, setIsMoving, duplicateRegion, isPressed]);
+  }, [setStart, onMouseUp, pixelToSeconds, trimStart, setIsMoving, duplicateRegion, isPressed, regionId]);
 
   const deltaXTracker = useDeltaXTracker(onChangeMove, onMoveEnd);
 
@@ -82,7 +82,7 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) 
     if (editMode === EditMode.CUT) {
       cutRegion(regionId, pixelToSeconds(e.clientX - e.target.getBoundingClientRect().left));
     }
-  }, [editMode, cutRegion, pixelToSeconds]);
+  }, [editMode, cutRegion, pixelToSeconds, regionId]);
 
   return (
     <RegionFirstLoop width={width} color={color}>
