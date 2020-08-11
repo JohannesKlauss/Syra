@@ -7,7 +7,7 @@ import { audioBufferStore } from '../../../recoil/audioBufferStore';
 import { analyze } from 'web-audio-beat-detector';
 import { projectStore } from '../../../recoil/projectStore';
 
-export default function useCreateRegion() {
+export default function useCreateAudioRegion() {
   const audioContext = useAudioContext();
 
   return useRecoilCallback(({ set }) => async (channelId: string, file: File, start: number = 0, analyzeTempo: boolean = false, regionId?: string) => {

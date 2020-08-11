@@ -4,7 +4,7 @@ import { useCallback, useContext } from 'react';
 import { removeItemAtIndex } from '../../../utils/recoil';
 import { ChannelContext } from '../../../providers/ChannelContext';
 
-export default function useDeleteRegion(regionId: string) {
+export default function useDeleteAudioRegion(regionId: string) {
   const channelId = useContext(ChannelContext);
   const [regionIds, setRegionIds] = useRecoilState(regionStore.ids(channelId));
 

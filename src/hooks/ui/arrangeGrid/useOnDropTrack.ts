@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import { ChannelType } from '../../../types/Channel';
 import useCreateChannel from '../../recoil/channel/useCreateChannel';
-import useCreateRegion from '../../recoil/region/useCreateRegion';
+import useCreateAudioRegion from '../../recoil/region/useCreateAudioRegion';
 
 export default function useOnDropTrack() {
   const createChannel = useCreateChannel();
-  const createRegion = useCreateRegion();
+  const createRegion = useCreateAudioRegion();
 
   return useCallback(async (files: File[]) => {
     files.forEach((file, i) => {

@@ -5,7 +5,7 @@ import { ChannelContext } from '../../../providers/ChannelContext';
 import { createNewId } from '../../../utils/createNewId';
 import { REGION_ID_PREFIX } from '../../../const/ids';
 
-export default function useDuplicateRegion() {
+export default function useDuplicateAudioRegion() {
   const channelId = useContext(ChannelContext);
 
   return useRecoilCallback(({set, snapshot}) => (originalRegionId: string) => {

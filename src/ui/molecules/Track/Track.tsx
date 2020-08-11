@@ -9,7 +9,7 @@ import usePixelToSeconds from '../../../hooks/ui/usePixelToSeconds';
 import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
 import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
-import useCreateRegion from '../../../hooks/recoil/region/useCreateRegion';
+import useCreateAudioRegion from '../../../hooks/recoil/region/useCreateAudioRegion';
 import MarqueeContainer from './MarqueeContainer';
 
 interface BaseContainerProps {
@@ -54,7 +54,7 @@ interface Props {
 const Track = React.memo(({ backgroundColor }: Props) => {
   const channelId = useContext(ChannelContext);
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
-  const createRegion = useCreateRegion();
+  const createRegion = useCreateAudioRegion();
   const isDragOnDocument = useIsDragOnDocument();
   const pixelToSeconds = usePixelToSeconds();
   const calcSnappedX = useSnapCtrlPixelCalc();

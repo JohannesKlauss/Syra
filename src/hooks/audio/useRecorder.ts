@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from 'react';
-import useAsyncRegionCreator from '../recoil/region/useAsyncRegionCreator';
+import useCreateAudioRegionAsync from '../recoil/region/useCreateAudioRegionAsync';
 import { useRecoilValue } from 'recoil/dist';
 import { channelStore } from '../../recoil/channelStore';
 import { transportStore } from '../../recoil/transportStore';
@@ -13,7 +13,7 @@ export default function useRecorder(channelId: string) {
   const backboneMixer = useContext(BackboneMixerContext);
   const ctx = useAudioContext();
   const isArmed = useRecoilValue(channelStore.isArmed(channelId));
-  const createAsyncRegion = useAsyncRegionCreator();
+  const createAsyncRegion = useCreateAudioRegionAsync();
   const isRecording = useRecoilValue(transportStore.isRecording);
   const regionPushBuffer = useRef<(audioBuffer: AudioBuffer) => void>();
 

@@ -12,8 +12,8 @@ import { arrangeWindowStore } from '../../../../../recoil/arrangeWindowStore';
 import useRegionColor from '../../../../../hooks/ui/region/useRegionColor';
 import useRegionWidth from '../../../../../hooks/ui/region/useRegionWidth';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
-import useDuplicateRegion from '../../../../../hooks/recoil/region/useDuplicateRegion';
-import useCutRegion from '../../../../../hooks/recoil/region/useCutRegion';
+import useDuplicateAudioRegion from '../../../../../hooks/recoil/region/useDuplicateAudioRegion';
+import useCutAudioRegion from '../../../../../hooks/recoil/region/useCutAudioRegion';
 import useAudioRegionManipulation from '../../../../../hooks/ui/region/useAudioRegionManipulation';
 import useDeltaXTracker from '../../../../../hooks/ui/region/useDeltaXTracker';
 import { EditMode } from '../../../../../types/RegionManipulation';
@@ -37,8 +37,8 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) 
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
   const isPressed = useIsHotkeyPressed();
   const [isMoving, setIsMoving] = useState(false);
-  const duplicateRegion = useDuplicateRegion();
-  const cutRegion = useCutRegion();
+  const duplicateRegion = useDuplicateAudioRegion();
+  const cutRegion = useCutAudioRegion();
 
   const { left, width, paddingLeft, onChangeTrimStart, onChangeTrimEnd, onChangeMove, onMouseUp } = useAudioRegionManipulation();
 
