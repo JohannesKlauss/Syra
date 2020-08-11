@@ -13,9 +13,25 @@ export default function usePlayheadAnimation() {
   const playheadPosition = useRecoilValue(arrangeWindowStore.playheadPosition);
   const [transportTranslate, setTransportTranslate] = useState(secondsToPixel(transport.seconds));
   const animRef = useRef<number>(0);
+  const scrolled = useRef<boolean>(false);
+  const viewportWidth = useRecoilValue(arrangeWindowStore.viewportWidth);
+  const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
 
   const animate = () => {
     setTransportTranslate(secondsToPixel(transport.seconds));
+
+    const mod = secondsToPixel(transport.seconds) % viewportWidth;
+
+    if (mod > viewportWidth - 30 && !scrolled.current) {
+      arrangeWindowRef?.current?.scrollTo({
+        left: (arrangeWindowRef?.current?.scrollLeft ?? 0) + viewportWidth,
+      });
+
+      scrolled.current = true;
+    }
+    else if (mod < 30 && scrolled.current) {
+      scrolled.current = false;
+    }
 
     animRef.current = requestAnimationFrame(animate);
   };
