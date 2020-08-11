@@ -1,27 +1,25 @@
 import { removeItemAtIndex } from '../../../utils/recoil';
-import { useCallback, useContext } from 'react';
-import { ChannelContext } from '../../../providers/ChannelContext';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilCallback } from 'recoil/dist';
 import { channelStore } from '../../../recoil/channelStore';
+import { regionStore } from '../../../recoil/regionStore';
 
 export default function useDeleteChannel() {
-  const channelId = useContext(ChannelContext);
-  const [channelIds, setChannelIds] = useRecoilState(channelStore.ids);
-  const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
+  return useRecoilCallback(({set, snapshot, reset}) => (channelId: string) => {
+    const channelIds = snapshot.getLoadable(channelStore.ids).contents as string[];
+    const selectedId = snapshot.getLoadable(channelStore.selectedId).contents as string;
 
-  return useCallback(() => {
-    if (selectedChannelId === channelId) {
+    if (channelId === selectedId) {
+      const regions = snapshot.getLoadable(regionStore.ids(channelId)).contents as string[];
+
+      regions.forEach(regionId => {
+        reset(regionStore.audioBufferPointer(regionId));
+      });
+
+      reset(regionStore.ids(channelId));
+
       const index = channelIds.findIndex(val => val === channelId);
 
-      setChannelIds(currVal => {
-        const newIds = removeItemAtIndex(currVal, index);
-
-        if (newIds.length > 0) {
-          setSelectedChannelId(newIds[0]);
-        }
-
-        return newIds;
-      });
+      set(channelStore.ids, currVal => removeItemAtIndex(currVal, index));
     }
-  }, [selectedChannelId, channelId, setChannelIds, channelIds, setSelectedChannelId]);
+  });
 }

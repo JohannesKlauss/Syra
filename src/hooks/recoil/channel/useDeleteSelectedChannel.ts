@@ -1,25 +1,11 @@
 import { useCallback } from 'react';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilValue } from 'recoil/dist';
 import { channelStore } from '../../../recoil/channelStore';
-import { removeItemAtIndex } from '../../../utils/recoil';
+import useDeleteChannel from './useDeleteChannel';
 
 export default function useDeleteSelectedChannel() {
-  const [channelIds, setChannelIds] = useRecoilState(channelStore.ids);
-  const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
+  const selectedChannelId = useRecoilValue(channelStore.selectedId);
+  const deleteChannel = useDeleteChannel();
 
-  return useCallback(() => {
-    if (selectedChannelId !== '') {
-      const index = channelIds.findIndex(val => val === selectedChannelId);
-
-      setChannelIds(currVal => {
-        const newIds = removeItemAtIndex(currVal, index);
-
-        if (newIds.length > 0) {
-          setSelectedChannelId(newIds[0]);
-        }
-
-        return newIds;
-      });
-    }
-  }, [selectedChannelId, setChannelIds, channelIds, setSelectedChannelId]);
+  return useCallback(() => deleteChannel(selectedChannelId), [selectedChannelId, deleteChannel]);
 }

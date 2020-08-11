@@ -47,7 +47,6 @@ const isSnapActive = atom({
 
 // The position of the transport bar. currently we set this to 1 as bars, but this will most certainly change, since we
 // need it to be more detailed.
-// TODO: WE SHOULD REFACTOR THIS. IT MAKES WAY MORE SENSE TO STORE THAT AS A PIXEL VALUE NOT A MUSICAL VALUE.
 const playheadPosition = atom({
   key: 'arrangeWindow/playheadPosition',
   default: 1,
