@@ -1,13 +1,20 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Button, ButtonGroup } from '@material-ui/core';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import ZoomOutIcon from '@material-ui/icons/ZoomOut';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { buttonInfo } from '../../../../utils/text';
+import useSecondsToPixel from '../../../../hooks/ui/useSecondsToPixel';
+import { transportStore } from '../../../../recoil/transportStore';
 
 function RulerZoomInOut() {
+  const secondsToPixel = useSecondsToPixel();
+
+  const isRecording = useRecoilValue(transportStore.isRecording);
+  const isPlaying = useRecoilValue(transportStore.isPlaying);
+
   const [horizontalZoomLevel, setHorizontalZoomLevel] = useRecoilState(arrangeWindowStore.horizontalZoomLevel);
   const [, setVerticalZoomLevel] = useRecoilState(arrangeWindowStore.verticalZoomLevel);
 
@@ -33,6 +40,18 @@ function RulerZoomInOut() {
     e.preventDefault();
     setVerticalZoomLevel(currVal => currVal < 11 ? currVal + 1 : 11)
   });
+
+  const updatePlayhead = useRecoilCallback(({set, snapshot}) => () => {
+    const transportSeconds = snapshot.getLoadable(transportStore.seconds).contents as number;
+
+    set(arrangeWindowStore.playheadPosition, secondsToPixel(transportSeconds));
+  }, [secondsToPixel]);
+
+  useEffect(() => {
+    if (!isRecording && !isPlaying) {
+      updatePlayhead();
+    }
+  }, [secondsToPixel, updatePlayhead, isRecording, isPlaying]);
 
   return (
     <ButtonGroup variant={'text'} size={'small'}>

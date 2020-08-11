@@ -68,7 +68,7 @@ function PlayRecord() {
   }, [setIsPlaying, transport, isPlaying, isRecording, setTransportSeconds, cycleStart, isCycleActive, secondsToPixel, setPlayheadPosition, bpm, length]);
 
   const onClickReset = useCallback(() => {
-    setPlayheadPosition(1);
+    setPlayheadPosition(0);
     setTransportSeconds(0);
   }, [setPlayheadPosition, setTransportSeconds]);
 

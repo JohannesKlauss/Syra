@@ -44,7 +44,7 @@ export default function usePlayheadAnimation() {
     return () => {
       cancelAnimationFrame(animRef.current);
     }
-  }, [isRecording, isPlaying]);
+  }, [isRecording, isPlaying, secondsToPixel, viewportWidth]);
 
   useEffect(() => {
     if (!isPlaying && !isRecording) {
