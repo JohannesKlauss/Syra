@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Box, BoxProps, styled } from '@material-ui/core';
-import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import {
   arrangeWindowStore,
 } from '../../../recoil/arrangeWindowStore';
@@ -9,6 +9,7 @@ import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
 import useMovable from '../../../hooks/ui/useMovable';
 import { transportStore } from '../../../recoil/transportStore';
 import usePixelToSeconds from '../../../hooks/ui/usePixelToSeconds';
+import { isBetween } from '../../../utils/numbers';
 
 interface BaseContainerProps {
   windowWidth: number;
@@ -29,15 +30,17 @@ function RulerTransportCursor() {
   const pixelToSeconds = usePixelToSeconds();
   const setTransportSeconds = useSetRecoilState(transportStore.seconds);
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
-  const setPlayheadPos = useSetRecoilState(arrangeWindowStore.playheadPosition);
+  const [playheadPosition, setPlayheadPosition] = useRecoilState(arrangeWindowStore.playheadPosition);
   const calcSnappedPos = useSnapCtrlPixelCalc();
+  const viewportWidth = useRecoilValue(arrangeWindowStore.viewportWidth);
+  const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
 
   const onMouseInteraction = useCallback(e => {
     const position = calcSnappedPos(e.clientX - e.target.getBoundingClientRect().left);
 
-    setPlayheadPos(position);
+    setPlayheadPosition(position);
     setTransportSeconds(pixelToSeconds(position));
-  }, [setPlayheadPos, calcSnappedPos, pixelToSeconds, setTransportSeconds]);
+  }, [setPlayheadPosition, calcSnappedPos, pixelToSeconds, setTransportSeconds]);
 
   const onMovableTrigger = useMovable(onMouseInteraction, onMouseInteraction);
 
@@ -45,6 +48,16 @@ function RulerTransportCursor() {
     onMouseInteraction(e);
     onMovableTrigger();
   }, [onMouseInteraction, onMovableTrigger]);
+
+  useEffect(() => {
+    const scrollLeft = arrangeWindowRef?.current?.scrollLeft ?? 0;
+
+    if (!isBetween(playheadPosition, [scrollLeft, scrollLeft + viewportWidth])) {
+      arrangeWindowRef?.current?.scrollTo({
+        left: Math.max(0, playheadPosition - 30)
+      });
+    }
+  }, [playheadPosition, viewportWidth, arrangeWindowRef]);
 
   return (
     <BaseContainer windowWidth={windowWidth} onMouseDown={onMouseDown}>

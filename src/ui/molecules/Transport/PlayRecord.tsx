@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useRef } from 'react';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
@@ -14,6 +14,7 @@ import useSecondsToPixel from '../../../hooks/ui/useSecondsToPixel';
 import { buttonInfo } from '../../../utils/text';
 import useAudioContext from '../../../hooks/audio/useAudioContext';
 import { BackboneMixerContext } from '../../../providers/BackboneMixerContext';
+import { projectStore } from '../../../recoil/projectStore';
 
 const BaseContainer = styled(Box)({
   marginLeft: 20,
@@ -30,8 +31,11 @@ function PlayRecord() {
   const setTransportSeconds = useSetRecoilState(transportStore.seconds);
   const isCycleActive = useRecoilValue(transportStore.isCycleActive);
   const cycleStart = useRecoilValue(transportStore.cycleStart);
+  const bpm = useRecoilValue(projectStore.bpm);
+  const length = useRecoilValue(projectStore.length);
   const transport = useToneJsTransport();
   const secondsToPixel = useSecondsToPixel();
+  const stopScheduleId = useRef<null | number>(null);
   const { meta: { setTransportStart, setTransportStop } } = useContext(BackboneMixerContext);
 
   const onClickPlayPause = useCallback(() => {
@@ -42,6 +46,9 @@ function PlayRecord() {
     if (isPlaying) {
       const pos = transport.seconds;
       transport.stop();
+      if (stopScheduleId.current) {
+        transport.clear(stopScheduleId.current);
+      }
 
       setPlayheadPosition(secondsToPixel(pos));
       setTransportSeconds(pos);
@@ -51,6 +58,10 @@ function PlayRecord() {
       }
 
       transport.start('+0.05');
+
+      stopScheduleId.current = transport.scheduleOnce(() => {
+        onClickPlayPause();
+      }, `${bpm * length}`);
     }
 
     setIsPlaying(currVal => !currVal);
