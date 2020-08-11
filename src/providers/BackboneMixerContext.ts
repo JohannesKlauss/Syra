@@ -4,9 +4,9 @@ import { ChannelNode } from '../types/Channel';
 import { createNewId } from '../utils/createNewId';
 
 // TODO: this is all very prototypal. refactor this as soon as we have a working version.
-function mixerNodeFactory<T extends Tone.ToneAudioNode>(nodes: Map<string, Tone.ToneAudioNode>, nodeType: ChannelNode, ctor: { new(): T }): Tone.ToneAudioNode {
+function mixerNodeFactory<T extends Tone.ToneAudioNode>(nodes: Map<string, Tone.ToneAudioNode>, nodeType: ChannelNode, ctor: { new(params?: Record<string, any>): T }, params?: Record<string, any>): Tone.ToneAudioNode {
   if (!nodes.has(nodeType)) {
-    nodes.set(nodeType, new ctor());
+    nodes.set(nodeType, new ctor(params));
   }
 
   return nodes.get(nodeType)!;
@@ -35,8 +35,10 @@ function audioNodesFactory(nodes: Map<string, any>) {
     audioIn: mixerNodeFactory(nodes, ChannelNode.AUDIO_IN, Tone.UserMedia) as Tone.UserMedia,
     merge: mixerNodeFactory(nodes, ChannelNode.MERGE, Tone.Merge) as Tone.Merge,
     players: mixerNodeFactory(nodes, ChannelNode.PLAYERS, Tone.Players) as Tone.Players,
+    volume: mixerNodeFactory(nodes, ChannelNode.VOLUME, Tone.Volume) as Tone.Volume,
+    pan: mixerNodeFactory(nodes, ChannelNode.PAN, Tone.Panner) as Tone.Panner,
     channel: mixerNodeFactory(nodes, ChannelNode.CHANNEL, Tone.Channel) as Tone.Channel,
-    rmsMeter: mixerNodeFactory(nodes, ChannelNode.METER, Tone.Meter) as Tone.Meter,
+    rmsMeter: mixerNodeFactory(nodes, ChannelNode.METER, Tone.Meter, {smoothing: 0.9}) as Tone.Meter,
     recorder: recorderFactory(nodes),
   };
 }
@@ -70,15 +72,13 @@ export function instantiateMixer() {
     const rewireAudio = (plugins: AudioWorkletNode[]) => {
       console.log('rewire');
 
-      //disconnect();
-
-      const split = new Tone.Split(2);
+      // disconnect();
 
       if (retNodes.recorder) {
         Tone.connectSeries(retNodes.audioIn, retNodes.recorder);
       }
 
-      Tone.connectSeries(retNodes.players, ...plugins, retNodes.rmsMeter, Tone.Destination);
+      Tone.connectSeries(retNodes.players, ...plugins, retNodes.volume, retNodes.rmsMeter, retNodes.pan, Tone.Destination);
     };
 
     const updateArming = async (isArmed: boolean = false) => {

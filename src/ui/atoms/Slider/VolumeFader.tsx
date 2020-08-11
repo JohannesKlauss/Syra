@@ -3,7 +3,7 @@ import { Slider, styled } from '@material-ui/core';
 import { mapVolumeFaderValToDb } from '../../../utils/volumeFaderMapping';
 
 interface Props {
-  onChange: (props: any) => void;
+  onChange: (newVal: number) => void;
 }
 
 const Container = styled('div')({
@@ -21,7 +21,7 @@ function VolumeFader({onChange}: Props) {
         min={0}
         max={240}
         step={1}
-        onChange={(_, newValue) => onChange({volume: mapVolumeFaderValToDb(newValue as number)})}
+        onChange={(_, newValue) => onChange(mapVolumeFaderValToDb(newValue as number))}
       />
     </Container>
   );

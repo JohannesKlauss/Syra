@@ -21,21 +21,20 @@ const ChannelBody: React.FC = React.memo(() => {
   const channelColor = useRecoilValue(channelStore.color(channelId));
   const [volumeFaderValue, setVolumeFaderValue] = useState(0);
 
-  const { channel } = useBackboneChannel(channelId);
-  const onChangePanOrVolume = useCallback(newProps => {
-    channel.set(newProps);
+  const { volume, pan } = useBackboneChannel(channelId);
 
-    if (newProps.volume) {
-      setVolumeFaderValue(newProps.volume < -95 ? '-∞' : newProps.volume.toFixed(1));
-    }
-  }, [channel]);
+  const onChangeVolume = useCallback(newVal => {
+    volume.set({volume: newVal});
+
+    setVolumeFaderValue(newVal < -95 ? '-∞' : newVal.toFixed(1));
+  }, [pan]);
 
   return (
     <>
       <Divider/>
       <ChannelPluginList/>
       <Divider/>
-      <Pan onChange={onChangePanOrVolume}/>
+      <Pan onChange={newVal => pan.set({pan: newVal})}/>
       <Grid container justify="center" spacing={1}>
         <Grid container justify={'center'}>
           <Grid item xs={6}>
@@ -51,7 +50,7 @@ const ChannelBody: React.FC = React.memo(() => {
         </Grid>
         <Grid container justify={'center'}>
           <Grid item xs={6}>
-            <VolumeFader onChange={onChangePanOrVolume}/>
+            <VolumeFader onChange={onChangeVolume}/>
           </Grid>
           <Grid item xs={6}>
             <LevelMeterVertical/>

@@ -15,4 +15,6 @@ export enum ChannelNode {
   AUDIO_IN = 'audioIn',
   CHANNEL = 'channel',
   METER = 'meter',
+  VOLUME = 'volume',
+  PAN = 'pan',
 }
