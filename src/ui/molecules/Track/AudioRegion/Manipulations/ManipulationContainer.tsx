@@ -86,8 +86,8 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) 
 
   return (
     <RegionFirstLoop width={width} color={color}>
-      <WindowedWaveform paddingLeft={paddingLeft} completeWidth={completeWidth} color={determineTextColor(color)}
-                        smoothing={waveformSmoothing} buffer={buffer} height={trackHeight} offset={left}
+      <WindowedWaveform completeWidth={completeWidth} color={determineTextColor(color)}
+                        smoothing={waveformSmoothing} buffer={buffer} height={trackHeight}
                         bufferId={bufferId}/>
       <Manipulations onMouseDown={onMoveStart} onClick={onClick}>
         <TrimStartHandle onChange={onChangeTrimStart} onMouseUp={onMouseUp}/>

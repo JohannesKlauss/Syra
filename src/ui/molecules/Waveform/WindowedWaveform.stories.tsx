@@ -17,8 +17,6 @@ export const Default = () => {
 
   const completeWidth = number('Width', 300, {}, 'Parameters');
   const height = number('Height', 70, {}, 'Parameters');
-  const offset = number('offset', 0, {}, 'Parameters');
-  const paddingLeft = number('paddingLeft', 0, {}, 'Parameters');
   const smoothing = number('Smoothing', 2, { range: true, min: 1, max: 6, step: 0.1 }, 'Parameters');
   const selectedColor = color('Waveform color', '#fff', 'Parameters');
   const file = files(label, accept, undefined, 'Parameters');
@@ -29,7 +27,7 @@ export const Default = () => {
 
   return (
     <ThemeKnob>
-      <WindowedWaveform buffer={arrayBuffer} completeWidth={completeWidth} offset={offset} paddingLeft={paddingLeft}
+      <WindowedWaveform buffer={arrayBuffer} completeWidth={completeWidth}
                         height={height} smoothing={smoothing} color={selectedColor} bufferId={'buffer-MOCK'}/>
     </ThemeKnob>
   );
