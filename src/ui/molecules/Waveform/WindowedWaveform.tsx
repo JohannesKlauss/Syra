@@ -73,8 +73,8 @@ function WindowedWaveform({ buffer, height, completeWidth, color = '#fff', smoot
     if (worker.current) {
       worker.current.onmessage = e => {
         setTimeout(() => {
-          console.log('image', e.data.image);
-          setWaveformImage(canvasRef.current?.toDataURL() ?? '');
+          console.log('image', URL.createObjectURL(e.data.image));
+          setWaveformImage(URL.createObjectURL(e.data.image));
         }, 1);
       };
     }
