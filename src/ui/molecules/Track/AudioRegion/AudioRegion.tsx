@@ -37,6 +37,7 @@ function AudioRegion() {
   useRegionDawRecordingSync();
   useRegionScheduler();
 
+
   const isDuplicating = isPressed('alt') && isMoving;
 
   return (

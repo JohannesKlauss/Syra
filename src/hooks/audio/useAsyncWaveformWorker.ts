@@ -1,32 +1,38 @@
-import { useCallback, useEffect, useRef } from 'react';
-import useAudioContext from './useAudioContext';
+import { useEffect } from 'react';
+import useWorker from '../core/useWorker';
+import { createWindowedWaveformV2 } from '../../utils/waveform';
+import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { audioBufferStore } from '../../recoil/audioBufferStore';
+import useRegionWidth from '../ui/region/useRegionWidth';
 
-export default function useAsyncWaveformWorker() {
-  const ctx = useAudioContext();
-  const worker = useRef(new Worker('worker/AsyncWaveformWorker.js'));
+export default function useAsyncWaveformWorker(bufferId: string, height: number, color: string, smoothing?: number ) {
+  const completeWidth = useRegionWidth();
+
+  const pointCloudId = `${bufferId}.${completeWidth}.${height}.${smoothing}`;
+
+  const buffer = useRecoilValue(audioBufferStore.buffer(bufferId));
+  const [waveformImage, setWaveformImage] = useRecoilState(audioBufferStore.waveformImage(pointCloudId));
+
+  const worker = useWorker('worker/AsyncWaveformWorker.js');
 
   useEffect(() => {
-    worker.current.onmessage = ({ data }) => {
-    };
-  }, []);
-
-  return useCallback((chunk: Blob) => {
-    const fileReader = new FileReader();
-
-    fileReader.onloadend = async () => {
-      const buffer = await ctx.decodeAudioData(fileReader.result as ArrayBuffer);
-      const data = [];
-
-      for (let i = 0; i < buffer.numberOfChannels; i++) {
-        data.push(buffer.getChannelData(i));
-      }
+    if (buffer instanceof AudioBuffer && waveformImage.length === 0 && completeWidth > 0 && worker.current) {
+      const points = createWindowedWaveformV2(buffer, completeWidth, height, smoothing);
 
       worker.current.postMessage({
-        type: 'PUSH',
-        data,
+        width: completeWidth,
+        height,
+        points,
+        color,
       });
-    };
+    }
+  }, [buffer, waveformImage, completeWidth, worker, height, color]);
 
-    fileReader.readAsArrayBuffer(chunk);
-  }, [ctx]);
+  useEffect(() => {
+    if (worker.current) {
+      worker.current.onmessage = e => setWaveformImage(e.data);
+    }
+  },[worker, setWaveformImage]);
+
+  return pointCloudId;
 }

@@ -10,13 +10,13 @@ import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import { regionStore } from '../../../../../recoil/regionStore';
 import { arrangeWindowStore } from '../../../../../recoil/arrangeWindowStore';
 import useRegionColor from '../../../../../hooks/ui/region/useRegionColor';
-import useRegionWidth from '../../../../../hooks/ui/region/useRegionWidth';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 import useDuplicateAudioRegion from '../../../../../hooks/recoil/region/useDuplicateAudioRegion';
 import useCutAudioRegion from '../../../../../hooks/recoil/region/useCutAudioRegion';
 import useAudioRegionManipulation from '../../../../../hooks/ui/region/useAudioRegionManipulation';
 import useDeltaXTracker from '../../../../../hooks/ui/region/useDeltaXTracker';
 import { EditMode } from '../../../../../types/RegionManipulation';
+import useAsyncWaveformWorker from '../../../../../hooks/audio/useAsyncWaveformWorker';
 
 interface Props {
   onChangeIsMoving: (isMoving: boolean) => void;
@@ -26,14 +26,12 @@ interface Props {
 function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) {
   const pixelToSeconds = usePixelToSeconds();
   const regionId = useContext(RegionContext);
-  const buffer = useRecoilValue(regionStore.audioBuffer(regionId));
   const bufferId = useRecoilValue(regionStore.audioBufferPointer(regionId));
   const trimStart = useRecoilValue(regionStore.trimStart(regionId));
   const setStart = useSetRecoilState(regionStore.start(regionId));
   const waveformSmoothing = useRecoilValue(arrangeWindowStore.waveformSmoothing);
   const editMode = useRecoilValue(arrangeWindowStore.editMode);
   const color = useRegionColor(false);
-  const completeWidth = useRegionWidth();
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
   const isPressed = useIsHotkeyPressed();
   const [isMoving, setIsMoving] = useState(false);
@@ -84,11 +82,11 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) 
     }
   }, [editMode, cutRegion, pixelToSeconds, regionId]);
 
+  const pointCloudId = useAsyncWaveformWorker(bufferId ?? '', trackHeight, determineTextColor(color), waveformSmoothing);
+
   return (
     <RegionFirstLoop width={width} color={color}>
-      <WindowedWaveform completeWidth={completeWidth} color={determineTextColor(color)}
-                        smoothing={waveformSmoothing} buffer={buffer} height={trackHeight}
-                        bufferId={bufferId}/>
+      <WindowedWaveform pointCloudId={pointCloudId}/>
       <Manipulations onMouseDown={onMoveStart} onClick={onClick}>
         <TrimStartHandle onChange={onChangeTrimStart} onMouseUp={onMouseUp}/>
         <TrimEndHandle onChange={onChangeTrimEnd} onMouseUp={onMouseUp}/>
