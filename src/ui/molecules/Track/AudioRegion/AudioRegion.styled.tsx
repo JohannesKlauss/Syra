@@ -62,4 +62,5 @@ export const RegionName = styled(
   top: -4,
   left: 4,
   zIndex: 1,
+  cursor: 'text',
 }));

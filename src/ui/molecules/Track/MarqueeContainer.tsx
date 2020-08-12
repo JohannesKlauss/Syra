@@ -35,6 +35,7 @@ const BaseContainer = styled('div')({
   left: 0,
   cursor: 'text',
   zIndex: 10,
+  userSelect: 'none',
 });
 
 interface MarqueeIndicatorProps {
