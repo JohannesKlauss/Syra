@@ -30,10 +30,15 @@ const trimStart = atomFamily<number, string>({
   default: 0,
 });
 
-// The seconds that the region get trimmed at the end (also in relation to the audio buffer)
+// The seconds that the region get trimmed at the end (also in relation to the audio buffer duration)
 const trimEnd = atomFamily<number, string>({
   key: 'region/trimEnd',
   default: 0,
+});
+
+const name = atomFamily<string, string>({
+  key: 'region/name',
+  default: '',
 });
 
 const audioBufferPointer = atomFamily<string | null, string>({
@@ -82,9 +87,16 @@ const audioBuffer = selectorFamily<AudioBuffer | null, string>({
   }
 });
 
+// Parameter is channelId.
 const ids = atomFamily<string[], string>({
   key: 'region/ids',
   default: [],
+});
+
+// This atomFamily keeps track of all the created regions inside a channel. Parameter is channelId, not regionId.
+const staticCounter = atomFamily<number, string>({
+  key: 'region/staticCounter',
+  default: 1,
 });
 
 const findByIds = selectorFamily<RegionState[], string[]>({
@@ -121,6 +133,7 @@ const occupiedArea = selectorFamily<[number, number], string>({
 
 export const regionStore = {
   start,
+  name,
   audioBuffer,
   audioBufferPointer,
   isSolo,
@@ -134,4 +147,5 @@ export const regionStore = {
   findIdsByChannelId,
   findByChannelId,
   occupiedArea,
+  staticCounter,
 };

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { BaseContainer } from './AudioRegion.styled';
+import { BaseContainer, RegionName } from './AudioRegion.styled';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { regionStore } from '../../../../recoil/regionStore';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
@@ -9,6 +9,8 @@ import useRegionScheduler from '../../../../hooks/audio/useRegionScheduler';
 import ClonedAudioRegion from './ClonedAudioRegion';
 import ManipulationContainer from './Manipulations/ManipulationContainer';
 import useSecondsToPixel from '../../../../hooks/ui/useSecondsToPixel';
+import { determineTextColor } from '../../../../utils/color';
+import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
 
 /**
  * The AudioRegion is built a bit complicated and unintuitive.
@@ -21,10 +23,12 @@ import useSecondsToPixel from '../../../../hooks/ui/useSecondsToPixel';
 function AudioRegion() {
   const regionId = useContext(RegionContext);
   const [isMuted, setIsMuted] = useRecoilState(regionStore.isMuted(regionId));
+  const name = useRecoilValue(regionStore.name(regionId));
   const trimStart = useRecoilValue(regionStore.trimStart(regionId));
   const start = useRecoilValue(regionStore.start(regionId));
   const secondsToPixel = useSecondsToPixel();
   const isPressed = useIsHotkeyPressed();
+  const color = useRegionColor(false);
   const [left, setLeft] = useState(secondsToPixel(trimStart + start));
   const [isMoving, setIsMoving] = useState(false);
 
@@ -39,6 +43,7 @@ function AudioRegion() {
     <>
       {isDuplicating && <ClonedAudioRegion/>}
       <BaseContainer isMuted={isMuted} left={left} innerRef={hotkeysRef} isMoving={isMoving} tabIndex={-1}>
+        <RegionName variant={'overline'} color={determineTextColor(color)}>{name}</RegionName>
         <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)} onChangeIsMoving={isMoving => setIsMoving(isMoving)}/>
       </BaseContainer>
     </>

@@ -1,4 +1,4 @@
-import { Paper, PaperProps, styled } from '@material-ui/core';
+import { Paper, PaperProps, styled, Theme, Typography, TypographyProps } from '@material-ui/core';
 import React, { HTMLAttributes } from 'react';
 
 interface BaseContainerProps {
@@ -48,3 +48,18 @@ export const Manipulations = styled('div')({
   bottom: 0,
   left: 0,
 });
+
+interface RegionNameProps {
+  color: string;
+}
+
+export const RegionName = styled(
+  ({ color, ...other }: RegionNameProps & Omit<TypographyProps, keyof RegionNameProps>) =>
+    <Typography {...other} />,
+)<Theme, RegionNameProps>(({color}) => ({
+  color,
+  position: 'absolute',
+  top: -4,
+  left: 4,
+  zIndex: 1,
+}));
