@@ -13,26 +13,26 @@ export default function useAsyncWaveformWorker(bufferId: string, height: number,
   const buffer = useRecoilValue(audioBufferStore.buffer(bufferId));
   const [waveformImage, setWaveformImage] = useRecoilState(audioBufferStore.waveformImage(pointCloudId));
 
-  const worker = useWorker('worker/AsyncWaveformWorker.js');
+  const renderWorker = useWorker('worker/AsyncWaveformWorker.js');
 
   useEffect(() => {
-    if (buffer instanceof AudioBuffer && waveformImage.length === 0 && completeWidth > 0 && worker.current) {
+    if (buffer instanceof AudioBuffer && waveformImage.length === 0 && completeWidth > 0 && renderWorker.current) {
       const points = createWindowedWaveformV2(buffer, completeWidth, height, smoothing);
 
-      worker.current.postMessage({
+      renderWorker.current.postMessage({
         width: completeWidth,
         height,
         points,
         color,
       });
     }
-  }, [buffer, waveformImage, completeWidth, worker, height, color]);
+  }, [buffer, waveformImage, completeWidth, renderWorker, height, color]);
 
   useEffect(() => {
-    if (worker.current) {
-      worker.current.onmessage = e => setWaveformImage(e.data);
+    if (renderWorker.current) {
+      renderWorker.current.onmessage = e => setWaveformImage(e.data);
     }
-  },[worker, setWaveformImage]);
+  },[renderWorker, setWaveformImage]);
 
   return pointCloudId;
 }

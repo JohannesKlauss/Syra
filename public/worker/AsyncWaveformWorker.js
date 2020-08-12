@@ -27,17 +27,17 @@ const waveform = new Konva.Line({
 stage.add(layer);
 layer.add(waveform);
 
+layer.on('draw', async () => {
+  offscreenContext.drawImage(layer.getCanvas()._canvas, 0, 0);
+
+  postMessage(URL.createObjectURL(await offscreenCanvas.convertToBlob()));
+});
+
 self.onmessage = function(evt) {
   if (evt.data.points) {
     stage.setSize({
       width: evt.data.width,
       height: evt.data.height,
-    });
-
-    layer.on('draw', async () => {
-      offscreenContext.drawImage(layer.getCanvas()._canvas, 0, 0);
-
-      postMessage(URL.createObjectURL(await offscreenCanvas.convertToBlob()));
     });
 
     waveform.fill(evt.data.color);
