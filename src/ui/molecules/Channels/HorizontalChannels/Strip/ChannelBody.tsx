@@ -15,6 +15,7 @@ import LevelMeterVertical from '../../../../atoms/Meter/LevelMeterVertical';
 import { ColoredDivider, SmrContainer } from './ChannelBody.styled';
 import ChannelName from '../../ChannelName';
 import useBackboneChannel from '../../../../../hooks/tone/BackboneMixer/useBackboneChannel';
+import LevelMeterText from '../../../../atoms/Meter/LevelMeterText';
 
 const ChannelBody: React.FC = React.memo(() => {
   const channelId = useContext(ChannelContext);
@@ -43,9 +44,7 @@ const ChannelBody: React.FC = React.memo(() => {
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography gutterBottom align={'center'}>
-              {volumeFaderValue}
-            </Typography>
+            <LevelMeterText/>
           </Grid>
         </Grid>
         <Grid container justify={'center'}>
