@@ -8,6 +8,7 @@ import Track from '../Track/Track';
 import BackgroundGrid from './BackgroundGrid';
 import GridContextMenu from './GridContextMenu';
 import { useHotkeys } from 'react-hotkeys-hook';
+import SelectionTool from '../../atoms/SelectionTool';
 
 interface ArrangeWindowProps {
   windowWidth: number;
@@ -27,7 +28,7 @@ function GridTracks() {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
   const channelIds = useRecoilValue(channelStore.ids);
 
-  const [mousePos, setMousePos] = useState({x: 0, y: 0});
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [showMenu, setShowMenu] = useState(false);
 
   const onContextMenu = useCallback(e => {
@@ -48,11 +49,13 @@ function GridTracks() {
   return (
     <BaseContainer windowWidth={windowWidth} onContextMenu={onContextMenu}>
       <BackgroundGrid ticksFullHeight={true}/>
-      {channelIds.map((id, i) => (
-        <ChannelContext.Provider key={id} value={id}>
-          <Track backgroundColor={i % 2 === 0 ? theme.palette.background.paper : theme.palette.background.default}/>
-        </ChannelContext.Provider>
-      ))}
+      <SelectionTool>
+        {channelIds.map((id, i) => (
+          <ChannelContext.Provider key={id} value={id}>
+            <Track backgroundColor={i % 2 === 0 ? theme.palette.background.paper : theme.palette.background.default}/>
+          </ChannelContext.Provider>
+        ))}
+      </SelectionTool>
       <GridContextMenu show={showMenu} x={mousePos.x} y={mousePos.y} onClose={() => setShowMenu(false)}/>
     </BaseContainer>
   );

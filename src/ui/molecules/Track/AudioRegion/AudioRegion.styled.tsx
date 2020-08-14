@@ -14,13 +14,12 @@ export const BaseContainer = styled(
   margin: 0,
   marginTop: 1,
   height: '100%',
-  willChange: 'left',
+  willChange: 'transform',
   position: 'absolute',
   opacity: ({ isMuted }: BaseContainerProps) => isMuted ? 0.5 : 1,
-  left: ({ left }: BaseContainerProps) => left,
+  transform: ({ left }: BaseContainerProps) => `translateX(${left}px)`,
   border: `2px solid white`,
   zIndex: ({isMoving}: BaseContainerProps) => isMoving ? 10 : 1,
-  
 });
 
 interface RegionFirstLoopProps {
