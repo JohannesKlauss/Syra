@@ -1,6 +1,4 @@
 export function createPointCloud(values: Float32Array, smoothing: number, halfHeight: number) {
-  const t = performance.now();
-
   const pointCloud = [0, halfHeight];
   const halfLength = values.length / 2;
 
@@ -16,8 +14,6 @@ export function createPointCloud(values: Float32Array, smoothing: number, halfHe
   pointCloud[pointCloud.length - 1] = halfHeight;
   pointCloud[(pointCloud.length / 2) - 1] = halfHeight;
 
-  console.log('point cloud alg', performance.now() - t);
-
   return pointCloud;
 }
 
@@ -26,8 +22,6 @@ export function createPointCloud(values: Float32Array, smoothing: number, halfHe
  * @param steps       The number of steps. This acts as resolution.
  */
 export function windowedWaveformAlgorithm(audioBuffer: AudioBuffer, steps: number) {
-  const t = performance.now();
-
   const mathAbs = Math.abs, mathMax = Math.max, mathMin = Math.min; // Local copies for performance increase
 
   const length = audioBuffer.getChannelData(0).length;
@@ -55,8 +49,6 @@ export function windowedWaveformAlgorithm(audioBuffer: AudioBuffer, steps: numbe
 
     k++;
   }
-
-  console.log('window alg', performance.now() - t);
 
   return peakValues;
 }

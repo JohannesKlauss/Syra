@@ -1,11 +1,11 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useRecoilValue } from 'recoil/dist';
-import { regionStore } from '../../../recoil/regionStore';
-import useTrimmedRegionWidth from './useTrimmedRegionWidth';
-import useSecondsToPixel from '../useSecondsToPixel';
-import { RegionContext } from '../../../providers/RegionContext';
-import useRegionWidth from './useRegionWidth';
-import useSnapCtrlPixelCalc from '../useSnapCtrlPixelCalc';
+import { regionStore } from '../../../../recoil/regionStore';
+import useTrimmedRegionWidth from '../useTrimmedRegionWidth';
+import useSecondsToPixel from '../../useSecondsToPixel';
+import { RegionContext } from '../../../../providers/RegionContext';
+import useRegionWidth from '../useRegionWidth';
+import useSnapCtrlPixelCalc from '../../useSnapCtrlPixelCalc';
 
 export default function useAudioRegionManipulation() {
   const regionId = useContext(RegionContext);

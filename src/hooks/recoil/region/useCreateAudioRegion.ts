@@ -26,6 +26,7 @@ export default function useCreateAudioRegion() {
       set(regionStore.ids(channelId), currVal => [...currVal, newRegionId]);
       set(regionStore.audioBufferPointer(newRegionId), newBufferId);
       set(regionStore.start(newRegionId), start);
+      set(regionStore.trimEnd(newRegionId), audioBuffer.duration);
       set(regionStore.name(newRegionId), `${file.name.replace(/\.[^/.]+$/, "")}#${staticCounter}`);
 
       set(regionStore.staticCounter(channelId), staticCounter + 1);

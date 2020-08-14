@@ -33,6 +33,8 @@ export default function useCreateAudioRegionAsync() {
       set(audioBufferStore.ids, currVal => [...currVal, newBufferId]);
       set(audioBufferStore.buffer(newBufferId), audioBuffer);
       set(audioBufferStore.name(newBufferId), `${name}.wav`);
+
+      set(regionStore.trimEnd(newRegionId), audioBuffer.duration);
     };
   }, [transport, ctx]);
 }

@@ -26,7 +26,7 @@ export default function useAsyncWaveformWorker(bufferId: string, height: number,
         color,
       });
     }
-  }, [buffer, waveformImage, completeWidth, renderWorker, height, color]);
+  }, [buffer, waveformImage, completeWidth, renderWorker, height, color, smoothing]);
 
   useEffect(() => {
     if (renderWorker.current) {

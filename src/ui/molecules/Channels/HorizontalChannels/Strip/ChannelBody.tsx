@@ -28,7 +28,7 @@ const ChannelBody: React.FC = React.memo(() => {
     volume.set({volume: newVal});
 
     setVolumeFaderValue(newVal < -95 ? '-∞' : newVal.toFixed(1));
-  }, [pan]);
+  }, [volume]);
 
   return (
     <>

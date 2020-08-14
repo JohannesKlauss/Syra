@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import useMovable from '../useMovable';
+import useMovable from '../../useMovable';
 
 export default function useDeltaXTracker(onChange: (delta: number) => void, onMouseUp: (delta: number) => void) {
   const initialX = useRef(0);
