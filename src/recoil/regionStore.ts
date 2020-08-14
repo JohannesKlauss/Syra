@@ -121,11 +121,9 @@ const occupiedArea = selectorFamily<[number, number], string>({
     const startVal = get(start(regionId));
     const trimEndVal = get(trimEnd(regionId));
     const trimStartVal = get(trimStart(regionId));
-    const audioBufferVal = get(audioBuffer(regionId));
     const secondsToPixel = (seconds: number) => get(arrangeWindowStore.pixelPerSecond) * seconds
 
-    const initialWidth = secondsToPixel(audioBufferVal?.duration ?? 0);
-    const trimmedWidth = initialWidth - secondsToPixel(trimEndVal) - secondsToPixel(trimStartVal);
+    const trimmedWidth = secondsToPixel(trimEndVal) - secondsToPixel(trimStartVal);
 
     return [startVal, startVal + trimmedWidth];
   }

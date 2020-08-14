@@ -15,7 +15,7 @@ export default function useCutAudioRegion() {
     const slicePosition = originalState.trimStart + cutAt;
     const newRegionId = duplicateRegion(originalRegionId);
 
-    set(regionStore.trimEnd(originalRegionId), (originalState.audioBuffer?.duration ?? 0) - slicePosition);
+    set(regionStore.trimEnd(originalRegionId), slicePosition);
     set(regionStore.trimStart(newRegionId), slicePosition);
 
     return newRegionId;
