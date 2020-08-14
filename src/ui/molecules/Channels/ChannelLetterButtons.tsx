@@ -17,6 +17,7 @@ function ChannelLetterButtons() {
 
   const onClickSolo = useCallback(() => setIsSolo(currVal => !currVal), [setIsSolo]);
   const onClickMute = useCallback(() => setIsMuted(currVal => !currVal), [setIsMuted]);
+  const onClickInputMonitoring = useCallback(() => setIsInputMonitoringActive(currVal => !currVal), [setIsInputMonitoringActive]);
 
   const onClickRecord = useCallback(() => {
     if (isDawRecording) {
@@ -26,14 +27,6 @@ function ChannelLetterButtons() {
     setIsArmed(currVal => !currVal);
   }, [setIsArmed, isDawRecording]);
 
-  const onClickInputMonitoring = useCallback(() => {
-    if (isDawRecording) {
-      return;
-    }
-
-    setIsInputMonitoringActive(currVal => !currVal);
-  }, [setIsInputMonitoringActive, isDawRecording]);
-  
   return (
     <>
       <LetterButton onClick={onClickSolo} isActive={isSolo} color={'primary'} width={BUTTON_WIDTH}>S</LetterButton>

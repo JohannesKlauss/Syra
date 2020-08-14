@@ -26,6 +26,8 @@ export default function useCutRegionAtMarqueeIndicator() {
       regionIds.contents.forEach(id => {
         const area = snapshot.getLoadable(regionStore.occupiedArea(id)).contents as [number, number];
 
+        console.log('try to cut');
+
         if (isBetween(marqueePosition.contents!, area)) {
           cutRegion(id, pixelToSeconds(marqueePosition.contents! - area[0]));
         }
