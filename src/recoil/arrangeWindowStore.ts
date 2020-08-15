@@ -59,11 +59,11 @@ const horizontalZoomLevel = atom({
   default: 5,
 });
 
-// This is the zoom level. The zoom level defines how tracks are visible in the arrange window.
+// This is the zoom level. The zoom level defines how many tracks are visible in the arrange window.
 // This goes from 1 to 11
 const verticalZoomLevel = atom({
   key: 'arrangeWindow/verticalZoomLevel',
-  default: 5,
+  default: 6,
 });
 
 // This is the value the grid snaps to. Default is 1 which stands for 1 bar. A quarter note would be 0.25, a sixteenth 0.0625 and so on.

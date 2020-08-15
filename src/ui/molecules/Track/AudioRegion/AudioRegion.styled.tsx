@@ -1,5 +1,7 @@
 import { Paper, PaperProps, styled, Theme, Typography, TypographyProps } from '@material-ui/core';
 import React, { HTMLAttributes } from 'react';
+import { determineTextColor } from '../../../../utils/color';
+import tinycolor from 'tinycolor2';
 
 interface BaseContainerProps {
   isMuted: boolean;
@@ -19,7 +21,7 @@ export const BaseContainer = styled(
   position: 'absolute',
   opacity: ({ isMuted }: BaseContainerProps) => isMuted ? 0.5 : 1,
   transform: ({ left }: BaseContainerProps) => `translateX(${left}px)`,
-  border: ({isSelected, color}: BaseContainerProps) => isSelected ? '2px solid white' : `2px solid ${color}`,
+  border: ({isSelected, color}: BaseContainerProps) => isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(10).toRgbString()}`,
   zIndex: ({isMoving, isSelected}: BaseContainerProps) => isMoving || isSelected ? 10 : 1,
   '&:focus': {
     outline: 'none',
@@ -62,6 +64,21 @@ export const Manipulations = styled(
   left: 0,
 });
 
+interface TopBarProps {
+  color: string;
+}
+
+export const TopBar = styled(
+  ({ color, ...other }: TopBarProps & Omit<HTMLAttributes<HTMLDivElement>, keyof TopBarProps>) =>
+    <div {...other} />,
+)<Theme, TopBarProps>(({color}) => ({
+  width: '100%',
+  position: 'absolute',
+  backgroundColor: 'transparent',
+  top: 0,
+  left: 0,
+}));
+
 interface RegionNameProps {
   color: string;
 }
@@ -70,11 +87,13 @@ export const RegionName = styled(
   ({ color, ...other }: RegionNameProps & Omit<TypographyProps, keyof RegionNameProps>) =>
     <Typography {...other} />,
 )<Theme, RegionNameProps>(({color}) => ({
-  color,
-  position: 'absolute',
-  top: -4,
-  left: 4,
+  color: determineTextColor(color),
+  position: 'relative',
+  display: 'inline-block',
   zIndex: 1,
   cursor: 'text',
   userSelect: 'none',
+  fontSize: '11px',
+  lineHeight: '11px',
+  marginLeft: 15,
 }));

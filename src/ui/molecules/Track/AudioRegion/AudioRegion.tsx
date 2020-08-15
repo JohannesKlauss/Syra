@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { BaseContainer, RegionName } from './AudioRegion.styled';
+import { BaseContainer, RegionName, TopBar } from './AudioRegion.styled';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { regionStore } from '../../../../recoil/regionStore';
 import { useRecoilValue } from 'recoil/dist';
@@ -9,7 +9,6 @@ import useRegionScheduler from '../../../../hooks/audio/useRegionScheduler';
 import ClonedAudioRegion from './ClonedAudioRegion';
 import ManipulationContainer from './Manipulations/ManipulationContainer';
 import useSecondsToPixel from '../../../../hooks/ui/useSecondsToPixel';
-import { determineTextColor } from '../../../../utils/color';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
 
 /**
@@ -42,8 +41,10 @@ function AudioRegion() {
     <>
       {isDuplicating && <ClonedAudioRegion/>}
       <BaseContainer isMuted={isMuted} left={left} isMoving={isMoving} isSelected={isSelected} color={color}>
-        <RegionName variant={'overline'} color={determineTextColor(color)}>{name}</RegionName>
         <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)} onChangeIsMoving={isMoving => setIsMoving(isMoving)}/>
+        <TopBar color={color}>
+          <RegionName variant={'overline'} color={color}>{name}</RegionName>
+        </TopBar>
       </BaseContainer>
     </>
   );
