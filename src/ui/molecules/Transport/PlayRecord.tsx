@@ -26,12 +26,12 @@ const BaseContainer = styled(Box)({
 function PlayRecord() {
   const ctx = useAudioContext();
   const setPlayheadPosition = useSetRecoilState(arrangeWindowStore.playheadPosition);
+  const secondsPerBeat = useRecoilValue(arrangeWindowStore.secondsPerBeat);
   const [isRecording, setIsRecording] = useRecoilState(transportStore.isRecording);
   const [isPlaying, setIsPlaying] = useRecoilState(transportStore.isPlaying);
   const setTransportSeconds = useSetRecoilState(transportStore.seconds);
   const isCycleActive = useRecoilValue(transportStore.isCycleActive);
   const cycleStart = useRecoilValue(transportStore.cycleStart);
-  const bpm = useRecoilValue(projectStore.bpm);
   const length = useRecoilValue(projectStore.length);
   const transport = useToneJsTransport();
   const secondsToPixel = useSecondsToPixel();
@@ -46,6 +46,7 @@ function PlayRecord() {
     if (isPlaying) {
       const pos = transport.seconds;
       transport.stop();
+
       if (stopScheduleId.current) {
         transport.clear(stopScheduleId.current);
       }
@@ -60,12 +61,17 @@ function PlayRecord() {
       transport.start('+0.05');
 
       stopScheduleId.current = transport.scheduleOnce(() => {
-        onClickPlayPause();
-      }, `${bpm * length}`);
+        const pos = transport.seconds;
+        transport.stop();
+
+        setPlayheadPosition(secondsToPixel(pos));
+        setTransportSeconds(pos);
+        setIsPlaying(false);
+      }, `+${(length / secondsPerBeat) - transport.seconds}`);
     }
 
     setIsPlaying(currVal => !currVal);
-  }, [setIsPlaying, transport, isPlaying, isRecording, setTransportSeconds, cycleStart, isCycleActive, secondsToPixel, setPlayheadPosition, bpm, length]);
+  }, [setIsPlaying, transport, isPlaying, isRecording, setTransportSeconds, cycleStart, isCycleActive, secondsToPixel, setPlayheadPosition, length, secondsPerBeat]);
 
   const onClickReset = useCallback(() => {
     setPlayheadPosition(0);
