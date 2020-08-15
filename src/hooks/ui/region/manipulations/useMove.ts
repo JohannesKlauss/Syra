@@ -43,7 +43,7 @@ export default function useMove() {
     });
   }, [setStart, trimStart, setDeltaX, pixelToSeconds, isMoving, secondsToPixel, duplicateRegion, isPressed, regionId]);
 
-  const deltaXTrigger = useDeltaXTracker(onChange, onMouseUp);
+  const deltaXTrigger = useDeltaXTracker(onChange, onMouseUp, false);
 
   const triggerMove = useCallback(e => {
     setIsMoving(true);

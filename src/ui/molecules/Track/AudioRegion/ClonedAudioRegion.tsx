@@ -14,7 +14,7 @@ function ClonedAudioRegion() {
   const {left, width} = useStaticRegionPosition();
 
   return (
-    <BaseContainer isMuted={isMuted} left={left} isMoving={false}>
+    <BaseContainer isMuted={isMuted} left={left} isMoving={false} isSelected={false} color={theme.palette.background.paper}>
       <RegionFirstLoop color={theme.palette.background.paper} width={width}>
       </RegionFirstLoop>
     </BaseContainer>

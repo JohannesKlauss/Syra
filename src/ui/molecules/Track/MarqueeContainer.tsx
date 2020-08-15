@@ -47,7 +47,6 @@ const MarqueeIndicator = styled(
 )<Theme, MarqueeIndicatorProps>(({left}) => ({
   borderLeft: `1px solid white`,
   height: '200%',
-  marginTop: 1,
   position: 'absolute',
   left,
   animation: 'marqueeBlink 1s infinite ease-in-out',
@@ -77,7 +76,7 @@ function MarqueeContainer() {
   }, [calcSnappedX, trackHeight, setMarqueePosition, setMarqueeChannelPosition, channelId]);
 
   return (
-    <BaseContainer onClick={onSetMarquee}>
+    <BaseContainer onMouseDown={onSetMarquee}>
       {marqueePosition && marqueeChannelPosition === channelId && <MarqueeIndicator left={marqueePosition}/>}
     </BaseContainer>
   );

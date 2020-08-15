@@ -1,4 +1,4 @@
-import { atomFamily, selectorFamily} from 'recoil/dist';
+import { atom, atomFamily, selectorFamily } from 'recoil/dist';
 import { audioBufferStore } from './audioBufferStore';
 import { arrangeWindowStore } from './arrangeWindowStore';
 
@@ -54,6 +54,7 @@ export interface RegionState {
   isRecording: boolean;
   trimStart: number;
   trimEnd: number;
+  name: string;
 }
 
 const regionState = selectorFamily<RegionState, string>({
@@ -74,6 +75,7 @@ const regionState = selectorFamily<RegionState, string>({
       isRecording: get(isRecording(id)),
       trimEnd: get(trimEnd(id)),
       trimStart: get(trimStart(id)),
+      name: get(name(id)),
     };
   }
 });
@@ -93,11 +95,21 @@ const ids = atomFamily<string[], string>({
   default: [],
 });
 
+const selectedIds = atom<string[]>({
+  key: 'region/selectedIds',
+  default: [],
+})
+
 // This atomFamily keeps track of all the created regions inside a channel. Parameter is channelId, not regionId.
 const staticCounter = atomFamily<number, string>({
   key: 'region/staticCounter',
   default: 1,
 });
+
+const isSelected = selectorFamily<boolean, string>({
+  key: 'region/isSelected',
+  get: regionId => ({get}) => get(selectedIds).find(id => id === regionId) !== undefined,
+})
 
 const findByIds = selectorFamily<RegionState[], string[]>({
   key: 'region/findByIds',
@@ -118,11 +130,11 @@ const findByChannelId = selectorFamily<RegionState[], string>({
 const occupiedArea = selectorFamily<[number, number], string>({
   key: 'region/occupiedArea',
   get: regionId => ({get}) => {
-    const startVal = get(start(regionId));
     const trimEndVal = get(trimEnd(regionId));
     const trimStartVal = get(trimStart(regionId));
     const secondsToPixel = (seconds: number) => get(arrangeWindowStore.pixelPerSecond) * seconds
 
+    const startVal = secondsToPixel(get(start(regionId))) + secondsToPixel(trimStartVal);
     const trimmedWidth = secondsToPixel(trimEndVal) - secondsToPixel(trimStartVal);
 
     return [startVal, startVal + trimmedWidth];
@@ -137,6 +149,7 @@ export const regionStore = {
   isSolo,
   isMuted,
   isRecording,
+  isSelected,
   trimStart,
   trimEnd,
   regionState,
@@ -146,4 +159,5 @@ export const regionStore = {
   findByChannelId,
   occupiedArea,
   staticCounter,
+  selectedIds,
 };

@@ -20,6 +20,7 @@ export default function useDuplicateAudioRegion() {
     set(regionStore.isMuted(newRegionId), originalState.isMuted);
     set(regionStore.trimStart(newRegionId), originalState.trimStart);
     set(regionStore.trimEnd(newRegionId), originalState.trimEnd);
+    set(regionStore.name(newRegionId), originalState.name + '.1');
 
     set(regionStore.ids(channelId), currVal => [...currVal, newRegionId]);
 

@@ -4,22 +4,26 @@ import React, { HTMLAttributes } from 'react';
 interface BaseContainerProps {
   isMuted: boolean;
   isMoving: boolean;
+  isSelected: boolean;
+  color: string;
   left: number;
 }
 
 export const BaseContainer = styled(
-  ({ isMuted, isMoving, left, ...other }: BaseContainerProps & Omit<PaperProps, keyof BaseContainerProps>) =>
+  ({ isMuted, isMoving, isSelected, color, left, ...other }: BaseContainerProps & Omit<PaperProps, keyof BaseContainerProps>) =>
     <Paper {...other} />,
 )({
   margin: 0,
-  marginTop: 1,
   height: '100%',
   willChange: 'transform',
   position: 'absolute',
   opacity: ({ isMuted }: BaseContainerProps) => isMuted ? 0.5 : 1,
   transform: ({ left }: BaseContainerProps) => `translateX(${left}px)`,
-  border: `2px solid white`,
-  zIndex: ({isMoving}: BaseContainerProps) => isMoving ? 10 : 1,
+  border: ({isSelected, color}: BaseContainerProps) => isSelected ? '2px solid white' : `2px solid ${color}`,
+  zIndex: ({isMoving, isSelected}: BaseContainerProps) => isMoving || isSelected ? 10 : 1,
+  '&:focus': {
+    outline: 'none',
+  },
 });
 
 interface RegionFirstLoopProps {
@@ -37,13 +41,23 @@ export const RegionFirstLoop = styled(
   overflow: 'hidden',
   width: ({ width }: RegionFirstLoopProps) => width,
   backgroundColor: ({ color }: RegionFirstLoopProps) => color,
+  '&:focus': {
+    outline: 'none',
+  },
 });
 
-export const Manipulations = styled('div')({
+interface ManipulationsProps {
+  isMoving: boolean;
+}
+
+export const Manipulations = styled(
+  ({ isMoving, ...other }: ManipulationsProps & Omit<HTMLAttributes<HTMLDivElement>, keyof ManipulationsProps>) =>
+    <div {...other} />,
+)({
   height: '50%',
   width: '100%',
   position: 'absolute',
-  cursor: 'move',
+  cursor: ({isMoving}: ManipulationsProps) => isMoving ? 'grabbing' : 'grab',
   bottom: 0,
   left: 0,
 });

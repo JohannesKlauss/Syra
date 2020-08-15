@@ -42,7 +42,7 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) 
   return (
     <RegionFirstLoop color={color} width={deltaXTrimEnd - deltaXTrimStart}>
       <WindowedWaveform pointCloudId={pointCloudId} trimStart={deltaXTrimStart}/>
-      <Manipulations onMouseDown={triggerMove}>
+      <Manipulations onMouseDown={triggerMove} isMoving={isMoving}>
         <TrimStartHandle trigger={triggerTrimStart}/>
         <TrimEndHandle trigger={triggerTrimEnd}/>
       </Manipulations>

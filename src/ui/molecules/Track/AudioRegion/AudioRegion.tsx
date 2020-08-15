@@ -23,6 +23,7 @@ import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
 function AudioRegion() {
   const regionId = useContext(RegionContext);
   const [isMuted, setIsMuted] = useRecoilState(regionStore.isMuted(regionId));
+  const isSelected = useRecoilValue(regionStore.isSelected(regionId));
   const name = useRecoilValue(regionStore.name(regionId));
   const trimStart = useRecoilValue(regionStore.trimStart(regionId));
   const start = useRecoilValue(regionStore.start(regionId));
@@ -42,7 +43,7 @@ function AudioRegion() {
   return (
     <>
       {isDuplicating && <ClonedAudioRegion/>}
-      <BaseContainer isMuted={isMuted} left={left} innerRef={hotkeysRef} isMoving={isMoving} tabIndex={-1}>
+      <BaseContainer isMuted={isMuted} left={left} innerRef={hotkeysRef} isMoving={isMoving} tabIndex={-1} isSelected={isSelected} color={color}>
         <RegionName variant={'overline'} color={determineTextColor(color)}>{name}</RegionName>
         <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)} onChangeIsMoving={isMoving => setIsMoving(isMoving)}/>
       </BaseContainer>

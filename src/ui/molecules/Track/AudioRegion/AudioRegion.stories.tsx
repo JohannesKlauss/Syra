@@ -19,6 +19,7 @@ const state = {
   isSolo: false,
   isRecording: false,
   end: 0,
+  name: 'Default',
   files: [] as string[],
 };
 

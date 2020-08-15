@@ -1,6 +1,7 @@
 import React, { HTMLAttributes, useCallback, useRef, useState } from 'react';
 import { styled, Theme } from '@material-ui/core';
 import useMovementTracker from '../../hooks/ui/useMovementTracker';
+import { BoxArea } from '../../types/Ui';
 
 interface SelectionBoxProps {
   x2: number;
@@ -24,9 +25,10 @@ const SelectionBox = styled(
 }));
 
 interface Props {
+  onSelect: (area: BoxArea) => void;
 }
 
-const SelectionTool: React.FC<Props> = ({ children }) => {
+const SelectionTool: React.FC<Props> = ({ children, onSelect }) => {
   const [x0, setX0] = useState(-1);
   const [x1, setX1] = useState(-1);
   const [y0, setY0] = useState(-1);
@@ -40,12 +42,19 @@ const SelectionTool: React.FC<Props> = ({ children }) => {
   }, [setX1, setY1]);
 
   const onMouseUp = useCallback(() => {
+    onSelect({
+      x0: Math.min(x0, x1),
+      x1: Math.max(x0, x1),
+      y0: Math.min(y0, y1),
+      y1: Math.max(y0, y1),
+    });
+
     setIsHidden(true);
     setX0(-1);
     setX1(-1);
     setY0(-1);
     setY1(-1);
-  }, [setIsHidden, setX0, setX1, setY0, setY1]);
+  }, [setIsHidden, setX0, setX1, setY0, setY1, onSelect, x0, x1, y0, y1]);
 
   const trigger = useMovementTracker(onMouseMove, onMouseUp, divRef);
 
@@ -76,4 +85,4 @@ const SelectionTool: React.FC<Props> = ({ children }) => {
 // @ts-ignore
 SelectionTool.whyDidYouRender = true;
 
-export default React.memo(SelectionTool);
+export default SelectionTool;

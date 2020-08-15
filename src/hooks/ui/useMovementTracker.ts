@@ -20,9 +20,6 @@ export default function useMovementTracker(onChange: (pos: Pos) => void, onMouse
   const movableTrigger = useMovable(onMouseMove, persistDelta);
 
   return useCallback((e) => {
-    e.stopPropagation();
-    e.preventDefault();
-
     pos.current = {
       x: e.clientX - (divRef.current?.getBoundingClientRect().left ?? 0),
       y: e.clientY - (divRef.current?.getBoundingClientRect().top ?? 0),
