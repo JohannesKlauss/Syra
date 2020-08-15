@@ -3,6 +3,7 @@ import useWorker from '../core/useWorker';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { audioBufferStore } from '../../recoil/audioBufferStore';
 import useRegionWidth from '../ui/region/useRegionWidth';
+import useSharedAudioBufferMemory from '../core/useSharedAudioBufferMemory';
 
 export default function useAsyncWaveformWorker(bufferId: string, height: number, color: string, smoothing?: number ) {
   const completeWidth = useRegionWidth();
@@ -15,21 +16,25 @@ export default function useAsyncWaveformWorker(bufferId: string, height: number,
   const waveformWorker = useWorker('worker/SmoothWaveform.js');
   const renderWorker = useWorker('worker/AsyncWaveformWorker.js');
 
+  const {channelLeftSab, channelRightSab} = useSharedAudioBufferMemory(buffer?.getChannelData(0).byteLength ?? 0);
+
   useEffect(() => {
-    if (buffer instanceof AudioBuffer && waveformImage.length === 0 && completeWidth > 0 && waveformWorker.current) {
-      const t = performance.now();
+    if (channelLeftSab.byteLength > 0 && waveformImage.length === 0 && completeWidth > 0 && waveformWorker.current && buffer) {
+      const leftChannel = new Float32Array(channelLeftSab);
+      const rightChannel = new Float32Array(channelRightSab);
+
+      leftChannel.set(buffer.getChannelData(0));
+      buffer.numberOfChannels === 2 ? rightChannel.set(buffer.getChannelData(1)) : rightChannel.fill(0);
 
       waveformWorker.current.postMessage({
-        channelLeftData: buffer.getChannelData(0),
-        channelRightData: buffer.numberOfChannels > 1 ? buffer.getChannelData(1) : new Float32Array(buffer.getChannelData(0).length),
+        channelLeftData: channelLeftSab,
+        channelRightData: channelRightSab,
         width: completeWidth,
         height,
         smoothing,
       });
-
-      console.log('time', performance.now() - t);
     }
-  }, [buffer, waveformImage, completeWidth, waveformWorker, height, smoothing]);
+  }, [buffer, waveformImage, completeWidth, waveformWorker, height, smoothing, channelLeftSab, channelRightSab]);
 
   useEffect(() => {
     if (waveformWorker.current) {

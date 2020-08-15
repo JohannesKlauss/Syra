@@ -26,8 +26,11 @@ export default function useCutRegionAtMarqueeIndicator() {
       regionIds.contents.forEach(id => {
         const area = snapshot.getLoadable(regionStore.occupiedArea(id)).contents as [number, number];
 
+        // TODO: THERE SEEMS TO BE A BUG IN RECOIL. The pixelPerSecond callback doesn't get updated, so we have to reimplement it here.
+        const pixPerSec = snapshot.getLoadable(arrangeWindowStore.pixelPerSecond).contents as number;
+
         if (isBetween(marqueePosition.contents!, area)) {
-          cutRegion(id, pixelToSeconds(marqueePosition.contents! - area[0]));
+          cutRegion(id, (marqueePosition.contents! - area[0]) / pixPerSec);
         }
       })
     }

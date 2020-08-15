@@ -63,6 +63,9 @@ self.onmessage = function(evt) {
   if (evt.data.channelLeftData && evt.data.channelRightData) {
     const {channelLeftData, channelRightData, width, height, smoothing} = evt.data;
 
-    postMessage(createWindowedWaveformV2(channelLeftData, channelRightData, width, height, smoothing));
+    const localLeft = new Float32Array(channelLeftData);
+    const localRight = new Float32Array(channelRightData);
+
+    postMessage(createWindowedWaveformV2(localLeft, localRight, width, height, smoothing));
   }
 };
