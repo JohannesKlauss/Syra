@@ -1,4 +1,4 @@
-import { atom } from 'recoil/dist';
+import { atom, selector } from 'recoil/dist';
 import { TimeSignature } from '../types/Music';
 
 const name = atom({
@@ -16,11 +16,26 @@ const lastAnalyzedBpmFromImport = atom<number | null>({
   default: null,
 })
 
-// The project length in bars. At 120 bpm 240 bars equal 7:00 minutes.
+// The project length in bars. At 120 bpm 120 bars equal 3:30 minutes.
 // TODO: THIS SHOULD BE AN ARRAY OF OBJECTS SO WE CAN CHANGE THE BPM DURING THE PROJECT.
 const length = atom({
   key: 'project/length',
-  default: 240,
+  default: 60,
+});
+
+const lengthInSeconds = selector({
+  key: 'project/lengthInSeconds',
+  get: ({get}) => get(length) * get(secondsPerBeat),
+});
+
+const beatsPerSecond = selector({
+  key: 'arrangeWindow/beatsPerSecond',
+  get: ({get}) => 1 / (get(bpm) / 60),
+});
+
+const secondsPerBeat = selector({
+  key: 'arrangeWindow/secondsPerBeat',
+  get: ({get}) => 60 / get(bpm),
 });
 
 // The time signature of the project. "beat" is the upper nominal, "over" is the lower.
@@ -41,7 +56,10 @@ const isClickMuted = atom<boolean>({
 export const projectStore = {
   name,
   bpm,
+  beatsPerSecond,
+  secondsPerBeat,
   length,
+  lengthInSeconds,
   timeSignature,
   isClickMuted,
   lastAnalyzedBpmFromImport,

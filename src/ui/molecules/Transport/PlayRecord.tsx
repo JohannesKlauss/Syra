@@ -26,7 +26,7 @@ const BaseContainer = styled(Box)({
 function PlayRecord() {
   const ctx = useAudioContext();
   const setPlayheadPosition = useSetRecoilState(arrangeWindowStore.playheadPosition);
-  const secondsPerBeat = useRecoilValue(arrangeWindowStore.secondsPerBeat);
+  const secondsPerBeat = useRecoilValue(projectStore.secondsPerBeat);
   const [isRecording, setIsRecording] = useRecoilState(transportStore.isRecording);
   const [isPlaying, setIsPlaying] = useRecoilState(transportStore.isPlaying);
   const setTransportSeconds = useSetRecoilState(transportStore.seconds);

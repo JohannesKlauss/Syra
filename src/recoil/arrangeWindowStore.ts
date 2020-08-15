@@ -1,5 +1,4 @@
 import { atom, selector } from 'recoil/dist';
-import { projectStore } from './projectStore';
 import {
   ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT,
   ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH,
@@ -7,6 +6,7 @@ import {
 } from '../const/ui';
 import { EditMode } from '../types/RegionManipulation';
 import { RefObject } from 'react';
+import { projectStore } from './projectStore';
 
 const waveformSmoothing = atom({
   key: 'arrangeWindow/waveformSmoothing',
@@ -95,22 +95,12 @@ const resolution = selector({
 
 const pixelPerSecond = selector({
   key: 'arrangeWindow/pixelPerSecond',
-  get: ({get}) => get(pixelPerBeat) / get(beatsPerSecond),
+  get: ({get}) => get(pixelPerBeat) / get(projectStore.beatsPerSecond),
 });
 
 const pixelPerBeat = selector({
   key: 'arrangeWindow/pixelPerBeat',
   get: ({get}) => (get(width) / get(projectStore.length) / 4),
-});
-
-const beatsPerSecond = selector({
-  key: 'arrangeWindow/beatsPerSecond',
-  get: ({get}) => 1 / (get(projectStore.bpm) / 60),
-});
-
-const secondsPerBeat = selector({
-  key: 'arrangeWindow/secondsPerBeat',
-  get: ({get}) => 60 / get(projectStore.bpm),
 });
 
 // TODO: CALCULATING THIS SHOULD HAPPEN IN THE LOWEST SUPPORTED TIME SIGNATURE BASE (e.g. 16ths or 32nds)
@@ -155,8 +145,6 @@ export const arrangeWindowStore = {
   rulerItems,
   pixelPerSecond,
   pixelPerBeat,
-  beatsPerSecond,
-  secondsPerBeat,
   marqueePosition,
   marqueeChannelPosition,
 };
