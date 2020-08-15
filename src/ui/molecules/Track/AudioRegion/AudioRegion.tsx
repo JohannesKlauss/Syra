@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import { BaseContainer, RegionName } from './AudioRegion.styled';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { regionStore } from '../../../../recoil/regionStore';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
-import { useHotkeys, useIsHotkeyPressed } from 'react-hotkeys-hook';
+import { useRecoilValue } from 'recoil/dist';
+import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 import useRegionDawRecordingSync from '../../../../hooks/ui/region/useRegionDawRecordingSync';
 import useRegionScheduler from '../../../../hooks/audio/useRegionScheduler';
 import ClonedAudioRegion from './ClonedAudioRegion';
@@ -22,7 +22,7 @@ import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
  */
 function AudioRegion() {
   const regionId = useContext(RegionContext);
-  const [isMuted, setIsMuted] = useRecoilState(regionStore.isMuted(regionId));
+  const isMuted = useRecoilValue(regionStore.isMuted(regionId));
   const isSelected = useRecoilValue(regionStore.isSelected(regionId));
   const name = useRecoilValue(regionStore.name(regionId));
   const trimStart = useRecoilValue(regionStore.trimStart(regionId));
@@ -33,8 +33,6 @@ function AudioRegion() {
   const [left, setLeft] = useState(secondsToPixel(trimStart + start));
   const [isMoving, setIsMoving] = useState(false);
 
-  const hotkeysRef = useHotkeys('ctrl+m', () => setIsMuted(currVal => !currVal));
-
   useRegionDawRecordingSync();
   useRegionScheduler();
 
@@ -43,7 +41,7 @@ function AudioRegion() {
   return (
     <>
       {isDuplicating && <ClonedAudioRegion/>}
-      <BaseContainer isMuted={isMuted} left={left} innerRef={hotkeysRef} isMoving={isMoving} tabIndex={-1} isSelected={isSelected} color={color}>
+      <BaseContainer isMuted={isMuted} left={left} isMoving={isMoving} isSelected={isSelected} color={color}>
         <RegionName variant={'overline'} color={determineTextColor(color)}>{name}</RegionName>
         <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)} onChangeIsMoving={isMoving => setIsMoving(isMoving)}/>
       </BaseContainer>
