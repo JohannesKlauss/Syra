@@ -1,4 +1,4 @@
-import useDeltaXTracker from './useDeltaXTracker';
+import useDeltaTracker from './useDeltaTracker';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
@@ -34,7 +34,7 @@ export default function useTrimStart() {
     });
   }, [setTrimStart, trimEnd, setDeltaX, pixelToSeconds, secondsToPixel]);
 
-  const triggerTrimStart = useDeltaXTracker(onChange, onMouseUp);
+  const triggerTrimStart = useDeltaTracker(onChange, onMouseUp);
 
   return {triggerTrimStart, deltaXTrimStart: deltaX};
 }

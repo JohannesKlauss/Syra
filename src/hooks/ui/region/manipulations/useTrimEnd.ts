@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../../../recoil/regionStore';
-import useDeltaXTracker from './useDeltaXTracker';
+import useDeltaTracker from './useDeltaTracker';
 import usePixelToSeconds from '../../usePixelToSeconds';
 import useSecondsToPixel from '../../useSecondsToPixel';
 
@@ -38,7 +38,7 @@ export default function useTrimEnd() {
     });
   }, [setTrimEnd, audioBuffer, setDeltaX, pixelToSeconds, secondsToPixel, trimStart]);
 
-  const triggerTrimEnd = useDeltaXTracker(onChange, onMouseUp);
+  const triggerTrimEnd = useDeltaTracker(onChange, onMouseUp);
 
   return {triggerTrimEnd, deltaXTrimEnd: deltaX};
 }

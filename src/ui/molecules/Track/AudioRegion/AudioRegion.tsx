@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BaseContainer, RegionName, TopBar } from './AudioRegion.styled';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { regionStore } from '../../../../recoil/regionStore';
@@ -30,18 +30,27 @@ function AudioRegion() {
   const isPressed = useIsHotkeyPressed();
   const color = useRegionColor(false);
   const [left, setLeft] = useState(secondsToPixel(trimStart + start));
+  const [top, setTop] = useState(0);
   const [isMoving, setIsMoving] = useState(false);
 
   useRegionDawRecordingSync();
   useRegionScheduler();
+
+  useEffect(() => {
+    if (!isMoving) {
+      setTop(0);
+    }
+  }, [isMoving]);
 
   const isDuplicating = isPressed('alt') && isMoving;
 
   return (
     <>
       {isDuplicating && <ClonedAudioRegion/>}
-      <BaseContainer isMuted={isMuted} left={left} isMoving={isMoving} isSelected={isSelected} color={color}>
-        <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)} onChangeIsMoving={isMoving => setIsMoving(isMoving)}/>
+      <BaseContainer isMuted={isMuted} left={left} isMoving={isMoving} isSelected={isSelected} color={color} top={top}>
+        <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)}
+                               onChangeIsMoving={isMoving => setIsMoving(isMoving)}
+                               onUpdateTopOffset={cssTop => setTop(cssTop)}/>
         <TopBar color={color}>
           <RegionName variant={'overline'} color={color}>{name}</RegionName>
         </TopBar>

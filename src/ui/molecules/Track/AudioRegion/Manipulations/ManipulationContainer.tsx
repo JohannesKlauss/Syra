@@ -17,15 +17,16 @@ import useTrimEnd from '../../../../../hooks/ui/region/manipulations/useTrimEnd'
 interface Props {
   onChangeIsMoving: (isMoving: boolean) => void;
   onUpdateLeftOffset: (pos: number) => void;
+  onUpdateTopOffset: (pos: number) => void;
 }
 
-function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) {
+function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset, onUpdateTopOffset }: Props) {
   const regionId = useContext(RegionContext);
   const bufferId = useRecoilValue(regionStore.audioBufferPointer(regionId));
   const waveformSmoothing = useRecoilValue(arrangeWindowStore.waveformSmoothing);
   const color = useRegionColor(false);
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
-  const {triggerMove, deltaXMove, isMoving} = useMove();
+  const {triggerMove, deltaXMove, isMoving, cssTop} = useMove();
   const {triggerTrimStart, deltaXTrimStart} = useTrimStart();
   const {triggerTrimEnd, deltaXTrimEnd} = useTrimEnd();
 
@@ -36,6 +37,10 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset }: Props) 
   useLayoutEffect(() => {
     onUpdateLeftOffset(deltaXMove + deltaXTrimStart);
   }, [deltaXMove, deltaXTrimStart, onUpdateLeftOffset]);
+
+  useLayoutEffect(() => {
+    onUpdateTopOffset(cssTop);
+  }, [cssTop, onUpdateTopOffset]);
 
   const pointCloudId = useAsyncWaveformWorker(bufferId ?? '', trackHeight, determineTextColor(color), waveformSmoothing);
 

@@ -1,12 +1,13 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { useRecoilState, useRecoilValue } from 'recoil/dist';
-import useDeltaXTracker from './useDeltaXTracker';
+import useDeltaTracker from './useDeltaTracker';
 import { regionStore } from '../../../../recoil/regionStore';
 import usePixelToSeconds from '../../usePixelToSeconds';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 import useDuplicateAudioRegion from '../../../recoil/region/useDuplicateAudioRegion';
 import useSecondsToPixel from '../../useSecondsToPixel';
+import useTrackSwitch from './useTrackSwitch';
 
 export default function useMove() {
   const regionId = useContext(RegionContext);
@@ -18,6 +19,7 @@ export default function useMove() {
   const [isMoving, setIsMoving] = useState(false);
   const isPressed = useIsHotkeyPressed();
   const duplicateRegion = useDuplicateAudioRegion();
+  const { switchTrigger, cssTop } = useTrackSwitch();
 
   useEffect(() => {
     setDeltaX(secondsToPixel(start));
@@ -43,12 +45,13 @@ export default function useMove() {
     });
   }, [setStart, trimStart, setDeltaX, pixelToSeconds, isMoving, secondsToPixel, duplicateRegion, isPressed, regionId]);
 
-  const deltaXTrigger = useDeltaXTracker(onChange, onMouseUp, false);
+  const deltaXTrigger = useDeltaTracker(onChange, onMouseUp, false);
 
   const triggerMove = useCallback(e => {
     setIsMoving(true);
     deltaXTrigger(e);
+    switchTrigger(e);
   }, [setIsMoving, deltaXTrigger]);
 
-  return {triggerMove, deltaXMove: deltaX, isMoving};
+  return {triggerMove, deltaXMove: deltaX, isMoving, cssTop};
 }

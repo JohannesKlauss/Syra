@@ -9,6 +9,7 @@ interface BaseContainerProps {
   isSelected: boolean;
   color: string;
   left: number;
+  top: number;
 }
 
 export const BaseContainer = styled(
@@ -19,6 +20,7 @@ export const BaseContainer = styled(
   height: '100%',
   willChange: 'transform',
   position: 'absolute',
+  top: ({ top }: BaseContainerProps) => top,
   opacity: ({ isMuted }: BaseContainerProps) => isMuted ? 0.5 : 1,
   transform: ({ left }: BaseContainerProps) => `translateX(${left}px)`,
   border: ({isSelected, color}: BaseContainerProps) => isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(5).toRgbString()}`,
