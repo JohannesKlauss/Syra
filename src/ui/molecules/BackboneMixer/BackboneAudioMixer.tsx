@@ -20,22 +20,24 @@ function BackboneAudioMixer({channelId}: Props) {
   const plugins = useRecoilValue(channelStore.findActivePluginsByIds(pluginIds));
 
   useEffect(() => {
+    console.log('isMuted', isMuted);
+
     isMuted ? mixerChannelStrip.disconnect() : mixerChannelStrip.rewireAudio(plugins.map(plugin => plugin.audioNode));
-  }, [isMuted, plugins, mixerChannelStrip]);
+  }, [isMuted, plugins]);
 
   useEffect(() => {
     (async () => {
       await mixerChannelStrip.updateArming(isArmed);
     })();
-  }, [isArmed, mixerChannelStrip]);
+  }, [isArmed]);
 
   useEffect(() => {
     mixerChannelStrip.updateInputMonitoring(isInputMonitoringActive);
-  }, [isInputMonitoringActive, mixerChannelStrip]);
+  }, [isInputMonitoringActive]);
 
   useEffect(() => {
     mixerChannelStrip.channel.set({ solo: isSolo });
-  }, [isSolo, mixerChannelStrip]);
+  }, [isSolo]);
 
   useRecorder(channelId);
 

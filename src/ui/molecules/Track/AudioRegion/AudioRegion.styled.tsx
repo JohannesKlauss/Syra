@@ -21,7 +21,7 @@ export const BaseContainer = styled(
   position: 'absolute',
   opacity: ({ isMuted }: BaseContainerProps) => isMuted ? 0.5 : 1,
   transform: ({ left }: BaseContainerProps) => `translateX(${left}px)`,
-  border: ({isSelected, color}: BaseContainerProps) => isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(10).toRgbString()}`,
+  border: ({isSelected, color}: BaseContainerProps) => isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(5).toRgbString()}`,
   zIndex: ({isMoving, isSelected}: BaseContainerProps) => isMoving || isSelected ? 10 : 1,
   '&:focus': {
     outline: 'none',
