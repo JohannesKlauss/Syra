@@ -43,7 +43,7 @@ export default function useMove() {
 
       return newVal;
     });
-  }, [setStart, trimStart, setDeltaX, pixelToSeconds, isMoving, secondsToPixel, duplicateRegion, isPressed, regionId]);
+  }, [setStart, trimStart, setDeltaX, pixelToSeconds, isMoving, secondsToPixel, duplicateRegion, isPressed, regionId, isMoving]);
 
   const deltaXTrigger = useDeltaTracker(onChange, onMouseUp, false);
 
@@ -51,7 +51,7 @@ export default function useMove() {
     setIsMoving(true);
     deltaXTrigger(e);
     switchTrigger(e);
-  }, [setIsMoving, deltaXTrigger]);
+  }, [setIsMoving, deltaXTrigger, switchTrigger]);
 
   return {triggerMove, deltaXMove: deltaX, isMoving, cssTop};
 }

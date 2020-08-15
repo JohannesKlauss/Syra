@@ -1,7 +1,7 @@
 import useDeltaTracker from './useDeltaTracker';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
-import { useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil/dist';
+import { useRecoilCallback, useRecoilValue } from 'recoil/dist';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import { channelStore } from '../../../../recoil/channelStore';
 import { regionStore } from '../../../../recoil/regionStore';
@@ -40,15 +40,15 @@ export default function useTrackSwitch() {
     if (newChannelIndex >= 0 && newChannelIndex < ids.length && newChannelIndex !== index) {
       setCssTop(Math.round(delta / trackHeight) * trackHeight);
     }
-  }, [trackHeight, setCssTop, initialTop, ids]);
+  }, [trackHeight, setCssTop, initialTop, ids, index]);
 
   const onMouseUp = useCallback(delta => {
     const newChannelIndex = Math.round((initialTop + delta) / trackHeight);
 
-    if (newChannelIndex >= 0 && newChannelIndex < ids.length - 1 && newChannelIndex !== index) {
+    if (newChannelIndex >= 0 && newChannelIndex < ids.length && newChannelIndex !== index) {
       switchChannel(newChannelIndex);
     }
-  }, [ids, trackHeight, initialTop, index]);
+  }, [ids, trackHeight, initialTop, index, switchChannel]);
 
   const switchTrigger = useDeltaTracker(onChange, onMouseUp, false, true);
 

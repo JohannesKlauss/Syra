@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { Box, BoxProps, styled, Theme, useTheme } from '@material-ui/core';
 import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
@@ -6,7 +6,6 @@ import { channelStore } from '../../../recoil/channelStore';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import Track from '../Track/Track';
 import BackgroundGrid from './BackgroundGrid';
-import GridContextMenu from './GridContextMenu';
 import { useHotkeys } from 'react-hotkeys-hook';
 import SelectionTool from '../../atoms/SelectionTool';
 import useSelectRegions from '../../../hooks/ui/arrangeGrid/useSelectRegions';

@@ -21,7 +21,10 @@ export default function useRegionScheduler() {
       players.add(regionId, audioBuffer);
     }
 
-    players.player(regionId).set({mute: isMuted}).unsync().sync().start(start + trimStart + 0.001, trimStart, trimEnd - trimStart);
+    players.player(regionId)
+      .set({mute: isMuted})
+      .unsync().sync()
+      .start(start + trimStart + 0.001, trimStart, trimEnd - trimStart);
 
     return () => {
       players.player(regionId).unsync();

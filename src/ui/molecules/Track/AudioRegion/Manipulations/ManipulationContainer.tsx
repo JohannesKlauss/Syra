@@ -45,13 +45,15 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset, onUpdateT
   const pointCloudId = useAsyncWaveformWorker(bufferId ?? '', trackHeight, determineTextColor(color), waveformSmoothing);
 
   return (
-    <RegionFirstLoop color={color} width={deltaXTrimEnd - deltaXTrimStart}>
-      <WindowedWaveform pointCloudId={pointCloudId} trimStart={deltaXTrimStart}/>
-      <Manipulations onMouseDown={triggerMove} isMoving={isMoving}>
-        <TrimStartHandle trigger={triggerTrimStart}/>
-        <TrimEndHandle trigger={triggerTrimEnd}/>
-      </Manipulations>
-    </RegionFirstLoop>
+    <>
+      <RegionFirstLoop color={color} width={deltaXTrimEnd - deltaXTrimStart}>
+        <WindowedWaveform pointCloudId={pointCloudId} trimStart={deltaXTrimStart}/>
+        <Manipulations onMouseDown={triggerMove} isMoving={isMoving}>
+          <TrimStartHandle trigger={triggerTrimStart}/>
+          <TrimEndHandle trigger={triggerTrimEnd}/>
+        </Manipulations>
+      </RegionFirstLoop>
+    </>
   );
 }
 

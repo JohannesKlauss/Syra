@@ -83,7 +83,7 @@ const SelectionTool: React.FC<Props> = ({ children, onSelect }) => {
     setY1(y);
     setIsHidden(false);
     trigger(e);
-  }, [trigger, setX0, setY0, divRef, trackHeight]);
+  }, [trigger, setX0, setY0, divRef, trackHeight, onSelect]);
 
   const x2 = Math.min(x0, x1);
   const x3 = Math.max(x0, x1);

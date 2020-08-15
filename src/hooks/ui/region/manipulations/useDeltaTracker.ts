@@ -9,7 +9,7 @@ export default function useDeltaTracker(onChange: (delta: number) => void, onMou
     delta.current = (trackY ? e.clientY : e.clientX) - initial.current;
 
     onChange(delta.current);
-  }, [initial, onChange]);
+  }, [initial, onChange, trackY]);
 
   const persistDelta = useCallback(() => onMouseUp(delta.current), [onMouseUp, delta]);
 
@@ -25,5 +25,5 @@ export default function useDeltaTracker(onChange: (delta: number) => void, onMou
     delta.current = 0;
 
     movableTrigger();
-  }, [initial, delta, movableTrigger, stopPropagation]);
+  }, [initial, delta, movableTrigger, stopPropagation, trackY]);
 }

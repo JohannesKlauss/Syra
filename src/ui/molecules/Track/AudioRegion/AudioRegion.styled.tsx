@@ -77,6 +77,7 @@ export const TopBar = styled(
   width: '100%',
   position: 'absolute',
   backgroundColor: 'transparent',
+  overflow: 'hidden',
   top: 0,
   left: 0,
 }));
