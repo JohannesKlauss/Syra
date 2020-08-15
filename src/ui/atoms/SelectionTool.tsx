@@ -2,6 +2,8 @@ import React, { HTMLAttributes, useCallback, useRef, useState } from 'react';
 import { styled, Theme } from '@material-ui/core';
 import useMovementTracker from '../../hooks/ui/useMovementTracker';
 import { BoxArea } from '../../types/Ui';
+import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
+import { useRecoilValue } from 'recoil/dist';
 
 interface SelectionBoxProps {
   x2: number;
@@ -35,6 +37,7 @@ const SelectionTool: React.FC<Props> = ({ children, onSelect }) => {
   const [y1, setY1] = useState(-1);
   const [isHidden, setIsHidden] = useState(true);
   const divRef = useRef<HTMLDivElement>(null);
+  const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
 
   const onMouseMove = useCallback((pos) => {
     setX1(pos.x);
@@ -59,13 +62,28 @@ const SelectionTool: React.FC<Props> = ({ children, onSelect }) => {
   const trigger = useMovementTracker(onMouseMove, onMouseUp, divRef);
 
   const onMouseDown = useCallback((e) => {
-    setX0(e.clientX - (divRef.current?.getBoundingClientRect().left ?? 0));
-    setX1(e.clientX - (divRef.current?.getBoundingClientRect().left ?? 0));
-    setY0(e.clientY - (divRef.current?.getBoundingClientRect().top ?? 0));
-    setY1(e.clientY - (divRef.current?.getBoundingClientRect().top ?? 0));
+    const x = e.clientX - (divRef.current?.getBoundingClientRect().left ?? 0);
+    const y = e.clientY - (divRef.current?.getBoundingClientRect().top ?? 0);
+
+    // If selection tool started dragging on bottom half of track, don't allow the box, but trigger the point selection.
+    if(Math.round((y % trackHeight) / trackHeight) === 1) {
+      onSelect({
+        x0: x,
+        x1: x,
+        y0: y,
+        y1: y,
+      });
+
+      return;
+    }
+
+    setX0(x);
+    setX1(x);
+    setY0(y);
+    setY1(y);
     setIsHidden(false);
     trigger(e);
-  }, [trigger, setX0, setY0, divRef]);
+  }, [trigger, setX0, setY0, divRef, trackHeight]);
 
   const x2 = Math.min(x0, x1);
   const x3 = Math.max(x0, x1);
