@@ -75,9 +75,15 @@ function MarqueeContainer() {
     }
   }, [calcSnappedX, trackHeight, setMarqueePosition, setMarqueeChannelPosition, channelId]);
 
+  let content = null;
+
+  if (marqueePosition && marqueeChannelPosition === channelId) {
+    content = <MarqueeIndicator left={marqueePosition}/>
+  }
+
   return (
     <BaseContainer onMouseDown={onSetMarquee}>
-      {marqueePosition && marqueeChannelPosition === channelId && <MarqueeIndicator left={marqueePosition}/>}
+      {content}
     </BaseContainer>
   );
 }

@@ -17,14 +17,17 @@ export default function useAsyncWaveformWorker(bufferId: string, height: number,
 
   useEffect(() => {
     if (buffer instanceof AudioBuffer && waveformImage.length === 0 && completeWidth > 0 && renderWorker.current) {
-      const points = createWindowedWaveformV2(buffer, completeWidth, height, smoothing);
+      // TODO: THIS IS THE POOR MANS VERSION OF ASYNC, WE SHOULD IMPROVE THIS.
+      setTimeout(() => {
+        const points = createWindowedWaveformV2(buffer, completeWidth, height, smoothing);
 
-      renderWorker.current.postMessage({
-        width: completeWidth,
-        height,
-        points,
-        color,
-      });
+        renderWorker.current && renderWorker.current.postMessage({
+          width: completeWidth,
+          height,
+          points,
+          color,
+        });
+      }, 20);
     }
   }, [buffer, waveformImage, completeWidth, renderWorker, height, color, smoothing]);
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, styled } from '@material-ui/core';
+import { Box, LinearProgress, styled } from '@material-ui/core';
 import { useRecoilValue } from 'recoil/dist';
 import { audioBufferStore } from '../../../recoil/audioBufferStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
@@ -31,6 +31,7 @@ function WindowedWaveform({ pointCloudId, trimStart }: Props) {
 
   return (
     <>
+      {waveformImage.length === 0 && <LinearProgress color={'secondary'} />}
       <Waveform height={trackHeight} backgroundImage={waveformImage} trimStart={trimStart}/>
     </>
   );
