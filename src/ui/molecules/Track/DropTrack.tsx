@@ -10,7 +10,7 @@ import { projectStore } from '../../../recoil/projectStore';
 import InfoAction from '../../organisms/InfoAction';
 
 const BaseContainer = styled('div')(({ theme }) => ({
-  width: 'calc(100vw - 230px)',
+  width: 'calc(100vw - 262px)',
   height: 70,
   display: 'flex',
   justifyContent: 'center',
