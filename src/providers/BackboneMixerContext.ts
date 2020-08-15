@@ -70,8 +70,6 @@ export function instantiateMixer() {
     };
 
     const rewireAudio = (plugins: AudioWorkletNode[]) => {
-      console.log('rewire');
-
       if (retNodes.recorder) {
         Tone.connectSeries(retNodes.audioIn, retNodes.recorder);
       }

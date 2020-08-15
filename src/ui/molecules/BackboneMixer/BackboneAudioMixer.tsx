@@ -20,8 +20,6 @@ function BackboneAudioMixer({channelId}: Props) {
   const plugins = useRecoilValue(channelStore.findActivePluginsByIds(pluginIds));
 
   useEffect(() => {
-    console.log('isMuted', isMuted);
-
     isMuted ? mixerChannelStrip.disconnect() : mixerChannelStrip.rewireAudio(plugins.map(plugin => plugin.audioNode));
   }, [isMuted, plugins]);
 
