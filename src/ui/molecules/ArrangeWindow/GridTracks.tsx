@@ -11,6 +11,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import SelectionTool from '../../atoms/SelectionTool';
 import useSelectRegions from '../../../hooks/ui/arrangeGrid/useSelectRegions';
 import useMuteSelectedRegions from '../../../hooks/recoil/region/useMuteSelectedRegions';
+import useAnalyzeTempoForSelectedRegion from '../../../hooks/recoil/region/useAnalyzeTempoForSelectedRegion';
 
 interface ArrangeWindowProps {
   windowWidth: number;
@@ -30,8 +31,12 @@ function GridTracks() {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
   const channelIds = useRecoilValue(channelStore.ids);
   const onSelect = useSelectRegions();
+  const analyzeTempo = useAnalyzeTempoForSelectedRegion();
 
   useHotkeys('ctrl+m', useMuteSelectedRegions());
+  useHotkeys('a', () => {
+    (async () => await analyzeTempo())();
+  });
 
   return (
     <BaseContainer windowWidth={windowWidth}>

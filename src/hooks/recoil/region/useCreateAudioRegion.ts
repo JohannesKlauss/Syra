@@ -32,7 +32,6 @@ export default function useCreateAudioRegion() {
       set(regionStore.staticCounter(channelId), staticCounter + 1);
 
       if (analyzeTempo) {
-        // TODO: This could probably be its own hook.
         let analyzedTempo: number | null = null;
 
         try {
