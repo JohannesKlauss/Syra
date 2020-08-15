@@ -76,4 +76,5 @@ export const RegionName = styled(
   left: 4,
   zIndex: 1,
   cursor: 'text',
+  userSelect: 'none',
 }));

@@ -4,9 +4,20 @@ import { channelStore } from '../../../recoil/channelStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { regionStore } from '../../../recoil/regionStore';
 import { isIntersecting } from '../../../utils/numbers';
+import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 
 export default function useSelectRegions() {
+  const isPressed = useIsHotkeyPressed();
+
   return useRecoilCallback(({set, snapshot}) => (selectedArea: BoxArea) => {
+    let selectedRegionIds: string[] = [];
+    const isShiftPressed = isPressed('shift');
+
+    // If shift is pressed, we add to the selection region list.
+    if (isShiftPressed) {
+      selectedRegionIds = [...(snapshot.getLoadable(regionStore.selectedIds).contents as string[])];
+    }
+
     const trackHeight = snapshot.getLoadable(arrangeWindowStore.trackHeight).contents as number;
     const channelIds = snapshot.getLoadable(channelStore.ids).contents as string[];
 
@@ -22,8 +33,6 @@ export default function useSelectRegions() {
     const firstChannelIndex = Math.floor(selectedArea.y0 / trackHeight);
     const lastChannelIndex = Math.ceil(selectedArea.y1 / trackHeight);
 
-    const selectedRegionIds: string[] = [];
-
     channelIds.slice(firstChannelIndex, lastChannelIndex).forEach(channelId => {
       const regionIds = snapshot.getLoadable(regionStore.ids(channelId)).contents as string [];
 
@@ -31,11 +40,18 @@ export default function useSelectRegions() {
         const area = snapshot.getLoadable(regionStore.occupiedArea(regionId)).contents as [number, number];
 
         if (isIntersecting(area, [selectedArea.x0, selectedArea.x1])) {
-          selectedRegionIds.push(regionId);
+          if (isShiftPressed && selectedRegionIds.find(id => id === regionId) !== undefined) {
+            const i = selectedRegionIds.findIndex(id => id === regionId);
+
+            selectedRegionIds.splice(i, 1);
+          }
+          else {
+            selectedRegionIds.push(regionId);
+          }
         }
       });
     });
 
     set(regionStore.selectedIds, selectedRegionIds);
-  }, []);
+  }, [isPressed]);
 }
