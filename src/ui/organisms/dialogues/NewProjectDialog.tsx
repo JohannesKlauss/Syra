@@ -31,6 +31,7 @@ interface Props {
 function NewProjectDialog({onCreate, open, onCancel}: Props) {
   const [name, setName] = useRecoilState(projectStore.name);
   const [bpm, setBpm] = useRecoilState(projectStore.bpm);
+  const [length, setLength] = useRecoilState(projectStore.length);
 
   const [channelType, setChannelType] = useState(ChannelType.AUDIO);
   const [numChannels, setNumChannels] = useState(1);
@@ -83,6 +84,15 @@ function NewProjectDialog({onCreate, open, onCancel}: Props) {
               margin="dense"
               label={'Key'}
               value={'C Maj'}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              margin="dense"
+              type={'number'}
+              label={'Project length in bars'}
+              value={length}
+              onChange={e => setLength(parseInt(e.target.value))}
             />
           </Grid>
         </Grid>

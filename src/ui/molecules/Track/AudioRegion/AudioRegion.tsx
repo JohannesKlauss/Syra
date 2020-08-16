@@ -10,6 +10,7 @@ import ClonedAudioRegion from './ClonedAudioRegion';
 import ManipulationContainer from './Manipulations/ManipulationContainer';
 import useSecondsToPixel from '../../../../hooks/ui/useSecondsToPixel';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
+import useRegionSelfDestruct from '../../../../hooks/recoil/region/useRegionSelfDestruct';
 
 /**
  * The AudioRegion is built a bit complicated and unintuitive.
@@ -35,6 +36,7 @@ function AudioRegion() {
 
   useRegionDawRecordingSync();
   useRegionScheduler();
+  useRegionSelfDestruct(regionId);
 
   useEffect(() => {
     if (!isMoving) {

@@ -8,7 +8,7 @@ const name = atom({
 
 const bpm = atom({
   key: 'project/bpm',
-  default: 12
+  default: 120
 });
 
 const lastAnalyzedBpmFromImport = atom<number | null>({
