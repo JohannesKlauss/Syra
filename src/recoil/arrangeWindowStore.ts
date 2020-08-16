@@ -56,7 +56,7 @@ const playheadPosition = atom({
 // This goes from 1 to 11
 const horizontalZoomLevel = atom({
   key: 'arrangeWindow/horizontalZoomLevel',
-  default: 5,
+  default: 2,
 });
 
 // This is the zoom level. The zoom level defines how many tracks are visible in the arrange window.

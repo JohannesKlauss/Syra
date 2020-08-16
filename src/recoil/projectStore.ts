@@ -8,7 +8,7 @@ const name = atom({
 
 const bpm = atom({
   key: 'project/bpm',
-  default: 120
+  default: 12
 });
 
 const lastAnalyzedBpmFromImport = atom<number | null>({
@@ -20,7 +20,7 @@ const lastAnalyzedBpmFromImport = atom<number | null>({
 // TODO: THIS SHOULD BE AN ARRAY OF OBJECTS SO WE CAN CHANGE THE BPM DURING THE PROJECT.
 const length = atom({
   key: 'project/length',
-  default: 60,
+  default: 128,
 });
 
 const lengthInSeconds = selector({

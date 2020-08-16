@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilCallback, useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../recoil/regionStore';
 import { channelStore } from '../../recoil/channelStore';
 import { ChannelContext } from '../../providers/ChannelContext';
@@ -15,6 +15,29 @@ function Debugger() {
 
   const channelIds = useRecoilValue(channelStore.ids);
   const regionIds = useRecoilValue(regionStore.ids(selectedChannelId));
+
+  const channelCb = useRecoilCallback(({snapshot}) => () => {
+    const ids = snapshot.getLoadable(channelStore.ids).contents as string[];
+
+    const obj: {[name: string]: string} = {};
+
+    ids.forEach(id => obj[id] = snapshot.getLoadable(channelStore.name(id)).contents as string);
+
+    return obj;
+  }, []);
+
+  const regionCb = useRecoilCallback(({snapshot}) => (channelId: string) => {
+    const ids = snapshot.getLoadable(regionStore.ids(channelId)).contents as string[];
+
+    const obj: {[name: string]: string} = {};
+
+    ids.forEach(id => obj[id] = snapshot.getLoadable(regionStore.name(id)).contents as string);
+
+    return obj;
+  }, []);
+
+  const channelNames = channelCb();
+  const regionNames = regionCb(selectedChannelId);
 
   const selectedId = useRecoilValue(channelStore.selectedId);
 
@@ -38,22 +61,22 @@ function Debugger() {
         </Grid>
         <Grid item sm={6}>
           <FormControl>
-            <InputLabel id="channelId">Channel Id</InputLabel>
+            <InputLabel id="channelId">Channel</InputLabel>
             <Select autoWidth labelId={'channelId'} value={selectedChannelId}
                     onChange={(e: React.ChangeEvent<{ value: unknown }>) => {
                       setSelectedChannelId(e.target.value as string);
                       setSelectedRegionId('');
                     }}>
-              {channelIds.map(id => <MenuItem value={id} key={id}>{id}</MenuItem>)}
+              {channelIds.map(id => <MenuItem value={id} key={id}>{channelNames[id]}</MenuItem>)}
             </Select>
           </FormControl>
         </Grid>
         <Grid item sm={6}>
           <FormControl>
-            <InputLabel id="regionId">Region Id</InputLabel>
+            <InputLabel id="regionId">Region</InputLabel>
             <Select autoWidth labelId={'regionId'} value={selectedRegionId}
                     onChange={(e: React.ChangeEvent<{ value: unknown }>) => setSelectedRegionId(e.target.value as string)}>
-              {regionIds.map(id => <MenuItem value={id} key={id}>{id}</MenuItem>)}
+              {regionIds.map(id => <MenuItem value={id} key={id}>{regionNames[id]}</MenuItem>)}
             </Select>
           </FormControl>
         </Grid>

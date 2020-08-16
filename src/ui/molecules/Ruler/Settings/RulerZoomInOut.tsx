@@ -18,7 +18,7 @@ function RulerZoomInOut() {
   const [horizontalZoomLevel, setHorizontalZoomLevel] = useRecoilState(arrangeWindowStore.horizontalZoomLevel);
   const [, setVerticalZoomLevel] = useRecoilState(arrangeWindowStore.verticalZoomLevel);
 
-  const horizontalZoomIn = useCallback(() => setHorizontalZoomLevel(currVal => currVal < 11 ? currVal + 1 : 11), [setHorizontalZoomLevel]);
+  const horizontalZoomIn = useCallback(() => setHorizontalZoomLevel(currVal => currVal < 14 ? currVal + 1 : 14), [setHorizontalZoomLevel]);
   const horizontalZoomOut = useCallback(() => setHorizontalZoomLevel(currVal => currVal > 1 ? currVal - 1 : 1), [setHorizontalZoomLevel]);
 
   useHotkeys('command+right', e => {

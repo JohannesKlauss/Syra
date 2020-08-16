@@ -1,22 +1,22 @@
 export const ARRANGE_GRID_OFFSET = -6;
 export const ARRANGE_GRID_CHANNEL_LIST_GAP = ARRANGE_GRID_OFFSET * (-2);
 
-// This defines the arrange window width based on the zoom level.
-// For now this is taken from bandlab, but it's far from ideal and we should be more leaning toward the way Logic X does it.
-// TODO: It is probably way better to define a resolution and distance between bars and then calculate the window length from there.
 export const ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH: {[name: number]: number} = {
-  1: 3600,
-  2: 7200,
-  3: 14400,
-  4: 21600,
-  5: 36000,
-  6: 72000,
-  7: 144000,
-  8: 288000,
-  9: 576000,
-  10: 1152000,
-  11: 2304000,
-};
+  1: 1200,
+  2: 1800,
+  3: 3600,
+  4: 5400,
+  5: 7200,
+  6: 14400,
+  7: 21600,
+  8: 36000,
+  9: 72000,
+  10: 144000,
+  11: 288000,
+  12: 576000,
+  13: 1152000,
+  14: 2304000,
+}
 
 // This defines the default height of a track based on the vertical zoom level.
 export const ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT: {[name: number]: number} = {
