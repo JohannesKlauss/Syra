@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import * as Tone from 'tone';
 import { useRecoilState } from 'recoil/dist';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { IconButton } from '@material-ui/core';
 import { projectStore } from '../../../recoil/projectStore';
+import TimerIcon from '@material-ui/icons/Timer';
 
 const osc = new Tone.Oscillator().toDestination();
 
@@ -28,7 +28,7 @@ function Click() {
 
   return (
     <IconButton color={isClickMuted ? 'default' : 'primary'} component="span" onClick={() => setIsClickMuted(currVal => !currVal)}>
-      <AccessTimeIcon/>
+      <TimerIcon/>
     </IconButton>
   );
 }

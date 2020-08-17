@@ -31,7 +31,7 @@ function WindowedWaveform({ pointCloudId, trimStart }: Props) {
 
   return (
     <>
-      {waveformImage.length === 0 && <LinearProgress color={'secondary'} />}
+      {waveformImage.length === 0 && <LinearProgress color={'primary'} />}
       <Waveform height={trackHeight} backgroundImage={waveformImage} trimStart={trimStart}/>
     </>
   );

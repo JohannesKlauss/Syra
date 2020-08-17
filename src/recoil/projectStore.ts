@@ -6,10 +6,24 @@ const name = atom({
   default: 'New Syra Project',
 });
 
-const bpm = atom({
-  key: 'project/bpm',
-  default: 120
+// The tempo map of the project. The key is transport seconds and the value is beats per minute.
+const tempoMap = atom<{[name: number]: number}>({
+  key: 'project/tempoMap',
+  default: {
+    0: 120,
+    2: 240,
+    8: 120,
+  }
 });
+
+// Display the current tempo. This changes accordingly to the tempoMap inside useTempoMapScheduler.
+const currentTempo = atom({
+  key: 'project/currentTempo',
+  default: selector({
+    key: 'project/currentTempo/Default',
+    get: ({get}) => get(tempoMap)[0],
+  })
+})
 
 const lastAnalyzedBpmFromImport = atom<number | null>({
   key: 'project/lastAnalyzedBpmFromImport',
@@ -30,12 +44,12 @@ const lengthInSeconds = selector({
 
 const beatsPerSecond = selector({
   key: 'arrangeWindow/beatsPerSecond',
-  get: ({get}) => 1 / (get(bpm) / 60),
+  get: ({get}) => 1 / (get(currentTempo) / 60),
 });
 
 const secondsPerBeat = selector({
   key: 'arrangeWindow/secondsPerBeat',
-  get: ({get}) => 60 / get(bpm),
+  get: ({get}) => 60 / get(currentTempo),
 });
 
 // The time signature of the project. "beat" is the upper nominal, "over" is the lower.
@@ -55,7 +69,8 @@ const isClickMuted = atom<boolean>({
 
 export const projectStore = {
   name,
-  bpm,
+  tempoMap,
+  currentTempo,
   beatsPerSecond,
   secondsPerBeat,
   length,

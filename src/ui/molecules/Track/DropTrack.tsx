@@ -38,10 +38,10 @@ function DropTrack() {
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-  const [bpm, setBpm] = useRecoilState(projectStore.bpm);
+  const currentTempo = useRecoilValue(projectStore.currentTempo);
   const [lastAnalyzedBpmFromImport, setLastAnalyzedBpmFromImport] = useRecoilState(projectStore.lastAnalyzedBpmFromImport);
 
-  const isInfoActionOpen = lastAnalyzedBpmFromImport !== null && bpm !== lastAnalyzedBpmFromImport;
+  const isInfoActionOpen = lastAnalyzedBpmFromImport !== null && currentTempo !== lastAnalyzedBpmFromImport;
 
   const text = `Your imported track has a tempo of ${lastAnalyzedBpmFromImport}bpm. Would you like to update your project?`;
 
@@ -56,7 +56,8 @@ function DropTrack() {
       <InfoAction severity={'info'} open={isInfoActionOpen} text={text}
                   onCancel={() => setLastAnalyzedBpmFromImport(null)}
                   onConfirm={() => {
-                    setBpm(lastAnalyzedBpmFromImport!);
+                    // TODO: THIS WILL CURRENTLY NOT WORK. WE HAVE TO ADJUST THE TEMPO MAP, BUT WE DON'T KNOW WHAT THE LOGIC SHOULD BE YET.
+                    //setCurrentTempo(lastAnalyzedBpmFromImport!);
                     setLastAnalyzedBpmFromImport(null);
                   }}
       />

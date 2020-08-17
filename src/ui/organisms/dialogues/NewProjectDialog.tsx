@@ -30,19 +30,19 @@ interface Props {
 
 function NewProjectDialog({onCreate, open, onCancel}: Props) {
   const [name, setName] = useRecoilState(projectStore.name);
-  const [bpm, setBpm] = useRecoilState(projectStore.bpm);
+  const [tempoMap, setTempoMap] = useRecoilState(projectStore.tempoMap);
   const [length, setLength] = useRecoilState(projectStore.length);
 
   const [channelType, setChannelType] = useState(ChannelType.AUDIO);
   const [numChannels, setNumChannels] = useState(1);
 
-  const { tap, tappedTempo } = useTapTempo(bpm);
+  const { tap, tappedTempo } = useTapTempo(tempoMap[0]);
 
   useHotkeys('space', tap);
 
   useEffect(() => {
-    setBpm(tappedTempo);
-  }, [tappedTempo, setBpm]);
+    setTempoMap({ 0: tappedTempo });
+  }, [tappedTempo, setTempoMap]);
 
   return (
     <Dialog open={open}>
@@ -72,8 +72,8 @@ function NewProjectDialog({onCreate, open, onCancel}: Props) {
               margin="dense"
               type={'number'}
               label={'Tempo'}
-              value={bpm}
-              onChange={e => setBpm(parseFloat(e.target.value))}
+              value={tempoMap[0]}
+              onChange={e => setTempoMap({ 0: parseFloat(e.target.value) })}
             />
           </Grid>
           <Grid item>

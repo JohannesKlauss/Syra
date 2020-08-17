@@ -1,13 +1,13 @@
 import React from 'react';
 import { Container, styled } from '@material-ui/core';
 import PlayRecord from './PlayRecord';
-import Bpm from './Bpm';
 import TimeSignature from './TimeSignature';
 import Click from './Click';
 import ViewToggles from '../ViewToggles/ViewToggles';
 import TimeInformation from './TimeInformation';
+import Tempo from './Tempo';
 
-const BaseContainer = styled(Container)(({theme}) => ({
+const BaseContainer = styled(Container)(({ theme }) => ({
   overflow: 'hidden',
   width: '100%',
   maxWidth: '100%',
@@ -24,18 +24,29 @@ const RightPane = styled('div')({
   display: 'flex',
 });
 
+const InfoBox = styled('div')(({ theme }) => ({
+  flex: 1,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  background: theme.palette.background.default,
+  borderRadius: theme.shape.borderRadius,
+}));
+
 function TransportView() {
   return (
     <BaseContainer>
       <ViewToggles/>
       <PlayRecord/>
-      <TimeInformation/>
+      <InfoBox>
+        <TimeInformation/>
+        <Tempo/>
+        <TimeSignature/>
+      </InfoBox>
       <RightPane>
         <Click/>
       </RightPane>
       <RightPane>
-        <Bpm/>
-        <TimeSignature/>
       </RightPane>
     </BaseContainer>
   );
