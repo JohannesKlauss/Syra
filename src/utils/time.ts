@@ -1,3 +1,6 @@
+import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
+import { getSortedKeysOfEventMap } from './eventMap';
+
 export function formatSecondsToTime(seconds: number) {
   return new Date(seconds * 1000).toISOString().substr(11, 12)
 }
@@ -13,7 +16,7 @@ export function isTimeBetween(needle: number, boundaries: [number, number], incl
 // This return the current beat number for the current playhead position.
 // This is used to update everything UI related when the user sets the playhead to a different position.
 export function getBeatCountForTransportSeconds(tsMap: {[name: number]: [number, number]}, transportSeconds: number) {
-  const tsChanges = Object.keys(tsMap).map(change => parseFloat(change)).sort((a, b) => a - b);
+  const tsChanges = getSortedKeysOfEventMap(tsMap);
 
   let beats = 1;
 
@@ -23,7 +26,7 @@ export function getBeatCountForTransportSeconds(tsMap: {[name: number]: [number,
   for (let i = 0; i < tsChanges.length; i++) {
     const change = tsChanges[i];
     const rightBoundary = (i < tsChanges.length - 1) ? tsChanges[i + 1] : 1597660821; // This is just a very big number the transport will never reach.
-    const beatsPerSecond = (tsMap[change][1] / 4) / secondPerBeat;
+    const beatsPerSecond = (tsMap[change][1] / TIME_CONVERSION_RESOLUTION) / secondPerBeat;
 
     if (isTimeBetween(transportSeconds, [change, rightBoundary])) {
       beats = (beats + beatsPerSecond * (transportSeconds - change)) % tsMap[change][0];
@@ -38,7 +41,7 @@ export function getBeatCountForTransportSeconds(tsMap: {[name: number]: [number,
 }
 
 export function getBarCountForTransportSeconds(tsMap: {[name: number]: [number, number]}, transportSeconds: number) {
-  const tsChanges = Object.keys(tsMap).map(change => parseFloat(change)).sort((a, b) => a - b);
+  const tsChanges = getSortedKeysOfEventMap(tsMap);
 
   let bars = 1;
 
@@ -48,7 +51,7 @@ export function getBarCountForTransportSeconds(tsMap: {[name: number]: [number, 
   for (let i = 0; i < tsChanges.length; i++) {
     const change = tsChanges[i];
     const rightBoundary = (i < tsChanges.length - 1) ? tsChanges[i + 1] : 1597660821; // This is just a very big number the transport will never reach.
-    const barsPerSecond = (tsMap[change][1] / tsMap[change][0]) / (secondPerBeat * 4);
+    const barsPerSecond = (tsMap[change][1] / tsMap[change][0]) / (secondPerBeat * TIME_CONVERSION_RESOLUTION);
 
     if (isTimeBetween(transportSeconds, [change, rightBoundary])) {
       bars = bars + (barsPerSecond * (transportSeconds - change));
@@ -60,4 +63,78 @@ export function getBarCountForTransportSeconds(tsMap: {[name: number]: [number, 
   }
 
   return Math.max(Math.floor(bars), 1);
+}
+
+export function getProjectLengthInSeconds(tempoMap: {[name: number]: number}, projectLengthInBeats: number) {
+  const tempoChanges = getSortedKeysOfEventMap(tempoMap);
+
+  let seconds = 0;
+  let beatsLeftOver = projectLengthInBeats;
+
+  for (let i = 0; i < tempoChanges.length && beatsLeftOver > 0; i++) {
+    const changeAt = tempoChanges[i];
+    const rightBoundary = (i < tempoChanges.length - 1) ? tempoChanges[i + 1] : -1;
+
+    const beatsInBlock = (rightBoundary - changeAt) * (tempoMap[changeAt] / 60);
+
+    if (rightBoundary !== -1 && beatsLeftOver - beatsInBlock >= 0) {
+      seconds += rightBoundary - changeAt;
+      beatsLeftOver -= beatsInBlock;
+    }
+    else {
+      seconds += (beatsLeftOver) * (60 / tempoMap[changeAt]);
+      beatsLeftOver = 0;
+    }
+  }
+
+  return seconds;
+}
+
+export function getBeatsInTempoBlock(tempoMap: {[name: number]: number}, blockAtSeconds: number, projectLengthInBeats: number) {
+  const tempoChanges = getSortedKeysOfEventMap(tempoMap);
+
+  let beatsInBlock = 0;
+  let beatsLeftOver = projectLengthInBeats;
+
+  for (let i = 0; i < tempoChanges.length && beatsLeftOver > 0; i++) {
+    const changeAt = tempoChanges[i];
+    const rightBoundary = (i < tempoChanges.length - 1) ? tempoChanges[i + 1] : -1;
+
+    beatsInBlock = (rightBoundary - changeAt) * (tempoMap[changeAt] / 60);
+
+    if (beatsInBlock < 0) {
+      return beatsLeftOver;
+    }
+
+    if (changeAt === blockAtSeconds) {
+      return beatsInBlock;
+    }
+
+    if (rightBoundary !== -1 && beatsLeftOver - beatsInBlock >= 0) {
+      beatsLeftOver -= beatsInBlock;
+    }
+  }
+
+  return beatsInBlock;
+}
+
+export function getTempoBlockLengthInSeconds(tempoMap: {[name: number]: number}, blockAtSeconds: number, projectLengthInBeats: number) {
+  const beats = getBeatsInTempoBlock(tempoMap, blockAtSeconds, projectLengthInBeats);
+
+  return (60 / tempoMap[blockAtSeconds]) * beats;
+}
+
+export function getCurrentTempoBlock(tempoMap: {[name: number]: number}, transportSeconds: number) {
+  const tempoChanges = getSortedKeysOfEventMap(tempoMap);
+
+  for (let i = 0; i < tempoChanges.length; i++) {
+    const changeAt = tempoChanges[i];
+    const rightBoundary = (i < tempoChanges.length - 1) ? tempoChanges[i + 1] : 1597660821;
+
+    if (isTimeBetween(transportSeconds, [changeAt, rightBoundary])) {
+      return changeAt;
+    }
+  }
+
+  return -1;
 }

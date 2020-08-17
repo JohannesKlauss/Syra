@@ -5,3 +5,5 @@ export const CONVERT_TO_MUSICAL_TIME = {
   EIGHTS: 0.125,
   SIXTEENS: 0.0625,
 }
+
+export const TIME_CONVERSION_RESOLUTION = 4;

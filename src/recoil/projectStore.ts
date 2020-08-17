@@ -1,4 +1,12 @@
-import { atom, selector } from 'recoil/dist';
+import { atom, selector, selectorFamily } from 'recoil/dist';
+import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
+import {
+  getBeatsInTempoBlock,
+  getCurrentTempoBlock,
+  getProjectLengthInSeconds,
+  getTempoBlockLengthInSeconds,
+} from '../utils/time';
+import { transportStore } from './transportStore';
 
 const name = atom({
   key: 'project/name',
@@ -22,6 +30,21 @@ const currentTempo = atom({
   })
 });
 
+const currentTempoBlock = selector({
+  key: 'project/currentTempoBlock',
+  get: ({get}) => getCurrentTempoBlock(get(tempoMap), get(transportStore.seconds)),
+})
+
+const beatsInTempoBlock = selectorFamily<number, number>({
+  key: 'project/beatsInTempoBlock',
+  get: blockAtSeconds => ({get}) => getBeatsInTempoBlock(get(tempoMap), blockAtSeconds, get(lengthInBeats)),
+});
+
+const tempoBlockLengthInSeconds = selectorFamily<number, number>({
+  key: 'project/tempoBlockLengthInSeconds',
+  get: blockAtSeconds => ({get}) => getTempoBlockLengthInSeconds(get(tempoMap), blockAtSeconds, get(lengthInBeats)),
+});
+
 const timeSignatureMap = atom<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
@@ -42,16 +65,16 @@ const lastAnalyzedBpmFromImport = atom<number | null>({
   default: null,
 })
 
-// The project length in bars. At 120 bpm 120 bars equal 3:30 minutes.
-// TODO: THIS SHOULD BE AN ARRAY OF OBJECTS SO WE CAN CHANGE THE BPM DURING THE PROJECT.
-const length = atom({
+// The project length in beats (beats of 4ths as default).
+const lengthInBeats = atom({
   key: 'project/length',
-  default: 128,
+  default: TIME_CONVERSION_RESOLUTION * 128
 });
 
+// The project length in seconds with tempo changes already included.
 const lengthInSeconds = selector({
   key: 'project/lengthInSeconds',
-  get: ({get}) => get(length) * get(secondsPerBeat),
+  get: ({get}) => getProjectLengthInSeconds(get(tempoMap), get(lengthInBeats)),
 });
 
 const beatsPerSecond = selector({
@@ -73,11 +96,14 @@ export const projectStore = {
   name,
   tempoMap,
   currentTempo,
+  beatsInTempoBlock,
+  tempoBlockLengthInSeconds,
+  currentTempoBlock,
   timeSignatureMap,
   currentTimeSignature,
   beatsPerSecond,
   secondsPerBeat,
-  length,
+  lengthInBeats,
   lengthInSeconds,
   isClickMuted,
   lastAnalyzedBpmFromImport,

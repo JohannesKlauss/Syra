@@ -13,6 +13,7 @@ import { ChannelType } from '../../../types/Channel';
 import useTapTempo from '../../../hooks/audio/useTapTempo';
 import { buttonInfo } from '../../../utils/text';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { TIME_CONVERSION_RESOLUTION } from '../../../const/musicalConversionConstants';
 
 const CustomToggleButtonGroup = styled(ToggleButtonGroup)({
   width: '100%',
@@ -31,7 +32,7 @@ interface Props {
 function NewProjectDialog({onCreate, open, onCancel}: Props) {
   const [name, setName] = useRecoilState(projectStore.name);
   const [tempoMap, setTempoMap] = useRecoilState(projectStore.tempoMap);
-  const [length, setLength] = useRecoilState(projectStore.length);
+  const [length, setLength] = useRecoilState(projectStore.lengthInBeats);
 
   const [channelType, setChannelType] = useState(ChannelType.AUDIO);
   const [numChannels, setNumChannels] = useState(1);
@@ -92,7 +93,7 @@ function NewProjectDialog({onCreate, open, onCancel}: Props) {
               type={'number'}
               label={'Project length in bars'}
               value={length}
-              onChange={e => setLength(parseInt(e.target.value))}
+              onChange={e => setLength(parseInt(e.target.value) * TIME_CONVERSION_RESOLUTION)}
             />
           </Grid>
         </Grid>

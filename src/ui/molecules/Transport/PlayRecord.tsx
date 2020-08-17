@@ -32,7 +32,7 @@ function PlayRecord() {
   const setTransportSeconds = useSetRecoilState(transportStore.seconds);
   const isCycleActive = useRecoilValue(transportStore.isCycleActive);
   const cycleStart = useRecoilValue(transportStore.cycleStart);
-  const length = useRecoilValue(projectStore.length);
+  const lengthInBeats = useRecoilValue(projectStore.lengthInBeats);
   const transport = useToneJsTransport();
   const secondsToPixel = useSecondsToPixel();
   const stopScheduleId = useRef<null | number>(null);
@@ -67,11 +67,11 @@ function PlayRecord() {
         setPlayheadPosition(secondsToPixel(pos));
         setTransportSeconds(pos);
         setIsPlaying(false);
-      }, `+${(length / secondsPerBeat) - transport.seconds}`);
+      }, `+${(lengthInBeats / secondsPerBeat) - transport.seconds}`);
     }
 
     setIsPlaying(currVal => !currVal);
-  }, [setIsPlaying, transport, isPlaying, isRecording, setTransportSeconds, cycleStart, isCycleActive, secondsToPixel, setPlayheadPosition, length, secondsPerBeat]);
+  }, [setIsPlaying, transport, isPlaying, isRecording, setTransportSeconds, cycleStart, isCycleActive, secondsToPixel, setPlayheadPosition, lengthInBeats, secondsPerBeat]);
 
   const onClickReset = useCallback(() => {
     setPlayheadPosition(0);
