@@ -1,4 +1,4 @@
-import { getBeatCountForTransportSeconds } from '../time';
+import { getBarCountForTransportSeconds, getBeatCountForTransportSeconds } from '../time';
 
 describe('getBeatCountForTransportSeconds', () => {
   it('should return the correct mod beat for the given seconds', () => {
@@ -87,5 +87,37 @@ describe('getBeatCountForTransportSeconds', () => {
     expect(getBeatCountForTransportSeconds(tsMap, 2.4)).toEqual(3);
     expect(getBeatCountForTransportSeconds(tsMap, 2.9)).toEqual(5);
     expect(getBeatCountForTransportSeconds(tsMap, 3.4)).toEqual(7);
+  });
+});
+
+describe('getBarCountForTransportSeconds', () => {
+  it('should return the correct bar for the given seconds', () => {
+    const tsMap: {[name: number]: [number, number]} = {
+      0: [4, 4],
+    };
+
+    expect(getBarCountForTransportSeconds(tsMap, 0)).toEqual(1);
+    expect(getBarCountForTransportSeconds(tsMap, 1)).toEqual(1);
+    expect(getBarCountForTransportSeconds(tsMap, 1.5)).toEqual(1);
+    expect(getBarCountForTransportSeconds(tsMap, 2)).toEqual(2);
+    expect(getBarCountForTransportSeconds(tsMap, 2.5)).toEqual(2);
+    expect(getBarCountForTransportSeconds(tsMap, 2.75)).toEqual(2);
+    expect(getBarCountForTransportSeconds(tsMap, 3)).toEqual(2);
+    expect(getBarCountForTransportSeconds(tsMap, 3.5)).toEqual(2);
+    expect(getBarCountForTransportSeconds(tsMap, 4)).toEqual(3);
+  });
+
+  it('should incorporate time signature changes', () => {
+    const tsMap: {[name: number]: [number, number]} = {
+      0: [4, 4],
+      2: [2, 4],
+    };
+
+    expect(getBarCountForTransportSeconds(tsMap, 2)).toEqual(2);
+    expect(getBarCountForTransportSeconds(tsMap, 2.5)).toEqual(2);
+    expect(getBarCountForTransportSeconds(tsMap, 2.75)).toEqual(2);
+    expect(getBarCountForTransportSeconds(tsMap, 3)).toEqual(3);
+    expect(getBarCountForTransportSeconds(tsMap, 3.5)).toEqual(3);
+    expect(getBarCountForTransportSeconds(tsMap, 4)).toEqual(4);
   });
 });

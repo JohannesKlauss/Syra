@@ -27,18 +27,14 @@ function BarsAndBeats() {
 
   useEffect(() => {
     const id = transport.scheduleRepeat(() => {
-      // Start of a new bar.
-      if (beats % currentTimeSignature[0] === 0) {
-        setBars(prevState => prevState + 1);
-      }
-
-      setBeats(prevState => prevState % currentTimeSignature[0] + 1);
+      setBars(getBarCountForTransportSeconds(timeSignatureMap, transport.seconds));
+      setBeats(getBeatCountForTransportSeconds(timeSignatureMap, transport.seconds));
     }, `${currentTimeSignature[1]}n`, 0);
 
     return () => {
       transport.clear(id);
     };
-  }, [transport, currentTimeSignature, beats, bars]);
+  }, [transport, currentTimeSignature, timeSignatureMap, beats, bars, setBars, setBeats]);
 
   return (
     <>
@@ -47,7 +43,7 @@ function BarsAndBeats() {
         <Typography variant={'body2'}>Bar</Typography>
       </InfoBox>
       <InfoBox>
-        <Typography variant={'body2'} align={'right'}>{beats}</Typography>
+        <Typography variant={'body2'} align={'right'}>{beats !== 0 ? beats : currentTimeSignature[0]}</Typography>
         <Typography variant={'body2'}>Beat</Typography>
       </InfoBox>
     </>

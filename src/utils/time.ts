@@ -34,13 +34,13 @@ export function getBeatCountForTransportSeconds(tsMap: {[name: number]: [number,
     }
   }
 
-  return Math.ceil(beats);
+  return Math.floor(beats);
 }
 
 export function getBarCountForTransportSeconds(tsMap: {[name: number]: [number, number]}, transportSeconds: number) {
   const tsChanges = Object.keys(tsMap).map(change => parseFloat(change)).sort((a, b) => a - b);
 
-  let beats = 1;
+  let bars = 1;
 
   const tempo = 120;
   const secondPerBeat = 60 / tempo;
@@ -48,16 +48,16 @@ export function getBarCountForTransportSeconds(tsMap: {[name: number]: [number, 
   for (let i = 0; i < tsChanges.length; i++) {
     const change = tsChanges[i];
     const rightBoundary = (i < tsChanges.length - 1) ? tsChanges[i + 1] : 1597660821; // This is just a very big number the transport will never reach.
-    const beatsPerSecond = (tsMap[change][1] / 4) / secondPerBeat;
+    const barsPerSecond = (tsMap[change][1] / tsMap[change][0]) / (secondPerBeat * 4);
 
     if (isTimeBetween(transportSeconds, [change, rightBoundary])) {
-      beats = (beats + beatsPerSecond * (transportSeconds - change)) / tsMap[change][0];
+      bars = bars + (barsPerSecond * (transportSeconds - change));
 
       break;
     } else {
-      beats = (beats + beatsPerSecond * (rightBoundary - change)) / tsMap[change][0];
+      bars = bars + (barsPerSecond * (rightBoundary - change));
     }
   }
 
-  return Math.ceil(beats);
+  return Math.max(Math.floor(bars), 1);
 }
