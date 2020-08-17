@@ -26,13 +26,11 @@ const timeSignatureMap = atom<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
     0: [4, 4],
-    2: [7, 8],
-    5.5: [2, 4],
   }
 });
 
 const currentTimeSignature = atom<[number, number]>({
-  key: 'project/currenTimeSignature',
+  key: 'project/currentTimeSignature',
   default: selector({
     key: 'project/currentTimeSignature/Default',
     get: ({get}) => get(timeSignatureMap)[0],
