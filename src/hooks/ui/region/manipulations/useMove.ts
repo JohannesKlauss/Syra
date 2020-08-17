@@ -43,7 +43,7 @@ export default function useMove() {
 
       return newVal;
     });
-  }, [setStart, trimStart, setDeltaX, pixelToSeconds, isMoving, secondsToPixel, duplicateRegion, isPressed, regionId, isMoving]);
+  }, [setStart, trimStart, setDeltaX, pixelToSeconds, secondsToPixel, duplicateRegion, isPressed, regionId, isMoving]);
 
   const deltaXTrigger = useDeltaTracker(onChange, onMouseUp, false);
 

@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { RegionContext } from '../../providers/RegionContext';
 import { useRecoilValue } from 'recoil/dist';
 import { regionStore } from '../../recoil/regionStore';
-import useBackboneChannel from '../tone/BackboneMixer/useBackboneChannel';
+import useBackboneChannel from './BackboneMixer/useBackboneChannel';
 import { ChannelContext } from '../../providers/ChannelContext';
 
 export default function useRegionScheduler() {

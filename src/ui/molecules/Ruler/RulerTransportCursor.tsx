@@ -38,9 +38,11 @@ function RulerTransportCursor() {
   const onMouseInteraction = useCallback(e => {
     const position = calcSnappedPos(e.clientX - e.target.getBoundingClientRect().left);
 
-    setPlayheadPosition(position);
-    setTransportSeconds(pixelToSeconds(position));
-  }, [setPlayheadPosition, calcSnappedPos, pixelToSeconds, setTransportSeconds]);
+    if (playheadPosition !== position) {
+      setPlayheadPosition(position);
+      setTransportSeconds(pixelToSeconds(position));
+    }
+  }, [setPlayheadPosition, calcSnappedPos, pixelToSeconds, setTransportSeconds, playheadPosition]);
 
   const onMovableTrigger = useMovable(onMouseInteraction, onMouseInteraction);
 

@@ -1,5 +1,4 @@
 import { atom, selector } from 'recoil/dist';
-import { TimeSignature } from '../types/Music';
 
 const name = atom({
   key: 'project/name',
@@ -11,8 +10,6 @@ const tempoMap = atom<{[name: number]: number}>({
   key: 'project/tempoMap',
   default: {
     0: 120,
-    2: 240,
-    8: 120,
   }
 });
 
@@ -22,6 +19,24 @@ const currentTempo = atom({
   default: selector({
     key: 'project/currentTempo/Default',
     get: ({get}) => get(tempoMap)[0],
+  })
+});
+
+const timeSignatureMap = atom<{[name: number]: [number, number]}>({
+  key: 'project/timeSignatureMap',
+  default: {
+    0: [4, 4],
+    2: [8, 8],
+    6: [2, 4],
+    8: [4, 4],
+  }
+});
+
+const currentTimeSignature = atom<[number, number]>({
+  key: 'project/currenTimeSignature',
+  default: selector({
+    key: 'project/currentTimeSignature/Default',
+    get: ({get}) => get(timeSignatureMap)[0],
   })
 })
 
@@ -52,30 +67,21 @@ const secondsPerBeat = selector({
   get: ({get}) => 60 / get(currentTempo),
 });
 
-// The time signature of the project. "beat" is the upper nominal, "over" is the lower.
-// TODO: THIS SHOULD ALSO BE AN ARRAY SO WE CAN CHANGE THE TIME SIGNATURE DURING THE PROJECT.
-const timeSignature = atom<TimeSignature>({
-  key: 'project/timeSignature',
-  default: {
-    beats: 4,
-    over: 4,
-  },
-});
-
 const isClickMuted = atom<boolean>({
   key: 'project/isClickMuted',
-  default: true,
+  default: false,
 });
 
 export const projectStore = {
   name,
   tempoMap,
   currentTempo,
+  timeSignatureMap,
+  currentTimeSignature,
   beatsPerSecond,
   secondsPerBeat,
   length,
   lengthInSeconds,
-  timeSignature,
   isClickMuted,
   lastAnalyzedBpmFromImport,
 };

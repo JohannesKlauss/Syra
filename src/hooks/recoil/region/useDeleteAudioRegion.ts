@@ -12,5 +12,5 @@ export default function useDeleteAudioRegion(regionId: string) {
     const index = regionIds.findIndex(val => val === regionId);
 
     setRegionIds(currVal => removeItemAtIndex(currVal, index));
-  }, [regionId, setRegionIds, regionId]);
+  }, [regionId, setRegionIds, regionId, regionIds]);
 }

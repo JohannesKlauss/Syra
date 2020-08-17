@@ -24,7 +24,7 @@ export default function useRegionSelfDestruct(regionId: string) {
       }
 
       return false;
-  }, [audioBuffer, audioBufferPointer, isPlaying, isRecording]);
+  }, [audioBuffer, audioBufferPointer, isPlaying, isRecording, deleteRegion]);
 
   const cbRef = useRef(shouldSelfDestruct);
   cbRef.current = shouldSelfDestruct;

@@ -1,7 +1,7 @@
 import { projectStore } from '../../recoil/projectStore';
 import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
 import { useEffect, useRef } from 'react';
-import useToneJsTransport from '../tone/useToneJsTransport';
+import useToneJsTransport from './useToneJsTransport';
 
 export default function useTempoMapScheduler() {
   const setCurrentTempo = useSetRecoilState(projectStore.currentTempo);
@@ -18,5 +18,5 @@ export default function useTempoMapScheduler() {
         setCurrentTempo(transport.bpm.value);
       }, changeTime));
     })
-  }, [tempoMap, scheduleIds, transport]);
+  }, [tempoMap, scheduleIds, transport, setCurrentTempo]);
 }

@@ -45,11 +45,10 @@ const isSnapActive = atom({
   default: true,
 });
 
-// The position of the transport bar. currently we set this to 1 as bars, but this will most certainly change, since we
-// need it to be more detailed.
+// The position of the transport bar. This is measured in pixel!
 const playheadPosition = atom({
   key: 'arrangeWindow/playheadPosition',
-  default: 1,
+  default: 0,
 });
 
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.

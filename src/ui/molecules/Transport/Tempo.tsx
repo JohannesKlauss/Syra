@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil/dist';
 import { projectStore } from '../../../recoil/projectStore';
-import useTempoMapScheduler from '../../../hooks/audio/useTempoMapScheduler';
+import useTempoMapScheduler from '../../../hooks/tone/useTempoMapScheduler';
 import { styled, Typography } from '@material-ui/core';
 
 const BaseContainer = styled('div')({

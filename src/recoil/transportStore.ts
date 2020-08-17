@@ -2,7 +2,7 @@ import { atom, selector } from 'recoil/dist';
 import * as Tone from 'tone';
 import { PlayButtonMode } from '../types/PlayButtonMode';
 
-// Internal atoms are just used to sync everything with the transport itself. Never expose them to the rest of the app.
+// Internal atoms are just used to sync everything with the ToneJs transport itself. Never expose them to the rest of the app.
 
 const internalSeconds = atom({
   key: 'transport/internalSeconds',

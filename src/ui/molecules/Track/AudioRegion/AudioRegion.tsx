@@ -5,7 +5,7 @@ import { regionStore } from '../../../../recoil/regionStore';
 import { useRecoilValue } from 'recoil/dist';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 import useRegionDawRecordingSync from '../../../../hooks/ui/region/useRegionDawRecordingSync';
-import useRegionScheduler from '../../../../hooks/audio/useRegionScheduler';
+import useRegionScheduler from '../../../../hooks/tone/useRegionScheduler';
 import ClonedAudioRegion from './ClonedAudioRegion';
 import ManipulationContainer from './Manipulations/ManipulationContainer';
 import useSecondsToPixel from '../../../../hooks/ui/useSecondsToPixel';

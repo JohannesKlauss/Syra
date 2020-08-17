@@ -1,18 +1,21 @@
 import React from 'react';
 import { Box, styled, Typography } from '@material-ui/core';
 import { projectStore } from '../../../recoil/projectStore';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilValue } from 'recoil/dist';
+import useTimeSignatureMapScheduler from '../../../hooks/tone/useTimeSignatureMapScheduler';
 
 const BaseContainer = styled(Box)({
   marginLeft: 20,
 });
 
 function TimeSignature() {
-  const [timeSignature, setTimeSignature] = useRecoilState(projectStore.timeSignature);
+  const currentTimeSignature = useRecoilValue(projectStore.currentTimeSignature);
+
+  useTimeSignatureMapScheduler();
 
   return (
     <BaseContainer>
-      <Typography variant={'body2'}>{timeSignature.beats} / {timeSignature.over}</Typography>
+      <Typography variant={'body2'}>{currentTimeSignature[0]} / {currentTimeSignature[1]}</Typography>
     </BaseContainer>
   );
 }
