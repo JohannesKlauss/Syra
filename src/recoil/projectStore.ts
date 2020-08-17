@@ -26,9 +26,6 @@ const timeSignatureMap = atom<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
     0: [4, 4],
-    2: [8, 8],
-    6: [2, 4],
-    8: [4, 4],
   }
 });
 
@@ -69,7 +66,7 @@ const secondsPerBeat = selector({
 
 const isClickMuted = atom<boolean>({
   key: 'project/isClickMuted',
-  default: false,
+  default: true,
 });
 
 export const projectStore = {

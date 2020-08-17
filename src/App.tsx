@@ -6,14 +6,17 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import Debugger from './ui/debug/Debugger';
 import { defaultTheme } from './theme';
 import { retroWaveTheme } from './theme/retroWave';
+import { FpsView } from 'react-fps';
 
 function App() {
   const [showDebugMenu, setShowDebugMenu] = useState(false);
+  const [showFpsMeter, setShowFpsMeter] = useState(false);
   const [darkState] = useState(true);
 
   const theme = useMemo(() => darkState ? defaultTheme : retroWaveTheme, [darkState]);
 
   useHotkeys('shift+d', () => setShowDebugMenu(currVal => !currVal));
+  useHotkeys('shift+f', () => setShowFpsMeter(currVal => !currVal));
 
   return (
     <StrictMode>
@@ -22,6 +25,7 @@ function App() {
         <UiInteractionProvider>
           <AppRouter/>
         </UiInteractionProvider>
+        {showFpsMeter && <FpsView/>}
         <Modal open={showDebugMenu} onClose={() => setShowDebugMenu(false)} keepMounted={false} unselectable={'on'} style={{maxHeight: '100vh'}}>
           <Paper style={{overflowY: 'scroll', maxHeight: '100vh'}}>
             <Button onClick={() => setShowDebugMenu(false)}>Close</Button>

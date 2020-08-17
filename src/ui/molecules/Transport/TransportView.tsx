@@ -6,6 +6,7 @@ import Click from './Click';
 import ViewToggles from '../ViewToggles/ViewToggles';
 import TimeInformation from './TimeInformation';
 import Tempo from './Tempo';
+import BarsAndBeats from './BarsAndBeats';
 
 const BaseContainer = styled(Container)(({ theme }) => ({
   overflow: 'hidden',
@@ -25,7 +26,7 @@ const RightPane = styled('div')({
 });
 
 const InfoBox = styled('div')(({ theme }) => ({
-  flex: 1,
+  flex: 2,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -40,6 +41,7 @@ function TransportView() {
       <PlayRecord/>
       <InfoBox>
         <TimeInformation/>
+        <BarsAndBeats/>
         <Tempo/>
         <TimeSignature/>
       </InfoBox>

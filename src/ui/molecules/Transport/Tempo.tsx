@@ -16,8 +16,8 @@ function Tempo() {
 
   return (
     <BaseContainer>
-      <Typography variant={'body2'}>BPM</Typography>
       <Typography variant={'body2'}>{currentTempo}</Typography>
+      <Typography variant={'body2'}>BPM</Typography>
     </BaseContainer>
   );
 }

@@ -3,8 +3,7 @@ import { projectStore } from '../../recoil/projectStore';
 import { useRecoilValue } from 'recoil/dist';
 import useToneJsTransport from './useToneJsTransport';
 import * as Tone from 'tone';
-import { transportStore } from '../../recoil/transportStore';
-import { getBeatCountForTransportSeconds, isTimeBetween } from '../../utils/time';
+import { getBeatCountForTransportSeconds } from '../../utils/time';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 
 const oscBar = new Tone.Oscillator(1174.66).toDestination();
@@ -20,14 +19,11 @@ export default function useClick() {
 
   useEffect(() => {
     beats.current = getBeatCountForTransportSeconds(timeSignatureMap, transport.seconds);
-    console.log('changes', beats.current);
   }, [playheadPosition, beats]);
 
   useEffect(() => {
     const id = transport.scheduleRepeat((time) => {
       if (!isClickMuted) {
-        console.log('beat', beats.current);
-
         // Start of a new bar.
         if (beats.current % currentTimeSignature[0] === 1) {
           oscBar.start(time).stop(time + 0.05);

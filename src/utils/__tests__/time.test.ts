@@ -76,7 +76,7 @@ describe('getBeatCountForTransportSeconds', () => {
     expect(getBeatCountForTransportSeconds(tsMap, 7)).toEqual(0);
   });
 
-  it('should always give the last beat if the transportSeconds is in between two beats', () => {
+  it('should always give the next beat if the transportSeconds is in between two beats', () => {
     const tsMap: {[name: number]: [number, number]} = {
       0: [4, 4],
       2: [7, 8],
