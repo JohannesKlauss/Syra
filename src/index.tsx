@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { RecoilRoot } from 'recoil/dist';
+import { RecoilRoot } from 'recoil';
 import { audioSetup } from './audioSetup';
 import { BackboneMixerContext, instantiateMixer } from './providers/BackboneMixerContext';
 

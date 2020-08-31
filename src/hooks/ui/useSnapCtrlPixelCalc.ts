@@ -8,7 +8,7 @@ export default function useSnapCtrlPixelCalc() {
   const isSnapActive = useRecoilValue(arrangeWindowStore.isSnapActive);
   const isPressed = useIsHotkeyPressed();
 
-  const inverse = 1 / (snapWidth / 4);
+  const inverse = 1 / snapWidth;
 
   return useCallback((x: number) =>
     isSnapActive && !isPressed('ctrl') ? Math.round(x * inverse) / inverse : x

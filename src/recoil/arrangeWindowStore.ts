@@ -62,7 +62,7 @@ const playheadPosition = atom({
 // This goes from 1 to 6
 const horizontalZoomLevel = atom({
   key: 'arrangeWindow/horizontalZoomLevel',
-  default: 1,
+  default: 6,
 });
 
 // This is the zoom level. The zoom level defines how many tracks are visible in the arrange window.
@@ -105,7 +105,7 @@ const pixelPerSecond = selector({
 
 const pixelPerBeat = selector({
   key: 'arrangeWindow/pixelPerBeat',
-  get: ({get}) => get(viewportWidth) / get(projectStore.lengthInBeats),
+  get: ({get}) => get(width) / get(projectStore.lengthInBeats),
 });
 
 const tempoBlockWidthInPixel = selectorFamily<number, number>({
