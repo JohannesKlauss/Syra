@@ -64,7 +64,7 @@
     "cypress-file-upload": "4.1.1",
     "prettier": "2.1.1",
     "recoilize": "0.1.1",
-    "typescript": "4.0.2"
+    "typescript": "3.9.7"
   },
   "scripts": {
     "start": "react-scripts -r @cypress/instrument-cra start",
