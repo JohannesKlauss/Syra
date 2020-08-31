@@ -3,12 +3,12 @@ import * as Tone from 'tone';
 import { ChannelContext } from '../../providers/ChannelContext';
 import { useRecoilValue } from 'recoil/dist';
 import { channelStore } from '../../recoil/channelStore';
-import useToneAudioNodes from './useToneAudioNodes';
+import useBackboneChannel from './BackboneMixer/useBackboneChannel';
 
 export default function useInstrumentToneConnector() {
   const channelId = useContext(ChannelContext);
   const { soulInstrument, soulPlugins, isArmed, isMuted, isSolo } = useRecoilValue(channelStore.state(channelId));
-  const {channel, rmsMeter} = useToneAudioNodes();
+  const {channel, rmsMeter} = useBackboneChannel(channelId);
 
   useEffect(() => {
     channel.set({ mute: isMuted || !isArmed });

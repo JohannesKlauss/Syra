@@ -1,5 +1,6 @@
-import { atomFamily, selectorFamily } from 'recoil/dist';
+import { atom, atomFamily, selectorFamily } from 'recoil/dist';
 import { audioBufferStore } from './audioBufferStore';
+import { arrangeWindowStore } from './arrangeWindowStore';
 
 // Sets the time that region plays in relation to the transport.
 const start = atomFamily<number, string>({
@@ -29,10 +30,15 @@ const trimStart = atomFamily<number, string>({
   default: 0,
 });
 
-// The seconds that the region get trimmed at the end (also in relation to the audio buffer)
+// The seconds that the region get trimmed at the end (also in relation to the audio buffer duration)
 const trimEnd = atomFamily<number, string>({
   key: 'region/trimEnd',
   default: 0,
+});
+
+const name = atomFamily<string, string>({
+  key: 'region/name',
+  default: '',
 });
 
 const audioBufferPointer = atomFamily<string | null, string>({
@@ -48,6 +54,7 @@ export interface RegionState {
   isRecording: boolean;
   trimStart: number;
   trimEnd: number;
+  name: string;
 }
 
 const regionState = selectorFamily<RegionState, string>({
@@ -68,6 +75,7 @@ const regionState = selectorFamily<RegionState, string>({
       isRecording: get(isRecording(id)),
       trimEnd: get(trimEnd(id)),
       trimStart: get(trimStart(id)),
+      name: get(name(id)),
     };
   }
 });
@@ -81,10 +89,27 @@ const audioBuffer = selectorFamily<AudioBuffer | null, string>({
   }
 });
 
+// Parameter is channelId.
 const ids = atomFamily<string[], string>({
   key: 'region/ids',
   default: [],
 });
+
+const selectedIds = atom<string[]>({
+  key: 'region/selectedIds',
+  default: [],
+})
+
+// This atomFamily keeps track of all the created regions inside a channel. Parameter is channelId, not regionId.
+const staticCounter = atomFamily<number, string>({
+  key: 'region/staticCounter',
+  default: 1,
+});
+
+const isSelected = selectorFamily<boolean, string>({
+  key: 'region/isSelected',
+  get: regionId => ({get}) => get(selectedIds).find(id => id === regionId) !== undefined,
+})
 
 const findByIds = selectorFamily<RegionState[], string[]>({
   key: 'region/findByIds',
@@ -101,13 +126,30 @@ const findByChannelId = selectorFamily<RegionState[], string>({
   get: channelId => ({get}) => get(ids(channelId)).map(id => get(regionState(id))),
 });
 
+// This returns the pixel boundaries of the region in relation to the channel track.
+const occupiedArea = selectorFamily<[number, number], string>({
+  key: 'region/occupiedArea',
+  get: regionId => ({get}) => {
+    const trimEndVal = get(trimEnd(regionId));
+    const trimStartVal = get(trimStart(regionId));
+    const secondsToPixel = (seconds: number) => get(arrangeWindowStore.pixelPerSecond) * seconds
+
+    const startVal = secondsToPixel(get(start(regionId))) + secondsToPixel(trimStartVal);
+    const trimmedWidth = secondsToPixel(trimEndVal) - secondsToPixel(trimStartVal);
+
+    return [startVal, startVal + trimmedWidth];
+  }
+});
+
 export const regionStore = {
   start,
+  name,
   audioBuffer,
   audioBufferPointer,
   isSolo,
   isMuted,
   isRecording,
+  isSelected,
   trimStart,
   trimEnd,
   regionState,
@@ -115,4 +157,7 @@ export const regionStore = {
   findByIds,
   findIdsByChannelId,
   findByChannelId,
+  occupiedArea,
+  staticCounter,
+  selectedIds,
 };

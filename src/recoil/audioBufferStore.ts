@@ -14,6 +14,16 @@ const waveform = atomFamily<number[], string>({
   default: [],
 });
 
+const waveformImage = atomFamily<string, string>({
+  key: 'audioBuffer/waveformImage',
+  default: '',
+});
+
+const name = atomFamily<string, string>({
+  key: 'audioBuffer/name',
+  default: '',
+})
+
 const ids = atom<string[]>({
   key: 'audioBuffer/ids',
   default: [],
@@ -22,5 +32,7 @@ const ids = atom<string[]>({
 export const audioBufferStore = {
   buffer,
   waveform,
+  waveformImage,
+  name,
   ids,
 };

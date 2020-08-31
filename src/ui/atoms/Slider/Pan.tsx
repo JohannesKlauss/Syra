@@ -8,7 +8,7 @@ const BaseContainer = styled(Paper)({
 })
 
 interface Props {
-  onChange: (props: any) => void;
+  onChange: (newVal: number) => void;
 }
 
 function Pan({onChange}: Props) {
@@ -19,7 +19,7 @@ function Pan({onChange}: Props) {
         min={-100}
         max={100}
         step={1}
-        onChange={(_, newValue) => onChange({pan: newValue as number / 100})}
+        onChange={(_, newValue) => onChange(newValue as number / 100)}
       />
     </BaseContainer>
   );

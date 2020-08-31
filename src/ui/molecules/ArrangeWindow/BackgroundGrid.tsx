@@ -19,20 +19,22 @@ interface Props {
 function BackgroundGrid({ticksFullHeight}: Props) {
   const gridId = createNewId('grid-pattern');
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
-  const snapValueWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
+  const rulerItemWidth = useRecoilValue(arrangeWindowStore.rulerItemWidth);
+
+  const rectWidth = 1 / window.devicePixelRatio;
 
   return (
     <CustomContainer>
-      <svg width={windowWidth} height="100%" pointerEvents={'none'}>
+      <svg width={windowWidth}  height={ticksFullHeight ? '3200' : '100%'} pointerEvents={'none'}>
         <defs>
-          <pattern id={gridId} x="0" y="0" width={snapValueWidth} height="100%" patternUnits="userSpaceOnUse">
-            <rect width="0.5" height="200%" x="0" y="0" stroke={'#808080'}/>
-            <rect width="0.5" height="200%" x={snapValueWidth * 0.25} y={ticksFullHeight ? 0 : 30} stroke={'#505050'}/>
-            <rect width="0.5" height="200%" x={snapValueWidth * 0.5} y={ticksFullHeight ? 0 : 30} stroke={'#505050'}/>
-            <rect width="0.5" height="200%" x={snapValueWidth * 0.75} y={ticksFullHeight ? 0 : 30} stroke={'#505050'}/>
+          <pattern id={gridId} x="0" y="0" width={rulerItemWidth} height="100%" patternUnits="userSpaceOnUse">
+            <rect width={rectWidth} height="200%" x="0" y="0" stroke={'#808080'}/>
+            <rect width={rectWidth} height="200%" x={Math.ceil(rulerItemWidth * 0.25)} y={ticksFullHeight ? 0 : 30} stroke={'#505050'}/>
+            <rect width={rectWidth} height="200%" x={Math.ceil(rulerItemWidth * 0.5)} y={ticksFullHeight ? 0 : 30} stroke={'#505050'}/>
+            <rect width={rectWidth} height="200%" x={Math.ceil(rulerItemWidth * 0.75)} y={ticksFullHeight ? 0 : 30} stroke={'#505050'}/>
           </pattern>
         </defs>
-        <rect fill={`url(#${gridId})`} x="0" y="0" width={windowWidth} height={'100%'}/>
+        <rect fill={`url(#${gridId})`} x="0" y="0" width={windowWidth} height="100%"/>
       </svg>
     </CustomContainer>
   );

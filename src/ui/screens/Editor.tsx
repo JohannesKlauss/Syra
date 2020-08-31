@@ -7,7 +7,6 @@ import WebMidiListener from '../molecules/Midi/WebMidiListener';
 import { editorStore } from '../../recoil/editorStore';
 import { useRecoilValue } from 'recoil/dist';
 import { styled } from '@material-ui/core';
-import BackboneMixer from '../molecules/BackboneMixer/BackboneMixer';
 
 const EditorContainer = styled('div')({
   marginTop: 64,
@@ -26,7 +25,6 @@ function Editor() {
           {showPianoRoll && <Piano min={36} max={67}/>}
           <WebMidiListener/>
         </EditorContainer>
-        <BackboneMixer/>
       </>
   );
 }

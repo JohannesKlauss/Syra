@@ -40,6 +40,11 @@ const isMuted = atomFamily<boolean, string>({
   default: false,
 });
 
+const isInputMonitoringActive = atomFamily<boolean, string>({
+  key: 'channel/isInputMonitoringActive',
+  default: false,
+});
+
 // Whether an instrument or plugin is active or bypassed.
 const isPluginActive = atomFamily<boolean, string>({
   key: 'channel/isPluginActive',
@@ -102,6 +107,7 @@ interface ChannelState {
   isSolo: boolean;
   isMuted: boolean;
   isArmed: boolean;
+  isInputMonitoringActive: boolean;
   channelType: ChannelType;
   toneJsMap: Map<string, any>;
   regionIds: string[];
@@ -124,6 +130,7 @@ const state = selectorFamily<ChannelState, string>({
       isSolo: get(isSolo(id)),
       isMuted: get(isMuted(id)),
       isArmed: get(isArmed(id)),
+      isInputMonitoringActive: get(isInputMonitoringActive(id)),
       channelType: get(type(id)),
       toneJsMap: get(toneJsMap(id)),
       regionIds: get(regionStore.ids(id)),
@@ -174,6 +181,7 @@ export const channelStore = {
   isArmed,
   isSolo,
   isMuted,
+  isInputMonitoringActive,
   isPluginActive,
   pluginIds,
   state,

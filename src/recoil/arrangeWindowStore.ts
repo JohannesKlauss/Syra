@@ -1,5 +1,4 @@
-import { atom, selector } from 'recoil/dist';
-import { projectStore } from './projectStore';
+import { atom, selector, selectorFamily } from 'recoil/dist';
 import {
   ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT,
   ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH,
@@ -7,10 +6,13 @@ import {
 } from '../const/ui';
 import { EditMode } from '../types/RegionManipulation';
 import { RefObject } from 'react';
+import { projectStore } from './projectStore';
+import { getSortedKeysOfEventMap } from '../utils/eventMap';
+import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
 
 const waveformSmoothing = atom({
   key: 'arrangeWindow/waveformSmoothing',
-  default: 3,
+  default: 2,
 })
 
 const viewportWidth = atom({
@@ -18,6 +20,12 @@ const viewportWidth = atom({
   default: 0,
 });
 
+const width = selector({
+  key: 'arrangeWindow/width',
+  get: ({get}) => get(viewportWidth) * get(horizontalZoomLevel),
+});
+
+// The ref object of the arrange window itself. Used to track scrolling inside the arrange window.
 const ref = atom<RefObject<HTMLDivElement> | undefined>({
   key: 'arrangeWindow/ref',
   default: undefined,
@@ -28,30 +36,40 @@ const editMode = atom<EditMode>({
   default: EditMode.DEFAULT,
 });
 
+const marqueePosition = atom<null | number>({
+  key: 'arrangeWindow/marqueePosition',
+  default: null,
+});
+
+// determines on which channel the marquee should be displayed.
+const marqueeChannelPosition = atom<null | string>({
+  key: 'arrangeWindow/marqueeChannelPosition',
+  default: null,
+});
+
 const isSnapActive = atom({
   key: 'arrangeWindow/isSnapActive',
   default: true,
 });
 
-// The position of the transport bar. currently we set this to 1 as bars, but this will most certainly change, since we
-// need it to be more detailed.
+// The position of the transport bar. This is measured in pixel!
 const playheadPosition = atom({
   key: 'arrangeWindow/playheadPosition',
-  default: 1,
+  default: 0,
 });
 
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.
-// This goes from 1 to 11
+// This goes from 1 to 6
 const horizontalZoomLevel = atom({
   key: 'arrangeWindow/horizontalZoomLevel',
-  default: 5,
+  default: 6,
 });
 
-// This is the zoom level. The zoom level defines how tracks are visible in the arrange window.
+// This is the zoom level. The zoom level defines how many tracks are visible in the arrange window.
 // This goes from 1 to 11
 const verticalZoomLevel = atom({
   key: 'arrangeWindow/verticalZoomLevel',
-  default: 5,
+  default: 6,
 });
 
 // This is the value the grid snaps to. Default is 1 which stands for 1 bar. A quarter note would be 0.25, a sixteenth 0.0625 and so on.
@@ -62,12 +80,7 @@ const snapValue = atom({
 
 const snapValueWidthInPixels = selector({
   key: 'arrangeWindow/snapValueWidthInPixels',
-  get: ({get}) => get(width) / ((get(projectStore.length) / get(resolution) * (1 / get(snapValue))))
-});
-
-const width = selector({
-  key: 'arrangeWindow/width',
-  get: ({get}) => ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH[get(horizontalZoomLevel)],
+  get: ({get}) => get(pixelPerBeat),
 });
 
 const trackHeight = selector({
@@ -83,22 +96,41 @@ const resolution = selector({
 
 const pixelPerSecond = selector({
   key: 'arrangeWindow/pixelPerSecond',
-  get: ({get}) => get(pixelPerBeat) / get(beatsPerSecond),
+  get: ({get}) => {
+    const tempoBlock = get(projectStore.currentTempoBlock);
+
+    return get(tempoBlockWidthInPixel(tempoBlock)) / get(projectStore.tempoBlockLengthInSeconds(tempoBlock));
+  },
 });
 
 const pixelPerBeat = selector({
   key: 'arrangeWindow/pixelPerBeat',
-  get: ({get}) => (get(width) / get(projectStore.length) / 4),
+  get: ({get}) => get(width) / get(projectStore.lengthInBeats),
 });
 
-const beatsPerSecond = selector({
-  key: 'arrangeWindow/beatsPerSecond',
-  get: ({get}) => 1 / (get(projectStore.bpm) / 60),
+const tempoBlockWidthInPixel = selectorFamily<number, number>({
+  key: 'arrangeWindow/tempoBlockWidthInPixel',
+  get: blockAtSeconds => ({get}) => get(pixelPerBeat) * get(projectStore.beatsInTempoBlock(blockAtSeconds)),
 });
 
-const secondsPerBeat = selector({
-  key: 'arrangeWindow/secondsPerBeat',
-  get: ({get}) => 60 / get(projectStore.bpm),
+const tempoBlockPixelAreas = selector<{[name: number]: [number, number]}>({
+  key: 'arrangeWindow/tempoBlockPixelArea',
+  get: ({get}) => {
+    const changeAtKeys = getSortedKeysOfEventMap(get(projectStore.tempoMap));
+
+    const map: {[name: number]: [number, number]} = {};
+    let sumWidth: number = 0;
+
+    for (let i = 0; i < changeAtKeys.length; i++) {
+      const blockWidth = get(tempoBlockWidthInPixel(changeAtKeys[i]));
+
+      map[changeAtKeys[i]] = [sumWidth + 1, sumWidth + blockWidth];
+
+      sumWidth += blockWidth;
+    }
+
+    return map;
+  }
 });
 
 // TODO: CALCULATING THIS SHOULD HAPPEN IN THE LOWEST SUPPORTED TIME SIGNATURE BASE (e.g. 16ths or 32nds)
@@ -106,29 +138,28 @@ const secondsPerBeat = selector({
 const rulerItems = selector({
   key: 'arrangeWindow/rulerItems',
   get: ({get}) => {
-    const rulerResolution = get(resolution);
-    const barResolution = rulerResolution / 4; // Currently the lowest supported time sig base is 4ths.
-    const projectLength = get(projectStore.length);
-    const rulerItems = [1]; // We always start with bar 1.1.1
-    let barNumber = 1;
+    const beatResolution = get(resolution) * TIME_CONVERSION_RESOLUTION; // This is the step size
+    const projectLength = get(projectStore.lengthInBeats);
+    const rulerItems = [1];
 
-    while (barNumber + barResolution < projectLength + 1) {
-      // We could surely simplify this. Currently we go through in a lower interval to catch all time sig changes.
-      // Even though we only support one at the moment. But in general there has to be a smarter algorithm for this.
-      barNumber += barResolution;
-
-      if ((rulerResolution <= 1 && barNumber % rulerResolution === 0) || (rulerResolution > 1 && barNumber % rulerResolution === 1)) {
-        rulerItems.push(barNumber);
-      }
+    for(let i = beatResolution; i < projectLength + 1; i += beatResolution) {
+      rulerItems.push(i / TIME_CONVERSION_RESOLUTION);
     }
 
     return rulerItems;
   }
 });
 
+const rulerItemWidth = selector({
+  key: 'arrangeWindow/rulerItemWidth',
+  get: ({get}) => get(width) / get(rulerItems).length
+})
+
 export const arrangeWindowStore = {
   waveformSmoothing,
   viewportWidth,
+  tempoBlockWidthInPixel,
+  tempoBlockPixelAreas,
   ref,
   editMode,
   playheadPosition,
@@ -141,8 +172,9 @@ export const arrangeWindowStore = {
   trackHeight,
   resolution,
   rulerItems,
+  rulerItemWidth,
   pixelPerSecond,
   pixelPerBeat,
-  beatsPerSecond,
-  secondsPerBeat,
+  marqueePosition,
+  marqueeChannelPosition,
 };

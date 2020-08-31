@@ -1,11 +1,6 @@
-import React, { useCallback, useContext } from 'react';
+import React from 'react';
 import { styled } from '@material-ui/core';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import usePixelToSeconds from '../../../../../hooks/ui/usePixelToSeconds';
-import { RegionContext } from '../../../../../providers/RegionContext';
-import { useSetRecoilState } from 'recoil/dist';
-import { regionStore } from '../../../../../recoil/regionStore';
-import useDeltaXTracker from '../../../../../hooks/ui/region/useDeltaXTracker';
 
 const BaseContainer = styled('div')({
   position: 'absolute',
@@ -29,24 +24,12 @@ const CustomArrowRightAltIcon = styled(ArrowRightAltIcon)({
 });
 
 interface Props {
-  onChange: (deltaX: number) => void;
-  onMouseUp: () => void;
+  trigger: (e: React.MouseEvent) => void;
 }
 
-const TrimEndHandle: React.FC<Props> = ({onChange, onMouseUp}: Props) => {
-  const pixelToSeconds = usePixelToSeconds();
-  const regionId = useContext(RegionContext);
-  const setTrimEnd = useSetRecoilState(regionStore.trimEnd(regionId));
-
-  const onUpdateState = useCallback((deltaX: number) => {
-    setTrimEnd(currVal => Math.max(currVal + pixelToSeconds(-deltaX), 0));
-    onMouseUp();
-  }, [setTrimEnd, onMouseUp, pixelToSeconds]);
-
-  const onMouseDown = useDeltaXTracker(onChange, onUpdateState);
-
+const TrimEndHandle: React.FC<Props> = ({trigger}: Props) => {
   return (
-    <BaseContainer onMouseDown={onMouseDown}>
+    <BaseContainer onMouseDown={trigger}>
       <CustomArrowRightAltIcon/>
     </BaseContainer>
   );

@@ -29,7 +29,7 @@ function VerticalChannelList() {
         await createChannel(ChannelType.AUDIO, 0, 'Audio 1');
       })();
     }
-  }, [ids]);
+  }, [ids, createChannel]);
 
   return (
     <BaseContainer data-cy={'vertical-channel-list'}>

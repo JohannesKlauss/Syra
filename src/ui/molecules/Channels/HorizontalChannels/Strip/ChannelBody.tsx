@@ -11,31 +11,31 @@ import ChannelLetterButtons from '../../ChannelLetterButtons';
 import { ChannelContext } from '../../../../../providers/ChannelContext';
 import { channelStore } from '../../../../../recoil/channelStore';
 import { useRecoilValue } from 'recoil/dist';
-import useToneAudioNodes from '../../../../../hooks/tone/useToneAudioNodes';
 import LevelMeterVertical from '../../../../atoms/Meter/LevelMeterVertical';
 import { ColoredDivider, SmrContainer } from './ChannelBody.styled';
 import ChannelName from '../../ChannelName';
+import useBackboneChannel from '../../../../../hooks/tone/BackboneMixer/useBackboneChannel';
+import LevelMeterText from '../../../../atoms/Meter/LevelMeterText';
 
 const ChannelBody: React.FC = React.memo(() => {
   const channelId = useContext(ChannelContext);
   const channelColor = useRecoilValue(channelStore.color(channelId));
   const [volumeFaderValue, setVolumeFaderValue] = useState(0);
 
-  const { channel } = useToneAudioNodes();
-  const onChangePanOrVolume = useCallback(newProps => {
-    channel.set(newProps);
+  const { volume, pan } = useBackboneChannel(channelId);
 
-    if (newProps.volume) {
-      setVolumeFaderValue(newProps.volume < -95 ? '-∞' : newProps.volume.toFixed(1));
-    }
-  }, [channel]);
+  const onChangeVolume = useCallback(newVal => {
+    volume.set({volume: newVal});
+
+    setVolumeFaderValue(newVal < -95 ? '-∞' : newVal.toFixed(1));
+  }, [volume]);
 
   return (
     <>
       <Divider/>
       <ChannelPluginList/>
       <Divider/>
-      <Pan onChange={onChangePanOrVolume}/>
+      <Pan onChange={newVal => pan.set({pan: newVal})}/>
       <Grid container justify="center" spacing={1}>
         <Grid container justify={'center'}>
           <Grid item xs={6}>
@@ -44,14 +44,12 @@ const ChannelBody: React.FC = React.memo(() => {
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography gutterBottom align={'center'}>
-              {volumeFaderValue}
-            </Typography>
+            <LevelMeterText/>
           </Grid>
         </Grid>
         <Grid container justify={'center'}>
           <Grid item xs={6}>
-            <VolumeFader onChange={onChangePanOrVolume}/>
+            <VolumeFader onChange={onChangeVolume}/>
           </Grid>
           <Grid item xs={6}>
             <LevelMeterVertical/>

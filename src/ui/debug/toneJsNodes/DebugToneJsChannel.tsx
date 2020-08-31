@@ -1,5 +1,4 @@
-import React from 'react';
-import useToneAudioNodes from '../../../hooks/tone/useToneAudioNodes';
+import React, { useContext } from 'react';
 import {
   Checkbox,
   Grid,
@@ -12,9 +11,12 @@ import {
 } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
+import { ChannelContext } from '../../../providers/ChannelContext';
 
 function DebugToneJsChannel() {
-  const { channel } = useToneAudioNodes();
+  const channelId = useContext(ChannelContext);
+  const { channel } = useBackboneChannel(channelId);
 
   return (
     <>

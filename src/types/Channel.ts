@@ -10,8 +10,11 @@ export enum ChannelType {
 export enum ChannelNode {
   CHANNEL_ID = 'channelId',
   MERGE = 'merge',
+  SPLIT = 'split',
   PLAYERS = 'players',
   AUDIO_IN = 'audioIn',
   CHANNEL = 'channel',
   METER = 'meter',
+  VOLUME = 'volume',
+  PAN = 'pan',
 }

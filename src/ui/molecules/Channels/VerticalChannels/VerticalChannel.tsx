@@ -16,6 +16,7 @@ import useSoloChannelHotkey from '../../../../hooks/hotkeys/channel/useSoloChann
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT } from '../../../../const/ui';
 import ChannelName from '../ChannelName';
+import BackboneAudioMixer from '../../BackboneMixer/BackboneAudioMixer';
 
 interface BaseContainerProps {
   channelColor: string;
@@ -73,6 +74,8 @@ function VerticalChannel() {
       <SmrContainer>
         <ChannelLetterButtons/>
       </SmrContainer>
+
+      <BackboneAudioMixer channelId={channelId}/>
     </BaseCard>
   );
 }

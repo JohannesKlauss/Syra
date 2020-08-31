@@ -7,13 +7,9 @@ function LandingPageDecider() {
 
   useEffect(() => {
     history.push(process.env.NODE_ENV === 'development' ? routes.Editor : routes.NewProject);
-  }, []);
+  }, [history]);
 
-  return (
-    <>
-
-    </>
-  );
+  return null;
 }
 
 export default LandingPageDecider;

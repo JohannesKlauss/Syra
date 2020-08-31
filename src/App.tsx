@@ -1,27 +1,31 @@
 import React, { useMemo, useState, StrictMode } from 'react';
 import { CssBaseline, Modal, ThemeProvider, Button, Paper } from '@material-ui/core';
 import UiInteractionProvider from './providers/UiInteractionProvider';
-import SplinterRouter from './providers/SplinterRouter';
+import AppRouter from './providers/AppRouter';
 import { useHotkeys } from 'react-hotkeys-hook';
 import Debugger from './ui/debug/Debugger';
-import { splinterTheme } from './theme';
+import { defaultTheme } from './theme';
 import { retroWaveTheme } from './theme/retroWave';
+import { FpsView } from 'react-fps';
 
 function App() {
   const [showDebugMenu, setShowDebugMenu] = useState(false);
+  const [showFpsMeter, setShowFpsMeter] = useState(false);
   const [darkState] = useState(true);
 
-  const theme = useMemo(() => darkState ? splinterTheme : retroWaveTheme, [darkState]);
+  const theme = useMemo(() => darkState ? defaultTheme : retroWaveTheme, [darkState]);
 
   useHotkeys('shift+d', () => setShowDebugMenu(currVal => !currVal));
+  useHotkeys('shift+f', () => setShowFpsMeter(currVal => !currVal));
 
   return (
     <StrictMode>
       <ThemeProvider theme={theme}>
         <CssBaseline/>
         <UiInteractionProvider>
-          <SplinterRouter/>
+          <AppRouter/>
         </UiInteractionProvider>
+        {showFpsMeter && <FpsView/>}
         <Modal open={showDebugMenu} onClose={() => setShowDebugMenu(false)} keepMounted={false} unselectable={'on'} style={{maxHeight: '100vh'}}>
           <Paper style={{overflowY: 'scroll', maxHeight: '100vh'}}>
             <Button onClick={() => setShowDebugMenu(false)}>Close</Button>

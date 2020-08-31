@@ -4,6 +4,7 @@ export function audioSetup() {
   async function firstClick() {
     await Tone.start();
     await Tone.getContext().addAudioWorkletModule('worklets/SoulWasmAudioWorkletProcessor.js', 'soul-wasm-audio-worklet-processor');
+    await Tone.getContext().addAudioWorkletModule('worklets/RecorderWorkletProcessor.js', 'recorder-worklet');
 
     console.log('AudioCtx is', Tone.getContext().state);
 

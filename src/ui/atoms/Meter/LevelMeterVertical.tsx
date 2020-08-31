@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { styled } from '@material-ui/core';
 import Konva from 'konva';
 import { amber, red, teal } from '@material-ui/core/colors';
 import { mapDbToUiMeterVal } from '../../../utils/levelMeterMapping';
-import useToneAudioNodes from '../../../hooks/tone/useToneAudioNodes';
+import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
+import { ChannelContext } from '../../../providers/ChannelContext';
 
 const uniqid = require('uniqid');
 
@@ -20,7 +21,8 @@ const METER_WIDTH = 24;
 function LevelMeterVertical() {
   const containerId = useRef(uniqid('konva-container-'));
   const canvas = useRef<HTMLDivElement>(null);
-  const {rmsMeter} = useToneAudioNodes();
+  const channelId = useContext(ChannelContext);
+  const {rmsMeter} = useBackboneChannel(channelId);
 
   useEffect(() => {
     // TODO: WRITE THIS IS A CLEANER WAY, THIS IS JUST HACKED IN HERE AS A Poc.
@@ -45,10 +47,18 @@ function LevelMeterVertical() {
       layer.add(rms);
       stage.add(layer);
 
+      let max = -1000;
+
       const anim = new Konva.Animation(() => {
         const val = rmsMeter.getValue() as number
 
-        let rmsHeight = mapDbToUiMeterVal(rmsMeter.getValue() as number);
+        if (val > max) {
+          max = val;
+
+          console.log('val', val);
+        }
+
+        let rmsHeight = mapDbToUiMeterVal(val);
 
         if (isNaN(rmsHeight)) {
           rmsHeight = 0;

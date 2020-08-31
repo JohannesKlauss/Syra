@@ -9,7 +9,8 @@ import usePixelToSeconds from '../../../hooks/ui/usePixelToSeconds';
 import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
 import { useRecoilValue } from 'recoil/dist';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
-import useCreateRegion from '../../../hooks/recoil/region/useCreateRegion';
+import useCreateAudioRegion from '../../../hooks/recoil/region/useCreateAudioRegion';
+import MarqueeContainer from './MarqueeContainer';
 
 interface BaseContainerProps {
   backgroundColor: string;
@@ -53,7 +54,7 @@ interface Props {
 const Track = React.memo(({ backgroundColor }: Props) => {
   const channelId = useContext(ChannelContext);
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
-  const createRegion = useCreateRegion();
+  const createRegion = useCreateAudioRegion();
   const isDragOnDocument = useIsDragOnDocument();
   const pixelToSeconds = usePixelToSeconds();
   const calcSnappedX = useSnapCtrlPixelCalc();
@@ -69,7 +70,7 @@ const Track = React.memo(({ backgroundColor }: Props) => {
     const x = e.clientX - e.target.getBoundingClientRect().left; // x position within the track.
 
     if (files.length > 0) {
-      // On a Region we only use the first file.
+      // On a existing track we only use the first file.
       // TODO: THE SUBSEQUENT files should be move to the tracks beneath this one or create complete new channels.
       await createRegion(channelId, files[0], pixelToSeconds(calcSnappedX(x)));
     }
@@ -85,6 +86,7 @@ const Track = React.memo(({ backgroundColor }: Props) => {
         </Typography>
       </DropIndicator>
       <RegionList/>
+      <MarqueeContainer/>
     </BaseContainer>
   );
 });

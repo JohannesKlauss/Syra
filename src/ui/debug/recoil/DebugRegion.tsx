@@ -12,6 +12,7 @@ function DebugRegion() {
   const [start, setStart] = useRecoilState(regionStore.start(regionId));
   const audioBuffer = useRecoilValue(regionStore.audioBuffer(regionId));
   const audioBufferPointer = useRecoilValue(regionStore.audioBufferPointer(regionId));
+  const name = useRecoilValue(regionStore.name(regionId));
   const [isSolo, setIsSolo] = useRecoilState(regionStore.isSolo(regionId));
   const [isMuted, setIsMuted] = useRecoilState(regionStore.isMuted(regionId));
   const [isRecording, setIsRecording] = useRecoilState(regionStore.isRecording(regionId));
@@ -36,7 +37,7 @@ function DebugRegion() {
                 Name:
               </TableCell>
               <TableCell>
-                - (Not yet implemented)
+                {name}
               </TableCell>
             </TableRow>
             <TableRow>

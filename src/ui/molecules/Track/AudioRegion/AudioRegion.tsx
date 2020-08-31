@@ -1,25 +1,16 @@
-import React, { useCallback, useContext, useState } from 'react';
-import { BaseContainer, RegionFirstLoop } from './AudioRegion.styled';
+import React, { useContext, useEffect, useState } from 'react';
+import { BaseContainer, RegionName, TopBar } from './AudioRegion.styled';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { regionStore } from '../../../../recoil/regionStore';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil/dist';
-import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
-import TrimStartHandle from './Manipulations/TrimStartHandle';
-import useAudioRegionManipulation from '../../../../hooks/ui/region/useAudioRegionManipulation';
-import TrimEndHandle from './Manipulations/TrimEndHandle';
-import useDeltaXTracker from '../../../../hooks/ui/region/useDeltaXTracker';
-import usePixelToSeconds from '../../../../hooks/ui/usePixelToSeconds';
-import WindowedWaveform from '../../Waveform/WindowedWaveform';
-import { determineTextColor } from '../../../../utils/color';
-import useRegionWidth from '../../../../hooks/ui/region/useRegionWidth';
-import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
-import { useHotkeys, useIsHotkeyPressed } from 'react-hotkeys-hook';
-import useRegionSplinterRecordingSync from '../../../../hooks/ui/region/useRegionSplinterRecordingSync';
-import useRegionScheduler from '../../../../hooks/audio/useRegionScheduler';
+import { useRecoilValue } from 'recoil/dist';
+import { useIsHotkeyPressed } from 'react-hotkeys-hook';
+import useRegionDawRecordingSync from '../../../../hooks/ui/region/useRegionDawRecordingSync';
+import useRegionScheduler from '../../../../hooks/tone/useRegionScheduler';
 import ClonedAudioRegion from './ClonedAudioRegion';
-import useDuplicateRegion from '../../../../hooks/recoil/region/useDuplicateRegion';
-import { EditMode } from '../../../../types/RegionManipulation';
-import useCutRegion from '../../../../hooks/recoil/region/useCutRegion';
+import ManipulationContainer from './Manipulations/ManipulationContainer';
+import useSecondsToPixel from '../../../../hooks/ui/useSecondsToPixel';
+import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
+import useRegionSelfDestruct from '../../../../hooks/recoil/region/useRegionSelfDestruct';
 
 /**
  * The AudioRegion is built a bit complicated and unintuitive.
@@ -30,78 +21,41 @@ import useCutRegion from '../../../../hooks/recoil/region/useCutRegion';
  * canvas that scrolls over the region like a magnifying glass and shows that respective part of that waveform.
  */
 function AudioRegion() {
-  const pixelToSeconds = usePixelToSeconds();
   const regionId = useContext(RegionContext);
-  const [isMuted, setIsMuted] = useRecoilState(regionStore.isMuted(regionId));
-  const buffer = useRecoilValue(regionStore.audioBuffer(regionId));
-  const bufferId = useRecoilValue(regionStore.audioBufferPointer(regionId));
+  const isMuted = useRecoilValue(regionStore.isMuted(regionId));
+  const isSelected = useRecoilValue(regionStore.isSelected(regionId));
+  const name = useRecoilValue(regionStore.name(regionId));
   const trimStart = useRecoilValue(regionStore.trimStart(regionId));
-  const setStart = useSetRecoilState(regionStore.start(regionId));
-  const waveformSmoothing = useRecoilValue(arrangeWindowStore.waveformSmoothing);
-  const editMode = useRecoilValue(arrangeWindowStore.editMode);
-  const color = useRegionColor(false);
-  const completeWidth = useRegionWidth();
-  const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
+  const start = useRecoilValue(regionStore.start(regionId));
+  const secondsToPixel = useSecondsToPixel();
   const isPressed = useIsHotkeyPressed();
+  const color = useRegionColor(false);
+  const [left, setLeft] = useState(secondsToPixel(trimStart + start));
+  const [top, setTop] = useState(0);
   const [isMoving, setIsMoving] = useState(false);
-  const duplicateRegion = useDuplicateRegion(regionId);
-  const cutRegion = useCutRegion(regionId);
 
-  const { left, width, paddingLeft, onChangeTrimStart, onChangeTrimEnd, onChangeMove, onMouseUp } = useAudioRegionManipulation();
-
-  const onMoveEnd = useCallback((deltaX: number) => {
-    setIsMoving(false);
-
-    if (isPressed('alt')) {
-      duplicateRegion();
-    }
-
-    onMouseUp();
-    setStart(currVal => {
-      let newVal = currVal + pixelToSeconds(deltaX);
-
-      if (newVal + trimStart < 0) {
-        newVal = -trimStart;
-      }
-
-      return newVal;
-    });
-  }, [setStart, onMouseUp, pixelToSeconds, trimStart, setIsMoving, duplicateRegion, isPressed]);
-
-  const deltaXTracker = useDeltaXTracker(onChangeMove, onMoveEnd);
-
-  const onMoveStart = useCallback((e) => {
-    if (editMode === EditMode.DEFAULT) {
-      deltaXTracker(e);
-      setIsMoving(true);
-    }
-  }, [deltaXTracker, setIsMoving, editMode]);
-
-  const onClick = useCallback((e) => {
-    if (editMode === EditMode.CUT) {
-      console.log('cut at', pixelToSeconds(e.clientX - e.target.getBoundingClientRect().left));
-
-      cutRegion(pixelToSeconds(e.clientX - e.target.getBoundingClientRect().left));
-    }
-  }, [editMode, cutRegion, pixelToSeconds]);
-
-  const ref = useHotkeys('ctrl+m', () => setIsMuted(currVal => !currVal));
-
-  useRegionSplinterRecordingSync();
+  useRegionDawRecordingSync();
   useRegionScheduler();
+  useRegionSelfDestruct(regionId);
+
+  useEffect(() => {
+    if (!isMoving) {
+      setTop(0);
+    }
+  }, [isMoving]);
 
   const isDuplicating = isPressed('alt') && isMoving;
 
   return (
     <>
       {isDuplicating && <ClonedAudioRegion/>}
-      <BaseContainer isMuted={isMuted} left={left} onMouseDown={onMoveStart} innerRef={ref} onClick={onClick} isMoving={isMoving}>
-        <RegionFirstLoop width={width} color={color}>
-          <WindowedWaveform paddingLeft={paddingLeft} completeWidth={completeWidth - 4} color={determineTextColor(color)}
-                            smoothing={waveformSmoothing} buffer={buffer} height={trackHeight} offset={left} bufferId={bufferId}/>
-          <TrimStartHandle onChange={onChangeTrimStart} onMouseUp={onMouseUp}/>
-          <TrimEndHandle onChange={onChangeTrimEnd} onMouseUp={onMouseUp}/>
-        </RegionFirstLoop>
+      <BaseContainer isMuted={isMuted} left={left} isMoving={isMoving} isSelected={isSelected} color={color} top={top}>
+        <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)}
+                               onChangeIsMoving={isMoving => setIsMoving(isMoving)}
+                               onUpdateTopOffset={cssTop => setTop(cssTop)}/>
+        <TopBar color={color}>
+          <RegionName variant={'overline'} color={color}>{name}</RegionName>
+        </TopBar>
       </BaseContainer>
     </>
   );
