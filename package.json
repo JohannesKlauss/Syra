@@ -63,7 +63,7 @@
     "cypress": "5.1.0",
     "cypress-file-upload": "4.1.1",
     "prettier": "2.1.1",
-    "recoilize": "0.1.1",
+    "recoilize": "0.8.0",
     "typescript": "3.9.7"
   },
   "scripts": {

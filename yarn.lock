@@ -14381,10 +14381,10 @@ recoil@0.0.10:
   resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.0.10.tgz#679ab22306f559f8a63c46fd5ff5241539f9248f"
   integrity sha512-+9gRqehw3yKETmoZbhSnWu4GO10HDb5xYf1CjLF1oXGK2uT6GX5Lu9mfTXwjxV/jXxEKx8MIRUUbgPxvbJ8SEw==
 
-recoilize@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/recoilize/-/recoilize-0.1.1.tgz#d7d2bdf83562d431d30c8a1aad0090413921fff2"
-  integrity sha512-nB1DY685UbKGMRc1fvGtdsmwC/62R03/ke2AV+skaUSSsEmgKJc49aAJ/bj6RsqOHlvyaHJqV/WTwn+u8O1hoA==
+recoilize@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/recoilize/-/recoilize-0.8.0.tgz#2bb724f066e62f6b572cc45b8d82321b990de778"
+  integrity sha512-+9oWTCZMdhukqXLyiBaBiVN6SQqpB+Uc5q0IyNF+uHRjKSHj+lIVFuuUAhASk5kcdAPZPF2Krp+yql6BEmteog==
 
 recursive-readdir@2.2.2:
   version "2.2.2"
