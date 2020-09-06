@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import React from 'react';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -19,15 +19,13 @@ if (process.env.NODE_ENV === 'development') {
 
 audioSetup();
 
-const root = document.getElementById('root');
-
-ReactDOM.render(
+render(
   <RecoilRoot>
     <BackboneMixerContext.Provider value={instantiateMixer()}>
-      <App/>
+      <App />
     </BackboneMixerContext.Provider>
   </RecoilRoot>,
-  root,
+  document.getElementById('app'),
 );
 
 // If you want your app to work offline and load faster, you can change

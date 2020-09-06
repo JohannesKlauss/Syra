@@ -1,0 +1,33 @@
+{
+  "canisters": {
+    "splinter": {
+      "main": "src/splinter/main.mo",
+      "type": "motoko"
+    },
+    "splinter_assets": {
+      "dependencies": ["splinter"],
+      "frontend": {
+        "entrypoint": "src/splinter_assets/public/index.tsx"
+      },
+      "source": ["src/splinter_assets/assets", "dist/splinter_assets/"],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": ""
+    }
+  },
+  "dfx": "0.6.4",
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    },
+    "tungsten": {
+      "providers": ["https://gw.dfinity.network"],
+      "type": "persistent"
+    }
+  },
+  "version": 1
+}

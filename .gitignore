@@ -9,6 +9,9 @@ codegen.yml
 .nyc_output
 coverage
 
+# dfx temporary files
+.dfx/
+
 # Logs
 logs
 *.log
