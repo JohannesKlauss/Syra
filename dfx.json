@@ -1,0 +1,21 @@
+{
+  "canisters": {
+    "user": {
+      "main": "backend/user/main.mo",
+      "type": "motoko"
+    }
+  },
+  "defaults": {
+    "build": {
+      "output": "canisters/"
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "localhost:8000",
+      "type": "ephemeral"
+    }
+  },
+  "dfx": "0.6.6",
+  "version": 1
+}

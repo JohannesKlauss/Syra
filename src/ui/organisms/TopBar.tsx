@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AppBar,
   Badge,
@@ -17,6 +17,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles } from '@material-ui/core/styles';
+
+import user from 'ic:canisters/user';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -70,12 +72,18 @@ function TopBar() {
   const classes = useStyles();
   const [name, setName] = useRecoilState(projectStore.name);
 
+  const [userId, setUserId] = useState(0);
+
+  useEffect(() => {
+    user.getUserId().then(res => setUserId(Number(res.toString())));
+  }, []);
+
   return (
     <div>
       <AppBar color={'transparent'}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            Syra
+            Syra (DFINITY {userId})
           </Typography>
           <div className={classes.edit}>
             <InputBase
