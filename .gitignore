@@ -5,6 +5,10 @@
 .graphqlconfig
 codegen.yml
 
+# DFINITY
+.dfx
+canisters/
+
 # cypress
 .nyc_output
 coverage
