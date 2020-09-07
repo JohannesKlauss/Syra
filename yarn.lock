@@ -13480,10 +13480,10 @@ react-helmet-async@^1.0.2:
     react-fast-compare "^3.0.1"
     shallowequal "^1.1.0"
 
-react-hotkeys-hook@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/react-hotkeys-hook/-/react-hotkeys-hook-2.3.0.tgz#c6138b30dbdd6229ea7b75dc51418e3af766bf99"
-  integrity sha512-CSR9IYR0PzZwLBqwZh4NE+W4wa+VIlnaD6KMjZ3x7MQNAD1Zm7Css7D8ZoN9nEDg4DwlTsuCSnBhkwGe0XTVZw==
+react-hotkeys-hook@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/react-hotkeys-hook/-/react-hotkeys-hook-2.3.1.tgz#ab4964fba4a06e25ef31e0a084771303e28e6dd0"
+  integrity sha512-5zutx5e7LuVcSlYTCSOu+WKuvRHiIRc4VJKUzQ+caqn4ibveLtN3MdaIear6I3BAdUeAkOw2uwp8r3OyrSAbqw==
   dependencies:
     hotkeys-js "3.8.1"
 
