@@ -75,7 +75,7 @@ function TopBar() {
   const [userId, setUserId] = useState(0);
 
   useEffect(() => {
-    user.getUserId().then(res => setUserId(Number(res.toString())));
+    user.getUserId().then(res => setUserId(+res));
   }, []);
 
   return (

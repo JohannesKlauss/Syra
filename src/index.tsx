@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'development') {
 
 audioSetup();
 
-const root = document.getElementById('root');
+const root = document.getElementById('app');
 
 ReactDOM.render(
   <RecoilRoot>
