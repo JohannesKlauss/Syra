@@ -1,5 +1,7 @@
 .idea/
 
+build
+
 .env.*
 
 build
