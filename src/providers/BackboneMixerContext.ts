@@ -75,6 +75,10 @@ export function instantiateMixer() {
         Tone.connectSeries(retNodes.audioIn, retNodes.recorder);
       }
 
+      console.log('rewire');
+
+      disconnect();
+
       Tone.connectSeries(retNodes.players, ...plugins, retNodes.volume, retNodes.rmsMeter, retNodes.pan, retNodes.solo, Tone.Destination);
     };
 
