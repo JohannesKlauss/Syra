@@ -17,4 +17,5 @@ export enum ChannelNode {
   METER = 'meter',
   VOLUME = 'volume',
   PAN = 'pan',
+  SOLO = 'solo',
 }

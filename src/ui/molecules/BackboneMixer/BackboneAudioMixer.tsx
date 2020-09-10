@@ -34,7 +34,7 @@ function BackboneAudioMixer({channelId}: Props) {
   }, [isInputMonitoringActive]);
 
   useEffect(() => {
-    mixerChannelStrip.channel.set({ solo: isSolo });
+    mixerChannelStrip.solo.set({ solo: isSolo });
   }, [isSolo]);
 
   useRecorder(channelId);
