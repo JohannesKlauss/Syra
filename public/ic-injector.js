@@ -7,7 +7,7 @@ console.log('test');
   const injectJsFiles = [];
   
   injectJsFiles.push(
-    await syra_assets.retrieve('static/js/2.919c8c5e.chunk.js'),await syra_assets.retrieve('static/js/main.e4ccfa73.chunk.js'),await syra_assets.retrieve('static/js/runtime-main.47441b4a.js')
+    await syra_assets.retrieve('static/js/2.6cdf5cbd.chunk.js'),await syra_assets.retrieve('static/js/main.a5ca5590.chunk.js'),await syra_assets.retrieve('static/js/runtime-main.47441b4a.js')
   );
   
   injectJsFiles.forEach(content => {
