@@ -4,7 +4,7 @@ build
 
 .env.*
 
-build
+dist
 
 .graphqlconfig
 codegen.yml

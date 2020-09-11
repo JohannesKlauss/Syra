@@ -62,15 +62,21 @@
     "@types/tinycolor2": "1.4.2",
     "@types/uniqid": "5.2.0",
     "@welldone-software/why-did-you-render": "4.3.1",
+    "css-loader": "^4.3.0",
     "cypress": "5.1.0",
     "cypress-file-upload": "4.1.1",
+    "glob": "^7.1.6",
     "prettier": "2.1.1",
     "recoilize": "0.8.0",
-    "typescript": "3.9.7"
+    "style-loader": "^1.2.1",
+    "terser-webpack-plugin": "2.2.2",
+    "ts-loader": "^8.0.3",
+    "typescript": "3.9.7",
+    "webpack-cli": "^3.3.12"
   },
   "scripts": {
     "start": "craco -r @cypress/instrument-cra start",
-    "build": "CI= craco build",
+    "build": "CI= craco build && webpack",
     "test": "craco test",
     "eject": "craco eject",
     "gql-gen": "graphql-codegen --config codegen.yml",

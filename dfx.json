@@ -4,31 +4,16 @@
       "main": "backend/user/main.mo",
       "type": "motoko"
     },
-    "syra_frontend": {
+    "syra_assets": {
       "dependencies": [
         "user"
       ],
       "frontend": {
-        "entrypoint": "build/index.html",
-        "output": "/"
+        "entrypoint": "public/ic-injector.js"
       },
       "source": [
-        "build/audio",
-        "build/icons",
-        "build/soul",
-        "build/static",
-        "build/worker",
-        "build/worklets",
-        "build/_redirects",
-        "build/asset-manifest.json",
-        "build/index.html",
-        "build/favicon.ico",
-        "build/logo192.png",
-        "build/logo512.png",
-        "build/manifest.json",
-        "build/precache-manifest.cecab71be1d12a31e9ed1785dae1ae86.js",
-        "build/robots.txt",
-        "build/service-worker.js"
+        "dist/syra_assets/",
+        "build"
       ],
       "type": "assets"
     }
@@ -42,14 +27,8 @@
     "local": {
       "bind": "localhost:8000",
       "type": "ephemeral"
-    },
-    "tungsten": {
-      "providers": [
-        "https://gw.dfinity.network"
-      ],
-      "type": "persistent"
     }
   },
-  "dfx": "0.6.6",
+  "dfx": "0.6.7",
   "version": 1
 }

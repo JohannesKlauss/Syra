@@ -83,7 +83,7 @@ function TopBar() {
       <AppBar color={'transparent'}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            Syra (DFINITY {userId})
+            Syra (userId IC: {userId})
           </Typography>
           <div className={classes.edit}>
             <InputBase
