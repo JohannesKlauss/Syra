@@ -1,11 +1,16 @@
 {
   "canisters": {
+    "project": {
+      "main": "backend/project/main.mo",
+      "type": "motoko"
+    },
     "user": {
       "main": "backend/user/main.mo",
       "type": "motoko"
     },
     "syra_assets": {
       "dependencies": [
+        "project",
         "user"
       ],
       "frontend": {

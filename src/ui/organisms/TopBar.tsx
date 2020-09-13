@@ -19,6 +19,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles } from '@material-ui/core/styles';
 
 import user from 'ic:canisters/user';
+import project from 'ic:canisters/project';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -70,12 +71,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function TopBar() {
   const classes = useStyles();
-  const [name, setName] = useRecoilState(projectStore.name);
+  // const [name, setName] = useRecoilState(projectStore.name);
 
   const [userId, setUserId] = useState(0);
+  const [name, setName] = useState('');
 
   useEffect(() => {
     user.getUserId().then(res => setUserId(+res));
+    project.getName().then(res => setName(res));
   }, []);
 
   return (
@@ -93,7 +96,7 @@ function TopBar() {
                 input: classes.inputInput,
               }}
               onChange={e => {
-                setName(e.target.value);
+                project.setName(e.target.value).then(r => setName(e.target.value));
                 document.title = `Syra - ${e.target.value}`;
               }}
             />
