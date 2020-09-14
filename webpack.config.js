@@ -32,9 +32,12 @@ function generateIcEntryPoint(name, info) {
   const entryPointPath = path.join(__dirname, info.frontend.entrypoint);
 
   const assets = glob.sync('build/static/js/*.js').sort((a, b) => {
+    a = path.basename(a);
+    b = path.basename(b);
+
     if (a.startsWith('runtime')) {
       return -1;
-    } else if (b.startsWith('main')) {
+    } else if (a.startsWith('main')) {
       return 1;
     } else {
       return Number(a.substr(0, 1)) - Number(b.substr(0, 1));

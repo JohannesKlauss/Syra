@@ -32,6 +32,12 @@
     "local": {
       "bind": "localhost:8000",
       "type": "ephemeral"
+    },
+    "tungsten": {
+      "providers": [
+        "https://gw.dfinity.network"
+      ],
+      "type": "persistent"
     }
   },
   "dfx": "0.6.7",
