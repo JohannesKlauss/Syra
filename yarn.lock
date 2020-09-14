@@ -2892,10 +2892,10 @@
     "@svgr/plugin-svgo" "^5.4.0"
     loader-utils "^2.0.0"
 
-"@testing-library/dom@^7.23.0":
-  version "7.24.1"
-  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-7.24.1.tgz#0e8acd042070f2c1b183fbfe5c0d38b3194ad3c0"
-  integrity sha512-TemHWY59gvzcScGiE5eooZpzYk9GaED0TuuK4WefbIc/DQg0L5wOpnj7MIEeAGF3B7Ekf1kvmVnQ97vwz4Lmhg==
+"@testing-library/dom@^7.24.2":
+  version "7.24.2"
+  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-7.24.2.tgz#6d2b7dd21efbd5358b98c2777fc47c252f3ae55e"
+  integrity sha512-ERxcZSoHx0EcN4HfshySEWmEf5Kkmgi+J7O79yCJ3xggzVlBJ2w/QjJUC+EBkJJ2OeSw48i3IoePN4w8JlVUIA==
   dependencies:
     "@babel/code-frame" "^7.10.4"
     "@babel/runtime" "^7.10.3"
@@ -2927,13 +2927,13 @@
     "@babel/runtime" "^7.5.4"
     "@types/testing-library__react-hooks" "^3.3.0"
 
-"@testing-library/react@11.0.2":
-  version "11.0.2"
-  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-11.0.2.tgz#4588cc537085907bd1d98b531eb247dbbf57b1cc"
-  integrity sha512-iOuNNHt4ZgMH5trSKC4kaWDcKzUOf7e7KQIcu7xvGCd68/w1EegbW89F9T5sZ4IjS0gAXdvOfZbG9ESZ7YjOug==
+"@testing-library/react@11.0.4":
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-11.0.4.tgz#c84082bfe1593d8fcd475d46baee024452f31dee"
+  integrity sha512-U0fZO2zxm7M0CB5h1+lh31lbAwMSmDMEMGpMT3BUPJwIjDEKYWOV4dx7lb3x2Ue0Pyt77gmz/VropuJnSz/Iew==
   dependencies:
     "@babel/runtime" "^7.11.2"
-    "@testing-library/dom" "^7.23.0"
+    "@testing-library/dom" "^7.24.2"
 
 "@testing-library/user-event@12.1.4":
   version "12.1.4"
@@ -3139,10 +3139,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.6.4.tgz#a145cc0bb14ef9c4777361b7bbafa5cf8e3acb5a"
   integrity sha512-Wk7nG1JSaMfMpoMJDKUsWYugliB2Vy55pdjLpmLixeyMi7HizW2I/9QoxsPCkXl3dO+ZOVqPumKaDUv5zJu2uQ==
 
-"@types/node@12.12.57":
-  version "12.12.57"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.57.tgz#fa7bab1f5e5adc99df92d824ef75c3bbca929a22"
-  integrity sha512-Dg4fab0IP6ZtdJOkwTaMaOJA3PWw7bR6cUYh+nxkYe4+ZogiLBKhaEr9sHqVkCtREVLw92g3Fl1bt8++dHKavw==
+"@types/node@12.12.58":
+  version "12.12.58"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.58.tgz#46dae9b2b9ee5992818c8f7cee01ff4ce03ab44c"
+  integrity sha512-Be46CNIHWAagEfINOjmriSxuv7IVcqbGe+sDSg2SYCEz/0CRBy7LRASGfRbD8KZkqoePU73Wsx3UvOSFcq/9hA==
 
 "@types/npmlog@^4.1.2":
   version "4.1.2"
@@ -4265,6 +4265,14 @@ automation-events@^2.0.19:
   version "2.0.19"
   resolved "https://registry.yarnpkg.com/automation-events/-/automation-events-2.0.19.tgz#b9969baee3897ded9d5f4ba9cfb4b18565176b12"
   integrity sha512-6RUNmFkmTYXq/W+ovdwLdqqj44rGh9+dGjg4qLaktVHYT1+c+PdlYAkaCn/H2AaqprW9NZhK+jsXT4t8izPV+w==
+  dependencies:
+    "@babel/runtime" "^7.11.2"
+    tslib "^2.0.1"
+
+automation-events@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/automation-events/-/automation-events-3.0.0.tgz#72776c7061ba1270b3ea6669c6be7abc5cff8b9a"
+  integrity sha512-FmlIBl/cUuja7iwRScTCFgsiFZvnCsHrUGMnUJqCPbCA+2iY1HuQcp0e4gcxCW5TUkj7cGihjvPnm1UZTC1zLw==
   dependencies:
     "@babel/runtime" "^7.11.2"
     tslib "^2.0.1"
@@ -7748,10 +7756,10 @@ fast-safe-stringify@^2.0.7:
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.0.7.tgz#124aa885899261f68aedb42a7c080de9da608743"
   integrity sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
 
-fast-unique-numbers@^5.0.16:
-  version "5.0.17"
-  resolved "https://registry.yarnpkg.com/fast-unique-numbers/-/fast-unique-numbers-5.0.17.tgz#86568bbc2d6e4158933e01f8edcb83f5c8dc545d"
-  integrity sha512-E1MxUBMQpzGO+Vk1fhIqhQqFZ6pooA74nI7vutBGZG8PRzsw3Tk2PwkLeNt/HtLplWhMR9EXwLTfx43MrhhtTw==
+fast-unique-numbers@^5.0.18:
+  version "5.0.18"
+  resolved "https://registry.yarnpkg.com/fast-unique-numbers/-/fast-unique-numbers-5.0.18.tgz#6c69e9a3ec21fdaabd801dbc814e4fb6ef61a702"
+  integrity sha512-M0LH/o9S5T0ckThBwoZ1f6GrXfjRv27cl0F/zpaGez0A4HEwqGR7wu2aAtDec+nX8RcfMmZlrqV1uxBV5co+Eg==
   dependencies:
     "@babel/runtime" "^7.11.2"
     tslib "^2.0.1"
@@ -14995,13 +15003,22 @@ stack-utils@^1.0.1:
   resolved "https://registry.yarnpkg.com/stack-utils/-/stack-utils-1.0.2.tgz#33eba3897788558bebfc2db059dc158ec36cebb8"
   integrity sha512-MTX+MeG5U994cazkjd/9KNAapsHnibjMLnfXodlkXw76JEea0UiNzrqidzo1emMwk7w5Qhc9jd4Bn9TBb1MFwA==
 
-standardized-audio-context@^24.1.25, standardized-audio-context@^24.1.5:
+standardized-audio-context@^24.1.5:
   version "24.1.26"
   resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-24.1.26.tgz#6c549a275cf071ba827efe21d2ea08f9bdc996fd"
   integrity sha512-Grm5EZGcg7hDmLZWbyZ/93dBzlRii9HUmRjmyyatissEzdBPxeA4Ptt9VjtYnd0mEOzxxbS222SxpbYnV57JFA==
   dependencies:
     "@babel/runtime" "^7.11.2"
     automation-events "^2.0.19"
+    tslib "^2.0.1"
+
+standardized-audio-context@^25.0.2:
+  version "25.0.2"
+  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.0.2.tgz#13d6645296f299f4fa287581adc238164e9f293e"
+  integrity sha512-h/+jjrFFNXxzpt7034k4JkMO+8TdY69wp9KQpSclVvTNNVU+kWuGgHn07okX+4KrKtFLrideyWqMl5beVLwTmg==
+  dependencies:
+    "@babel/runtime" "^7.11.2"
+    automation-events "^3.0.0"
     tslib "^2.0.1"
 
 static-extend@^0.1.1:
@@ -16241,34 +16258,34 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-web-audio-beat-detector-broker@^4.0.24:
-  version "4.0.24"
-  resolved "https://registry.yarnpkg.com/web-audio-beat-detector-broker/-/web-audio-beat-detector-broker-4.0.24.tgz#ebe67f17598d0740324cdeaad6becf16ffcbc3fe"
-  integrity sha512-pAqNPeBd2axPtwF4ase/0BnPMC3XPINF1++y0OIT1mFo5s+C1zSUWWvEqZns5v44uEmDRBWvVXMCacRFJEf3tQ==
+web-audio-beat-detector-broker@^4.0.25:
+  version "4.0.25"
+  resolved "https://registry.yarnpkg.com/web-audio-beat-detector-broker/-/web-audio-beat-detector-broker-4.0.25.tgz#27df77c9f92c101c6484befb1559d608281993e2"
+  integrity sha512-MxOofPn/qWRMmByey5vdtqb+tfjNq/rYtDDsoytPsxYOJPt4xt+DWXPtyKsNrYoaEzA1PoS83FRofiqWB+RYLg==
   dependencies:
     "@babel/runtime" "^7.11.2"
-    fast-unique-numbers "^5.0.16"
-    standardized-audio-context "^24.1.25"
+    fast-unique-numbers "^5.0.18"
+    standardized-audio-context "^25.0.2"
     tslib "^2.0.1"
-    web-audio-beat-detector-worker "^5.0.14"
+    web-audio-beat-detector-worker "^5.0.15"
 
-web-audio-beat-detector-worker@^5.0.14:
-  version "5.0.14"
-  resolved "https://registry.yarnpkg.com/web-audio-beat-detector-worker/-/web-audio-beat-detector-worker-5.0.14.tgz#35493d40c28dd370516e5b0778cd2507882fed9e"
-  integrity sha512-kKZtUiUbQ8yHPvh+xgDIBY1SpoopOBOxVMxROpbmfc6w6OWHBdUuc0qBOjUdsJ/WJl/vucHK0cqpEnx92QJuJw==
+web-audio-beat-detector-worker@^5.0.15:
+  version "5.0.15"
+  resolved "https://registry.yarnpkg.com/web-audio-beat-detector-worker/-/web-audio-beat-detector-worker-5.0.15.tgz#771624e5a55bc171cf3a311b77468019877126fa"
+  integrity sha512-MtSu/6ARJHBIy73lQrr302ghSnt7eUx/8k7Y+NjpdZ4nCFxVkPIVOh+eA17Jnqc6sf+c0EzIIl5/PWrl0m+MHg==
   dependencies:
     "@babel/runtime" "^7.11.2"
     tslib "^2.0.1"
 
-web-audio-beat-detector@8.0.24:
-  version "8.0.24"
-  resolved "https://registry.yarnpkg.com/web-audio-beat-detector/-/web-audio-beat-detector-8.0.24.tgz#53d22772139201e457c2b88a7fc26d88b5d7b8b5"
-  integrity sha512-Ag65byI3n2fIV2ZdMqJ2gBLqU3KiGKZ7xTzD+OKoI5n4fdIUxHEZkiozl7JCgqOSheAnFZBqLkn8eiAyEsgJuQ==
+web-audio-beat-detector@8.0.25:
+  version "8.0.25"
+  resolved "https://registry.yarnpkg.com/web-audio-beat-detector/-/web-audio-beat-detector-8.0.25.tgz#57d82b3db4bee121cbc9ed6fe7e00c27302fe7ea"
+  integrity sha512-Pk5DCTqeid6efOJgeSsi2G2o4HwplxSfrb0NIKPzxjvhfNL5p0EdmeCIBurPQOKjKM7lJ7OPGnlQQj5IKqks8A==
   dependencies:
     "@babel/runtime" "^7.11.2"
     tslib "^2.0.1"
-    web-audio-beat-detector-broker "^4.0.24"
-    web-audio-beat-detector-worker "^5.0.14"
+    web-audio-beat-detector-broker "^4.0.25"
+    web-audio-beat-detector-worker "^5.0.15"
 
 webidl-conversions@^4.0.2:
   version "4.0.2"
