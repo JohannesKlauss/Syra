@@ -62,7 +62,7 @@
     "@types/tinycolor2": "1.4.2",
     "@types/uniqid": "5.2.0",
     "@welldone-software/why-did-you-render": "4.3.1",
-    "cypress": "5.1.0",
+    "cypress": "5.2.0",
     "cypress-file-upload": "4.1.1",
     "prettier": "2.1.1",
     "recoilize": "0.8.0",
