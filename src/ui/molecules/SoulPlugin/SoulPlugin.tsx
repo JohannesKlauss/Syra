@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import ParameterList from './Parameters/ParameterList';
 import { channelStore } from '../../../recoil/channelStore';
 import { soulPluginStore } from '../../../recoil/soulPluginStore';
-import { Button, Container, MenuItem, Modal, styled, Typography } from '@material-ui/core';
+import { Button, Container, MenuItem, Modal, Paper, styled, Typography } from '@material-ui/core';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import DropdownButton from '../../atoms/Buttons/DropdownButton';
 import { createSoulInstance } from '../../../soul/createSoulInstance';
@@ -16,7 +16,15 @@ const PowerButton = styled(Button)({
 const PowerIcon = styled(PowerSettingsNewIcon)({
   width: 18,
   height: 18,
-})
+});
+
+const CustomPaper = styled(Paper)({
+  padding: '40px 20%',
+  margin: 200,
+  '&:focus': {
+    outline: 'none',
+  }
+});
 
 interface Props {
   id: string;
@@ -56,9 +64,9 @@ function SoulPlugin({id, isInstrument}: Props) {
   return (
     <div>
       {activePlugin && <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <Container>
+        <CustomPaper>
           <ParameterList soulInstanceId={id} parameter={activePlugin.soulPatch.descriptor.parameters}/>
-        </Container>
+        </CustomPaper>
       </Modal>}
       <DropdownButton
         onClick={() => setIsModalOpen(activePlugin !== undefined)}

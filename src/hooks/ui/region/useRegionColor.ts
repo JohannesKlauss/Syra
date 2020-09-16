@@ -1,7 +1,7 @@
 import { useContext, useMemo } from 'react';
 import { red } from '@material-ui/core/colors';
 import { regionStore } from '../../../recoil/regionStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { RegionContext } from '../../../providers/RegionContext';
 import { useTheme } from '@material-ui/core';
 import { channelStore } from '../../../recoil/channelStore';

@@ -11,7 +11,7 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { regionStore } from '../../../recoil/regionStore';
 import CheckIcon from '@material-ui/icons/Check';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';

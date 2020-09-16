@@ -3,7 +3,7 @@ import { Typography } from '@material-ui/core';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { formatSecondsToTime } from '../../../utils/time';
 import { transportStore } from '../../../recoil/transportStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 
 function TimeInformation() {

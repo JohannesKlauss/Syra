@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { channelStore } from '../../../../recoil/channelStore';
 import { Box, styled } from '@material-ui/core';
 import VerticalChannel from './VerticalChannel';
@@ -14,6 +14,9 @@ const BaseContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
+  '&:focus': {
+    outline: 'none'
+  }
 });
 
 function VerticalChannelList() {

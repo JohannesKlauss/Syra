@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { projectStore } from '../../../recoil/projectStore';
 import useTempoMapScheduler from '../../../hooks/tone/useTempoMapScheduler';
 import { styled, Typography } from '@material-ui/core';

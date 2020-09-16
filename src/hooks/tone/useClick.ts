@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { projectStore } from '../../recoil/projectStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import useToneJsTransport from './useToneJsTransport';
 import * as Tone from 'tone';
 import { getBeatCountForTransportSeconds } from '../../utils/time';

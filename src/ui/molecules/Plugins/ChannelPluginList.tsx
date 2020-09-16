@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 import { Button, List, ListItem } from '@material-ui/core';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState } from 'recoil';
 import SoulPlugin from '../SoulPlugin/SoulPlugin';
 import { channelStore } from '../../../recoil/channelStore';
 import { makeStyles } from '@material-ui/core/styles';

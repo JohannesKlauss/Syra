@@ -3,7 +3,7 @@ import { styled } from '@material-ui/core';
 import GridTracks from './GridTracks';
 import Ruler from '../Ruler/Ruler';
 import useWindowSize from '../../../hooks/ui/useWindowResize';
-import { useSetRecoilState } from 'recoil/dist';
+import { useSetRecoilState } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import DropTrack from '../Track/DropTrack';
 

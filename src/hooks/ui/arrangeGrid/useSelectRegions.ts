@@ -1,4 +1,4 @@
-import { useRecoilCallback } from 'recoil/dist';
+import { useRecoilCallback } from 'recoil';
 import { BoxArea } from '../../../types/Ui';
 import { channelStore } from '../../../recoil/channelStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';

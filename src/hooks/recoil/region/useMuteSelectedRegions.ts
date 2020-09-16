@@ -1,4 +1,4 @@
-import { useRecoilCallback } from 'recoil/dist';
+import { useRecoilCallback } from 'recoil';
 import { regionStore } from '../../../recoil/regionStore';
 
 export default function useMuteSelectedRegions() {

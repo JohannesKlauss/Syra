@@ -7,7 +7,7 @@ import {
   TextField, Typography,
 } from '@material-ui/core';
 import { projectStore } from '../../../recoil/projectStore';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState } from 'recoil';
 import { Alert, ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import { ChannelType } from '../../../types/Channel';
 import useTapTempo from '../../../hooks/audio/useTapTempo';

@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import { styled } from '@material-ui/core';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import usePlayheadAnimation from '../../../hooks/ui/usePlayheadAnimation';
 import { red } from '@material-ui/core/colors';
 import { transportStore } from '../../../recoil/transportStore';

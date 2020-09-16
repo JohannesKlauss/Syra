@@ -1,4 +1,4 @@
-import { atom } from 'recoil/dist';
+import { atom } from 'recoil';
 
 const showMixer = atom({
   key: 'editorStore/showMixer',
@@ -10,7 +10,13 @@ const showPianoRoll = atom({
   default: false
 });
 
+const showVideo = atom({
+  key: 'editorStore/showVideo',
+  default: true
+});
+
 export const editorStore = {
   showMixer,
   showPianoRoll,
+  showVideo,
 };

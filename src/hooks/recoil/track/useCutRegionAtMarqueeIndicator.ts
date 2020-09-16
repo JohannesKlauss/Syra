@@ -1,6 +1,6 @@
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { useContext } from 'react';
-import { useRecoilCallback } from 'recoil/dist';
+import { useRecoilCallback } from 'recoil';
 import { regionStore } from '../../../recoil/regionStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { isBetween } from '../../../utils/numbers';

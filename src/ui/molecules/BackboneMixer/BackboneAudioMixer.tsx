@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import useRecorder from '../../../hooks/audio/useRecorder';
 import { channelStore } from '../../../recoil/channelStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 
 interface Props {
   channelId: string

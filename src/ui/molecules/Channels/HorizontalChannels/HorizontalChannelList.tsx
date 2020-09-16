@@ -1,6 +1,6 @@
 import React from 'react';
 import { GridList, styled } from '@material-ui/core';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import NewChannelFab from '../../Fabs/NewChannelFab';
 import { channelStore } from '../../../../recoil/channelStore';
 import BaseChannel from './BaseChannel';
@@ -21,7 +21,7 @@ const Flexer = styled('div')(({theme}) => ({
   background: theme.palette.background.default,
   borderRadius: theme.shape.borderRadius,
   paddingTop: 2,
-  borderTop: `2px solid ${theme.palette.info.light}`,
+  borderTop: `2px solid ${theme.palette.primary.light}`,
   zIndex: 1,
   width: '100%',
 }));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { transportStore } from '../../../../recoil/transportStore';
 import { BaseContainer, CycleBar, CycleEndHandle, CycleStartHandle } from './RulerCycle.styled';

@@ -1,5 +1,5 @@
 import { removeItemAtIndex } from '../../../utils/recoil';
-import { useRecoilCallback } from 'recoil/dist';
+import { useRecoilCallback } from 'recoil';
 import { channelStore } from '../../../recoil/channelStore';
 import { regionStore } from '../../../recoil/regionStore';
 

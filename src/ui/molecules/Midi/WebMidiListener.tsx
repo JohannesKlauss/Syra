@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil/dist';
+import { useSetRecoilState } from 'recoil';
 import { keyboardMidiStore } from '../../../recoil/keyboardMidiStore';
 import WebMidi from 'webmidi';
 import InfoBox from '../../organisms/InfoBox';

@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState } from 'recoil';
 import { regionStore } from '../../../recoil/regionStore';
 import { useCallback, useContext } from 'react';
 import { removeItemAtIndex } from '../../../utils/recoil';

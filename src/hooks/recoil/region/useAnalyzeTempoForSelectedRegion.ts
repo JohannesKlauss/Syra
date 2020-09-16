@@ -1,4 +1,4 @@
-import { useRecoilCallback } from 'recoil/dist';
+import { useRecoilCallback } from 'recoil';
 import { analyze } from 'web-audio-beat-detector';
 import { projectStore } from '../../../recoil/projectStore';
 import { regionStore } from '../../../recoil/regionStore';

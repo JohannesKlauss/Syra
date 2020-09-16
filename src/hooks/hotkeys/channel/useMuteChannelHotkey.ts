@@ -1,7 +1,7 @@
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useContext } from 'react';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { channelStore } from '../../../recoil/channelStore';
 
 export default function useMuteChannelHotkey() {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ButtonGroup, styled } from '@material-ui/core';
 import TuneIcon from '@material-ui/icons/Tune';
 import StraightenIcon from '@material-ui/icons/Straighten';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { editorStore } from '../../../recoil/editorStore';
 import useUpdateView from '../../../hooks/recoil/editor/useUpdateView';
 import { useHotkeys } from 'react-hotkeys-hook';

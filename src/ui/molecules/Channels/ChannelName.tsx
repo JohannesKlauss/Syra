@@ -11,7 +11,7 @@ import {
 import { determineTextColor } from '../../../utils/color';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState } from 'recoil';
 
 interface CustomTypographyProps {
   channelColor?: string;

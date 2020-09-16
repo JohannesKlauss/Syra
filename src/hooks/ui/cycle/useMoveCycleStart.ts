@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil/dist';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { transportStore } from '../../../recoil/transportStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { useCallback, useEffect, useRef, useState } from 'react';

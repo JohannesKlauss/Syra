@@ -1,4 +1,4 @@
-import { atom } from 'recoil/dist';
+import { atom } from 'recoil';
 
 const isMidiEnabled = atom({
   key: 'keyboardMidi/isMidiEnabled',

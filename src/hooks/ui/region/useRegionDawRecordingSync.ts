@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { regionStore } from '../../../recoil/regionStore';
 import { RegionContext } from '../../../providers/RegionContext';
 import { transportStore } from '../../../recoil/transportStore';

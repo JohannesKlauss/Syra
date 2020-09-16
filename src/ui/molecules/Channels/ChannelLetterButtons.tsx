@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react';
 import LetterButton from '../../atoms/Buttons/LetterButton';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
 import { transportStore } from '../../../recoil/transportStore';

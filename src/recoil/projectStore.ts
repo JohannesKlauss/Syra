@@ -1,4 +1,4 @@
-import { atom, selector, selectorFamily } from 'recoil/dist';
+import { atom, selector, selectorFamily } from 'recoil';
 import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
 import {
   getBeatsInTempoBlock,

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { RegionState, regionStore } from '../recoil/regionStore';
-import { useSetRecoilState } from 'recoil/dist';
+import { useSetRecoilState } from 'recoil';
 import { ChannelContext } from '../providers/ChannelContext';
 import { RegionContext } from '../providers/RegionContext';
 import { audioBufferStore } from '../recoil/audioBufferStore';

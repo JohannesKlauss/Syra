@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import { Box, styled } from '@material-ui/core';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { regionStore } from '../../../../recoil/regionStore';
 import { RegionContext } from '../../../../providers/RegionContext';
 import AudioRegion from '../AudioRegion/AudioRegion';

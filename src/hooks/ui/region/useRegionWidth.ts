@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { RegionContext } from '../../../providers/RegionContext';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { regionStore } from '../../../recoil/regionStore';
 import useSecondsToPixel from '../useSecondsToPixel';
 

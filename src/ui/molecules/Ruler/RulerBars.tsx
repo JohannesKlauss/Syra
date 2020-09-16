@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { Box, styled } from '@material-ui/core';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { numberToMusicalBarTime } from '../../../utils/noteMapper';

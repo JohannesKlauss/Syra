@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 import { useCallback } from 'react';

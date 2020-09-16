@@ -1,5 +1,5 @@
 declare module 'recoilize' {
-  import { RecoilState, RecoilValueReadOnly } from 'recoil/dist';
+  import { RecoilState, RecoilValueReadOnly } from 'recoil';
 
   type Recoils = RecoilState<any> | RecoilValueReadOnly<any>;
 

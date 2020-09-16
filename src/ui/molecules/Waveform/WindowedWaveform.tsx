@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, LinearProgress, styled } from '@material-ui/core';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { audioBufferStore } from '../../../recoil/audioBufferStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 

@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil/dist';
+import { atom, selector } from 'recoil';
 import * as Tone from 'tone';
 import { PlayButtonMode } from '../types/PlayButtonMode';
 

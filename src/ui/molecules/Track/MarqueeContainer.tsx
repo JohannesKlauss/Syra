@@ -1,5 +1,5 @@
 import React, { HTMLAttributes, useCallback, useContext } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
 import { styled, Theme } from '@material-ui/core';

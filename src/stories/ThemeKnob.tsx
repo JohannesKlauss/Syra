@@ -5,7 +5,7 @@ import { defaultTheme } from '../theme';
 import { retroWaveTheme } from '../theme/retroWave';
 import { CssBaseline } from '@material-ui/core';
 import { audioSetup } from '../audioSetup';
-import { RecoilRoot } from 'recoil/dist';
+import { RecoilRoot } from 'recoil';
 
 const themes: { [key: string]: any } = { Default: defaultTheme, RetroWave: retroWaveTheme };
 const themeNames = Object.keys(themes);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
-import { useRecoilCallback, useRecoilValue } from 'recoil/dist';
+import { useRecoilCallback, useRecoilValue } from 'recoil';
 import { regionStore } from '../../recoil/regionStore';
 import { channelStore } from '../../recoil/channelStore';
 import { ChannelContext } from '../../providers/ChannelContext';

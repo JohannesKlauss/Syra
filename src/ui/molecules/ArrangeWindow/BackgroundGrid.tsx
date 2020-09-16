@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, styled } from '@material-ui/core';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { createNewId } from '../../../utils/createNewId';
 
 const CustomContainer = styled(Box)({

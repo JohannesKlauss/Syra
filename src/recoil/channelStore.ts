@@ -1,4 +1,4 @@
-import { atom, atomFamily, selector, selectorFamily } from 'recoil/dist';
+import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
 import { RegionState, regionStore } from './regionStore';

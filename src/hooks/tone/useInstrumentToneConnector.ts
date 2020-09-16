@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import * as Tone from 'tone';
 import { ChannelContext } from '../../providers/ChannelContext';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { channelStore } from '../../recoil/channelStore';
 import useBackboneChannel from './BackboneMixer/useBackboneChannel';
 

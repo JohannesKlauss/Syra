@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { channelStore } from '../../../recoil/channelStore';
 import useDeleteChannel from './useDeleteChannel';
 

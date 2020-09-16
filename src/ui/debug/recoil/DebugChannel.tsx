@@ -8,7 +8,7 @@ import {
   TableRow, TextField,
   Typography,
 } from '@material-ui/core';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState } from 'recoil';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
 import { channelTypeMap } from '../../../const/channels';

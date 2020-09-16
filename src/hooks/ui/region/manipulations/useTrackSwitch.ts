@@ -1,7 +1,7 @@
 import useDeltaTracker from './useDeltaTracker';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
-import { useRecoilCallback, useRecoilValue } from 'recoil/dist';
+import { useRecoilCallback, useRecoilValue } from 'recoil';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import { channelStore } from '../../../../recoil/channelStore';
 import { regionStore } from '../../../../recoil/regionStore';

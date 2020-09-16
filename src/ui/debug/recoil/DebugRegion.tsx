@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { RegionContext } from '../../../providers/RegionContext';
 import { Checkbox, Grid, Paper, TableCell, TableContainer, TableRow, TextField } from '@material-ui/core';
 import { regionStore } from '../../../recoil/regionStore';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import CheckIcon from '@material-ui/icons/Check';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
