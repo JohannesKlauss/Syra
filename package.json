@@ -69,7 +69,7 @@
     "prettier": "2.1.2",
     "recoilize": "0.8.0",
     "style-loader": "1.2.1",
-    "terser-webpack-plugin": "2.2.2",
+    "terser-webpack-plugin": "2.3.8",
     "ts-loader": "8.0.3",
     "typescript": "3.9.7",
     "webpack-cli": "3.3.12"
