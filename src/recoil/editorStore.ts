@@ -12,7 +12,7 @@ const showPianoRoll = atom({
 
 const showVideo = atom({
   key: 'editorStore/showVideo',
-  default: true
+  default: false
 });
 
 export const editorStore = {
