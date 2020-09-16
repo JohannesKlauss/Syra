@@ -67,7 +67,7 @@ console.log('startup');
     '  }\\n' +
     '  20%\\n' +
     '  {\\n' +
-    '    opacity: 0.3;\\n' +
+    '    opacity: 0.2;\\n' +
     '  }\\n' +
     '  40%\\n' +
     '  {\\n' +
@@ -75,7 +75,7 @@ console.log('startup');
     '  }\\n' +
     '  60%\\n' +
     '  {\\n' +
-    '    opacity: 0.3;\\n' +
+    '    opacity: 0.2;\\n' +
     '  }\\n' +
     '  80%\\n' +
     '  {\\n' +
@@ -87,13 +87,17 @@ console.log('startup');
     '  }\\n' +
     '}');
   
-  addStyle('#app { background-color: #282928; width: 100vw; height: 100vh; position: absolute; display: flex; justify-content: center; align-items: center; }');
+  addStyle('#loader { background-color: #282928; width: 100vw; height: 100vh; position: absolute; display: flex; justify-content: center; align-items: center; }');
   addStyle('body { margin: 0; }');
-  addStyle('#app > img { width: 320px; animation: heartbeat 2.5s infinite; }');
+  addStyle('#loader > img { width: 320px; animation: heartbeat 2.2s infinite; }');
   
-  const loader = document.createElement('img');
+  const img = document.createElement('img');
+  const loader = document.createElement('div');
   
-  loader.src = "https://i.ibb.co/q0WK6rW/logo-v2-text.png";
+  loader.setAttribute('id', 'loader');
+  img.src = "https://i.ibb.co/980btCf/logo-v1-text.png";
+  
+  loader.appendChild(img);
   
   document.getElementById('app').appendChild(loader);
 })();
