@@ -44,10 +44,59 @@ function generateIcEntryPoint(name, info) {
     }
   });
 
+  // TODO: REFACTOR THIS.
   const content = `
 import ${name} from "ic:canisters/${name}";
 
-console.log('test');
+console.log('startup');
+
+(async () => {
+  function addStyle(styles) { 
+    const css = document.createElement('style'); 
+    
+    css.appendChild(document.createTextNode(styles)); 
+      
+    document.head.appendChild(css); 
+  } 
+  
+  addStyle('@keyframes heartbeat\\n' +
+    '{\\n' +
+    '  0%\\n' +
+    '  {\\n' +
+    '    opacity: 1;\\n' +
+    '  }\\n' +
+    '  20%\\n' +
+    '  {\\n' +
+    '    opacity: 0.3;\\n' +
+    '  }\\n' +
+    '  40%\\n' +
+    '  {\\n' +
+    '    opacity: 1;\\n' +
+    '  }\\n' +
+    '  60%\\n' +
+    '  {\\n' +
+    '    opacity: 0.3;\\n' +
+    '  }\\n' +
+    '  80%\\n' +
+    '  {\\n' +
+    '    opacity: 1;\\n' +
+    '  }\\n' +
+    '  100%\\n' +
+    '  {\\n' +
+    '    opacity: 1;\\n' +
+    '  }\\n' +
+    '}');
+  
+  addStyle('#app { background-color: #282928; width: 100vw; height: 100vh; position: absolute; display: flex; justify-content: center; align-items: center; }');
+  addStyle('body { margin: 0; }');
+  addStyle('#app > img { width: 320px; animation: heartbeat 2.5s infinite; }');
+  
+  const loader = document.createElement('img');
+  
+  loader.src = "https://i.ibb.co/q0WK6rW/logo-v2-text.png";
+  
+  document.getElementById('app').appendChild(loader);
+})();
 
 (async () => {
   const injectJsFiles = [];
