@@ -14,7 +14,6 @@ module.exports = {
               `.dfx/local/${dfxJson.defaults.build.output}`,
               name,
             );
-            const filename = path.basename(value.main, '.mo');
             return {
               ...acc,
               ['ic:canisters/' + name]: path.join(outputRoot, name + '.js'),
