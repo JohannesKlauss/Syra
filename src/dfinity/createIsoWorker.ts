@@ -10,12 +10,8 @@ export async function createIsoWorker(path: string) {
       type: 'text/javascript'
     });
 
-    console.log('use canister');
-
     return new Worker(window.URL.createObjectURL(workerData));
   } else {
-    console.log('use normal');
-
     return new Worker(path);
   }
 }
