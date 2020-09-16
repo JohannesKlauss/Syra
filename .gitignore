@@ -4,6 +4,9 @@ build
 
 .env.*
 
+dist
+public/ic-injector.js
+
 .graphqlconfig
 codegen.yml
 

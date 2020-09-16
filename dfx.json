@@ -1,8 +1,26 @@
 {
   "canisters": {
+    "project": {
+      "main": "backend/project/main.mo",
+      "type": "motoko"
+    },
     "user": {
       "main": "backend/user/main.mo",
       "type": "motoko"
+    },
+    "syra_assets": {
+      "dependencies": [
+        "project",
+        "user"
+      ],
+      "frontend": {
+        "entrypoint": "public/ic-injector.js"
+      },
+      "source": [
+        "dist/syra_assets/",
+        "build"
+      ],
+      "type": "assets"
     }
   },
   "defaults": {
@@ -14,8 +32,14 @@
     "local": {
       "bind": "localhost:8000",
       "type": "ephemeral"
+    },
+    "tungsten": {
+      "providers": [
+        "https://gw.dfinity.network"
+      ],
+      "type": "persistent"
     }
   },
-  "dfx": "0.6.7",
+  "dfx": "0.6.8",
   "version": 1
 }

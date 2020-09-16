@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import { RecoilRoot } from 'recoil';
 import { audioSetup } from './audioSetup';
 import { BackboneMixerContext, instantiateMixer } from './providers/BackboneMixerContext';
+import { dfinitySetup } from './dfinitySetup';
 
 if (process.env.NODE_ENV === 'development') {
   const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -18,8 +19,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 audioSetup();
+dfinitySetup();
 
-const root = document.getElementById('root');
+const root = document.getElementById('app');
 
 ReactDOM.render(
   <RecoilRoot>

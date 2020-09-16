@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react';
+import { createIsoWorker } from '../../dfinity/createIsoWorker';
 
 export default function useWorker(path: string) {
   const w = useRef<Worker>();
 
   useEffect(() => {
-    w.current = new Worker(path);
+    (async () => {
+      w.current = await createIsoWorker(path);
+    })();
   }, []);
 
   return w;

@@ -12,14 +12,22 @@ const BaseContainer = styled(Paper)({
 
 function Video() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const stream = useRef<MediaStream | null>(null);
 
   useEffect(() => {
     (async () => {
       if (videoRef.current && navigator.mediaDevices.getUserMedia) {
-        videoRef.current.srcObject = await navigator.mediaDevices.getUserMedia({ video: true });
+        stream.current = await navigator.mediaDevices.getUserMedia({ video: true });
+        videoRef.current.srcObject = stream.current;
       }
     })();
-  }, [videoRef]);
+  }, [videoRef, stream]);
+
+  useEffect(() => {
+    return () => {
+      stream.current?.getTracks().forEach(track => track.stop());
+    }
+  }, []);
 
   return (
     <BaseContainer>
