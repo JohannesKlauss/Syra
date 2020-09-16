@@ -1449,11 +1449,13 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@dfinity/agent@0.6.7":
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/@dfinity/agent/-/agent-0.6.7.tgz#14a0870660e72ef16bdb9a70ab38913fcf15fb30"
-  integrity sha512-WOy+QpQWrMtXiLgmWEc6YrdUQKQpY2ekhfhxCyAEJOuYm9LhQI3E2aeSNFilIrFZVmwpdDbkcGjrVyHPP4jV5A==
+"@dfinity/agent@0.6.8":
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/@dfinity/agent/-/agent-0.6.8.tgz#0df85b3fc202c8e26e5d20aeb8a426e58cda6d7a"
+  integrity sha512-QSV/gnBQJoEsA9JOHrBaxTn0Q1qN3itp19iZidgZMkvml5BDAGIiIP5Ay2gFu796CO67LAsBiJsx+qWaFWurkw==
   dependencies:
+    "@types/crc" "^3.4.0"
+    "@types/jest" "^24.0.18"
     base32.js "^0.1.0"
     bignumber.js "^9.0.0"
     borc "^2.1.1"
@@ -1461,7 +1463,7 @@
     buffer-pipe "0.0.4"
     crc "3.8.0"
     js-sha256 "0.9.0"
-    simple-cbor "^0.4.0"
+    simple-cbor "^0.4.1"
     tweetnacl "^1.0.1"
 
 "@emotion/cache@^10.0.27", "@emotion/cache@^10.0.9":
@@ -3000,6 +3002,13 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
+"@types/crc@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@types/crc/-/crc-3.4.0.tgz#2366beb4399cd734b33e42c7ac809576e617d48a"
+  integrity sha1-I2a+tDmc1zSzPkLHrICVduYX1Io=
+  dependencies:
+    "@types/node" "*"
+
 "@types/dom-mediacapture-record@1.0.7":
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@types/dom-mediacapture-record/-/dom-mediacapture-record-1.0.7.tgz#08bacca4296ef521d59049f43e65cf971bbf6be1"
@@ -3079,6 +3088,13 @@
   dependencies:
     jest-diff "^25.2.1"
     pretty-format "^25.2.1"
+
+"@types/jest@^24.0.18":
+  version "24.9.1"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.9.1.tgz#02baf9573c78f1b9974a5f36778b366aa77bd534"
+  integrity sha512-Fb38HkXSVA4L8fGKEZ6le5bB8r6MRWlOCZbVuWZcmOMSCd2wCYOwN1ibj8daIoV9naq7aaOZjrLCoCMptKU/4Q==
+  dependencies:
+    jest-diff "^24.3.0"
 
 "@types/js-yaml@^3.12.5":
   version "3.12.5"
@@ -9896,7 +9912,7 @@ jest-config@^24.9.0:
     pretty-format "^24.9.0"
     realpath-native "^1.1.0"
 
-jest-diff@^24.9.0:
+jest-diff@^24.3.0, jest-diff@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-24.9.0.tgz#931b7d0d5778a1baf7452cb816e325e3724055da"
   integrity sha512-qMfrTs8AdJE2iqrTp0hzh7kTd2PQWrsFyj9tORoKmu32xjPjeE4NyjVRDz8ybYwqS2ik8N4hsIpiVTyFeo2lBQ==
@@ -14717,10 +14733,10 @@ signedsource@^1.0.0:
   resolved "https://registry.yarnpkg.com/signedsource/-/signedsource-1.0.0.tgz#1ddace4981798f93bd833973803d80d52e93ad6a"
   integrity sha1-HdrOSYF5j5O9gzlzgD2A1S6TrWo=
 
-simple-cbor@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/simple-cbor/-/simple-cbor-0.4.0.tgz#2a9a3cffae8c0a315dc9a9b281762185e6f22bec"
-  integrity sha512-2oeucfnjm6V3ngHLQuWSy6QT5dRtma5xZzTa5g+OLz6mlJGoxzE6fe+OT1fRwmpdHAapPm+o7PTiRNJpUuTgQA==
+simple-cbor@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/simple-cbor/-/simple-cbor-0.4.1.tgz#0c88312e87db52b94e0e92f6bd1cf634e86f8a22"
+  integrity sha512-rijcxtwx2b4Bje3sqeIqw5EeW7UlOIC4YfOdwqIKacpvRQ/D78bWg/4/0m5e0U91oKvlGh7LlJuZCu07ISCC7w==
 
 simple-concat@^1.0.0:
   version "1.0.1"
