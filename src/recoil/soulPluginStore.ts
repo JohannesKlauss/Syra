@@ -1,4 +1,4 @@
-import { atom} from 'recoil/dist';
+import { atom} from 'recoil';
 
 export interface AvailableSoulPatch {
   displayName: string;

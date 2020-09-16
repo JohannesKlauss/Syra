@@ -5,7 +5,7 @@ import PauseIcon from '@material-ui/icons/Pause';
 import StopIcon from '@material-ui/icons/Stop';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import { Box, IconButton, styled } from '@material-ui/core';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil/dist';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { transportStore } from '../../../recoil/transportStore';

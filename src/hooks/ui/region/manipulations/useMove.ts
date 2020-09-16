@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { RegionContext } from '../../../../providers/RegionContext';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import useDeltaTracker from './useDeltaTracker';
 import { regionStore } from '../../../../recoil/regionStore';
 import usePixelToSeconds from '../../usePixelToSeconds';

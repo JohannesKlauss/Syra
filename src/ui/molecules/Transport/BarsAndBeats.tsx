@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { styled, Typography } from '@material-ui/core';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { transportStore } from '../../../recoil/transportStore';
 import { getBarCountForTransportSeconds, getBeatCountForTransportSeconds } from '../../../utils/time';
 import { projectStore } from '../../../recoil/projectStore';

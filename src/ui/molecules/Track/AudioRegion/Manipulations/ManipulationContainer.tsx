@@ -5,7 +5,7 @@ import TrimStartHandle from './TrimStartHandle';
 import TrimEndHandle from './TrimEndHandle';
 import { Manipulations, RegionFirstLoop } from '../AudioRegion.styled';
 import { RegionContext } from '../../../../../providers/RegionContext';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { regionStore } from '../../../../../recoil/regionStore';
 import { arrangeWindowStore } from '../../../../../recoil/arrangeWindowStore';
 import useRegionColor from '../../../../../hooks/ui/region/useRegionColor';

@@ -3,7 +3,7 @@ import { styled, Theme } from '@material-ui/core';
 import useMovementTracker from '../../hooks/ui/useMovementTracker';
 import { BoxArea } from '../../types/Ui';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 
 interface SelectionBoxProps {
   x2: number;

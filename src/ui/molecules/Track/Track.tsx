@@ -7,7 +7,7 @@ import { hexToRgb } from '../../../utils/color';
 import useIsDragOnDocument from '../../../hooks/ui/useIsDragOnDocument';
 import usePixelToSeconds from '../../../hooks/ui/usePixelToSeconds';
 import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useCreateAudioRegion from '../../../hooks/recoil/region/useCreateAudioRegion';
 import MarqueeContainer from './MarqueeContainer';

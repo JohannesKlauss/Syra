@@ -1,5 +1,5 @@
 import useSendMidiToSoul from '../soul/useSendMidiToSoul';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { channelStore } from '../../recoil/channelStore';
 import useListenForExternalMidiIn from '../midi/useListenForExternalMidiIn';
 

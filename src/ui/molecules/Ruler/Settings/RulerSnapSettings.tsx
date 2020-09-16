@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { mapNumberToNote } from '../../../../utils/noteMapper';
 import DropdownButton from '../../../atoms/Buttons/DropdownButton';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState } from 'recoil';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { MenuItem } from '@material-ui/core';
 

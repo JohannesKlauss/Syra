@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { ChannelType } from '../../../../types/Channel';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import { Box, BoxProps, styled, useTheme } from '@material-ui/core';

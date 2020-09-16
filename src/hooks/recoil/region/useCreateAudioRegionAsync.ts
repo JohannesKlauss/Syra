@@ -1,6 +1,6 @@
 import { createNewId } from '../../../utils/createNewId';
 import useAudioContext from '../../audio/useAudioContext';
-import { useRecoilCallback } from 'recoil/dist';
+import { useRecoilCallback } from 'recoil';
 import { regionStore } from '../../../recoil/regionStore';
 import useToneJsTransport from '../../tone/useToneJsTransport';
 import { audioBufferStore } from '../../../recoil/audioBufferStore';

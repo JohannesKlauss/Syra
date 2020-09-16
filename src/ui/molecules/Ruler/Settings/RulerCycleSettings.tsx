@@ -1,7 +1,7 @@
 import React from 'react';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import { Button } from '@material-ui/core';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState } from 'recoil';
 import { transportStore } from '../../../../recoil/transportStore';
 import { buttonInfo } from '../../../../utils/text';
 

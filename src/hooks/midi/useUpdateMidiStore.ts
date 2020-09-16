@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { OnMidiEvent } from '../../types/Midi';
-import { useSetRecoilState } from 'recoil/dist';
+import { useSetRecoilState } from 'recoil';
 import { keyboardMidiStore } from '../../recoil/keyboardMidiStore';
 
 export default function useUpdateMidiStore() {

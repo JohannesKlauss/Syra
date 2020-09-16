@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState } from 'recoil';
 import { keyboardMidiStore } from '../../recoil/keyboardMidiStore';
 import { useEffect } from 'react';
 import WebMidi from 'webmidi';

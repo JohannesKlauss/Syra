@@ -1,5 +1,5 @@
 import * as Tone from 'tone';
-import { SetterOrUpdater } from 'recoil/dist';
+import { SetterOrUpdater } from 'recoil';
 
 export const toneMeterFactory = (smoothing: number = 0.95) => new Tone.Meter({ smoothing });
 

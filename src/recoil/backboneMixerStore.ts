@@ -1,4 +1,4 @@
-import { atomFamily, selectorFamily } from 'recoil/dist';
+import { atomFamily, selectorFamily } from 'recoil';
 import * as Tone from 'tone';
 import { toneMeterFactory } from '../utils/tonejs';
 import { ChannelNode } from '../types/Channel';

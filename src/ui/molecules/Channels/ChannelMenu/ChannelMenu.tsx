@@ -3,7 +3,7 @@ import { Menu, MenuItem } from '@material-ui/core';
 import ChannelColorPicker from './ChannelColorPicker';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import { channelStore } from '../../../../recoil/channelStore';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState } from 'recoil';
 import useDeleteChannel from '../../../../hooks/recoil/channel/useDeleteChannel';
 
 interface Props {

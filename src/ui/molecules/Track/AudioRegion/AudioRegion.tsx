@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { BaseContainer, RegionName, TopBar } from './AudioRegion.styled';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { regionStore } from '../../../../recoil/regionStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 import useRegionDawRecordingSync from '../../../../hooks/ui/region/useRegionDawRecordingSync';
 import useRegionScheduler from '../../../../hooks/tone/useRegionScheduler';

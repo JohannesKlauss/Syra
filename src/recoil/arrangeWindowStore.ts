@@ -1,4 +1,4 @@
-import { atom, selector, selectorFamily } from 'recoil/dist';
+import { atom, selector, selectorFamily } from 'recoil';
 import {
   ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT,
   ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH,

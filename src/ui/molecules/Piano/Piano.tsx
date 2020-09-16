@@ -6,7 +6,7 @@ import { MidiNumbers } from 'piano-utils';
 import { getAllMidiNumbersInRange, getNaturalKeyWidthRatio, getRelativeKeyPosition } from '../../../utils/keyboardMidiHelper';
 import { AccidentalKey, KeyLabel, NaturalKey, PianoContainer } from './Piano.styled';
 import useUpdateMidiStore from '../../../hooks/midi/useUpdateMidiStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { keyboardMidiStore } from '../../../recoil/keyboardMidiStore';
 import usePianoRoll from '../../../hooks/ui/usePianoRoll';
 import { OnMidiEvent } from '../../../types/Midi';

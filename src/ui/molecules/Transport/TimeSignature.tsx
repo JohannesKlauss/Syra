@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, styled, Typography } from '@material-ui/core';
 import { projectStore } from '../../../recoil/projectStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import useTimeSignatureMapScheduler from '../../../hooks/tone/useTimeSignatureMapScheduler';
 
 const BaseContainer = styled(Box)({

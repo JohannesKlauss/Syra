@@ -1,4 +1,4 @@
-import { useRecoilCallback } from 'recoil/dist';
+import { useRecoilCallback } from 'recoil';
 import { createNewId } from '../../../utils/createNewId';
 import { CHANNEL_ID_PREFIX } from '../../../const/ids';
 import { channelStore } from '../../../recoil/channelStore';

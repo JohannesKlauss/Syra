@@ -1,7 +1,7 @@
 import { useContext, useMemo } from 'react';
 import { RegionContext } from '../../../providers/RegionContext';
 import { regionStore } from '../../../recoil/regionStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import useSecondsToPixel from '../useSecondsToPixel';
 import useTrimmedRegionWidth from './useTrimmedRegionWidth';
 import useRegionWidth from './useRegionWidth';

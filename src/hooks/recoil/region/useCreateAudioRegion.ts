@@ -1,4 +1,4 @@
-import { useRecoilCallback } from 'recoil/dist';
+import { useRecoilCallback } from 'recoil';
 import { createNewId } from '../../../utils/createNewId';
 import { BUFFER_ID_PREFIX, REGION_ID_PREFIX } from '../../../const/ids';
 import useAudioContext from '../../audio/useAudioContext';

@@ -2,7 +2,7 @@ import useToneJsTransport from '../tone/useToneJsTransport';
 import { useEffect, useRef, useState } from 'react';
 import useSecondsToPixel from './useSecondsToPixel';
 import { transportStore } from '../../recoil/transportStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 
 export default function usePlayheadAnimation() {

@@ -10,7 +10,7 @@ import VolumeFader from '../../../../atoms/Slider/VolumeFader';
 import ChannelLetterButtons from '../../ChannelLetterButtons';
 import { ChannelContext } from '../../../../../providers/ChannelContext';
 import { channelStore } from '../../../../../recoil/channelStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import LevelMeterVertical from '../../../../atoms/Meter/LevelMeterVertical';
 import { ColoredDivider, SmrContainer } from './ChannelBody.styled';
 import ChannelName from '../../ChannelName';

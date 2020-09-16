@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { Button, ButtonGroup } from '@material-ui/core';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import ZoomOutIcon from '@material-ui/icons/ZoomOut';
-import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { buttonInfo } from '../../../../utils/text';

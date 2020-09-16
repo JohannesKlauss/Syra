@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { channelStore } from '../../../../recoil/channelStore';
 import {
   Box,

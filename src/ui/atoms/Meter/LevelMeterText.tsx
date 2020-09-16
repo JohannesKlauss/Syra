@@ -3,7 +3,7 @@ import { ChannelContext } from '../../../providers/ChannelContext';
 import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import { Typography } from '@material-ui/core';
 import { transportStore } from '../../../recoil/transportStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 
 function LevelMeterText() {
   const channelId = useContext(ChannelContext);

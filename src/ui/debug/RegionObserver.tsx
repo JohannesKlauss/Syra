@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Snapshot, useRecoilTransactionObserver_UNSTABLE } from 'recoil/dist';
+import { Snapshot, useRecoilTransactionObserver_UNSTABLE } from 'recoil';
 import { Button, Grid } from '@material-ui/core';
 import { regionStore } from '../../recoil/regionStore';
 import { channelStore } from '../../recoil/channelStore';

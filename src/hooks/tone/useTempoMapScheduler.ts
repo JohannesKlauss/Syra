@@ -1,5 +1,5 @@
 import { projectStore } from '../../recoil/projectStore';
-import { useRecoilValue, useSetRecoilState } from 'recoil/dist';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect, useRef } from 'react';
 import useToneJsTransport from './useToneJsTransport';
 

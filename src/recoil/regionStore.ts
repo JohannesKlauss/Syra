@@ -1,4 +1,4 @@
-import { atom, atomFamily, selectorFamily } from 'recoil/dist';
+import { atom, atomFamily, selectorFamily } from 'recoil';
 import { audioBufferStore } from './audioBufferStore';
 import { arrangeWindowStore } from './arrangeWindowStore';
 

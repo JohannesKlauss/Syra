@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { ListItemIcon, ListItemText, Menu, MenuItem, styled } from '@material-ui/core';
 import PanToolIcon from '@material-ui/icons/PanTool';
 import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
-import { useSetRecoilState } from 'recoil/dist';
+import { useSetRecoilState } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { EditMode } from '../../../types/RegionManipulation';
 import { useHotkeys } from 'react-hotkeys-hook';

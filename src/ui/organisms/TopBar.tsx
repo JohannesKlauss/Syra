@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { projectStore } from '../../recoil/projectStore';
-import { useRecoilState } from 'recoil/dist';
+import { useRecoilState } from 'recoil';
 import EditIcon from '@material-ui/icons/Edit';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
@@ -86,7 +86,7 @@ function TopBar() {
       <AppBar color={'transparent'}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            Syra (userId IC: {userId})
+            Syra
           </Typography>
           <div className={classes.edit}>
             <InputBase

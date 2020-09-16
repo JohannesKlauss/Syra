@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from 'react';
 import useCreateAudioRegionAsync from '../recoil/region/useCreateAudioRegionAsync';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { channelStore } from '../../recoil/channelStore';
 import { transportStore } from '../../recoil/transportStore';
 import useBackboneChannel from '../tone/BackboneMixer/useBackboneChannel';

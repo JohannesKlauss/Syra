@@ -1,5 +1,5 @@
 import { regionStore } from '../../../recoil/regionStore';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { transportStore } from '../../../recoil/transportStore';
 import { useCallback, useEffect, useRef } from 'react';
 import useDeleteAudioRegion from './useDeleteAudioRegion';

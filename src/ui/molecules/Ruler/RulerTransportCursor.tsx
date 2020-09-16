@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { Box, BoxProps, styled } from '@material-ui/core';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil/dist';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   arrangeWindowStore,
 } from '../../../recoil/arrangeWindowStore';

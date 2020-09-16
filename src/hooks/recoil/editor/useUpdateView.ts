@@ -1,4 +1,4 @@
-import { useSetRecoilState } from 'recoil/dist';
+import { useSetRecoilState } from 'recoil';
 import { editorStore } from '../../../recoil/editorStore';
 import { View } from '../../../types/View';
 

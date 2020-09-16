@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { styled, Typography } from '@material-ui/core';
 import { useDropzone } from 'react-dropzone';
 import useIsDragOnDocument from '../../../hooks/ui/useIsDragOnDocument';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useScrollPosition from '../../../hooks/ui/useScrollPosition';
 import useOnDropTrack from '../../../hooks/ui/arrangeGrid/useOnDropTrack';

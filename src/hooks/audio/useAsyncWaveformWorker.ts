@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import useWorker from '../core/useWorker';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { audioBufferStore } from '../../recoil/audioBufferStore';
 import useRegionWidth from '../ui/region/useRegionWidth';
 import useSharedAudioBufferMemory from '../core/useSharedAudioBufferMemory';

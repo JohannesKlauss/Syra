@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, BoxProps, styled, Theme, useTheme } from '@material-ui/core';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { channelStore } from '../../../recoil/channelStore';
 import { ChannelContext } from '../../../providers/ChannelContext';

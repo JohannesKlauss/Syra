@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { RegionContext } from '../../../../providers/RegionContext';
-import { useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil';
 import { regionStore } from '../../../../recoil/regionStore';
 import { BaseContainer, RegionFirstLoop } from './AudioRegion.styled';
 import { useTheme } from '@material-ui/core';
