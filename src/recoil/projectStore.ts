@@ -43,15 +43,15 @@ const tempoBlockLengthInSeconds = selectorFamily<number, number>({
   get: blockAtSeconds => ({get}) => 2,
 });
 
-// The time signature map of the project. The key is bars and the value num of beats over division (7/4, 3/4, etc.).
-// So 8: [7, 4] means after 8 elapsed bars, change the time signature to 7/4.
+// The time signature map of the project. The key is quarters and the value num of beats over division (7/4, 3/4, etc.).
+// So 8: [7, 4] means after 8 elapsed quarters, change the time signature to 7/4.
 const timeSignatureMap = atom<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
     0: [4, 4],
-    2: [2, 2],
-    4: [8, 8],
-    6: [6, 2],
+    8: [2, 2],
+    16: [8, 8],
+    24: [6, 2],
   }
 });
 
