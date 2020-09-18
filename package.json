@@ -30,7 +30,7 @@
     "tone": "14.7.39",
     "uniqid": "5.2.0",
     "urql": "1.10.1",
-    "web-audio-beat-detector": "8.0.25",
+    "web-audio-beat-detector": "8.0.26",
     "webmidi": "2.5.1"
   },
   "devDependencies": {
