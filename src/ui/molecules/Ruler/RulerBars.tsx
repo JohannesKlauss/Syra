@@ -30,7 +30,7 @@ function RulerBars() {
 
   return (
     <Bars>
-      {items.map((item, i) => <RulerItem key={item} style={{left: `${i * rulerItemWidth}px`}}>{numberToMusicalBarTime(item)}</RulerItem>)}
+      {items.map((item, i) => <RulerItem key={item.bar} style={{left: `${i * rulerItemWidth}px`}}>{item.bar}</RulerItem>)}
     </Bars>
   );
 }

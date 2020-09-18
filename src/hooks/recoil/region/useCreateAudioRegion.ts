@@ -24,7 +24,7 @@ export default function useCreateAudioRegion() {
       if (audioBuffer.duration > projectLengthInSeconds) {
         const secondsPerBeat = snapshot.getLoadable(projectStore.secondsPerBeat).contents as number;
 
-        set(projectStore.lengthInBeats, Math.ceil(audioBuffer.duration / secondsPerBeat));
+        set(projectStore.lengthInQuarters, Math.ceil(audioBuffer.duration / secondsPerBeat));
       }
 
       set(audioBufferStore.ids,currVal => [...currVal, newBufferId]);

@@ -70,11 +70,11 @@ export function getBarCountForTransportSeconds(tsMap: {[name: number]: [number, 
   return Math.max(Math.floor(bars), 1);
 }
 
-export function getProjectLengthInSeconds(tempoMap: {[name: number]: number}, projectLengthInBeats: number) {
+export function getProjectLengthInSeconds(tempoMap: {[name: number]: number}, projectlengthInQuarters: number) {
   const tempoChanges = getSortedKeysOfEventMap(tempoMap);
 
   let seconds = 0;
-  let beatsLeftOver = projectLengthInBeats;
+  let beatsLeftOver = projectlengthInQuarters;
 
   for (let i = 0; i < tempoChanges.length && beatsLeftOver > 0; i++) {
     const changeAt = tempoChanges[i];
@@ -95,11 +95,11 @@ export function getProjectLengthInSeconds(tempoMap: {[name: number]: number}, pr
   return seconds;
 }
 
-export function getBeatsInTempoBlock(tempoMap: {[name: number]: number}, blockAtSeconds: number, projectLengthInBeats: number) {
+export function getBeatsInTempoBlock(tempoMap: {[name: number]: number}, blockAtSeconds: number, projectlengthInQuarters: number) {
   const tempoChanges = getSortedKeysOfEventMap(tempoMap);
 
   let beatsInBlock = 0;
-  let beatsLeftOver = projectLengthInBeats;
+  let beatsLeftOver = projectlengthInQuarters;
 
   for (let i = 0; i < tempoChanges.length && beatsLeftOver > 0; i++) {
     const changeAt = tempoChanges[i];
@@ -123,8 +123,8 @@ export function getBeatsInTempoBlock(tempoMap: {[name: number]: number}, blockAt
   return beatsInBlock;
 }
 
-export function getTempoBlockLengthInSeconds(tempoMap: {[name: number]: number}, blockAtSeconds: number, projectLengthInBeats: number) {
-  const beats = getBeatsInTempoBlock(tempoMap, blockAtSeconds, projectLengthInBeats);
+export function getTempoBlockLengthInSeconds(tempoMap: {[name: number]: number}, blockAtSeconds: number, projectlengthInQuarters: number) {
+  const beats = getBeatsInTempoBlock(tempoMap, blockAtSeconds, projectlengthInQuarters);
 
   return (60 / tempoMap[blockAtSeconds]) * beats;
 }

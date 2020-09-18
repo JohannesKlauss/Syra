@@ -48,10 +48,8 @@ const tempoBlockLengthInSeconds = selectorFamily<number, number>({
 const timeSignatureMap = atom<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
-    0: [4, 4],
-    8: [2, 2],
-    16: [8, 8],
-    24: [6, 2],
+    0: [7, 4],
+    42: [5, 8],
   }
 });
 
@@ -69,7 +67,7 @@ const lastAnalyzedBpmFromImport = atom<number | null>({
 })
 
 // The project length in beats (beats of 4ths as default).
-const lengthInBeats = atom({
+const lengthInQuarters = atom({
   key: 'project/length',
   default: TIME_CONVERSION_RESOLUTION * 128
 });
@@ -105,7 +103,7 @@ export const projectStore = {
   currentTimeSignature,
   beatsPerSecond,
   secondsPerBeat,
-  lengthInBeats,
+  lengthInQuarters,
   lengthInSeconds,
   isClickMuted,
   lastAnalyzedBpmFromImport,

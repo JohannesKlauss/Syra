@@ -25,7 +25,7 @@ function BackgroundGrid({ticksFullHeight}: Props) {
 
   return (
     <CustomContainer>
-      <svg width={windowWidth}  height={ticksFullHeight ? '3200' : '100%'} pointerEvents={'none'}>
+      <svg width={windowWidth} height={ticksFullHeight ? '3200' : '100%'} pointerEvents={'none'}>
         <defs>
           <pattern id={gridId} x="0" y="0" width={rulerItemWidth} height="100%" patternUnits="userSpaceOnUse">
             <rect width={rectWidth} height="200%" x="0" y="0" stroke={'#808080'}/>

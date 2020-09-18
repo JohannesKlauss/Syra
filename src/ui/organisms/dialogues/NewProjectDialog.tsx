@@ -33,7 +33,7 @@ interface Props {
 function NewProjectDialog({onCreate, open, onCancel}: Props) {
   const [name, setName] = useRecoilState(projectStore.name);
   const [tempoMap, setTempoMap] = useRecoilState(projectStore.tempoMap);
-  const [length, setLength] = useRecoilState(projectStore.lengthInBeats);
+  const [length, setLength] = useRecoilState(projectStore.lengthInQuarters);
 
   const [channelType, setChannelType] = useState(ChannelType.AUDIO);
   const [numChannels, setNumChannels] = useState(1);

@@ -8,6 +8,7 @@ import { RefObject } from 'react';
 import { projectStore } from './projectStore';
 import { getSortedKeysOfEventMap } from '../utils/eventMap';
 import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
+import { RulerItem } from '../types/Ui';
 
 const waveformSmoothing = atom({
   key: 'arrangeWindow/waveformSmoothing',
@@ -102,7 +103,7 @@ const pixelPerSecond = selector({
 
 const pixelPerBeat = selector({
   key: 'arrangeWindow/pixelPerBeat',
-  get: ({get}) => get(width) / get(projectStore.lengthInBeats),
+  get: ({get}) => get(width) / get(projectStore.lengthInQuarters),
 });
 
 const tempoBlockWidthInPixel = selectorFamily<number, number>({
@@ -130,18 +131,38 @@ const tempoBlockPixelAreas = selector<{[name: number]: [number, number]}>({
   }
 });
 
-// TODO: CALCULATING THIS SHOULD HAPPEN IN THE LOWEST SUPPORTED TIME SIGNATURE BASE (e.g. 16ths or 32nds)
-// BECAUSE OF POSSIBLE TIME SIGNATURE CHANGES ALONG THE WAY.
-const rulerItems = selector({
+const rulerItems = selector<RulerItem[]>({
   key: 'arrangeWindow/rulerItems',
   get: ({get}) => {
-    const beatResolution = get(resolution) * TIME_CONVERSION_RESOLUTION; // This is the step size
-    const projectLength = get(projectStore.lengthInBeats);
-    const rulerItems = [1];
+    const projectLengthInQuarters = get(projectStore.lengthInQuarters);
+    const timeSignatureMap = get(projectStore.timeSignatureMap);
+    const changeKeys = getSortedKeysOfEventMap(timeSignatureMap);
 
-    for(let i = beatResolution; i < projectLength + 1; i += beatResolution) {
-      rulerItems.push(i / TIME_CONVERSION_RESOLUTION);
+    let currentTimeSignature = timeSignatureMap[0];
+    let bar = 1;
+    let quarterInProject = 1;
+    let lengthInQuarters = 0;
+
+    const rulerItems: RulerItem[] = [];
+
+    console.log('changeKeys', changeKeys);
+
+    for (let divideBy = currentTimeSignature[1] / 4, i = 1; i <= projectLengthInQuarters; i += currentTimeSignature[0] / divideBy, bar++) {
+      if (changeKeys.includes(i - 1)) {
+        currentTimeSignature = timeSignatureMap[i - 1];
+        lengthInQuarters = 0;
+        divideBy = currentTimeSignature[1] / 4;
+      }
+
+      rulerItems.push({
+        bar,
+        quarterInProject: i,
+        lengthInQuarters: currentTimeSignature[0] / divideBy,
+        timeSignature: currentTimeSignature,
+      });
     }
+
+    console.log('rulerItems', rulerItems);
 
     return rulerItems;
   }
