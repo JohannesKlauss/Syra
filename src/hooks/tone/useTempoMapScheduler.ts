@@ -1,22 +1,29 @@
 import { projectStore } from '../../recoil/projectStore';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useEffect, useRef } from 'react';
 import useToneJsTransport from './useToneJsTransport';
 
 export default function useTempoMapScheduler() {
-  const setCurrentTempo = useSetRecoilState(projectStore.currentTempo);
   const tempoMap = useRecoilValue(projectStore.tempoMap);
+  const [currentTempoRamp, setCurrentTempoRamp] = useRecoilState(projectStore.currentTempoRamp);
   const scheduleIds = useRef<number[]>([]);
   const transport = useToneJsTransport();
 
   useEffect(() => {
-    scheduleIds.current.forEach(id => transport.clear(id));
-
-    Object.keys(tempoMap).map(t => parseFloat(t)).forEach(changeTime => {
+    Object.keys(tempoMap).map(t => parseFloat(t)).forEach(changeAtSeconds => {
       scheduleIds.current.push(transport.schedule(() => {
-        transport.bpm.value = tempoMap[changeTime];
-        setCurrentTempo(transport.bpm.value);
-      }, changeTime));
-    })
-  }, [tempoMap, scheduleIds, transport, setCurrentTempo]);
+        const newRamp = tempoMap[changeAtSeconds];
+
+        setCurrentTempoRamp(newRamp);
+
+        transport.bpm.value = newRamp(0);
+      }, changeAtSeconds));
+    });
+
+    return () => {
+      scheduleIds.current.forEach(id => transport.clear(id));
+    }
+  }, [tempoMap, scheduleIds, transport, setCurrentTempoRamp]);
+
+  return currentTempoRamp;
 }

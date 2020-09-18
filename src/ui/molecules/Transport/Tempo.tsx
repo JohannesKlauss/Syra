@@ -1,6 +1,4 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { projectStore } from '../../../recoil/projectStore';
 import useTempoMapScheduler from '../../../hooks/tone/useTempoMapScheduler';
 import { styled, Typography } from '@material-ui/core';
 
@@ -10,9 +8,7 @@ const BaseContainer = styled('div')({
 });
 
 function Tempo() {
-  const currentTempo = useRecoilValue(projectStore.currentTempo);
-
-  useTempoMapScheduler();
+  const currentTempo = useTempoMapScheduler();
 
   return (
     <BaseContainer>

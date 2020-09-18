@@ -1,5 +1,10 @@
 import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
 import { getSortedKeysOfEventMap } from './eventMap';
+import * as Tone from 'tone';
+
+export const secondsToSamples = (seconds: number) => Math.floor(Tone.getContext().sampleRate * seconds);
+export const samplesToSeconds = (frames: number) => frames / Tone.getContext().sampleRate;
+export const currentSamples = () => secondsToSamples(Tone.getTransport().seconds);
 
 export function formatSecondsToTime(seconds: number) {
   return new Date(seconds * 1000).toISOString().substr(11, 12)

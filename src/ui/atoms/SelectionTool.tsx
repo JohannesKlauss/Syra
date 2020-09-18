@@ -101,6 +101,6 @@ const SelectionTool: React.FC<Props> = ({ children, onSelect }) => {
 };
 
 // @ts-ignore
-SelectionTool.whyDidYouRender = true;
+SelectionTool.whyDidYouRender = false;
 
 export default SelectionTool;

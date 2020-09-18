@@ -1,6 +1,7 @@
 import { atom, selector } from 'recoil';
 import * as Tone from 'tone';
 import { PlayButtonMode } from '../types/PlayButtonMode';
+import { secondsToSamples } from '../utils/time';
 
 // Internal atoms are just used to sync everything with the ToneJs transport itself. Never expose them to the rest of the app.
 
@@ -16,6 +17,11 @@ const seconds = selector<number>({
     Tone.getTransport().seconds = newValue as number;
     set(internalSeconds, newValue as number);
   },
+});
+
+const currentSample = selector<number>({
+  key: 'transport/frames',
+  get: ({get}) => secondsToSamples(get(internalSeconds)),
 });
 
 const internalLoopStart = atom({
@@ -84,6 +90,7 @@ const playButtonModes = atom<PlayButtonMode[]>({
 
 export const transportStore = {
   seconds,
+  currentSample,
   cycleStart,
   cycleEnd,
   isCycleActive,

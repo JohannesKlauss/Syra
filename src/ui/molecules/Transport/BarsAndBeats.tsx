@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { styled, Typography } from '@material-ui/core';
 import { useRecoilValue } from 'recoil';
-import { transportStore } from '../../../recoil/transportStore';
-import { getBarCountForTransportSeconds, getBeatCountForTransportSeconds } from '../../../utils/time';
 import { projectStore } from '../../../recoil/projectStore';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 
@@ -12,29 +10,27 @@ const InfoBox = styled('div')({
 });
 
 function BarsAndBeats() {
-  const [bars, setBars] = useState(1);
+  const [bars, setBars] = useState(0);
   const [beats, setBeats] = useState(1);
 
-  const seconds = useRecoilValue(transportStore.seconds);
-  const timeSignatureMap = useRecoilValue(projectStore.timeSignatureMap);
   const currentTimeSignature = useRecoilValue(projectStore.currentTimeSignature);
   const transport = useToneJsTransport();
 
   useEffect(() => {
-    setBars(getBarCountForTransportSeconds(timeSignatureMap, seconds));
-    setBeats(getBeatCountForTransportSeconds(timeSignatureMap, seconds));
-  }, [seconds, timeSignatureMap, setBeats, setBars]);
-
-  useEffect(() => {
     const id = transport.scheduleRepeat(() => {
-      setBars(getBarCountForTransportSeconds(timeSignatureMap, transport.seconds));
-      setBeats(getBeatCountForTransportSeconds(timeSignatureMap, transport.seconds));
-    }, `${currentTimeSignature[1]}n`, 0);
+      setBeats(prevState => (prevState + 1) % currentTimeSignature[0]);
+    }, `${currentTimeSignature[1]}n`, `${currentTimeSignature[1]}n`);
 
     return () => {
       transport.clear(id);
     };
-  }, [transport, currentTimeSignature, timeSignatureMap, beats, bars, setBars, setBeats]);
+  }, [transport, currentTimeSignature, setBars, setBeats]);
+
+  useEffect(() => {
+    if (beats === 1) {
+      setBars(prevState => prevState + 1); // TODO: For some reason this gets called twice.
+    }
+  }, [beats]);
 
   return (
     <>

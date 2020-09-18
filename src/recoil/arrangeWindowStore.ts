@@ -1,7 +1,6 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import {
   ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT,
-  ZOOM_LEVEL_ARRANGE_WINDOW_WIDTH,
   ZOOM_RESOLUTION_MAP,
 } from '../const/ui';
 import { EditMode } from '../types/RegionManipulation';
@@ -97,9 +96,7 @@ const resolution = selector({
 const pixelPerSecond = selector({
   key: 'arrangeWindow/pixelPerSecond',
   get: ({get}) => {
-    const tempoBlock = get(projectStore.currentTempoBlock);
-
-    return get(tempoBlockWidthInPixel(tempoBlock)) / get(projectStore.tempoBlockLengthInSeconds(tempoBlock));
+    return 0;
   },
 });
 

@@ -38,10 +38,9 @@ function DropTrack() {
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-  const currentTempo = useRecoilValue(projectStore.currentTempo);
   const [lastAnalyzedBpmFromImport, setLastAnalyzedBpmFromImport] = useRecoilState(projectStore.lastAnalyzedBpmFromImport);
 
-  const isInfoActionOpen = lastAnalyzedBpmFromImport !== null && currentTempo !== lastAnalyzedBpmFromImport;
+  const isInfoActionOpen = lastAnalyzedBpmFromImport !== null;
 
   const text = `Your imported track has a tempo of ${lastAnalyzedBpmFromImport}bpm. Would you like to update your project?`;
 

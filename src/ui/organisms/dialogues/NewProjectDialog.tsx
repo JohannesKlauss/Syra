@@ -14,6 +14,7 @@ import useTapTempo from '../../../hooks/audio/useTapTempo';
 import { buttonInfo } from '../../../utils/text';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { TIME_CONVERSION_RESOLUTION } from '../../../const/musicalConversionConstants';
+import { bpmStaticRampFactory } from '../../../utils/bpmRamps';
 
 const CustomToggleButtonGroup = styled(ToggleButtonGroup)({
   width: '100%',
@@ -37,12 +38,12 @@ function NewProjectDialog({onCreate, open, onCancel}: Props) {
   const [channelType, setChannelType] = useState(ChannelType.AUDIO);
   const [numChannels, setNumChannels] = useState(1);
 
-  const { tap, tappedTempo } = useTapTempo(tempoMap[0]);
+  const { tap, tappedTempo } = useTapTempo(tempoMap[0](0));
 
   useHotkeys('space', tap);
 
   useEffect(() => {
-    setTempoMap({ 0: tappedTempo });
+    setTempoMap({ 0: bpmStaticRampFactory(tappedTempo) });
   }, [tappedTempo, setTempoMap]);
 
   return (
@@ -74,7 +75,7 @@ function NewProjectDialog({onCreate, open, onCancel}: Props) {
               type={'number'}
               label={'Tempo'}
               value={tempoMap[0]}
-              onChange={e => setTempoMap({ 0: parseFloat(e.target.value) })}
+              onChange={e => setTempoMap({ 0: bpmStaticRampFactory(parseFloat(e.target.value)) })}
             />
           </Grid>
           <Grid item>
@@ -93,7 +94,7 @@ function NewProjectDialog({onCreate, open, onCancel}: Props) {
               type={'number'}
               label={'Project length in bars'}
               value={length}
-              onChange={e => setLength(parseInt(e.target.value) * TIME_CONVERSION_RESOLUTION)}
+              onChange={e => setLength(parseInt(e.target.value) / TIME_CONVERSION_RESOLUTION)}
             />
           </Grid>
         </Grid>

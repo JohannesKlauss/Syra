@@ -7,48 +7,51 @@ import {
   getTempoBlockLengthInSeconds,
 } from '../utils/time';
 import { transportStore } from './transportStore';
+import { BpmRamp, bpmStaticRampFactory } from '../utils/bpmRamps';
 
 const name = atom({
   key: 'project/name',
   default: 'New Syra Project',
 });
 
-// The tempo map of the project. The key is transport seconds and the value is beats per minute.
-const tempoMap = atom<{[name: number]: number}>({
+// The tempo map of the project. The key is samples and the value a tempo ramp.
+const tempoMap = atom<{[name: number]: BpmRamp}>({
   key: 'project/tempoMap',
   default: {
-    0: 120,
+    0: bpmStaticRampFactory(120),
+    2: bpmStaticRampFactory(180),
+    5.7: bpmStaticRampFactory(100),
+    13.9: bpmStaticRampFactory(160),
   }
 });
 
-// Display the current tempo. This changes accordingly to the tempoMap inside useTempoMapScheduler.
-const currentTempo = atom({
-  key: 'project/currentTempo',
+const currentTempoRamp = atom<BpmRamp>({
+  key: 'project/currentTempoRamp',
   default: selector({
-    key: 'project/currentTempo/Default',
-    get: ({get}) => get(tempoMap)[0],
+    key: 'project/currentTempoRamp/Default',
+    get: ({get}) => get(tempoMap)[0]
   })
 });
 
-const currentTempoBlock = selector({
-  key: 'project/currentTempoBlock',
-  get: ({get}) => getCurrentTempoBlock(get(tempoMap), get(transportStore.seconds)),
-})
-
 const beatsInTempoBlock = selectorFamily<number, number>({
   key: 'project/beatsInTempoBlock',
-  get: blockAtSeconds => ({get}) => getBeatsInTempoBlock(get(tempoMap), blockAtSeconds, get(lengthInBeats)),
+  get: blockAtSeconds => ({get}) => 8,
 });
 
 const tempoBlockLengthInSeconds = selectorFamily<number, number>({
   key: 'project/tempoBlockLengthInSeconds',
-  get: blockAtSeconds => ({get}) => getTempoBlockLengthInSeconds(get(tempoMap), blockAtSeconds, get(lengthInBeats)),
+  get: blockAtSeconds => ({get}) => 2,
 });
 
+// The time signature map of the project. The key is bars and the value num of beats over division (7/4, 3/4, etc.).
+// So 8: [7, 4] means after 8 elapsed bars, change the time signature to 7/4.
 const timeSignatureMap = atom<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
     0: [4, 4],
+    2: [2, 2],
+    4: [8, 8],
+    6: [6, 2],
   }
 });
 
@@ -74,31 +77,30 @@ const lengthInBeats = atom({
 // The project length in seconds with tempo changes already included.
 const lengthInSeconds = selector({
   key: 'project/lengthInSeconds',
-  get: ({get}) => getProjectLengthInSeconds(get(tempoMap), get(lengthInBeats)),
+  get: ({get}) => 120,
 });
 
 const beatsPerSecond = selector({
   key: 'arrangeWindow/beatsPerSecond',
-  get: ({get}) => 1 / (get(currentTempo) / 60),
+  get: ({get}) => 1 / 120 / 60,
 });
 
 const secondsPerBeat = selector({
   key: 'arrangeWindow/secondsPerBeat',
-  get: ({get}) => 60 / get(currentTempo),
+  get: ({get}) => 60 / 120,
 });
 
 const isClickMuted = atom<boolean>({
   key: 'project/isClickMuted',
-  default: true,
+  default: false,
 });
 
 export const projectStore = {
   name,
   tempoMap,
-  currentTempo,
+  currentTempoRamp,
   beatsInTempoBlock,
   tempoBlockLengthInSeconds,
-  currentTempoBlock,
   timeSignatureMap,
   currentTimeSignature,
   beatsPerSecond,
