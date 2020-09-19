@@ -16,7 +16,6 @@ export default function useTimeSignatureMapScheduler() {
       scheduleIds.current.push(transport.schedule(() => {
         const newTimeSignature = timeSignatureMap[changeAtQuarter];
 
-        transport.timeSignature = newTimeSignature;
         setCurrentTimeSignature(newTimeSignature);
       }, `0:${changeAtQuarter}:0`));
     });

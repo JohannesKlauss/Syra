@@ -21,7 +21,11 @@ const seconds = selector<number>({
 
 const quarters = selector<number>({
   key: 'transport/quarters',
-  get: ({get}) => 0,
+  get: ({get}) => {
+
+
+    return Math.random();
+  },
   set: (_, newValue) => {
     Tone.getTransport().position = `0:${newValue}:0`;
   }

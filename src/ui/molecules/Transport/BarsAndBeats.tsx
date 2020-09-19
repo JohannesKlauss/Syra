@@ -3,6 +3,9 @@ import { styled, Typography } from '@material-ui/core';
 import { useRecoilValue } from 'recoil';
 import { projectStore } from '../../../recoil/projectStore';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
+import { transportStore } from '../../../recoil/transportStore';
+import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
+import * as Tone from 'tone';
 
 const InfoBox = styled('div')({
   marginLeft: 20,
@@ -14,6 +17,8 @@ function BarsAndBeats() {
   const [beats, setBeats] = useState(1);
 
   const currentTimeSignature = useRecoilValue(projectStore.currentTimeSignature);
+  const currentQuarterPosition = useRecoilValue(transportStore.quarters);
+  const playheadPosition = useRecoilValue(arrangeWindowStore.playheadPosition);
   const transport = useToneJsTransport();
 
   useEffect(() => {
@@ -31,6 +36,11 @@ function BarsAndBeats() {
       setBars(prevState => prevState + 1); // TODO: For some reason this gets called twice.
     }
   }, [beats]);
+
+  useEffect(() => {
+    console.log('current', currentQuarterPosition);
+    console.log('position', Tone.getTransport().position);
+  }, [currentQuarterPosition, playheadPosition]);
 
   return (
     <>
