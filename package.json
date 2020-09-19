@@ -70,7 +70,7 @@
     "recoilize": "0.8.0",
     "style-loader": "1.2.1",
     "terser-webpack-plugin": "4.2.1",
-    "ts-loader": "8.0.3",
+    "ts-loader": "8.0.4",
     "typescript": "3.9.7",
     "webpack-cli": "3.3.12"
   },
