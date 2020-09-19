@@ -1,7 +1,11 @@
-import { atom, selector } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 import * as Tone from 'tone';
 import { PlayButtonMode } from '../types/PlayButtonMode';
 import { secondsToSamples } from '../utils/time';
+import { Bar } from '../types/Ui';
+import { projectStore } from './projectStore';
+import { getSortedKeysOfEventMap } from '../utils/eventMap';
+import { arrangeWindowStore } from './arrangeWindowStore';
 
 // Internal atoms are just used to sync everything with the ToneJs transport itself. Never expose them to the rest of the app.
 
@@ -19,13 +23,9 @@ const seconds = selector<number>({
   },
 });
 
-const quarters = selector<number>({
+const currentQuarter = selector<number>({
   key: 'transport/quarters',
-  get: ({get}) => {
-
-
-    return Math.random();
-  },
+  get: ({get}) => parseInt((Tone.getTransport().position as string).split(':')[0]),
   set: (_, newValue) => {
     Tone.getTransport().position = `0:${newValue}:0`;
   }
@@ -100,9 +100,92 @@ const playButtonModes = atom<PlayButtonMode[]>({
   default: [],
 });
 
+const bars = selector<Bar[]>({
+  key: 'transport/rulerItems',
+  get: ({get}) => {
+    const projectLengthInQuarters = get(projectStore.lengthInQuarters);
+    const timeSignatureMap = get(projectStore.timeSignatureMap);
+    const changeKeys = getSortedKeysOfEventMap(timeSignatureMap);
+
+    let currentTimeSignature = timeSignatureMap[0];
+    let bar = 1;
+    let lengthInQuarters = 0;
+
+    const rulerItems: Bar[] = [];
+
+    for (let divideBy = currentTimeSignature[1] / 4, i = 1; i <= projectLengthInQuarters; i += currentTimeSignature[0] / divideBy, bar++) {
+      if (changeKeys.includes(i - 1)) {
+        currentTimeSignature = timeSignatureMap[i - 1];
+        lengthInQuarters = 0;
+        divideBy = currentTimeSignature[1] / 4;
+      }
+
+      rulerItems.push({
+        bar,
+        quarterInProject: i,
+        lengthInQuarters: currentTimeSignature[0] / divideBy,
+        timeSignature: currentTimeSignature,
+        displayOnRulerBar: true,
+      });
+    }
+
+    return rulerItems;
+  }
+});
+
+const filteredBars = selector<Bar[]>({
+  key: 'transport/filteredRulerItems',
+  get: ({get}) => {
+    const allItems = get(bars);
+    const baseQuarterWidth = get(arrangeWindowStore.baseQuarterPixelWidth);
+
+    let spaceBetween = 40;
+
+    return allItems.map((item, i): Bar => {
+      spaceBetween += item.lengthInQuarters * baseQuarterWidth;
+
+      if (spaceBetween >= 40) {
+        spaceBetween = 0;
+
+        return item;
+      }
+
+      return {
+        ...item,
+        displayOnRulerBar: false,
+      }
+    });
+  }
+});
+
+const currentBar = selector<Bar | undefined>({
+  key: 'transport/timeSignatureAtQuarter',
+  get: ({get}) => {
+    const quarter = get(currentQuarter);
+
+    return get(bars).find(item => item.quarterInProject >= quarter && item.quarterInProject + item.lengthInQuarters <= quarter)
+  }
+});
+
+const barAtQuarter = selectorFamily<Bar | undefined, number>({
+  key: 'transport/barAtQuarter',
+  get: quarter => ({get}) => {
+    const items = get(bars);
+    const index = items.findIndex(item => item.quarterInProject <= quarter && quarter <= item.quarterInProject + item.lengthInQuarters);
+
+    const barCandidate = items[index];
+
+    if (barCandidate.quarterInProject + (barCandidate.lengthInQuarters / 2) <= quarter && index < items.length - 1) {
+      return items[index + 1];
+    }
+
+    return barCandidate;
+  }
+});
+
 export const transportStore = {
   seconds,
-  quarters,
+  currentQuarter,
   currentSample,
   cycleStart,
   cycleEnd,
@@ -110,4 +193,8 @@ export const transportStore = {
   isRecording,
   isPlaying,
   playButtonModes,
+  bars,
+  filteredBars,
+  currentBar,
+  barAtQuarter,
 };

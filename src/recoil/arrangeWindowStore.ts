@@ -7,7 +7,8 @@ import { EditMode } from '../types/RegionManipulation';
 import { RefObject } from 'react';
 import { projectStore } from './projectStore';
 import { getSortedKeysOfEventMap } from '../utils/eventMap';
-import { RulerItem } from '../types/Ui';
+import { Bar } from '../types/Ui';
+import { transportStore } from './transportStore';
 
 const waveformSmoothing = atom({
   key: 'arrangeWindow/waveformSmoothing',
@@ -72,15 +73,15 @@ const verticalZoomLevel = atom({
   default: 6,
 });
 
-// This is the value the grid snaps to. Default is 1 which stands for 1 bar. A quarter note would be 0.25, a sixteenth 0.0625 and so on.
+// This is the value the grid snaps to. Default is 4 which stands for 4 quarters. A quarter note would be 1, a sixteenth 0.25 and so on.
 const snapValue = atom({
   key: 'arrangeWindow/snapValue',
-  default: 1,
+  default: 4,
 })
 
 const snapValueWidthInPixels = selector({
   key: 'arrangeWindow/snapValueWidthInPixels',
-  get: ({get}) => get(zoomedQuarterPixelWidth) * get(snapValue) * 4,
+  get: ({get}) => get(zoomedQuarterPixelWidth) * get(snapValue),
 });
 
 const trackHeight = selector({
@@ -129,9 +130,10 @@ const tempoBlockPixelAreas = selector<{[name: number]: [number, number]}>({
   }
 });
 
-const rulerItemWidth = selector({
-  key: 'arrangeWindow/rulerItemWidth',
-  get: ({get}) => get(width) / get(rulerItems).length
+// TODO: THIS HAS TO BE REMOVED ONCE WE ARE FINISHED WITH THE TEMPO AND TS REFACTOR.
+const barWidthInPixel = selector({
+  key: 'arrangeWindow/barWidthInPixel',
+  get: ({get}) => get(width) / get(transportStore.bars).length
 });
 
 // 30 is just a margin, so that the last quarter doesn't exactly end on the border of the arrange window, but has some
@@ -146,64 +148,6 @@ const zoomedQuarterPixelWidth = selector({
   key: 'arrangeWindow/zoomedQuarterPixelWidth',
   get: ({get}) => get(baseQuarterPixelWidth),
 });
-
-const rulerItems = selector<RulerItem[]>({
-  key: 'arrangeWindow/rulerItems',
-  get: ({get}) => {
-    const projectLengthInQuarters = get(projectStore.lengthInQuarters);
-    const timeSignatureMap = get(projectStore.timeSignatureMap);
-    const changeKeys = getSortedKeysOfEventMap(timeSignatureMap);
-
-    let currentTimeSignature = timeSignatureMap[0];
-    let bar = 1;
-    let lengthInQuarters = 0;
-
-    const rulerItems: RulerItem[] = [];
-
-    for (let divideBy = currentTimeSignature[1] / 4, i = 1; i <= projectLengthInQuarters; i += currentTimeSignature[0] / divideBy, bar++) {
-      if (changeKeys.includes(i - 1)) {
-        currentTimeSignature = timeSignatureMap[i - 1];
-        lengthInQuarters = 0;
-        divideBy = currentTimeSignature[1] / 4;
-      }
-
-      rulerItems.push({
-        bar,
-        quarterInProject: i,
-        lengthInQuarters: currentTimeSignature[0] / divideBy,
-        timeSignature: currentTimeSignature,
-        displayOnRulerBar: true,
-      });
-    }
-
-    return rulerItems;
-  }
-});
-
-const filteredRulerItems = selector<RulerItem[]>({
-  key: 'arrangeWindow/filteredRulerItems',
-  get: ({get}) => {
-    const allItems = get(rulerItems);
-    const baseQuarterWidth = get(baseQuarterPixelWidth);
-
-    let spaceBetween = 40;
-
-    return allItems.map((item, i): RulerItem => {
-      spaceBetween += item.lengthInQuarters * baseQuarterWidth;
-
-      if (spaceBetween >= 40) {
-        spaceBetween = 0;
-
-        return item;
-      }
-
-      return {
-        ...item,
-        displayOnRulerBar: false,
-      }
-    });
-  }
-})
 
 export const arrangeWindowStore = {
   waveformSmoothing,
@@ -221,9 +165,7 @@ export const arrangeWindowStore = {
   width,
   trackHeight,
   resolution,
-  rulerItems,
-  filteredRulerItems,
-  rulerItemWidth,
+  barWidthInPixel,
   baseQuarterPixelWidth,
   zoomedQuarterPixelWidth,
   pixelPerSecond,

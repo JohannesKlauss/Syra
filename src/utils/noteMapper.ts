@@ -1,7 +1,10 @@
 // TODO: THIS IS CONFUSING NAMING. NOTE DOES NOT REFER TO AN ACTUAL NOTE, BUT RATHER A TIME VALUE, LIKE A QUARTER NOTE.
 import { CONVERT_TO_MUSICAL_TIME } from '../const/musicalConversionConstants';
 
+// We get a multiply of a quarter. So quarter is 1, a half would be 2.
 export function mapNumberToNote(val: number): string {
+  val = val / 4;
+
   if (val >= 1) {
     return `${val} Bar`;
   }

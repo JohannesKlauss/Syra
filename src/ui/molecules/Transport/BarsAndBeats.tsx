@@ -17,8 +17,9 @@ function BarsAndBeats() {
   const [beats, setBeats] = useState(1);
 
   const currentTimeSignature = useRecoilValue(projectStore.currentTimeSignature);
-  const currentQuarterPosition = useRecoilValue(transportStore.quarters);
+  const currentQuarterPosition = useRecoilValue(transportStore.currentQuarter);
   const playheadPosition = useRecoilValue(arrangeWindowStore.playheadPosition);
+  const currentBar = useRecoilValue(transportStore.currentBar);
   const transport = useToneJsTransport();
 
   useEffect(() => {

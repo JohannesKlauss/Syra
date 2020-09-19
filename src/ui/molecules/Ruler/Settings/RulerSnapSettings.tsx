@@ -11,7 +11,7 @@ function RulerSnapSettings() {
 
   const snapValueItems = useMemo(() => (
     // TODO: THIS SHOULD PROBABLY LIVE IN A CONSTANT FIELD SO WE CAN EASILY ADJUST
-    [0.0625, 0.125, 0.25, 0.5, 1, 2, 4].map(val => (
+    [0.25, 0.5, 1, 2, 3, 4, 8].map(val => (
       <MenuItem key={val} selected={val === gridSnapValue} onClick={() => setGridSnapValue(val)}>
         {mapNumberToNote(val)}
       </MenuItem>))

@@ -19,7 +19,7 @@ interface Props {
 function BackgroundGrid({ticksFullHeight}: Props) {
   const gridId = createNewId('grid-pattern');
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
-  const rulerItemWidth = useRecoilValue(arrangeWindowStore.rulerItemWidth);
+  const rulerItemWidth = useRecoilValue(arrangeWindowStore.barWidthInPixel);
 
   const rectWidth = 1 / window.devicePixelRatio;
 

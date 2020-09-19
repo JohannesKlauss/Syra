@@ -5,7 +5,7 @@ export type BoxArea = {
   y1: number;
 }
 
-export interface RulerItem {
+export interface Bar {
   bar: number;
   quarterInProject: number; // This number represents the overall quarter position of the ruler item. This is used to infer the users click.
   lengthInQuarters: number; // This specifies how many quarters grouped together inside the item.

@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { Box, styled } from '@material-ui/core';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { projectStore } from '../../../recoil/projectStore';
+import { transportStore } from '../../../recoil/transportStore';
 
 const Bars = styled(Box)(({ theme }) => ({
   height: 20,
@@ -34,16 +35,16 @@ const ProjectEndHandle = styled('span')(({ theme }) => ({
 }));
 
 function RulerBars() {
-  const items = useRecoilValue(arrangeWindowStore.filteredRulerItems);
+  const bars = useRecoilValue(transportStore.filteredBars);
   const zoomedQuarterPixelWidth = useRecoilValue(arrangeWindowStore.zoomedQuarterPixelWidth);
   const projectLengthInQuarters = useRecoilValue(projectStore.lengthInQuarters);
 
-  const filteredItems = useMemo(() => items.filter(item => item.displayOnRulerBar), [items]);
+  const filteredBars = useMemo(() => bars.filter(item => item.displayOnRulerBar), [bars]);
 
   return (
     <Bars>
-      {filteredItems.map(item => {
-        return <RulerItem key={item.bar} style={{ left: `${zoomedQuarterPixelWidth * (item.quarterInProject - 1)}px` }}>{item.bar}</RulerItem>
+      {filteredBars.map(bar => {
+        return <RulerItem key={bar.bar} style={{ left: `${zoomedQuarterPixelWidth * (bar.quarterInProject - 1)}px` }}>{bar.bar}</RulerItem>
       })}
       <ProjectEndHandle style={{ left: `${zoomedQuarterPixelWidth * projectLengthInQuarters}px`}}/>
     </Bars>
