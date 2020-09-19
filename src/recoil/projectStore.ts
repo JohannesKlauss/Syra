@@ -1,12 +1,5 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
-import {
-  getBeatsInTempoBlock,
-  getCurrentTempoBlock,
-  getProjectLengthInSeconds,
-  getTempoBlockLengthInSeconds,
-} from '../utils/time';
-import { transportStore } from './transportStore';
 import { BpmRamp, bpmStaticRampFactory } from '../utils/bpmRamps';
 
 const name = atom({
@@ -48,8 +41,8 @@ const tempoBlockLengthInSeconds = selectorFamily<number, number>({
 const timeSignatureMap = atom<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
-    0: [7, 4],
-    42: [5, 8],
+    0: [4, 4],
+    32: [16, 4]
   }
 });
 
@@ -66,7 +59,7 @@ const lastAnalyzedBpmFromImport = atom<number | null>({
   default: null,
 })
 
-// The project length in beats (beats of 4ths as default).
+// The project length in quarters. TODO: SETTING THE PROJECT LENGTH IN THE NEW PROJECT DIALOG HAS TO ACCOUNT TIME SIGNATURES.
 const lengthInQuarters = atom({
   key: 'project/length',
   default: TIME_CONVERSION_RESOLUTION * 128

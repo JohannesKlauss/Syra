@@ -77,8 +77,9 @@ const Track = React.memo(({ backgroundColor }: Props) => {
   }, [createRegion, pixelToSeconds, calcSnappedX, channelId]);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
+  // TODO: BECAUSE OF A WEIRD ERROR WE REMOVED THE {...getRootProps()} FOR NOW.
   return (
-    <BaseContainer {...getRootProps()} backgroundColor={background} id={`track-${channelId}`} height={trackHeight}>
+    <BaseContainer backgroundColor={background} id={`track-${channelId}`} height={trackHeight}>
       {isDragOnDocument && <input {...getInputProps()} />}
       <DropIndicator doShow={isDragOnDocument}>
         <Typography variant="overline" color={isDragActive ? 'primary' : 'initial'} display={'block'}>

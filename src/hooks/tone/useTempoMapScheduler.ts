@@ -25,5 +25,5 @@ export default function useTempoMapScheduler() {
     }
   }, [tempoMap, scheduleIds, transport, setCurrentTempoRamp]);
 
-  return currentTempoRamp;
+  return typeof currentTempoRamp === 'function' ? currentTempoRamp(0) : currentTempoRamp;
 }

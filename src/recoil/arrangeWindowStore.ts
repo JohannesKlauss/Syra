@@ -7,7 +7,6 @@ import { EditMode } from '../types/RegionManipulation';
 import { RefObject } from 'react';
 import { projectStore } from './projectStore';
 import { getSortedKeysOfEventMap } from '../utils/eventMap';
-import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
 import { RulerItem } from '../types/Ui';
 
 const waveformSmoothing = atom({
@@ -15,6 +14,7 @@ const waveformSmoothing = atom({
   default: 2,
 })
 
+// This is the width of the arrange window, not the whole browser screen.
 const viewportWidth = atom({
   key: 'arrangeWindow/viewportWidth',
   default: 0,
@@ -59,7 +59,7 @@ const playheadPosition = atom({
 });
 
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.
-// This goes from 1 to 6
+// This goes from 1 to 11
 const horizontalZoomLevel = atom({
   key: 'arrangeWindow/horizontalZoomLevel',
   default: 6,
@@ -88,7 +88,7 @@ const trackHeight = selector({
   get: ({get}) => ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[get(verticalZoomLevel)],
 });
 
-// The resolution is measured in shown bars. So 4 means show every 4th bar as a number on the ruler.
+// The resolution is a multiplier by which the quarterBaseWidth gets multiplied.
 const resolution = selector({
   key: 'arrangeWindow/resolution',
   get: ({get}) => ZOOM_RESOLUTION_MAP[get(horizontalZoomLevel)],
@@ -131,6 +131,24 @@ const tempoBlockPixelAreas = selector<{[name: number]: [number, number]}>({
   }
 });
 
+const rulerItemWidth = selector({
+  key: 'arrangeWindow/rulerItemWidth',
+  get: ({get}) => get(width) / get(rulerItems).length
+});
+
+// 30 is just a margin, so that the last quarter doesn't exactly end on the border of the arrange window, but has some
+// margin between it.
+// This also represents the smallest amount of space between quarters, because in this calculations all quarters are shown in the window.
+const baseQuarterPixelWidth = selector({
+  key: 'arrangeWindow/baseQuarterPixelWidth',
+  get: ({get}) => (get(viewportWidth) - 30) / get(projectStore.lengthInQuarters)
+});
+
+const zoomedQuarterPixelWidth = selector({
+  key: 'arrangeWindow/zoomedQuarterPixelWidth',
+  get: ({get}) => get(baseQuarterPixelWidth),
+});
+
 const rulerItems = selector<RulerItem[]>({
   key: 'arrangeWindow/rulerItems',
   get: ({get}) => {
@@ -140,12 +158,9 @@ const rulerItems = selector<RulerItem[]>({
 
     let currentTimeSignature = timeSignatureMap[0];
     let bar = 1;
-    let quarterInProject = 1;
     let lengthInQuarters = 0;
 
     const rulerItems: RulerItem[] = [];
-
-    console.log('changeKeys', changeKeys);
 
     for (let divideBy = currentTimeSignature[1] / 4, i = 1; i <= projectLengthInQuarters; i += currentTimeSignature[0] / divideBy, bar++) {
       if (changeKeys.includes(i - 1)) {
@@ -159,18 +174,37 @@ const rulerItems = selector<RulerItem[]>({
         quarterInProject: i,
         lengthInQuarters: currentTimeSignature[0] / divideBy,
         timeSignature: currentTimeSignature,
+        displayOnRulerBar: true,
       });
     }
-
-    console.log('rulerItems', rulerItems);
 
     return rulerItems;
   }
 });
 
-const rulerItemWidth = selector({
-  key: 'arrangeWindow/rulerItemWidth',
-  get: ({get}) => get(width) / get(rulerItems).length
+const filteredRulerItems = selector<RulerItem[]>({
+  key: 'arrangeWindow/filteredRulerItems',
+  get: ({get}) => {
+    const allItems = get(rulerItems);
+    const baseQuarterWidth = get(baseQuarterPixelWidth);
+
+    let spaceBetween = 40;
+
+    return allItems.map((item, i): RulerItem => {
+      spaceBetween += item.lengthInQuarters * baseQuarterWidth;
+
+      if (spaceBetween >= 40) {
+        spaceBetween = 0;
+
+        return item;
+      }
+
+      return {
+        ...item,
+        displayOnRulerBar: false,
+      }
+    });
+  }
 })
 
 export const arrangeWindowStore = {
@@ -190,7 +224,10 @@ export const arrangeWindowStore = {
   trackHeight,
   resolution,
   rulerItems,
+  filteredRulerItems,
   rulerItemWidth,
+  baseQuarterPixelWidth,
+  zoomedQuarterPixelWidth,
   pixelPerSecond,
   pixelPerBeat,
   marqueePosition,
