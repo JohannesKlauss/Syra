@@ -28,10 +28,11 @@ const BaseContainer = styled(
 
 function RulerTransportCursor() {
   const pixelToSeconds = usePixelToSeconds();
-  const setTransportSeconds = useSetRecoilState(transportStore.seconds);
+  const setTransportQuarters = useSetRecoilState(transportStore.quarters);
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
   const [playheadPosition, setPlayheadPosition] = useRecoilState(arrangeWindowStore.playheadPosition);
   const calcSnappedPos = useSnapCtrlPixelCalc();
+  const zoomedQuarterPixelWidth = useRecoilValue(arrangeWindowStore.zoomedQuarterPixelWidth);
   const viewportWidth = useRecoilValue(arrangeWindowStore.viewportWidth);
   const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
 
@@ -40,9 +41,10 @@ function RulerTransportCursor() {
 
     if (playheadPosition !== position) {
       setPlayheadPosition(position);
-      setTransportSeconds(pixelToSeconds(position));
+
+      setTransportQuarters(position / zoomedQuarterPixelWidth);
     }
-  }, [setPlayheadPosition, calcSnappedPos, pixelToSeconds, setTransportSeconds, playheadPosition]);
+  }, [setPlayheadPosition, calcSnappedPos, pixelToSeconds, setTransportQuarters, playheadPosition, zoomedQuarterPixelWidth]);
 
   const onMovableTrigger = useMovable(onMouseInteraction, onMouseInteraction);
 

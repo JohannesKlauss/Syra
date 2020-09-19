@@ -19,6 +19,14 @@ const seconds = selector<number>({
   },
 });
 
+const quarters = selector<number>({
+  key: 'transport/quarters',
+  get: ({get}) => 0,
+  set: (_, newValue) => {
+    Tone.getTransport().position = `0:${newValue}:0`;
+  }
+});
+
 const currentSample = selector<number>({
   key: 'transport/frames',
   get: ({get}) => secondsToSamples(get(internalSeconds)),
@@ -90,6 +98,7 @@ const playButtonModes = atom<PlayButtonMode[]>({
 
 export const transportStore = {
   seconds,
+  quarters,
   currentSample,
   cycleStart,
   cycleEnd,

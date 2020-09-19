@@ -80,7 +80,7 @@ const snapValue = atom({
 
 const snapValueWidthInPixels = selector({
   key: 'arrangeWindow/snapValueWidthInPixels',
-  get: ({get}) => get(pixelPerBeat),
+  get: ({get}) => get(zoomedQuarterPixelWidth) * get(snapValue) * 4,
 });
 
 const trackHeight = selector({
