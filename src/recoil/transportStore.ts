@@ -136,8 +136,6 @@ const bars = selector<Bar[]>({
       });
     }
 
-    console.log('rulerItems', rulerItems);
-
     return rulerItems;
   }
 });

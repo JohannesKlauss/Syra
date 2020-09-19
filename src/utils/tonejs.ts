@@ -1,11 +1,7 @@
 import * as Tone from 'tone';
 import { SetterOrUpdater } from 'recoil';
 
-export const getToneJsPositionInQuarter = () => {
-  console.log('pos', Tone.getTransport().position);
-
-  return parseInt((Tone.getTransport().position as string).split(':')[0]);
-};
+export const getToneJsPositionInQuarter = () => parseInt((Tone.getTransport().position as string).split(':')[0]);
 
 export const toneMeterFactory = (smoothing: number = 0.95) => new Tone.Meter({ smoothing });
 

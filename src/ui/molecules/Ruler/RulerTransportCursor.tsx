@@ -38,20 +38,21 @@ function RulerTransportCursor() {
   const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
   const snapValue = useRecoilValue(arrangeWindowStore.snapValue);
   const barAtPixel = useBarAtPixel();
+  const isSnapActive = useRecoilValue(arrangeWindowStore.isSnapActive);
 
   const onMouseInteraction = useCallback(e => {
     const position = calcSnappedPos(e.clientX - e.target.getBoundingClientRect().left);
 
     if (playheadPosition !== position) {
-      if (snapValue === 4) { // If snap Value is at 1 bar we have to snap to the nearest bar.
-        setPlayheadPosition(((barAtPixel(position)?.quarterInProject || 0)) * zoomedQuarterPixelWidth)
-      } else {
+      if (snapValue === 4 && isSnapActive) { // If snap Value is at 1 bar we have to snap to the nearest bar.
+        setPlayheadPosition(((barAtPixel(position)?.quarterInProject || 0)) * zoomedQuarterPixelWidth);
+        setTransportQuarters(barAtPixel(position)?.quarterInProject || position / zoomedQuarterPixelWidth);
+      } else if(!isSnapActive) {
         setPlayheadPosition(position);
+        setTransportQuarters(position / zoomedQuarterPixelWidth);
       }
-
-      setTransportQuarters(barAtPixel(position)?.quarterInProject || position / zoomedQuarterPixelWidth);
     }
-  }, [setPlayheadPosition, calcSnappedPos, pixelToSeconds, setTransportQuarters, playheadPosition, zoomedQuarterPixelWidth, barAtPixel, snapValue]);
+  }, [setPlayheadPosition, calcSnappedPos, pixelToSeconds, setTransportQuarters, playheadPosition, zoomedQuarterPixelWidth, barAtPixel, snapValue, isSnapActive]);
 
   const onMovableTrigger = useMovable(onMouseInteraction, onMouseInteraction);
 
