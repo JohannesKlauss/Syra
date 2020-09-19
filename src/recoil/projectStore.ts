@@ -1,6 +1,5 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
-import { BpmRamp, bpmStaticRampFactory } from '../utils/bpmRamps';
 
 const name = atom({
   key: 'project/name',
@@ -8,17 +7,15 @@ const name = atom({
 });
 
 // The tempo map of the project. The key is samples and the value a tempo ramp.
-const tempoMap = atom<{[name: number]: BpmRamp}>({
+const tempoMap = atom<{[name: number]: number}>({
   key: 'project/tempoMap',
   default: {
-    0: bpmStaticRampFactory(120),
-    2: bpmStaticRampFactory(180),
-    5.7: bpmStaticRampFactory(100),
-    13.9: bpmStaticRampFactory(160),
+    0: 120,
+    2: 180,
   }
 });
 
-const currentTempoRamp = atom<BpmRamp>({
+const currentTempoRamp = atom<number>({
   key: 'project/currentTempoRamp',
   default: selector({
     key: 'project/currentTempoRamp/Default',
@@ -41,8 +38,7 @@ const tempoBlockLengthInSeconds = selectorFamily<number, number>({
 const timeSignatureMap = atom<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
-    0: [4, 4],
-    32: [16, 4]
+    0: [4, 4]
   }
 });
 
@@ -73,12 +69,12 @@ const lengthInSeconds = selector({
 
 const beatsPerSecond = selector({
   key: 'arrangeWindow/beatsPerSecond',
-  get: ({get}) => 1 / 120 / 60,
+  get: ({get}) => 1 / get(currentTempoRamp) / 60,
 });
 
 const secondsPerBeat = selector({
   key: 'arrangeWindow/secondsPerBeat',
-  get: ({get}) => 60 / 120,
+  get: ({get}) => 60 / get(currentTempoRamp),
 });
 
 const isClickMuted = atom<boolean>({

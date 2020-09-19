@@ -96,9 +96,7 @@ const resolution = selector({
 
 const pixelPerSecond = selector({
   key: 'arrangeWindow/pixelPerSecond',
-  get: ({get}) => {
-    return 0;
-  },
+  get: ({get}) => get(zoomedQuarterPixelWidth) / get(projectStore.secondsPerBeat),
 });
 
 const pixelPerBeat = selector({

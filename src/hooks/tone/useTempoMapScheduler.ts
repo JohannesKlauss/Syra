@@ -12,11 +12,11 @@ export default function useTempoMapScheduler() {
   useEffect(() => {
     Object.keys(tempoMap).map(t => parseFloat(t)).forEach(changeAtSeconds => {
       scheduleIds.current.push(transport.schedule(() => {
-        const newRamp = tempoMap[changeAtSeconds];
+        const newTempo = tempoMap[changeAtSeconds];
 
-        setCurrentTempoRamp(newRamp);
+        setCurrentTempoRamp(newTempo);
 
-        transport.bpm.value = newRamp(0);
+        transport.bpm.value = newTempo;
       }, changeAtSeconds));
     });
 
@@ -25,5 +25,5 @@ export default function useTempoMapScheduler() {
     }
   }, [tempoMap, scheduleIds, transport, setCurrentTempoRamp]);
 
-  return typeof currentTempoRamp === 'function' ? currentTempoRamp(0) : currentTempoRamp;
+  return currentTempoRamp;
 }

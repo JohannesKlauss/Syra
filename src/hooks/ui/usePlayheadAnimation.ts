@@ -1,5 +1,5 @@
 import useToneJsTransport from '../tone/useToneJsTransport';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import useSecondsToPixel from './useSecondsToPixel';
 import { transportStore } from '../../recoil/transportStore';
 import { useRecoilValue } from 'recoil';
@@ -14,11 +14,16 @@ export default function usePlayheadAnimation() {
   const [transportTranslate, setTransportTranslate] = useState(secondsToPixel(transport.seconds));
   const animRef = useRef<number>(0);
   const scrolled = useRef<boolean>(false);
+  const lastSeconds = useRef<number>(transport.seconds);
+  const currentTranslate = useRef<number>(secondsToPixel(transport.seconds));
   const viewportWidth = useRecoilValue(arrangeWindowStore.viewportWidth);
   const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
 
   const animate = () => {
-    setTransportTranslate(secondsToPixel(transport.seconds));
+    currentTranslate.current += secondsToPixel(transport.seconds - lastSeconds.current);
+    lastSeconds.current = transport.seconds;
+
+    setTransportTranslate(currentTranslate.current);
 
     const mod = secondsToPixel(transport.seconds) % viewportWidth;
 
@@ -39,12 +44,14 @@ export default function usePlayheadAnimation() {
   useEffect(() => {
     if (isPlaying || isRecording) {
       animRef.current = requestAnimationFrame(animate);
+    } else {
+      cancelAnimationFrame(animRef.current);
     }
 
     return () => {
       cancelAnimationFrame(animRef.current);
     }
-  }, [isRecording, isPlaying, secondsToPixel, viewportWidth]);
+  }, [isRecording, isPlaying, secondsToPixel, animRef]);
 
   useEffect(() => {
     if (!isPlaying && !isRecording) {
