@@ -11,7 +11,9 @@ const tempoMap = atom<{[name: number]: number}>({
   key: 'project/tempoMap',
   default: {
     0: 120,
-    2: 180,
+    5.4: 180,
+    14.4: 135,
+    27.3: 140,
   }
 });
 
@@ -38,7 +40,9 @@ const tempoBlockLengthInSeconds = selectorFamily<number, number>({
 const timeSignatureMap = atom<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
-    0: [4, 4]
+    0: [4, 4],
+    64: [6, 4],
+    100: [2, 2],
   }
 });
 
