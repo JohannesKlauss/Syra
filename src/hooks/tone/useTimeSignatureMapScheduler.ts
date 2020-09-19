@@ -17,7 +17,7 @@ export default function useTimeSignatureMapScheduler() {
         const newTimeSignature = timeSignatureMap[changeAtQuarter];
 
         setCurrentTimeSignature(newTimeSignature);
-      }, `0:${changeAtQuarter}:0`));
+      }, `${changeAtQuarter}:0:0`));
     });
 
     return () => {

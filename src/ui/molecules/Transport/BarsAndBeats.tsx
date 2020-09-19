@@ -39,9 +39,9 @@ function BarsAndBeats() {
   }, [beats]);
 
   useEffect(() => {
-    console.log('current', currentQuarterPosition);
-    console.log('position', Tone.getTransport().position);
-  }, [currentQuarterPosition, playheadPosition]);
+    console.log('current Quarter', currentQuarterPosition);
+    console.log('current Bar', currentBar);
+  }, [currentQuarterPosition, playheadPosition, currentBar]);
 
   return (
     <>

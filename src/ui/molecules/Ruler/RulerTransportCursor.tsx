@@ -44,7 +44,7 @@ function RulerTransportCursor() {
 
     if (playheadPosition !== position) {
       if (snapValue === 4) { // If snap Value is at 1 bar we have to snap to the nearest bar.
-        setPlayheadPosition(((barAtPixel(position)?.quarterInProject || 1) - 1) * zoomedQuarterPixelWidth)
+        setPlayheadPosition(((barAtPixel(position)?.quarterInProject || 0)) * zoomedQuarterPixelWidth)
       } else {
         setPlayheadPosition(position);
       }

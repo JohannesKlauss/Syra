@@ -44,7 +44,7 @@ function RulerBars() {
   return (
     <Bars>
       {filteredBars.map(bar => {
-        return <RulerItem key={bar.bar} style={{ left: `${zoomedQuarterPixelWidth * (bar.quarterInProject - 1)}px` }}>{bar.bar}</RulerItem>
+        return <RulerItem key={bar.bar} style={{ left: `${zoomedQuarterPixelWidth * (bar.quarterInProject)}px` }}>{bar.bar}</RulerItem>
       })}
       <ProjectEndHandle style={{ left: `${zoomedQuarterPixelWidth * projectLengthInQuarters}px`}}/>
     </Bars>

@@ -60,6 +60,8 @@ function PlayRecord() {
 
       transport.start('+0.05');
 
+      console.log('position', transport.position);
+
       stopScheduleId.current = transport.scheduleOnce(() => {
         const pos = transport.seconds;
         transport.stop();

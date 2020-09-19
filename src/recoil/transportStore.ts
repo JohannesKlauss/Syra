@@ -6,6 +6,7 @@ import { Bar } from '../types/Ui';
 import { projectStore } from './projectStore';
 import { getSortedKeysOfEventMap } from '../utils/eventMap';
 import { arrangeWindowStore } from './arrangeWindowStore';
+import { getToneJsPositionInQuarter } from '../utils/tonejs';
 
 // Internal atoms are just used to sync everything with the ToneJs transport itself. Never expose them to the rest of the app.
 
@@ -23,11 +24,17 @@ const seconds = selector<number>({
   },
 });
 
+const internalQuarter = atom({
+  key: 'transport/internalQuarter',
+  default: getToneJsPositionInQuarter(),
+})
+
 const currentQuarter = selector<number>({
   key: 'transport/quarters',
-  get: ({get}) => parseInt((Tone.getTransport().position as string).split(':')[0]),
-  set: (_, newValue) => {
-    Tone.getTransport().position = `0:${newValue}:0`;
+  get: ({get}) => get(internalQuarter),
+  set: ({set}, newValue) => {
+    Tone.getTransport().position = `${newValue}:0:0`;
+    set(internalQuarter, newValue as number);
   }
 });
 
@@ -113,9 +120,9 @@ const bars = selector<Bar[]>({
 
     const rulerItems: Bar[] = [];
 
-    for (let divideBy = currentTimeSignature[1] / 4, i = 1; i <= projectLengthInQuarters; i += currentTimeSignature[0] / divideBy, bar++) {
-      if (changeKeys.includes(i - 1)) {
-        currentTimeSignature = timeSignatureMap[i - 1];
+    for (let divideBy = currentTimeSignature[1] / 4, i = 0; i < projectLengthInQuarters; i += currentTimeSignature[0] / divideBy, bar++) {
+      if (changeKeys.includes(i)) {
+        currentTimeSignature = timeSignatureMap[i];
         lengthInQuarters = 0;
         divideBy = currentTimeSignature[1] / 4;
       }
@@ -128,6 +135,8 @@ const bars = selector<Bar[]>({
         displayOnRulerBar: true,
       });
     }
+
+    console.log('rulerItems', rulerItems);
 
     return rulerItems;
   }
@@ -163,7 +172,7 @@ const currentBar = selector<Bar | undefined>({
   get: ({get}) => {
     const quarter = get(currentQuarter);
 
-    return get(bars).find(item => item.quarterInProject >= quarter && item.quarterInProject + item.lengthInQuarters <= quarter)
+    return get(bars).find(item => item.quarterInProject <= quarter && quarter < item.quarterInProject + item.lengthInQuarters)
   }
 });
 
@@ -171,7 +180,7 @@ const barAtQuarter = selectorFamily<Bar | undefined, number>({
   key: 'transport/barAtQuarter',
   get: quarter => ({get}) => {
     const items = get(bars);
-    const index = items.findIndex(item => item.quarterInProject <= quarter && quarter <= item.quarterInProject + item.lengthInQuarters);
+    const index = items.findIndex(item => item.quarterInProject <= quarter && quarter < item.quarterInProject + item.lengthInQuarters);
 
     const barCandidate = items[index];
 
