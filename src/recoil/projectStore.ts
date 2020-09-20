@@ -1,4 +1,4 @@
-import { atom, selector, selectorFamily } from 'recoil';
+import { atom, selector } from 'recoil';
 import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
 import { transportStore } from './transportStore';
 import { getSortedKeysOfEventMap } from '../utils/eventMap';
@@ -41,16 +41,6 @@ const currentTempoRamp = atom<number>({
   })
 });
 
-const beatsInTempoBlock = selectorFamily<number, number>({
-  key: 'project/beatsInTempoBlock',
-  get: blockAtSeconds => ({get}) => 8,
-});
-
-const tempoBlockLengthInSeconds = selectorFamily<number, number>({
-  key: 'project/tempoBlockLengthInSeconds',
-  get: blockAtSeconds => ({get}) => 2,
-});
-
 // The time signature map of the project. The key is quarters and the value num of beats over division (7/4, 3/4, etc.).
 // So 8: [7, 4] means after 8 elapsed quarters, change the time signature to 7/4.
 const timeSignatureMap = atom<{[name: number]: [number, number]}>({
@@ -84,12 +74,6 @@ const lengthInQuarters = atom({
   default: TIME_CONVERSION_RESOLUTION * 20
 });
 
-// The project length in seconds with tempo changes already included.
-const lengthInSeconds = selector({
-  key: 'project/lengthInSeconds',
-  get: ({get}) => 120,
-});
-
 const beatsPerSecond = selector({
   key: 'arrangeWindow/beatsPerSecond',
   get: ({get}) => 1 / get(currentTempoRamp) / 60,
@@ -109,14 +93,11 @@ export const projectStore = {
   name,
   tempoMap,
   currentTempoRamp,
-  beatsInTempoBlock,
-  tempoBlockLengthInSeconds,
   timeSignatureMap,
   currentTimeSignature,
   beatsPerSecond,
   secondsPerBeat,
   lengthInQuarters,
-  lengthInSeconds,
   isClickMuted,
   lastAnalyzedBpmFromImport,
 };

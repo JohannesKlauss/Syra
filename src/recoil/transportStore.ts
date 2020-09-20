@@ -118,14 +118,12 @@ const bars = selector<Bar[]>({
 
     let currentTimeSignature = timeSignatureMap[0];
     let bar = 1;
-    let lengthInQuarters = 0;
 
     const rulerItems: Bar[] = [];
 
     for (let divideBy = currentTimeSignature[1] / 4, i = 0; i < projectLengthInQuarters; i += currentTimeSignature[0] / divideBy, bar++) {
       if (changeKeys.includes(i)) {
         currentTimeSignature = timeSignatureMap[i];
-        lengthInQuarters = 0;
         divideBy = currentTimeSignature[1] / 4;
       }
 

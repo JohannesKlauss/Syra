@@ -14,7 +14,6 @@ import useTapTempo from '../../../hooks/audio/useTapTempo';
 import { buttonInfo } from '../../../utils/text';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { TIME_CONVERSION_RESOLUTION } from '../../../const/musicalConversionConstants';
-import { bpmStaticRampFactory } from '../../../utils/bpmRamps';
 
 const CustomToggleButtonGroup = styled(ToggleButtonGroup)({
   width: '100%',

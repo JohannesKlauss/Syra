@@ -5,7 +5,6 @@ import { projectStore } from '../../../recoil/projectStore';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { transportStore } from '../../../recoil/transportStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
-import * as Tone from 'tone';
 
 const InfoBox = styled('div')({
   marginLeft: 20,

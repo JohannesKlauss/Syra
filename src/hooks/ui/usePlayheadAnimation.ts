@@ -1,5 +1,5 @@
 import useToneJsTransport from '../tone/useToneJsTransport';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useSecondsToPixel from './useSecondsToPixel';
 import { transportStore } from '../../recoil/transportStore';
 import { useRecoilValue } from 'recoil';

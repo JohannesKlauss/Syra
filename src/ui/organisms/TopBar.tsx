@@ -10,15 +10,12 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import { projectStore } from '../../recoil/projectStore';
-import { useRecoilState } from 'recoil';
 import EditIcon from '@material-ui/icons/Edit';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles } from '@material-ui/core/styles';
 
-import user from 'ic:canisters/user';
 import project from 'ic:canisters/project';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -73,11 +70,9 @@ function TopBar() {
   const classes = useStyles();
   // const [name, setName] = useRecoilState(projectStore.name);
 
-  const [userId, setUserId] = useState(0);
   const [name, setName] = useState('');
 
   useEffect(() => {
-    user.getUserId().then(res => setUserId(+res));
     project.getName().then(res => setName(res));
   }, []);
 

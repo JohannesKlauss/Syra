@@ -1,4 +1,4 @@
-import { atom, selector, selectorFamily } from 'recoil';
+import { atom, selector } from 'recoil';
 import {
   ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT,
   ZOOM_RESOLUTION_MAP,
@@ -6,8 +6,6 @@ import {
 import { EditMode } from '../types/RegionManipulation';
 import { RefObject } from 'react';
 import { projectStore } from './projectStore';
-import { getSortedKeysOfEventMap } from '../utils/eventMap';
-import { Bar } from '../types/Ui';
 import { transportStore } from './transportStore';
 
 const waveformSmoothing = atom({
@@ -100,37 +98,6 @@ const pixelPerSecond = selector({
   get: ({get}) => get(zoomedQuarterPixelWidth) / get(projectStore.secondsPerBeat),
 });
 
-const pixelPerBeat = selector({
-  key: 'arrangeWindow/pixelPerBeat',
-  get: ({get}) => get(width) / get(projectStore.lengthInQuarters),
-});
-
-const tempoBlockWidthInPixel = selectorFamily<number, number>({
-  key: 'arrangeWindow/tempoBlockWidthInPixel',
-  get: blockAtSeconds => ({get}) => get(pixelPerBeat) * get(projectStore.beatsInTempoBlock(blockAtSeconds)),
-});
-
-const tempoBlockPixelAreas = selector<{[name: number]: [number, number]}>({
-  key: 'arrangeWindow/tempoBlockPixelArea',
-  get: ({get}) => {
-    const changeAtKeys = getSortedKeysOfEventMap(get(projectStore.tempoMap));
-
-    const map: {[name: number]: [number, number]} = {};
-    let sumWidth: number = 0;
-
-    for (let i = 0; i < changeAtKeys.length; i++) {
-      const blockWidth = get(tempoBlockWidthInPixel(changeAtKeys[i]));
-
-      map[changeAtKeys[i]] = [sumWidth + 1, sumWidth + blockWidth];
-
-      sumWidth += blockWidth;
-    }
-
-    return map;
-  }
-});
-
-// TODO: THIS HAS TO BE REMOVED ONCE WE ARE FINISHED WITH THE TEMPO AND TS REFACTOR.
 const barWidthInPixel = selector({
   key: 'arrangeWindow/barWidthInPixel',
   get: ({get}) => get(width) / get(transportStore.bars).length
@@ -152,8 +119,6 @@ const zoomedQuarterPixelWidth = selector({
 export const arrangeWindowStore = {
   waveformSmoothing,
   viewportWidth,
-  tempoBlockWidthInPixel,
-  tempoBlockPixelAreas,
   ref,
   editMode,
   playheadPosition,
@@ -169,7 +134,6 @@ export const arrangeWindowStore = {
   baseQuarterPixelWidth,
   zoomedQuarterPixelWidth,
   pixelPerSecond,
-  pixelPerBeat,
   marqueePosition,
   marqueeChannelPosition,
 };

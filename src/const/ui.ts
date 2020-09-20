@@ -1,8 +1,6 @@
 export const ARRANGE_GRID_OFFSET = -6;
 export const ARRANGE_GRID_CHANNEL_LIST_GAP = ARRANGE_GRID_OFFSET * (-2);
 
-export const RULER_ITEMS_MINIMAL_SPACE = 40;
-
 // This defines the default height of a track based on the vertical zoom level.
 export const ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT: {[name: number]: number} = {
   1: 30,

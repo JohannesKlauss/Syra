@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import ParameterList from './Parameters/ParameterList';
 import { channelStore } from '../../../recoil/channelStore';
 import { soulPluginStore } from '../../../recoil/soulPluginStore';
-import { Button, Container, MenuItem, Modal, Paper, styled, Typography } from '@material-ui/core';
+import { Button, MenuItem, Modal, Paper, styled, Typography } from '@material-ui/core';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import DropdownButton from '../../atoms/Buttons/DropdownButton';
 import { createSoulInstance } from '../../../soul/createSoulInstance';

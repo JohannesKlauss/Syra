@@ -19,7 +19,7 @@ export default function useClick() {
 
   useEffect(() => {
     beats.current = getBeatCountForTransportSeconds(timeSignatureMap, transport.seconds);
-  }, [playheadPosition, beats]);
+  }, [playheadPosition, beats, timeSignatureMap]);
 
   useEffect(() => {
     const id = transport.scheduleRepeat((time) => {
