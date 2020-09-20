@@ -56,7 +56,8 @@ const tempoBlockLengthInSeconds = selectorFamily<number, number>({
 const timeSignatureMap = atom<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
-    0: [4, 4]
+    0: [4, 4],
+    16: [7, 4],
   }
 });
 
@@ -64,7 +65,11 @@ const currentTimeSignature = atom<[number, number]>({
   key: 'project/currentTimeSignature',
   default: selector({
     key: 'project/currentTimeSignature/Default',
-    get: ({get}) => get(timeSignatureMap)[0],
+    get: ({get}) => {
+      const currentBar = get(transportStore.currentBar);
+
+      return currentBar?.timeSignature || get(timeSignatureMap)[0];
+    },
   })
 })
 
