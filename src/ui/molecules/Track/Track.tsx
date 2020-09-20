@@ -75,7 +75,7 @@ const Track = React.memo(({ backgroundColor }: Props) => {
       await createRegion(channelId, files[0], pixelToSeconds(calcSnappedX(x)));
     }
   }, [createRegion, pixelToSeconds, calcSnappedX, channelId]);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getInputProps, isDragActive } = useDropzone({ onDrop });
 
   // TODO: BECAUSE OF A WEIRD ERROR WE REMOVED THE {...getRootProps()} FOR NOW.
   return (

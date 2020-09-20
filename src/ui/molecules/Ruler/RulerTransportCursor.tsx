@@ -8,7 +8,6 @@ import RulerPlayhead from './RulerPlayhead';
 import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
 import useMovable from '../../../hooks/ui/useMovable';
 import { transportStore } from '../../../recoil/transportStore';
-import usePixelToSeconds from '../../../hooks/ui/usePixelToSeconds';
 import { isBetween } from '../../../utils/numbers';
 import useBarAtPixel from '../../../hooks/ui/transportCursor/useBarAtPixel';
 
@@ -28,7 +27,6 @@ const BaseContainer = styled(
 });
 
 function RulerTransportCursor() {
-  const pixelToSeconds = usePixelToSeconds();
   const setTransportQuarters = useSetRecoilState(transportStore.currentQuarter);
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
   const [playheadPosition, setPlayheadPosition] = useRecoilState(arrangeWindowStore.playheadPosition);
@@ -52,7 +50,7 @@ function RulerTransportCursor() {
         setTransportQuarters(position / zoomedQuarterPixelWidth);
       }
     }
-  }, [setPlayheadPosition, calcSnappedPos, pixelToSeconds, setTransportQuarters, playheadPosition, zoomedQuarterPixelWidth, barAtPixel, snapValue, isSnapActive]);
+  }, [setPlayheadPosition, calcSnappedPos, setTransportQuarters, playheadPosition, zoomedQuarterPixelWidth, barAtPixel, snapValue, isSnapActive]);
 
   const onMovableTrigger = useMovable(onMouseInteraction, onMouseInteraction);
 

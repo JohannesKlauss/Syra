@@ -8,7 +8,7 @@ export default function useWorker(path: string) {
     (async () => {
       w.current = await createIsoWorker(path);
     })();
-  }, []);
+  }, [path]);
 
   return w;
 }

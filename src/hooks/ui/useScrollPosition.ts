@@ -11,6 +11,8 @@ function getScrollPosition(element?: MutableRefObject<HTMLElement | null>) {
   return element?.current ? element.current.scrollLeft : 0;
 }
 
+// TODO: THIS IS A HORRIBLE IMPLEMENTATION. WE HAVE TO IMPROVE THIS.
+
 const useScrollPosition: UseScrollPosition = (
   effect,
   deps,
@@ -19,16 +21,16 @@ const useScrollPosition: UseScrollPosition = (
 ) => {
   const position = useRef(getScrollPosition(element));
 
-  let throttleTimeout: any = null;
-
   const callBack = () => {
     const currPos = getScrollPosition(element);
     effect(currPos);
     position.current = currPos;
-    throttleTimeout = null;
   }
 
   useLayoutEffect(() => {
+    const copiedRef = element?.current;
+    let throttleTimeout: any = null;
+
     const handleScroll = () => {
       if (wait) {
         if (throttleTimeout === null) {
@@ -39,12 +41,13 @@ const useScrollPosition: UseScrollPosition = (
       }
     }
 
-    element?.current && element.current.addEventListener('scroll', handleScroll);
+    copiedRef?.addEventListener('scroll', handleScroll);
 
     return () => {
-      element?.current && element.current.removeEventListener('scroll', handleScroll);
+      copiedRef?.removeEventListener('scroll', handleScroll);
 
       throttleTimeout && clearTimeout(throttleTimeout);
+      throttleTimeout = null;
     }
   }, deps)
 };
