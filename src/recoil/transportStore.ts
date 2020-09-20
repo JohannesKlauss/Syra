@@ -21,13 +21,14 @@ const seconds = selector<number>({
   set: ({set}, newValue) => {
     Tone.getTransport().seconds = newValue as number;
     set(internalSeconds, newValue as number);
+    set(internalQuarter, getToneJsPositionInQuarter()); // Since Recoil doesn't know about tone js internal values, we have to sync out internal values when position OR seconds change.
   },
 });
 
 const internalQuarter = atom({
   key: 'transport/internalQuarter',
   default: getToneJsPositionInQuarter(),
-})
+});
 
 const currentQuarter = selector<number>({
   key: 'transport/quarters',
@@ -35,6 +36,7 @@ const currentQuarter = selector<number>({
   set: ({set}, newValue) => {
     Tone.getTransport().position = `${newValue}:0:0`;
     set(internalQuarter, newValue as number);
+    set(internalSeconds, Tone.getTransport().seconds);
   }
 });
 

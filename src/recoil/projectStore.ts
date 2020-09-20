@@ -1,5 +1,7 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
+import { transportStore } from './transportStore';
+import { getSortedKeysOfEventMap } from '../utils/eventMap';
 
 const name = atom({
   key: 'project/name',
@@ -10,7 +12,10 @@ const name = atom({
 const tempoMap = atom<{[name: number]: number}>({
   key: 'project/tempoMap',
   default: {
-    0: 120
+    0: 120,
+    2: 180,
+    7: 240,
+    11: 110,
   }
 });
 
@@ -18,7 +23,21 @@ const currentTempoRamp = atom<number>({
   key: 'project/currentTempoRamp',
   default: selector({
     key: 'project/currentTempoRamp/Default',
-    get: ({get}) => get(tempoMap)[0]
+    get: ({get}) => {
+      const transportSeconds = get(transportStore.seconds);
+      const map = get(tempoMap);
+      const keys = getSortedKeysOfEventMap(map);
+
+      const upperBoundIndex = keys.findIndex(second => second > transportSeconds);
+
+      if (upperBoundIndex > 0) {
+        return map[keys[upperBoundIndex - 1]];
+      } else if (upperBoundIndex === 0) {
+        return map[0];
+      }
+
+      return map[keys[keys.length - 1]];
+    }
   })
 });
 
@@ -57,7 +76,7 @@ const lastAnalyzedBpmFromImport = atom<number | null>({
 // The project length in quarters. TODO: SETTING THE PROJECT LENGTH IN THE NEW PROJECT DIALOG HAS TO ACCOUNT TIME SIGNATURES.
 const lengthInQuarters = atom({
   key: 'project/length',
-  default: TIME_CONVERSION_RESOLUTION * 128
+  default: TIME_CONVERSION_RESOLUTION * 20
 });
 
 // The project length in seconds with tempo changes already included.

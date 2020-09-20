@@ -33,14 +33,8 @@ function BarsAndBeats() {
   }, [transport, currentTimeSignature, setBars, setBeats]);
 
   useEffect(() => {
-    if (beats === 1) {
-      setBars(prevState => prevState + 1); // TODO: For some reason this gets called twice.
-    }
-  }, [beats]);
-
-  useEffect(() => {
-    console.log('current Quarter', currentQuarterPosition);
-    console.log('current Bar', currentBar);
+    setBars(currentBar?.bar || 1);
+    setBeats(Math.floor(currentQuarterPosition - (currentBar?.quarterInProject || 0)));
   }, [currentQuarterPosition, playheadPosition, currentBar]);
 
   return (
@@ -50,7 +44,7 @@ function BarsAndBeats() {
         <Typography variant={'body2'}>Bar</Typography>
       </InfoBox>
       <InfoBox>
-        <Typography variant={'body2'} align={'right'}>{beats !== 0 ? beats : currentTimeSignature[0]}</Typography>
+        <Typography variant={'body2'} align={'right'}>{beats + 1}</Typography>
         <Typography variant={'body2'}>Beat</Typography>
       </InfoBox>
     </>
