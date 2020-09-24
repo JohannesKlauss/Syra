@@ -39,15 +39,16 @@ function RulerTransportCursor() {
   const isSnapActive = useRecoilValue(arrangeWindowStore.isSnapActive);
 
   const onMouseInteraction = useCallback(e => {
-    const position = calcSnappedPos(e.clientX - e.target.getBoundingClientRect().left);
+    const rawPosition = e.clientX - e.target.getBoundingClientRect().left;
+    const position = calcSnappedPos(rawPosition);
 
     if (playheadPosition !== position) {
       if (snapValue === 4 && isSnapActive) { // If snap Value is at 1 bar we have to snap to the nearest bar.
         setPlayheadPosition(((barAtPixel(position)?.quarterInProject || 0)) * zoomedQuarterPixelWidth);
         setTransportQuarters(barAtPixel(position)?.quarterInProject || position / zoomedQuarterPixelWidth);
-      } else if(!isSnapActive) {
-        setPlayheadPosition(position);
-        setTransportQuarters(position / zoomedQuarterPixelWidth);
+      } else {
+        setPlayheadPosition(isSnapActive ? position : rawPosition);
+        setTransportQuarters((isSnapActive ? position : rawPosition) / zoomedQuarterPixelWidth);
       }
     }
   }, [setPlayheadPosition, calcSnappedPos, setTransportQuarters, playheadPosition, zoomedQuarterPixelWidth, barAtPixel, snapValue, isSnapActive]);

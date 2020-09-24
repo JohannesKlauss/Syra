@@ -13,9 +13,6 @@ const tempoMap = atom<{[name: number]: number}>({
   key: 'project/tempoMap',
   default: {
     0: 120,
-    2: 180,
-    7: 240,
-    11: 110,
   }
 });
 
@@ -47,7 +44,6 @@ const timeSignatureMap = atom<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
     0: [4, 4],
-    16: [7, 4],
   }
 });
 
