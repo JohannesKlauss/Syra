@@ -4285,14 +4285,6 @@ auto-bind@~4.0.0:
   resolved "https://registry.yarnpkg.com/auto-bind/-/auto-bind-4.0.0.tgz#e3589fc6c2da8f7ca43ba9f84fa52a744fc997fb"
   integrity sha512-Hdw8qdNiqdJ8LqT0iK0sVzkFbzg6fhnQqqfWhBDxcHZvU75+B+ayzTy8x+k5Ix0Y92XOhOUlx74ps+bA6BeYMQ==
 
-automation-events@^2.0.19:
-  version "2.0.19"
-  resolved "https://registry.yarnpkg.com/automation-events/-/automation-events-2.0.19.tgz#b9969baee3897ded9d5f4ba9cfb4b18565176b12"
-  integrity sha512-6RUNmFkmTYXq/W+ovdwLdqqj44rGh9+dGjg4qLaktVHYT1+c+PdlYAkaCn/H2AaqprW9NZhK+jsXT4t8izPV+w==
-  dependencies:
-    "@babel/runtime" "^7.11.2"
-    tslib "^2.0.1"
-
 automation-events@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/automation-events/-/automation-events-3.0.0.tgz#72776c7061ba1270b3ea6669c6be7abc5cff8b9a"
@@ -15121,16 +15113,7 @@ stack-utils@^1.0.1:
   resolved "https://registry.yarnpkg.com/stack-utils/-/stack-utils-1.0.2.tgz#33eba3897788558bebfc2db059dc158ec36cebb8"
   integrity sha512-MTX+MeG5U994cazkjd/9KNAapsHnibjMLnfXodlkXw76JEea0UiNzrqidzo1emMwk7w5Qhc9jd4Bn9TBb1MFwA==
 
-standardized-audio-context@^24.1.5:
-  version "24.1.26"
-  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-24.1.26.tgz#6c549a275cf071ba827efe21d2ea08f9bdc996fd"
-  integrity sha512-Grm5EZGcg7hDmLZWbyZ/93dBzlRii9HUmRjmyyatissEzdBPxeA4Ptt9VjtYnd0mEOzxxbS222SxpbYnV57JFA==
-  dependencies:
-    "@babel/runtime" "^7.11.2"
-    automation-events "^2.0.19"
-    tslib "^2.0.1"
-
-standardized-audio-context@^25.0.5:
+standardized-audio-context@^25.0.4, standardized-audio-context@^25.0.5:
   version "25.0.5"
   resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.0.5.tgz#fa0bb2aa257594f49c79f00220fdcc34e4d8c17a"
   integrity sha512-KkBDw/PqpZaK7q54py+fkv0N7S8LwZPBJ/DM7udOboEZBnN20F5fOt2wffElZqhT63/GdzOAwiLJd+uKXsOWYg==
@@ -15834,13 +15817,13 @@ toidentifier@1.0.0:
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
 
-tone@14.7.39:
-  version "14.7.39"
-  resolved "https://registry.yarnpkg.com/tone/-/tone-14.7.39.tgz#6b88146bfb31542517193313935662d87670a3f7"
-  integrity sha512-lSnR8Y8PTkWaeoD4rce1MROSjxelcLwZNzLn5tzhQvP33VpurdntAm853aFO2zaGwbAEd2mAxzCgczTyDE7GBg==
+tone@14.7.58:
+  version "14.7.58"
+  resolved "https://registry.yarnpkg.com/tone/-/tone-14.7.58.tgz#c1a31597184115aedf44ea6310a30efe902645e7"
+  integrity sha512-OzXsCkmaU/tLcNBc4M4dzHAjBzUGm+29DbWmAkAcCvpzWkLqo61RTcJa8tmS63F/7JHPiAJEOpuInMXw3mCvIg==
   dependencies:
-    standardized-audio-context "^24.1.5"
-    tslib "^1.10.0"
+    standardized-audio-context "^25.0.4"
+    tslib "^2.0.1"
 
 tough-cookie@^2.3.3, tough-cookie@^2.3.4, tough-cookie@^2.5.0, tough-cookie@~2.5.0:
   version "2.5.0"
