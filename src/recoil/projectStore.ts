@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
 import { transportStore } from './transportStore';
 import { getSortedKeysOfEventMap } from '../utils/eventMap';
@@ -8,33 +8,38 @@ const name = atom({
   default: 'New Syra Project',
 });
 
-// The tempo map of the project. The key is samples and the value a tempo ramp.
+// The tempo map of the project. The key is elapsed quarters and the value a tempo. It should actually be a tempo ramp
+// but we don't know how to support this yet.
 const tempoMap = atom<{[name: number]: number}>({
   key: 'project/tempoMap',
   default: {
     0: 120,
-    2: 240,
+    8: 180,
   }
 });
 
-const currentTempoRamp = atom<number>({
-  key: 'project/currentTempoRamp',
+const tempoAtQuarter = selectorFamily<number, number>({
+  key: 'project/tempoAtQuarter',
+  get: quarter => ({get}) => {
+    const map = get(tempoMap);
+    const keys = getSortedKeysOfEventMap(map).reverse();
+    const index = keys.findIndex(changeAtQuarter => changeAtQuarter <= quarter);
+
+    return map[keys[index]];
+  }
+});
+
+const currentTempo = atom<number>({
+  key: 'project/currentTempo',
   default: selector({
-    key: 'project/currentTempoRamp/Default',
+    key: 'project/currentTempo/Default',
     get: ({get}) => {
-      const transportSeconds = get(transportStore.seconds);
+      const currentQuarter = get(transportStore.currentQuarter);
       const map = get(tempoMap);
-      const keys = getSortedKeysOfEventMap(map);
+      const keys = getSortedKeysOfEventMap(map).reverse();
+      const index = keys.findIndex(changeAtQuarter => changeAtQuarter <= currentQuarter);
 
-      const upperBoundIndex = keys.findIndex(second => second > transportSeconds);
-
-      if (upperBoundIndex > 0) {
-        return map[keys[upperBoundIndex - 1]];
-      } else if (upperBoundIndex === 0) {
-        return map[0];
-      }
-
-      return map[keys[keys.length - 1]];
+      return map[keys[index]];
     }
   })
 });
@@ -45,6 +50,16 @@ const timeSignatureMap = atom<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
     0: [4, 4],
+    8: [6, 4],
+  }
+});
+
+const timeSignatureAtQuarter = selectorFamily<[number, number], number>({
+  key: 'project/timeSignatureAtQuarter',
+  get: quarter => ({get}) => {
+    const bar = get(transportStore.barAtQuarter(quarter));
+
+    return bar?.timeSignature || get(timeSignatureMap)[0];
   }
 });
 
@@ -73,12 +88,12 @@ const lengthInQuarters = atom({
 
 const beatsPerSecond = selector({
   key: 'arrangeWindow/beatsPerSecond',
-  get: ({get}) => 1 / get(currentTempoRamp) / 60,
+  get: ({get}) => 1 / get(currentTempo) / 60,
 });
 
 const secondsPerBeat = selector({
   key: 'arrangeWindow/secondsPerBeat',
-  get: ({get}) => 60 / get(currentTempoRamp),
+  get: ({get}) => 60 / get(currentTempo),
 });
 
 const isClickMuted = atom<boolean>({
@@ -89,8 +104,10 @@ const isClickMuted = atom<boolean>({
 export const projectStore = {
   name,
   tempoMap,
-  currentTempoRamp,
+  currentTempo,
+  tempoAtQuarter,
   timeSignatureMap,
+  timeSignatureAtQuarter,
   currentTimeSignature,
   beatsPerSecond,
   secondsPerBeat,

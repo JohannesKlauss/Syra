@@ -1,21 +1,9 @@
 import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
 import { getSortedKeysOfEventMap } from './eventMap';
-import * as Tone from 'tone';
-
-export const secondsToSamples = (seconds: number) => Math.floor(Tone.getContext().sampleRate * seconds);
-export const samplesToSeconds = (frames: number) => frames / Tone.getContext().sampleRate;
-export const currentSamples = () => secondsToSamples(Tone.getTransport().seconds);
+import { isBetween } from './numbers';
 
 export function formatSecondsToTime(seconds: number) {
   return new Date(seconds * 1000).toISOString().substr(11, 12)
-}
-
-export function isTimeBetween(needle: number, boundaries: [number, number], includeRightBorder: boolean = false) {
-  if (includeRightBorder) {
-    return boundaries[0] <= needle && needle <= boundaries[1];
-  } else {
-    return boundaries[0] <= needle && needle < boundaries[1];
-  }
 }
 
 // This return the current beat number for the current playhead position.
@@ -33,7 +21,7 @@ export function getBeatCountForTransportSeconds(tsMap: {[name: number]: [number,
     const rightBoundary = (i < tsChanges.length - 1) ? tsChanges[i + 1] : 1597660821; // This is just a very big number the transport will never reach.
     const beatsPerSecond = (tsMap[change][1] / TIME_CONVERSION_RESOLUTION) / secondPerBeat;
 
-    if (isTimeBetween(transportSeconds, [change, rightBoundary])) {
+    if (isBetween(transportSeconds, [change, rightBoundary])) {
       beats = (beats + beatsPerSecond * (transportSeconds - change)) % tsMap[change][0];
 
       break;

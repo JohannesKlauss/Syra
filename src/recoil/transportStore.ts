@@ -1,7 +1,6 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import * as Tone from 'tone';
 import { PlayButtonMode } from '../types/PlayButtonMode';
-import { secondsToSamples } from '../utils/time';
 import { Bar } from '../types/Ui';
 import { projectStore } from './projectStore';
 import { getSortedKeysOfEventMap } from '../utils/eventMap';
@@ -33,19 +32,15 @@ const internalQuarter = atom({
 const currentQuarter = selector<number>({
   key: 'transport/quarters',
   get: ({get}) => get(internalQuarter),
-  set: ({set}, newValue) => {
+  set: ({get, set}, newValue) => {
     Tone.getTransport().position = `${newValue}:0:0`;
-
-    console.log('pos', Tone.getTransport().position);
 
     set(internalQuarter, newValue as number);
     set(internalSeconds, Tone.getTransport().seconds);
-  }
-});
 
-const currentSample = selector<number>({
-  key: 'transport/frames',
-  get: ({get}) => secondsToSamples(get(internalSeconds)),
+    set(projectStore.currentTempo, get(projectStore.tempoAtQuarter(newValue as number)));
+    set(projectStore.currentTimeSignature, get(projectStore.timeSignatureAtQuarter(newValue as number)));
+  }
 });
 
 const internalLoopStart = atom({
@@ -196,7 +191,6 @@ const barAtQuarter = selectorFamily<Bar | undefined, number>({
 export const transportStore = {
   seconds,
   currentQuarter,
-  currentSample,
   cycleStart,
   cycleEnd,
   isCycleActive,

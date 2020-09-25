@@ -5,25 +5,25 @@ import useToneJsTransport from './useToneJsTransport';
 
 export default function useTempoMapScheduler() {
   const tempoMap = useRecoilValue(projectStore.tempoMap);
-  const [currentTempoRamp, setCurrentTempoRamp] = useRecoilState(projectStore.currentTempoRamp);
+  const [currentTempo, setCurrentTempo] = useRecoilState(projectStore.currentTempo);
   const scheduleIds = useRef<number[]>([]);
   const transport = useToneJsTransport();
 
   useEffect(() => {
-    Object.keys(tempoMap).map(t => parseFloat(t)).forEach(changeAtSeconds => {
+    Object.keys(tempoMap).map(parseFloat).forEach(changeAtQuarter => {
       scheduleIds.current.push(transport.schedule(() => {
-        const newTempo = tempoMap[changeAtSeconds];
+        const newTempo = tempoMap[changeAtQuarter];
 
-        setCurrentTempoRamp(newTempo);
+        setCurrentTempo(newTempo);
 
         transport.bpm.value = newTempo;
-      }, changeAtSeconds));
+      }, `${changeAtQuarter}:0:0`));
     });
 
     return () => {
       scheduleIds.current.forEach(id => transport.clear(id));
     }
-  }, [tempoMap, scheduleIds, transport, setCurrentTempoRamp]);
+  }, [tempoMap, scheduleIds, transport, setCurrentTempo]);
 
-  return currentTempoRamp;
+  return currentTempo;
 }

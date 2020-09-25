@@ -10,7 +10,7 @@ export default function useTimeSignatureMapScheduler() {
   const transport = useToneJsTransport();
 
   useEffect(() => {
-    const changeAtQuarters = Object.keys(timeSignatureMap).map(t => parseFloat(t));
+    const changeAtQuarters = Object.keys(timeSignatureMap).map(parseFloat);
 
     changeAtQuarters.forEach(changeAtQuarter => {
       scheduleIds.current.push(transport.schedule(() => {
