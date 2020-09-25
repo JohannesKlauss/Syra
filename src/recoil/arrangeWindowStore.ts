@@ -53,11 +53,7 @@ const isSnapActive = atom({
 
 const playheadPosition = selector({
   key: 'arrangeWindow/playheadPosition',
-  get: ({get}) => {
-    console.log('current quarter', get(transportStore.currentQuarter));
-
-    return get(transportStore.currentQuarter) * get(zoomedQuarterPixelWidth);
-  }
+  get: ({get}) => get(transportStore.currentQuarter) * get(zoomedQuarterPixelWidth)
 })
 
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.
