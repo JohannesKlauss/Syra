@@ -5,12 +5,12 @@ import { useDropzone } from 'react-dropzone';
 import RegionList from './Regions/RegionList';
 import { hexToRgb } from '../../../utils/color';
 import useIsDragOnDocument from '../../../hooks/ui/useIsDragOnDocument';
-import usePixelToSeconds from '../../../hooks/ui/usePixelToSeconds';
 import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
 import { useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useCreateAudioRegion from '../../../hooks/recoil/region/useCreateAudioRegion';
 import MarqueeContainer from './MarqueeContainer';
+import usePixelToQuarter from '../../../hooks/ui/usePixelToQuarter';
 
 interface BaseContainerProps {
   backgroundColor: string;
@@ -56,7 +56,7 @@ const Track = React.memo(({ backgroundColor }: Props) => {
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
   const createRegion = useCreateAudioRegion();
   const isDragOnDocument = useIsDragOnDocument();
-  const pixelToSeconds = usePixelToSeconds();
+  const pixelToQuarter = usePixelToQuarter();
   const calcSnappedX = useSnapCtrlPixelCalc();
 
   const background = useMemo(() => {
@@ -72,9 +72,9 @@ const Track = React.memo(({ backgroundColor }: Props) => {
     if (files.length > 0) {
       // On a existing track we only use the first file.
       // TODO: THE SUBSEQUENT files should be move to the tracks beneath this one or create complete new channels.
-      await createRegion(channelId, files[0], pixelToSeconds(calcSnappedX(x)));
+      await createRegion(channelId, files[0], pixelToQuarter(calcSnappedX(x)));
     }
-  }, [createRegion, pixelToSeconds, calcSnappedX, channelId]);
+  }, [createRegion, pixelToQuarter, calcSnappedX, channelId]);
   const { getInputProps, isDragActive } = useDropzone({ onDrop });
 
   // TODO: BECAUSE OF A WEIRD ERROR WE REMOVED THE {...getRootProps()} FOR NOW.

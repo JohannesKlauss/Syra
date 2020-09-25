@@ -50,9 +50,9 @@ const internalCycleStart = atom<number>({
   default: selector({
     key: 'transport/internalCycleStart/Default',
     get: () => {
-      Tone.getTransport().loopStart = '4:0:0';
+      Tone.getTransport().loopStart = '0:0:0';
 
-      return 4;
+      return 0;
     }
   }),
 });

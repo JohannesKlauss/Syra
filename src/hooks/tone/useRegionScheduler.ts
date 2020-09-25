@@ -24,7 +24,7 @@ export default function useRegionScheduler() {
     players.player(regionId)
       .set({mute: isMuted})
       .unsync().sync()
-      .start(start + trimStart + 0.001, trimStart, trimEnd - trimStart);
+      .start(`${start + trimStart}:0:0`, `${trimStart}:0:0`, `${trimEnd - trimStart}:0:0`);
 
     return () => {
       players.player(regionId).unsync();

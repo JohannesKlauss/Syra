@@ -8,9 +8,9 @@ import useRegionDawRecordingSync from '../../../../hooks/ui/region/useRegionDawR
 import useRegionScheduler from '../../../../hooks/tone/useRegionScheduler';
 import ClonedAudioRegion from './ClonedAudioRegion';
 import ManipulationContainer from './Manipulations/ManipulationContainer';
-import useSecondsToPixel from '../../../../hooks/ui/useSecondsToPixel';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
 import useRegionSelfDestruct from '../../../../hooks/recoil/region/useRegionSelfDestruct';
+import useQuarterToPixel from '../../../../hooks/ui/useQuarterToPixel';
 
 /**
  * The AudioRegion is built a bit complicated and unintuitive.
@@ -27,10 +27,10 @@ function AudioRegion() {
   const name = useRecoilValue(regionStore.name(regionId));
   const trimStart = useRecoilValue(regionStore.trimStart(regionId));
   const start = useRecoilValue(regionStore.start(regionId));
-  const secondsToPixel = useSecondsToPixel();
+  const quarterToPixel = useQuarterToPixel();
   const isPressed = useIsHotkeyPressed();
   const color = useRegionColor(false);
-  const [left, setLeft] = useState(secondsToPixel(trimStart + start));
+  const [left, setLeft] = useState(quarterToPixel(trimStart + start));
   const [top, setTop] = useState(0);
   const [isMoving, setIsMoving] = useState(false);
 

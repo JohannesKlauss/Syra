@@ -2,13 +2,13 @@ import { useContext } from 'react';
 import { RegionContext } from '../../../providers/RegionContext';
 import { useRecoilValue } from 'recoil';
 import { regionStore } from '../../../recoil/regionStore';
-import useSecondsToPixel from '../useSecondsToPixel';
+import useQuarterToPixel from '../useQuarterToPixel';
 
 export default function useTrimmedRegionWidth() {
   const id = useContext(RegionContext);
   const trimEnd = useRecoilValue(regionStore.trimEnd(id));
   const trimStart = useRecoilValue(regionStore.trimStart(id));
-  const secondsToPixel = useSecondsToPixel();
+  const quarterToPixel = useQuarterToPixel();
 
-  return secondsToPixel(trimEnd) - secondsToPixel(trimStart);
+  return quarterToPixel(trimEnd) - quarterToPixel(trimStart);
 }

@@ -2,34 +2,34 @@ import { useContext, useMemo } from 'react';
 import { RegionContext } from '../../../providers/RegionContext';
 import { regionStore } from '../../../recoil/regionStore';
 import { useRecoilValue } from 'recoil';
-import useSecondsToPixel from '../useSecondsToPixel';
 import useTrimmedRegionWidth from './useTrimmedRegionWidth';
 import useRegionWidth from './useRegionWidth';
+import useQuarterToPixel from '../useQuarterToPixel';
 
 export default function useStaticRegionPosition() {
   const regionId = useContext(RegionContext);
-  const secondsToPixel = useSecondsToPixel();
+  const quarterToPixel = useQuarterToPixel();
   const trimmedRegionWidth = useTrimmedRegionWidth();
   const originalWidth = useRegionWidth();
   const trimStart = useRecoilValue(regionStore.trimStart(regionId));
   const start = useRecoilValue(regionStore.start(regionId));
 
-  const positionLeft = useMemo(() => secondsToPixel(trimStart + start), [secondsToPixel, trimStart, start]);
+  const positionLeft = useMemo(() => quarterToPixel(trimStart + start), [quarterToPixel, trimStart, start]);
   const left = useMemo(() => Math.max(positionLeft, 0), [positionLeft]);
   const width = useMemo(() => Math.min(trimmedRegionWidth, originalWidth), [trimmedRegionWidth, originalWidth]);
   const paddingLeft = useMemo(() => {
-    let padding = secondsToPixel(trimStart);
+    let padding = quarterToPixel(trimStart);
 
     if (padding < 0) {
       padding = 0;
     }
 
     if (left === 0) {
-      padding = secondsToPixel(trimStart);
+      padding = quarterToPixel(trimStart);
     }
 
     return padding;
-  }, [secondsToPixel, trimStart, left]);
+  }, [quarterToPixel, trimStart, left]);
 
   return {left, width, paddingLeft};
 }

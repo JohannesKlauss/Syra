@@ -3,31 +3,31 @@ import { RegionContext } from '../../../../providers/RegionContext';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import useDeltaTracker from './useDeltaTracker';
 import { regionStore } from '../../../../recoil/regionStore';
-import usePixelToSeconds from '../../usePixelToSeconds';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 import useDuplicateAudioRegion from '../../../recoil/region/useDuplicateAudioRegion';
-import useSecondsToPixel from '../../useSecondsToPixel';
 import useTrackSwitch from './useTrackSwitch';
+import usePixelToQuarter from '../../usePixelToQuarter';
+import useQuarterToPixel from '../../useQuarterToPixel';
 
 export default function useMove() {
   const regionId = useContext(RegionContext);
   const [start, setStart] = useRecoilState(regionStore.start(regionId));
   const trimStart = useRecoilValue(regionStore.trimStart(regionId));
-  const pixelToSeconds = usePixelToSeconds();
-  const secondsToPixel = useSecondsToPixel();
-  const [deltaX, setDeltaX] = useState(secondsToPixel(start));
+  const pixelToQuarter = usePixelToQuarter();
+  const quarterToPixel = useQuarterToPixel();
+  const [deltaX, setDeltaX] = useState(quarterToPixel(start));
   const [isMoving, setIsMoving] = useState(false);
   const isPressed = useIsHotkeyPressed();
   const duplicateRegion = useDuplicateAudioRegion();
   const { switchTrigger, cssTop } = useTrackSwitch();
 
   useEffect(() => {
-    setDeltaX(secondsToPixel(start));
-  }, [start, setDeltaX, secondsToPixel]);
+    setDeltaX(quarterToPixel(start));
+  }, [start, setDeltaX, quarterToPixel]);
 
   const onChange = useCallback(delta => {
-    setDeltaX(Math.max(delta + secondsToPixel(start), -trimStart));
-  }, [setDeltaX, secondsToPixel, trimStart, start]);
+    setDeltaX(Math.max(delta + quarterToPixel(start), -trimStart));
+  }, [setDeltaX, quarterToPixel, trimStart, start]);
 
   const onMouseUp = useCallback(delta => {
     setIsMoving(false);
@@ -37,13 +37,13 @@ export default function useMove() {
     }
 
     setStart(currVal => {
-      const newVal = Math.max(currVal + pixelToSeconds(delta), -trimStart);
+      const newVal = Math.max(currVal + pixelToQuarter(delta), -trimStart);
 
-      setDeltaX(secondsToPixel(newVal));
+      setDeltaX(quarterToPixel(newVal));
 
       return newVal;
     });
-  }, [setStart, trimStart, setDeltaX, pixelToSeconds, secondsToPixel, duplicateRegion, isPressed, regionId]);
+  }, [setStart, trimStart, setDeltaX, pixelToQuarter, quarterToPixel, duplicateRegion, isPressed, regionId]);
 
   const deltaXTrigger = useDeltaTracker(onChange, onMouseUp, false);
 

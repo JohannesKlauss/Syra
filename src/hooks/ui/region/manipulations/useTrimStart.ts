@@ -3,36 +3,36 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { regionStore } from '../../../../recoil/regionStore';
-import usePixelToSeconds from '../../usePixelToSeconds';
-import useSecondsToPixel from '../../useSecondsToPixel';
+import usePixelToQuarter from '../../usePixelToQuarter';
+import useQuarterToPixel from '../../useQuarterToPixel';
 
 export default function useTrimStart() {
   const regionId = useContext(RegionContext);
   const [trimStart, setTrimStart] = useRecoilState(regionStore.trimStart(regionId));
   const trimEnd = useRecoilValue(regionStore.trimEnd(regionId));
-  const pixelToSeconds = usePixelToSeconds();
-  const secondsToPixel = useSecondsToPixel();
+  const pixelToQuarter = usePixelToQuarter();
+  const quarterToPixel = useQuarterToPixel();
   const [deltaX, setDeltaX] = useState(trimStart);
 
   useEffect(() => {
-    setDeltaX(secondsToPixel(trimStart));
-  }, [trimStart, setDeltaX, secondsToPixel]);
+    setDeltaX(quarterToPixel(trimStart));
+  }, [trimStart, setDeltaX, quarterToPixel]);
 
   const onChange = useCallback(delta => {
-    setDeltaX(Math.max(secondsToPixel(trimStart) + delta, 0));
-  }, [setDeltaX, secondsToPixel, trimStart]);
+    setDeltaX(Math.max(quarterToPixel(trimStart) + delta, 0));
+  }, [setDeltaX, quarterToPixel, trimStart]);
 
   const onMouseUp = useCallback(delta => {
     setTrimStart(currVal => {
-      let newVal = Math.min(currVal + pixelToSeconds(delta), trimEnd);
+      let newVal = Math.min(currVal + pixelToQuarter(delta), trimEnd);
 
       newVal = Math.max(newVal, 0);
 
-      setDeltaX(secondsToPixel(newVal));
+      setDeltaX(quarterToPixel(newVal));
 
       return newVal;
     });
-  }, [setTrimStart, trimEnd, setDeltaX, pixelToSeconds, secondsToPixel]);
+  }, [setTrimStart, trimEnd, setDeltaX, pixelToQuarter, quarterToPixel]);
 
   const triggerTrimStart = useDeltaTracker(onChange, onMouseUp);
 

@@ -2,7 +2,7 @@ import { atom, atomFamily, selectorFamily } from 'recoil';
 import { audioBufferStore } from './audioBufferStore';
 import { arrangeWindowStore } from './arrangeWindowStore';
 
-// Sets the time that region plays in relation to the transport.
+// Sets the time that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamily<number, string>({
   key: 'region/start',
   default: 0, // This is measured in seconds. This value is referring to the transport, not the audio buffer.
