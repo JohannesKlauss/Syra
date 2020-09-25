@@ -49,9 +49,9 @@ function PlayRecord() {
 
       setCurrentTransportQuarter(pos);
     } else {
-      /*if (isCycleActive) {
-        setTransportSeconds(cycleStart);
-      }*/
+      if (isCycleActive) {
+        setCurrentTransportQuarter(cycleStart);
+      }
 
       transport.start('+0.01');
 

@@ -4,8 +4,8 @@ import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import useMovable from '../useMovable';
 import useSnapCtrlPixelCalc from '../useSnapCtrlPixelCalc';
-import useSecondsToPixel from '../useSecondsToPixel';
-import usePixelToSeconds from '../usePixelToSeconds';
+import useQuarterToPixel from '../useQuarterToPixel';
+import usePixelToQuarter from '../usePixelToQuarter';
 
 export default function useMoveCycleEnd() {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
@@ -13,24 +13,24 @@ export default function useMoveCycleEnd() {
   const [cycleEnd, setCycleEnd] = useRecoilState(transportStore.cycleEnd);
   const setIsCycleActive = useSetRecoilState(transportStore.isCycleActive);
   const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
-  const secondsToPixel = useSecondsToPixel();
-  const pixelToSeconds = usePixelToSeconds();
+  const quarterToPixel = useQuarterToPixel();
+  const pixelToQuarter = usePixelToQuarter();
   const calcSnappedX = useSnapCtrlPixelCalc();
 
   const [isActive, setIsActive] = useState(false);
-  const [translateX, setTranslateX] = useState(secondsToPixel(cycleEnd));
+  const [translateX, setTranslateX] = useState(quarterToPixel(cycleEnd));
 
   const initialValues = useRef({ x: 0, offsetStart: 0, offsetEnd: 0 });
 
   useEffect(() => {
-    initialValues.current.offsetStart = secondsToPixel(cycleStart);
-    initialValues.current.offsetEnd = secondsToPixel(cycleEnd);
-  }, [secondsToPixel, cycleStart, cycleEnd]);
+    initialValues.current.offsetStart = quarterToPixel(cycleStart);
+    initialValues.current.offsetEnd = quarterToPixel(cycleEnd);
+  }, [quarterToPixel, cycleStart, cycleEnd]);
 
   const onMouseUp = useCallback(() => {
-    setCycleEnd(pixelToSeconds(translateX));
+    setCycleEnd(pixelToQuarter(translateX));
     setIsActive(false);
-  }, [setCycleEnd, setIsActive, translateX, pixelToSeconds]);
+  }, [setCycleEnd, setIsActive, translateX, pixelToQuarter]);
 
   const onMouseMove = useCallback(e => {
     let x = initialValues.current.offsetEnd + e.clientX - initialValues.current.x;
@@ -38,12 +38,12 @@ export default function useMoveCycleEnd() {
     if (x > windowWidth) {
       x = windowWidth;
     }
-    else if (x <= secondsToPixel(cycleStart) + (snapWidth / 4)) {
-      x = secondsToPixel(cycleStart) + (snapWidth / 4);
+    else if (x <= quarterToPixel(cycleStart) + (snapWidth / 4)) {
+      x = quarterToPixel(cycleStart) + (snapWidth / 4);
     }
 
     setTranslateX(calcSnappedX(x));
-  }, [snapWidth, cycleStart, secondsToPixel, windowWidth, calcSnappedX]);
+  }, [snapWidth, cycleStart, quarterToPixel, windowWidth, calcSnappedX]);
 
   const movableTrigger = useMovable(onMouseMove, onMouseUp);
 

@@ -5,7 +5,7 @@ import { Bar } from '../types/Ui';
 import { projectStore } from './projectStore';
 import { getSortedKeysOfEventMap } from '../utils/eventMap';
 import { arrangeWindowStore } from './arrangeWindowStore';
-import { getToneJsPositionInQuarter } from '../utils/tonejs';
+import { convertTransportPositionStringToQuarters, getToneJsPositionInQuarter } from '../utils/tonejs';
 
 // Internal atoms are just used to sync everything with the ToneJs transport itself. Never expose them to the rest of the app.
 
@@ -43,38 +43,47 @@ const currentQuarter = selector<number>({
   }
 });
 
-const internalLoopStart = atom({
-  key: 'transport/internalLoopStart',
-  default: Tone.getTransport().loopStart,
+// The internal Cycle values are quarters while the ToneJs Transport returns seconds.
+
+const internalCycleStart = atom<number>({
+  key: 'transport/internalCycleStart',
+  default: selector({
+    key: 'transport/internalCycleStart/Default',
+    get: () => {
+      Tone.getTransport().loopStart = '4:0:0';
+
+      return 4;
+    }
+  }),
 });
 
 const cycleStart = selector<number>({
   key: 'transport/cycleStart',
-  get: ({get}) => get(internalLoopStart) as number,
+  get: ({get}) => get(internalCycleStart),
   set: ({set}, newValue) => {
-    Tone.getTransport().loopStart = newValue as number;
-    set(internalLoopStart, newValue as number);
+    Tone.getTransport().loopStart = `${newValue}:0:0`;
+    set(internalCycleStart, newValue);
   },
 });
 
-const internalLoopEnd = atom<number>({
-  key: 'transport/internalLoopEnd',
+const internalCycleEnd = atom<number>({
+  key: 'transport/internalCycleEnd',
   default: selector({
-    key: 'transport/internalLoopEnd/Default',
+    key: 'transport/internalCycleEnd/Default',
     get: () => {
-      Tone.getTransport().loopEnd = 4;
+      Tone.getTransport().loopEnd = '8:0:0';
 
-      return Tone.getTransport().loopEnd as number;
+      return 8;
     }
   }),
 });
 
 const cycleEnd = selector<number>({
   key: 'transport/cycleEnd',
-  get: ({get}) => get(internalLoopEnd) as number,
+  get: ({get}) => get(internalCycleEnd),
   set: ({set}, newValue) => {
-    Tone.getTransport().loopEnd = newValue as number;
-    set(internalLoopEnd, newValue as number);
+    Tone.getTransport().loopEnd = `${newValue}:0:0`;
+    set(internalCycleEnd, newValue);
   },
 });
 
@@ -146,7 +155,7 @@ const filteredBars = selector<Bar[]>({
 
     let spaceBetween = 40;
 
-    return allItems.map((item, i): Bar => {
+    return allItems.map((item): Bar => {
       spaceBetween += item.lengthInQuarters * baseQuarterWidth;
 
       if (spaceBetween >= 40) {
