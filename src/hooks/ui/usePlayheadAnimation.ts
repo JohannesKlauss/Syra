@@ -11,11 +11,11 @@ export default function usePlayheadAnimation() {
   const isRecording = useRecoilValue(transportStore.isRecording);
   const isPlaying = useRecoilValue(transportStore.isPlaying);
   const playheadPosition = useRecoilValue(arrangeWindowStore.playheadPosition);
-  const [transportTranslate, setTransportTranslate] = useState(secondsToPixel(transport.seconds));
+  const [transportTranslate, setTransportTranslate] = useState(playheadPosition);
   const animRef = useRef<number>(0);
   const scrolled = useRef<boolean>(false);
   const lastSeconds = useRef<number>(transport.seconds);
-  const currentTranslate = useRef<number>(secondsToPixel(transport.seconds));
+  const currentTranslate = useRef<number>(transportTranslate);
   const viewportWidth = useRecoilValue(arrangeWindowStore.viewportWidth);
   const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
 
@@ -56,8 +56,10 @@ export default function usePlayheadAnimation() {
   useEffect(() => {
     if (!isPlaying && !isRecording) {
       setTransportTranslate(playheadPosition);
+      currentTranslate.current = playheadPosition;
+      lastSeconds.current = transport.seconds;
     }
-  }, [playheadPosition, setTransportTranslate, isPlaying, isRecording]);
+  }, [playheadPosition, setTransportTranslate, isPlaying, isRecording, lastSeconds, currentTranslate, transport]);
 
   return transportTranslate;
 }

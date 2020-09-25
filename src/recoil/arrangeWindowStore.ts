@@ -51,11 +51,14 @@ const isSnapActive = atom({
   default: true,
 });
 
-// The position of the transport bar. This is measured in pixel!
-const playheadPosition = atom({
+const playheadPosition = selector({
   key: 'arrangeWindow/playheadPosition',
-  default: 0,
-});
+  get: ({get}) => {
+    console.log('current quarter', get(transportStore.currentQuarter));
+
+    return get(transportStore.currentQuarter) * get(zoomedQuarterPixelWidth);
+  }
+})
 
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.
 // This goes from 1 to 11

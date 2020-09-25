@@ -6,15 +6,14 @@ import StopIcon from '@material-ui/icons/Stop';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import { Box, IconButton, styled } from '@material-ui/core';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { transportStore } from '../../../recoil/transportStore';
 import { useHotkeys } from 'react-hotkeys-hook';
-import useSecondsToPixel from '../../../hooks/ui/useSecondsToPixel';
 import { buttonInfo } from '../../../utils/text';
 import useAudioContext from '../../../hooks/audio/useAudioContext';
 import { BackboneMixerContext } from '../../../providers/BackboneMixerContext';
 import { projectStore } from '../../../recoil/projectStore';
+import { getToneJsPositionInQuarter } from '../../../utils/tonejs';
 
 const BaseContainer = styled(Box)({
   marginLeft: 20,
@@ -25,16 +24,13 @@ const BaseContainer = styled(Box)({
 
 function PlayRecord() {
   const ctx = useAudioContext();
-  const setPlayheadPosition = useSetRecoilState(arrangeWindowStore.playheadPosition);
-  const secondsPerBeat = useRecoilValue(projectStore.secondsPerBeat);
   const [isRecording, setIsRecording] = useRecoilState(transportStore.isRecording);
   const [isPlaying, setIsPlaying] = useRecoilState(transportStore.isPlaying);
-  const setTransportSeconds = useSetRecoilState(transportStore.seconds);
+  const setCurrentTransportQuarter = useSetRecoilState(transportStore.currentQuarter);
   const isCycleActive = useRecoilValue(transportStore.isCycleActive);
   const cycleStart = useRecoilValue(transportStore.cycleStart);
   const lengthInQuarters = useRecoilValue(projectStore.lengthInQuarters);
   const transport = useToneJsTransport();
-  const secondsToPixel = useSecondsToPixel();
   const stopScheduleId = useRef<null | number>(null);
   const { meta: { setTransportStart, setTransportStop } } = useContext(BackboneMixerContext);
 
@@ -44,39 +40,34 @@ function PlayRecord() {
     }
 
     if (isPlaying) {
-      const pos = transport.seconds;
+      const pos = getToneJsPositionInQuarter();
       transport.stop();
 
       if (stopScheduleId.current) {
         transport.clear(stopScheduleId.current);
       }
 
-      setPlayheadPosition(secondsToPixel(pos));
-      setTransportSeconds(pos);
+      setCurrentTransportQuarter(pos);
     } else {
-      if (isCycleActive) {
+      /*if (isCycleActive) {
         setTransportSeconds(cycleStart);
-      }
+      }*/
 
-      transport.start('+0.05');
+      transport.start('+0.01');
 
       stopScheduleId.current = transport.scheduleOnce(() => {
-        const pos = transport.seconds;
+        const pos = getToneJsPositionInQuarter();
         transport.stop();
 
-        setPlayheadPosition(secondsToPixel(pos));
-        setTransportSeconds(pos);
+        setCurrentTransportQuarter(pos);
         setIsPlaying(false);
-      }, `+${(lengthInQuarters / secondsPerBeat) - transport.seconds}`);
+      }, `${lengthInQuarters}:0:0`);
     }
 
     setIsPlaying(currVal => !currVal);
-  }, [setIsPlaying, transport, isPlaying, isRecording, setTransportSeconds, cycleStart, isCycleActive, secondsToPixel, setPlayheadPosition, lengthInQuarters, secondsPerBeat]);
+  }, [setIsPlaying, transport, isPlaying, isRecording, cycleStart, isCycleActive, lengthInQuarters]);
 
-  const onClickReset = useCallback(() => {
-    setPlayheadPosition(0);
-    setTransportSeconds(0);
-  }, [setPlayheadPosition, setTransportSeconds]);
+  const onClickReset = useCallback(() => setCurrentTransportQuarter(0), [setCurrentTransportQuarter]);
 
   const onClickRecord = useCallback(() => {
     if (isRecording) {
@@ -92,7 +83,7 @@ function PlayRecord() {
     }
   }, [setIsRecording, isRecording, transport, setTransportStart, setTransportStop, ctx]);
 
-  useHotkeys('space', () => onClickPlayPause(), [onClickPlayPause]);
+  useHotkeys('space', onClickPlayPause, [onClickPlayPause]);
   useHotkeys('r', onClickRecord, [onClickRecord]);
   useHotkeys('return', onClickReset, [onClickReset]);
 

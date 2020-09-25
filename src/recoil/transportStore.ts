@@ -36,6 +36,8 @@ const currentQuarter = selector<number>({
   set: ({set}, newValue) => {
     Tone.getTransport().position = `${newValue}:0:0`;
 
+    console.log('pos', Tone.getTransport().position);
+
     set(internalQuarter, newValue as number);
     set(internalSeconds, Tone.getTransport().seconds);
   }

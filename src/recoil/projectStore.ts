@@ -13,6 +13,7 @@ const tempoMap = atom<{[name: number]: number}>({
   key: 'project/tempoMap',
   default: {
     0: 120,
+    2: 240,
   }
 });
 

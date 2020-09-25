@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { Box, BoxProps, styled } from '@material-ui/core';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   arrangeWindowStore,
 } from '../../../recoil/arrangeWindowStore';
@@ -29,7 +29,7 @@ const BaseContainer = styled(
 function RulerTransportCursor() {
   const setTransportQuarters = useSetRecoilState(transportStore.currentQuarter);
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
-  const [playheadPosition, setPlayheadPosition] = useRecoilState(arrangeWindowStore.playheadPosition);
+  const playheadPosition = useRecoilValue(arrangeWindowStore.playheadPosition);
   const calcSnappedPos = useSnapCtrlPixelCalc();
   const zoomedQuarterPixelWidth = useRecoilValue(arrangeWindowStore.zoomedQuarterPixelWidth);
   const viewportWidth = useRecoilValue(arrangeWindowStore.viewportWidth);
@@ -44,14 +44,12 @@ function RulerTransportCursor() {
 
     if (playheadPosition !== position) {
       if (snapValue === 4 && isSnapActive) { // If snap Value is at 1 bar we have to snap to the nearest bar.
-        setPlayheadPosition(((barAtPixel(position)?.quarterInProject || 0)) * zoomedQuarterPixelWidth);
         setTransportQuarters(barAtPixel(position)?.quarterInProject || position / zoomedQuarterPixelWidth);
       } else {
-        setPlayheadPosition(isSnapActive ? position : rawPosition);
         setTransportQuarters((isSnapActive ? position : rawPosition) / zoomedQuarterPixelWidth);
       }
     }
-  }, [setPlayheadPosition, calcSnappedPos, setTransportQuarters, playheadPosition, zoomedQuarterPixelWidth, barAtPixel, snapValue, isSnapActive]);
+  }, [calcSnappedPos, setTransportQuarters, playheadPosition, zoomedQuarterPixelWidth, barAtPixel, snapValue, isSnapActive]);
 
   const onMovableTrigger = useMovable(onMouseInteraction, onMouseInteraction);
 
@@ -60,6 +58,7 @@ function RulerTransportCursor() {
     onMovableTrigger();
   }, [onMouseInteraction, onMovableTrigger]);
 
+  // Scroll the arrange window if playhead exceed viewport
   useEffect(() => {
     const scrollLeft = arrangeWindowRef?.current?.scrollLeft ?? 0;
 

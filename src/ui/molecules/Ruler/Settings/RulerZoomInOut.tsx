@@ -41,17 +41,17 @@ function RulerZoomInOut() {
     setVerticalZoomLevel(currVal => currVal < 11 ? currVal + 1 : 11)
   });
 
-  const updatePlayhead = useRecoilCallback(({set, snapshot}) => () => {
+  /*const updatePlayhead = useRecoilCallback(({set, snapshot}) => () => {
     const transportSeconds = snapshot.getLoadable(transportStore.seconds).contents as number;
 
     set(arrangeWindowStore.playheadPosition, secondsToPixel(transportSeconds));
-  }, [secondsToPixel]);
+  }, [secondsToPixel]);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (!isRecording && !isPlaying) {
       updatePlayhead();
     }
-  }, [secondsToPixel, updatePlayhead, isRecording, isPlaying]);
+  }, [secondsToPixel, updatePlayhead, isRecording, isPlaying]);*/
 
   return (
     <ButtonGroup variant={'text'} size={'small'}>
