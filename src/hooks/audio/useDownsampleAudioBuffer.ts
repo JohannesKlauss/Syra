@@ -2,6 +2,7 @@ import { audioBufferStore } from '../../recoil/audioBufferStore';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
 import useAudioContext from './useAudioContext';
+import { ARRANGE_GRID_WAVEFORM_SAMPLE_RATE } from '../../const/ui';
 
 export default function useDownsampleAudioBuffer(bufferId: string) {
   const buffer = useRecoilValue(audioBufferStore.buffer(bufferId));
@@ -18,7 +19,7 @@ export default function useDownsampleAudioBuffer(bufferId: string) {
 
     const channelLeftSab = new SharedArrayBuffer(byteLength);
     const channelRightSab = new SharedArrayBuffer(byteLength);
-
+    const resultSab = new SharedArrayBuffer(Math.floor(ARRANGE_GRID_WAVEFORM_SAMPLE_RATE * buffer.duration));
     const leftChannel = new Float32Array(channelLeftSab);
     const rightChannel = new Float32Array(channelRightSab);
 
@@ -27,22 +28,14 @@ export default function useDownsampleAudioBuffer(bufferId: string) {
 
     const worker = new Worker('worker/DownsampleBufferWorker.js');
 
-    console.log('postMessage');
-
     worker.postMessage({
       channelLeftSab,
       channelRightSab,
+      resultSab,
       ctxSampleRate: context.sampleRate,
-      toSampleRate: 4000,
+      toSampleRate: ARRANGE_GRID_WAVEFORM_SAMPLE_RATE,
     });
 
-    worker.onmessage = e => {
-      console.log(e.data);
-
-      setPeaks({
-        leftChannel: e.data[0],
-        rightChannel: e.data[1],
-      });
-    };
+    worker.onmessage = () => setPeaks(resultSab);
   }, [buffer, setPeaks, context]);
 }

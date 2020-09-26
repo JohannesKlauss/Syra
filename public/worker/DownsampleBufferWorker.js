@@ -1,10 +1,6 @@
-function downsampleBuffer(leftChannel, rightChannel, fromSampleRate, toSampleRate) {
-  const stepSize = Math.ceil(toSampleRate / fromSampleRate);
+function downsampleBuffer(leftChannel, rightChannel, result, fromSampleRate, toSampleRate) {
+  const stepSize = Math.ceil(fromSampleRate / toSampleRate);
   const mathAbs = Math.abs, mathMax = Math.max, mathMin = Math.min;
-
-  console.log('leftChannel', leftChannel);
-
-  const result = new Float32Array(Math.ceil(leftChannel.length * (toSampleRate / fromSampleRate)));
 
   let resultIndex = 0;
   let min = 1;
@@ -22,15 +18,19 @@ function downsampleBuffer(leftChannel, rightChannel, fromSampleRate, toSampleRat
       min = mathMin(leftData, rightData, min);
     }
 
-    result[resultIndex++] = mathAbs(min) > mathAbs(max) ? min : max;
+    result[resultIndex++] = Math.round(mathAbs(min) > mathAbs(max) ? min * 255 : max * 255);
   }
 
   return result;
 }
 
 self.onmessage = function(evt) {
-  const { channelLeftSab, channelRightSab, ctxSampleRate, toSampleRate } = evt.data; // These are SharedArrayBuffers
+  const { channelLeftSab, channelRightSab, resultSab, ctxSampleRate, toSampleRate } = evt.data; // These are SharedArrayBuffers
 
-  postMessage(downsampleBuffer(new Float32Array(channelLeftSab), new Float32Array(channelRightSab), ctxSampleRate, toSampleRate));
+  const result = new Uint8Array(resultSab);
+
+  downsampleBuffer(new Float32Array(channelLeftSab), new Float32Array(channelRightSab), result, ctxSampleRate, toSampleRate)
+
+  postMessage('done');
 };
 

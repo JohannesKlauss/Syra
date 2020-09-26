@@ -24,6 +24,10 @@ interface Props {
 function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset, onUpdateTopOffset }: Props) {
   const regionId = useContext(RegionContext);
   const bufferId = useRecoilValue(regionStore.audioBufferPointer(regionId));
+  const peakBuckets = useRecoilValue(regionStore.peakBuckets({
+    bufferId,
+    tempo: 120,
+  }));
   const waveformSmoothing = useRecoilValue(arrangeWindowStore.waveformSmoothing);
   const color = useRegionColor(false);
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
@@ -44,6 +48,8 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset, onUpdateT
   }, [cssTop, onUpdateTopOffset]);
 
   useDownsampleAudioBuffer(bufferId ?? '');
+
+  console.log(peakBuckets);
 
   return (
     <>

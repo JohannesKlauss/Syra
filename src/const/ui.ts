@@ -1,6 +1,8 @@
 export const ARRANGE_GRID_OFFSET = -6;
 export const ARRANGE_GRID_CHANNEL_LIST_GAP = ARRANGE_GRID_OFFSET * (-2);
 
+export const ARRANGE_GRID_WAVEFORM_SAMPLE_RATE = 4000; // This is the rate the audio buffers get down sampled to for waveform vis.
+
 // This defines the default height of a track based on the vertical zoom level.
 export const ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT: {[name: number]: number} = {
   1: 30,

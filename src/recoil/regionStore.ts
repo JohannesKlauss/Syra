@@ -1,6 +1,7 @@
 import { atom, atomFamily, selectorFamily } from 'recoil';
 import { audioBufferStore } from './audioBufferStore';
 import { arrangeWindowStore } from './arrangeWindowStore';
+import { ARRANGE_GRID_WAVEFORM_SAMPLE_RATE } from '../const/ui';
 
 // Sets the time that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamily<number, string>({
@@ -89,6 +90,38 @@ const audioBuffer = selectorFamily<AudioBuffer | null, string>({
   }
 });
 
+// This is creating buckets on the fly depending on position and tempo of the region.
+// Those buckets represent the index boundaries to calculate the value of on pixel for the waveform.
+const peakBuckets = selectorFamily<[number, number][] | null, { bufferId: string | null, tempo: number }>({
+  key: 'region/peakBuckets',
+  get: ({bufferId, tempo}) => ({get}) => {
+    if (bufferId === null) {
+      return null;
+    }
+
+    const buffer = get(audioBufferStore.buffer(bufferId));
+    const peaks = get(audioBufferStore.peaks(bufferId));
+
+    if (peaks === null || buffer === null) {
+      return null;
+    }
+
+    const peaksView = new Uint8Array(peaks);
+    const quarterWidth = get(arrangeWindowStore.zoomedQuarterPixelWidth);
+    const pixelPerSecond = tempo / 60 * quarterWidth;
+    const indexRange = Math.ceil(peaksView.length / (buffer.duration * pixelPerSecond));
+    const buckets: [number, number][] = [];
+
+    for (let i = 0, j = 0; j < buffer.duration * pixelPerSecond; i += indexRange, j++) {
+      buckets[j] = [i, i + indexRange - 1];
+    }
+
+    buckets[buckets.length - 1][1] = peaks.byteLength - 1;
+
+    return buckets;
+  }
+});
+
 // Parameter is channelId.
 const ids = atomFamily<string[], string>({
   key: 'region/ids',
@@ -146,6 +179,7 @@ export const regionStore = {
   name,
   audioBuffer,
   audioBufferPointer,
+  peakBuckets,
   isSolo,
   isMuted,
   isRecording,
