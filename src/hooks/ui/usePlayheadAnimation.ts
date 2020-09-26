@@ -20,7 +20,14 @@ export default function usePlayheadAnimation() {
   const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
 
   const animate = () => {
-    currentTranslate.current += secondsToPixel(transport.seconds - lastSeconds.current);
+    // If we are in a loop, or reset the playhead to a different position, we need to reset the currentTranslate value.
+    if (transport.seconds < lastSeconds.current) {
+      currentTranslate.current = secondsToPixel(transport.seconds);
+    }
+    else {
+      currentTranslate.current += secondsToPixel(transport.seconds - lastSeconds.current);
+    }
+
     lastSeconds.current = transport.seconds;
 
     setTransportTranslate(currentTranslate.current);
@@ -45,21 +52,17 @@ export default function usePlayheadAnimation() {
     if (isPlaying || isRecording) {
       animRef.current = requestAnimationFrame(animate);
     } else {
+      setTransportTranslate(playheadPosition);
+      currentTranslate.current = playheadPosition;
+      lastSeconds.current = transport.seconds;
+
       cancelAnimationFrame(animRef.current);
     }
 
     return () => {
       cancelAnimationFrame(animRef.current);
     }
-  }, [isRecording, isPlaying, secondsToPixel, animRef]);
-
-  useEffect(() => {
-    if (!isPlaying && !isRecording) {
-      setTransportTranslate(playheadPosition);
-      currentTranslate.current = playheadPosition;
-      lastSeconds.current = transport.seconds;
-    }
-  }, [playheadPosition, setTransportTranslate, isPlaying, isRecording, lastSeconds, currentTranslate, transport]);
+  }, [isRecording, isPlaying, secondsToPixel, animRef, playheadPosition, setTransportTranslate, transport, currentTranslate]);
 
   return transportTranslate;
 }

@@ -19,9 +19,6 @@ export default function useMoveCycleStart() {
   const [isActive, setIsActive] = useState(false);
   const [translateX, setTranslateX] = useState(quarterToPixel(cycleStart));
 
-  console.log('cycle start', cycleStart);
-  console.log('pixel', quarterToPixel(cycleStart));
-
   const initialValues = useRef({ x: 0, offsetStart: 0, offsetEnd: 0 });
 
   useEffect(() => {
