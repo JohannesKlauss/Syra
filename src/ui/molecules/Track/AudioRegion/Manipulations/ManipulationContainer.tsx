@@ -13,6 +13,7 @@ import useAsyncWaveformWorker from '../../../../../hooks/audio/useAsyncWaveformW
 import useMove from '../../../../../hooks/ui/region/manipulations/useMove';
 import useTrimStart from '../../../../../hooks/ui/region/manipulations/useTrimStart';
 import useTrimEnd from '../../../../../hooks/ui/region/manipulations/useTrimEnd';
+import useDownsampleAudioBuffer from '../../../../../hooks/audio/useDownsampleAudioBuffer';
 
 interface Props {
   onChangeIsMoving: (isMoving: boolean) => void;
@@ -42,12 +43,11 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset, onUpdateT
     onUpdateTopOffset(cssTop);
   }, [cssTop, onUpdateTopOffset]);
 
-  const pointCloudId = useAsyncWaveformWorker(bufferId ?? '', trackHeight, determineTextColor(color), waveformSmoothing);
+  useDownsampleAudioBuffer(bufferId ?? '');
 
   return (
     <>
       <RegionFirstLoop color={color} width={deltaXTrimEnd - deltaXTrimStart}>
-        <WindowedWaveform pointCloudId={pointCloudId} trimStart={deltaXTrimStart}/>
         <Manipulations onMouseDown={triggerMove} isMoving={isMoving}>
           <TrimStartHandle trigger={triggerTrimStart}/>
           <TrimEndHandle trigger={triggerTrimEnd}/>

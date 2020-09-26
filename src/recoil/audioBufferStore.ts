@@ -1,9 +1,17 @@
 import { atom, atomFamily } from 'recoil';
+import { AudioBufferPeaks } from '../types/Audio';
 
 // In this family we store all the available audio buffers. A region then can point to a buffer and reference it.
 // This way multiple regions can reference the same buffer without having to recreate it every time.
 const buffer = atomFamily<AudioBuffer | null, string>({
   key: 'audioBuffer/buffer',
+  default: null,
+});
+
+// Peaks holds a down sampled variant converted to Uint8 values of the raw buffer. Used for quick peak analyzing and
+// waveform creation.
+const peaks = atomFamily<AudioBufferPeaks | null, string>({
+  key: 'audioBuffer/analyzedPeaks',
   default: null,
 });
 
@@ -31,6 +39,7 @@ const ids = atom<string[]>({
 
 export const audioBufferStore = {
   buffer,
+  peaks,
   waveform,
   waveformImage,
   name,

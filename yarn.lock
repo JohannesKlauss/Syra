@@ -1933,6 +1933,14 @@
   resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
   integrity sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw==
 
+"@inlet/react-pixi@^5.1.4":
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/@inlet/react-pixi/-/react-pixi-5.1.4.tgz#fdccf0abbe0f7f4fda457f938b71a04e499af9da"
+  integrity sha512-CWd/DYjx6LgWitZMe5APW62g44RMy8xzXHcqFSbCnpVTvKAm4ikdStyWq6a9viJKlro7VrBCkGmaFl901TkPTw==
+  dependencies:
+    performance-now "^2.1.0"
+    react-reconciler "0.25.1"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -13741,6 +13749,16 @@ react-popper@^1.3.7:
     prop-types "^15.6.1"
     typed-styles "^0.0.7"
     warning "^4.0.2"
+
+react-reconciler@0.25.1:
+  version "0.25.1"
+  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.25.1.tgz#f9814d59d115e1210762287ce987801529363aaa"
+  integrity sha512-R5UwsIvRcSs3w8n9k3tBoTtUHdVhu9u84EG7E5M0Jk9F5i6DA1pQzPfUZd6opYWGy56MJOtV3VADzy6DRwYDjw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.19.1"
 
 react-router-dom@5.2.0:
   version "5.2.0"
