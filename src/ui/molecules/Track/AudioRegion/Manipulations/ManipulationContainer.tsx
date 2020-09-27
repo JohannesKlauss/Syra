@@ -14,6 +14,8 @@ import useMove from '../../../../../hooks/ui/region/manipulations/useMove';
 import useTrimStart from '../../../../../hooks/ui/region/manipulations/useTrimStart';
 import useTrimEnd from '../../../../../hooks/ui/region/manipulations/useTrimEnd';
 import useDownsampleAudioBuffer from '../../../../../hooks/audio/useDownsampleAudioBuffer';
+import { audioBufferStore } from '../../../../../recoil/audioBufferStore';
+import WaveformV4 from '../../../Waveform/WaveformV4';
 
 interface Props {
   onChangeIsMoving: (isMoving: boolean) => void;
@@ -24,10 +26,6 @@ interface Props {
 function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset, onUpdateTopOffset }: Props) {
   const regionId = useContext(RegionContext);
   const bufferId = useRecoilValue(regionStore.audioBufferPointer(regionId));
-  const peakBuckets = useRecoilValue(regionStore.peakBuckets({
-    bufferId,
-    tempo: 120,
-  }));
   const waveformSmoothing = useRecoilValue(arrangeWindowStore.waveformSmoothing);
   const color = useRegionColor(false);
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
@@ -47,13 +45,10 @@ function ManipulationContainer({ onChangeIsMoving, onUpdateLeftOffset, onUpdateT
     onUpdateTopOffset(cssTop);
   }, [cssTop, onUpdateTopOffset]);
 
-  useDownsampleAudioBuffer(bufferId ?? '');
-
-  console.log(peakBuckets);
-
   return (
     <>
       <RegionFirstLoop color={color} width={deltaXTrimEnd - deltaXTrimStart}>
+        {bufferId && <WaveformV4 bufferId={bufferId} trimStart={deltaXTrimStart}/>}
         <Manipulations onMouseDown={triggerMove} isMoving={isMoving}>
           <TrimStartHandle trigger={triggerTrimStart}/>
           <TrimEndHandle trigger={triggerTrimEnd}/>
