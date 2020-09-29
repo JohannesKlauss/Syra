@@ -1449,10 +1449,10 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@dfinity/agent@0.6.9":
-  version "0.6.9"
-  resolved "https://registry.yarnpkg.com/@dfinity/agent/-/agent-0.6.9.tgz#2ed9b17562af4794bcd2869223ad04679b68c1ff"
-  integrity sha512-iwMDKiaWCkkhGusQZ50FNp2suJaqt3dICy1/Nbm3TzYSrYWv3rwcZhEW11xkx18tWzZnzq6sR6V9X/A7ZXQm4Q==
+"@dfinity/agent@0.6.10":
+  version "0.6.10"
+  resolved "https://registry.yarnpkg.com/@dfinity/agent/-/agent-0.6.10.tgz#aca70281dcadb988fc0f2f821f64e14b14fd5c92"
+  integrity sha512-Q8Ur/IdQSnbjA+zvesYrekXbp0R582tL/okHEOIWHmmVcHlG1kkBUbwGnitmWsL+QlpoPM3BAtTwdrCbbC/62A==
   dependencies:
     "@types/crc" "^3.4.0"
     "@types/jest" "^24.0.18"
