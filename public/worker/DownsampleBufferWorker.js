@@ -18,8 +18,10 @@ function downsampleBuffer(leftChannel, rightChannel, result, fromSampleRate, toS
       min = mathMin(leftData, rightData, min);
     }
 
-    result[resultIndex++] = Math.round(mathAbs(min) > mathAbs(max) ? min * 255 : max * 255);
+    result[resultIndex++] = mathAbs(min) > mathAbs(max) ? min : max;
   }
+
+  console.log('result', result);
 
   return result;
 }
@@ -27,7 +29,7 @@ function downsampleBuffer(leftChannel, rightChannel, result, fromSampleRate, toS
 self.onmessage = function(evt) {
   const { channelLeftSab, channelRightSab, resultSab, ctxSampleRate, toSampleRate } = evt.data; // These are SharedArrayBuffers
 
-  const result = new Uint8Array(resultSab);
+  const result = new Float32Array(resultSab);
 
   downsampleBuffer(new Float32Array(channelLeftSab), new Float32Array(channelRightSab), result, ctxSampleRate, toSampleRate)
 

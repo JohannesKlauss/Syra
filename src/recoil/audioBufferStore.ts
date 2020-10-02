@@ -27,7 +27,7 @@ const peakBuckets = selectorFamily<[number, number][], string>({
       return [];
     }
 
-    const peaksView = new Uint8Array(rawPeaks);
+    const peaksView = new Float32Array(rawPeaks);
     const quarterWidth = get(arrangeWindowStore.zoomedQuarterPixelWidth);
     const pixelPerSecond = 2 * quarterWidth;
     const indexRange = Math.ceil(peaksView.length / (rawBuffer.duration * pixelPerSecond));
@@ -57,7 +57,7 @@ const pixelPeaks = selectorFamily<number[], string | null>({
       return [];
     }
 
-    const peaksView = new Uint8Array(rawPeaks);
+    const peaksView = new Float32Array(rawPeaks);
 
     const SMOOTHING = 1;
 

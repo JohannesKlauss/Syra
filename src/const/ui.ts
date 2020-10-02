@@ -1,7 +1,7 @@
 export const ARRANGE_GRID_OFFSET = -6;
 export const ARRANGE_GRID_CHANNEL_LIST_GAP = ARRANGE_GRID_OFFSET * (-2);
 
-export const ARRANGE_GRID_WAVEFORM_SAMPLE_RATE = 4000; // This is the rate the audio buffers get down sampled to for waveform vis.
+export const ARRANGE_GRID_WAVEFORM_SAMPLE_RATE = 2000; // This is the rate the audio buffers get down sampled to for waveform vis.
 
 export const DPR = window.devicePixelRatio;
 

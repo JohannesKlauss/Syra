@@ -2,7 +2,10 @@
 
 build
 
-.env.*
+.env
+.env.local
+.env.production
+.env.integration
 
 dist
 public/ic-injector.js

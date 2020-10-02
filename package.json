@@ -77,10 +77,10 @@
     "webpack-cli": "3.3.12"
   },
   "scripts": {
-    "start": "craco -r @cypress/instrument-cra start",
-    "build": "CI= craco build && webpack",
-    "test": "craco test",
-    "eject": "craco eject",
+    "start": "react-scripts start",
+    "build": "CI= react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "gql-gen": "graphql-codegen --config codegen.yml",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
