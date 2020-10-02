@@ -98,7 +98,7 @@ const secondsPerBeat = selector({
 
 const isClickMuted = atom<boolean>({
   key: 'project/isClickMuted',
-  default: false,
+  default: true,
 });
 
 export const projectStore = {

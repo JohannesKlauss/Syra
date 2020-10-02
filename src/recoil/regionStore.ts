@@ -1,6 +1,7 @@
 import { atom, atomFamily, selectorFamily } from 'recoil';
 import { audioBufferStore } from './audioBufferStore';
 import { arrangeWindowStore } from './arrangeWindowStore';
+import { ARRANGE_GRID_WAVEFORM_SAMPLE_RATE } from '../const/ui';
 
 // Sets the time that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamily<number, string>({

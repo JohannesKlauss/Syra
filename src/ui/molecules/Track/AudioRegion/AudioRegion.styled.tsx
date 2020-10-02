@@ -43,7 +43,7 @@ export const RegionFirstLoop = styled(
   height: '100%',
   position: 'relative',
   overflow: 'hidden',
-  width: ({ width }: RegionFirstLoopProps) => width,
+  width: ({ width }: RegionFirstLoopProps) => 325,
   backgroundColor: ({ color }: RegionFirstLoopProps) => color,
   '&:focus': {
     outline: 'none',
