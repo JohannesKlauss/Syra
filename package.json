@@ -35,6 +35,7 @@
     "lerna": "3.22.1",
     "prettier": "2.1.2",
     "recoilize": "0.8.0",
+    "rimraf": "3.0.2",
     "supertest": "5.0.0",
     "ts-jest": "26.4.1",
     "ts-loader": "8.0.4",
