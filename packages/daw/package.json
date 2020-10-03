@@ -9,6 +9,7 @@
     "@material-ui/lab": "4.0.0-alpha.56",
     "@urql/devtools": "2.0.2",
     "array-move": "3.0.1",
+    "fm.liveswitch": "1.9.4-33424",
     "graphql": "15.3.0",
     "hotkeys-js": "3.8.1",
     "konva": "7.1.3",
