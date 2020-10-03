@@ -1,14 +1,18 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
 import React from "react";
-import { ThemeProvider, CSSReset } from "@chakra-ui/core";
+import { ThemeProvider, CSSReset, ColorModeProvider } from "@chakra-ui/core";
 
 function MyApp({ Component, pageProps }) {
+
+
   return (
     <ThemeProvider>
-      <CSSReset />
-      <Component {...pageProps} />
+      <CSSReset/>
+      <ColorModeProvider value={'dark'}>
+        <Component {...pageProps} />
+      </ColorModeProvider>
     </ThemeProvider>
   );
 }
 
-export default MyApp
+export default MyApp;
