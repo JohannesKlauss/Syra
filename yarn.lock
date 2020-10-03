@@ -3263,6 +3263,56 @@
     "@svgr/plugin-svgo" "^4.3.1"
     loader-utils "^1.2.3"
 
+"@syra/api@file:packages/api":
+  version "0.0.1"
+  dependencies:
+    "@nestjs/common" "7.4.4"
+    "@nestjs/core" "7.4.4"
+    "@nestjs/platform-express" "7.4.4"
+    reflect-metadata "0.1.13"
+    rimraf "3.0.2"
+    rxjs "6.6.3"
+
+"@syra/daw@file:packages/daw":
+  version "0.1.0"
+  dependencies:
+    "@inlet/react-pixi" "5.1.4"
+    "@material-ui/core" "4.11.0"
+    "@material-ui/icons" "4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.56"
+    "@urql/devtools" "2.0.2"
+    array-move "3.0.1"
+    graphql "15.3.0"
+    hotkeys-js "3.8.1"
+    konva "7.1.3"
+    lodash "4.17.20"
+    piano-utils "0.1.0"
+    pixi.js "5.3.3"
+    react "16.13.1"
+    react-color "2.18.1"
+    react-dom "16.13.1"
+    react-dropzone "11.2.0"
+    react-fps "1.0.2"
+    react-hotkeys-hook "2.3.1"
+    react-movable "2.5.1"
+    react-piano "3.1.3"
+    react-router-dom "5.2.0"
+    react-scripts "3.4.3"
+    recoil "0.0.13"
+    tinycolor2 "1.4.2"
+    tone "14.7.58"
+    uniqid "5.2.0"
+    urql "1.10.1"
+    web-audio-beat-detector "8.0.28"
+    webmidi "2.5.1"
+
+"@syra/live@file:packages/live":
+  version "0.0.1"
+  dependencies:
+    next "9.5.3"
+    react "16.13.1"
+    react-dom "16.13.1"
+
 "@testing-library/dom@^7.24.2":
   version "7.24.3"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-7.24.3.tgz#dae3071463cf28dc7755b43d9cf2202e34cbb85d"
@@ -3465,14 +3515,6 @@
     jest-diff "^25.2.1"
     pretty-format "^25.2.1"
 
-"@types/jest@26.0.10":
-  version "26.0.10"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.10.tgz#8faf7e9756c033c39014ae76a7329efea00ea607"
-  integrity sha512-i2m0oyh8w/Lum7wWK/YOZJakYF8Mx08UaKA1CtbmFeDquVhAEdA7znacsVSf2hJ1OQ/OfVMGN90pw/AtzF8s/Q==
-  dependencies:
-    jest-diff "^25.2.1"
-    pretty-format "^25.2.1"
-
 "@types/json-schema@^7.0.3", "@types/json-schema@^7.0.4", "@types/json-schema@^7.0.5":
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
@@ -3507,16 +3549,6 @@
   version "14.11.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.2.tgz#2de1ed6670439387da1c9f549a2ade2b0a799256"
   integrity sha512-jiE3QIxJ8JLNcb1Ps6rDbysDhN4xa8DJJvuC9prr6w+1tIh+QAbYyNF3tyiZNLDBIuBCf4KEcV2UvQm/V60xfA==
-
-"@types/node@12.12.62":
-  version "12.12.62"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.62.tgz#733923d73669188d35950253dd18a21570085d2b"
-  integrity sha512-qAfo81CsD7yQIM9mVyh6B/U47li5g7cfpVQEDMfQeF8pSZVwzbhwU3crc0qG4DmpsebpJPR49AKOExQyJ05Cpg==
-
-"@types/node@13.13.21":
-  version "13.13.21"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.21.tgz#e48d3c2e266253405cf404c8654d1bcf0d333e5c"
-  integrity sha512-tlFWakSzBITITJSxHV4hg4KvrhR/7h3xbJdSFbYJBVzKubrASbnnIFuSgolUh7qKGo/ZeJPKUfbZ0WS6Jp14DQ==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -3599,7 +3631,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@16.9.50", "@types/react@^16.9.50":
+"@types/react@*", "@types/react@^16.9.50":
   version "16.9.50"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.50.tgz#cb5f2c22d42de33ca1f5efc6a0959feb784a3a2d"
   integrity sha512-kPx5YsNnKDJejTk1P+lqThwxN2PczrocwsvqXnjvVvKpFescoY62ZiM3TV7dH1T8lFhlHZF+PE5xUyimUwqEGA==
@@ -16451,7 +16483,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.9.7, typescript@^3.6.4:
+typescript@^3.6.4:
   version "3.9.7"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
   integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
