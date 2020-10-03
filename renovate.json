@@ -1,8 +1,5 @@
 {
   "extends": [
     "config:base"
-  ],
-  "sourceUrlPrefixes": [
-    "https://github.com/lerna/lerna"
   ]
 }
