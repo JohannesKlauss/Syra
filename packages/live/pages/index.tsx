@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import React from "react";
+import { Badge } from '@chakra-ui/core';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.tsx!</a>
+          <Badge>Default</Badge>
         </h1>
 
         <p className={styles.description}>
