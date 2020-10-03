@@ -1,7 +1,0 @@
-org: johannesklauss
-app: syra-graphql
-component: graphql
-name: graphql-starter
-
-inputs:
-  src: ./
