@@ -1,0 +1,503 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type AggregateProject {
+    avg: ProjectAvgAggregateOutputType
+    count: Int!
+    max: ProjectMaxAggregateOutputType
+    min: ProjectMinAggregateOutputType
+    sum: ProjectSumAggregateOutputType
+}
+
+type AggregateUser {
+    avg: UserAvgAggregateOutputType
+    count: Int!
+    max: UserMaxAggregateOutputType
+    min: UserMinAggregateOutputType
+    sum: UserSumAggregateOutputType
+}
+
+type BatchPayload {
+    count: Int!
+}
+
+type Mutation {
+    createProject(data: ProjectCreateInput!): Project!
+    createUser(data: UserCreateInput!): User!
+    deleteManyProject(where: ProjectWhereInput): BatchPayload!
+    deleteManyUser(where: UserWhereInput): BatchPayload!
+    deleteProject(where: ProjectWhereUniqueInput!): Project
+    deleteUser(where: UserWhereUniqueInput!): User
+    updateManyProject(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
+    updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+    updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
+    updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+    upsertProject(create: ProjectCreateInput!, update: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project!
+    upsertUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
+}
+
+type Project {
+    User: User!
+    createdAt: Timestamp!
+    id: Int!
+    name: String!
+    ownerId: Int!
+    updatedAt: Timestamp!
+}
+
+type ProjectAvgAggregateOutputType {
+    id: Float!
+    ownerId: Float!
+}
+
+type ProjectMaxAggregateOutputType {
+    id: Int!
+    ownerId: Int!
+}
+
+type ProjectMinAggregateOutputType {
+    id: Int!
+    ownerId: Int!
+}
+
+type ProjectSumAggregateOutputType {
+    id: Int!
+    ownerId: Int!
+}
+
+type Query {
+    aggregateProject(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): AggregateProject!
+    aggregateUser(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
+    findFirstProject(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): Project
+    findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): User
+    project(where: ProjectWhereUniqueInput!): Project
+    projects(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]!
+    user(where: UserWhereUniqueInput!): User
+    users(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
+}
+
+type User {
+    Project(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]
+    avatar: String!
+    createdAt: Timestamp!
+    email: String!
+    id: Int!
+    lastOnline: Timestamp!
+    name: String!
+    socialLoginToken: String
+    socialLoginType: Int
+}
+
+type UserAvgAggregateOutputType {
+    id: Float!
+    socialLoginType: Float
+}
+
+type UserMaxAggregateOutputType {
+    id: Int!
+    socialLoginType: Int
+}
+
+type UserMinAggregateOutputType {
+    id: Int!
+    socialLoginType: Int
+}
+
+type UserSumAggregateOutputType {
+    id: Int!
+    socialLoginType: Int
+}
+
+enum ProjectDistinctFieldEnum {
+    createdAt
+    id
+    name
+    ownerId
+    updatedAt
+}
+
+enum QueryMode {
+    default
+    insensitive
+}
+
+enum SortOrder {
+    asc
+    desc
+}
+
+enum UserDistinctFieldEnum {
+    avatar
+    createdAt
+    email
+    id
+    lastOnline
+    name
+    socialLoginToken
+    socialLoginType
+}
+
+input DateTimeFieldUpdateOperationsInput {
+    set: Timestamp
+}
+
+input DateTimeFilter {
+    equals: Timestamp
+    gt: Timestamp
+    gte: Timestamp
+    in: [Timestamp!]
+    lt: Timestamp
+    lte: Timestamp
+    not: NestedDateTimeFilter
+    notIn: [Timestamp!]
+}
+
+input IntFilter {
+    equals: Int
+    gt: Int
+    gte: Int
+    in: [Int!]
+    lt: Int
+    lte: Int
+    not: NestedIntFilter
+    notIn: [Int!]
+}
+
+input IntNullableFilter {
+    equals: Int
+    gt: Int
+    gte: Int
+    in: [Int!]
+    lt: Int
+    lte: Int
+    not: NestedIntNullableFilter
+    notIn: [Int!]
+}
+
+input NestedDateTimeFilter {
+    equals: Timestamp
+    gt: Timestamp
+    gte: Timestamp
+    in: [Timestamp!]
+    lt: Timestamp
+    lte: Timestamp
+    not: NestedDateTimeFilter
+    notIn: [Timestamp!]
+}
+
+input NestedIntFilter {
+    equals: Int
+    gt: Int
+    gte: Int
+    in: [Int!]
+    lt: Int
+    lte: Int
+    not: NestedIntFilter
+    notIn: [Int!]
+}
+
+input NestedIntNullableFilter {
+    equals: Int
+    gt: Int
+    gte: Int
+    in: [Int!]
+    lt: Int
+    lte: Int
+    not: NestedIntNullableFilter
+    notIn: [Int!]
+}
+
+input NestedStringFilter {
+    contains: String
+    endsWith: String
+    equals: String
+    gt: String
+    gte: String
+    in: [String!]
+    lt: String
+    lte: String
+    not: NestedStringFilter
+    notIn: [String!]
+    startsWith: String
+}
+
+input NestedStringNullableFilter {
+    contains: String
+    endsWith: String
+    equals: String
+    gt: String
+    gte: String
+    in: [String!]
+    lt: String
+    lte: String
+    not: NestedStringNullableFilter
+    notIn: [String!]
+    startsWith: String
+}
+
+input NullableIntFieldUpdateOperationsInput {
+    set: Int
+}
+
+input NullableStringFieldUpdateOperationsInput {
+    set: String
+}
+
+input ProjectCreateInput {
+    User: UserCreateOneWithoutProjectInput!
+    createdAt: Timestamp
+    name: String!
+    updatedAt: Timestamp
+}
+
+input ProjectCreateManyWithoutUserInput {
+    connect: [ProjectWhereUniqueInput!]
+    create: [ProjectCreateWithoutUserInput!]
+}
+
+input ProjectCreateWithoutUserInput {
+    createdAt: Timestamp
+    name: String!
+    updatedAt: Timestamp
+}
+
+input ProjectListRelationFilter {
+    every: ProjectWhereInput
+    none: ProjectWhereInput
+    some: ProjectWhereInput
+}
+
+input ProjectOrderByInput {
+    createdAt: SortOrder
+    id: SortOrder
+    name: SortOrder
+    ownerId: SortOrder
+    updatedAt: SortOrder
+}
+
+input ProjectScalarWhereInput {
+    AND: [ProjectScalarWhereInput!]
+    NOT: [ProjectScalarWhereInput!]
+    OR: [ProjectScalarWhereInput!]
+    createdAt: DateTimeFilter
+    id: IntFilter
+    name: StringFilter
+    ownerId: IntFilter
+    updatedAt: DateTimeFilter
+}
+
+input ProjectUpdateInput {
+    User: UserUpdateOneRequiredWithoutProjectInput
+    createdAt: DateTimeFieldUpdateOperationsInput
+    name: StringFieldUpdateOperationsInput
+    updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProjectUpdateManyDataInput {
+    createdAt: DateTimeFieldUpdateOperationsInput
+    name: StringFieldUpdateOperationsInput
+    updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProjectUpdateManyMutationInput {
+    createdAt: DateTimeFieldUpdateOperationsInput
+    name: StringFieldUpdateOperationsInput
+    updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProjectUpdateManyWithWhereNestedInput {
+    data: ProjectUpdateManyDataInput!
+    where: ProjectScalarWhereInput!
+}
+
+input ProjectUpdateManyWithoutUserInput {
+    connect: [ProjectWhereUniqueInput!]
+    create: [ProjectCreateWithoutUserInput!]
+    delete: [ProjectWhereUniqueInput!]
+    deleteMany: [ProjectScalarWhereInput!]
+    disconnect: [ProjectWhereUniqueInput!]
+    set: [ProjectWhereUniqueInput!]
+    update: [ProjectUpdateWithWhereUniqueWithoutUserInput!]
+    updateMany: [ProjectUpdateManyWithWhereNestedInput!]
+    upsert: [ProjectUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input ProjectUpdateWithWhereUniqueWithoutUserInput {
+    data: ProjectUpdateWithoutUserDataInput!
+    where: ProjectWhereUniqueInput!
+}
+
+input ProjectUpdateWithoutUserDataInput {
+    createdAt: DateTimeFieldUpdateOperationsInput
+    name: StringFieldUpdateOperationsInput
+    updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProjectUpsertWithWhereUniqueWithoutUserInput {
+    create: ProjectCreateWithoutUserInput!
+    update: ProjectUpdateWithoutUserDataInput!
+    where: ProjectWhereUniqueInput!
+}
+
+input ProjectWhereInput {
+    AND: [ProjectWhereInput!]
+    NOT: [ProjectWhereInput!]
+    OR: [ProjectWhereInput!]
+    User: UserRelationFilter
+    createdAt: DateTimeFilter
+    id: IntFilter
+    name: StringFilter
+    ownerId: IntFilter
+    updatedAt: DateTimeFilter
+}
+
+input ProjectWhereUniqueInput {
+    id: Int
+}
+
+input StringFieldUpdateOperationsInput {
+    set: String
+}
+
+input StringFilter {
+    contains: String
+    endsWith: String
+    equals: String
+    gt: String
+    gte: String
+    in: [String!]
+    lt: String
+    lte: String
+    mode: QueryMode
+    not: NestedStringFilter
+    notIn: [String!]
+    startsWith: String
+}
+
+input StringNullableFilter {
+    contains: String
+    endsWith: String
+    equals: String
+    gt: String
+    gte: String
+    in: [String!]
+    lt: String
+    lte: String
+    mode: QueryMode
+    not: NestedStringNullableFilter
+    notIn: [String!]
+    startsWith: String
+}
+
+input UserCreateInput {
+    Project: ProjectCreateManyWithoutUserInput
+    avatar: String!
+    createdAt: Timestamp
+    email: String!
+    lastOnline: Timestamp
+    name: String!
+    socialLoginToken: String
+    socialLoginType: Int
+}
+
+input UserCreateOneWithoutProjectInput {
+    connect: UserWhereUniqueInput
+    create: UserCreateWithoutProjectInput
+}
+
+input UserCreateWithoutProjectInput {
+    avatar: String!
+    createdAt: Timestamp
+    email: String!
+    lastOnline: Timestamp
+    name: String!
+    socialLoginToken: String
+    socialLoginType: Int
+}
+
+input UserOrderByInput {
+    avatar: SortOrder
+    createdAt: SortOrder
+    email: SortOrder
+    id: SortOrder
+    lastOnline: SortOrder
+    name: SortOrder
+    socialLoginToken: SortOrder
+    socialLoginType: SortOrder
+}
+
+input UserRelationFilter {
+    is: UserWhereInput
+    isNot: UserWhereInput
+}
+
+input UserUpdateInput {
+    Project: ProjectUpdateManyWithoutUserInput
+    avatar: StringFieldUpdateOperationsInput
+    createdAt: DateTimeFieldUpdateOperationsInput
+    email: StringFieldUpdateOperationsInput
+    lastOnline: DateTimeFieldUpdateOperationsInput
+    name: StringFieldUpdateOperationsInput
+    socialLoginToken: NullableStringFieldUpdateOperationsInput
+    socialLoginType: NullableIntFieldUpdateOperationsInput
+}
+
+input UserUpdateManyMutationInput {
+    avatar: StringFieldUpdateOperationsInput
+    createdAt: DateTimeFieldUpdateOperationsInput
+    email: StringFieldUpdateOperationsInput
+    lastOnline: DateTimeFieldUpdateOperationsInput
+    name: StringFieldUpdateOperationsInput
+    socialLoginToken: NullableStringFieldUpdateOperationsInput
+    socialLoginType: NullableIntFieldUpdateOperationsInput
+}
+
+input UserUpdateOneRequiredWithoutProjectInput {
+    connect: UserWhereUniqueInput
+    create: UserCreateWithoutProjectInput
+    update: UserUpdateWithoutProjectDataInput
+    upsert: UserUpsertWithoutProjectInput
+}
+
+input UserUpdateWithoutProjectDataInput {
+    avatar: StringFieldUpdateOperationsInput
+    createdAt: DateTimeFieldUpdateOperationsInput
+    email: StringFieldUpdateOperationsInput
+    lastOnline: DateTimeFieldUpdateOperationsInput
+    name: StringFieldUpdateOperationsInput
+    socialLoginToken: NullableStringFieldUpdateOperationsInput
+    socialLoginType: NullableIntFieldUpdateOperationsInput
+}
+
+input UserUpsertWithoutProjectInput {
+    create: UserCreateWithoutProjectInput!
+    update: UserUpdateWithoutProjectDataInput!
+}
+
+input UserWhereInput {
+    AND: [UserWhereInput!]
+    NOT: [UserWhereInput!]
+    OR: [UserWhereInput!]
+    Project: ProjectListRelationFilter
+    avatar: StringFilter
+    createdAt: DateTimeFilter
+    email: StringFilter
+    id: IntFilter
+    lastOnline: DateTimeFilter
+    name: StringFilter
+    socialLoginToken: StringNullableFilter
+    socialLoginType: IntNullableFilter
+}
+
+input UserWhereUniqueInput {
+    email: String
+    id: Int
+}
+
+
+"The javascript `Date` as integer. Type represents date and time as number of milliseconds from start of UNIX epoch."
+scalar Timestamp
