@@ -10,7 +10,7 @@ build
 dist
 public/ic-injector.js
 
-.graphqlconfig
+packages/api/.graphqlconfig
 codegen.yml
 
 # DFINITY

@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../prisma/generated/type-graphql"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  ownerId   Int
+  name      String
+  User      User     @relation(fields: [ownerId], references: [id])
+}
+
+model User {
+  id               Int       @id @default(autoincrement())
+  createdAt        DateTime  @default(now())
+  name             String
+  email            String    @unique
+  avatar           String
+  socialLoginToken String?
+  socialLoginType  Int?
+  lastOnline       DateTime  @default(now())
+  Project          Project[]
+}
