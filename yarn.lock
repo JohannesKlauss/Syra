@@ -3378,15 +3378,15 @@
   resolved "https://registry.yarnpkg.com/@prisma/ci-info/-/ci-info-2.1.2.tgz#3da64f54584bde0aaf4b42f298a6c63f025aeb3f"
   integrity sha512-RhAHY+wp6Nqu89Tp3zfUVkpGfqk4TfngeOWaMGgmhP7mB2ASDtOl8dkwxHmI8eN4edo+luyjPmbJBC4kST321A==
 
-"@prisma/cli@2.9.0-dev.36":
-  version "2.9.0-dev.36"
-  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.9.0-dev.36.tgz#17e10612b4cb58559290334d34872c1af795a233"
-  integrity sha512-40KxKdvtt2/iysKIFRINJOAMOXP5UVGw/wD9CL/LEUKo+CdukWUzvzwiS0mI2MXWztFb1d8PFOgWn1ljMGRQPw==
+"@prisma/cli@2.9.0-integration-nextjs-custom-output.4":
+  version "2.9.0-integration-nextjs-custom-output.4"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.9.0-integration-nextjs-custom-output.4.tgz#a1d8b5a7252609b4ca8f1fee043a117196264a37"
+  integrity sha512-zQIcnEEAQOHv1MC1ergw0n7tkLfHBpEM0uvL14IAbe1XycV5cRPa46h9dN5jvYMxnp8LcX8jWPmSUgjAEsvm/Q==
 
-"@prisma/client@2.9.0-dev.36":
-  version "2.9.0-dev.36"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.9.0-dev.36.tgz#3cae22c6a521018125dba4dcb83f09161ed7742b"
-  integrity sha512-qLSpYTCg18gKxMumuOAqjh+doqkjhoJcqXVcE3+V0moRvoyBlacmn708dA8o9nJb2d7c4+J5OXA8XVy6xvCCZA==
+"@prisma/client@2.9.0-integration-nextjs-custom-output.4":
+  version "2.9.0-integration-nextjs-custom-output.4"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.9.0-integration-nextjs-custom-output.4.tgz#1994e8f15dc1769ac51aa5d1c6357ba9e2cb5b1e"
+  integrity sha512-P3qAPzGMltNoY5DQ+vsRB4O94Ohn6P5bj6HWuJ2YV1gUsao6JfjNMdzhIIyObJWhezzVuopeXKOUVHf3FFACVQ==
   dependencies:
     pkg-up "^3.1.0"
 
@@ -3850,7 +3850,7 @@
     "@nestjs/core" "7.4.4"
     "@nestjs/graphql" "7.7.0"
     "@nestjs/platform-fastify" "7.4.4"
-    "@prisma/client" "2.9.0-dev.36"
+    "@prisma/client" "2.9.0-integration-nextjs-custom-output.4"
     apollo-server-fastify "2.18.2"
     class-validator "0.12.2"
     graphql "15.3.0"
