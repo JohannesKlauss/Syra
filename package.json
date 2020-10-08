@@ -7,7 +7,8 @@
   "scripts": {
     "api:start": "yarn workspace @syra/api start:dev",
     "api:generate-schema": "yarn workspace @syra/api prisma:introspect && yarn workspace @syra/api prisma:generate",
-    "daw:start": "yarn workspace @syra/daw start"
+    "daw:start": "yarn workspace @syra/daw start",
+    "live:start": "yarn workspace @syra/live dev"
   },
   "devDependencies": {
     "@nestjs/cli": "7.5.1",

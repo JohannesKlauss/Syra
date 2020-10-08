@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider>
       <CSSReset/>
-      <ColorModeProvider value={'dark'}>
+      <ColorModeProvider>
         <Component {...pageProps} />
       </ColorModeProvider>
     </ThemeProvider>
