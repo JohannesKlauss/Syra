@@ -5,16 +5,22 @@
     "packages/*"
   ],
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "api:start": "yarn workspace @syra/api start:dev",
     "api:generate-schema": "yarn workspace @syra/api prisma:introspect && yarn workspace @syra/api prisma:generate",
     "daw:start": "yarn workspace @syra/daw start",
-    "live:start": "yarn workspace @syra/live dev"
+    "live:start": "yarn workspace @syra/live dev",
+    "live:storybook": "yarn workspace @syra/live storybook"
   },
   "devDependencies": {
     "@nestjs/cli": "7.5.1",
     "@nestjs/schematics": "7.1.2",
     "@nestjs/testing": "7.4.4",
     "@prisma/cli": "2.9.0-dev.36",
+    "@storybook/addon-actions": "6.0.26",
+    "@storybook/addon-essentials": "6.0.26",
+    "@storybook/addon-links": "6.0.26",
+    "@storybook/react": "6.0.26",
     "@testing-library/jest-dom": "5.11.4",
     "@testing-library/react": "11.0.4",
     "@testing-library/react-hooks": "3.4.2",
@@ -35,6 +41,7 @@
     "@typescript-eslint/eslint-plugin": "4.4.0",
     "@typescript-eslint/parser": "4.4.0",
     "@welldone-software/why-did-you-render": "4.3.2",
+    "awesome-typescript-loader": "5.2.1",
     "eslint": "7.10.0",
     "eslint-config-prettier": "6.12.0",
     "eslint-plugin-import": "2.22.1",
@@ -42,6 +49,7 @@
     "jest": "26.4.2",
     "lerna": "3.22.1",
     "prettier": "2.1.2",
+    "react-docgen-typescript-loader": "3.7.2",
     "recoilize": "0.8.0",
     "rimraf": "3.0.2",
     "supertest": "5.0.0",
