@@ -1,12 +1,13 @@
 import React from "react";
-import { defaultTheme } from "../theme";
-import { CssBaseline, ThemeProvider } from "@material-ui/core";
+import { ColorModeProvider, CSSReset, ThemeProvider } from "@chakra-ui/core";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline/>
-      <Component {...pageProps} />
+    <ThemeProvider>
+      <ColorModeProvider>
+        <CSSReset/>
+        <Component {...pageProps} />
+      </ColorModeProvider>
     </ThemeProvider>
   );
 }

@@ -10,8 +10,10 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@material-ui/core": "4.11.0",
-    "@material-ui/icons": "4.9.1",
+    "@chakra-ui/core": "0.8.0",
+    "@emotion/core": "10.0.35",
+    "@emotion/styled": "10.0.27",
+    "emotion-theming": "10.0.27",
     "next": "9.5.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",

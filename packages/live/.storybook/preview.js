@@ -1,6 +1,5 @@
 import React from "react";
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import { defaultTheme } from '../theme';
+import { ColorModeProvider, CSSReset, ThemeProvider } from "@chakra-ui/core";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -9,9 +8,11 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline/>
+    <ThemeProvider>
+      <ColorModeProvider>
+        <CSSReset/>
         <Story/>
+      </ColorModeProvider>
     </ThemeProvider>
   ),
 ];

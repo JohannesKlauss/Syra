@@ -1,52 +1,29 @@
 import React from "react";
-import { Box, styled, Typography } from "@material-ui/core";
-import Typewriter from "typewriter-effect";
+import { Box, Button, Image, Text } from "@chakra-ui/core";
 
 interface Props {
 
 }
 
-const StyledBox = styled(Box)({
-  position: "fixed",
-  top: 0
-});
-
-const ImageBox = styled(Box)({
-  height: "50vh",
-  width: "100vw",
-  position: "relative"
-});
-
-const StyledImg = styled("img")({
-  objectFit: "cover",
-  width: "100%",
-  height: "100%",
-  position: "absolute"
-});
-
-const StyledTypewriter = styled(Typography)({
-  position: "absolute"
-});
-
 function LandingHero({}: Props) {
   return (
-    <StyledBox>
-      <ImageBox>
-        <StyledImg src="/assets/landing.jpg" alt=""/>
-        <Typography variant={"h1"}>
-          Syra
-        </Typography>
-        <StyledTypewriter variant={"h2"}>
-          <Typewriter
-            options={{
-              strings: ["Be creative. Together.", "Collaborate with your friends. Anytime.", "Record and Mix. Everywhere."],
-              autoStart: true,
-              loop: true
-            }}
-          />
-        </StyledTypewriter>
-      </ImageBox>
-    </StyledBox>
+    <Box w={"100%"} h={"90vh"}>
+      <Image src="/assets/landing.jpg" alt="" objectFit={'cover'} h={'100%'} w={'100%'}/>
+      <Box position={"absolute"} top={'50%'} transform={'translateY(-50%)'} left={64} w={'400px'}>
+        <Text fontSize={"6xl"}>
+          Be creative.
+        </Text>
+        <Text fontSize={"6xl"}>
+          Together.
+        </Text>
+        <Text fontSize={'lg'} marginY={6}>
+          Syra empowers you to collaborate on music projects in real time.
+          Industry-leading software tools and an advanced workflow. Endless
+          possibilities. Start with Syra.
+        </Text>
+        <Button rounded={'full'} variantColor={'cyan'}>Try free</Button>
+      </Box>
+    </Box>
   );
 }
 

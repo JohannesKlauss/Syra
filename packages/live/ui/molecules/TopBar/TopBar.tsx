@@ -1,41 +1,30 @@
 import React from "react";
-import { AppBar, Button, fade, Grid, styled, Toolbar, Typography } from "@material-ui/core";
-
-const StyledToolBar = styled(Toolbar)(({theme}) => ({
-  justifyContent: "space-between",
-  zIndex: 1,
-  backgroundColor: fade(theme.palette.background.paper, 0.5),
-}));
+import { Box, Button, Flex, Text } from "@chakra-ui/core";
 
 interface Props {
-
 }
 
 function TopBar({}: Props) {
   return (
-    <AppBar position={"static"} color={"transparent"}>
-      <StyledToolBar>
-        <div>
-          <Grid container>
-            <Grid item>
-              <Typography variant="h6">
-                Syra &nbsp; &nbsp;
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Button>Studio</Button>
-              <Button>Community</Button>
-              <Button>Blog</Button>
-            </Grid>
-          </Grid>
-        </div>
-        <div>
-          <Button>Log in</Button>
-          &nbsp; &nbsp;
-          <Button variant={"contained"}>Sign up</Button>
-        </div>
-      </StyledToolBar>
-    </AppBar>
+    <Box position={"static"} top={0} bg={"gray.900"} w={"100%"} h={'72px'} color={"white"} p={'16px'}
+         boxShadow={"0px 3px 24px -5px rgba(0,0,0,1)"}>
+      <Box h={'32px'}>
+        <Flex alignItems={"center"} justify={"space-between"}>
+          <Box>
+            <Text fontSize="lg" as={"span"} marginLeft={8} marginRight={12}>
+              Syra
+            </Text>
+            <Button variant={"link"} marginX={4}>Studio</Button>
+            <Button variant={"link"} marginX={4}>Community</Button>
+            <Button variant={"link"} marginX={4}>Blog</Button>
+          </Box>
+          <Box>
+            <Button marginX={4}>Log in</Button>
+            <Button>Sign up</Button>
+          </Box>
+        </Flex>
+      </Box>
+    </Box>
   );
 }
 
