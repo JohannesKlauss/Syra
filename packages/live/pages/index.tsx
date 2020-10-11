@@ -11,12 +11,21 @@ export default function Home() {
 
   const toggleSignUpModal = () => setShowSignUpModal(currVal => !currVal);
   const toggleLogInModal = () => setShowLogInModal(currVal => !currVal);
+  const switchToLogin = () => {
+    setShowSignUpModal(false);
+    setShowLogInModal(true);
+  };
 
   return (
     <>
       <TopBar onClickLogIn={toggleLogInModal} onClickSignUp={toggleSignUpModal}/>
       <LandingHero onClickSignUp={toggleSignUpModal}/>
-      <SignUpModal isOpen={showSignUpModal} onClose={() => setShowSignUpModal(false)}/>
+      <SignUpModal isOpen={showSignUpModal} onClose={() => setShowSignUpModal(false)}
+                   onClickSwitchToLogin={switchToLogin}/>
     </>
-  )
+  );
 }
+
+Home.getInitialProps = async () => ({
+  namespacesRequired: ['default'],
+})

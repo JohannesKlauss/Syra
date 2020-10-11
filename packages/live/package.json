@@ -15,9 +15,11 @@
     "@emotion/styled": "10.0.27",
     "emotion-theming": "10.0.27",
     "next": "9.5.5",
+    "next-i18next": "6.0.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-hook-form": "6.9.2",
+    "react-i18next": "11.7.3",
     "react-icons": "3.11.0",
     "recoil": "0.0.13",
     "typewriter-effect": "2.13.1"

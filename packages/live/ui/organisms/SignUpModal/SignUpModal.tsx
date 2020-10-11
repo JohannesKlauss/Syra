@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/core";
 import SocialSignUp from "../../molecules/SocialSignUp/SocialSignUp";
 import SignUpForm from "../../molecules/SignUpForm/SignUpForm";
+import { useTranslation } from "../../../i18n";
 
 interface Props {
   isOpen: boolean;
@@ -19,7 +20,6 @@ interface Props {
 }
 
 function SignUpModal({ isOpen, onClose, onClickSwitchToLogin }: Props) {
-
   return (
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
       <ModalOverlay opacity={0.7}/>

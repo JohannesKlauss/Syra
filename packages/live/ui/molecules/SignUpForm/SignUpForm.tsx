@@ -3,7 +3,6 @@ import { Button, FormControl, FormHelperText, FormLabel, Input } from "@chakra-u
 import { useForm } from "react-hook-form";
 
 interface Props {
-  onClickSignUp: () => void;
 }
 
 type SignUpForm = {
@@ -12,8 +11,8 @@ type SignUpForm = {
   password: string;
 };
 
-function SignUpForm({ onClickSignUp }: Props) {
-  const { register, handleSubmit, watch, errors } = useForm<SignUpForm>();
+function SignUpForm({}: Props) {
+  const { register, handleSubmit } = useForm<SignUpForm>();
 
   const onSubmit = data => console.log(data);
 
@@ -24,6 +23,7 @@ function SignUpForm({ onClickSignUp }: Props) {
         <Input
           type="text"
           id="name"
+          name={'name'}
           ref={register({ required: true, minLength: 6 })}
           aria-describedby="name-helper-text"
           placeholder={"Enter your name"}/>
@@ -36,6 +36,7 @@ function SignUpForm({ onClickSignUp }: Props) {
         <Input
           type="email"
           id="email"
+          name={'email'}
           ref={register({
             required: true, pattern: {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -54,6 +55,7 @@ function SignUpForm({ onClickSignUp }: Props) {
         <Input
           type="password"
           id="password"
+          name={'password'}
           ref={register({ required: true, minLength: 6 })}
           aria-describedby="password-helper-text"
           placeholder={"At least 6 characters"}/>

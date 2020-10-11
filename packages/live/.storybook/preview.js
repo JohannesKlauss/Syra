@@ -4,8 +4,8 @@ import { RecoilRoot } from "recoil";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
-  layout: 'fullscreen'
-}
+  layout: "fullscreen"
+};
 
 export const decorators = [
   (Story) => (
@@ -17,5 +17,5 @@ export const decorators = [
         </ColorModeProvider>
       </ThemeProvider>
     </RecoilRoot>
-  ),
+  )
 ];
