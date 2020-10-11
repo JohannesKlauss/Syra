@@ -1,4 +1,4 @@
-import Home from "./";
+import Home from "../pages";
 import React from "react";
 
 const Template = (args) => <Home {...args} />;

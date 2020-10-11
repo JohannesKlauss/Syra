@@ -10,6 +10,7 @@
     "api:generate-schema": "yarn workspace @syra/api prisma:introspect && yarn workspace @syra/api prisma:generate",
     "daw:start": "yarn workspace @syra/daw start",
     "live:start": "yarn workspace @syra/live dev",
+    "live:build": "yarn workspace @syra/live build",
     "live:storybook": "yarn workspace @syra/live storybook"
   },
   "devDependencies": {
