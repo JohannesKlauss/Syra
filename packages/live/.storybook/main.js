@@ -10,7 +10,7 @@ module.exports = {
   },
   "stories": [
     "../ui/**/*.stories.@(js|jsx|ts|tsx)",
-    "../pages/**/*.stories.@(js|jsx|ts|tsx)"
+    "../stories/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
     "@storybook/addon-links",

@@ -2,9 +2,11 @@ import React from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/core";
 
 interface Props {
+  onClickSignUp: () => void;
+  onClickLogIn: () => void;
 }
 
-function TopBar({}: Props) {
+function TopBar({onClickSignUp, onClickLogIn}: Props) {
   return (
     <Box position={"static"} top={0} bg={"gray.900"} w={"100%"} h={'72px'} color={"white"} p={'16px'}
          boxShadow={"0px 3px 24px -5px rgba(0,0,0,1)"}>
@@ -19,8 +21,8 @@ function TopBar({}: Props) {
             <Button variant={"link"} marginX={4}>Blog</Button>
           </Box>
           <Box>
-            <Button marginX={4}>Log in</Button>
-            <Button>Sign up</Button>
+            <Button marginX={4} onClick={onClickLogIn}>Log in</Button>
+            <Button onClick={onClickSignUp}>Sign up</Button>
           </Box>
         </Flex>
       </Box>

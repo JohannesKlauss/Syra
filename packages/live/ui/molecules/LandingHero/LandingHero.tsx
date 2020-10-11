@@ -2,10 +2,10 @@ import React from "react";
 import { Box, Button, Image, Text } from "@chakra-ui/core";
 
 interface Props {
-
+  onClickSignUp: () => void;
 }
 
-function LandingHero({}: Props) {
+function LandingHero({onClickSignUp}: Props) {
   return (
     <Box w={"100%"} h={"90vh"}>
       <Image src="/assets/landing.jpg" alt="" objectFit={'cover'} h={'100%'} w={'100%'}/>
@@ -21,7 +21,7 @@ function LandingHero({}: Props) {
           Industry-leading software tools and an advanced workflow. Endless
           possibilities. Start with Syra.
         </Text>
-        <Button rounded={'full'} variantColor={'cyan'}>Try free</Button>
+        <Button rounded={'full'} variantColor={'cyan'} onClick={onClickSignUp}>Try free</Button>
       </Box>
     </Box>
   );

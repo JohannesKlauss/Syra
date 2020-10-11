@@ -17,6 +17,9 @@
     "next": "9.5.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-hook-form": "6.9.2",
+    "react-icons": "3.11.0",
+    "recoil": "0.0.13",
     "typewriter-effect": "2.13.1"
   },
   "devDependencies": {
