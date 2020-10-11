@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common";
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from "./app.controller";
 import { TypeGraphQLModule } from "typegraphql-nestjs";
 import { PrismaClient } from "@prisma/client";
@@ -14,6 +15,7 @@ const prisma = new PrismaClient();
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeGraphQLModule.forRoot({
       validate: false,
       dateScalarMode: 'timestamp',
