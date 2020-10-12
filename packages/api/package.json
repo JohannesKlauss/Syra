@@ -46,7 +46,7 @@
     "rxjs": "6.6.3",
     "type-graphql": "1.0.0",
     "typegraphql-nestjs": "0.2.5",
-    "typegraphql-prisma": "0.8.0"
+    "typegraphql-prisma": "0.8.1"
   },
   "jest": {
     "moduleFileExtensions": [
