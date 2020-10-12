@@ -4,7 +4,7 @@ import React from "react";
 const Template = (args) => <LogInModal {...args} />;
 
 export default {
-  title: "molecules/LogInModal",
+  title: "organisms/LandingPage/LogInModal",
   component: LogInModal
 };
 

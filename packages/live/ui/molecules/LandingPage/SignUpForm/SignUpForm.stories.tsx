@@ -4,7 +4,7 @@ import React from "react";
 const Template = (args) => <SignUpForm {...args} />;
 
 export default {
-  title: "molecules/SignUpForm",
+  title: "molecules/LandingPage/SignUpForm",
   component: SignUpForm
 };
 

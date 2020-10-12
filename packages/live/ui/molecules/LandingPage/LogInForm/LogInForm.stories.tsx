@@ -4,7 +4,7 @@ import React from "react";
 const Template = (args) => <LogInForm {...args} />;
 
 export default {
-  title: "molecules/LogInForm",
+  title: "molecules/LandingPage/LogInForm",
   component: LogInForm
 };
 

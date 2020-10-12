@@ -14,7 +14,7 @@ function TopBar({onClickSignUp, onClickLogIn}: Props) {
         <Flex alignItems={"center"} justify={"space-between"}>
           <Box>
             <Text fontSize="lg" as={"span"} marginLeft={8} marginRight={12}>
-              Syra
+              S Y R A
             </Text>
             <Button variant={"link"} marginX={4}>Studio</Button>
             <Button variant={"link"} marginX={4}>Community</Button>

@@ -1,33 +1,33 @@
 import React from "react";
 import {
-  Button,
-  Divider,
-  Flex,
+  Button, Divider, Flex,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
-  ModalOverlay, Text
+  ModalOverlay,
+  Text
 } from "@chakra-ui/core";
-import SocialSignUp from "../../molecules/SocialSignUp/SocialSignUp";
-import LogInForm from "../../molecules/LogInForm/LogInForm";
+import SocialSignUp from "../../../molecules/LandingPage/SocialSignUp/SocialSignUp";
+import SignUpForm from "../../../molecules/LandingPage/SignUpForm/SignUpForm";
+import { useTranslation } from "../../../../i18n";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onClickSwitchToSignUp: () => void;
+  onClickSwitchToLogin: () => void;
 }
 
-function LogInModal({onClickSwitchToSignUp, onClose, isOpen}: Props) {
+function SignUpModal({ isOpen, onClose, onClickSwitchToLogin }: Props) {
   return (
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
       <ModalOverlay opacity={0.7}/>
       <ModalContent pb={5}>
-        <ModalHeader>Log In</ModalHeader>
+        <ModalHeader>Create an Account</ModalHeader>
         <ModalCloseButton/>
         <ModalBody>
-          <LogInForm/>
+          <SignUpForm/>
           <Flex align={"center"} marginY={2}>
             <Divider flex={1}/>
             <Text flex={1} fontSize={"md"} textAlign={"center"}>or continue with</Text>
@@ -36,14 +36,14 @@ function LogInModal({onClickSwitchToSignUp, onClose, isOpen}: Props) {
           <SocialSignUp buttonSize={"lg"} fontSize={"2xl"} onClick={() => null}/>
           <Flex align={"center"} justify={"center"}>
             <Text fontSize={"sm"} textAlign={"center"}>
-              Don't have an account?
+              Have an account?
               <Button
                 variant={"link"}
                 size={"sm"} marginLeft={2}
                 variantColor={"teal"}
-                onClick={onClickSwitchToSignUp}
+                onClick={onClickSwitchToLogin}
               >
-                Sign Up.
+                Log In.
               </Button>
             </Text>
           </Flex>
@@ -53,4 +53,4 @@ function LogInModal({onClickSwitchToSignUp, onClose, isOpen}: Props) {
   );
 }
 
-export default LogInModal;
+export default SignUpModal;

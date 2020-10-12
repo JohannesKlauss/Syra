@@ -4,7 +4,7 @@ import React from "react";
 const Template = (args) => <LandingHero {...args} />;
 
 export default {
-  title: "molecules/LandingHero",
+  title: "molecules/LandingPage/LandingHero",
   component: LandingHero
 };
 

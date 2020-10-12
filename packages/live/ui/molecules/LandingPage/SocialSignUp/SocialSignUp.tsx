@@ -2,7 +2,7 @@ import React from "react";
 import { Flex, IconButton } from "@chakra-ui/core";
 import { FaFacebook, FaGoogle, FaSoundcloud, FaSpotify, FaTwitter, FaInstagram } from "react-icons/fa";
 import * as StyledSystem from "styled-system";
-import { SignInUpType } from "../../../types/SocialSign";
+import { SignInUpType } from "../../../../types/SocialSign";
 
 interface Props {
   onClick: (type: SignInUpType) => void;

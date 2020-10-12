@@ -4,7 +4,7 @@ import React from "react";
 const Template = (args) => <TopBar {...args} />;
 
 export default {
-  title: 'molecules/TopBar',
+  title: 'molecules/LandingPage/TopBar',
   component: TopBar,
 };
 

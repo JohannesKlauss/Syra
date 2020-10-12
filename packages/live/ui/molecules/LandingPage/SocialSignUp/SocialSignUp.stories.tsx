@@ -4,7 +4,7 @@ import React from "react";
 const Template = (args) => <SocialSignUp {...args} />;
 
 export default {
-  title: "molecules/SocialSignUp",
+  title: "molecules/LandingPage/SocialSignUp",
   component: SocialSignUp
 };
 
