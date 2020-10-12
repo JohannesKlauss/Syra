@@ -8,6 +8,7 @@
     "bootstrap": "lerna bootstrap",
     "api:start": "yarn workspace @syra/api start:dev",
     "api:test": "yarn workspace @syra/api test",
+    "api:build": "yarn workspace @syra/api build",
     "api:generate-schema": "yarn workspace @syra/api prisma:introspect && yarn workspace @syra/api prisma:generate",
     "daw:start": "yarn workspace @syra/daw start",
     "live:start": "yarn workspace @syra/live dev",
