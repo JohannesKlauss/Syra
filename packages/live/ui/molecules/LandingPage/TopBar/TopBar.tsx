@@ -8,8 +8,8 @@ interface Props {
 
 function TopBar({onClickSignUp, onClickLogIn}: Props) {
   return (
-    <Box position={"static"} top={0} bg={"gray.900"} w={"100%"} h={'72px'} color={"white"} p={'16px'}
-         boxShadow={"0px 3px 24px -5px rgba(0,0,0,1)"}>
+    <Box position={"fixed"} top={0} bg={"gray.900"} w={"100%"} h={'72px'} color={"white"} p={'16px'}
+         boxShadow={"0px 3px 24px -5px rgba(0,0,0,1)"} zIndex={10}>
       <Box h={'32px'}>
         <Flex alignItems={"center"} justify={"space-between"}>
           <Box>

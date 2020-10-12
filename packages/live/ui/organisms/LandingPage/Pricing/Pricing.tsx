@@ -20,7 +20,7 @@ function Pricing({ tiers }: Props) {
             all features that make SYRA the number one online collaborative DAW.
           </p>
         </Text>
-        <Text fontWeight={400} marginTop={12} marginBottom={4}>Do you need more information to decide?</Text>
+        <Text fontWeight={400} marginTop={12} marginBottom={8}>Do you need more information to decide?</Text>
         <Button variantColor={"cyan"} rounded={"full"} size={"lg"}>Check our FAQ</Button>
       </Box>
       <Box flex={1}>
