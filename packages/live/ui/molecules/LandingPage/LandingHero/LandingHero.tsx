@@ -16,7 +16,7 @@ function LandingHero({onClickSignUp}: Props) {
         <Text fontSize={"6xl"} fontWeight={700}>
           Together.
         </Text>
-        <Text fontSize={'lg'} marginY={6} fontWeight={600}>
+        <Text fontSize={'xl'} marginY={6} fontWeight={600}>
           Syra empowers you to collaborate on music projects in real time.
           Creative software tools and an advanced workflow. Endless
           possibilities. Start with Syra.

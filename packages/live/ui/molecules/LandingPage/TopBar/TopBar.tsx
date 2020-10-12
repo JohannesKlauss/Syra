@@ -17,6 +17,9 @@ function TopBar({onClickSignUp, onClickLogIn}: Props) {
               S Y R A
             </Text>
             <Button variant={"link"} marginX={4}>Studio</Button>
+            <Button variant={"link"} marginX={4}>Pricing</Button>
+            <Button variant={"link"} marginX={4}>FAQ</Button>
+            <Button variant={"link"} marginX={4}>About</Button>
             <Button variant={"link"} marginX={4}>Community</Button>
             <Button variant={"link"} marginX={4}>Blog</Button>
           </Box>

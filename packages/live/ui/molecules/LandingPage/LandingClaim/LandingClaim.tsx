@@ -13,11 +13,11 @@ function LandingClaim({py}: Props) {
       </Box>
       <Box textAlign={'center'} px={'20%'}>
         <Text fontSize={'lg'} color={'gray.400'}>
-          Syra is the first professional fully fledged collaborative DAW that runs inside your browser.
+          Syra is a professional fully fledged collaborative DAW that runs inside your browser.
           It provides cutting edge tools and technologies to produce any kind of music you want.
           Share your sessions with your friends and colleagues and collaborate on ideas no matter
-          where you live. No matter if you are just starting out or a professional: Syra provides
-          you with all the tools needed to turn your ideas into music and your band into production.
+          where you live. Whether you are just starting out or a professional: Syra has
+          all the tools needed to turn your ideas into music and your band into production.
         </Text>
       </Box>
     </>

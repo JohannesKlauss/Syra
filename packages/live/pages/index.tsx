@@ -13,7 +13,7 @@ import { Box, Image } from "@chakra-ui/core";
 const benefits = [
   'Advanced collaboration tools to create music',
   'Share your session with your friends',
-  'You only need your browser',
+  'You only need a browser',
   'Fast, intuitive workflow for professional results'
 ];
 const tiers = [
