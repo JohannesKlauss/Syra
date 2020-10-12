@@ -1,5 +1,5 @@
 import LandingClaim from "./LandingClaim";
-import React from "react";
+import * as React from "react";
 
 const Template = (args) => <LandingClaim {...args} />;
 

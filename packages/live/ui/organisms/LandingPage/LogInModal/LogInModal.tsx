@@ -22,7 +22,7 @@ interface Props {
 function LogInModal({onClickSwitchToSignUp, onClose, isOpen}: Props) {
   return (
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
-      <ModalOverlay opacity={0.7}/>
+      <ModalOverlay opacity={1}/>
       <ModalContent pb={5}>
         <ModalHeader>Log In</ModalHeader>
         <ModalCloseButton/>

@@ -1,5 +1,5 @@
 import SignUpModal from "./SignUpModal";
-import React from "react";
+import * as React from "react";
 
 const Template = (args) => <SignUpModal {...args} />;
 

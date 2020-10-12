@@ -1,5 +1,5 @@
 import LandingHero from "./LandingHero";
-import React from "react";
+import * as React from "react";
 
 const Template = (args) => <LandingHero {...args} />;
 

@@ -1,5 +1,5 @@
 import LogInModal from "./LogInModal";
-import React from "react";
+import * as React from "react";
 
 const Template = (args) => <LogInModal {...args} />;
 

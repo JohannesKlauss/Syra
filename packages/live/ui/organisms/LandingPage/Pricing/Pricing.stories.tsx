@@ -1,5 +1,5 @@
 import Pricing from "./Pricing";
-import React from "react";
+import * as React from "react";
 
 const Template = (args) => <Pricing {...args} />;
 

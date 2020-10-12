@@ -9,10 +9,12 @@ import LandingClaim from "../ui/molecules/LandingPage/LandingClaim/LandingClaim"
 import Benefits from "../ui/molecules/LandingPage/Benefits/Benefits";
 import Pricing from "../ui/organisms/LandingPage/Pricing/Pricing";
 import { Box, Image } from "@chakra-ui/core";
+import Footer from "../ui/organisms/Footer/Footer";
+import Stopper from "../ui/organisms/Stopper/Stopper";
 
 const benefits = [
-  'Advanced collaboration tools to create music',
-  'Share your session with your friends',
+  'Real time collaboration tools',
+  'Work together with your friends',
   'You only need a browser',
   'Fast, intuitive workflow for professional results'
 ];
@@ -103,6 +105,8 @@ export default function Home() {
         <Image src="/assets/hero.jpg" alt="" objectFit={'cover'}w={'100%'}/>
       </Box>
       <Pricing tiers={tiers}/>
+      <Footer/>
+      <Stopper/>
       <SignUpModal isOpen={showSignUpModal} onClose={() => setShowSignUpModal(false)}
                    onClickSwitchToLogin={switchToLogin}/>
       <LogInModal isOpen={showLogInModal} onClose={() => setShowLogInModal(false)}

@@ -1,5 +1,5 @@
 import Benefits from "./Benefits";
-import React from "react";
+import * as React from "react";
 
 const Template = (args) => <Benefits {...args} />;
 

@@ -1,5 +1,5 @@
 import SocialSignUp from "./SocialSignUp";
-import React from "react";
+import * as React from "react";
 
 const Template = (args) => <SocialSignUp {...args} />;
 

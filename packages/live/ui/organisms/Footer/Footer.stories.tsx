@@ -1,11 +1,11 @@
-import LogInForm from "./LogInForm";
+import Footer from "./Footer";
 import * as React from "react";
 
-const Template = (args) => <LogInForm {...args} />;
+const Template = (args) => <Footer {...args} />;
 
 export default {
-  title: "molecules/LandingPage/LogInForm",
-  component: LogInForm
+  title: "organisms/Footer",
+  component: Footer
 };
 
 // Each story then reuses that template

@@ -1,5 +1,5 @@
 import SignUpForm from "./SignUpForm";
-import React from "react";
+import * as React from "react";
 
 const Template = (args) => <SignUpForm {...args} />;
 

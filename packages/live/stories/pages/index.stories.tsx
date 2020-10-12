@@ -1,5 +1,5 @@
 import Home from "../../pages";
-import React from "react";
+import * as React from "react";
 
 const Template = (args) => <Home {...args} />;
 
