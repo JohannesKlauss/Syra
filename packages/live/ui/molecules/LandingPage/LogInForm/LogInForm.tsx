@@ -7,7 +7,7 @@ interface Props {
 }
 
 type LogInForm = {
-  name: string;
+  email: string;
   password: string;
 }
 
@@ -19,14 +19,14 @@ function LogInForm({}: Props) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl isRequired marginY={4}>
-        <FormLabel htmlFor="name">User name</FormLabel>
+        <FormLabel htmlFor="email">Email address</FormLabel>
         <Input
-          type="text"
-          id="name"
-          name={'name'}
+          type="email"
+          id="email"
+          name={'email'}
           ref={register({ required: true })}
           aria-describedby="name-helper-text"
-          placeholder={"name or email"}/>
+          placeholder={"you@example.com"}/>
       </FormControl>
       <FormControl isRequired marginY={4}>
         <FormLabel htmlFor="password">Password</FormLabel>

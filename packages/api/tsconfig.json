@@ -13,5 +13,6 @@
     "baseUrl": "./",
     "incremental": true,
     "lib": ["es2018", "esnext.asynciterable"]
-  }
+  },
+  "exclude": ["**/*.d.ts", "./dist", ".vercel"]
 }

@@ -38,6 +38,10 @@ input DateTimeFilter {
   notIn: [Timestamp!]
 }
 
+input IntFieldUpdateOperationsInput {
+  set: Int
+}
+
 input IntFilter {
   equals: Int
   gt: Int
@@ -61,6 +65,7 @@ input IntNullableFilter {
 }
 
 type Mutation {
+  createLocalUser(data: SignUpUserLocalInput!): User
   createProject(data: ProjectCreateInput!): Project!
   createUser(data: UserCreateInput!): User!
   deleteManyProject(where: ProjectWhereInput): BatchPayload!
@@ -309,6 +314,13 @@ enum QueryMode {
   insensitive
 }
 
+"""New recipe data"""
+input SignUpUserLocalInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
 enum SortOrder {
   asc
   desc
@@ -354,31 +366,33 @@ The javascript `Date` as integer. Type represents date and time as number of mil
 scalar Timestamp
 
 type User {
-  avatar: String!
+  avatar: String
   createdAt: Timestamp!
   email: String!
   id: Int!
   lastOnline: Timestamp!
   name: String!
   Project(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]
-  socialLoginToken: String
-  socialLoginType: Int
+  tier: Int!
 }
 
 type UserAvgAggregateOutputType {
   id: Float!
   socialLoginType: Float
+  tier: Float!
 }
 
 input UserCreateInput {
-  avatar: String!
+  avatar: String
   createdAt: Timestamp
   email: String!
   lastOnline: Timestamp
   name: String!
+  password: String
   Project: ProjectCreateManyWithoutUserInput
   socialLoginToken: String
   socialLoginType: Int
+  tier: Int
 }
 
 input UserCreateOneWithoutProjectInput {
@@ -387,13 +401,15 @@ input UserCreateOneWithoutProjectInput {
 }
 
 input UserCreateWithoutProjectInput {
-  avatar: String!
+  avatar: String
   createdAt: Timestamp
   email: String!
   lastOnline: Timestamp
   name: String!
+  password: String
   socialLoginToken: String
   socialLoginType: Int
+  tier: Int
 }
 
 enum UserDistinctFieldEnum {
@@ -403,18 +419,22 @@ enum UserDistinctFieldEnum {
   id
   lastOnline
   name
+  password
   socialLoginToken
   socialLoginType
+  tier
 }
 
 type UserMaxAggregateOutputType {
   id: Int!
   socialLoginType: Int
+  tier: Int!
 }
 
 type UserMinAggregateOutputType {
   id: Int!
   socialLoginType: Int
+  tier: Int!
 }
 
 input UserOrderByInput {
@@ -424,8 +444,10 @@ input UserOrderByInput {
   id: SortOrder
   lastOnline: SortOrder
   name: SortOrder
+  password: SortOrder
   socialLoginToken: SortOrder
   socialLoginType: SortOrder
+  tier: SortOrder
 }
 
 input UserRelationFilter {
@@ -436,27 +458,32 @@ input UserRelationFilter {
 type UserSumAggregateOutputType {
   id: Int!
   socialLoginType: Int
+  tier: Int!
 }
 
 input UserUpdateInput {
-  avatar: StringFieldUpdateOperationsInput
+  avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   lastOnline: DateTimeFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  password: NullableStringFieldUpdateOperationsInput
   Project: ProjectUpdateManyWithoutUserInput
   socialLoginToken: NullableStringFieldUpdateOperationsInput
   socialLoginType: NullableIntFieldUpdateOperationsInput
+  tier: IntFieldUpdateOperationsInput
 }
 
 input UserUpdateManyMutationInput {
-  avatar: StringFieldUpdateOperationsInput
+  avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   lastOnline: DateTimeFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  password: NullableStringFieldUpdateOperationsInput
   socialLoginToken: NullableStringFieldUpdateOperationsInput
   socialLoginType: NullableIntFieldUpdateOperationsInput
+  tier: IntFieldUpdateOperationsInput
 }
 
 input UserUpdateOneRequiredWithoutProjectInput {
@@ -467,13 +494,15 @@ input UserUpdateOneRequiredWithoutProjectInput {
 }
 
 input UserUpdateWithoutProjectDataInput {
-  avatar: StringFieldUpdateOperationsInput
+  avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   lastOnline: DateTimeFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  password: NullableStringFieldUpdateOperationsInput
   socialLoginToken: NullableStringFieldUpdateOperationsInput
   socialLoginType: NullableIntFieldUpdateOperationsInput
+  tier: IntFieldUpdateOperationsInput
 }
 
 input UserUpsertWithoutProjectInput {
@@ -483,7 +512,7 @@ input UserUpsertWithoutProjectInput {
 
 input UserWhereInput {
   AND: [UserWhereInput!]
-  avatar: StringFilter
+  avatar: StringNullableFilter
   createdAt: DateTimeFilter
   email: StringFilter
   id: IntFilter
@@ -491,12 +520,15 @@ input UserWhereInput {
   name: StringFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
+  password: StringNullableFilter
   Project: ProjectListRelationFilter
   socialLoginToken: StringNullableFilter
   socialLoginType: IntNullableFilter
+  tier: IntFilter
 }
 
 input UserWhereUniqueInput {
   email: String
   id: Int
+  name: String
 }

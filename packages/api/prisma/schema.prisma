@@ -24,11 +24,16 @@ model Project {
 model User {
   id               Int       @id @default(autoincrement())
   createdAt        DateTime  @default(now())
-  name             String
+  name             String    @unique
   email            String    @unique
-  avatar           String
+  avatar           String?
+  /// @TypeGraphQL.omit(output: true)
   socialLoginToken String?
+  /// @TypeGraphQL.omit(output: true)
   socialLoginType  Int?
   lastOnline       DateTime  @default(now())
+  /// @TypeGraphQL.omit(output: true)
+  password         String?
+  tier             Int       @default(0)
   Project          Project[]
 }

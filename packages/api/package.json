@@ -19,7 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prisma:introspect": "prisma introspect",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "rimraf ./prisma/generated && prisma generate"
   },
   "dependencies": {
     "@nestjs/common": "7.4.4",
@@ -31,6 +31,7 @@
     "@nestjs/platform-fastify": "7.4.4",
     "@prisma/client": "2.9.0-dev.36",
     "apollo-server-fastify": "2.18.2",
+    "bcrypt": "5.0.0",
     "class-validator": "0.12.2",
     "dotenv": "8.2.0",
     "graphql": "15.3.0",

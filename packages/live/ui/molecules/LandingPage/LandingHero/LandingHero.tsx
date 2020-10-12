@@ -18,9 +18,9 @@ function LandingHero({ onClickSignUp }: Props) {
           Together.
         </Text>
         <Text fontSize={"xl"} marginY={6} fontWeight={600}>
-          Syra empowers you to collaborate on music projects in real time.
+          SYRA empowers you to collaborate on music projects in real time.
           Creative software tools and an advanced workflow. Endless
-          possibilities. Start with Syra.
+          possibilities. Start with SYRA.
         </Text>
         <Button rounded={"full"} variantColor={"cyan"} onClick={onClickSignUp}>Try for free</Button>
       </Box>
@@ -33,11 +33,10 @@ function LandingHero({ onClickSignUp }: Props) {
         </Text>
         <Text fontSize={"xl"} marginY={6} marginLeft={6} fontWeight={600} textAlign={'left'}>
           Professional DAW.<br/>
-          No Software Downloads.<br/>
           Real time collaboration.<br/>
           Shared sessions.<br/>
-          Full session history access.<br/>
-          Sample and Audio FX marketplace.<br/>
+          Versioning History.<br/>
+          Advanced AI algorithms.<br/>
         </Text>
       </Box>
       <IconButton icon={BsChevronCompactDown} aria-label={"scroll-down"} position={"absolute"} bottom={4} left={"50%"}
