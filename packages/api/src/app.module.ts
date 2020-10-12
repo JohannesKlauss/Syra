@@ -27,7 +27,7 @@ const prisma = new PrismaClient();
       introspection: true,
       path: '/',
       emitSchemaFile: true,
-      context: (): Context => ({ prisma }),
+      context: ({ req }): Context => ({ prisma, req }),
     }),
   ],
   controllers: [AppController],
