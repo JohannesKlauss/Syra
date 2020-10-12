@@ -44,7 +44,7 @@
     "passport-spotify": "1.1.0",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.6.3",
-    "type-graphql": "1.0.0",
+    "type-graphql": "1.1.0",
     "typegraphql-nestjs": "0.2.5",
     "typegraphql-prisma": "0.8.1"
   },
