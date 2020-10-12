@@ -1,0 +1,9 @@
+export enum SignInUpType {
+  LOCAL,
+  GOOGLE,
+  FACEBOOK,
+  TWITTER,
+  INSTAGRAM,
+  SOUNDCLOUD,
+  SPOTIFY,
+}

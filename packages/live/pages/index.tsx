@@ -4,6 +4,7 @@ import LandingHero from "../ui/molecules/LandingHero/LandingHero";
 import { landingPageStore } from "../recoil/landingPageStore";
 import { useRecoilState } from "recoil";
 import SignUpModal from "../ui/organisms/SignUpModal/SignUpModal";
+import LogInModal from "../ui/organisms/LogInModal/LogInModal";
 
 export default function Home() {
   const [showLogInModal, setShowLogInModal] = useRecoilState(landingPageStore.showLogInModal);
@@ -15,6 +16,10 @@ export default function Home() {
     setShowSignUpModal(false);
     setShowLogInModal(true);
   };
+  const switchToSignUp = () => {
+    setShowSignUpModal(true);
+    setShowLogInModal(false);
+  };
 
   return (
     <>
@@ -22,6 +27,8 @@ export default function Home() {
       <LandingHero onClickSignUp={toggleSignUpModal}/>
       <SignUpModal isOpen={showSignUpModal} onClose={() => setShowSignUpModal(false)}
                    onClickSwitchToLogin={switchToLogin}/>
+      <LogInModal isOpen={showLogInModal} onClose={() => setShowLogInModal(false)}
+                   onClickSwitchToSignUp={switchToSignUp}/>
     </>
   );
 }

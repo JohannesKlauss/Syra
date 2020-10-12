@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Flex, Text } from "@chakra-ui/core";
+import { Box, Button, Flex, Text, Image } from "@chakra-ui/core";
 
 interface Props {
   onClickSignUp: () => void;

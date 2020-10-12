@@ -18,7 +18,7 @@ function LandingHero({onClickSignUp}: Props) {
         </Text>
         <Text fontSize={'lg'} marginY={6}>
           Syra empowers you to collaborate on music projects in real time.
-          Industry-leading software tools and an advanced workflow. Endless
+          Creative software tools and an advanced workflow. Endless
           possibilities. Start with Syra.
         </Text>
         <Button rounded={'full'} variantColor={'cyan'} onClick={onClickSignUp}>Try free</Button>
