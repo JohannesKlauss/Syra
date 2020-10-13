@@ -4887,6 +4887,7 @@
     "@chakra-ui/core" "0.8.0"
     "@emotion/core" "10.0.35"
     "@emotion/styled" "10.0.27"
+    "@syra/gql-client" "file:../../../Library/Caches/Yarn/v6/npm-@syra-live-0.0.1-ae0df0bb-afdb-4f95-ab49-012585aa4573-1602587989785/node_modules/@syra/gql-client"
     apollo-server-micro "2.18.2"
     emotion-theming "10.0.27"
     graphql "15.3.0"
@@ -5546,10 +5547,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@16.9.51", "@types/react@^16.8.10":
-  version "16.9.51"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.51.tgz#f8aa51ffa9996f1387f63686696d9b59713d2b60"
-  integrity sha512-lQa12IyO+DMlnSZ3+AGHRUiUcpK47aakMMoBG8f7HGxJT8Yfe+WE128HIXaHOHVPReAW0oDS3KAI0JI2DDe1PQ==
+"@types/react@*", "@types/react@16.9.52", "@types/react@^16.8.10":
+  version "16.9.52"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.52.tgz#c46c72d1a1d8d9d666f4dd2066c0e22600ccfde1"
+  integrity sha512-EHRjmnxiNivwhGdMh9sz1Yw9AUxTSZFxKqdBWAAzyZx3sufWwx6ogqHYh/WB1m/I4ZpjkoZLExF5QTy2ekVi/Q==
   dependencies:
     "@types/prop-types" "*"
     csstype "^3.0.2"
