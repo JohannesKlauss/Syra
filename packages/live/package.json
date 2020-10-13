@@ -10,10 +10,14 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@apollo/client": "3.2.3",
     "@chakra-ui/core": "0.8.0",
     "@emotion/core": "10.0.35",
     "@emotion/styled": "10.0.27",
+    "@syra/gql-client": "*",
+    "apollo-server-micro": "2.18.2",
     "emotion-theming": "10.0.27",
+    "graphql": "15.3.0",
     "next": "9.5.5",
     "next-i18next": "6.0.3",
     "react": "16.13.1",

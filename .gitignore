@@ -1,21 +1,12 @@
 .idea/
 
 build
+dist
 
 .env
 .env.local
 .env.production
 .env.integration
-
-dist
-public/ic-injector.js
-
-packages/api/.graphqlconfig
-codegen.yml
-
-# DFINITY
-.dfx
-canisters/
 
 # cypress
 .nyc_output

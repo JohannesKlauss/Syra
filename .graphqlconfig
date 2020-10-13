@@ -1,6 +1,6 @@
 {
   "name": "Syra GraphQL Schema",
-  "schemaPath": "./packages/api/schema.gql",
+  "schemaPath": "./schema.graphql",
   "extensions": {
     "endpoints": {
       "Nest.js GraphQL API": {

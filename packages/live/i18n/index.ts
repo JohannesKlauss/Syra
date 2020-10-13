@@ -9,7 +9,7 @@ const { appWithTranslation, useTranslation } = new NextI18Next({
   fallbackNS: 'default',
   localeSubpaths,
   defaultNS: 'default',
-  localePath: path.resolve('./i18n/locales')
+  localePath: path.resolve('./public/static/locales')
 });
 
 export {

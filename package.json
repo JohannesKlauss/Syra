@@ -10,12 +10,17 @@
     "api:test": "yarn workspace @syra/api test",
     "api:build": "yarn workspace @syra/api build",
     "api:generate-schema": "yarn workspace @syra/api prisma:introspect && yarn workspace @syra/api prisma:generate",
+    "gql-client:generate": "yarn workspace @syra/gql-client generate",
     "daw:start": "yarn workspace @syra/daw start",
     "live:start": "yarn workspace @syra/live dev",
     "live:build": "yarn workspace @syra/live build",
     "live:storybook": "yarn workspace @syra/live storybook"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "1.17.10",
+    "@graphql-codegen/typescript": "1.17.10",
+    "@graphql-codegen/typescript-operations": "1.17.8",
+    "@graphql-codegen/typescript-react-apollo": "2.0.7",
     "@nestjs/cli": "7.5.1",
     "@nestjs/schematics": "7.1.2",
     "@nestjs/testing": "7.4.4",
@@ -73,6 +78,7 @@
     "@syra/api": "file:packages/api",
     "@syra/daw": "file:packages/daw",
     "@syra/live": "file:packages/live",
+    "@syra/gql-client": "file:packages/gql-client",
     "graphql-tools": "6.2.4"
   },
   "prettier": {
@@ -80,5 +86,66 @@
     "semi": true,
     "singleQuote": true,
     "trailingComma": "all"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "prettier",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/recommended",
+      "plugin:react-native/all",
+      "standard"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "project": "./tsconfig.json"
+    },
+    "plugins": [
+      "@typescript-eslint",
+      "react",
+      "react-native"
+    ],
+    "settings": {
+      "react": {
+        "pragma": "React",
+        "version": "detect"
+      }
+    },
+    "globals": {
+      "__DEV__": false,
+      "jasmine": false,
+      "beforeAll": false,
+      "afterAll": false,
+      "beforeEach": false,
+      "afterEach": false,
+      "test": false,
+      "expect": false,
+      "describe": false,
+      "jest": false,
+      "it": false
+    },
+    "rules": {
+      "no-unused-vars": 0,
+      "no-undef": 0,
+      "react/no-unescaped-entities": 0,
+      "react/prop-types": "off",
+      "react-native/no-raw-text": 0,
+      "space-before-function-paren": 0,
+      "@typescript-eslint/ban-ts-ignore": 0,
+      "@typescript-eslint/explicit-member-accessibility": 0,
+      "@typescript-eslint/explicit-function-return-type": 0,
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/no-object-literal-type-assertion": 0,
+      "@typescript-eslint/no-empty-interface": 0,
+      "@typescript-eslint/no-var-requires": 0,
+      "react": [
+        "warn",
+        {
+          "additionalHooks": "useRecoilCallback"
+        }
+      ]
+    }
   }
 }
