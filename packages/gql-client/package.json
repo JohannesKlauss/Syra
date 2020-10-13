@@ -7,6 +7,7 @@
   "license": "MIT",
   "files": ["index.d.ts", "index.js", "index.js.map"],
   "main": "index.js",
+  "typings": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JohannesKlauss/Syra.git"

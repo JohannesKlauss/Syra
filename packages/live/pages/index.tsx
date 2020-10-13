@@ -13,10 +13,8 @@ import Footer from "../ui/organisms/Footer/Footer";
 import Stopper from "../ui/organisms/Stopper/Stopper";
 import { benefits } from '../static/benefits';
 import { tiers } from '../static/tiers';
-import { useUserQuery } from "@syra/gql-client";
 
 export default function Home() {
-  const {data} = useUserQuery({variables: {id: 7}});
 
   const [showLogInModal, setShowLogInModal] = useRecoilState(landingPageStore.showLogInModal);
   const [showSignUpModal, setShowSignUpModal] = useRecoilState(landingPageStore.showSignUpModal);
@@ -31,10 +29,6 @@ export default function Home() {
     setShowSignUpModal(true);
     setShowLogInModal(false);
   };
-
-  if (data && data.user) {
-    console.log(data.user);
-  }
 
   return (
     <>

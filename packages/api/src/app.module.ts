@@ -26,7 +26,7 @@ const prisma = new PrismaClient();
       },
       introspection: true,
       path: '/',
-      emitSchemaFile: true,
+      emitSchemaFile: '../../schema.graphql',
       context: ({ req }): Context => ({ prisma, req }),
     }),
   ],
