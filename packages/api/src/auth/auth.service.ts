@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import bcrypt from "bcrypt";
-import { User } from '../../prisma/generated/type-graphql/models';
 import { JwtService } from '@nestjs/jwt';
+import { User } from 'prisma/generated/type-graphql';
 
 @Injectable()
 export class AuthService {

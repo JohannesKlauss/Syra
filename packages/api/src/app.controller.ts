@@ -19,4 +19,12 @@ export class AppController {
   getProfile(@Request() req) {
     return req.user;
   }
+
+  @Get('version')
+  getVersion() {
+    return {
+      name: require('../package.json').name,
+      version: require('../package.json').version
+    };
+  }
 }
