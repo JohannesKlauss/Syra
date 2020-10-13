@@ -31,7 +31,7 @@
     "@nestjs/jwt": "7.1.0",
     "@nestjs/passport": "7.1.0",
     "@nestjs/platform-fastify": "7.4.4",
-    "@prisma/client": "2.9.0-dev.36",
+    "@prisma/client": "2.8.1",
     "apollo-server-fastify": "2.18.2",
     "bcrypt": "5.0.0",
     "class-validator": "0.12.2",
@@ -48,7 +48,7 @@
     "rxjs": "6.6.3",
     "type-graphql": "1.1.0",
     "typegraphql-nestjs": "0.2.5",
-    "typegraphql-prisma": "0.8.0"
+    "typegraphql-prisma": "0.8.2"
   },
   "jest": {
     "moduleFileExtensions": [

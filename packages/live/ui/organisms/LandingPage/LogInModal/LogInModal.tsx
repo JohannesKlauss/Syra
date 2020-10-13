@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/core";
 import SocialSignUp from "../../../molecules/LandingPage/SocialSignUp/SocialSignUp";
 import LogInForm from "../../../molecules/LandingPage/LogInForm/LogInForm";
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   isOpen: boolean;
@@ -20,30 +21,32 @@ interface Props {
 }
 
 function LogInModal({onClickSwitchToSignUp, onClose, isOpen}: Props) {
+  const { t } = useTranslation();
+
   return (
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
       <ModalOverlay opacity={1}/>
       <ModalContent pb={5}>
-        <ModalHeader>Log In</ModalHeader>
+        <ModalHeader>{t('S Y R A   -   Log In')}</ModalHeader>
         <ModalCloseButton/>
         <ModalBody>
           <LogInForm/>
           <Flex align={"center"} marginY={2}>
             <Divider flex={1}/>
-            <Text flex={1} fontSize={"md"} textAlign={"center"}>or continue with</Text>
+            <Text flex={1} fontSize={"md"} textAlign={"center"}>{t('or continue with')}</Text>
             <Divider flex={1}/>
           </Flex>
           <SocialSignUp buttonSize={"lg"} fontSize={"2xl"} onClick={() => null}/>
           <Flex align={"center"} justify={"center"}>
             <Text fontSize={"sm"} textAlign={"center"}>
-              Don't have an account?
+              {t('Don\'t have an account?')}
               <Button
                 variant={"link"}
                 size={"sm"} marginLeft={2}
                 variantColor={"teal"}
                 onClick={onClickSwitchToSignUp}
               >
-                Sign Up.
+                {t('Sign Up')}.
               </Button>
             </Text>
           </Flex>

@@ -19,9 +19,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useCreateNewUserMutation = exports.CreateNewUserDocument = exports.UserDistinctFieldEnum = exports.SortOrder = exports.QueryMode = exports.ProjectDistinctFieldEnum = void 0;
+exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useCreateNewUserMutation = exports.CreateNewUserDocument = exports.useCreateEarlyAccessCodeMutation = exports.CreateEarlyAccessCodeDocument = exports.Userrole = exports.UserDistinctFieldEnum = exports.SortOrder = exports.QueryMode = exports.ProjectDistinctFieldEnum = exports.EarlyAccessCodesDistinctFieldEnum = void 0;
 const client_1 = require("@apollo/client");
 const Apollo = __importStar(require("@apollo/client"));
+var EarlyAccessCodesDistinctFieldEnum;
+(function (EarlyAccessCodesDistinctFieldEnum) {
+    EarlyAccessCodesDistinctFieldEnum["Code"] = "code";
+    EarlyAccessCodesDistinctFieldEnum["Id"] = "id";
+    EarlyAccessCodesDistinctFieldEnum["IsUsed"] = "isUsed";
+})(EarlyAccessCodesDistinctFieldEnum = exports.EarlyAccessCodesDistinctFieldEnum || (exports.EarlyAccessCodesDistinctFieldEnum = {}));
 var ProjectDistinctFieldEnum;
 (function (ProjectDistinctFieldEnum) {
     ProjectDistinctFieldEnum["CreatedAt"] = "createdAt";
@@ -49,13 +55,30 @@ var UserDistinctFieldEnum;
     UserDistinctFieldEnum["LastOnline"] = "lastOnline";
     UserDistinctFieldEnum["Name"] = "name";
     UserDistinctFieldEnum["Password"] = "password";
+    UserDistinctFieldEnum["Role"] = "role";
     UserDistinctFieldEnum["SocialLoginToken"] = "socialLoginToken";
     UserDistinctFieldEnum["SocialLoginType"] = "socialLoginType";
     UserDistinctFieldEnum["Tier"] = "tier";
 })(UserDistinctFieldEnum = exports.UserDistinctFieldEnum || (exports.UserDistinctFieldEnum = {}));
+var Userrole;
+(function (Userrole) {
+    Userrole["RoleAdmin"] = "ROLE_ADMIN";
+    Userrole["RoleUser"] = "ROLE_USER";
+})(Userrole = exports.Userrole || (exports.Userrole = {}));
+exports.CreateEarlyAccessCodeDocument = client_1.gql `
+  mutation CreateEarlyAccessCode($code: String!) {
+    createEarlyAccessCodes(data: { code: $code, isUsed: false }) {
+      code
+    }
+  }
+`;
+function useCreateEarlyAccessCodeMutation(baseOptions) {
+    return Apollo.useMutation(exports.CreateEarlyAccessCodeDocument, baseOptions);
+}
+exports.useCreateEarlyAccessCodeMutation = useCreateEarlyAccessCodeMutation;
 exports.CreateNewUserDocument = client_1.gql `
-  mutation CreateNewUser($name: String!, $email: String!, $password: String!) {
-    createLocalUser(data: { name: $name, email: $email, password: $password }) {
+  mutation CreateNewUser($name: String!, $email: String!, $password: String!, $accessCode: String!) {
+    createLocalUser(data: { name: $name, email: $email, password: $password, accessCode: $accessCode }) {
       id
     }
   }

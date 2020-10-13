@@ -1,5 +1,5 @@
-mutation CreateNewUser($name: String!, $email: String!, $password: String!) {
-    createLocalUser(data: {name: $name, email: $email, password: $password}) {
+mutation CreateNewUser($name: String!, $email: String!, $password: String!, $accessCode: String!) {
+    createLocalUser(data: {name: $name, email: $email, password: $password, accessCode: $accessCode}) {
         id
     }
 }

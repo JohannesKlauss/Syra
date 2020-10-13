@@ -1,0 +1,5 @@
+mutation CreateEarlyAccessCode($code: String!) {
+    createEarlyAccessCodes(data: {code: $code, isUsed: false}) {
+        code
+    }
+}

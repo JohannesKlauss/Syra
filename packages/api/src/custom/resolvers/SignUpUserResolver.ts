@@ -9,7 +9,7 @@ import { User } from 'prisma/generated/type-graphql';
 export class SignUpUserResolver {
   @Mutation(returns => User, { nullable: true })
   async createLocalUser(@Arg('data') newUserData: SignUpUserLocalInput, @Ctx() { prisma }: Context): Promise<User | null> {
-    const { email, password, name } = newUserData;
+    const { email, password, name, accessCode } = newUserData;
 
     const mailTaken = await prisma.user.findOne({
       where: { email },
@@ -33,6 +33,15 @@ export class SignUpUserResolver {
       }, HttpStatus.BAD_REQUEST);
     }
 
+    const code = await prisma.earlyAccessCodes.findOne({where: {code: accessCode}});
+
+    if (!code || code.isUsed) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid Access Code',
+      }, HttpStatus.BAD_REQUEST);
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const { id } = await prisma.user.create({
@@ -47,6 +56,8 @@ export class SignUpUserResolver {
         id: true,
       },
     });
+
+    prisma.earlyAccessCodes.update({where: {code: accessCode}, data: {isUsed: true}});
 
     return await prisma.user.findOne({
       where: { id },

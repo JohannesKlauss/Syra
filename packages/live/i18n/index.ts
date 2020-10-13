@@ -1,18 +1,15 @@
 import NextI18Next from 'next-i18next';
-const { localeSubpaths } = require('next/config').default().publicRuntimeConfig
-const path = require('path')
+import * as path from 'path';
 
-const { appWithTranslation, useTranslation } = new NextI18Next({
+const NextI18NextInstance = new NextI18Next({
   defaultLanguage: 'en',
   otherLanguages: ['de'],
   fallbackLng: 'en',
   fallbackNS: 'default',
-  localeSubpaths,
   defaultNS: 'default',
   localePath: path.resolve('./public/static/locales')
 });
 
-export {
-  appWithTranslation,
-  useTranslation,
-}
+export default NextI18NextInstance;
+
+export const {appWithTranslation, Link, Trans, Router, config, withTranslation, i18n} = NextI18NextInstance;

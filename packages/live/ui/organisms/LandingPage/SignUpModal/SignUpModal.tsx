@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import {
   Button, Divider, Flex,
   Modal,
@@ -11,6 +11,10 @@ import {
 } from "@chakra-ui/core";
 import SocialSignUp from "../../../molecules/LandingPage/SocialSignUp/SocialSignUp";
 import SignUpForm from "../../../molecules/LandingPage/SignUpForm/SignUpForm";
+import { useCreateNewUserMutation } from '@syra/gql-client';
+import { useSetRecoilState } from 'recoil';
+import { landingPageStore } from '../../../../recoil/landingPageStore';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   isOpen: boolean;
@@ -19,30 +23,45 @@ interface Props {
 }
 
 function SignUpModal({ isOpen, onClose, onClickSwitchToLogin }: Props) {
+  const [hasError, setHasError] = useState(false);
+  const [executeMutation] = useCreateNewUserMutation();
+  const setShowSignUpModal = useSetRecoilState(landingPageStore.showSignUpModal);
+  const {t} = useTranslation();
+
+  const onSubmit = async (data: SignUpForm) => {
+    const result = await executeMutation({variables: data});
+
+    setHasError(result.errors !== undefined);
+
+    if (result.data.createLocalUser.id) {
+      setShowSignUpModal(false);
+    }
+  };
+
   return (
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
       <ModalOverlay opacity={1}/>
       <ModalContent pb={5}>
-        <ModalHeader>Create an Account</ModalHeader>
+        <ModalHeader>{t('S Y R A   -   Early Access')}</ModalHeader>
         <ModalCloseButton/>
         <ModalBody>
-          <SignUpForm/>
+          <SignUpForm onSubmit={onSubmit} hasError={hasError}/>
           <Flex align={"center"} marginY={2}>
             <Divider flex={1}/>
-            <Text flex={1} fontSize={"md"} textAlign={"center"}>or continue with</Text>
+            <Text flex={1} fontSize={"md"} textAlign={"center"}>{t('or continue with')}</Text>
             <Divider flex={1}/>
           </Flex>
           <SocialSignUp buttonSize={"lg"} fontSize={"2xl"} onClick={() => null}/>
           <Flex align={"center"} justify={"center"}>
             <Text fontSize={"sm"} textAlign={"center"}>
-              Have an account?
+              {t('Have an account?')}
               <Button
                 variant={"link"}
                 size={"sm"} marginLeft={2}
                 variantColor={"teal"}
                 onClick={onClickSwitchToLogin}
               >
-                Log In.
+                {t('Log In')}.
               </Button>
             </Text>
           </Flex>

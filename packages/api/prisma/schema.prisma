@@ -35,5 +35,19 @@ model User {
   /// @TypeGraphQL.omit(output: true)
   password         String?
   tier             Int       @default(0)
+  role             userrole  @default(ROLE_USER)
   Project          Project[]
+}
+
+model EarlyAccessCodes {
+  /// @TypeGraphQL.omit(output: true)
+  id     Int     @id @default(autoincrement())
+  code   String  @unique
+  /// @TypeGraphQL.omit(output: true)
+  isUsed Boolean @default(false)
+}
+
+enum userrole {
+  ROLE_ADMIN
+  ROLE_USER
 }

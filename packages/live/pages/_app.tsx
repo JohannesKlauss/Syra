@@ -7,7 +7,7 @@ import { useApollo } from '../apollo/client';
 import { ApolloProvider } from '@apollo/client';
 
 function MyApp({ Component, pageProps }) {
-  const apolloClient = useApollo(pageProps.initialApolloState);
+  const apolloClient = useApollo(null); // TODO: THIS SHOULD BE POPULATED WITH THE SSR STATE
 
   return (
     <ApolloProvider client={apolloClient}>

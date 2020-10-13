@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 const showSignUpModal = atom({
-  key: 'landingPage/showSignInModal',
+  key: 'landingPage/showSignUpModal',
   default: false,
 });
 

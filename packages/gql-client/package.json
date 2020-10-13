@@ -1,6 +1,6 @@
 {
   "name": "@syra/gql-client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Package to generate hooks and all other code basis to interact with the graphql endpoint",
   "author": "Johannes Klauss <klauss.johannes@gmail.com>",
   "homepage": "https://github.com/JohannesKlauss/Syra#readme",

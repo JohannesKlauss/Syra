@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Button, FormControl, FormHelperText, FormLabel, Input } from "@chakra-ui/core";
+import { useTranslation } from 'react-i18next';
 
 interface Props {
 
@@ -12,6 +13,7 @@ type LogInForm = {
 }
 
 function LogInForm({}: Props) {
+  const { t } = useTranslation();
   const { register, handleSubmit } = useForm<LogInForm>();
 
   const onSubmit = data => console.log(data);
@@ -19,7 +21,7 @@ function LogInForm({}: Props) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl isRequired marginY={4}>
-        <FormLabel htmlFor="email">Email address</FormLabel>
+        <FormLabel htmlFor="email">{t('Email address')}</FormLabel>
         <Input
           type="email"
           id="email"
@@ -29,16 +31,16 @@ function LogInForm({}: Props) {
           placeholder={"you@example.com"}/>
       </FormControl>
       <FormControl isRequired marginY={4}>
-        <FormLabel htmlFor="password">Password</FormLabel>
+        <FormLabel htmlFor="password">{t('Password')}</FormLabel>
         <Input
           type="password"
           id="password"
           name={'password'}
           ref={register({ required: true })}
           aria-describedby="password-helper-text"
-          placeholder={"password"}/>
+          placeholder={t('Password')}/>
       </FormControl>
-      <Button marginY={4} type={"submit"} isFullWidth variantColor={"teal"}>L O G &nbsp; I N</Button>
+      <Button marginY={4} type={"submit"} isFullWidth variantColor={"teal"}>{t('L O G   I N')}</Button>
     </form>
   );
 }
