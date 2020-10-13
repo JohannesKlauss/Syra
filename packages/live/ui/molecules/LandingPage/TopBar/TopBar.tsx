@@ -8,7 +8,7 @@ interface Props {
 }
 
 function TopBar({onClickSignUp, onClickLogIn}: Props) {
-  const {data, error, loading} = useUserQuery({variables: {id: 6}});
+  const {data, error, loading} = useUserQuery({variables: {id: 7}});
 
   return (
     <Box position={"fixed"} top={0} bg={"gray.900"} w={"100%"} h={'72px'} color={"white"} p={'16px'}
