@@ -5,5 +5,5 @@
   "useWorkspaces": true,
   "workspaces": ["packages/*"],
   "npmClient": "yarn",
-  "version": "0.1.0"
+  "version": "independent"
 }

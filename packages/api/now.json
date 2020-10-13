@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "syra-api",
   "builds": [
     { "src": "dist/main.js", "use": "@now/node" }
   ],
