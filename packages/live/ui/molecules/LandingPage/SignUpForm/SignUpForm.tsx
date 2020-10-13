@@ -21,7 +21,6 @@ function SignUpForm({ hasError, onSubmit }: Props) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {hasError && <FormErrorMessage>{t('Something went wrong. Please try again later.')}</FormErrorMessage>}
       <FormControl isRequired marginY={4}>
         <FormLabel htmlFor="accessCode">{t('Early Access Code')}</FormLabel>
         <Input
@@ -79,6 +78,7 @@ function SignUpForm({ hasError, onSubmit }: Props) {
         <FormHelperText id="password-helper-text">
           {t('Choose a strong password to be on the safe side.')}
         </FormHelperText>
+        {hasError && <FormErrorMessage>{t('Something went wrong. Please try again later.')}</FormErrorMessage>}
       </FormControl>
       <Button marginY={4} type={'submit'} isFullWidth variantColor={'teal'}>{t('S I G N  U P')}</Button>
     </form>

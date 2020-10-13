@@ -57,7 +57,7 @@ export class SignUpUserResolver {
       },
     });
 
-    prisma.earlyAccessCodes.update({where: {code: accessCode}, data: {isUsed: true}});
+    await prisma.earlyAccessCodes.update({where: {code: accessCode}, data: {isUsed: true}});
 
     return await prisma.user.findOne({
       where: { id },

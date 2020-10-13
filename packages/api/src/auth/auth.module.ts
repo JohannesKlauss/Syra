@@ -12,7 +12,7 @@ import { JwtStrategy } from './jwt.strategy';
     JwtModule.register({
       // TODO: FOR SOME REASON NEST.JS DOESN'T LOAD THE ENV VARS. HAVE TO FIGURE THAT OUT. CHANGE THAT KEY
       secret: process.env.PASSPORT_SECRET || 'NOT_VERY_SECRET',
-      signOptions: { expiresIn: '60m' },
+      signOptions: { expiresIn: '3600s' },
     }),
   ],
   providers: [AuthService, PrismaService, LocalStrategy, JwtStrategy],

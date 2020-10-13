@@ -4,7 +4,7 @@ import * as React from "react";
 const Template = (args) => <Footer {...args} />;
 
 export default {
-  title: "organisms/Footer",
+  title: "atoms/Footer",
   component: Footer
 };
 

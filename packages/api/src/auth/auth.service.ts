@@ -26,11 +26,9 @@ export class AuthService {
     return null;
   }
 
-  async login(user: User) {
-    const payload = { username: user.name, sub: user.id, tier: user.tier };
+  login(user: User) {
+    const payload = { username: user.name, id: user.id, tier: user.tier };
 
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+    return `Authentication=${this.jwtService.sign(payload)}; Domain=local.syra.live:8000; HttpOnly; Path=/; Max-Age=3600s`;
   }
 }

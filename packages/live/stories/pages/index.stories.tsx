@@ -4,7 +4,7 @@ import * as React from "react";
 const Template = (args) => <Home {...args} />;
 
 export default {
-  title: "x pages/Home",
+  title: "x pages/Index",
   component: Home
 };
 

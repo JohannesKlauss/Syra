@@ -36,6 +36,7 @@
     "bcrypt": "5.0.0",
     "class-validator": "0.12.2",
     "dotenv": "8.2.0",
+    "fastify-cookie": "4.1.0",
     "graphql": "15.3.0",
     "graphql-fields": "2.0.3",
     "graphql-type-json": "0.3.2",

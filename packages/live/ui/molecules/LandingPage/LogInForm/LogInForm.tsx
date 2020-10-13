@@ -1,22 +1,21 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Button, FormControl, FormHelperText, FormLabel, Input } from "@chakra-ui/core";
+import { Button, FormControl, FormLabel, Input } from "@chakra-ui/core";
 import { useTranslation } from 'react-i18next';
 
 interface Props {
-
+  onSubmit: (data: TLogInForm) => void;
+  hasError: boolean;
 }
 
-type LogInForm = {
+export type TLogInForm = {
   email: string;
   password: string;
 }
 
-function LogInForm({}: Props) {
+function LogInForm({onSubmit, hasError}: Props) {
   const { t } = useTranslation();
-  const { register, handleSubmit } = useForm<LogInForm>();
-
-  const onSubmit = data => console.log(data);
+  const { register, handleSubmit } = useForm<TLogInForm>();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

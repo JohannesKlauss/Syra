@@ -9,13 +9,12 @@ import LandingClaim from "../ui/molecules/LandingPage/LandingClaim/LandingClaim"
 import Benefits from "../ui/molecules/LandingPage/Benefits/Benefits";
 import Pricing from "../ui/organisms/LandingPage/Pricing/Pricing";
 import { Box, Image } from "@chakra-ui/core";
-import Footer from "../ui/organisms/Footer/Footer";
-import Stopper from "../ui/organisms/Stopper/Stopper";
+import Footer from "../ui/atoms/Footer/Footer";
+import Stopper from "../ui/atoms/Stopper/Stopper";
 import { benefits } from '../static/benefits';
 import { tiers } from '../static/tiers';
 
 export default function Home() {
-
   const [showLogInModal, setShowLogInModal] = useRecoilState(landingPageStore.showLogInModal);
   const [showSignUpModal, setShowSignUpModal] = useRecoilState(landingPageStore.showSignUpModal);
 

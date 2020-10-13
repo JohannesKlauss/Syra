@@ -4,7 +4,7 @@ import * as React from "react";
 const Template = (args) => <Stopper {...args} />;
 
 export default {
-  title: "organisms/Stopper",
+  title: "atoms/Stopper",
   component: Stopper
 };
 

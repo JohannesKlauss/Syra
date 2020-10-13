@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import {
   Button,
   Divider,
@@ -8,11 +8,13 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalHeader,
-  ModalOverlay, Text
-} from "@chakra-ui/core";
-import SocialSignUp from "../../../molecules/LandingPage/SocialSignUp/SocialSignUp";
-import LogInForm from "../../../molecules/LandingPage/LogInForm/LogInForm";
+  ModalOverlay, Text,
+} from '@chakra-ui/core';
+import SocialSignUp from '../../../molecules/LandingPage/SocialSignUp/SocialSignUp';
+import LogInForm, { TLogInForm } from '../../../molecules/LandingPage/LogInForm/LogInForm';
 import { useTranslation } from 'react-i18next';
+import useLoginLocal from './useLoginLocal';
+import { useRouter } from 'next/router';
 
 interface Props {
   isOpen: boolean;
@@ -20,8 +22,21 @@ interface Props {
   onClickSwitchToSignUp: () => void;
 }
 
-function LogInModal({onClickSwitchToSignUp, onClose, isOpen}: Props) {
+function LogInModal({ onClickSwitchToSignUp, onClose, isOpen }: Props) {
+  const [hasError, setHasError] = useState(false);
   const { t } = useTranslation();
+  const executeLocalLogin = useLoginLocal();
+  const { push } = useRouter();
+
+  const onSubmit = async (data: TLogInForm) => {
+    const success = await executeLocalLogin(data);
+
+    setHasError(success);
+
+    if (success) {
+      await push('/feed');
+    }
+  };
 
   return (
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
@@ -30,20 +45,20 @@ function LogInModal({onClickSwitchToSignUp, onClose, isOpen}: Props) {
         <ModalHeader>{t('S Y R A   -   Log In')}</ModalHeader>
         <ModalCloseButton/>
         <ModalBody>
-          <LogInForm/>
-          <Flex align={"center"} marginY={2}>
+          <LogInForm onSubmit={onSubmit} hasError={hasError}/>
+          <Flex align={'center'} marginY={2}>
             <Divider flex={1}/>
-            <Text flex={1} fontSize={"md"} textAlign={"center"}>{t('or continue with')}</Text>
+            <Text flex={1} fontSize={'md'} textAlign={'center'}>{t('or continue with')}</Text>
             <Divider flex={1}/>
           </Flex>
-          <SocialSignUp buttonSize={"lg"} fontSize={"2xl"} onClick={() => null}/>
-          <Flex align={"center"} justify={"center"}>
-            <Text fontSize={"sm"} textAlign={"center"}>
+          <SocialSignUp buttonSize={'lg'} fontSize={'2xl'} onClick={() => null}/>
+          <Flex align={'center'} justify={'center'}>
+            <Text fontSize={'sm'} textAlign={'center'}>
               {t('Don\'t have an account?')}
               <Button
-                variant={"link"}
-                size={"sm"} marginLeft={2}
-                variantColor={"teal"}
+                variant={'link'}
+                size={'sm'} marginLeft={2}
+                variantColor={'teal'}
                 onClick={onClickSwitchToSignUp}
               >
                 {t('Sign Up')}.

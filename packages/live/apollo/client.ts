@@ -1,13 +1,28 @@
 import { useMemo } from 'react';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import Cookies from 'js-cookie';
 
 let apolloClient;
 
 function createApolloClient() {
+  const httpLink = createHttpLink({ uri: process.env.NEXT_PUBLIC_API_URL });
+  const authLink = setContext((_, { headers }) => {
+    const token = Cookies.get('ssn-jwt');
+
+    return {
+      headers: {
+        ...headers,
+        authorization: `Bearer ${token}`
+      }
+    }
+  });
+
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    uri: 'http://localhost:4000',
     cache: new InMemoryCache(),
+    link: authLink.concat(httpLink),
+    connectToDevTools: process.env.NODE_ENV === 'development',
   });
 }
 
