@@ -11,6 +11,6 @@ export default function useLoginLocal() {
       }
     });
 
-    return res.data.message = 'success';
+    return res.data.message === 'success';
   }, []);
 }
