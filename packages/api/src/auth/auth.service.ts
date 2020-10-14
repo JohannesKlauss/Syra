@@ -29,6 +29,8 @@ export class AuthService {
   login(user: User) {
     const payload = { username: user.name, id: user.id, tier: user.tier };
 
-    return `Authentication=${this.jwtService.sign(payload)}; Domain=local.syra.live:8000; HttpOnly; Path=/; Max-Age=3600s`;
+    return `Authentication=${this.jwtService.sign(payload, {
+      secret: process.env.PASSPORT_SECRET || 'NOT_VERY_SECRET'
+    })}; HttpOnly; Path=/; Max-Age=3600s`;
   }
 }

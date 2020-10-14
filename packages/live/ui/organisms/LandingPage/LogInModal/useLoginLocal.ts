@@ -1,18 +1,16 @@
 import { useCallback } from 'react';
 import { TLogInForm } from '../../../molecules/LandingPage/LogInForm/LogInForm';
+import axios from 'axios';
 
 export default function useLoginLocal() {
   return useCallback(async (data: TLogInForm) => {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/auth/login/local', {
-      method: 'POST',
+    const res = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/auth/login/local', data, {
+      withCredentials: true,
       headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(data),
+        'Access-Control-Allow-Credentials': 'true'
+      }
     });
 
-    const body = await res.json();
-
-    return body.message === 'success';
+    return res.data.message = 'success';
   }, []);
 }
