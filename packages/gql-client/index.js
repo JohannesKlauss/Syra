@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useCreateNewUserMutation = exports.CreateNewUserDocument = exports.useCreateEarlyAccessCodeMutation = exports.CreateEarlyAccessCodeDocument = exports.Userrole = exports.UserDistinctFieldEnum = exports.SortOrder = exports.QueryMode = exports.ProjectDistinctFieldEnum = exports.EarlyAccessCodesDistinctFieldEnum = void 0;
+exports.useMeLazyQuery = exports.useMeQuery = exports.MeDocument = exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useCreateNewUserMutation = exports.CreateNewUserDocument = exports.useCreateEarlyAccessCodeMutation = exports.CreateEarlyAccessCodeDocument = exports.Userrole = exports.UserDistinctFieldEnum = exports.SortOrder = exports.QueryMode = exports.ProjectDistinctFieldEnum = exports.EarlyAccessCodesDistinctFieldEnum = void 0;
 const client_1 = require("@apollo/client");
 const Apollo = __importStar(require("@apollo/client"));
 var EarlyAccessCodesDistinctFieldEnum;
@@ -106,4 +106,26 @@ function useUserLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.UserDocument, baseOptions);
 }
 exports.useUserLazyQuery = useUserLazyQuery;
+exports.MeDocument = client_1.gql `
+  query Me {
+    me {
+      id
+      avatar
+      name
+      lastOnline
+      email
+      tier
+      createdAt
+      role
+    }
+  }
+`;
+function useMeQuery(baseOptions) {
+    return Apollo.useQuery(exports.MeDocument, baseOptions);
+}
+exports.useMeQuery = useMeQuery;
+function useMeLazyQuery(baseOptions) {
+    return Apollo.useLazyQuery(exports.MeDocument, baseOptions);
+}
+exports.useMeLazyQuery = useMeLazyQuery;
 //# sourceMappingURL=index.js.map

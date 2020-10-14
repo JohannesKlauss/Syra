@@ -2,6 +2,7 @@ import { Controller, Get, Post, Request, Response, UseGuards } from '@nestjs/com
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { JwtRequest } from './types/JwtRequest';
 
 @Controller()
 export class AppController {
@@ -20,7 +21,7 @@ export class AppController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  getProfile(@Request() req: JwtRequest) {
     return req.user;
   }
 

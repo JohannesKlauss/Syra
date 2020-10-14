@@ -13,3 +13,16 @@ query User($id: Int!) {
         avatar
     }
 }
+
+query Me {
+    me {
+        id
+        avatar
+        name
+        lastOnline
+        email
+        tier
+        createdAt
+        role
+    }
+}

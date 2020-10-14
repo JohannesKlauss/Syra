@@ -3,22 +3,34 @@ import LandingClaim from "../../ui/molecules/LandingPage/LandingClaim/LandingCla
 import Benefits from "../../ui/molecules/LandingPage/Benefits/Benefits";
 import { Text } from "@chakra-ui/core";
 import { benefits } from '../../static/benefits';
-import axios from 'axios';
+import { useMeQuery, useUserQuery } from '@syra/gql-client';
+import { gql, useQuery } from '@apollo/client';
 
 export default function Feed() {
+  const {
+    data,
+    loading,
+    error
+  } = useQuery(gql`
+      query Me {
+          me {
+              id
+              avatar
+              name
+              lastOnline
+              email
+              tier
+              createdAt
+              role
+          }
+      }
+  `);
 
   useEffect(() => {
-    (async () => {
-      let res = await axios.get(process.env.NEXT_PUBLIC_API_URL + '/profile', {
-        withCredentials: true,
-        headers: {
-          'Access-Control-Allow-Credentials': 'true'
-        }
-      })
-
-      console.log('response', res.data);
-    })();
-  }, []);
+    console.log('data', data);
+    console.log('loading', loading);
+    console.log('error', error);
+  }, [data, loading, error]);
 
   return (
     <>

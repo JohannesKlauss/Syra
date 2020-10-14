@@ -15,27 +15,27 @@ export declare type Scalars = {
 };
 export declare type AggregateEarlyAccessCodes = {
     __typename?: 'AggregateEarlyAccessCodes';
-    avg?: Maybe<EarlyAccessCodesAvgAggregateOutputType>;
+    avg?: Maybe<EarlyAccessCodesAvgAggregate>;
     count: Scalars['Int'];
-    max?: Maybe<EarlyAccessCodesMaxAggregateOutputType>;
-    min?: Maybe<EarlyAccessCodesMinAggregateOutputType>;
-    sum?: Maybe<EarlyAccessCodesSumAggregateOutputType>;
+    max?: Maybe<EarlyAccessCodesMaxAggregate>;
+    min?: Maybe<EarlyAccessCodesMinAggregate>;
+    sum?: Maybe<EarlyAccessCodesSumAggregate>;
 };
 export declare type AggregateProject = {
     __typename?: 'AggregateProject';
-    avg?: Maybe<ProjectAvgAggregateOutputType>;
+    avg?: Maybe<ProjectAvgAggregate>;
     count: Scalars['Int'];
-    max?: Maybe<ProjectMaxAggregateOutputType>;
-    min?: Maybe<ProjectMinAggregateOutputType>;
-    sum?: Maybe<ProjectSumAggregateOutputType>;
+    max?: Maybe<ProjectMaxAggregate>;
+    min?: Maybe<ProjectMinAggregate>;
+    sum?: Maybe<ProjectSumAggregate>;
 };
 export declare type AggregateUser = {
     __typename?: 'AggregateUser';
-    avg?: Maybe<UserAvgAggregateOutputType>;
+    avg?: Maybe<UserAvgAggregate>;
     count: Scalars['Int'];
-    max?: Maybe<UserMaxAggregateOutputType>;
-    min?: Maybe<UserMinAggregateOutputType>;
-    sum?: Maybe<UserSumAggregateOutputType>;
+    max?: Maybe<UserMaxAggregate>;
+    min?: Maybe<UserMinAggregate>;
+    sum?: Maybe<UserSumAggregate>;
 };
 export declare type BatchPayload = {
     __typename?: 'BatchPayload';
@@ -65,8 +65,8 @@ export declare type EarlyAccessCodes = {
     __typename?: 'EarlyAccessCodes';
     code: Scalars['String'];
 };
-export declare type EarlyAccessCodesAvgAggregateOutputType = {
-    __typename?: 'EarlyAccessCodesAvgAggregateOutputType';
+export declare type EarlyAccessCodesAvgAggregate = {
+    __typename?: 'EarlyAccessCodesAvgAggregate';
     id: Scalars['Float'];
 };
 export declare type EarlyAccessCodesCreateInput = {
@@ -78,12 +78,12 @@ export declare enum EarlyAccessCodesDistinctFieldEnum {
     Id = "id",
     IsUsed = "isUsed"
 }
-export declare type EarlyAccessCodesMaxAggregateOutputType = {
-    __typename?: 'EarlyAccessCodesMaxAggregateOutputType';
+export declare type EarlyAccessCodesMaxAggregate = {
+    __typename?: 'EarlyAccessCodesMaxAggregate';
     id: Scalars['Int'];
 };
-export declare type EarlyAccessCodesMinAggregateOutputType = {
-    __typename?: 'EarlyAccessCodesMinAggregateOutputType';
+export declare type EarlyAccessCodesMinAggregate = {
+    __typename?: 'EarlyAccessCodesMinAggregate';
     id: Scalars['Int'];
 };
 export declare type EarlyAccessCodesOrderByInput = {
@@ -91,8 +91,8 @@ export declare type EarlyAccessCodesOrderByInput = {
     id?: Maybe<SortOrder>;
     isUsed?: Maybe<SortOrder>;
 };
-export declare type EarlyAccessCodesSumAggregateOutputType = {
-    __typename?: 'EarlyAccessCodesSumAggregateOutputType';
+export declare type EarlyAccessCodesSumAggregate = {
+    __typename?: 'EarlyAccessCodesSumAggregate';
     id: Scalars['Int'];
 };
 export declare type EarlyAccessCodesUpdateInput = {
@@ -319,8 +319,8 @@ export declare type Project = {
     updatedAt: Scalars['Timestamp'];
     User: User;
 };
-export declare type ProjectAvgAggregateOutputType = {
-    __typename?: 'ProjectAvgAggregateOutputType';
+export declare type ProjectAvgAggregate = {
+    __typename?: 'ProjectAvgAggregate';
     id: Scalars['Float'];
     ownerId: Scalars['Float'];
 };
@@ -351,13 +351,13 @@ export declare type ProjectListRelationFilter = {
     none?: Maybe<ProjectWhereInput>;
     some?: Maybe<ProjectWhereInput>;
 };
-export declare type ProjectMaxAggregateOutputType = {
-    __typename?: 'ProjectMaxAggregateOutputType';
+export declare type ProjectMaxAggregate = {
+    __typename?: 'ProjectMaxAggregate';
     id: Scalars['Int'];
     ownerId: Scalars['Int'];
 };
-export declare type ProjectMinAggregateOutputType = {
-    __typename?: 'ProjectMinAggregateOutputType';
+export declare type ProjectMinAggregate = {
+    __typename?: 'ProjectMinAggregate';
     id: Scalars['Int'];
     ownerId: Scalars['Int'];
 };
@@ -378,8 +378,8 @@ export declare type ProjectScalarWhereInput = {
     ownerId?: Maybe<IntFilter>;
     updatedAt?: Maybe<DateTimeFilter>;
 };
-export declare type ProjectSumAggregateOutputType = {
-    __typename?: 'ProjectSumAggregateOutputType';
+export declare type ProjectSumAggregate = {
+    __typename?: 'ProjectSumAggregate';
     id: Scalars['Int'];
     ownerId: Scalars['Int'];
 };
@@ -452,6 +452,7 @@ export declare type Query = {
     findFirstUser?: Maybe<User>;
     findManyEarlyAccessCodes: Array<EarlyAccessCodes>;
     findOneEarlyAccessCodes?: Maybe<EarlyAccessCodes>;
+    me?: Maybe<User>;
     project?: Maybe<Project>;
     projects: Array<Project>;
     user?: Maybe<User>;
@@ -603,8 +604,8 @@ export declare type UserProjectArgs = {
     take?: Maybe<Scalars['Int']>;
     where?: Maybe<ProjectWhereInput>;
 };
-export declare type UserAvgAggregateOutputType = {
-    __typename?: 'UserAvgAggregateOutputType';
+export declare type UserAvgAggregate = {
+    __typename?: 'UserAvgAggregate';
     id: Scalars['Float'];
     socialLoginType?: Maybe<Scalars['Float']>;
     tier: Scalars['Float'];
@@ -651,14 +652,14 @@ export declare enum UserDistinctFieldEnum {
     SocialLoginType = "socialLoginType",
     Tier = "tier"
 }
-export declare type UserMaxAggregateOutputType = {
-    __typename?: 'UserMaxAggregateOutputType';
+export declare type UserMaxAggregate = {
+    __typename?: 'UserMaxAggregate';
     id: Scalars['Int'];
     socialLoginType?: Maybe<Scalars['Int']>;
     tier: Scalars['Int'];
 };
-export declare type UserMinAggregateOutputType = {
-    __typename?: 'UserMinAggregateOutputType';
+export declare type UserMinAggregate = {
+    __typename?: 'UserMinAggregate';
     id: Scalars['Int'];
     socialLoginType?: Maybe<Scalars['Int']>;
     tier: Scalars['Int'];
@@ -684,8 +685,8 @@ export declare enum Userrole {
     RoleAdmin = "ROLE_ADMIN",
     RoleUser = "ROLE_USER"
 }
-export declare type UserSumAggregateOutputType = {
-    __typename?: 'UserSumAggregateOutputType';
+export declare type UserSumAggregate = {
+    __typename?: 'UserSumAggregate';
     id: Scalars['Int'];
     socialLoginType?: Maybe<Scalars['Int']>;
     tier: Scalars['Int'];
@@ -792,6 +793,16 @@ export declare type UserQuery = {
         __typename?: 'User';
     } & Pick<User, 'id' | 'name' | 'lastOnline' | 'email' | 'avatar'>>;
 };
+export declare type MeQueryVariables = Exact<{
+    [key: string]: never;
+}>;
+export declare type MeQuery = {
+    __typename?: 'Query';
+} & {
+    me?: Maybe<{
+        __typename?: 'User';
+    } & Pick<User, 'id' | 'avatar' | 'name' | 'lastOnline' | 'email' | 'tier' | 'createdAt' | 'role'>>;
+};
 export declare const CreateEarlyAccessCodeDocument: Apollo.DocumentNode;
 export declare type CreateEarlyAccessCodeMutationFn = Apollo.MutationFunction<CreateEarlyAccessCodeMutation, CreateEarlyAccessCodeMutationVariables>;
 export declare function useCreateEarlyAccessCodeMutation(baseOptions?: Apollo.MutationHookOptions<CreateEarlyAccessCodeMutation, CreateEarlyAccessCodeMutationVariables>): Apollo.MutationTuple<CreateEarlyAccessCodeMutation, Exact<{
@@ -821,3 +832,13 @@ export declare function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export declare type UserQueryHookResult = ReturnType<typeof useUserQuery>;
 export declare type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
 export declare type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
+export declare const MeDocument: Apollo.DocumentNode;
+export declare function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>): Apollo.QueryResult<MeQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>): Apollo.QueryTuple<MeQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare type MeQueryHookResult = ReturnType<typeof useMeQuery>;
+export declare type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
+export declare type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;

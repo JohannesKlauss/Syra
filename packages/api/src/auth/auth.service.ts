@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import bcrypt from "bcrypt";
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'prisma/generated/type-graphql';
+import { JwtPayload } from '../types/JwtPayload';
 
 @Injectable()
 export class AuthService {
@@ -27,10 +28,10 @@ export class AuthService {
   }
 
   login(user: User) {
-    const payload = { username: user.name, id: user.id, tier: user.tier };
+    const payload: JwtPayload = { name: user.name, id: user.id };
 
     return `Authentication=${this.jwtService.sign(payload, {
-      secret: process.env.PASSPORT_SECRET || 'NOT_VERY_SECRET'
+      secret: process.env.PASSPORT_SECRET
     })}; HttpOnly; Path=/; Max-Age=3600s`;
   }
 }

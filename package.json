@@ -24,7 +24,7 @@
     "@nestjs/cli": "7.5.1",
     "@nestjs/schematics": "7.1.2",
     "@nestjs/testing": "7.4.4",
-    "@prisma/cli": "2.9.0",
+    "@prisma/cli": "2.8.1",
     "@storybook/addon-actions": "6.0.26",
     "@storybook/addon-essentials": "6.0.26",
     "@storybook/addon-links": "6.0.26",

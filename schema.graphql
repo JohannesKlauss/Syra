@@ -414,6 +414,7 @@ type Query {
   findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): User
   findManyEarlyAccessCodes(cursor: EarlyAccessCodesWhereUniqueInput, distinct: [EarlyAccessCodesDistinctFieldEnum!], orderBy: [EarlyAccessCodesOrderByInput!], skip: Int, take: Int, where: EarlyAccessCodesWhereInput): [EarlyAccessCodes!]!
   findOneEarlyAccessCodes(where: EarlyAccessCodesWhereUniqueInput!): EarlyAccessCodes
+  me: User
   project(where: ProjectWhereUniqueInput!): Project
   projects(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]!
   user(where: UserWhereUniqueInput!): User

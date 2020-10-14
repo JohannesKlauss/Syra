@@ -1,9 +1,9 @@
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
-import { Context } from '../../types/context';
+import { Context } from '../../types/Context';
 import { SignUpUserLocalInput } from './inputs/SignUpUserLocalInput';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import bcrypt from 'bcrypt';
-import { User } from 'prisma/generated/type-graphql';
+import { User } from '../../../prisma/generated/type-graphql/models';
 
 @Resolver(of => User)
 export class SignUpUserResolver {

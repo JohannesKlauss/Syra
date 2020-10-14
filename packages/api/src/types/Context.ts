@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { Request } from '@nestjs/common';
+import { JwtPayload } from './JwtPayload';
 
 export interface Context {
   prisma: PrismaClient;
-  req: Request;
+  user: JwtPayload;
 }
