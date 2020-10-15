@@ -15,7 +15,7 @@ function FeedItem({ owner, metaInfo: { timestamp, title, description, id } }: Pr
   const { t } = useTranslation();
 
   return (
-    <Box marginBottom={4} rounded={'8px'} overflow={'hidden'} bg={'gray.900'} color={'gray.300'}>
+    <Box marginBottom={4} rounded={'8px'} overflow={'hidden'} bg={'gray.900'} color={'gray.300'} boxShadow={'0px 3px 24px -5px rgba(0,0,0,1)'}>
       <Box background={'linear-gradient(to right, #654ea3, #eaafc8)'} height={'2px'}/>
       <Box padding={4}>
         <Flex align={'center'}>

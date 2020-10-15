@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar, Box, Button, Divider, Flex, List, ListItem, Text } from '@chakra-ui/core';
 import { useTranslation } from 'react-i18next';
-import { RiFileMusicFill, RiHeartFill } from 'react-icons/ri';
+import { RiFileMusicFill, RiHeartFill, RiEdit2Fill } from 'react-icons/ri';
 import { TiGroup } from 'react-icons/ti';
 
 interface Props {
@@ -29,6 +29,10 @@ function ProfileBox({name, avatar, followers, following}: Props) {
       </Box>
       <Box marginTop={'0.75rem'} paddingX={8}>
         <List spacing={3}>
+          <ListItem>
+            <Button variant={'link'} leftIcon={RiEdit2Fill}>{t('Edit your profile')}</Button>
+            <Divider/>
+          </ListItem>
           <ListItem>
             <Button variant={'link'} leftIcon={RiFileMusicFill}>{t('Sessions')}</Button>
             <Divider/>

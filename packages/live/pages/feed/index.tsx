@@ -68,12 +68,16 @@ const items = [
 export default function Feed() {
   return (
     <>
-      <TopBar name={'Johanne Klauss'} hasNotifications={false} avatar={''}/>
+      <TopBar name={'Johannes Klauss'} hasNotifications={false} avatar={''}/>
       <PageBox>
         <Flex>
           <Box flex={'none'}>
-            <ProfileBox avatar={''} name={'Johannes Klauss'} followers={56} following={43}/>
-            <FollowRecommendationsBox recommendations={[{followers: 453, name: 'Manuel Neufeld', id: 3, avatar: ''}]}/>
+            <PseudoBox w={'20rem'}>
+              <Box pos={'fixed'}>
+                <ProfileBox avatar={''} name={'Johannes Klauss'} followers={56} following={43}/>
+                <FollowRecommendationsBox recommendations={[{followers: 453, name: 'Manuel Neufeld', id: 3, avatar: ''}]}/>
+              </Box>
+            </PseudoBox>
           </Box>
           <PseudoBox marginX={12}/>
           <FeedStack items={items}/>
