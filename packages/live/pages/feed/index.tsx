@@ -5,12 +5,14 @@ import { Box, Flex, PseudoBox } from '@chakra-ui/core';
 import ProfileBox from '../../ui/molecules/Feed/ProfileBox/ProfileBox';
 import FollowRecommendationsBox from '../../ui/molecules/Feed/FollowRecommendationsBox/FollowRecommendationsBox';
 import FeedStack from '../../ui/molecules/Feed/FeedStack/FeedStack';
+import Footer from '../../ui/atoms/Footer/Footer';
+import Stopper from '../../ui/atoms/Stopper/Stopper';
 
 const items = [
   {
     owner: {
       id: 2,
-      name: 'Manuel Neufeld',
+      name: 'Manuel Neufelds',
       email: '',
       avatar: ''
     },
@@ -83,6 +85,8 @@ export default function Feed() {
           <FeedStack items={items}/>
         </Flex>
       </PageBox>
+      <Footer/>
+      <Stopper/>
     </>
   );
 }
