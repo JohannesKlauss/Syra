@@ -1,10 +1,10 @@
-schema: '../../schema.graphql'
-documents: "./gql/**/*.graphql"
+schema: "../services/syra-live-gql"
+documents: "./**/*.graphql"
 hooks:
   afterOneFileWrite:
     - prettier --write
 generates:
-  generated/index.ts:
+  .gql-gen/index.ts:
     plugins:
       - "typescript"
       - "typescript-operations"

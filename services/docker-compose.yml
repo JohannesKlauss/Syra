@@ -1,0 +1,158 @@
+version: "3.8"
+
+services:
+  syra-api-gateway-db:
+    container_name: syra-api-gateway-db
+    image: library/redis:latest
+    command: "redis-server --requirepass ${REDIS_PASSWORD}"
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./syra-api-gateway-db/redis-data:/var/lib/redis
+      - ./syra-api-gateway-db/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - webnet
+    healthcheck:
+      test: ["redis-cli", "info"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    env_file:
+      - .env
+
+  syra-api-gateway:
+    stdin_open: true
+    container_name: syra-api-gateway
+    build:
+      context: ./syra-api-gateway
+      target: development
+    command: yarn start:dev
+    networks:
+      - webnet
+    depends_on:
+      - syra-api-gateway-db
+    ports:
+      - "4000:3000"
+    volumes:
+      - "./syra-api-gateway:/syra-api-gateway"
+      - "/syra-api-gateway/node_modules"
+    env_file:
+      - .env
+
+  syra-auth-api:
+    stdin_open: true
+    container_name: syra-auth-api
+    build:
+      context: ./syra-auth-api
+      target: development
+    command: yarn start:dev
+    networks:
+      - webnet
+    depends_on:
+      - syra-api-gateway
+      - syra-live-gql
+    ports:
+      - "4010:3000"
+    volumes:
+      - "./syra-auth-api:/syra-auth-api"
+      - "/syra-auth-api/node_modules"
+    env_file:
+      - .env
+
+  syra-daw-fe:
+    stdin_open: true
+    container_name: syra-daw-fe
+    build:
+      context: ./syra-daw-fe
+    networks:
+      - webnet
+    depends_on:
+      - syra-api-gateway
+    ports:
+      - "3000:3000"
+    volumes:
+      - "/syra-daw-fe/node_modules"
+      - "./syra-daw-fe:/syra-daw-fe"
+
+  syra-live-db:
+    container_name: syra-live-db
+    image: postgres:12
+    networks:
+      - webnet
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    volumes:
+      - ./syra-live-db/pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+
+  syra-live-gql:
+    stdin_open: true
+    container_name: syra-live-gql
+    build:
+      context: ./syra-live-gql
+      target: development
+    command: yarn start:dev
+    networks:
+      - webnet
+    depends_on:
+      - syra-live-db
+      - syra-auth-api
+      - syra-api-gateway
+    ports:
+      - "4020:3000"
+    volumes:
+      - "./syra-live-gql:/syra-live-gql"
+      - "/syra-live-gql/node_modules"
+    env_file:
+      - .env
+
+  syra-live-fe:
+    stdin_open: true
+    container_name: syra-live-fe
+    build:
+      context: ./syra-live-fe
+    networks:
+      - webnet
+    depends_on:
+      - syra-live-db
+      - syra-api-gateway
+      - syra-auth-api
+    ports:
+      - "8000:3000"
+    volumes:
+      - "/syra-live-fe/node_modules"
+      - "./syra-live-fe:/syra-live-fe"
+    env_file:
+      - .env
+
+  syra-admin-fe:
+    stdin_open: true
+    container_name: syra-admin-fe
+    build:
+      context: ./syra-admin-fe
+    networks:
+      - webnet
+    depends_on:
+      - syra-live-db
+      - syra-api-gateway
+      - syra-auth-api
+    ports:
+      - "8010:3000"
+    volumes:
+      - "/syra-admin-fe/node_modules"
+      - "./syra-admin-fe:/syra-admin-fe"
+    env_file:
+      - .env
+
+networks:
+  webnet:
+
+volumes:
+  pgdata:
+  redis-data:
