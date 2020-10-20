@@ -21,10 +21,10 @@ jobs:
       - name: install architect
         run: yarn add @architect-io/cli -W
       - name: login
-        run: architect login # credentials provided by envs ARCHITECT_EMAIL/ARCHITECT_PASSWORD
+        run: yarn run architect login -e $ARCHITECT_EMAIL -p $ARCHITECT_PASSWORD
       - name: Tag architect component
         run: |
-          architect register --tag ${{ env.MAINLINE_TAG_NAME }} ./services/architect.yml
+          yarn run architect register --tag ${{ env.MAINLINE_TAG_NAME }} ./services/architect.yml
       - name: deploy to staging
         run: |
-          architect deploy --environment staging
+          yarn run architect deploy --environment staging

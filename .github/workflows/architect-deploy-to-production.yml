@@ -22,9 +22,9 @@ jobs:
       - name: install architect
         run: yarn add @architect-io/cli -W
       - name: login
-        run: architect login # credentials provided by envs ARCHITECT_EMAIL/ARCHITECT_PASSWORD
+        run: yarn run architect login -e $ARCHITECT_EMAIL -p $ARCHITECT_PASSWORD
       - name: Tag architect component
-        run: architect register --tag ${{ github.ref }} ./services/architect.yml
+        run: yarn run architect register --tag ${{ github.ref }} ./services/architect.yml
       - name: deploy to production
         run: |
-          architect deploy --environment production
+          yarn run architect deploy --environment production
