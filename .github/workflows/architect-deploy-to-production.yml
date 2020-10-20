@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: install architect
-        run: npm install -g @architect-io/cli
+        run: yarn install @architect-io/cli
       - name: login
         run: architect login # credentials provided by envs ARCHITECT_EMAIL/ARCHITECT_PASSWORD
       - name: Tag architect component
