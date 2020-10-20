@@ -3,7 +3,7 @@ name: Architect Destroy Preview
 on:
   pull_request:
     branches:
-      - master
+      - preview
     types:
       - closed
 

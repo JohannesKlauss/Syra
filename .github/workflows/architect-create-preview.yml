@@ -3,7 +3,7 @@ name: Architect Create Preview
 on:
   pull_request:
     branches:
-      - master
+      - preview
 
 jobs:
   architect_create_preview:
