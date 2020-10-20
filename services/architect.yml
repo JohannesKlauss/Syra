@@ -1,4 +1,4 @@
-name: syra
+name: johannesklauss/syra
 
 interfaces:
   admin_fe: ${{ services.admin_fe.interfaces.main.url }}
