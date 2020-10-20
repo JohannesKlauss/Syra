@@ -2,22 +2,14 @@
   "name": "syra",
   "private": true,
   "workspaces": [
-    "services/syra-admin-fe",
-    "services/syra-api-gateway",
-    "services/syra-api-gateway-db",
-    "services/syra-auth-api",
-    "services/syra-daw-db",
-    "services/syra-daw-fe",
-    "services/syra-daw-gql",
-    "services/syra-live-db",
-    "services/syra-live-fe",
-    "services/syra-live-gql"
+    "services/syra-*"
   ],
   "devDependencies": {
     "@graphql-codegen/cli": "1.18.0",
     "@graphql-codegen/typescript": "1.17.11",
     "@graphql-codegen/typescript-operations": "1.17.8",
     "@graphql-codegen/typescript-react-apollo": "2.0.7",
+    "babel-loader": "8.1.0",
     "eslint": "7.11.0",
     "eslint-config-prettier": "6.13.0",
     "eslint-plugin-import": "2.22.1",

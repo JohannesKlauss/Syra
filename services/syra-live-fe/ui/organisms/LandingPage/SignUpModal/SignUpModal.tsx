@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/core";
 import SocialSignUp from "../../../molecules/LandingPage/SocialSignUp/SocialSignUp";
 import SignUpForm from "../../../molecules/LandingPage/SignUpForm/SignUpForm";
-import { useCreateNewUserMutation } from '@syra/gql-client';
 import { useSetRecoilState } from 'recoil';
 import { landingPageStore } from '../../../../recoil/landingPageStore';
 import { useTranslation } from 'react-i18next';
@@ -24,18 +23,18 @@ interface Props {
 
 function SignUpModal({ isOpen, onClose, onClickSwitchToLogin }: Props) {
   const [hasError, setHasError] = useState(false);
-  const [executeMutation] = useCreateNewUserMutation();
+  // const [executeMutation] = useCreateNewUserMutation();
   const setShowSignUpModal = useSetRecoilState(landingPageStore.showSignUpModal);
   const {t} = useTranslation();
 
   const onSubmit = async (data: SignUpForm) => {
-    const result = await executeMutation({variables: data});
+    /*const result = await executeMutation({variables: data});
 
     setHasError(result.errors !== undefined);
 
     if (result.data.createLocalUser.id) {
       setShowSignUpModal(false);
-    }
+    }*/
   };
 
   return (
