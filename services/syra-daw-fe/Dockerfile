@@ -10,8 +10,6 @@ ENV PATH /$IMAGE_NAME/node_modules/.bin:$PATH
 
 # add app
 COPY . .
-COPY ../../yarn.lock .
-COPY ../../node_modules .
 RUN yarn install
 
 # start app
