@@ -12290,7 +12290,7 @@ jest-circus@26.4.2:
     stack-utils "^2.0.2"
     throat "^5.0.0"
 
-jest-cli@^26.4.2:
+jest-cli@^26.4.2, jest-cli@^26.6.0:
   version "26.6.0"
   resolved "https://registry.yarnpkg.com/jest-cli/-/jest-cli-26.6.0.tgz#dc3ae34fd5937310493ed07dc79c5ffba2bf6671"
   integrity sha512-lJAMZGpmML+y3Kfln6L5DGRTfKGQ+n1JDM1RQstojSLUhe/EaXWR8vmcx70v4CyJKvFZs7c/0QDkPX5ra/aDew==
@@ -12686,6 +12686,15 @@ jest@26.4.2:
     "@jest/core" "^26.4.2"
     import-local "^3.0.2"
     jest-cli "^26.4.2"
+
+jest@26.6.0:
+  version "26.6.0"
+  resolved "https://registry.yarnpkg.com/jest/-/jest-26.6.0.tgz#546b25a1d8c888569dbbe93cae131748086a4a25"
+  integrity sha512-jxTmrvuecVISvKFFhOkjsWRZV7sFqdSUAd1ajOKY+/QE/aLBVstsJ/dX8GczLzwiT6ZEwwmZqtCUHLHHQVzcfA==
+  dependencies:
+    "@jest/core" "^26.6.0"
+    import-local "^3.0.2"
+    jest-cli "^26.6.0"
 
 js-cookie@2.2.1:
   version "2.2.1"
