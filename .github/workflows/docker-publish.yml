@@ -50,7 +50,7 @@ jobs:
       - name: Build and push Docker images to GitHub Container Registry
         run: |
           REF=$(git rev-parse --short HEAD)
-          COMPONENTS=$(find srvc-*/Dockerfile)
+          COMPONENTS=$(find services/syra-*/Dockerfile)
 
           for CMP in $COMPONENTS
           do
