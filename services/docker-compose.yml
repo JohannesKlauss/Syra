@@ -69,6 +69,7 @@ services:
       - syra-api-gateway
     ports:
       - "3000:3000"
+      - "6006:6006"
     volumes:
       - "/syra-daw-fe/node_modules"
       - "./syra-daw-fe:/syra-daw-fe"
@@ -124,6 +125,7 @@ services:
       - syra-auth-api
     ports:
       - "8000:3000"
+      - "6016:6006"
     volumes:
       - "/syra-live-fe/node_modules"
       - "./syra-live-fe:/syra-live-fe"
