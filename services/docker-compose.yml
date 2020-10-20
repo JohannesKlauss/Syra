@@ -1,15 +1,15 @@
 version: "3.8"
 
 services:
-  syra-api-gateway-db:
-    container_name: syra-api-gateway-db
+  syra-auth-session-db:
+    container_name: syra-auth-session-db
     image: library/redis:latest
-    command: "redis-server --requirepass ${REDIS_PASSWORD}"
+    command: "redis-server --requirepass ${API_GATEWAY_DB_PASSWORD}"
     ports:
       - "6379:6379"
     volumes:
-      - ./syra-api-gateway-db/redis-data:/var/lib/redis
-      - ./syra-api-gateway-db/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./syra-auth-session-db/redis-data:/var/lib/redis
+      - ./syra-auth-session-db/redis.conf:/usr/local/etc/redis/redis.conf
     networks:
       - webnet
     healthcheck:
@@ -23,44 +23,6 @@ services:
     env_file:
       - .env
 
-  syra-api-gateway:
-    stdin_open: true
-    container_name: syra-api-gateway
-    build:
-      context: ./syra-api-gateway
-      target: development
-    command: yarn start:dev
-    networks:
-      - webnet
-    depends_on:
-      - syra-api-gateway-db
-    ports:
-      - "4000:3000"
-    volumes:
-      - "./syra-api-gateway:/syra-api-gateway"
-      - "/syra-api-gateway/node_modules"
-    env_file:
-      - .env
-
-  syra-auth-api:
-    stdin_open: true
-    container_name: syra-auth-api
-    build:
-      context: ./syra-auth-api
-      target: development
-    command: yarn start:dev
-    networks:
-      - webnet
-    depends_on:
-      - syra-api-gateway
-    ports:
-      - "4010:3000"
-    volumes:
-      - "./syra-auth-api:/syra-auth-api"
-      - "/syra-auth-api/node_modules"
-    env_file:
-      - .env
-
   syra-daw-fe:
     stdin_open: true
     container_name: syra-daw-fe
@@ -68,8 +30,6 @@ services:
       context: ./syra-daw-fe
     networks:
       - webnet
-    depends_on:
-      - syra-api-gateway
     ports:
       - "3000:3000"
       - "6006:6006"
@@ -109,8 +69,7 @@ services:
       - webnet
     depends_on:
       - syra-live-db
-      - syra-auth-api
-      - syra-api-gateway
+      - syra-auth-session-db
     ports:
       - "4020:3000"
     volumes:
@@ -127,9 +86,7 @@ services:
     networks:
       - webnet
     depends_on:
-      - syra-live-db
-      - syra-api-gateway
-      - syra-auth-api
+      - syra-live-gql
     ports:
       - "8000:3000"
       - "6016:6006"
@@ -147,9 +104,7 @@ services:
     networks:
       - webnet
     depends_on:
-      - syra-live-db
-      - syra-api-gateway
-      - syra-auth-api
+      - syra-live-gql
     ports:
       - "8010:3000"
     volumes:
