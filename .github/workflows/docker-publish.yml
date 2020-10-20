@@ -33,14 +33,14 @@ jobs:
       - name: create env file
         run: |
           cat <<EOT >> .env
-          POSTGRES_USER=${{secrets.POSTGRES_USER}}
-          POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}
-          POSTGRES_DB=${{secrets.POSTGRES_DB}}
+          LIVE_DB_USER=${{secrets.POSTGRES_USER}}
+          LIVE_DB_PASSWORD=${{secrets.POSTGRES_PASSWORD}}
+          LIVE_DB_DB=${{secrets.POSTGRES_DB}}
 
-          REDIS_HOST=${{secrets.REDIS_HOST}}
-          REDIS_PASSWORD=${{secrets.REDIS_PASSWORD}}
-          REDIS_SESSION_SECRET=${{secrets.REDIS_SESSION_SECRET}}
-          REDIS_REPLICATION_MODE=master
+          API_GATEWAY_DB_HOST=${{secrets.REDIS_HOST}}
+          API_GATEWAY_DB_PASSWORD=${{secrets.REDIS_PASSWORD}}
+          API_GATEWAY_DB_SESSION_SECRET=${{secrets.REDIS_SESSION_SECRET}}
+          API_GATEWAY_DB_REPLICATION_MODE=master
 
           SYRA_LIVE_GRAPHQL_ENDPOINT=${{secrets.SYRA_LIVE_GRAPHQL_ENDPOINT}}
 

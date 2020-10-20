@@ -17,6 +17,9 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+    environment:
+      - "REDIS_PASSWORD=${API_GATEWAY_DB_PASSWORD}"
+      - "REDIS_REPLICATION_MODE=${API_GATEWAY_DB_REPLICATION_MODE}"
     env_file:
       - .env
 
@@ -79,8 +82,12 @@ services:
     image: postgres:12
     networks:
       - webnet
+    environment:
+      - "POSTGRES_USER=${LIVE_DB_USER}"
+      - "POSTGRES_PASSWORD=${LIVE_DB_PASSWORD}"
+      - "POSTGRES_DB=${LIVE_DB_DB}"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U ${LIVE_DB_USER}"]
       interval: 5s
       timeout: 3s
       retries: 5
