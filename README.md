@@ -1,4 +1,4 @@
-This project uses a lerna based mono repo.
+This project uses a yarn based mono repo.
 
 This Readme is a TODO.
 

@@ -1,0 +1,81 @@
+name: Docker
+
+on:
+  push:
+    # Publish `main` as Docker `latest` image.
+    branches:
+      - main
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+  # Run tests for any PRs.
+  pull_request:
+
+jobs:
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run tests
+        run: |
+          if [ -f docker-compose.test.yml ]; then
+            docker-compose --file docker-compose.test.yml build
+            docker-compose --file docker-compose.test.yml run sut
+          fi
+
+  # Push image to GitHub Packages.
+  # See also https://docs.docker.com/docker-hub/builds/
+  push:
+    # Ensure test job passes before pushing image.
+    # needs: test
+
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Log into GitHub Container Registry
+        # TODO: Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
+        run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: create env file
+        run: |
+          cat <<EOT >> .env
+          POSTGRES_USER=${{secrets.POSTGRES_USER}}
+          POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}
+          POSTGRES_DB=${{secrets.POSTGRES_DB}}
+
+          REDIS_HOST=${{secrets.REDIS_HOST}}
+          REDIS_PASSWORD=${{secrets.REDIS_PASSWORD}}
+          REDIS_SESSION_SECRET=${{secrets.REDIS_SESSION_SECRET}}
+          REDIS_REPLICATION_MODE=master
+
+          SYRA_LIVE_GRAPHQL_ENDPOINT=${{secrets.SYRA_LIVE_GRAPHQL_ENDPOINT}}
+
+          REPO_HOST=ghcr.io/${{ github.repository_owner }}
+          EOT
+
+      - name: Build and push Docker images to GitHub Container Registry
+        run: |
+          REF=$(git rev-parse --short HEAD)
+          COMPONENTS=$(find srvc-*/Dockerfile)
+
+          for CMP in $COMPONENTS
+          do
+            IMAGE_NAME=$(dirname $CMP)
+            IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+
+            echo build and push $IMAGE_NAME:$REF
+
+            docker build $IMAGE_NAME --tag $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):$REF
+            docker push $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):$REF
+
+            echo "$IMAGE_NAME done! \n\n"
+          done

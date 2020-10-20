@@ -1,0 +1,16 @@
+schema: "../services/syra-live-gql"
+documents: "./**/*.graphql"
+hooks:
+  afterOneFileWrite:
+    - prettier --write
+generates:
+  .gql-gen/index.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withComponent: false
+      withHooks: true
+      scalars:
+        Timestamp: number
