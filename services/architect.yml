@@ -1,0 +1,106 @@
+name: syra
+
+interfaces:
+  admin_fe: ${{ services.admin_fe.interfaces.main.url }}
+  daw_fe: ${{ services.daw_fe.interfaces.main.url }}
+  live_fe: ${{ services.live_fe.interfaces.main.url }}
+
+services:
+  admin_fe:
+    build:
+      context: ./syra-admin-fe
+    description: Administrative platform for SYRA Live
+    language: node
+    interfaces:
+      main: 8080
+    environment:
+      PORT: ${{ services.admin_fe.interfaces.main.port }}
+      LIVE_GQL_ADDR:
+
+  api_gateway:
+    build:
+      context: ./syra-api-gateway
+    description: Service to handle all incoming API requests and session auths.
+    language: node
+    interfaces:
+      main: 8080
+    environment:
+      PORT: ${{ services.api_gateway.interfaces.main.port }}
+
+  api_gateway_db:
+    image: library/redis:latest
+    description: Session database
+    interfaces:
+      postgres:
+        port: 6379
+        protocol: resp
+    environment:
+      REDIS_PASSWORD: ${{ parameters.API_GATEWAY_DB_PASSWORD }}
+      REDIS_REPLICATION_MODE: ${{ parameters.API_GATEWAY_DB_REPLICATION_MODE }}
+
+  auth_api:
+    build:
+      context: ./syra-auth-api
+    description: Service that handles authorization for service requests
+    interfaces:
+      main:
+        port: 8080
+        protocol: tcp
+    debug:
+      context: ./syra-auth-api
+      command: npm run start:dev
+      volumes:
+        src:
+          host_path: ./
+          mount_path: /usr/src/app/src/
+
+  daw_fe:
+    build:
+      context: ./syra-daw-fe
+    description: SYRA DAW
+    language: node
+    interfaces:
+      main: 8080
+    environment:
+      PORT: ${{ services.daw_fe.interfaces.main.port }}
+
+  live_db:
+    image: postgres:12
+    description: Database for SYRA Live social media platform
+    interfaces:
+      postgres:
+        port: 5432
+        protocol: postgres
+    environment:
+      POSTGRES_USER: ${{ parameters.LIVE_DB_USER }}
+      POSTGRES_PASSWORD: ${{ parameters.LIVE_DB_PASSWORD }}
+      POSTGRES_DB: ${{ parameters.LIVE_DB_DB }}
+
+  live_fe:
+    build:
+      context: ./syra-live-fe
+    description: SYRA Live social media platform
+    language: node
+    interfaces:
+      main: 8080
+    environment:
+      PORT: ${{ services.live_fe.interfaces.main.port }}
+      LIVE_GQL_ADDR:
+
+  live_gql:
+    build:
+      context: ./syra-live-gql
+    description: Service that handles authorized GraphQL requests for SYRA Live
+    interfaces:
+      main:
+        port: 8080
+        protocol: tcp
+    debug:
+      context: ./syra-live-gql
+      command: npm run start:dev
+      volumes:
+        src:
+          host_path: ./
+          mount_path: /usr/src/app/src/
+    environment:
+      LIVE_DB_URL: postgresql://${{ parameters.LIVE_DB_USER }}:${{ parameters.LIVE_DB_PASSWORD }}@${{ services.live_db.interfaces.main.host }}:${{ services.live_db.interfaces.main.port }}/${{ parameters.LIVE_DB_DB }}
