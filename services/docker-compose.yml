@@ -13,7 +13,7 @@ services:
     networks:
       - webnet
     healthcheck:
-      test: ["redis-cli", "info"]
+      test: ["CMD-SHELL", "redis-cli info"]
       interval: 5s
       timeout: 3s
       retries: 5
@@ -50,7 +50,6 @@ services:
       - webnet
     depends_on:
       - syra-api-gateway
-      - syra-live-gql
     ports:
       - "4010:3000"
     volumes:
