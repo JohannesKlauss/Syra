@@ -1,0 +1,6 @@
+# Prisma Migrate lockfile v1
+
+20201018172423-prisma-migrate-up---experimental
+20201019103318-address-addition
+20201019140208-add-session-field
+20201019140743-added-role
