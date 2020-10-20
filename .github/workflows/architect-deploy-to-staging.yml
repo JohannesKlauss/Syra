@@ -19,7 +19,7 @@ jobs:
       - name: tests
         run: echo "Run your tests here"
       - name: install architect
-        run: yarn add @architect-io/cli
+        run: yarn add @architect-io/cli -W
       - name: login
         run: architect login # credentials provided by envs ARCHITECT_EMAIL/ARCHITECT_PASSWORD
       - name: Tag architect component
