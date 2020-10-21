@@ -5,7 +5,7 @@ let apolloClient;
 
 function createApolloClient() {
   const httpLink = createHttpLink({
-    uri: process.env.NEXT_PUBLIC_API_URL,
+    uri: process.env.LIVE_GQL_URL + '/graphql',
     credentials: 'include',
   });
 

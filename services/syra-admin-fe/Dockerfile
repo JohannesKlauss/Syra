@@ -1,5 +1,5 @@
 # base image
-FROM node:latest
+FROM node:current-alpine3.12
 
 ARG IMAGE_NAME=syra-admin-fe
 

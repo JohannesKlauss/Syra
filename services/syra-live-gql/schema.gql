@@ -170,12 +170,33 @@ type AggregateAddress {
   sum: AddressSumAggregate
 }
 
+type AggregateProject {
+  count: Int!
+}
+
+type AggregateTag {
+  count: Int!
+}
+
 type AggregateUser {
+  count: Int!
+}
+
+type AggregateUsersOnProjects {
   count: Int!
 }
 
 type BatchPayload {
   count: Int!
+}
+
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
+input BoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
 }
 
 input DateTimeFieldUpdateOperationsInput {
@@ -191,6 +212,127 @@ input DateTimeFilter {
   lte: Timestamp
   not: NestedDateTimeFilter
   notIn: [Timestamp!]
+}
+
+type EarylAccessCode {
+  claimedBy: User
+  code: String!
+  createdAt: Timestamp!
+  id: String!
+  isValid: Boolean!
+  updatedAt: Timestamp!
+  userId: String
+}
+
+input EarylAccessCodeCreateManyWithoutClaimedByInput {
+  connect: [EarylAccessCodeWhereUniqueInput!]
+  create: [EarylAccessCodeCreateWithoutClaimedByInput!]
+}
+
+input EarylAccessCodeCreateWithoutClaimedByInput {
+  code: String!
+  createdAt: Timestamp
+  id: String
+  isValid: Boolean
+  updatedAt: Timestamp
+}
+
+enum EarylAccessCodeDistinctFieldEnum {
+  code
+  createdAt
+  id
+  isValid
+  updatedAt
+  userId
+}
+
+input EarylAccessCodeListRelationFilter {
+  every: EarylAccessCodeWhereInput
+  none: EarylAccessCodeWhereInput
+  some: EarylAccessCodeWhereInput
+}
+
+input EarylAccessCodeOrderByInput {
+  code: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  isValid: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+}
+
+input EarylAccessCodeScalarWhereInput {
+  AND: [EarylAccessCodeScalarWhereInput!]
+  code: StringFilter
+  createdAt: DateTimeFilter
+  id: StringFilter
+  isValid: BoolFilter
+  NOT: [EarylAccessCodeScalarWhereInput!]
+  OR: [EarylAccessCodeScalarWhereInput!]
+  updatedAt: DateTimeFilter
+  userId: StringNullableFilter
+}
+
+input EarylAccessCodeUpdateManyDataInput {
+  code: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  isValid: BoolFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input EarylAccessCodeUpdateManyWithoutClaimedByInput {
+  connect: [EarylAccessCodeWhereUniqueInput!]
+  create: [EarylAccessCodeCreateWithoutClaimedByInput!]
+  delete: [EarylAccessCodeWhereUniqueInput!]
+  deleteMany: [EarylAccessCodeScalarWhereInput!]
+  disconnect: [EarylAccessCodeWhereUniqueInput!]
+  set: [EarylAccessCodeWhereUniqueInput!]
+  update: [EarylAccessCodeUpdateWithWhereUniqueWithoutClaimedByInput!]
+  updateMany: [EarylAccessCodeUpdateManyWithWhereNestedInput!]
+  upsert: [EarylAccessCodeUpsertWithWhereUniqueWithoutClaimedByInput!]
+}
+
+input EarylAccessCodeUpdateManyWithWhereNestedInput {
+  data: EarylAccessCodeUpdateManyDataInput!
+  where: EarylAccessCodeScalarWhereInput!
+}
+
+input EarylAccessCodeUpdateWithoutClaimedByDataInput {
+  code: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  isValid: BoolFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input EarylAccessCodeUpdateWithWhereUniqueWithoutClaimedByInput {
+  data: EarylAccessCodeUpdateWithoutClaimedByDataInput!
+  where: EarylAccessCodeWhereUniqueInput!
+}
+
+input EarylAccessCodeUpsertWithWhereUniqueWithoutClaimedByInput {
+  create: EarylAccessCodeCreateWithoutClaimedByInput!
+  update: EarylAccessCodeUpdateWithoutClaimedByDataInput!
+  where: EarylAccessCodeWhereUniqueInput!
+}
+
+input EarylAccessCodeWhereInput {
+  AND: [EarylAccessCodeWhereInput!]
+  claimedBy: UserRelationFilter
+  code: StringFilter
+  createdAt: DateTimeFilter
+  id: StringFilter
+  isValid: BoolFilter
+  NOT: [EarylAccessCodeWhereInput!]
+  OR: [EarylAccessCodeWhereInput!]
+  updatedAt: DateTimeFilter
+  userId: StringNullableFilter
+}
+
+input EarylAccessCodeWhereUniqueInput {
+  code: String
+  id: String
 }
 
 input EnumRoleFieldUpdateOperationsInput {
@@ -221,17 +363,40 @@ input IntFilter {
 
 type Mutation {
   createAddress(data: AddressCreateInput!): Address!
+  createProject(data: ProjectCreateInput!): Project!
+  createTag(data: TagCreateInput!): Tag!
   createUser(data: UserCreateInput!): User!
+  createUsersOnProjects(data: UsersOnProjectsCreateInput!): UsersOnProjects!
   deleteAddress(where: AddressWhereUniqueInput!): Address
   deleteManyAddress(where: AddressWhereInput): BatchPayload!
+  deleteManyProject(where: ProjectWhereInput): BatchPayload!
+  deleteManyTag(where: TagWhereInput): BatchPayload!
   deleteManyUser(where: UserWhereInput): BatchPayload!
+  deleteManyUsersOnProjects(where: UsersOnProjectsWhereInput): BatchPayload!
+  deleteProject(where: ProjectWhereUniqueInput!): Project
+  deleteTag(where: TagWhereUniqueInput!): Tag
   deleteUser(where: UserWhereUniqueInput!): User
+  deleteUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
   updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
   updateManyAddress(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
+  updateManyProject(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
+  updateManyTag(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyUsersOnProjects(data: UsersOnProjectsUpdateManyMutationInput!, where: UsersOnProjectsWhereInput): BatchPayload!
+  updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
+  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateUsersOnProjects(data: UsersOnProjectsUpdateInput!, where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
   upsertAddress(create: AddressCreateInput!, update: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address!
+  upsertProject(create: ProjectCreateInput!, update: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project!
+  upsertTag(create: TagCreateInput!, update: TagUpdateInput!, where: TagWhereUniqueInput!): Tag!
   upsertUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
+  upsertUsersOnProjects(create: UsersOnProjectsCreateInput!, update: UsersOnProjectsUpdateInput!, where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects!
+}
+
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
 }
 
 input NestedDateTimeFilter {
@@ -295,13 +460,191 @@ input NullableStringFieldUpdateOperationsInput {
   set: String
 }
 
+type Project {
+  createdAt: Timestamp!
+  id: String!
+  members(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
+  owner: User!
+  ownerId: String!
+  updatedAt: Timestamp!
+}
+
+input ProjectCreateInput {
+  createdAt: Timestamp
+  id: String
+  members: UsersOnProjectsCreateManyWithoutProjectInput
+  owner: UserCreateOneWithoutOwnsProjectsInput!
+  updatedAt: Timestamp
+}
+
+input ProjectCreateManyWithoutOwnerInput {
+  connect: [ProjectWhereUniqueInput!]
+  create: [ProjectCreateWithoutOwnerInput!]
+}
+
+input ProjectCreateOneWithoutMembersInput {
+  connect: ProjectWhereUniqueInput
+  create: ProjectCreateWithoutMembersInput
+}
+
+input ProjectCreateWithoutMembersInput {
+  createdAt: Timestamp
+  id: String
+  owner: UserCreateOneWithoutOwnsProjectsInput!
+  updatedAt: Timestamp
+}
+
+input ProjectCreateWithoutOwnerInput {
+  createdAt: Timestamp
+  id: String
+  members: UsersOnProjectsCreateManyWithoutProjectInput
+  updatedAt: Timestamp
+}
+
+enum ProjectDistinctFieldEnum {
+  createdAt
+  id
+  ownerId
+  updatedAt
+}
+
+input ProjectListRelationFilter {
+  every: ProjectWhereInput
+  none: ProjectWhereInput
+  some: ProjectWhereInput
+}
+
+input ProjectOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  ownerId: SortOrder
+  updatedAt: SortOrder
+}
+
+input ProjectRelationFilter {
+  is: ProjectWhereInput
+  isNot: ProjectWhereInput
+}
+
+input ProjectScalarWhereInput {
+  AND: [ProjectScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  NOT: [ProjectScalarWhereInput!]
+  OR: [ProjectScalarWhereInput!]
+  ownerId: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input ProjectUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  members: UsersOnProjectsUpdateManyWithoutProjectInput
+  owner: UserUpdateOneRequiredWithoutOwnsProjectsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProjectUpdateManyDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProjectUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProjectUpdateManyWithoutOwnerInput {
+  connect: [ProjectWhereUniqueInput!]
+  create: [ProjectCreateWithoutOwnerInput!]
+  delete: [ProjectWhereUniqueInput!]
+  deleteMany: [ProjectScalarWhereInput!]
+  disconnect: [ProjectWhereUniqueInput!]
+  set: [ProjectWhereUniqueInput!]
+  update: [ProjectUpdateWithWhereUniqueWithoutOwnerInput!]
+  updateMany: [ProjectUpdateManyWithWhereNestedInput!]
+  upsert: [ProjectUpsertWithWhereUniqueWithoutOwnerInput!]
+}
+
+input ProjectUpdateManyWithWhereNestedInput {
+  data: ProjectUpdateManyDataInput!
+  where: ProjectScalarWhereInput!
+}
+
+input ProjectUpdateOneRequiredWithoutMembersInput {
+  connect: ProjectWhereUniqueInput
+  create: ProjectCreateWithoutMembersInput
+  update: ProjectUpdateWithoutMembersDataInput
+  upsert: ProjectUpsertWithoutMembersInput
+}
+
+input ProjectUpdateWithoutMembersDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  owner: UserUpdateOneRequiredWithoutOwnsProjectsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProjectUpdateWithoutOwnerDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  members: UsersOnProjectsUpdateManyWithoutProjectInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProjectUpdateWithWhereUniqueWithoutOwnerInput {
+  data: ProjectUpdateWithoutOwnerDataInput!
+  where: ProjectWhereUniqueInput!
+}
+
+input ProjectUpsertWithoutMembersInput {
+  create: ProjectCreateWithoutMembersInput!
+  update: ProjectUpdateWithoutMembersDataInput!
+}
+
+input ProjectUpsertWithWhereUniqueWithoutOwnerInput {
+  create: ProjectCreateWithoutOwnerInput!
+  update: ProjectUpdateWithoutOwnerDataInput!
+  where: ProjectWhereUniqueInput!
+}
+
+input ProjectWhereInput {
+  AND: [ProjectWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  members: UsersOnProjectsListRelationFilter
+  NOT: [ProjectWhereInput!]
+  OR: [ProjectWhereInput!]
+  owner: UserRelationFilter
+  ownerId: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input ProjectWhereUniqueInput {
+  id: String
+}
+
 type Query {
   address(where: AddressWhereUniqueInput!): Address
   addresses(cursor: AddressWhereUniqueInput, distinct: [AddressDistinctFieldEnum!], orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): [Address!]!
   aggregateAddress(cursor: AddressWhereUniqueInput, distinct: [AddressDistinctFieldEnum!], orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): AggregateAddress!
+  aggregateProject(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): AggregateProject!
+  aggregateTag(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): AggregateTag!
   aggregateUser(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
+  aggregateUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): AggregateUsersOnProjects!
   findFirstAddress(cursor: AddressWhereUniqueInput, distinct: [AddressDistinctFieldEnum!], orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): Address
+  findFirstProject(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): Project
+  findFirstTag(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): Tag
   findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): User
+  findFirstUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): UsersOnProjects
+  findManyUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]!
+  findOneUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
+  project(where: ProjectWhereUniqueInput!): Project
+  projects(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]!
+  tag(where: TagWhereUniqueInput!): Tag
+  tags(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]!
   user(where: UserWhereUniqueInput!): User
   users(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
 }
@@ -356,6 +699,120 @@ input StringNullableFilter {
   startsWith: String
 }
 
+type Tag {
+  id: String!
+  User: User
+  userId: String
+  value: String!
+}
+
+input TagCreateInput {
+  id: String
+  User: UserCreateOneWithoutInterestsInput
+  value: String!
+}
+
+input TagCreateManyWithoutUserInput {
+  connect: [TagWhereUniqueInput!]
+  create: [TagCreateWithoutUserInput!]
+}
+
+input TagCreateWithoutUserInput {
+  id: String
+  value: String!
+}
+
+enum TagDistinctFieldEnum {
+  id
+  userId
+  value
+}
+
+input TagListRelationFilter {
+  every: TagWhereInput
+  none: TagWhereInput
+  some: TagWhereInput
+}
+
+input TagOrderByInput {
+  id: SortOrder
+  userId: SortOrder
+  value: SortOrder
+}
+
+input TagScalarWhereInput {
+  AND: [TagScalarWhereInput!]
+  id: StringFilter
+  NOT: [TagScalarWhereInput!]
+  OR: [TagScalarWhereInput!]
+  userId: StringNullableFilter
+  value: StringFilter
+}
+
+input TagUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  User: UserUpdateOneWithoutInterestsInput
+  value: StringFieldUpdateOperationsInput
+}
+
+input TagUpdateManyDataInput {
+  id: StringFieldUpdateOperationsInput
+  value: StringFieldUpdateOperationsInput
+}
+
+input TagUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  value: StringFieldUpdateOperationsInput
+}
+
+input TagUpdateManyWithoutUserInput {
+  connect: [TagWhereUniqueInput!]
+  create: [TagCreateWithoutUserInput!]
+  delete: [TagWhereUniqueInput!]
+  deleteMany: [TagScalarWhereInput!]
+  disconnect: [TagWhereUniqueInput!]
+  set: [TagWhereUniqueInput!]
+  update: [TagUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [TagUpdateManyWithWhereNestedInput!]
+  upsert: [TagUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input TagUpdateManyWithWhereNestedInput {
+  data: TagUpdateManyDataInput!
+  where: TagScalarWhereInput!
+}
+
+input TagUpdateWithoutUserDataInput {
+  id: StringFieldUpdateOperationsInput
+  value: StringFieldUpdateOperationsInput
+}
+
+input TagUpdateWithWhereUniqueWithoutUserInput {
+  data: TagUpdateWithoutUserDataInput!
+  where: TagWhereUniqueInput!
+}
+
+input TagUpsertWithWhereUniqueWithoutUserInput {
+  create: TagCreateWithoutUserInput!
+  update: TagUpdateWithoutUserDataInput!
+  where: TagWhereUniqueInput!
+}
+
+input TagWhereInput {
+  AND: [TagWhereInput!]
+  id: StringFilter
+  NOT: [TagWhereInput!]
+  OR: [TagWhereInput!]
+  User: UserRelationFilter
+  userId: StringNullableFilter
+  value: StringFilter
+}
+
+input TagWhereUniqueInput {
+  id: String
+  value: String
+}
+
 """
 The javascript `Date` as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
 """
@@ -364,10 +821,17 @@ scalar Timestamp
 type User {
   address: Address
   addressId: String
+  avatar: String
   createdAt: Timestamp!
+  EarylAccessCode(cursor: EarylAccessCodeWhereUniqueInput, distinct: [EarylAccessCodeDistinctFieldEnum!], orderBy: [EarylAccessCodeOrderByInput!], skip: Int, take: Int, where: EarylAccessCodeWhereInput): [EarylAccessCode!]
   email: String!
+  followedBy(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
+  following(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
   id: String!
+  interests(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]
+  memberOfProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
   name: String!
+  ownsProjects(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]
   role: Role!
   session: String
   updatedAt: Timestamp!
@@ -375,10 +839,17 @@ type User {
 
 input UserCreateInput {
   address: AddressCreateOneWithoutUserInput
+  avatar: String
   createdAt: Timestamp
+  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
   email: String!
+  followedBy: UserCreateManyWithoutFollowingInput
+  following: UserCreateManyWithoutFollowedByInput
   id: String
+  interests: TagCreateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   name: String!
+  ownsProjects: ProjectCreateManyWithoutOwnerInput
   role: Role
   session: String
   updatedAt: Timestamp
@@ -389,10 +860,127 @@ input UserCreateManyWithoutAddressInput {
   create: [UserCreateWithoutAddressInput!]
 }
 
+input UserCreateManyWithoutFollowedByInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutFollowedByInput!]
+}
+
+input UserCreateManyWithoutFollowingInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutFollowingInput!]
+}
+
+input UserCreateOneWithoutInterestsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutInterestsInput
+}
+
+input UserCreateOneWithoutMemberOfProjectsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutMemberOfProjectsInput
+}
+
+input UserCreateOneWithoutOwnsProjectsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutOwnsProjectsInput
+}
+
 input UserCreateWithoutAddressInput {
+  avatar: String
   createdAt: Timestamp
+  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
   email: String!
+  followedBy: UserCreateManyWithoutFollowingInput
+  following: UserCreateManyWithoutFollowedByInput
   id: String
+  interests: TagCreateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  name: String!
+  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  role: Role
+  session: String
+  updatedAt: Timestamp
+}
+
+input UserCreateWithoutFollowedByInput {
+  address: AddressCreateOneWithoutUserInput
+  avatar: String
+  createdAt: Timestamp
+  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
+  email: String!
+  following: UserCreateManyWithoutFollowedByInput
+  id: String
+  interests: TagCreateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  name: String!
+  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  role: Role
+  session: String
+  updatedAt: Timestamp
+}
+
+input UserCreateWithoutFollowingInput {
+  address: AddressCreateOneWithoutUserInput
+  avatar: String
+  createdAt: Timestamp
+  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
+  email: String!
+  followedBy: UserCreateManyWithoutFollowingInput
+  id: String
+  interests: TagCreateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  name: String!
+  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  role: Role
+  session: String
+  updatedAt: Timestamp
+}
+
+input UserCreateWithoutInterestsInput {
+  address: AddressCreateOneWithoutUserInput
+  avatar: String
+  createdAt: Timestamp
+  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
+  email: String!
+  followedBy: UserCreateManyWithoutFollowingInput
+  following: UserCreateManyWithoutFollowedByInput
+  id: String
+  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  name: String!
+  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  role: Role
+  session: String
+  updatedAt: Timestamp
+}
+
+input UserCreateWithoutMemberOfProjectsInput {
+  address: AddressCreateOneWithoutUserInput
+  avatar: String
+  createdAt: Timestamp
+  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
+  email: String!
+  followedBy: UserCreateManyWithoutFollowingInput
+  following: UserCreateManyWithoutFollowedByInput
+  id: String
+  interests: TagCreateManyWithoutUserInput
+  name: String!
+  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  role: Role
+  session: String
+  updatedAt: Timestamp
+}
+
+input UserCreateWithoutOwnsProjectsInput {
+  address: AddressCreateOneWithoutUserInput
+  avatar: String
+  createdAt: Timestamp
+  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
+  email: String!
+  followedBy: UserCreateManyWithoutFollowingInput
+  following: UserCreateManyWithoutFollowedByInput
+  id: String
+  interests: TagCreateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   name: String!
   role: Role
   session: String
@@ -401,6 +989,7 @@ input UserCreateWithoutAddressInput {
 
 enum UserDistinctFieldEnum {
   addressId
+  avatar
   createdAt
   email
   id
@@ -408,6 +997,11 @@ enum UserDistinctFieldEnum {
   role
   session
   updatedAt
+}
+
+input UserIdProjectIdCompoundUniqueInput {
+  projectId: String!
+  userId: String!
 }
 
 input UserListRelationFilter {
@@ -418,6 +1012,7 @@ input UserListRelationFilter {
 
 input UserOrderByInput {
   addressId: SortOrder
+  avatar: SortOrder
   createdAt: SortOrder
   email: SortOrder
   id: SortOrder
@@ -427,9 +1022,15 @@ input UserOrderByInput {
   updatedAt: SortOrder
 }
 
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
 input UserScalarWhereInput {
   addressId: StringNullableFilter
   AND: [UserScalarWhereInput!]
+  avatar: StringNullableFilter
   createdAt: DateTimeFilter
   email: StringFilter
   id: StringFilter
@@ -441,18 +1042,177 @@ input UserScalarWhereInput {
   updatedAt: DateTimeFilter
 }
 
+type UsersOnProjects {
+  createdAt: Timestamp!
+  project: Project!
+  projectId: String!
+  user: User!
+  userId: String!
+}
+
+input UsersOnProjectsCreateInput {
+  createdAt: Timestamp
+  project: ProjectCreateOneWithoutMembersInput!
+  user: UserCreateOneWithoutMemberOfProjectsInput!
+}
+
+input UsersOnProjectsCreateManyWithoutProjectInput {
+  connect: [UsersOnProjectsWhereUniqueInput!]
+  create: [UsersOnProjectsCreateWithoutProjectInput!]
+}
+
+input UsersOnProjectsCreateManyWithoutUserInput {
+  connect: [UsersOnProjectsWhereUniqueInput!]
+  create: [UsersOnProjectsCreateWithoutUserInput!]
+}
+
+input UsersOnProjectsCreateWithoutProjectInput {
+  createdAt: Timestamp
+  user: UserCreateOneWithoutMemberOfProjectsInput!
+}
+
+input UsersOnProjectsCreateWithoutUserInput {
+  createdAt: Timestamp
+  project: ProjectCreateOneWithoutMembersInput!
+}
+
+enum UsersOnProjectsDistinctFieldEnum {
+  createdAt
+  projectId
+  userId
+}
+
+input UsersOnProjectsListRelationFilter {
+  every: UsersOnProjectsWhereInput
+  none: UsersOnProjectsWhereInput
+  some: UsersOnProjectsWhereInput
+}
+
+input UsersOnProjectsOrderByInput {
+  createdAt: SortOrder
+  projectId: SortOrder
+  userId: SortOrder
+}
+
+input UsersOnProjectsScalarWhereInput {
+  AND: [UsersOnProjectsScalarWhereInput!]
+  createdAt: DateTimeFilter
+  NOT: [UsersOnProjectsScalarWhereInput!]
+  OR: [UsersOnProjectsScalarWhereInput!]
+  projectId: StringFilter
+  userId: StringFilter
+}
+
+input UsersOnProjectsUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  project: ProjectUpdateOneRequiredWithoutMembersInput
+  user: UserUpdateOneRequiredWithoutMemberOfProjectsInput
+}
+
+input UsersOnProjectsUpdateManyDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UsersOnProjectsUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UsersOnProjectsUpdateManyWithoutProjectInput {
+  connect: [UsersOnProjectsWhereUniqueInput!]
+  create: [UsersOnProjectsCreateWithoutProjectInput!]
+  delete: [UsersOnProjectsWhereUniqueInput!]
+  deleteMany: [UsersOnProjectsScalarWhereInput!]
+  disconnect: [UsersOnProjectsWhereUniqueInput!]
+  set: [UsersOnProjectsWhereUniqueInput!]
+  update: [UsersOnProjectsUpdateWithWhereUniqueWithoutProjectInput!]
+  updateMany: [UsersOnProjectsUpdateManyWithWhereNestedInput!]
+  upsert: [UsersOnProjectsUpsertWithWhereUniqueWithoutProjectInput!]
+}
+
+input UsersOnProjectsUpdateManyWithoutUserInput {
+  connect: [UsersOnProjectsWhereUniqueInput!]
+  create: [UsersOnProjectsCreateWithoutUserInput!]
+  delete: [UsersOnProjectsWhereUniqueInput!]
+  deleteMany: [UsersOnProjectsScalarWhereInput!]
+  disconnect: [UsersOnProjectsWhereUniqueInput!]
+  set: [UsersOnProjectsWhereUniqueInput!]
+  update: [UsersOnProjectsUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [UsersOnProjectsUpdateManyWithWhereNestedInput!]
+  upsert: [UsersOnProjectsUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input UsersOnProjectsUpdateManyWithWhereNestedInput {
+  data: UsersOnProjectsUpdateManyDataInput!
+  where: UsersOnProjectsScalarWhereInput!
+}
+
+input UsersOnProjectsUpdateWithoutProjectDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutMemberOfProjectsInput
+}
+
+input UsersOnProjectsUpdateWithoutUserDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  project: ProjectUpdateOneRequiredWithoutMembersInput
+}
+
+input UsersOnProjectsUpdateWithWhereUniqueWithoutProjectInput {
+  data: UsersOnProjectsUpdateWithoutProjectDataInput!
+  where: UsersOnProjectsWhereUniqueInput!
+}
+
+input UsersOnProjectsUpdateWithWhereUniqueWithoutUserInput {
+  data: UsersOnProjectsUpdateWithoutUserDataInput!
+  where: UsersOnProjectsWhereUniqueInput!
+}
+
+input UsersOnProjectsUpsertWithWhereUniqueWithoutProjectInput {
+  create: UsersOnProjectsCreateWithoutProjectInput!
+  update: UsersOnProjectsUpdateWithoutProjectDataInput!
+  where: UsersOnProjectsWhereUniqueInput!
+}
+
+input UsersOnProjectsUpsertWithWhereUniqueWithoutUserInput {
+  create: UsersOnProjectsCreateWithoutUserInput!
+  update: UsersOnProjectsUpdateWithoutUserDataInput!
+  where: UsersOnProjectsWhereUniqueInput!
+}
+
+input UsersOnProjectsWhereInput {
+  AND: [UsersOnProjectsWhereInput!]
+  createdAt: DateTimeFilter
+  NOT: [UsersOnProjectsWhereInput!]
+  OR: [UsersOnProjectsWhereInput!]
+  project: ProjectRelationFilter
+  projectId: StringFilter
+  user: UserRelationFilter
+  userId: StringFilter
+}
+
+input UsersOnProjectsWhereUniqueInput {
+  userId_projectId: UserIdProjectIdCompoundUniqueInput
+}
+
 input UserUpdateInput {
   address: AddressUpdateOneWithoutUserInput
+  avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
+  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
   id: StringFieldUpdateOperationsInput
+  interests: TagUpdateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
+  ownsProjects: ProjectUpdateManyWithoutOwnerInput
   role: EnumRoleFieldUpdateOperationsInput
   session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input UserUpdateManyDataInput {
+  avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
@@ -463,6 +1223,7 @@ input UserUpdateManyDataInput {
 }
 
 input UserUpdateManyMutationInput {
+  avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
@@ -484,15 +1245,154 @@ input UserUpdateManyWithoutAddressInput {
   upsert: [UserUpsertWithWhereUniqueWithoutAddressInput!]
 }
 
+input UserUpdateManyWithoutFollowedByInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutFollowedByInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [UserScalarWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutFollowedByInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutFollowedByInput!]
+}
+
+input UserUpdateManyWithoutFollowingInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutFollowingInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [UserScalarWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutFollowingInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutFollowingInput!]
+}
+
 input UserUpdateManyWithWhereNestedInput {
   data: UserUpdateManyDataInput!
   where: UserScalarWhereInput!
 }
 
+input UserUpdateOneRequiredWithoutMemberOfProjectsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutMemberOfProjectsInput
+  update: UserUpdateWithoutMemberOfProjectsDataInput
+  upsert: UserUpsertWithoutMemberOfProjectsInput
+}
+
+input UserUpdateOneRequiredWithoutOwnsProjectsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutOwnsProjectsInput
+  update: UserUpdateWithoutOwnsProjectsDataInput
+  upsert: UserUpsertWithoutOwnsProjectsInput
+}
+
+input UserUpdateOneWithoutInterestsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutInterestsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: UserUpdateWithoutInterestsDataInput
+  upsert: UserUpsertWithoutInterestsInput
+}
+
 input UserUpdateWithoutAddressDataInput {
+  avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
+  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
   id: StringFieldUpdateOperationsInput
+  interests: TagUpdateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
+  name: StringFieldUpdateOperationsInput
+  ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  role: EnumRoleFieldUpdateOperationsInput
+  session: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutFollowedByDataInput {
+  address: AddressUpdateOneWithoutUserInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
+  email: StringFieldUpdateOperationsInput
+  following: UserUpdateManyWithoutFollowedByInput
+  id: StringFieldUpdateOperationsInput
+  interests: TagUpdateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
+  name: StringFieldUpdateOperationsInput
+  ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  role: EnumRoleFieldUpdateOperationsInput
+  session: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutFollowingDataInput {
+  address: AddressUpdateOneWithoutUserInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
+  email: StringFieldUpdateOperationsInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  id: StringFieldUpdateOperationsInput
+  interests: TagUpdateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
+  name: StringFieldUpdateOperationsInput
+  ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  role: EnumRoleFieldUpdateOperationsInput
+  session: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutInterestsDataInput {
+  address: AddressUpdateOneWithoutUserInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
+  email: StringFieldUpdateOperationsInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
+  id: StringFieldUpdateOperationsInput
+  memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
+  name: StringFieldUpdateOperationsInput
+  ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  role: EnumRoleFieldUpdateOperationsInput
+  session: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutMemberOfProjectsDataInput {
+  address: AddressUpdateOneWithoutUserInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
+  email: StringFieldUpdateOperationsInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
+  id: StringFieldUpdateOperationsInput
+  interests: TagUpdateManyWithoutUserInput
+  name: StringFieldUpdateOperationsInput
+  ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  role: EnumRoleFieldUpdateOperationsInput
+  session: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutOwnsProjectsDataInput {
+  address: AddressUpdateOneWithoutUserInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
+  email: StringFieldUpdateOperationsInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
+  id: StringFieldUpdateOperationsInput
+  interests: TagUpdateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
   session: NullableStringFieldUpdateOperationsInput
@@ -504,9 +1404,46 @@ input UserUpdateWithWhereUniqueWithoutAddressInput {
   where: UserWhereUniqueInput!
 }
 
+input UserUpdateWithWhereUniqueWithoutFollowedByInput {
+  data: UserUpdateWithoutFollowedByDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutFollowingInput {
+  data: UserUpdateWithoutFollowingDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithoutInterestsInput {
+  create: UserCreateWithoutInterestsInput!
+  update: UserUpdateWithoutInterestsDataInput!
+}
+
+input UserUpsertWithoutMemberOfProjectsInput {
+  create: UserCreateWithoutMemberOfProjectsInput!
+  update: UserUpdateWithoutMemberOfProjectsDataInput!
+}
+
+input UserUpsertWithoutOwnsProjectsInput {
+  create: UserCreateWithoutOwnsProjectsInput!
+  update: UserUpdateWithoutOwnsProjectsDataInput!
+}
+
 input UserUpsertWithWhereUniqueWithoutAddressInput {
   create: UserCreateWithoutAddressInput!
   update: UserUpdateWithoutAddressDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutFollowedByInput {
+  create: UserCreateWithoutFollowedByInput!
+  update: UserUpdateWithoutFollowedByDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutFollowingInput {
+  create: UserCreateWithoutFollowingInput!
+  update: UserUpdateWithoutFollowingDataInput!
   where: UserWhereUniqueInput!
 }
 
@@ -514,12 +1451,19 @@ input UserWhereInput {
   address: AddressRelationFilter
   addressId: StringNullableFilter
   AND: [UserWhereInput!]
+  avatar: StringNullableFilter
   createdAt: DateTimeFilter
+  EarylAccessCode: EarylAccessCodeListRelationFilter
   email: StringFilter
+  followedBy: UserListRelationFilter
+  following: UserListRelationFilter
   id: StringFilter
+  interests: TagListRelationFilter
+  memberOfProjects: UsersOnProjectsListRelationFilter
   name: StringFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
+  ownsProjects: ProjectListRelationFilter
   role: EnumRoleFilter
   session: StringNullableFilter
   updatedAt: DateTimeFilter

@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("LIVE_DB_URL")
+  url = "***"
 }
 
 generator client {
@@ -47,7 +47,7 @@ model Address {
 model EarylAccessCode {
   id            String      @id @default(cuid())
   code          String      @unique
-  isValid       Boolean     @default(true)
+  isValid       Boolean     @default(false)
   claimedBy     User?
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt

@@ -68,10 +68,9 @@ services:
     networks:
       - webnet
     depends_on:
-      - syra-live-db
       - syra-auth-session-db
     ports:
-      - "4020:3000"
+      - "4020:4000"
     volumes:
       - "./syra-live-gql:/syra-live-gql"
       - "/syra-live-gql/node_modules"

@@ -1,4 +1,4 @@
-FROM node:latest as development
+FROM node:current-alpine3.12 as development
 
 ARG IMAGE_NAME=syra-live-gql
 

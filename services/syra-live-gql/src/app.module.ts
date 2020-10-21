@@ -5,11 +5,19 @@ import {PrismaService} from "./prisma.service";
 import { PrismaClient } from '@prisma/client';
 import {TypeGraphQLModule} from "typegraphql-nestjs";
 import {
-  Address, AddressCrudResolver,
+  Address,
+  AddressCrudResolver,
   AddressRelationsResolver,
+  EarylAccessCode,
+  EarylAccessCodeRelationsResolver,
+  Project, ProjectCrudResolver,
+  ProjectRelationsResolver,
+  Tag, TagCrudResolver,
+  TagRelationsResolver,
   User,
   UserCrudResolver,
-  UserRelationsResolver
+  UserRelationsResolver,
+  UsersOnProjects, UsersOnProjectsCrudResolver, UsersOnProjectsRelationsResolver,
 } from '../prisma/generated/type-graphql';
 
 const prisma = new PrismaClient();
@@ -31,7 +39,7 @@ type Context = {
       emitSchemaFile: true,
       context: (): Context => ({ prisma }),
       cors: {
-        origin: 'http://localhost:8000',
+        origin: 'http://localhost:3000',
         credentials: true,
       },
     }),
@@ -40,14 +48,26 @@ type Context = {
   providers: [
     AppService,
     PrismaService,
+    // Models,
     User,
     Address,
+    EarylAccessCode,
+    Tag,
+    Project,
+    UsersOnProjects,
     // Relations
     UserRelationsResolver,
     AddressRelationsResolver,
+    ProjectRelationsResolver,
+    EarylAccessCodeRelationsResolver,
+    TagRelationsResolver,
+    UsersOnProjectsRelationsResolver,
     // Crud
     UserCrudResolver,
     AddressCrudResolver,
+    TagCrudResolver,
+    ProjectCrudResolver,
+    UsersOnProjectsCrudResolver
   ],
 })
 export class AppModule {}

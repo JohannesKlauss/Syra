@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:current-alpine3.12
 
 ARG IMAGE_NAME=syra-daw-fe
 
