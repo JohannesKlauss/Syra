@@ -30,7 +30,7 @@
     "react-icons": "3.11.0",
     "recoil": "0.0.13",
     "typewriter-effect": "2.13.1",
-    "wavesurfer.js": "4.1.1"
+    "wavesurfer.js": "4.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.12.3",
