@@ -6,13 +6,8 @@ import { PrismaService } from './prisma.service';
 export class AppController {
   constructor(private readonly appService: AppService, private readonly prismaService: PrismaService) {}
 
-  @Get('create')
-  async create() {
-    return await this.appService.create();
-  }
-
   @Get()
   async getHello() {
-    return await this.prismaService.earylAccessCode.findOne({where: {id: "ckgja3z9a000001ky53ky9ugc"}, select: {code: true}});
+    return await this.prismaService.earlyAccessCode.findOne({where: {id: "ckgja3z9a000001ky53ky9ugc"}, select: {code: true}});
   }
 }

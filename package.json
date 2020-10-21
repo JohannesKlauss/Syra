@@ -12,6 +12,7 @@
     "live-gql:model-up": "yarn run live-gql:migrate && yarn run live-gql:generate",
     "  --  LIVE - FE --  ": "",
     "live-fe:start": "yarn workspace syra-live-fe start",
+    "live-fe:generate": "yarn workspace syra-live-fe gql-generate",
     "live-fe:build": "yarn workspace syra-live-fe build",
     "live-fe:storybook": "yarn workspace syra-live-fe storybook"
   },

@@ -214,7 +214,7 @@ input DateTimeFilter {
   notIn: [Timestamp!]
 }
 
-type EarylAccessCode {
+type EarlyAccessCode {
   claimedBy: User
   code: String!
   createdAt: Timestamp!
@@ -224,12 +224,12 @@ type EarylAccessCode {
   userId: String
 }
 
-input EarylAccessCodeCreateManyWithoutClaimedByInput {
-  connect: [EarylAccessCodeWhereUniqueInput!]
-  create: [EarylAccessCodeCreateWithoutClaimedByInput!]
+input EarlyAccessCodeCreateManyWithoutClaimedByInput {
+  connect: [EarlyAccessCodeWhereUniqueInput!]
+  create: [EarlyAccessCodeCreateWithoutClaimedByInput!]
 }
 
-input EarylAccessCodeCreateWithoutClaimedByInput {
+input EarlyAccessCodeCreateWithoutClaimedByInput {
   code: String!
   createdAt: Timestamp
   id: String
@@ -237,7 +237,7 @@ input EarylAccessCodeCreateWithoutClaimedByInput {
   updatedAt: Timestamp
 }
 
-enum EarylAccessCodeDistinctFieldEnum {
+enum EarlyAccessCodeDistinctFieldEnum {
   code
   createdAt
   id
@@ -246,13 +246,13 @@ enum EarylAccessCodeDistinctFieldEnum {
   userId
 }
 
-input EarylAccessCodeListRelationFilter {
-  every: EarylAccessCodeWhereInput
-  none: EarylAccessCodeWhereInput
-  some: EarylAccessCodeWhereInput
+input EarlyAccessCodeListRelationFilter {
+  every: EarlyAccessCodeWhereInput
+  none: EarlyAccessCodeWhereInput
+  some: EarlyAccessCodeWhereInput
 }
 
-input EarylAccessCodeOrderByInput {
+input EarlyAccessCodeOrderByInput {
   code: SortOrder
   createdAt: SortOrder
   id: SortOrder
@@ -261,19 +261,19 @@ input EarylAccessCodeOrderByInput {
   userId: SortOrder
 }
 
-input EarylAccessCodeScalarWhereInput {
-  AND: [EarylAccessCodeScalarWhereInput!]
+input EarlyAccessCodeScalarWhereInput {
+  AND: [EarlyAccessCodeScalarWhereInput!]
   code: StringFilter
   createdAt: DateTimeFilter
   id: StringFilter
   isValid: BoolFilter
-  NOT: [EarylAccessCodeScalarWhereInput!]
-  OR: [EarylAccessCodeScalarWhereInput!]
+  NOT: [EarlyAccessCodeScalarWhereInput!]
+  OR: [EarlyAccessCodeScalarWhereInput!]
   updatedAt: DateTimeFilter
   userId: StringNullableFilter
 }
 
-input EarylAccessCodeUpdateManyDataInput {
+input EarlyAccessCodeUpdateManyDataInput {
   code: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
@@ -281,24 +281,24 @@ input EarylAccessCodeUpdateManyDataInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input EarylAccessCodeUpdateManyWithoutClaimedByInput {
-  connect: [EarylAccessCodeWhereUniqueInput!]
-  create: [EarylAccessCodeCreateWithoutClaimedByInput!]
-  delete: [EarylAccessCodeWhereUniqueInput!]
-  deleteMany: [EarylAccessCodeScalarWhereInput!]
-  disconnect: [EarylAccessCodeWhereUniqueInput!]
-  set: [EarylAccessCodeWhereUniqueInput!]
-  update: [EarylAccessCodeUpdateWithWhereUniqueWithoutClaimedByInput!]
-  updateMany: [EarylAccessCodeUpdateManyWithWhereNestedInput!]
-  upsert: [EarylAccessCodeUpsertWithWhereUniqueWithoutClaimedByInput!]
+input EarlyAccessCodeUpdateManyWithoutClaimedByInput {
+  connect: [EarlyAccessCodeWhereUniqueInput!]
+  create: [EarlyAccessCodeCreateWithoutClaimedByInput!]
+  delete: [EarlyAccessCodeWhereUniqueInput!]
+  deleteMany: [EarlyAccessCodeScalarWhereInput!]
+  disconnect: [EarlyAccessCodeWhereUniqueInput!]
+  set: [EarlyAccessCodeWhereUniqueInput!]
+  update: [EarlyAccessCodeUpdateWithWhereUniqueWithoutClaimedByInput!]
+  updateMany: [EarlyAccessCodeUpdateManyWithWhereNestedInput!]
+  upsert: [EarlyAccessCodeUpsertWithWhereUniqueWithoutClaimedByInput!]
 }
 
-input EarylAccessCodeUpdateManyWithWhereNestedInput {
-  data: EarylAccessCodeUpdateManyDataInput!
-  where: EarylAccessCodeScalarWhereInput!
+input EarlyAccessCodeUpdateManyWithWhereNestedInput {
+  data: EarlyAccessCodeUpdateManyDataInput!
+  where: EarlyAccessCodeScalarWhereInput!
 }
 
-input EarylAccessCodeUpdateWithoutClaimedByDataInput {
+input EarlyAccessCodeUpdateWithoutClaimedByDataInput {
   code: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
@@ -306,31 +306,31 @@ input EarylAccessCodeUpdateWithoutClaimedByDataInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input EarylAccessCodeUpdateWithWhereUniqueWithoutClaimedByInput {
-  data: EarylAccessCodeUpdateWithoutClaimedByDataInput!
-  where: EarylAccessCodeWhereUniqueInput!
+input EarlyAccessCodeUpdateWithWhereUniqueWithoutClaimedByInput {
+  data: EarlyAccessCodeUpdateWithoutClaimedByDataInput!
+  where: EarlyAccessCodeWhereUniqueInput!
 }
 
-input EarylAccessCodeUpsertWithWhereUniqueWithoutClaimedByInput {
-  create: EarylAccessCodeCreateWithoutClaimedByInput!
-  update: EarylAccessCodeUpdateWithoutClaimedByDataInput!
-  where: EarylAccessCodeWhereUniqueInput!
+input EarlyAccessCodeUpsertWithWhereUniqueWithoutClaimedByInput {
+  create: EarlyAccessCodeCreateWithoutClaimedByInput!
+  update: EarlyAccessCodeUpdateWithoutClaimedByDataInput!
+  where: EarlyAccessCodeWhereUniqueInput!
 }
 
-input EarylAccessCodeWhereInput {
-  AND: [EarylAccessCodeWhereInput!]
+input EarlyAccessCodeWhereInput {
+  AND: [EarlyAccessCodeWhereInput!]
   claimedBy: UserRelationFilter
   code: StringFilter
   createdAt: DateTimeFilter
   id: StringFilter
   isValid: BoolFilter
-  NOT: [EarylAccessCodeWhereInput!]
-  OR: [EarylAccessCodeWhereInput!]
+  NOT: [EarlyAccessCodeWhereInput!]
+  OR: [EarlyAccessCodeWhereInput!]
   updatedAt: DateTimeFilter
   userId: StringNullableFilter
 }
 
-input EarylAccessCodeWhereUniqueInput {
+input EarlyAccessCodeWhereUniqueInput {
   code: String
   id: String
 }
@@ -377,6 +377,7 @@ type Mutation {
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
+  signUpUser(data: UserSignUpInput!): User!
   updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
   updateManyAddress(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
   updateManyProject(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
@@ -823,7 +824,7 @@ type User {
   addressId: String
   avatar: String
   createdAt: Timestamp!
-  EarylAccessCode(cursor: EarylAccessCodeWhereUniqueInput, distinct: [EarylAccessCodeDistinctFieldEnum!], orderBy: [EarylAccessCodeOrderByInput!], skip: Int, take: Int, where: EarylAccessCodeWhereInput): [EarylAccessCode!]
+  EarlyAccessCode(cursor: EarlyAccessCodeWhereUniqueInput, distinct: [EarlyAccessCodeDistinctFieldEnum!], orderBy: [EarlyAccessCodeOrderByInput!], skip: Int, take: Int, where: EarlyAccessCodeWhereInput): [EarlyAccessCode!]
   email: String!
   followedBy(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
   following(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
@@ -832,6 +833,7 @@ type User {
   memberOfProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
   name: String!
   ownsProjects(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]
+  password: String!
   role: Role!
   session: String
   updatedAt: Timestamp!
@@ -841,7 +843,7 @@ input UserCreateInput {
   address: AddressCreateOneWithoutUserInput
   avatar: String
   createdAt: Timestamp
-  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
@@ -850,6 +852,7 @@ input UserCreateInput {
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   name: String!
   ownsProjects: ProjectCreateManyWithoutOwnerInput
+  password: String!
   role: Role
   session: String
   updatedAt: Timestamp
@@ -888,7 +891,7 @@ input UserCreateOneWithoutOwnsProjectsInput {
 input UserCreateWithoutAddressInput {
   avatar: String
   createdAt: Timestamp
-  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
@@ -897,6 +900,7 @@ input UserCreateWithoutAddressInput {
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   name: String!
   ownsProjects: ProjectCreateManyWithoutOwnerInput
+  password: String!
   role: Role
   session: String
   updatedAt: Timestamp
@@ -906,7 +910,7 @@ input UserCreateWithoutFollowedByInput {
   address: AddressCreateOneWithoutUserInput
   avatar: String
   createdAt: Timestamp
-  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
   following: UserCreateManyWithoutFollowedByInput
   id: String
@@ -914,6 +918,7 @@ input UserCreateWithoutFollowedByInput {
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   name: String!
   ownsProjects: ProjectCreateManyWithoutOwnerInput
+  password: String!
   role: Role
   session: String
   updatedAt: Timestamp
@@ -923,7 +928,7 @@ input UserCreateWithoutFollowingInput {
   address: AddressCreateOneWithoutUserInput
   avatar: String
   createdAt: Timestamp
-  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
   followedBy: UserCreateManyWithoutFollowingInput
   id: String
@@ -931,6 +936,7 @@ input UserCreateWithoutFollowingInput {
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   name: String!
   ownsProjects: ProjectCreateManyWithoutOwnerInput
+  password: String!
   role: Role
   session: String
   updatedAt: Timestamp
@@ -940,7 +946,7 @@ input UserCreateWithoutInterestsInput {
   address: AddressCreateOneWithoutUserInput
   avatar: String
   createdAt: Timestamp
-  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
@@ -948,6 +954,7 @@ input UserCreateWithoutInterestsInput {
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   name: String!
   ownsProjects: ProjectCreateManyWithoutOwnerInput
+  password: String!
   role: Role
   session: String
   updatedAt: Timestamp
@@ -957,7 +964,7 @@ input UserCreateWithoutMemberOfProjectsInput {
   address: AddressCreateOneWithoutUserInput
   avatar: String
   createdAt: Timestamp
-  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
@@ -965,6 +972,7 @@ input UserCreateWithoutMemberOfProjectsInput {
   interests: TagCreateManyWithoutUserInput
   name: String!
   ownsProjects: ProjectCreateManyWithoutOwnerInput
+  password: String!
   role: Role
   session: String
   updatedAt: Timestamp
@@ -974,7 +982,7 @@ input UserCreateWithoutOwnsProjectsInput {
   address: AddressCreateOneWithoutUserInput
   avatar: String
   createdAt: Timestamp
-  EarylAccessCode: EarylAccessCodeCreateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
@@ -982,6 +990,7 @@ input UserCreateWithoutOwnsProjectsInput {
   interests: TagCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   name: String!
+  password: String!
   role: Role
   session: String
   updatedAt: Timestamp
@@ -994,6 +1003,7 @@ enum UserDistinctFieldEnum {
   email
   id
   name
+  password
   role
   session
   updatedAt
@@ -1017,6 +1027,7 @@ input UserOrderByInput {
   email: SortOrder
   id: SortOrder
   name: SortOrder
+  password: SortOrder
   role: SortOrder
   session: SortOrder
   updatedAt: SortOrder
@@ -1037,9 +1048,17 @@ input UserScalarWhereInput {
   name: StringFilter
   NOT: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
+  password: StringFilter
   role: EnumRoleFilter
   session: StringNullableFilter
   updatedAt: DateTimeFilter
+}
+
+input UserSignUpInput {
+  accessCode: String!
+  email: String!
+  name: String!
+  password: String!
 }
 
 type UsersOnProjects {
@@ -1197,7 +1216,7 @@ input UserUpdateInput {
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
-  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
@@ -1206,6 +1225,7 @@ input UserUpdateInput {
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
   session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1217,6 +1237,7 @@ input UserUpdateManyDataInput {
   email: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
   session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1228,6 +1249,7 @@ input UserUpdateManyMutationInput {
   email: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
   session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1300,7 +1322,7 @@ input UserUpdateOneWithoutInterestsInput {
 input UserUpdateWithoutAddressDataInput {
   avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
-  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
@@ -1309,6 +1331,7 @@ input UserUpdateWithoutAddressDataInput {
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
   session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1318,7 +1341,7 @@ input UserUpdateWithoutFollowedByDataInput {
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
-  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
   following: UserUpdateManyWithoutFollowedByInput
   id: StringFieldUpdateOperationsInput
@@ -1326,6 +1349,7 @@ input UserUpdateWithoutFollowedByDataInput {
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
   session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1335,7 +1359,7 @@ input UserUpdateWithoutFollowingDataInput {
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
-  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
   followedBy: UserUpdateManyWithoutFollowingInput
   id: StringFieldUpdateOperationsInput
@@ -1343,6 +1367,7 @@ input UserUpdateWithoutFollowingDataInput {
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
   session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1352,7 +1377,7 @@ input UserUpdateWithoutInterestsDataInput {
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
-  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
@@ -1360,6 +1385,7 @@ input UserUpdateWithoutInterestsDataInput {
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
   session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1369,7 +1395,7 @@ input UserUpdateWithoutMemberOfProjectsDataInput {
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
-  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
@@ -1377,6 +1403,7 @@ input UserUpdateWithoutMemberOfProjectsDataInput {
   interests: TagUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
   session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1386,7 +1413,7 @@ input UserUpdateWithoutOwnsProjectsDataInput {
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
-  EarylAccessCode: EarylAccessCodeUpdateManyWithoutClaimedByInput
+  EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
@@ -1394,6 +1421,7 @@ input UserUpdateWithoutOwnsProjectsDataInput {
   interests: TagUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
   session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1453,7 +1481,7 @@ input UserWhereInput {
   AND: [UserWhereInput!]
   avatar: StringNullableFilter
   createdAt: DateTimeFilter
-  EarylAccessCode: EarylAccessCodeListRelationFilter
+  EarlyAccessCode: EarlyAccessCodeListRelationFilter
   email: StringFilter
   followedBy: UserListRelationFilter
   following: UserListRelationFilter
@@ -1464,6 +1492,7 @@ input UserWhereInput {
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   ownsProjects: ProjectListRelationFilter
+  password: StringFilter
   role: EnumRoleFilter
   session: StringNullableFilter
   updatedAt: DateTimeFilter

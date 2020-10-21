@@ -7,9 +7,7 @@ import {TypeGraphQLModule} from "typegraphql-nestjs";
 import {
   Address,
   AddressCrudResolver,
-  AddressRelationsResolver,
-  EarylAccessCode,
-  EarylAccessCodeRelationsResolver,
+  AddressRelationsResolver, EarlyAccessCode, EarlyAccessCodeRelationsResolver,
   Project, ProjectCrudResolver,
   ProjectRelationsResolver,
   Tag, TagCrudResolver,
@@ -19,15 +17,18 @@ import {
   UserRelationsResolver,
   UsersOnProjects, UsersOnProjectsCrudResolver, UsersOnProjectsRelationsResolver,
 } from '../prisma/generated/type-graphql';
+import { SessionModule } from './session/session.module';
+import { ConfigModule } from '@nestjs/config';
+import { GraphQLContext } from '../types/GraphQLContext';
+import { CustomUserResolver } from './custom/resolvers/crud/User/CustomUserResolver';
 
 const prisma = new PrismaClient();
 
-type Context = {
-  prisma: PrismaClient;
-}
-
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     TypeGraphQLModule.forRoot({
       validate: false,
       dateScalarMode: 'timestamp',
@@ -37,12 +38,13 @@ type Context = {
       introspection: true,
       path: '/',
       emitSchemaFile: true,
-      context: (): Context => ({ prisma }),
+      context: (): GraphQLContext => ({ prisma }),
       cors: {
         origin: 'http://localhost:3000',
         credentials: true,
       },
     }),
+    SessionModule,
   ],
   controllers: [AppController],
   providers: [
@@ -51,7 +53,7 @@ type Context = {
     // Models,
     User,
     Address,
-    EarylAccessCode,
+    EarlyAccessCode,
     Tag,
     Project,
     UsersOnProjects,
@@ -59,7 +61,7 @@ type Context = {
     UserRelationsResolver,
     AddressRelationsResolver,
     ProjectRelationsResolver,
-    EarylAccessCodeRelationsResolver,
+    EarlyAccessCodeRelationsResolver,
     TagRelationsResolver,
     UsersOnProjectsRelationsResolver,
     // Crud
@@ -67,7 +69,9 @@ type Context = {
     AddressCrudResolver,
     TagCrudResolver,
     ProjectCrudResolver,
-    UsersOnProjectsCrudResolver
+    UsersOnProjectsCrudResolver,
+    // Custom
+    CustomUserResolver,
   ],
 })
 export class AppModule {}

@@ -1,0 +1,6 @@
+mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!) {
+    signUpUser(data: {name: $name, email: $email, password: $password, accessCode: $accessCode}) {
+        id
+        name
+    }
+}

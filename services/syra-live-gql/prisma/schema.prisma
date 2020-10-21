@@ -19,6 +19,7 @@ model User {
   id                String      @id @default(cuid())
   name              String
   email             String      @unique
+  password          String
   avatar            String?
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt
@@ -44,7 +45,7 @@ model Address {
   updatedAt     DateTime    @updatedAt
 }
 
-model EarylAccessCode {
+model EarlyAccessCode {
   id            String      @id @default(cuid())
   code          String      @unique
   isValid       Boolean     @default(true)

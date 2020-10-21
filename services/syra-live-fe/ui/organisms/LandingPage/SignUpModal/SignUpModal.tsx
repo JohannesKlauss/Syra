@@ -14,6 +14,7 @@ import SignUpForm from "../../../molecules/LandingPage/SignUpForm/SignUpForm";
 import { useSetRecoilState } from 'recoil';
 import { landingPageStore } from '../../../../recoil/landingPageStore';
 import { useTranslation } from 'react-i18next';
+import { useSignUpUserMutation } from '../../../../gql/generated';
 
 interface Props {
   isOpen: boolean;
@@ -23,18 +24,18 @@ interface Props {
 
 function SignUpModal({ isOpen, onClose, onClickSwitchToLogin }: Props) {
   const [hasError, setHasError] = useState(false);
-  // const [executeMutation] = useCreateNewUserMutation();
+  const [executeMutation] = useSignUpUserMutation();
   const setShowSignUpModal = useSetRecoilState(landingPageStore.showSignUpModal);
   const {t} = useTranslation();
 
   const onSubmit = async (data: SignUpForm) => {
-    /*const result = await executeMutation({variables: data});
+    const result = await executeMutation({variables: data});
 
     setHasError(result.errors !== undefined);
 
-    if (result.data.createLocalUser.id) {
+    if (result.data.signUpUser.id) {
       setShowSignUpModal(false);
-    }*/
+    }
   };
 
   return (
