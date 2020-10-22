@@ -2100,13 +2100,13 @@
   resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
   integrity sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw==
 
-"@inlet/react-pixi@5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@inlet/react-pixi/-/react-pixi-5.2.0.tgz#465ffede2502ababee72d839a50b092045d948bd"
-  integrity sha512-8vCC7RegsF66dlb1rKxUB7KKj9iO9S2ilX+nVOQjg0dpSwP6HHT2EFd6oEgFdjhmUOGfUskC0VoXDaeXIfTSfQ==
+"@inlet/react-pixi@6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@inlet/react-pixi/-/react-pixi-6.0.0.tgz#ac45e77a25973b8afd4dea2facb554fa5e4be890"
+  integrity sha512-Ylz8DTb3bAtYHEicwnyGKDAjmAKtTQ9N8HoIfLzG6RB9la9lgcyaLErgq6TtOoyxh+LLBIVNXDGhdImpqu8j9g==
   dependencies:
-    performance-now "^2.1.0"
-    react-reconciler "0.25.1"
+    performance-now "2.1.0"
+    react-reconciler "0.26.0"
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
@@ -15322,7 +15322,7 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-performance-now@^2.1.0:
+performance-now@2.1.0, performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
@@ -16865,15 +16865,14 @@ react-popper@^1.3.7:
     typed-styles "^0.0.7"
     warning "^4.0.2"
 
-react-reconciler@0.25.1:
-  version "0.25.1"
-  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.25.1.tgz#f9814d59d115e1210762287ce987801529363aaa"
-  integrity sha512-R5UwsIvRcSs3w8n9k3tBoTtUHdVhu9u84EG7E5M0Jk9F5i6DA1pQzPfUZd6opYWGy56MJOtV3VADzy6DRwYDjw==
+react-reconciler@0.26.0:
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.26.0.tgz#053ae2fd1607e38a960e7a694ad694732e4989b6"
+  integrity sha512-n2FJE9vPSiZ0Dn/jaV/iOAO6rXepnk74QGRcgwPSgmN/2syUJnbfEz7Bw5yodBfJhjA3L7cu1YdImYISTj4KZQ==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.19.1"
+    scheduler "^0.20.0"
 
 react-refresh@0.8.3, react-refresh@^0.8.3:
   version "0.8.3"
@@ -17847,7 +17846,7 @@ scheduler@^0.19.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
-scheduler@^0.20.1:
+scheduler@^0.20.0, scheduler@^0.20.1:
   version "0.20.1"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.20.1.tgz#da0b907e24026b01181ecbc75efdc7f27b5a000c"
   integrity sha512-LKTe+2xNJBNxu/QhHvDR14wUXHRQbVY5ZOYpOGWRzhydZUqrLb2JBvLPY7cAqFmqrWuDED0Mjk7013SZiOz6Bw==
