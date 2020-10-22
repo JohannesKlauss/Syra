@@ -1862,7 +1862,6 @@ type User {
   name: String!
   ownsProjects(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]
   role: Role!
-  session: String
   updatedAt: Timestamp!
 }
 
@@ -1884,7 +1883,6 @@ input UserCreateInput {
   ownsProjects: ProjectCreateManyWithoutOwnerInput
   password: String!
   role: Role
-  session: String
   updatedAt: Timestamp
 }
 
@@ -1950,7 +1948,6 @@ input UserCreateWithoutAddressInput {
   ownsProjects: ProjectCreateManyWithoutOwnerInput
   password: String!
   role: Role
-  session: String
   updatedAt: Timestamp
 }
 
@@ -1971,7 +1968,6 @@ input UserCreateWithoutCommentLikeInput {
   ownsProjects: ProjectCreateManyWithoutOwnerInput
   password: String!
   role: Role
-  session: String
   updatedAt: Timestamp
 }
 
@@ -1992,7 +1988,6 @@ input UserCreateWithoutFeedInput {
   ownsProjects: ProjectCreateManyWithoutOwnerInput
   password: String!
   role: Role
-  session: String
   updatedAt: Timestamp
 }
 
@@ -2013,7 +2008,6 @@ input UserCreateWithoutFeedItemLikeInput {
   ownsProjects: ProjectCreateManyWithoutOwnerInput
   password: String!
   role: Role
-  session: String
   updatedAt: Timestamp
 }
 
@@ -2034,7 +2028,6 @@ input UserCreateWithoutFollowedByInput {
   ownsProjects: ProjectCreateManyWithoutOwnerInput
   password: String!
   role: Role
-  session: String
   updatedAt: Timestamp
 }
 
@@ -2055,7 +2048,6 @@ input UserCreateWithoutFollowingInput {
   ownsProjects: ProjectCreateManyWithoutOwnerInput
   password: String!
   role: Role
-  session: String
   updatedAt: Timestamp
 }
 
@@ -2076,7 +2068,6 @@ input UserCreateWithoutInterestsInput {
   ownsProjects: ProjectCreateManyWithoutOwnerInput
   password: String!
   role: Role
-  session: String
   updatedAt: Timestamp
 }
 
@@ -2097,7 +2088,6 @@ input UserCreateWithoutMemberOfProjectsInput {
   ownsProjects: ProjectCreateManyWithoutOwnerInput
   password: String!
   role: Role
-  session: String
   updatedAt: Timestamp
 }
 
@@ -2118,7 +2108,6 @@ input UserCreateWithoutOwnsProjectsInput {
   name: String!
   password: String!
   role: Role
-  session: String
   updatedAt: Timestamp
 }
 
@@ -2131,7 +2120,6 @@ enum UserDistinctFieldEnum {
   name
   password
   role
-  session
   updatedAt
 }
 
@@ -2165,7 +2153,6 @@ input UserOrderByInput {
   name: SortOrder
   password: SortOrder
   role: SortOrder
-  session: SortOrder
   updatedAt: SortOrder
 }
 
@@ -2186,7 +2173,6 @@ input UserScalarWhereInput {
   OR: [UserScalarWhereInput!]
   password: StringFilter
   role: EnumRoleFilter
-  session: StringNullableFilter
   updatedAt: DateTimeFilter
 }
 
@@ -2366,7 +2352,6 @@ input UserUpdateInput {
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -2378,7 +2363,6 @@ input UserUpdateManyDataInput {
   name: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -2390,7 +2374,6 @@ input UserUpdateManyMutationInput {
   name: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -2496,7 +2479,6 @@ input UserUpdateWithoutAddressDataInput {
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -2517,7 +2499,6 @@ input UserUpdateWithoutCommentLikeDataInput {
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -2538,7 +2519,6 @@ input UserUpdateWithoutFeedDataInput {
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -2559,7 +2539,6 @@ input UserUpdateWithoutFeedItemLikeDataInput {
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -2580,7 +2559,6 @@ input UserUpdateWithoutFollowedByDataInput {
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -2601,7 +2579,6 @@ input UserUpdateWithoutFollowingDataInput {
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -2622,7 +2599,6 @@ input UserUpdateWithoutInterestsDataInput {
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -2643,7 +2619,6 @@ input UserUpdateWithoutMemberOfProjectsDataInput {
   ownsProjects: ProjectUpdateManyWithoutOwnerInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -2664,7 +2639,6 @@ input UserUpdateWithoutOwnsProjectsDataInput {
   name: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  session: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -2753,11 +2727,11 @@ input UserWhereInput {
   ownsProjects: ProjectListRelationFilter
   password: StringFilter
   role: EnumRoleFilter
-  session: StringNullableFilter
   updatedAt: DateTimeFilter
 }
 
 input UserWhereUniqueInput {
   email: String
   id: String
+  name: String
 }

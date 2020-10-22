@@ -10,3 +10,4 @@
 20201021123622-fix-typo-in-early-access-code-table-name
 20201022150132-added-basic-live-platform
 20201022150744-remove-not-needed-session-field-from-user
+20201022150842-make-user-name-unique
