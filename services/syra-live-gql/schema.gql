@@ -9,7 +9,6 @@ type Address {
   city: String!
   country: String!
   createdAt: Timestamp!
-  id: String!
   state: String!
   updatedAt: Timestamp!
   User(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
@@ -170,6 +169,26 @@ type AggregateAddress {
   sum: AddressSumAggregate
 }
 
+type AggregateComment {
+  count: Int!
+}
+
+type AggregateCommentLike {
+  count: Int!
+}
+
+type AggregateFeedItem {
+  count: Int!
+}
+
+type AggregateFeedItemLike {
+  count: Int!
+}
+
+type AggregateFeedItemRevision {
+  count: Int!
+}
+
 type AggregateProject {
   count: Int!
 }
@@ -199,6 +218,336 @@ input BoolFilter {
   not: NestedBoolFilter
 }
 
+type Comment {
+  createdAt: Timestamp!
+  feedItem: FeedItem!
+  feedItemId: String!
+  id: String!
+  likes(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]
+  text: String!
+  updatedAt: Timestamp!
+}
+
+input CommentCreateInput {
+  createdAt: Timestamp
+  feedItem: FeedItemCreateOneWithoutCommentsInput!
+  id: String
+  likes: CommentLikeCreateManyWithoutCommentInput
+  text: String!
+  updatedAt: Timestamp
+}
+
+input CommentCreateManyWithoutFeedItemInput {
+  connect: [CommentWhereUniqueInput!]
+  create: [CommentCreateWithoutFeedItemInput!]
+}
+
+input CommentCreateOneWithoutLikesInput {
+  connect: CommentWhereUniqueInput
+  create: CommentCreateWithoutLikesInput
+}
+
+input CommentCreateWithoutFeedItemInput {
+  createdAt: Timestamp
+  id: String
+  likes: CommentLikeCreateManyWithoutCommentInput
+  text: String!
+  updatedAt: Timestamp
+}
+
+input CommentCreateWithoutLikesInput {
+  createdAt: Timestamp
+  feedItem: FeedItemCreateOneWithoutCommentsInput!
+  id: String
+  text: String!
+  updatedAt: Timestamp
+}
+
+enum CommentDistinctFieldEnum {
+  createdAt
+  feedItemId
+  id
+  text
+  updatedAt
+}
+
+type CommentLike {
+  comment: Comment!
+  commentId: String!
+  createdAt: Timestamp!
+  user: User!
+  userId: String!
+}
+
+input CommentLikeCreateInput {
+  comment: CommentCreateOneWithoutLikesInput!
+  createdAt: Timestamp
+  user: UserCreateOneWithoutCommentLikeInput!
+}
+
+input CommentLikeCreateManyWithoutCommentInput {
+  connect: [CommentLikeWhereUniqueInput!]
+  create: [CommentLikeCreateWithoutCommentInput!]
+}
+
+input CommentLikeCreateManyWithoutUserInput {
+  connect: [CommentLikeWhereUniqueInput!]
+  create: [CommentLikeCreateWithoutUserInput!]
+}
+
+input CommentLikeCreateWithoutCommentInput {
+  createdAt: Timestamp
+  user: UserCreateOneWithoutCommentLikeInput!
+}
+
+input CommentLikeCreateWithoutUserInput {
+  comment: CommentCreateOneWithoutLikesInput!
+  createdAt: Timestamp
+}
+
+enum CommentLikeDistinctFieldEnum {
+  commentId
+  createdAt
+  userId
+}
+
+input CommentLikeListRelationFilter {
+  every: CommentLikeWhereInput
+  none: CommentLikeWhereInput
+  some: CommentLikeWhereInput
+}
+
+input CommentLikeOrderByInput {
+  commentId: SortOrder
+  createdAt: SortOrder
+  userId: SortOrder
+}
+
+input CommentLikeScalarWhereInput {
+  AND: [CommentLikeScalarWhereInput!]
+  commentId: StringFilter
+  createdAt: DateTimeFilter
+  NOT: [CommentLikeScalarWhereInput!]
+  OR: [CommentLikeScalarWhereInput!]
+  userId: StringFilter
+}
+
+input CommentLikeUpdateInput {
+  comment: CommentUpdateOneRequiredWithoutLikesInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutCommentLikeInput
+}
+
+input CommentLikeUpdateManyDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+}
+
+input CommentLikeUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+}
+
+input CommentLikeUpdateManyWithoutCommentInput {
+  connect: [CommentLikeWhereUniqueInput!]
+  create: [CommentLikeCreateWithoutCommentInput!]
+  delete: [CommentLikeWhereUniqueInput!]
+  deleteMany: [CommentLikeScalarWhereInput!]
+  disconnect: [CommentLikeWhereUniqueInput!]
+  set: [CommentLikeWhereUniqueInput!]
+  update: [CommentLikeUpdateWithWhereUniqueWithoutCommentInput!]
+  updateMany: [CommentLikeUpdateManyWithWhereNestedInput!]
+  upsert: [CommentLikeUpsertWithWhereUniqueWithoutCommentInput!]
+}
+
+input CommentLikeUpdateManyWithoutUserInput {
+  connect: [CommentLikeWhereUniqueInput!]
+  create: [CommentLikeCreateWithoutUserInput!]
+  delete: [CommentLikeWhereUniqueInput!]
+  deleteMany: [CommentLikeScalarWhereInput!]
+  disconnect: [CommentLikeWhereUniqueInput!]
+  set: [CommentLikeWhereUniqueInput!]
+  update: [CommentLikeUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [CommentLikeUpdateManyWithWhereNestedInput!]
+  upsert: [CommentLikeUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input CommentLikeUpdateManyWithWhereNestedInput {
+  data: CommentLikeUpdateManyDataInput!
+  where: CommentLikeScalarWhereInput!
+}
+
+input CommentLikeUpdateWithoutCommentDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutCommentLikeInput
+}
+
+input CommentLikeUpdateWithoutUserDataInput {
+  comment: CommentUpdateOneRequiredWithoutLikesInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+}
+
+input CommentLikeUpdateWithWhereUniqueWithoutCommentInput {
+  data: CommentLikeUpdateWithoutCommentDataInput!
+  where: CommentLikeWhereUniqueInput!
+}
+
+input CommentLikeUpdateWithWhereUniqueWithoutUserInput {
+  data: CommentLikeUpdateWithoutUserDataInput!
+  where: CommentLikeWhereUniqueInput!
+}
+
+input CommentLikeUpsertWithWhereUniqueWithoutCommentInput {
+  create: CommentLikeCreateWithoutCommentInput!
+  update: CommentLikeUpdateWithoutCommentDataInput!
+  where: CommentLikeWhereUniqueInput!
+}
+
+input CommentLikeUpsertWithWhereUniqueWithoutUserInput {
+  create: CommentLikeCreateWithoutUserInput!
+  update: CommentLikeUpdateWithoutUserDataInput!
+  where: CommentLikeWhereUniqueInput!
+}
+
+input CommentLikeWhereInput {
+  AND: [CommentLikeWhereInput!]
+  comment: CommentRelationFilter
+  commentId: StringFilter
+  createdAt: DateTimeFilter
+  NOT: [CommentLikeWhereInput!]
+  OR: [CommentLikeWhereInput!]
+  user: UserRelationFilter
+  userId: StringFilter
+}
+
+input CommentLikeWhereUniqueInput {
+  userId_commentId: UserIdCommentIdCompoundUniqueInput
+}
+
+input CommentListRelationFilter {
+  every: CommentWhereInput
+  none: CommentWhereInput
+  some: CommentWhereInput
+}
+
+input CommentOrderByInput {
+  createdAt: SortOrder
+  feedItemId: SortOrder
+  id: SortOrder
+  text: SortOrder
+  updatedAt: SortOrder
+}
+
+input CommentRelationFilter {
+  is: CommentWhereInput
+  isNot: CommentWhereInput
+}
+
+input CommentScalarWhereInput {
+  AND: [CommentScalarWhereInput!]
+  createdAt: DateTimeFilter
+  feedItemId: StringFilter
+  id: StringFilter
+  NOT: [CommentScalarWhereInput!]
+  OR: [CommentScalarWhereInput!]
+  text: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input CommentUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  feedItem: FeedItemUpdateOneRequiredWithoutCommentsInput
+  id: StringFieldUpdateOperationsInput
+  likes: CommentLikeUpdateManyWithoutCommentInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input CommentUpdateManyDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input CommentUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input CommentUpdateManyWithoutFeedItemInput {
+  connect: [CommentWhereUniqueInput!]
+  create: [CommentCreateWithoutFeedItemInput!]
+  delete: [CommentWhereUniqueInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutFeedItemInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutFeedItemInput!]
+}
+
+input CommentUpdateManyWithWhereNestedInput {
+  data: CommentUpdateManyDataInput!
+  where: CommentScalarWhereInput!
+}
+
+input CommentUpdateOneRequiredWithoutLikesInput {
+  connect: CommentWhereUniqueInput
+  create: CommentCreateWithoutLikesInput
+  update: CommentUpdateWithoutLikesDataInput
+  upsert: CommentUpsertWithoutLikesInput
+}
+
+input CommentUpdateWithoutFeedItemDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  likes: CommentLikeUpdateManyWithoutCommentInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input CommentUpdateWithoutLikesDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  feedItem: FeedItemUpdateOneRequiredWithoutCommentsInput
+  id: StringFieldUpdateOperationsInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input CommentUpdateWithWhereUniqueWithoutFeedItemInput {
+  data: CommentUpdateWithoutFeedItemDataInput!
+  where: CommentWhereUniqueInput!
+}
+
+input CommentUpsertWithoutLikesInput {
+  create: CommentCreateWithoutLikesInput!
+  update: CommentUpdateWithoutLikesDataInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutFeedItemInput {
+  create: CommentCreateWithoutFeedItemInput!
+  update: CommentUpdateWithoutFeedItemDataInput!
+  where: CommentWhereUniqueInput!
+}
+
+input CommentWhereInput {
+  AND: [CommentWhereInput!]
+  createdAt: DateTimeFilter
+  feedItem: FeedItemRelationFilter
+  feedItemId: StringFilter
+  id: StringFilter
+  likes: CommentLikeListRelationFilter
+  NOT: [CommentWhereInput!]
+  OR: [CommentWhereInput!]
+  text: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input CommentWhereUniqueInput {
+  id: String
+}
+
 input DateTimeFieldUpdateOperationsInput {
   set: Timestamp
 }
@@ -214,11 +563,21 @@ input DateTimeFilter {
   notIn: [Timestamp!]
 }
 
+input DateTimeNullableFilter {
+  equals: Timestamp
+  gt: Timestamp
+  gte: Timestamp
+  in: [Timestamp!]
+  lt: Timestamp
+  lte: Timestamp
+  not: NestedDateTimeNullableFilter
+  notIn: [Timestamp!]
+}
+
 type EarlyAccessCode {
   claimedBy: User
   code: String!
   createdAt: Timestamp!
-  id: String!
   isValid: Boolean!
   updatedAt: Timestamp!
   userId: String
@@ -346,6 +705,595 @@ input EnumRoleFilter {
   notIn: [Role!]
 }
 
+type FeedItem {
+  comments(cursor: CommentWhereUniqueInput, distinct: [CommentDistinctFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]
+  createdAt: Timestamp!
+  id: String!
+  isPublished: Boolean!
+  likes(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeDistinctFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]
+  owner: User!
+  ownerId: String!
+  publishAt: Timestamp
+  revisions(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionDistinctFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): [FeedItemRevision!]
+  text: String!
+  updatedAt: Timestamp!
+}
+
+input FeedItemCreateInput {
+  comments: CommentCreateManyWithoutFeedItemInput
+  createdAt: Timestamp
+  id: String
+  isPublished: Boolean
+  likes: FeedItemLikeCreateManyWithoutFeedItemInput
+  owner: UserCreateOneWithoutFeedInput!
+  publishAt: Timestamp
+  revisions: FeedItemRevisionCreateManyWithoutParentItemInput
+  text: String!
+  updatedAt: Timestamp
+}
+
+input FeedItemCreateManyWithoutOwnerInput {
+  connect: [FeedItemWhereUniqueInput!]
+  create: [FeedItemCreateWithoutOwnerInput!]
+}
+
+input FeedItemCreateOneWithoutCommentsInput {
+  connect: FeedItemWhereUniqueInput
+  create: FeedItemCreateWithoutCommentsInput
+}
+
+input FeedItemCreateOneWithoutLikesInput {
+  connect: FeedItemWhereUniqueInput
+  create: FeedItemCreateWithoutLikesInput
+}
+
+input FeedItemCreateOneWithoutRevisionsInput {
+  connect: FeedItemWhereUniqueInput
+  create: FeedItemCreateWithoutRevisionsInput
+}
+
+input FeedItemCreateWithoutCommentsInput {
+  createdAt: Timestamp
+  id: String
+  isPublished: Boolean
+  likes: FeedItemLikeCreateManyWithoutFeedItemInput
+  owner: UserCreateOneWithoutFeedInput!
+  publishAt: Timestamp
+  revisions: FeedItemRevisionCreateManyWithoutParentItemInput
+  text: String!
+  updatedAt: Timestamp
+}
+
+input FeedItemCreateWithoutLikesInput {
+  comments: CommentCreateManyWithoutFeedItemInput
+  createdAt: Timestamp
+  id: String
+  isPublished: Boolean
+  owner: UserCreateOneWithoutFeedInput!
+  publishAt: Timestamp
+  revisions: FeedItemRevisionCreateManyWithoutParentItemInput
+  text: String!
+  updatedAt: Timestamp
+}
+
+input FeedItemCreateWithoutOwnerInput {
+  comments: CommentCreateManyWithoutFeedItemInput
+  createdAt: Timestamp
+  id: String
+  isPublished: Boolean
+  likes: FeedItemLikeCreateManyWithoutFeedItemInput
+  publishAt: Timestamp
+  revisions: FeedItemRevisionCreateManyWithoutParentItemInput
+  text: String!
+  updatedAt: Timestamp
+}
+
+input FeedItemCreateWithoutRevisionsInput {
+  comments: CommentCreateManyWithoutFeedItemInput
+  createdAt: Timestamp
+  id: String
+  isPublished: Boolean
+  likes: FeedItemLikeCreateManyWithoutFeedItemInput
+  owner: UserCreateOneWithoutFeedInput!
+  publishAt: Timestamp
+  text: String!
+  updatedAt: Timestamp
+}
+
+enum FeedItemDistinctFieldEnum {
+  createdAt
+  id
+  isPublished
+  ownerId
+  publishAt
+  text
+  updatedAt
+}
+
+type FeedItemLike {
+  createdAt: Timestamp!
+  feedItem: FeedItem!
+  feedItemId: String!
+  user: User!
+  userId: String!
+}
+
+input FeedItemLikeCreateInput {
+  createdAt: Timestamp
+  feedItem: FeedItemCreateOneWithoutLikesInput!
+  user: UserCreateOneWithoutFeedItemLikeInput!
+}
+
+input FeedItemLikeCreateManyWithoutFeedItemInput {
+  connect: [FeedItemLikeWhereUniqueInput!]
+  create: [FeedItemLikeCreateWithoutFeedItemInput!]
+}
+
+input FeedItemLikeCreateManyWithoutUserInput {
+  connect: [FeedItemLikeWhereUniqueInput!]
+  create: [FeedItemLikeCreateWithoutUserInput!]
+}
+
+input FeedItemLikeCreateWithoutFeedItemInput {
+  createdAt: Timestamp
+  user: UserCreateOneWithoutFeedItemLikeInput!
+}
+
+input FeedItemLikeCreateWithoutUserInput {
+  createdAt: Timestamp
+  feedItem: FeedItemCreateOneWithoutLikesInput!
+}
+
+enum FeedItemLikeDistinctFieldEnum {
+  createdAt
+  feedItemId
+  userId
+}
+
+input FeedItemLikeListRelationFilter {
+  every: FeedItemLikeWhereInput
+  none: FeedItemLikeWhereInput
+  some: FeedItemLikeWhereInput
+}
+
+input FeedItemLikeOrderByInput {
+  createdAt: SortOrder
+  feedItemId: SortOrder
+  userId: SortOrder
+}
+
+input FeedItemLikeScalarWhereInput {
+  AND: [FeedItemLikeScalarWhereInput!]
+  createdAt: DateTimeFilter
+  feedItemId: StringFilter
+  NOT: [FeedItemLikeScalarWhereInput!]
+  OR: [FeedItemLikeScalarWhereInput!]
+  userId: StringFilter
+}
+
+input FeedItemLikeUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  feedItem: FeedItemUpdateOneRequiredWithoutLikesInput
+  user: UserUpdateOneRequiredWithoutFeedItemLikeInput
+}
+
+input FeedItemLikeUpdateManyDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemLikeUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemLikeUpdateManyWithoutFeedItemInput {
+  connect: [FeedItemLikeWhereUniqueInput!]
+  create: [FeedItemLikeCreateWithoutFeedItemInput!]
+  delete: [FeedItemLikeWhereUniqueInput!]
+  deleteMany: [FeedItemLikeScalarWhereInput!]
+  disconnect: [FeedItemLikeWhereUniqueInput!]
+  set: [FeedItemLikeWhereUniqueInput!]
+  update: [FeedItemLikeUpdateWithWhereUniqueWithoutFeedItemInput!]
+  updateMany: [FeedItemLikeUpdateManyWithWhereNestedInput!]
+  upsert: [FeedItemLikeUpsertWithWhereUniqueWithoutFeedItemInput!]
+}
+
+input FeedItemLikeUpdateManyWithoutUserInput {
+  connect: [FeedItemLikeWhereUniqueInput!]
+  create: [FeedItemLikeCreateWithoutUserInput!]
+  delete: [FeedItemLikeWhereUniqueInput!]
+  deleteMany: [FeedItemLikeScalarWhereInput!]
+  disconnect: [FeedItemLikeWhereUniqueInput!]
+  set: [FeedItemLikeWhereUniqueInput!]
+  update: [FeedItemLikeUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [FeedItemLikeUpdateManyWithWhereNestedInput!]
+  upsert: [FeedItemLikeUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input FeedItemLikeUpdateManyWithWhereNestedInput {
+  data: FeedItemLikeUpdateManyDataInput!
+  where: FeedItemLikeScalarWhereInput!
+}
+
+input FeedItemLikeUpdateWithoutFeedItemDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutFeedItemLikeInput
+}
+
+input FeedItemLikeUpdateWithoutUserDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  feedItem: FeedItemUpdateOneRequiredWithoutLikesInput
+}
+
+input FeedItemLikeUpdateWithWhereUniqueWithoutFeedItemInput {
+  data: FeedItemLikeUpdateWithoutFeedItemDataInput!
+  where: FeedItemLikeWhereUniqueInput!
+}
+
+input FeedItemLikeUpdateWithWhereUniqueWithoutUserInput {
+  data: FeedItemLikeUpdateWithoutUserDataInput!
+  where: FeedItemLikeWhereUniqueInput!
+}
+
+input FeedItemLikeUpsertWithWhereUniqueWithoutFeedItemInput {
+  create: FeedItemLikeCreateWithoutFeedItemInput!
+  update: FeedItemLikeUpdateWithoutFeedItemDataInput!
+  where: FeedItemLikeWhereUniqueInput!
+}
+
+input FeedItemLikeUpsertWithWhereUniqueWithoutUserInput {
+  create: FeedItemLikeCreateWithoutUserInput!
+  update: FeedItemLikeUpdateWithoutUserDataInput!
+  where: FeedItemLikeWhereUniqueInput!
+}
+
+input FeedItemLikeWhereInput {
+  AND: [FeedItemLikeWhereInput!]
+  createdAt: DateTimeFilter
+  feedItem: FeedItemRelationFilter
+  feedItemId: StringFilter
+  NOT: [FeedItemLikeWhereInput!]
+  OR: [FeedItemLikeWhereInput!]
+  user: UserRelationFilter
+  userId: StringFilter
+}
+
+input FeedItemLikeWhereUniqueInput {
+  userId_feedItemId: UserIdFeedItemIdCompoundUniqueInput
+}
+
+input FeedItemListRelationFilter {
+  every: FeedItemWhereInput
+  none: FeedItemWhereInput
+  some: FeedItemWhereInput
+}
+
+input FeedItemOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  isPublished: SortOrder
+  ownerId: SortOrder
+  publishAt: SortOrder
+  text: SortOrder
+  updatedAt: SortOrder
+}
+
+input FeedItemRelationFilter {
+  is: FeedItemWhereInput
+  isNot: FeedItemWhereInput
+}
+
+type FeedItemRevision {
+  createdAt: Timestamp!
+  feedItemId: String!
+  id: String!
+  parentItem: FeedItem!
+  text: String!
+  updatedAt: Timestamp!
+}
+
+input FeedItemRevisionCreateInput {
+  createdAt: Timestamp
+  id: String
+  parentItem: FeedItemCreateOneWithoutRevisionsInput!
+  text: String!
+  updatedAt: Timestamp
+}
+
+input FeedItemRevisionCreateManyWithoutParentItemInput {
+  connect: [FeedItemRevisionWhereUniqueInput!]
+  create: [FeedItemRevisionCreateWithoutParentItemInput!]
+}
+
+input FeedItemRevisionCreateWithoutParentItemInput {
+  createdAt: Timestamp
+  id: String
+  text: String!
+  updatedAt: Timestamp
+}
+
+enum FeedItemRevisionDistinctFieldEnum {
+  createdAt
+  feedItemId
+  id
+  text
+  updatedAt
+}
+
+input FeedItemRevisionListRelationFilter {
+  every: FeedItemRevisionWhereInput
+  none: FeedItemRevisionWhereInput
+  some: FeedItemRevisionWhereInput
+}
+
+input FeedItemRevisionOrderByInput {
+  createdAt: SortOrder
+  feedItemId: SortOrder
+  id: SortOrder
+  text: SortOrder
+  updatedAt: SortOrder
+}
+
+input FeedItemRevisionScalarWhereInput {
+  AND: [FeedItemRevisionScalarWhereInput!]
+  createdAt: DateTimeFilter
+  feedItemId: StringFilter
+  id: StringFilter
+  NOT: [FeedItemRevisionScalarWhereInput!]
+  OR: [FeedItemRevisionScalarWhereInput!]
+  text: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input FeedItemRevisionUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  parentItem: FeedItemUpdateOneRequiredWithoutRevisionsInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemRevisionUpdateManyDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemRevisionUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemRevisionUpdateManyWithoutParentItemInput {
+  connect: [FeedItemRevisionWhereUniqueInput!]
+  create: [FeedItemRevisionCreateWithoutParentItemInput!]
+  delete: [FeedItemRevisionWhereUniqueInput!]
+  deleteMany: [FeedItemRevisionScalarWhereInput!]
+  disconnect: [FeedItemRevisionWhereUniqueInput!]
+  set: [FeedItemRevisionWhereUniqueInput!]
+  update: [FeedItemRevisionUpdateWithWhereUniqueWithoutParentItemInput!]
+  updateMany: [FeedItemRevisionUpdateManyWithWhereNestedInput!]
+  upsert: [FeedItemRevisionUpsertWithWhereUniqueWithoutParentItemInput!]
+}
+
+input FeedItemRevisionUpdateManyWithWhereNestedInput {
+  data: FeedItemRevisionUpdateManyDataInput!
+  where: FeedItemRevisionScalarWhereInput!
+}
+
+input FeedItemRevisionUpdateWithoutParentItemDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemRevisionUpdateWithWhereUniqueWithoutParentItemInput {
+  data: FeedItemRevisionUpdateWithoutParentItemDataInput!
+  where: FeedItemRevisionWhereUniqueInput!
+}
+
+input FeedItemRevisionUpsertWithWhereUniqueWithoutParentItemInput {
+  create: FeedItemRevisionCreateWithoutParentItemInput!
+  update: FeedItemRevisionUpdateWithoutParentItemDataInput!
+  where: FeedItemRevisionWhereUniqueInput!
+}
+
+input FeedItemRevisionWhereInput {
+  AND: [FeedItemRevisionWhereInput!]
+  createdAt: DateTimeFilter
+  feedItemId: StringFilter
+  id: StringFilter
+  NOT: [FeedItemRevisionWhereInput!]
+  OR: [FeedItemRevisionWhereInput!]
+  parentItem: FeedItemRelationFilter
+  text: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input FeedItemRevisionWhereUniqueInput {
+  id: String
+}
+
+input FeedItemScalarWhereInput {
+  AND: [FeedItemScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  isPublished: BoolFilter
+  NOT: [FeedItemScalarWhereInput!]
+  OR: [FeedItemScalarWhereInput!]
+  ownerId: StringFilter
+  publishAt: DateTimeNullableFilter
+  text: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input FeedItemUpdateInput {
+  comments: CommentUpdateManyWithoutFeedItemInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  isPublished: BoolFieldUpdateOperationsInput
+  likes: FeedItemLikeUpdateManyWithoutFeedItemInput
+  owner: UserUpdateOneRequiredWithoutFeedInput
+  publishAt: NullableDateTimeFieldUpdateOperationsInput
+  revisions: FeedItemRevisionUpdateManyWithoutParentItemInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemUpdateManyDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  isPublished: BoolFieldUpdateOperationsInput
+  publishAt: NullableDateTimeFieldUpdateOperationsInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  isPublished: BoolFieldUpdateOperationsInput
+  publishAt: NullableDateTimeFieldUpdateOperationsInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemUpdateManyWithoutOwnerInput {
+  connect: [FeedItemWhereUniqueInput!]
+  create: [FeedItemCreateWithoutOwnerInput!]
+  delete: [FeedItemWhereUniqueInput!]
+  deleteMany: [FeedItemScalarWhereInput!]
+  disconnect: [FeedItemWhereUniqueInput!]
+  set: [FeedItemWhereUniqueInput!]
+  update: [FeedItemUpdateWithWhereUniqueWithoutOwnerInput!]
+  updateMany: [FeedItemUpdateManyWithWhereNestedInput!]
+  upsert: [FeedItemUpsertWithWhereUniqueWithoutOwnerInput!]
+}
+
+input FeedItemUpdateManyWithWhereNestedInput {
+  data: FeedItemUpdateManyDataInput!
+  where: FeedItemScalarWhereInput!
+}
+
+input FeedItemUpdateOneRequiredWithoutCommentsInput {
+  connect: FeedItemWhereUniqueInput
+  create: FeedItemCreateWithoutCommentsInput
+  update: FeedItemUpdateWithoutCommentsDataInput
+  upsert: FeedItemUpsertWithoutCommentsInput
+}
+
+input FeedItemUpdateOneRequiredWithoutLikesInput {
+  connect: FeedItemWhereUniqueInput
+  create: FeedItemCreateWithoutLikesInput
+  update: FeedItemUpdateWithoutLikesDataInput
+  upsert: FeedItemUpsertWithoutLikesInput
+}
+
+input FeedItemUpdateOneRequiredWithoutRevisionsInput {
+  connect: FeedItemWhereUniqueInput
+  create: FeedItemCreateWithoutRevisionsInput
+  update: FeedItemUpdateWithoutRevisionsDataInput
+  upsert: FeedItemUpsertWithoutRevisionsInput
+}
+
+input FeedItemUpdateWithoutCommentsDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  isPublished: BoolFieldUpdateOperationsInput
+  likes: FeedItemLikeUpdateManyWithoutFeedItemInput
+  owner: UserUpdateOneRequiredWithoutFeedInput
+  publishAt: NullableDateTimeFieldUpdateOperationsInput
+  revisions: FeedItemRevisionUpdateManyWithoutParentItemInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemUpdateWithoutLikesDataInput {
+  comments: CommentUpdateManyWithoutFeedItemInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  isPublished: BoolFieldUpdateOperationsInput
+  owner: UserUpdateOneRequiredWithoutFeedInput
+  publishAt: NullableDateTimeFieldUpdateOperationsInput
+  revisions: FeedItemRevisionUpdateManyWithoutParentItemInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemUpdateWithoutOwnerDataInput {
+  comments: CommentUpdateManyWithoutFeedItemInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  isPublished: BoolFieldUpdateOperationsInput
+  likes: FeedItemLikeUpdateManyWithoutFeedItemInput
+  publishAt: NullableDateTimeFieldUpdateOperationsInput
+  revisions: FeedItemRevisionUpdateManyWithoutParentItemInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemUpdateWithoutRevisionsDataInput {
+  comments: CommentUpdateManyWithoutFeedItemInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  isPublished: BoolFieldUpdateOperationsInput
+  likes: FeedItemLikeUpdateManyWithoutFeedItemInput
+  owner: UserUpdateOneRequiredWithoutFeedInput
+  publishAt: NullableDateTimeFieldUpdateOperationsInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeedItemUpdateWithWhereUniqueWithoutOwnerInput {
+  data: FeedItemUpdateWithoutOwnerDataInput!
+  where: FeedItemWhereUniqueInput!
+}
+
+input FeedItemUpsertWithoutCommentsInput {
+  create: FeedItemCreateWithoutCommentsInput!
+  update: FeedItemUpdateWithoutCommentsDataInput!
+}
+
+input FeedItemUpsertWithoutLikesInput {
+  create: FeedItemCreateWithoutLikesInput!
+  update: FeedItemUpdateWithoutLikesDataInput!
+}
+
+input FeedItemUpsertWithoutRevisionsInput {
+  create: FeedItemCreateWithoutRevisionsInput!
+  update: FeedItemUpdateWithoutRevisionsDataInput!
+}
+
+input FeedItemUpsertWithWhereUniqueWithoutOwnerInput {
+  create: FeedItemCreateWithoutOwnerInput!
+  update: FeedItemUpdateWithoutOwnerDataInput!
+  where: FeedItemWhereUniqueInput!
+}
+
+input FeedItemWhereInput {
+  AND: [FeedItemWhereInput!]
+  comments: CommentListRelationFilter
+  createdAt: DateTimeFilter
+  id: StringFilter
+  isPublished: BoolFilter
+  likes: FeedItemLikeListRelationFilter
+  NOT: [FeedItemWhereInput!]
+  OR: [FeedItemWhereInput!]
+  owner: UserRelationFilter
+  ownerId: StringFilter
+  publishAt: DateTimeNullableFilter
+  revisions: FeedItemRevisionListRelationFilter
+  text: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input FeedItemWhereUniqueInput {
+  id: String
+}
+
 input IntFieldUpdateOperationsInput {
   set: Int
 }
@@ -363,12 +1311,27 @@ input IntFilter {
 
 type Mutation {
   createAddress(data: AddressCreateInput!): Address!
+  createComment(data: CommentCreateInput!): Comment!
+  createCommentLike(data: CommentLikeCreateInput!): CommentLike!
+  createFeedItem(data: FeedItemCreateInput!): FeedItem!
+  createFeedItemLike(data: FeedItemLikeCreateInput!): FeedItemLike!
+  createFeedItemRevision(data: FeedItemRevisionCreateInput!): FeedItemRevision!
   createProject(data: ProjectCreateInput!): Project!
   createTag(data: TagCreateInput!): Tag!
   createUser(data: UserCreateInput!): User!
   createUsersOnProjects(data: UsersOnProjectsCreateInput!): UsersOnProjects!
   deleteAddress(where: AddressWhereUniqueInput!): Address
+  deleteComment(where: CommentWhereUniqueInput!): Comment
+  deleteCommentLike(where: CommentLikeWhereUniqueInput!): CommentLike
+  deleteFeedItem(where: FeedItemWhereUniqueInput!): FeedItem
+  deleteFeedItemLike(where: FeedItemLikeWhereUniqueInput!): FeedItemLike
+  deleteFeedItemRevision(where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision
   deleteManyAddress(where: AddressWhereInput): BatchPayload!
+  deleteManyComment(where: CommentWhereInput): BatchPayload!
+  deleteManyCommentLike(where: CommentLikeWhereInput): BatchPayload!
+  deleteManyFeedItem(where: FeedItemWhereInput): BatchPayload!
+  deleteManyFeedItemLike(where: FeedItemLikeWhereInput): BatchPayload!
+  deleteManyFeedItemRevision(where: FeedItemRevisionWhereInput): BatchPayload!
   deleteManyProject(where: ProjectWhereInput): BatchPayload!
   deleteManyTag(where: TagWhereInput): BatchPayload!
   deleteManyUser(where: UserWhereInput): BatchPayload!
@@ -379,7 +1342,17 @@ type Mutation {
   deleteUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
   signUpUser(data: UserSignUpInput!): User!
   updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
+  updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
+  updateCommentLike(data: CommentLikeUpdateInput!, where: CommentLikeWhereUniqueInput!): CommentLike
+  updateFeedItem(data: FeedItemUpdateInput!, where: FeedItemWhereUniqueInput!): FeedItem
+  updateFeedItemLike(data: FeedItemLikeUpdateInput!, where: FeedItemLikeWhereUniqueInput!): FeedItemLike
+  updateFeedItemRevision(data: FeedItemRevisionUpdateInput!, where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision
   updateManyAddress(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
+  updateManyComment(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
+  updateManyCommentLike(data: CommentLikeUpdateManyMutationInput!, where: CommentLikeWhereInput): BatchPayload!
+  updateManyFeedItem(data: FeedItemUpdateManyMutationInput!, where: FeedItemWhereInput): BatchPayload!
+  updateManyFeedItemLike(data: FeedItemLikeUpdateManyMutationInput!, where: FeedItemLikeWhereInput): BatchPayload!
+  updateManyFeedItemRevision(data: FeedItemRevisionUpdateManyMutationInput!, where: FeedItemRevisionWhereInput): BatchPayload!
   updateManyProject(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
   updateManyTag(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -389,6 +1362,11 @@ type Mutation {
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateUsersOnProjects(data: UsersOnProjectsUpdateInput!, where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
   upsertAddress(create: AddressCreateInput!, update: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address!
+  upsertComment(create: CommentCreateInput!, update: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment!
+  upsertCommentLike(create: CommentLikeCreateInput!, update: CommentLikeUpdateInput!, where: CommentLikeWhereUniqueInput!): CommentLike!
+  upsertFeedItem(create: FeedItemCreateInput!, update: FeedItemUpdateInput!, where: FeedItemWhereUniqueInput!): FeedItem!
+  upsertFeedItemLike(create: FeedItemLikeCreateInput!, update: FeedItemLikeUpdateInput!, where: FeedItemLikeWhereUniqueInput!): FeedItemLike!
+  upsertFeedItemRevision(create: FeedItemRevisionCreateInput!, update: FeedItemRevisionUpdateInput!, where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision!
   upsertProject(create: ProjectCreateInput!, update: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project!
   upsertTag(create: TagCreateInput!, update: TagUpdateInput!, where: TagWhereUniqueInput!): Tag!
   upsertUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
@@ -408,6 +1386,17 @@ input NestedDateTimeFilter {
   lt: Timestamp
   lte: Timestamp
   not: NestedDateTimeFilter
+  notIn: [Timestamp!]
+}
+
+input NestedDateTimeNullableFilter {
+  equals: Timestamp
+  gt: Timestamp
+  gte: Timestamp
+  in: [Timestamp!]
+  lt: Timestamp
+  lte: Timestamp
+  not: NestedDateTimeNullableFilter
   notIn: [Timestamp!]
 }
 
@@ -457,6 +1446,10 @@ input NestedStringNullableFilter {
   startsWith: String
 }
 
+input NullableDateTimeFieldUpdateOperationsInput {
+  set: Timestamp
+}
+
 input NullableStringFieldUpdateOperationsInput {
   set: String
 }
@@ -464,6 +1457,7 @@ input NullableStringFieldUpdateOperationsInput {
 type Project {
   createdAt: Timestamp!
   id: String!
+  isPrivate: Boolean!
   members(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
   owner: User!
   ownerId: String!
@@ -473,6 +1467,7 @@ type Project {
 input ProjectCreateInput {
   createdAt: Timestamp
   id: String
+  isPrivate: Boolean
   members: UsersOnProjectsCreateManyWithoutProjectInput
   owner: UserCreateOneWithoutOwnsProjectsInput!
   updatedAt: Timestamp
@@ -491,6 +1486,7 @@ input ProjectCreateOneWithoutMembersInput {
 input ProjectCreateWithoutMembersInput {
   createdAt: Timestamp
   id: String
+  isPrivate: Boolean
   owner: UserCreateOneWithoutOwnsProjectsInput!
   updatedAt: Timestamp
 }
@@ -498,6 +1494,7 @@ input ProjectCreateWithoutMembersInput {
 input ProjectCreateWithoutOwnerInput {
   createdAt: Timestamp
   id: String
+  isPrivate: Boolean
   members: UsersOnProjectsCreateManyWithoutProjectInput
   updatedAt: Timestamp
 }
@@ -505,6 +1502,7 @@ input ProjectCreateWithoutOwnerInput {
 enum ProjectDistinctFieldEnum {
   createdAt
   id
+  isPrivate
   ownerId
   updatedAt
 }
@@ -518,6 +1516,7 @@ input ProjectListRelationFilter {
 input ProjectOrderByInput {
   createdAt: SortOrder
   id: SortOrder
+  isPrivate: SortOrder
   ownerId: SortOrder
   updatedAt: SortOrder
 }
@@ -531,6 +1530,7 @@ input ProjectScalarWhereInput {
   AND: [ProjectScalarWhereInput!]
   createdAt: DateTimeFilter
   id: StringFilter
+  isPrivate: BoolFilter
   NOT: [ProjectScalarWhereInput!]
   OR: [ProjectScalarWhereInput!]
   ownerId: StringFilter
@@ -540,6 +1540,7 @@ input ProjectScalarWhereInput {
 input ProjectUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isPrivate: BoolFieldUpdateOperationsInput
   members: UsersOnProjectsUpdateManyWithoutProjectInput
   owner: UserUpdateOneRequiredWithoutOwnsProjectsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -548,12 +1549,14 @@ input ProjectUpdateInput {
 input ProjectUpdateManyDataInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isPrivate: BoolFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input ProjectUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isPrivate: BoolFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -584,6 +1587,7 @@ input ProjectUpdateOneRequiredWithoutMembersInput {
 input ProjectUpdateWithoutMembersDataInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isPrivate: BoolFieldUpdateOperationsInput
   owner: UserUpdateOneRequiredWithoutOwnsProjectsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -591,6 +1595,7 @@ input ProjectUpdateWithoutMembersDataInput {
 input ProjectUpdateWithoutOwnerDataInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isPrivate: BoolFieldUpdateOperationsInput
   members: UsersOnProjectsUpdateManyWithoutProjectInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -615,6 +1620,7 @@ input ProjectWhereInput {
   AND: [ProjectWhereInput!]
   createdAt: DateTimeFilter
   id: StringFilter
+  isPrivate: BoolFilter
   members: UsersOnProjectsListRelationFilter
   NOT: [ProjectWhereInput!]
   OR: [ProjectWhereInput!]
@@ -631,11 +1637,31 @@ type Query {
   address(where: AddressWhereUniqueInput!): Address
   addresses(cursor: AddressWhereUniqueInput, distinct: [AddressDistinctFieldEnum!], orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): [Address!]!
   aggregateAddress(cursor: AddressWhereUniqueInput, distinct: [AddressDistinctFieldEnum!], orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): AggregateAddress!
+  aggregateComment(cursor: CommentWhereUniqueInput, distinct: [CommentDistinctFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): AggregateComment!
+  aggregateCommentLike(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): AggregateCommentLike!
+  aggregateFeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemDistinctFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): AggregateFeedItem!
+  aggregateFeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeDistinctFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): AggregateFeedItemLike!
+  aggregateFeedItemRevision(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionDistinctFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): AggregateFeedItemRevision!
   aggregateProject(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): AggregateProject!
   aggregateTag(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): AggregateTag!
   aggregateUser(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
   aggregateUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): AggregateUsersOnProjects!
+  comment(where: CommentWhereUniqueInput!): Comment
+  commentLike(where: CommentLikeWhereUniqueInput!): CommentLike
+  commentLikes(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]!
+  comments(cursor: CommentWhereUniqueInput, distinct: [CommentDistinctFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]!
+  feedItem(where: FeedItemWhereUniqueInput!): FeedItem
+  feedItemLike(where: FeedItemLikeWhereUniqueInput!): FeedItemLike
+  feedItemLikes(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeDistinctFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]!
+  feedItemRevision(where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision
+  feedItemRevisions(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionDistinctFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): [FeedItemRevision!]!
+  feedItems(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemDistinctFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]!
   findFirstAddress(cursor: AddressWhereUniqueInput, distinct: [AddressDistinctFieldEnum!], orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): Address
+  findFirstComment(cursor: CommentWhereUniqueInput, distinct: [CommentDistinctFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): Comment
+  findFirstCommentLike(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): CommentLike
+  findFirstFeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemDistinctFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): FeedItem
+  findFirstFeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeDistinctFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): FeedItemLike
+  findFirstFeedItemRevision(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionDistinctFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): FeedItemRevision
   findFirstProject(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): Project
   findFirstTag(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): Tag
   findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): User
@@ -701,7 +1727,6 @@ input StringNullableFilter {
 }
 
 type Tag {
-  id: String!
   User: User
   userId: String
   value: String!
@@ -823,9 +1848,12 @@ type User {
   address: Address
   addressId: String
   avatar: String
+  CommentLike(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]
   createdAt: Timestamp!
   EarlyAccessCode(cursor: EarlyAccessCodeWhereUniqueInput, distinct: [EarlyAccessCodeDistinctFieldEnum!], orderBy: [EarlyAccessCodeOrderByInput!], skip: Int, take: Int, where: EarlyAccessCodeWhereInput): [EarlyAccessCode!]
   email: String!
+  feed(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemDistinctFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]
+  FeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeDistinctFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]
   followedBy(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
   following(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
   id: String!
@@ -833,7 +1861,6 @@ type User {
   memberOfProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
   name: String!
   ownsProjects(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]
-  password: String!
   role: Role!
   session: String
   updatedAt: Timestamp!
@@ -842,9 +1869,12 @@ type User {
 input UserCreateInput {
   address: AddressCreateOneWithoutUserInput
   avatar: String
+  CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
   EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
+  feed: FeedItemCreateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
   id: String
@@ -873,6 +1903,21 @@ input UserCreateManyWithoutFollowingInput {
   create: [UserCreateWithoutFollowingInput!]
 }
 
+input UserCreateOneWithoutCommentLikeInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutCommentLikeInput
+}
+
+input UserCreateOneWithoutFeedInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutFeedInput
+}
+
+input UserCreateOneWithoutFeedItemLikeInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutFeedItemLikeInput
+}
+
 input UserCreateOneWithoutInterestsInput {
   connect: UserWhereUniqueInput
   create: UserCreateWithoutInterestsInput
@@ -890,9 +1935,75 @@ input UserCreateOneWithoutOwnsProjectsInput {
 
 input UserCreateWithoutAddressInput {
   avatar: String
+  CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
   EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
+  feed: FeedItemCreateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
+  followedBy: UserCreateManyWithoutFollowingInput
+  following: UserCreateManyWithoutFollowedByInput
+  id: String
+  interests: TagCreateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  name: String!
+  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  password: String!
+  role: Role
+  session: String
+  updatedAt: Timestamp
+}
+
+input UserCreateWithoutCommentLikeInput {
+  address: AddressCreateOneWithoutUserInput
+  avatar: String
+  createdAt: Timestamp
+  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
+  email: String!
+  feed: FeedItemCreateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
+  followedBy: UserCreateManyWithoutFollowingInput
+  following: UserCreateManyWithoutFollowedByInput
+  id: String
+  interests: TagCreateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  name: String!
+  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  password: String!
+  role: Role
+  session: String
+  updatedAt: Timestamp
+}
+
+input UserCreateWithoutFeedInput {
+  address: AddressCreateOneWithoutUserInput
+  avatar: String
+  CommentLike: CommentLikeCreateManyWithoutUserInput
+  createdAt: Timestamp
+  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
+  email: String!
+  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
+  followedBy: UserCreateManyWithoutFollowingInput
+  following: UserCreateManyWithoutFollowedByInput
+  id: String
+  interests: TagCreateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  name: String!
+  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  password: String!
+  role: Role
+  session: String
+  updatedAt: Timestamp
+}
+
+input UserCreateWithoutFeedItemLikeInput {
+  address: AddressCreateOneWithoutUserInput
+  avatar: String
+  CommentLike: CommentLikeCreateManyWithoutUserInput
+  createdAt: Timestamp
+  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
+  email: String!
+  feed: FeedItemCreateManyWithoutOwnerInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
   id: String
@@ -909,9 +2020,12 @@ input UserCreateWithoutAddressInput {
 input UserCreateWithoutFollowedByInput {
   address: AddressCreateOneWithoutUserInput
   avatar: String
+  CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
   EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
+  feed: FeedItemCreateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   following: UserCreateManyWithoutFollowedByInput
   id: String
   interests: TagCreateManyWithoutUserInput
@@ -927,9 +2041,12 @@ input UserCreateWithoutFollowedByInput {
 input UserCreateWithoutFollowingInput {
   address: AddressCreateOneWithoutUserInput
   avatar: String
+  CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
   EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
+  feed: FeedItemCreateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   id: String
   interests: TagCreateManyWithoutUserInput
@@ -945,9 +2062,12 @@ input UserCreateWithoutFollowingInput {
 input UserCreateWithoutInterestsInput {
   address: AddressCreateOneWithoutUserInput
   avatar: String
+  CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
   EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
+  feed: FeedItemCreateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
   id: String
@@ -963,9 +2083,12 @@ input UserCreateWithoutInterestsInput {
 input UserCreateWithoutMemberOfProjectsInput {
   address: AddressCreateOneWithoutUserInput
   avatar: String
+  CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
   EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
+  feed: FeedItemCreateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
   id: String
@@ -981,9 +2104,12 @@ input UserCreateWithoutMemberOfProjectsInput {
 input UserCreateWithoutOwnsProjectsInput {
   address: AddressCreateOneWithoutUserInput
   avatar: String
+  CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
   EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
   email: String!
+  feed: FeedItemCreateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
   id: String
@@ -1007,6 +2133,16 @@ enum UserDistinctFieldEnum {
   role
   session
   updatedAt
+}
+
+input UserIdCommentIdCompoundUniqueInput {
+  commentId: String!
+  userId: String!
+}
+
+input UserIdFeedItemIdCompoundUniqueInput {
+  feedItemId: String!
+  userId: String!
 }
 
 input UserIdProjectIdCompoundUniqueInput {
@@ -1215,9 +2351,12 @@ input UsersOnProjectsWhereUniqueInput {
 input UserUpdateInput {
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
+  CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
+  feed: FeedItemUpdateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
   id: StringFieldUpdateOperationsInput
@@ -1296,6 +2435,27 @@ input UserUpdateManyWithWhereNestedInput {
   where: UserScalarWhereInput!
 }
 
+input UserUpdateOneRequiredWithoutCommentLikeInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutCommentLikeInput
+  update: UserUpdateWithoutCommentLikeDataInput
+  upsert: UserUpsertWithoutCommentLikeInput
+}
+
+input UserUpdateOneRequiredWithoutFeedInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutFeedInput
+  update: UserUpdateWithoutFeedDataInput
+  upsert: UserUpsertWithoutFeedInput
+}
+
+input UserUpdateOneRequiredWithoutFeedItemLikeInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutFeedItemLikeInput
+  update: UserUpdateWithoutFeedItemLikeDataInput
+  upsert: UserUpsertWithoutFeedItemLikeInput
+}
+
 input UserUpdateOneRequiredWithoutMemberOfProjectsInput {
   connect: UserWhereUniqueInput
   create: UserCreateWithoutMemberOfProjectsInput
@@ -1321,9 +2481,75 @@ input UserUpdateOneWithoutInterestsInput {
 
 input UserUpdateWithoutAddressDataInput {
   avatar: NullableStringFieldUpdateOperationsInput
+  CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
+  feed: FeedItemUpdateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
+  id: StringFieldUpdateOperationsInput
+  interests: TagUpdateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
+  name: StringFieldUpdateOperationsInput
+  ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  password: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  session: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutCommentLikeDataInput {
+  address: AddressUpdateOneWithoutUserInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
+  email: StringFieldUpdateOperationsInput
+  feed: FeedItemUpdateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
+  id: StringFieldUpdateOperationsInput
+  interests: TagUpdateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
+  name: StringFieldUpdateOperationsInput
+  ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  password: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  session: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutFeedDataInput {
+  address: AddressUpdateOneWithoutUserInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  CommentLike: CommentLikeUpdateManyWithoutUserInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
+  email: StringFieldUpdateOperationsInput
+  FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
+  id: StringFieldUpdateOperationsInput
+  interests: TagUpdateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
+  name: StringFieldUpdateOperationsInput
+  ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  password: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  session: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutFeedItemLikeDataInput {
+  address: AddressUpdateOneWithoutUserInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  CommentLike: CommentLikeUpdateManyWithoutUserInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
+  email: StringFieldUpdateOperationsInput
+  feed: FeedItemUpdateManyWithoutOwnerInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
   id: StringFieldUpdateOperationsInput
@@ -1340,9 +2566,12 @@ input UserUpdateWithoutAddressDataInput {
 input UserUpdateWithoutFollowedByDataInput {
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
+  CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
+  feed: FeedItemUpdateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   following: UserUpdateManyWithoutFollowedByInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
@@ -1358,9 +2587,12 @@ input UserUpdateWithoutFollowedByDataInput {
 input UserUpdateWithoutFollowingDataInput {
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
+  CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
+  feed: FeedItemUpdateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
@@ -1376,9 +2608,12 @@ input UserUpdateWithoutFollowingDataInput {
 input UserUpdateWithoutInterestsDataInput {
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
+  CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
+  feed: FeedItemUpdateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
   id: StringFieldUpdateOperationsInput
@@ -1394,9 +2629,12 @@ input UserUpdateWithoutInterestsDataInput {
 input UserUpdateWithoutMemberOfProjectsDataInput {
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
+  CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
+  feed: FeedItemUpdateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
   id: StringFieldUpdateOperationsInput
@@ -1412,9 +2650,12 @@ input UserUpdateWithoutMemberOfProjectsDataInput {
 input UserUpdateWithoutOwnsProjectsDataInput {
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
+  CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   email: StringFieldUpdateOperationsInput
+  feed: FeedItemUpdateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
   id: StringFieldUpdateOperationsInput
@@ -1440,6 +2681,21 @@ input UserUpdateWithWhereUniqueWithoutFollowedByInput {
 input UserUpdateWithWhereUniqueWithoutFollowingInput {
   data: UserUpdateWithoutFollowingDataInput!
   where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithoutCommentLikeInput {
+  create: UserCreateWithoutCommentLikeInput!
+  update: UserUpdateWithoutCommentLikeDataInput!
+}
+
+input UserUpsertWithoutFeedInput {
+  create: UserCreateWithoutFeedInput!
+  update: UserUpdateWithoutFeedDataInput!
+}
+
+input UserUpsertWithoutFeedItemLikeInput {
+  create: UserCreateWithoutFeedItemLikeInput!
+  update: UserUpdateWithoutFeedItemLikeDataInput!
 }
 
 input UserUpsertWithoutInterestsInput {
@@ -1480,9 +2736,12 @@ input UserWhereInput {
   addressId: StringNullableFilter
   AND: [UserWhereInput!]
   avatar: StringNullableFilter
+  CommentLike: CommentLikeListRelationFilter
   createdAt: DateTimeFilter
   EarlyAccessCode: EarlyAccessCodeListRelationFilter
   email: StringFilter
+  feed: FeedItemListRelationFilter
+  FeedItemLike: FeedItemLikeListRelationFilter
   followedBy: UserListRelationFilter
   following: UserListRelationFilter
   id: StringFilter

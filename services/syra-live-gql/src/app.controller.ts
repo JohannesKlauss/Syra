@@ -12,7 +12,6 @@ export class AppController {
   async login(@Request() req) {
     const session = await this.authService.login(req.user);
 
-    console.log('set value', session);
     req.session.set('sessionId', session);
 
     return { message: 'ok' };
