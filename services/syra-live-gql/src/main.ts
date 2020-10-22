@@ -6,20 +6,6 @@ import * as fs from 'fs';
 import { join } from 'path';
 import { CookieKeys } from '../types/CookieKeys';
 
-function Logger(...args) {
-  this.args = args;
-}
-Logger.prototype.info = function (msg) { console.log("myLogger", msg); };
-Logger.prototype.error = function (msg) { console.log("myLogger", msg); };
-Logger.prototype.debug = function (msg) { console.log("myLogger", msg); };
-Logger.prototype.fatal = function (msg) { console.log("myLogger", msg); };
-Logger.prototype.warn = function (msg) { console.log("myLogger", msg); };
-Logger.prototype.trace = function (msg) { console.log("myLogger", msg); };
-Logger.prototype.child = function () { return new Logger() };
-
-
-const myLogger = new Logger();
-
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,

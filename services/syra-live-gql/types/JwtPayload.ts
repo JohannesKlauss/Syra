@@ -4,3 +4,5 @@ export type JwtPayload = {
   id: string;
   role: Role
 };
+
+export type SessionUser = JwtPayload;

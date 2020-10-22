@@ -42,6 +42,8 @@ import { ConfigModule } from '@nestjs/config';
 import { GraphQLContext } from '../types/GraphQLContext';
 import { CustomUserResolver } from './custom/resolvers/crud/User/CustomUserResolver';
 import { AuthModule } from './auth/auth.module';
+import { CookieStrategy } from './auth/cookie.strategy';
+import { cookieAuthChecker } from './custom/authChecker/cookieAuthChecker';
 
 const prisma = new PrismaClient();
 
@@ -50,21 +52,32 @@ const prisma = new PrismaClient();
     ConfigModule.forRoot({
       isGlobal: true
     }),
-    TypeGraphQLModule.forRoot({
-      validate: false,
-      dateScalarMode: 'timestamp',
-      playground: true,
-      introspection: true,
-      path: '/',
-      emitSchemaFile: true,
-      context: (): GraphQLContext => ({ prisma }),
-      cors: {
-        origin: 'http://localhost:3000',
-        credentials: true,
-      },
-    }),
     AuthModule,
     SessionModule,
+    TypeGraphQLModule.forRootAsync({
+      imports: [AuthModule],
+      inject: [CookieStrategy],
+      useFactory: async (cookieStrategy: CookieStrategy) => {
+        return {
+          validate: false,
+          dateScalarMode: 'timestamp',
+          playground: true,
+          authChecker: cookieAuthChecker,
+          authMode: 'null',
+          introspection: true,
+          path: '/',
+          emitSchemaFile: true,
+          context: async ({ request }): Promise<GraphQLContext> => ({
+            prisma,
+            user: await cookieStrategy.validate(request)
+          }),
+          cors: {
+            origin: 'http://localhost:3000',
+            credentials: true,
+          },
+        };
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [

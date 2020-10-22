@@ -4,9 +4,19 @@ import { User } from '../../../../../prisma/generated/type-graphql/models';
 import { SignUpUserArgs } from './Args/SignUpUserArgs';
 import { GraphQLContext } from '../../../../../types/GraphQLContext';
 import { BadRequestException } from '@nestjs/common';
+import { Role } from '../../../../../prisma/generated/type-graphql/enums';
 
 @TypeGraphQL.Resolver(_of => User)
 export class CustomUserResolver {
+  @TypeGraphQL.Authorized([Role.USER])
+  @TypeGraphQL.Query(_returns => User, {
+    nullable: false,
+    description: undefined,
+  })
+  async me(@TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<User | null> {
+    return ctx.prisma.user.findOne({ where: { id: ctx.user.id } });
+  }
+
   @TypeGraphQL.Mutation(_returns => User, {
     nullable: false,
     description: undefined,

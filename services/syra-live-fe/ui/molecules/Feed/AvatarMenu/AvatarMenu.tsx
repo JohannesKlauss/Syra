@@ -16,6 +16,7 @@ import { FaRecordVinyl } from 'react-icons/fa';
 import { TiGroup } from 'react-icons/ti';
 import { IoMdHelpBuoy } from 'react-icons/io';
 import { MdGroup, MdGroupAdd } from 'react-icons/md';
+import useLogout from './useLogout';
 
 interface Props {
   name: string;
@@ -25,6 +26,7 @@ interface Props {
 
 function AvatarMenu({name, avatar, hasNotifications}: Props) {
   const { t } = useTranslation();
+  const logout = useLogout();
   
   return (
     <Menu>
@@ -86,7 +88,7 @@ function AvatarMenu({name, avatar, hasNotifications}: Props) {
             <Text>{t('Settings')}</Text>
           </Box>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={logout}>
           <Box as={RiLogoutCircleLine}/>
           <Box marginLeft={4}>
             <Text>{t('Log out')}</Text>

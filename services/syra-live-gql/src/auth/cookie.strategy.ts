@@ -1,6 +1,6 @@
 import { Strategy } from 'passport-cookie';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { SessionService } from '../session/session.service';
 import { CookieKeys } from '../../types/CookieKeys';
 import { JwtService } from '@nestjs/jwt';
@@ -15,9 +15,13 @@ export class CookieStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(req): Promise<JwtPayload> {
+  async validate(req): Promise<JwtPayload | null> {
     const sessionId = await req.session.get('sessionId');
     const jwt = await this.sessionService.getToken(sessionId);
+
+    if (jwt === null) {
+      return null;
+    }
 
     return await this.jwtService.verify(jwt);
   }

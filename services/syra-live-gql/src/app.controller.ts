@@ -18,10 +18,13 @@ export class AppController {
   }
 
   @UseGuards(CookieAuthGuard)
-  @Get('profile')
-  async getProfile(@Request() req) {
-    console.log('SessionId', await req.session.get('sessionId'));
+  @Get('auth/logout')
+  async logout(@Request() req) {
+    const sessionId = await req.session.get('sessionId');
 
-    return req.user;
+    await this.authService.logout(sessionId);
+    await req.session.delete('sessionId');
+
+    return { message: 'ok' };
   }
 }

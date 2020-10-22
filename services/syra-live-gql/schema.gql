@@ -1668,6 +1668,7 @@ type Query {
   findFirstUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): UsersOnProjects
   findManyUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]!
   findOneUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
+  me: User!
   project(where: ProjectWhereUniqueInput!): Project
   projects(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]!
   tag(where: TagWhereUniqueInput!): Tag

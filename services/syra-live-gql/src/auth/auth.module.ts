@@ -23,6 +23,6 @@ import { CookieStrategy } from './cookie.strategy';
     }),
   ],
   providers: [AuthService, PrismaService, SessionService, LocalStrategy, CookieStrategy],
-  exports: [AuthService]
+  exports: [AuthService, CookieStrategy]
 })
 export class AuthModule {}

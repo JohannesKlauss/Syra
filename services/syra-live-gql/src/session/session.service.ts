@@ -21,4 +21,10 @@ export class SessionService {
 
     return await client.get(sessionId);
   }
+
+  async removeToken(sessionId: string) {
+    const client = await this.getClient();
+
+    return await client.del(sessionId);
+  }
 }

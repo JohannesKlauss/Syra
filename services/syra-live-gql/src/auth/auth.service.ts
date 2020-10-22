@@ -43,4 +43,8 @@ export class AuthService {
 
     return sessionId;
   }
+
+  async logout(sessionId: string) {
+    await this.sessionService.removeToken(sessionId);
+  }
 }

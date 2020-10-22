@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TopBar from '../../ui/molecules/Feed/TopBar/TopBar';
 import PageBox from '../../ui/atoms/PageBox/PageBox';
 import { Box, Flex, PseudoBox } from '@chakra-ui/core';
@@ -7,6 +7,8 @@ import FollowRecommendationsBox from '../../ui/molecules/Feed/FollowRecommendati
 import FeedStack from '../../ui/molecules/Feed/FeedStack/FeedStack';
 import Footer from '../../ui/atoms/Footer/Footer';
 import Stopper from '../../ui/atoms/Stopper/Stopper';
+import { useMeQuery } from '../../gql/generated';
+import { useRouter } from 'next/router';
 
 const items = [
   {
@@ -68,15 +70,28 @@ const items = [
 ];
 
 export default function Feed() {
+  const { data, loading, error } = useMeQuery();
+  const { push } = useRouter();
+
+  useEffect(() => {
+    (async () => {
+      if (error) {
+        await push('/');
+      }
+    })();
+  }, [push, error]);
+
+  const name = loading ? 'Is loading' : data.me.name;
+
   return (
     <>
-      <TopBar name={'Johannes Klauss'} hasNotifications={false} avatar={''}/>
+      <TopBar name={name} hasNotifications={false} avatar={''}/>
       <PageBox>
         <Flex>
           <Box flex={'none'}>
             <PseudoBox w={'20rem'}>
               <Box pos={'fixed'}>
-                <ProfileBox avatar={''} name={'Johannes Klauss'} followers={56} following={43}/>
+                <ProfileBox avatar={''} name={name} followers={56} following={43}/>
                 <FollowRecommendationsBox recommendations={[{followers: 453, name: 'Manuel Neufeld', id: 3, avatar: ''}]}/>
               </Box>
             </PseudoBox>

@@ -4,3 +4,12 @@ mutation signUpUser($name: String!, $email: String!, $password: String!, $access
         name
     }
 }
+
+query me {
+    me {
+        id
+        name
+        email
+        avatar
+    }
+}

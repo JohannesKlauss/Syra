@@ -7,9 +7,9 @@ export default function useLoginLocal() {
     const res = await axios.post(process.env.NEXT_PUBLIC_LIVE_GQL_URL + '/auth/login/local', data, {
       withCredentials: true,
       headers: {
-        'Access-Control-Allow-Credentials': 'true'
-      }
-    });
+        'Access-Control-Allow-Credentials': 'true',
+      },
+    }).catch(r => r);
 
     return res.data.message === 'ok';
   }, []);
