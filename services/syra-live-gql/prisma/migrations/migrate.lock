@@ -11,3 +11,6 @@
 20201022150132-added-basic-live-platform
 20201022150744-remove-not-needed-session-field-from-user
 20201022150842-make-user-name-unique
+20201022195205-added-mixdown-table
+20201022211946-add-mixdown-to-feed-item
+20201022212237-added-listens-to-mixdown

@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 interface Props {
   hasError: boolean;
   isSending: boolean;
-  onSubmit: (data: SignUpForm) => void;
+  onSubmit: (data: TSignUpForm) => void;
 }
 
-type SignUpForm = {
+export type TSignUpForm = {
   name: string;
   email: string;
   password: string;
@@ -17,7 +17,7 @@ type SignUpForm = {
 };
 
 function SignUpForm({ hasError, onSubmit, isSending }: Props) {
-  const { register, handleSubmit } = useForm<SignUpForm>();
+  const { register, handleSubmit } = useForm<TSignUpForm>();
   const { t } = useTranslation();
 
   return (

@@ -1,29 +1,36 @@
 import React from 'react';
-import { Avatar, Box, Button, Divider, Flex, List, ListItem, Text } from '@chakra-ui/core';
+import { Avatar, Box, Button, Divider, Flex, List, ListItem, Skeleton, Text } from '@chakra-ui/core';
 import { useTranslation } from 'react-i18next';
 import { RiFileMusicFill, RiHeartFill, RiEdit2Fill } from 'react-icons/ri';
 import { TiGroup } from 'react-icons/ti';
+import { useMeQuery } from '../../../../gql/generated';
 
 interface Props {
-  name: string;
-  avatar: string;
-  followers: number;
-  following: number;
 }
 
-function ProfileBox({name, avatar, followers, following}: Props) {
+function ProfileBox({}: Props) {
   const { t } = useTranslation();
+  const { data, loading, error } = useMeQuery();
+
+  if (error) {
+    return null;
+  }
+
+  if (loading) {
+    return <Skeleton h={200}/>;
+  }
 
   return (
-    <Box overflow={'hidden'} rounded={8} bg={'gray.900'} boxShadow={'0px 3px 24px -5px rgba(0,0,0,1)'} marginBottom={16}>
+    <Box overflow={'hidden'} rounded={8} bg={'gray.900'} boxShadow={'0px 3px 24px -5px rgba(0,0,0,1)'}
+         marginBottom={16}>
       <Box background={'linear-gradient(to right, #654ea3, #eaafc8)'}>
         <Flex justify={'space-between'} paddingX={8} paddingY={4}>
           <Box>
-            <Avatar name={name} src={avatar}/>
+            <Avatar name={data.me.name} src={data.me.avatar}/>
           </Box>
           <Box marginLeft={8}>
-            <Text fontSize={'lg'} fontWeight={700}>{name}</Text>
-            <Text>{followers} {t('Followers')} · {following} {t('Following')}</Text>
+            <Text fontSize={'lg'} fontWeight={700}>{data.me.name}</Text>
+            <Text>{data.me.followedByCount} {t('Followers')} · {data.me.followingCount} {t('Following')}</Text>
           </Box>
         </Flex>
       </Box>

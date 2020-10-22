@@ -1,13 +1,24 @@
 import { hash } from 'bcrypt';
 import * as TypeGraphQL from 'type-graphql';
-import { User } from '../../../../../prisma/generated/type-graphql/models';
+import { FeedItem, User } from '../../../../../prisma/generated/type-graphql/models';
 import { SignUpUserArgs } from './Args/SignUpUserArgs';
 import { GraphQLContext } from '../../../../../types/GraphQLContext';
 import { BadRequestException } from '@nestjs/common';
 import { Role } from '../../../../../prisma/generated/type-graphql/enums';
+import { Int } from 'type-graphql';
 
 @TypeGraphQL.Resolver(_of => User)
 export class CustomUserResolver {
+  @TypeGraphQL.FieldResolver(type => Int, { nullable: true })
+  async followedByCount(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
+    return ctx.prisma.user.count({ where: { following: { some: { id: user.id } } } });
+  }
+
+  @TypeGraphQL.FieldResolver(type => Int, { nullable: true })
+  async followingCount(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
+    return ctx.prisma.user.count({ where: { followedBy: { some: { id: user.id } } } });
+  }
+
   @TypeGraphQL.Authorized([Role.USER])
   @TypeGraphQL.Query(_returns => User, {
     nullable: false,

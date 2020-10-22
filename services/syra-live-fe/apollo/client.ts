@@ -1,7 +1,30 @@
 import { useMemo } from 'react';
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloLink, createHttpLink, from, InMemoryCache, Observable } from '@apollo/client';
+import { injectUserId } from './injectUserId';
 
-let apolloClient;
+let apolloClient: ApolloClient<any>;
+let _apolloClient: ApolloClient<any>;
+
+export const injectUserIdLink = new ApolloLink(
+  (operation, forward) =>
+    new Observable(observer => {
+      let handle;
+      Promise.resolve(operation)
+        .then(operation => injectUserId(operation, apolloClient ?? _apolloClient))
+        .then(() => {
+          handle = forward(operation).subscribe({
+            next: observer.next.bind(observer),
+            error: observer.error.bind(observer),
+            complete: observer.complete.bind(observer),
+          });
+        })
+        .catch(observer.error.bind(observer));
+
+      return () => {
+        if (handle) handle.unsubscribe();
+      };
+    }),
+);
 
 function createApolloClient() {
   const httpLink = createHttpLink({
@@ -12,16 +35,15 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     cache: new InMemoryCache(),
-    link: httpLink,
+    link: from([injectUserIdLink, httpLink]),
     connectToDevTools: process.env.NODE_ENV === 'development',
   });
 }
 
 export function initializeApollo(initialState = null) {
-  const _apolloClient = apolloClient ?? createApolloClient();
+  _apolloClient = apolloClient ?? createApolloClient();
 
-  // If your page has Next.js data fetching methods that use Apollo Client, the initial state
-  // gets hydrated here
+  // Hydrate initial Next.js data fetching state.
   if (initialState) {
     _apolloClient.cache.restore(initialState);
   }

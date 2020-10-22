@@ -10,11 +10,11 @@ import {
   Text
 } from "@chakra-ui/core";
 import SocialSignUp from "../../../molecules/LandingPage/SocialSignUp/SocialSignUp";
-import SignUpForm from "../../../molecules/LandingPage/SignUpForm/SignUpForm";
 import { useSetRecoilState } from 'recoil';
 import { landingPageStore } from '../../../../recoil/landingPageStore';
 import { useTranslation } from 'react-i18next';
 import { useSignUpUserMutation } from '../../../../gql/generated';
+import SignUpForm, { TSignUpForm } from '../../../molecules/LandingPage/SignUpForm/SignUpForm';
 
 interface Props {
   isOpen: boolean;
@@ -29,7 +29,7 @@ function SignUpModal({ isOpen, onClose, onClickSwitchToLogin }: Props) {
   const setShowSignUpModal = useSetRecoilState(landingPageStore.showSignUpModal);
   const {t} = useTranslation();
 
-  const onSubmit = async (data: SignUpForm) => {
+  const onSubmit = async (data: TSignUpForm) => {
     setIsSending(true);
 
     const result = await executeMutation({variables: data});

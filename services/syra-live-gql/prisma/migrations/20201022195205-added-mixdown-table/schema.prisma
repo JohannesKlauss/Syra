@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("LIVE_DB_URL")
+  url = "***"
 }
 
 generator client {
@@ -73,7 +73,6 @@ model Mixdown {
   id            String      @id @default(cuid())
   version       Int
   project       Project
-  listens       Int         @default(0)
   triggerdBy    User
   audioUri      String?
   createdAt     DateTime    @default(now())
@@ -104,7 +103,6 @@ model FeedItem {
   comments      Comment[]
   likes         FeedItemLike[]
   revisions     FeedItemRevision[]
-  mixdown       Mixdown
   isPublished   Boolean     @default(true)
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt

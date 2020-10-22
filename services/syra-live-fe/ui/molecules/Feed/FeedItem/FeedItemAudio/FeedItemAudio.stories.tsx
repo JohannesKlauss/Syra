@@ -20,5 +20,6 @@ Default.args = {
   name: 'Sandö',
   src: '/assets/audio/1080463472.mp3',
   views: 12700,
-  id: 'audio-4354654'
+  id: 'audio-4354654',
+  timestamp: 1603400635,
 };

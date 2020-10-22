@@ -1,0 +1,8 @@
+mutation createProject($me: String!, $name: String! = "New Syra Project") {
+    createProject(data: {name: $name, isPrivate: false, owner: {connect: {id: $me}}}) {
+        id
+        name
+        createdAt
+        updatedAt
+    }
+}

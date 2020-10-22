@@ -1,0 +1,15 @@
+query getMyMixdowns {
+    me {
+        ownsProjects {
+            id
+            name
+            updatedAt
+            mixdowns {
+                id
+                version
+                createdAt
+                listens
+            }
+        }
+    }
+}

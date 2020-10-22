@@ -1,28 +1,29 @@
 import React from "react";
 import {
   Box,
-  Button, Divider,
+  Button,
   Flex,
-  IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
   Text,
 } from '@chakra-ui/core';
 import { useTranslation } from 'react-i18next';
 import AvatarMenu from '../AvatarMenu/AvatarMenu';
 import { IoMdAdd } from 'react-icons/io';
 import SearchField from "../../../atoms/SearchField/SearchField";
+import { useCreateProjectMutation } from '../../../../gql/generated';
 
 interface Props {
-  name: string;
-  avatar: string;
-  hasNotifications: boolean;
 }
 
-function TopBar({name, avatar, hasNotifications}: Props) {
+function TopBar({}: Props) {
   const { t } = useTranslation();
+  const [executeMutation] = useCreateProjectMutation();
+
+  const onClickNewSession = async () => {
+    console.log('execute');
+    const res = await executeMutation();
+
+    console.log('executed', res.data);
+  };
 
   return (
     <Box position={"fixed"} top={0} bg={"gray.900"} w={"100%"} h={'72px'} color={"white"} p={'16px'}
@@ -36,7 +37,7 @@ function TopBar({name, avatar, hasNotifications}: Props) {
             <Button variant={"link"} marginX={4}>{t('Sessions')}</Button>
             <Button variant={"link"} marginX={4}>{t('Library')}</Button>
             <Button variant={"link"} marginX={4}>{t('Marketplace')}</Button>
-            <Button variant={"link"} marginX={8} leftIcon={IoMdAdd}>{t('New Session')}</Button>
+            <Button variant={"link"} marginX={8} leftIcon={IoMdAdd} onClick={onClickNewSession}>{t('New Session')}</Button>
           </Box>
           <Box>
             AvatarList of active sessions
@@ -44,7 +45,7 @@ function TopBar({name, avatar, hasNotifications}: Props) {
           <Box>
             <Flex align={'center'} justify={'space-between'}>
               <SearchField/>
-              <AvatarMenu name={name} avatar={avatar} hasNotifications={hasNotifications}/>
+              <AvatarMenu/>
             </Flex>
           </Box>
         </Flex>

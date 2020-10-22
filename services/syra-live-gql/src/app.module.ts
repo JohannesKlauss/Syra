@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import {PrismaService} from "./prisma.service";
 import { PrismaClient } from '@prisma/client';
 import {TypeGraphQLModule} from "typegraphql-nestjs";
@@ -23,7 +22,7 @@ import {
   FeedItemRelationsResolver,
   FeedItemRevision,
   FeedItemRevisionCrudResolver,
-  FeedItemRevisionRelationsResolver,
+  FeedItemRevisionRelationsResolver, Mixdown, MixdownCrudResolver, MixdownRelationsResolver,
   Project,
   ProjectCrudResolver,
   ProjectRelationsResolver,
@@ -44,6 +43,7 @@ import { CustomUserResolver } from './custom/resolvers/crud/User/CustomUserResol
 import { AuthModule } from './auth/auth.module';
 import { CookieStrategy } from './auth/cookie.strategy';
 import { cookieAuthChecker } from './custom/authChecker/cookieAuthChecker';
+import { CustomFeedItemResolver } from './custom/resolvers/crud/FeedItem/CustomFeedItemResolver';
 
 const prisma = new PrismaClient();
 
@@ -81,7 +81,6 @@ const prisma = new PrismaClient();
   ],
   controllers: [AppController],
   providers: [
-    AppService,
     PrismaService,
 
     // TYPE GRAPHQL
@@ -91,6 +90,7 @@ const prisma = new PrismaClient();
     EarlyAccessCode,
     Tag,
     Project,
+    Mixdown,
     UsersOnProjects,
     FeedItem,
     FeedItemRevision,
@@ -101,6 +101,7 @@ const prisma = new PrismaClient();
     UserRelationsResolver,
     AddressRelationsResolver,
     ProjectRelationsResolver,
+    MixdownRelationsResolver,
     EarlyAccessCodeRelationsResolver,
     TagRelationsResolver,
     UsersOnProjectsRelationsResolver,
@@ -114,6 +115,7 @@ const prisma = new PrismaClient();
     AddressCrudResolver,
     TagCrudResolver,
     ProjectCrudResolver,
+    MixdownCrudResolver,
     UsersOnProjectsCrudResolver,
     FeedItemCrudResolver,
     FeedItemRevisionCrudResolver,
@@ -122,6 +124,7 @@ const prisma = new PrismaClient();
     CommentLikeCrudResolver,
     // Custom
     CustomUserResolver,
+    CustomFeedItemResolver,
   ],
 })
 export class AppModule {}

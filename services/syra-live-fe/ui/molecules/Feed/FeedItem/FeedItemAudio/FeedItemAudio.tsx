@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FeUser } from '../../../../../types/User';
 import { Box, Button, Flex, IconButton, PseudoBox, Text } from '@chakra-ui/core';
 import { useTranslation } from 'react-i18next';

@@ -7,7 +7,7 @@ import {
   MenuButton,
   MenuDivider,
   MenuItem,
-  MenuList,
+  MenuList, Skeleton,
   Text,
 } from '@chakra-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -17,29 +17,36 @@ import { TiGroup } from 'react-icons/ti';
 import { IoMdHelpBuoy } from 'react-icons/io';
 import { MdGroup, MdGroupAdd } from 'react-icons/md';
 import useLogout from './useLogout';
+import { useMeQuery } from '../../../../gql/generated';
 
 interface Props {
-  name: string;
-  avatar: string;
-  hasNotifications: boolean;
 }
 
-function AvatarMenu({name, avatar, hasNotifications}: Props) {
+function AvatarMenu({}: Props) {
   const { t } = useTranslation();
   const logout = useLogout();
-  
+  const { data, loading, error } = useMeQuery();
+
+  const hasNotifications = false;
+
+  if (error) {
+    return null;
+  }
+
+  if (loading) return <Skeleton w={'70'} h={'70'} rounded={'full'}/>
+
   return (
     <Menu>
       <MenuButton>
-        <Avatar name={name} src={avatar} cursor={'pointer'} size={'sm'}>
+        <Avatar name={data.me.name} src={data.me.avatar} cursor={'pointer'} size={'sm'}>
           {hasNotifications && <AvatarBadge bg="red.400" size="1em"/>}
         </Avatar>
       </MenuButton>
       <MenuList color={'gray.400'}>
         <MenuItem>
-          <Avatar name={name} src={avatar} size={'sm'}/>
+          <Avatar name={data.me.name} src={data.me.avatar} size={'sm'}/>
           <Box marginLeft={4}>
-            <Text fontSize={'xs'} color={'gray.200'}>{name}</Text>
+            <Text fontSize={'xs'} color={'gray.200'}>{data.me.name}</Text>
             <Text fontSize={'xs'} color={'teal.400'}>{t('View Profile')}</Text>
           </Box>
         </MenuItem>

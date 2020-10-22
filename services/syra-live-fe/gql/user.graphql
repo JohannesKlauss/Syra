@@ -11,5 +11,18 @@ query me {
         name
         email
         avatar
+        followedByCount
+        followingCount
+    }
+}
+
+query user($id: String!) {
+    user(where: {id: $id}) {
+        id
+        name
+        email
+        avatar
+        followedByCount
+        followingCount
     }
 }
