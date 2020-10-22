@@ -1,13 +1,28 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
-import { PrismaService } from './prisma.service';
+import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { LocalAuthGuard } from './auth/local-auth.guard';
+import { AuthService } from './auth/auth.service';
+import { CookieAuthGuard } from './auth/cookie-auth.guard';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService, private readonly prismaService: PrismaService) {}
+  constructor(private authService: AuthService) {}
 
-  @Get()
-  async getHello() {
-    return await this.prismaService.earlyAccessCode.findOne({where: {id: "ckgja3z9a000001ky53ky9ugc"}, select: {code: true}});
+  @UseGuards(LocalAuthGuard)
+  @Post('auth/login/local')
+  async login(@Request() req) {
+    const session = await this.authService.login(req.user);
+
+    console.log('set value', session);
+    req.session.set('sessionId', session);
+
+    return { message: 'ok' };
+  }
+
+  @UseGuards(CookieAuthGuard)
+  @Get('profile')
+  async getProfile(@Request() req) {
+    console.log('SessionId', await req.session.get('sessionId'));
+
+    return req.user;
   }
 }

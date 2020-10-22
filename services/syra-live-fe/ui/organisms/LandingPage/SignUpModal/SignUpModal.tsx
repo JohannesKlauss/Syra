@@ -24,12 +24,17 @@ interface Props {
 
 function SignUpModal({ isOpen, onClose, onClickSwitchToLogin }: Props) {
   const [hasError, setHasError] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const [executeMutation] = useSignUpUserMutation();
   const setShowSignUpModal = useSetRecoilState(landingPageStore.showSignUpModal);
   const {t} = useTranslation();
 
   const onSubmit = async (data: SignUpForm) => {
+    setIsSending(true);
+
     const result = await executeMutation({variables: data});
+
+    setIsSending(false);
 
     setHasError(result.errors !== undefined);
 
@@ -45,7 +50,7 @@ function SignUpModal({ isOpen, onClose, onClickSwitchToLogin }: Props) {
         <ModalHeader>{t('S Y R A   -   Early Access')}</ModalHeader>
         <ModalCloseButton/>
         <ModalBody>
-          <SignUpForm onSubmit={onSubmit} hasError={hasError}/>
+          <SignUpForm onSubmit={onSubmit} hasError={hasError} isSending={isSending}/>
           <Flex align={"center"} marginY={2}>
             <Divider flex={1}/>
             <Text flex={1} fontSize={"md"} textAlign={"center"}>{t('or continue with')}</Text>

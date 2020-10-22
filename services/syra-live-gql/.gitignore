@@ -3,6 +3,7 @@
 /node_modules
 /prisma/generated
 /prisma/ca-certificate.crt
+/src/session-key
 
 # Logs
 logs

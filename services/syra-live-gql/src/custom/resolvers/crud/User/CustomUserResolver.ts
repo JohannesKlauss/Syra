@@ -29,16 +29,13 @@ export class CustomUserResolver {
       throw new BadRequestException('Please provide a valid early access code.');
     }
 
-    const hashedPassword = await hash(password, 23);
+    const hashedPassword = await hash(password, 11);
 
     const user = await ctx.prisma.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
-      },
-      select: {
-        id: true,
       },
     });
 
@@ -49,6 +46,6 @@ export class CustomUserResolver {
       });
     }
 
-    return new Promise(() => user);
+    return user;
   }
 }

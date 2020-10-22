@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export default function useLoginLocal() {
   return useCallback(async (data: TLogInForm) => {
-    const res = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/auth/login/local', data, {
+    const res = await axios.post(process.env.NEXT_PUBLIC_LIVE_GQL_URL + '/auth/login/local', data, {
       withCredentials: true,
       headers: {
         'Access-Control-Allow-Credentials': 'true'

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 interface Props {
   hasError: boolean;
+  isSending: boolean;
   onSubmit: (data: SignUpForm) => void;
 }
 
@@ -15,7 +16,7 @@ type SignUpForm = {
   accessCode: string;
 };
 
-function SignUpForm({ hasError, onSubmit }: Props) {
+function SignUpForm({ hasError, onSubmit, isSending }: Props) {
   const { register, handleSubmit } = useForm<SignUpForm>();
   const { t } = useTranslation();
 
@@ -80,7 +81,7 @@ function SignUpForm({ hasError, onSubmit }: Props) {
         </FormHelperText>
         {hasError && <FormErrorMessage>{t('Something went wrong. Please try again later.')}</FormErrorMessage>}
       </FormControl>
-      <Button marginY={4} type={'submit'} isFullWidth variantColor={'teal'}>{t('S I G N  U P')}</Button>
+      <Button isLoading={isSending} marginY={4} type={'submit'} isFullWidth variantColor={'teal'}>{t('S I G N  U P')}</Button>
     </form>
   );
 }

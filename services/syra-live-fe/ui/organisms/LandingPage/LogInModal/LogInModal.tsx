@@ -24,12 +24,17 @@ interface Props {
 
 function LogInModal({ onClickSwitchToSignUp, onClose, isOpen }: Props) {
   const [hasError, setHasError] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const { t } = useTranslation();
   const executeLocalLogin = useLoginLocal();
   const { push } = useRouter();
 
   const onSubmit = async (data: TLogInForm) => {
+    setIsSending(true);
+
     const success = await executeLocalLogin(data);
+
+    setIsSending(false);
 
     setHasError(success);
 
@@ -45,7 +50,7 @@ function LogInModal({ onClickSwitchToSignUp, onClose, isOpen }: Props) {
         <ModalHeader>{t('S Y R A   -   Log In')}</ModalHeader>
         <ModalCloseButton/>
         <ModalBody>
-          <LogInForm onSubmit={onSubmit} hasError={hasError}/>
+          <LogInForm onSubmit={onSubmit} hasError={hasError} isSending={isSending}/>
           <Flex align={'center'} marginY={2}>
             <Divider flex={1}/>
             <Text flex={1} fontSize={'md'} textAlign={'center'}>{t('or continue with')}</Text>

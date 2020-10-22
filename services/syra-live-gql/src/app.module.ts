@@ -21,6 +21,7 @@ import { SessionModule } from './session/session.module';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLContext } from '../types/GraphQLContext';
 import { CustomUserResolver } from './custom/resolvers/crud/User/CustomUserResolver';
+import { AuthModule } from './auth/auth.module';
 
 const prisma = new PrismaClient();
 
@@ -32,9 +33,7 @@ const prisma = new PrismaClient();
     TypeGraphQLModule.forRoot({
       validate: false,
       dateScalarMode: 'timestamp',
-      playground: {
-        endpoint: '/graphql',
-      },
+      playground: true,
       introspection: true,
       path: '/',
       emitSchemaFile: true,
@@ -44,6 +43,7 @@ const prisma = new PrismaClient();
         credentials: true,
       },
     }),
+    AuthModule,
     SessionModule,
   ],
   controllers: [AppController],

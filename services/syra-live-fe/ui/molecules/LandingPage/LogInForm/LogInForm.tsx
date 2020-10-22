@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 interface Props {
   onSubmit: (data: TLogInForm) => void;
+  isSending: boolean;
   hasError: boolean;
 }
 
@@ -13,7 +14,7 @@ export type TLogInForm = {
   password: string;
 }
 
-function LogInForm({onSubmit, hasError}: Props) {
+function LogInForm({onSubmit, hasError, isSending}: Props) {
   const { t } = useTranslation();
   const { register, handleSubmit } = useForm<TLogInForm>();
 
@@ -39,7 +40,7 @@ function LogInForm({onSubmit, hasError}: Props) {
           aria-describedby="password-helper-text"
           placeholder={t('Password')}/>
       </FormControl>
-      <Button marginY={4} type={"submit"} isFullWidth variantColor={"teal"}>{t('L O G   I N')}</Button>
+      <Button isLoading={isSending} marginY={4} type={"submit"} isFullWidth variantColor={"teal"}>{t('L O G   I N')}</Button>
     </form>
   );
 }
