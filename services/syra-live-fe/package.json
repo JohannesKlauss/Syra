@@ -15,7 +15,7 @@
     "@chakra-ui/core": "0.8.0",
     "@emotion/core": "10.0.35",
     "@emotion/styled": "10.0.27",
-    "axios": "0.20.0",
+    "axios": "0.21.0",
     "date-fns": "2.16.1",
     "emotion-theming": "10.0.27",
     "fuse.js": "6.4.2",
