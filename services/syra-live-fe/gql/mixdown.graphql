@@ -1,14 +1,36 @@
-query getMyMixdowns {
+query myMixdowns {
     me {
         ownsProjects {
             id
             name
+            isPrivate
             updatedAt
             mixdowns {
                 id
                 version
+                name
+                audioUri
                 createdAt
                 listens
+            }
+        }
+    }
+}
+
+query mixdown($id: String!) {
+    mixdown(where: {id: $id}) {
+        id
+        audioUri
+        listens
+        createdAt
+        name
+        version
+        project {
+            name
+            owner {
+                id
+                avatar
+                name
             }
         }
     }

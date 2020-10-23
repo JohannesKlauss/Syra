@@ -14,3 +14,5 @@
 20201022195205-added-mixdown-table
 20201022211946-add-mixdown-to-feed-item
 20201022212237-added-listens-to-mixdown
+20201023102754-make-mixdown-and-text-optional-for-feeditem
+20201023130539-added-optional-name-field-for-mixdown

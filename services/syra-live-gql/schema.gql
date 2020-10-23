@@ -721,13 +721,13 @@ type FeedItem {
   isPublished: Boolean!
   likeCount: Int
   likes(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeDistinctFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]
-  mixdown: Mixdown!
-  mixdownId: String!
+  mixdown: Mixdown
+  mixdownId: String
   owner: User!
   ownerId: String!
   publishAt: Timestamp
   revisions(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionDistinctFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): [FeedItemRevision!]
-  text: String!
+  text: String
   updatedAt: Timestamp!
 }
 
@@ -737,11 +737,11 @@ input FeedItemCreateInput {
   id: String
   isPublished: Boolean
   likes: FeedItemLikeCreateManyWithoutFeedItemInput
-  mixdown: MixdownCreateOneWithoutFeedItemInput!
+  mixdown: MixdownCreateOneWithoutFeedItemInput
   owner: UserCreateOneWithoutFeedInput!
   publishAt: Timestamp
   revisions: FeedItemRevisionCreateManyWithoutParentItemInput
-  text: String!
+  text: String
   updatedAt: Timestamp
 }
 
@@ -775,11 +775,11 @@ input FeedItemCreateWithoutCommentsInput {
   id: String
   isPublished: Boolean
   likes: FeedItemLikeCreateManyWithoutFeedItemInput
-  mixdown: MixdownCreateOneWithoutFeedItemInput!
+  mixdown: MixdownCreateOneWithoutFeedItemInput
   owner: UserCreateOneWithoutFeedInput!
   publishAt: Timestamp
   revisions: FeedItemRevisionCreateManyWithoutParentItemInput
-  text: String!
+  text: String
   updatedAt: Timestamp
 }
 
@@ -788,11 +788,11 @@ input FeedItemCreateWithoutLikesInput {
   createdAt: Timestamp
   id: String
   isPublished: Boolean
-  mixdown: MixdownCreateOneWithoutFeedItemInput!
+  mixdown: MixdownCreateOneWithoutFeedItemInput
   owner: UserCreateOneWithoutFeedInput!
   publishAt: Timestamp
   revisions: FeedItemRevisionCreateManyWithoutParentItemInput
-  text: String!
+  text: String
   updatedAt: Timestamp
 }
 
@@ -805,7 +805,7 @@ input FeedItemCreateWithoutMixdownInput {
   owner: UserCreateOneWithoutFeedInput!
   publishAt: Timestamp
   revisions: FeedItemRevisionCreateManyWithoutParentItemInput
-  text: String!
+  text: String
   updatedAt: Timestamp
 }
 
@@ -815,10 +815,10 @@ input FeedItemCreateWithoutOwnerInput {
   id: String
   isPublished: Boolean
   likes: FeedItemLikeCreateManyWithoutFeedItemInput
-  mixdown: MixdownCreateOneWithoutFeedItemInput!
+  mixdown: MixdownCreateOneWithoutFeedItemInput
   publishAt: Timestamp
   revisions: FeedItemRevisionCreateManyWithoutParentItemInput
-  text: String!
+  text: String
   updatedAt: Timestamp
 }
 
@@ -828,10 +828,10 @@ input FeedItemCreateWithoutRevisionsInput {
   id: String
   isPublished: Boolean
   likes: FeedItemLikeCreateManyWithoutFeedItemInput
-  mixdown: MixdownCreateOneWithoutFeedItemInput!
+  mixdown: MixdownCreateOneWithoutFeedItemInput
   owner: UserCreateOneWithoutFeedInput!
   publishAt: Timestamp
-  text: String!
+  text: String
   updatedAt: Timestamp
 }
 
@@ -1159,12 +1159,12 @@ input FeedItemScalarWhereInput {
   createdAt: DateTimeFilter
   id: StringFilter
   isPublished: BoolFilter
-  mixdownId: StringFilter
+  mixdownId: StringNullableFilter
   NOT: [FeedItemScalarWhereInput!]
   OR: [FeedItemScalarWhereInput!]
   ownerId: StringFilter
   publishAt: DateTimeNullableFilter
-  text: StringFilter
+  text: StringNullableFilter
   updatedAt: DateTimeFilter
 }
 
@@ -1174,11 +1174,11 @@ input FeedItemUpdateInput {
   id: StringFieldUpdateOperationsInput
   isPublished: BoolFieldUpdateOperationsInput
   likes: FeedItemLikeUpdateManyWithoutFeedItemInput
-  mixdown: MixdownUpdateOneRequiredWithoutFeedItemInput
+  mixdown: MixdownUpdateOneWithoutFeedItemInput
   owner: UserUpdateOneRequiredWithoutFeedInput
   publishAt: NullableDateTimeFieldUpdateOperationsInput
   revisions: FeedItemRevisionUpdateManyWithoutParentItemInput
-  text: StringFieldUpdateOperationsInput
+  text: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -1187,7 +1187,7 @@ input FeedItemUpdateManyDataInput {
   id: StringFieldUpdateOperationsInput
   isPublished: BoolFieldUpdateOperationsInput
   publishAt: NullableDateTimeFieldUpdateOperationsInput
-  text: StringFieldUpdateOperationsInput
+  text: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -1196,7 +1196,7 @@ input FeedItemUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
   isPublished: BoolFieldUpdateOperationsInput
   publishAt: NullableDateTimeFieldUpdateOperationsInput
-  text: StringFieldUpdateOperationsInput
+  text: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -1255,11 +1255,11 @@ input FeedItemUpdateWithoutCommentsDataInput {
   id: StringFieldUpdateOperationsInput
   isPublished: BoolFieldUpdateOperationsInput
   likes: FeedItemLikeUpdateManyWithoutFeedItemInput
-  mixdown: MixdownUpdateOneRequiredWithoutFeedItemInput
+  mixdown: MixdownUpdateOneWithoutFeedItemInput
   owner: UserUpdateOneRequiredWithoutFeedInput
   publishAt: NullableDateTimeFieldUpdateOperationsInput
   revisions: FeedItemRevisionUpdateManyWithoutParentItemInput
-  text: StringFieldUpdateOperationsInput
+  text: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -1268,11 +1268,11 @@ input FeedItemUpdateWithoutLikesDataInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   isPublished: BoolFieldUpdateOperationsInput
-  mixdown: MixdownUpdateOneRequiredWithoutFeedItemInput
+  mixdown: MixdownUpdateOneWithoutFeedItemInput
   owner: UserUpdateOneRequiredWithoutFeedInput
   publishAt: NullableDateTimeFieldUpdateOperationsInput
   revisions: FeedItemRevisionUpdateManyWithoutParentItemInput
-  text: StringFieldUpdateOperationsInput
+  text: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -1285,7 +1285,7 @@ input FeedItemUpdateWithoutMixdownDataInput {
   owner: UserUpdateOneRequiredWithoutFeedInput
   publishAt: NullableDateTimeFieldUpdateOperationsInput
   revisions: FeedItemRevisionUpdateManyWithoutParentItemInput
-  text: StringFieldUpdateOperationsInput
+  text: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -1295,10 +1295,10 @@ input FeedItemUpdateWithoutOwnerDataInput {
   id: StringFieldUpdateOperationsInput
   isPublished: BoolFieldUpdateOperationsInput
   likes: FeedItemLikeUpdateManyWithoutFeedItemInput
-  mixdown: MixdownUpdateOneRequiredWithoutFeedItemInput
+  mixdown: MixdownUpdateOneWithoutFeedItemInput
   publishAt: NullableDateTimeFieldUpdateOperationsInput
   revisions: FeedItemRevisionUpdateManyWithoutParentItemInput
-  text: StringFieldUpdateOperationsInput
+  text: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -1308,10 +1308,10 @@ input FeedItemUpdateWithoutRevisionsDataInput {
   id: StringFieldUpdateOperationsInput
   isPublished: BoolFieldUpdateOperationsInput
   likes: FeedItemLikeUpdateManyWithoutFeedItemInput
-  mixdown: MixdownUpdateOneRequiredWithoutFeedItemInput
+  mixdown: MixdownUpdateOneWithoutFeedItemInput
   owner: UserUpdateOneRequiredWithoutFeedInput
   publishAt: NullableDateTimeFieldUpdateOperationsInput
-  text: StringFieldUpdateOperationsInput
+  text: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -1360,14 +1360,14 @@ input FeedItemWhereInput {
   isPublished: BoolFilter
   likes: FeedItemLikeListRelationFilter
   mixdown: MixdownRelationFilter
-  mixdownId: StringFilter
+  mixdownId: StringNullableFilter
   NOT: [FeedItemWhereInput!]
   OR: [FeedItemWhereInput!]
   owner: UserRelationFilter
   ownerId: StringFilter
   publishAt: DateTimeNullableFilter
   revisions: FeedItemRevisionListRelationFilter
-  text: StringFilter
+  text: StringNullableFilter
   updatedAt: DateTimeFilter
 }
 
@@ -1396,6 +1396,7 @@ type Mixdown {
   FeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemDistinctFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]
   id: String!
   listens: Int!
+  name: String
   project: Project!
   projectId: String!
   triggerdBy: User!
@@ -1415,6 +1416,7 @@ input MixdownCreateInput {
   FeedItem: FeedItemCreateManyWithoutMixdownInput
   id: String
   listens: Int
+  name: String
   project: ProjectCreateOneWithoutMixdownsInput!
   triggerdBy: UserCreateOneWithoutMixdownInput!
   updatedAt: Timestamp
@@ -1441,6 +1443,7 @@ input MixdownCreateWithoutFeedItemInput {
   createdAt: Timestamp
   id: String
   listens: Int
+  name: String
   project: ProjectCreateOneWithoutMixdownsInput!
   triggerdBy: UserCreateOneWithoutMixdownInput!
   updatedAt: Timestamp
@@ -1453,6 +1456,7 @@ input MixdownCreateWithoutProjectInput {
   FeedItem: FeedItemCreateManyWithoutMixdownInput
   id: String
   listens: Int
+  name: String
   triggerdBy: UserCreateOneWithoutMixdownInput!
   updatedAt: Timestamp
   version: Int!
@@ -1464,6 +1468,7 @@ input MixdownCreateWithoutTriggerdByInput {
   FeedItem: FeedItemCreateManyWithoutMixdownInput
   id: String
   listens: Int
+  name: String
   project: ProjectCreateOneWithoutMixdownsInput!
   updatedAt: Timestamp
   version: Int!
@@ -1474,6 +1479,7 @@ enum MixdownDistinctFieldEnum {
   createdAt
   id
   listens
+  name
   projectId
   updatedAt
   userId
@@ -1501,6 +1507,7 @@ input MixdownOrderByInput {
   createdAt: SortOrder
   id: SortOrder
   listens: SortOrder
+  name: SortOrder
   projectId: SortOrder
   updatedAt: SortOrder
   userId: SortOrder
@@ -1518,6 +1525,7 @@ input MixdownScalarWhereInput {
   createdAt: DateTimeFilter
   id: StringFilter
   listens: IntFilter
+  name: StringNullableFilter
   NOT: [MixdownScalarWhereInput!]
   OR: [MixdownScalarWhereInput!]
   projectId: StringFilter
@@ -1537,6 +1545,7 @@ input MixdownUpdateInput {
   FeedItem: FeedItemUpdateManyWithoutMixdownInput
   id: StringFieldUpdateOperationsInput
   listens: IntFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
   project: ProjectUpdateOneRequiredWithoutMixdownsInput
   triggerdBy: UserUpdateOneRequiredWithoutMixdownInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1548,6 +1557,7 @@ input MixdownUpdateManyDataInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   listens: IntFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   version: IntFieldUpdateOperationsInput
 }
@@ -1557,6 +1567,7 @@ input MixdownUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   listens: IntFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   version: IntFieldUpdateOperationsInput
 }
@@ -1590,9 +1601,11 @@ input MixdownUpdateManyWithWhereNestedInput {
   where: MixdownScalarWhereInput!
 }
 
-input MixdownUpdateOneRequiredWithoutFeedItemInput {
+input MixdownUpdateOneWithoutFeedItemInput {
   connect: MixdownWhereUniqueInput
   create: MixdownCreateWithoutFeedItemInput
+  delete: Boolean
+  disconnect: Boolean
   update: MixdownUpdateWithoutFeedItemDataInput
   upsert: MixdownUpsertWithoutFeedItemInput
 }
@@ -1602,6 +1615,7 @@ input MixdownUpdateWithoutFeedItemDataInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   listens: IntFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
   project: ProjectUpdateOneRequiredWithoutMixdownsInput
   triggerdBy: UserUpdateOneRequiredWithoutMixdownInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1614,6 +1628,7 @@ input MixdownUpdateWithoutProjectDataInput {
   FeedItem: FeedItemUpdateManyWithoutMixdownInput
   id: StringFieldUpdateOperationsInput
   listens: IntFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
   triggerdBy: UserUpdateOneRequiredWithoutMixdownInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   version: IntFieldUpdateOperationsInput
@@ -1625,6 +1640,7 @@ input MixdownUpdateWithoutTriggerdByDataInput {
   FeedItem: FeedItemUpdateManyWithoutMixdownInput
   id: StringFieldUpdateOperationsInput
   listens: IntFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
   project: ProjectUpdateOneRequiredWithoutMixdownsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   version: IntFieldUpdateOperationsInput
@@ -1664,6 +1680,7 @@ input MixdownWhereInput {
   FeedItem: FeedItemListRelationFilter
   id: StringFilter
   listens: IntFilter
+  name: StringNullableFilter
   NOT: [MixdownWhereInput!]
   OR: [MixdownWhereInput!]
   project: ProjectRelationFilter

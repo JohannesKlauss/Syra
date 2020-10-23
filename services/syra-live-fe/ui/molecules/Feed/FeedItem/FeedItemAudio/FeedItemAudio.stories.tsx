@@ -4,7 +4,7 @@ import * as React from 'react';
 const Template = (args) => <FeedItemAudio {...args} />;
 
 export default {
-  title: 'molecules/feed/FeedItemAudio',
+  title: 'molecules/feed/feedItem/FeedItemAudio',
   component: FeedItemAudio,
 };
 

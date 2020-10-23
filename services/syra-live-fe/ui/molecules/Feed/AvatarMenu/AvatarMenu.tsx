@@ -18,6 +18,7 @@ import { IoMdHelpBuoy } from 'react-icons/io';
 import { MdGroup, MdGroupAdd } from 'react-icons/md';
 import useLogout from './useLogout';
 import { useMeQuery } from '../../../../gql/generated';
+import mixpanel from 'mixpanel-browser';
 
 interface Props {
 }

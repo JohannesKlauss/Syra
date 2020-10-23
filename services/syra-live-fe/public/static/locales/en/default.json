@@ -70,6 +70,7 @@
   "Cookies": "Cookies",
   "Share your work, {{name}}": "Share your work, {{name}}",
   "#{{versionNumber}}": "#{{versionNumber}}",
+  "{{time}} ago": "{{time}} ago",
   "landingClaimText": "Syra is a professional fully fledged collaborative DAW for the browser.\nIt provides cutting edge tools and technologies to produce the music you want.\nShare your sessions with your friends and colleagues and collaborate on ideas no matter\nwhere you live. Whether you are just starting out or a professional: Syra has\nall the tools needed to turn your ideas into music and your band into production.",
   "landingHeroText": "SYRA empowers you to collaborate on music projects in real time.\nCreative software tools and an advanced workflow. Endless\npossibilities. Start with SYRA."
 }

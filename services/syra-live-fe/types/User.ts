@@ -1,6 +1,5 @@
 export interface FeUser {
-  id: number;
+  id: string;
   name: string;
-  email: string;
-  avatar: string;
+  avatar?: string;
 }

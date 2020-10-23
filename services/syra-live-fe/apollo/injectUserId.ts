@@ -1,5 +1,5 @@
-import { MeDocument } from '../gql/generated';
-import { ApolloClient, Operation } from '@apollo/client';
+import { MeDocument, MeQuery } from '../gql/generated';
+import { ApolloClient, ApolloQueryResult, Operation } from '@apollo/client';
 import mixpanel from 'mixpanel-browser';
 
 const queryRequiresVariable = (variableName, operation) =>
@@ -14,11 +14,14 @@ export const injectUserId = async (operation: Operation, apolloClient: ApolloCli
   const variableName = 'me';
 
   if (queryRequiresVariable(variableName, operation)) {
-    const results = await apolloClient.query({
+    const results: ApolloQueryResult<MeQuery> = await apolloClient.query({
       query: MeDocument,
-      fetchPolicy: 'cache-first',
     });
-
+    // Identify user for tracking purposes.
+    mixpanel.people.set({
+      "USER_ID": results.data.me.id,
+      "$avatar": results.data.me.avatar,
+    });
     mixpanel.identify(results.data.me.id);
 
     operation.variables[variableName] = results.data.me.id;

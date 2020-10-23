@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { FeUser } from '../../../../../types/User';
-import { Box, Button, Flex, IconButton, PseudoBox, Text } from '@chakra-ui/core';
+import { Badge, Box, Flex, IconButton, PseudoBox, Skeleton, Text } from '@chakra-ui/core';
 import { useTranslation } from 'react-i18next';
 import { FaPlay, FaPause } from 'react-icons/fa';
-import { CgGitFork } from 'react-icons/cg';
-import { RiHeartFill, RiShareForwardFill } from 'react-icons/ri';
 import useWavesurfer from './useWavesurfer';
-import { format, fromUnixTime } from 'date-fns';
+import { formatDistanceToNow, fromUnixTime } from 'date-fns';
+import useInterval from '../../../../../hooks/useInterval';
+import { formatAudioDuration } from '../../../../../helpers/time/formatAudioDuration';
 
 interface Props {
   owner: FeUser;
   title: string;
   src: string;
   id: string;
-  views: number;
   timestamp: number;
 }
 
-function FeedItemAudio({ owner, title, src, id, views, timestamp }: Props) {
+function FeedItemAudio({ owner, title, src, id, timestamp }: Props) {
   const { t } = useTranslation();
-  const { wave, isPlaying } = useWavesurfer(id, src);
+  const { wave, isPlaying, isLoaded } = useWavesurfer(id, src);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const duration = useMemo(() => isLoaded && wave.current ? wave.current.getDuration() : 0, [isLoaded, wave.current]);
 
   const onClickPlayPause = async () => {
     if (isPlaying) {
@@ -27,42 +28,37 @@ function FeedItemAudio({ owner, title, src, id, views, timestamp }: Props) {
     } else {
       await wave.current.play();
     }
-  }
+  };
+
+  useInterval(() => {
+    setElapsedTime(wave.current.getCurrentTime());
+  }, isPlaying ? 1010 : null);
 
   return (
     <Box>
       <Box>
         <Flex justify={'space-between'}>
+          <Flex align={'center'}>
+            <IconButton onClick={onClickPlayPause} size={'sm'} icon={isPlaying ? FaPause : FaPlay} aria-label={t('Play / Pause')}/>
+            <Box marginX={4}>
+              <Flex align={'center'}>
+                <Text fontWeight={600} fontSize={'sm'}>
+                  {title}
+                  <Badge marginLeft={4}>Post Metal</Badge>
+                </Text>
+              </Flex>
+              <Text fontWeight={400} fontSize={'sm'}>{owner.name}</Text>
+            </Box>
+          </Flex>
           <Box>
-            <Text fontWeight={600} >{title}</Text>
-            <Text fontWeight={400} fontSize={'sm'}>{owner.name}</Text>
-          </Box>
-          <Box>
-            <Text fontWeight={400} fontSize={'sm'}>{format(fromUnixTime(timestamp), 'MMMM dd')}</Text>
-          </Box>
-        </Flex>
-      </Box>
-      <Flex align={'center'}>
-        <IconButton onClick={onClickPlayPause} icon={isPlaying ? FaPause : FaPlay} aria-label={t('Play / Pause')}/>
-        <PseudoBox id={id} marginLeft={4} w={'100%'}/>
-      </Flex>
-      <Box>
-        <Flex justify={'space-between'} align={'center'}>
-          <Box>
-            <Flex align={'center'}>
-              <Box as={FaPlay} size={'11px'} marginRight={2}/>
-              <Text fontWeight={400} fontSize={'sm'}>{views}</Text>
-            </Flex>
-          </Box>
-          <Box>
-            <Flex align={'center'}>
-              <Button marginX={2} leftIcon={CgGitFork} variantColor={'teal'} size={'sm'}>{t('Make it your own')}</Button>
-              <Button marginX={2} leftIcon={RiShareForwardFill} variantColor={'gray'} size={'sm'}>{t('Share')}</Button>
-              <Button marginLeft={2} rightIcon={RiHeartFill} variantColor={'gray'} size={'sm'}>9</Button>
-            </Flex>
+            <Text fontWeight={400} fontSize={'sm'}>{t('{{time}} ago', {time: formatDistanceToNow(fromUnixTime(timestamp))})}</Text>
           </Box>
         </Flex>
       </Box>
+      <Skeleton isLoaded={isLoaded}>
+        <PseudoBox id={id} w={'100%'} margin={4}/>
+        <Badge marginTop={-4} float={'right'}>{formatAudioDuration(elapsedTime)} / {formatAudioDuration(duration)}</Badge>
+      </Skeleton>
     </Box>
   );
 }

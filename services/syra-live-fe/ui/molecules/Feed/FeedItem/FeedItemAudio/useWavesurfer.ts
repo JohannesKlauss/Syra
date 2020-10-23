@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 export default function useWavesurfer(containerId: string, src: string) {
   const wave = useRef<any>();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (window !== undefined) {
@@ -26,6 +27,7 @@ export default function useWavesurfer(containerId: string, src: string) {
           },
         });
 
+        wave.current.on('ready', () => setIsLoaded(true));
         wave.current.load(src);
 
         wave.current.on('play', () => setIsPlaying(true));
@@ -35,5 +37,5 @@ export default function useWavesurfer(containerId: string, src: string) {
     }
   }, [wave, containerId]);
 
-  return { wave, isPlaying };
+  return { wave, isPlaying, isLoaded };
 }

@@ -34,17 +34,18 @@ function TopBar({}: Props) {
             <Text fontSize="lg" as={"span"} marginLeft={8} marginRight={8}>
               {t('S Y R A')} &nbsp; | &nbsp; {t('Live')}
             </Text>
+            <Button variant={"link"} marginX={4}>{t('Feed')}</Button>
+            <Button variant={"link"} marginX={4}>{t('Explore')}</Button>
             <Button variant={"link"} marginX={4}>{t('Sessions')}</Button>
-            <Button variant={"link"} marginX={4}>{t('Library')}</Button>
             <Button variant={"link"} marginX={4}>{t('Marketplace')}</Button>
-            <Button variant={"link"} marginX={8} leftIcon={IoMdAdd} onClick={onClickNewSession}>{t('New Session')}</Button>
           </Box>
           <Box>
             AvatarList of active sessions
           </Box>
           <Box>
             <Flex align={'center'} justify={'space-between'}>
-              <SearchField/>
+              <Button variant={"link"} marginX={8} leftIcon={IoMdAdd} onClick={onClickNewSession}>{t('New Session')}</Button>
+              <SearchField placeholder={`${t('Search')} ${' '} ${t('S Y R A')}`} onKeyup={() => null}/>
               <AvatarMenu/>
             </Flex>
           </Box>
