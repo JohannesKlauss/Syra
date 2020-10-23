@@ -1,5 +1,6 @@
 import { MeDocument } from '../gql/generated';
-import { ApolloClient, ApolloLink, Observable, Operation } from '@apollo/client';
+import { ApolloClient, Operation } from '@apollo/client';
+import mixpanel from 'mixpanel-browser';
 
 const queryRequiresVariable = (variableName, operation) =>
   operation.query.definitions?.some(({ variableDefinitions }) => {
@@ -17,6 +18,8 @@ export const injectUserId = async (operation: Operation, apolloClient: ApolloCli
       query: MeDocument,
       fetchPolicy: 'cache-first',
     });
+
+    mixpanel.identify(results.data.me.id);
 
     operation.variables[variableName] = results.data.me.id;
   }
