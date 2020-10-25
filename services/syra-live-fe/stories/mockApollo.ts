@@ -8,7 +8,11 @@ type MockApolloResult = {
   }
 }
 
-export const mockApollo = (mocks: ReadonlyArray<MockedResponse<unknown>>): ReadonlyArray<MockedResponse> => mocks;
+export const mockApollo = (mocks: ReadonlyArray<MockedResponse<unknown>>): MockApolloResult => ({
+  apolloClient: {
+    mocks,
+  }
+});
 
 export const mockApolloResult: MockApolloResultFn = <TData, TVariables = never>(query: DocumentNode, data: TData, variables?: TVariables): MockedResponse<TData> => ({
   request: {

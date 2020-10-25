@@ -10,10 +10,6 @@ interface Props {
 function FeedItemAudioPreview({mixdownId}: Props) {
   const { data, loading, error } = useMixdownQuery({variables: {id: mixdownId}});
 
-  console.log('data', data);
-  console.log('loading', loading);
-  console.log('error', error);
-
   if (loading) return <Skeleton/>
   if (error) return null;
 

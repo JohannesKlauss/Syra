@@ -2,7 +2,7 @@ import { MixdownQuery, MyMixdownsQuery } from '../../gql/generated';
 
 export const MixdownMock: MixdownQuery = {
   mixdown: {
-    id: '4',
+    id: 'dasdas',
     version: 4,
     createdAt: 1603406790,
     name: 'Final release',
@@ -12,7 +12,8 @@ export const MixdownMock: MixdownQuery = {
       name: 'New Song idea',
       owner: {
         id: '432423',
-        name: 'Johannes Klauss'
+        name: 'Johannes Klauss',
+        avatar: null
       }
     }
   }

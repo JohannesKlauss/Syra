@@ -20,10 +20,10 @@ export default {
 // Each story then reuses that template
 export const Default = Template.bind({});
 
-Default.args = {};
-
-console.log('mock', mockApolloResult<MixdownQuery, MixdownQueryVariables>(MixdownDocument, MixdownMock, {id: 'dasdas'}));
+Default.args = {
+  mixdownId: 'foo'
+};
 
 Default.parameters = mockApollo([
-  mockApolloResult<MixdownQuery, MixdownQueryVariables>(MixdownDocument, MixdownMock, {id: 'dasdas'})
+  mockApolloResult<MixdownQuery, MixdownQueryVariables>(MixdownDocument, MixdownMock, {id: 'foo'})
 ]);
