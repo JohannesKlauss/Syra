@@ -1,6 +1,6 @@
 import { Strategy } from 'passport-cookie';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { SessionService } from '../session/session.service';
 import { CookieKeys } from '../../types/CookieKeys';
 import { JwtService } from '@nestjs/jwt';

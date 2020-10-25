@@ -44,6 +44,7 @@ import { AuthModule } from './auth/auth.module';
 import { CookieStrategy } from './auth/cookie.strategy';
 import { cookieAuthChecker } from './custom/authChecker/cookieAuthChecker';
 import { CustomFeedItemResolver } from './custom/resolvers/crud/FeedItem/CustomFeedItemResolver';
+import { FilesModule } from './files/files.module';
 
 const prisma = new PrismaClient();
 
@@ -78,6 +79,7 @@ const prisma = new PrismaClient();
         };
       },
     }),
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [
