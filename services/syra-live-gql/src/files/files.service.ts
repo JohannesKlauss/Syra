@@ -9,8 +9,8 @@ export class FilesService {
   constructor(private prismaService: PrismaService, private spacesService: SpacesService) {
   }
 
-  async upload(file: Multipart, userId: string) {
-    const location = await this.uploadFile(file, MD5(userId).toString());
+  async upload(file: Multipart, userId: string, isPublic: boolean = false) {
+    const location = await this.uploadFile(file, MD5(userId).toString(), isPublic);
 
     return await this.prismaService.audioAsset.create({
       select: {
@@ -19,6 +19,7 @@ export class FilesService {
       },
       data: {
         location,
+        isPublic,
         name: file.filename,
         owner: { connect: { id: userId } },
       },
@@ -38,7 +39,7 @@ export class FilesService {
     }
   }
 
-  private async uploadFile(file: Multipart, folder: string) {
-    return await this.spacesService.putFile(folder, file.filename, file.mimetype, file.file);
+  private async uploadFile(file: Multipart, folder: string, isPublic: boolean = false) {
+    return await this.spacesService.putFile(folder, file.filename, file.mimetype, file.file, isPublic);
   }
 }

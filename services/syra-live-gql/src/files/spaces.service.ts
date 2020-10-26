@@ -17,8 +17,8 @@ export class SpacesService {
     });
   }
 
-  putFile(folder: string, name: string, contentType: string, body: NodeJS.ReadableStream) {
-    const pipeline = body.pipe(this.writeToSpace(`${folder}/${MD5(uniqid(name)).toString()}`, contentType));
+  putFile(folder: string, name: string, contentType: string, body: NodeJS.ReadableStream, isPublic: boolean = false) {
+    const pipeline = body.pipe(this.writeToSpace(`${folder}/${MD5(uniqid(name)).toString()}`, contentType, isPublic));
 
     return new Promise<string>((resolve, reject) => {
       pipeline.on('finished', location => resolve(location));
@@ -49,7 +49,7 @@ export class SpacesService {
     };
   }
 
-  private writeToSpace(filename: string, contentType: string) {
+  private writeToSpace(filename: string, contentType: string, isPublic: boolean = false) {
     const Body = new PassThrough();
 
     this.s3.upload({
@@ -57,6 +57,7 @@ export class SpacesService {
       Key: filename,
       ContentType: contentType,
       Bucket: this.configService.get('DO_SPACES_NAME'),
+      ACL: isPublic ? 'public-read' : 'private'
     })
       .send((err, data) => {
         if (err) {
