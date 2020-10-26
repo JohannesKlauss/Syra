@@ -16,3 +16,5 @@
 20201022212237-added-listens-to-mixdown
 20201023102754-make-mixdown-and-text-optional-for-feeditem
 20201023130539-added-optional-name-field-for-mixdown
+20201026113235-added-audio-asset-table
+20201026113333-connect-audioasset-to-mixdown

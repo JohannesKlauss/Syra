@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("LIVE_DB_URL")
+  url = "***"
 }
 
 generator client {
@@ -82,7 +82,7 @@ model Mixdown {
   listens       Int         @default(0)
   name          String?
   triggerdBy    User
-  audio         AudioAsset
+  audioUri      String?
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 }

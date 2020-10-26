@@ -23,9 +23,6 @@ export class SpacesService {
       Key: filename,
       Bucket: this.configService.get('DO_SPACES_NAME'),
     })
-      .on('httpUploadProgress', progress => {
-        console.log('progress', progress);
-      })
       .send((err, data) => {
         if (err) {
           Body.destroy(err);
