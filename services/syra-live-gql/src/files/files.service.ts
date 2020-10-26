@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { SpacesService } from './spaces.service';
 import { Multipart } from 'fastify-multipart';
@@ -32,9 +32,9 @@ export class FilesService {
     });
 
     if (asset.owner.id === userId) {
-      console.log('filename', asset.location.replace(/(.+).com\/([a-zA-Z0-9\/]+)$/, '$2'));
-
       return await this.spacesService.getFile(asset.location.replace(/(.+).com\/([a-zA-Z0-9\/]+)$/, '$2'));
+    } else {
+      throw new UnauthorizedException('You are not allowed to view this file.');
     }
   }
 
