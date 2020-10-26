@@ -42,7 +42,7 @@
     "crypto-js": "4.0.0",
     "fastify-multipart": "3.3.0",
     "fastify-secure-session": "2.3.0",
-    "graphql": "15.3.0",
+    "graphql": "15.4.0",
     "nestjs-redis": "1.2.8",
     "passport": "0.4.1",
     "passport-cookie": "1.0.8",
