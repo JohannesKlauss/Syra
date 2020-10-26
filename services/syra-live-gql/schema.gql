@@ -213,6 +213,147 @@ type AggregateUsersOnProjects {
   count: Int!
 }
 
+type AudioAsset {
+  location: String!
+  name: String!
+  userId: String
+}
+
+input AudioAssetCreateManyWithoutOwnerInput {
+  connect: [AudioAssetWhereUniqueInput!]
+  create: [AudioAssetCreateWithoutOwnerInput!]
+}
+
+input AudioAssetCreateOneWithoutMixdownInput {
+  connect: AudioAssetWhereUniqueInput
+  create: AudioAssetCreateWithoutMixdownInput
+}
+
+input AudioAssetCreateWithoutMixdownInput {
+  id: String
+  location: String!
+  name: String!
+  owner: UserCreateOneWithoutAudioAssetInput
+}
+
+input AudioAssetCreateWithoutOwnerInput {
+  id: String
+  location: String!
+  Mixdown: MixdownCreateManyWithoutAudioInput
+  name: String!
+}
+
+enum AudioAssetDistinctFieldEnum {
+  id
+  location
+  name
+  userId
+}
+
+input AudioAssetListRelationFilter {
+  every: AudioAssetWhereInput
+  none: AudioAssetWhereInput
+  some: AudioAssetWhereInput
+}
+
+input AudioAssetOrderByInput {
+  id: SortOrder
+  location: SortOrder
+  name: SortOrder
+  userId: SortOrder
+}
+
+input AudioAssetRelationFilter {
+  is: AudioAssetWhereInput
+  isNot: AudioAssetWhereInput
+}
+
+input AudioAssetScalarWhereInput {
+  AND: [AudioAssetScalarWhereInput!]
+  id: StringFilter
+  location: StringFilter
+  name: StringFilter
+  NOT: [AudioAssetScalarWhereInput!]
+  OR: [AudioAssetScalarWhereInput!]
+  userId: StringNullableFilter
+}
+
+input AudioAssetUpdateManyDataInput {
+  id: StringFieldUpdateOperationsInput
+  location: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input AudioAssetUpdateManyWithoutOwnerInput {
+  connect: [AudioAssetWhereUniqueInput!]
+  create: [AudioAssetCreateWithoutOwnerInput!]
+  delete: [AudioAssetWhereUniqueInput!]
+  deleteMany: [AudioAssetScalarWhereInput!]
+  disconnect: [AudioAssetWhereUniqueInput!]
+  set: [AudioAssetWhereUniqueInput!]
+  update: [AudioAssetUpdateWithWhereUniqueWithoutOwnerInput!]
+  updateMany: [AudioAssetUpdateManyWithWhereNestedInput!]
+  upsert: [AudioAssetUpsertWithWhereUniqueWithoutOwnerInput!]
+}
+
+input AudioAssetUpdateManyWithWhereNestedInput {
+  data: AudioAssetUpdateManyDataInput!
+  where: AudioAssetScalarWhereInput!
+}
+
+input AudioAssetUpdateOneRequiredWithoutMixdownInput {
+  connect: AudioAssetWhereUniqueInput
+  create: AudioAssetCreateWithoutMixdownInput
+  update: AudioAssetUpdateWithoutMixdownDataInput
+  upsert: AudioAssetUpsertWithoutMixdownInput
+}
+
+input AudioAssetUpdateWithoutMixdownDataInput {
+  id: StringFieldUpdateOperationsInput
+  location: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  owner: UserUpdateOneWithoutAudioAssetInput
+}
+
+input AudioAssetUpdateWithoutOwnerDataInput {
+  id: StringFieldUpdateOperationsInput
+  location: StringFieldUpdateOperationsInput
+  Mixdown: MixdownUpdateManyWithoutAudioInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input AudioAssetUpdateWithWhereUniqueWithoutOwnerInput {
+  data: AudioAssetUpdateWithoutOwnerDataInput!
+  where: AudioAssetWhereUniqueInput!
+}
+
+input AudioAssetUpsertWithoutMixdownInput {
+  create: AudioAssetCreateWithoutMixdownInput!
+  update: AudioAssetUpdateWithoutMixdownDataInput!
+}
+
+input AudioAssetUpsertWithWhereUniqueWithoutOwnerInput {
+  create: AudioAssetCreateWithoutOwnerInput!
+  update: AudioAssetUpdateWithoutOwnerDataInput!
+  where: AudioAssetWhereUniqueInput!
+}
+
+input AudioAssetWhereInput {
+  AND: [AudioAssetWhereInput!]
+  id: StringFilter
+  location: StringFilter
+  Mixdown: MixdownListRelationFilter
+  name: StringFilter
+  NOT: [AudioAssetWhereInput!]
+  OR: [AudioAssetWhereInput!]
+  owner: UserRelationFilter
+  userId: StringNullableFilter
+}
+
+input AudioAssetWhereUniqueInput {
+  id: String
+}
+
 type BatchPayload {
   count: Int!
 }
@@ -224,6 +365,11 @@ input BoolFieldUpdateOperationsInput {
 input BoolFilter {
   equals: Boolean
   not: NestedBoolFilter
+}
+
+input BoolNullableFilter {
+  equals: Boolean
+  not: NestedBoolNullableFilter
 }
 
 type Comment {
@@ -1391,10 +1537,12 @@ input IntFilter {
 }
 
 type Mixdown {
-  audioUri: String
+  audio: AudioAsset!
+  audioAssetId: String!
   createdAt: Timestamp!
   FeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemDistinctFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]
   id: String!
+  isPusblished: Boolean
   listens: Int!
   name: String
   project: Project!
@@ -1411,16 +1559,22 @@ type MixdownAvgAggregate {
 }
 
 input MixdownCreateInput {
-  audioUri: String
+  audio: AudioAssetCreateOneWithoutMixdownInput!
   createdAt: Timestamp
   FeedItem: FeedItemCreateManyWithoutMixdownInput
   id: String
+  isPusblished: Boolean
   listens: Int
   name: String
   project: ProjectCreateOneWithoutMixdownsInput!
   triggerdBy: UserCreateOneWithoutMixdownInput!
   updatedAt: Timestamp
   version: Int!
+}
+
+input MixdownCreateManyWithoutAudioInput {
+  connect: [MixdownWhereUniqueInput!]
+  create: [MixdownCreateWithoutAudioInput!]
 }
 
 input MixdownCreateManyWithoutProjectInput {
@@ -1438,10 +1592,24 @@ input MixdownCreateOneWithoutFeedItemInput {
   create: MixdownCreateWithoutFeedItemInput
 }
 
+input MixdownCreateWithoutAudioInput {
+  createdAt: Timestamp
+  FeedItem: FeedItemCreateManyWithoutMixdownInput
+  id: String
+  isPusblished: Boolean
+  listens: Int
+  name: String
+  project: ProjectCreateOneWithoutMixdownsInput!
+  triggerdBy: UserCreateOneWithoutMixdownInput!
+  updatedAt: Timestamp
+  version: Int!
+}
+
 input MixdownCreateWithoutFeedItemInput {
-  audioUri: String
+  audio: AudioAssetCreateOneWithoutMixdownInput!
   createdAt: Timestamp
   id: String
+  isPusblished: Boolean
   listens: Int
   name: String
   project: ProjectCreateOneWithoutMixdownsInput!
@@ -1451,10 +1619,11 @@ input MixdownCreateWithoutFeedItemInput {
 }
 
 input MixdownCreateWithoutProjectInput {
-  audioUri: String
+  audio: AudioAssetCreateOneWithoutMixdownInput!
   createdAt: Timestamp
   FeedItem: FeedItemCreateManyWithoutMixdownInput
   id: String
+  isPusblished: Boolean
   listens: Int
   name: String
   triggerdBy: UserCreateOneWithoutMixdownInput!
@@ -1463,10 +1632,11 @@ input MixdownCreateWithoutProjectInput {
 }
 
 input MixdownCreateWithoutTriggerdByInput {
-  audioUri: String
+  audio: AudioAssetCreateOneWithoutMixdownInput!
   createdAt: Timestamp
   FeedItem: FeedItemCreateManyWithoutMixdownInput
   id: String
+  isPusblished: Boolean
   listens: Int
   name: String
   project: ProjectCreateOneWithoutMixdownsInput!
@@ -1475,9 +1645,10 @@ input MixdownCreateWithoutTriggerdByInput {
 }
 
 enum MixdownDistinctFieldEnum {
-  audioUri
+  audioAssetId
   createdAt
   id
+  isPusblished
   listens
   name
   projectId
@@ -1503,9 +1674,10 @@ type MixdownMinAggregate {
 }
 
 input MixdownOrderByInput {
-  audioUri: SortOrder
+  audioAssetId: SortOrder
   createdAt: SortOrder
   id: SortOrder
+  isPusblished: SortOrder
   listens: SortOrder
   name: SortOrder
   projectId: SortOrder
@@ -1521,9 +1693,10 @@ input MixdownRelationFilter {
 
 input MixdownScalarWhereInput {
   AND: [MixdownScalarWhereInput!]
-  audioUri: StringNullableFilter
+  audioAssetId: StringFilter
   createdAt: DateTimeFilter
   id: StringFilter
+  isPusblished: BoolNullableFilter
   listens: IntFilter
   name: StringNullableFilter
   NOT: [MixdownScalarWhereInput!]
@@ -1540,10 +1713,11 @@ type MixdownSumAggregate {
 }
 
 input MixdownUpdateInput {
-  audioUri: NullableStringFieldUpdateOperationsInput
+  audio: AudioAssetUpdateOneRequiredWithoutMixdownInput
   createdAt: DateTimeFieldUpdateOperationsInput
   FeedItem: FeedItemUpdateManyWithoutMixdownInput
   id: StringFieldUpdateOperationsInput
+  isPusblished: NullableBoolFieldUpdateOperationsInput
   listens: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   project: ProjectUpdateOneRequiredWithoutMixdownsInput
@@ -1553,9 +1727,9 @@ input MixdownUpdateInput {
 }
 
 input MixdownUpdateManyDataInput {
-  audioUri: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isPusblished: NullableBoolFieldUpdateOperationsInput
   listens: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1563,13 +1737,25 @@ input MixdownUpdateManyDataInput {
 }
 
 input MixdownUpdateManyMutationInput {
-  audioUri: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isPusblished: NullableBoolFieldUpdateOperationsInput
   listens: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   version: IntFieldUpdateOperationsInput
+}
+
+input MixdownUpdateManyWithoutAudioInput {
+  connect: [MixdownWhereUniqueInput!]
+  create: [MixdownCreateWithoutAudioInput!]
+  delete: [MixdownWhereUniqueInput!]
+  deleteMany: [MixdownScalarWhereInput!]
+  disconnect: [MixdownWhereUniqueInput!]
+  set: [MixdownWhereUniqueInput!]
+  update: [MixdownUpdateWithWhereUniqueWithoutAudioInput!]
+  updateMany: [MixdownUpdateManyWithWhereNestedInput!]
+  upsert: [MixdownUpsertWithWhereUniqueWithoutAudioInput!]
 }
 
 input MixdownUpdateManyWithoutProjectInput {
@@ -1610,10 +1796,24 @@ input MixdownUpdateOneWithoutFeedItemInput {
   upsert: MixdownUpsertWithoutFeedItemInput
 }
 
+input MixdownUpdateWithoutAudioDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  FeedItem: FeedItemUpdateManyWithoutMixdownInput
+  id: StringFieldUpdateOperationsInput
+  isPusblished: NullableBoolFieldUpdateOperationsInput
+  listens: IntFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
+  project: ProjectUpdateOneRequiredWithoutMixdownsInput
+  triggerdBy: UserUpdateOneRequiredWithoutMixdownInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  version: IntFieldUpdateOperationsInput
+}
+
 input MixdownUpdateWithoutFeedItemDataInput {
-  audioUri: NullableStringFieldUpdateOperationsInput
+  audio: AudioAssetUpdateOneRequiredWithoutMixdownInput
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isPusblished: NullableBoolFieldUpdateOperationsInput
   listens: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   project: ProjectUpdateOneRequiredWithoutMixdownsInput
@@ -1623,10 +1823,11 @@ input MixdownUpdateWithoutFeedItemDataInput {
 }
 
 input MixdownUpdateWithoutProjectDataInput {
-  audioUri: NullableStringFieldUpdateOperationsInput
+  audio: AudioAssetUpdateOneRequiredWithoutMixdownInput
   createdAt: DateTimeFieldUpdateOperationsInput
   FeedItem: FeedItemUpdateManyWithoutMixdownInput
   id: StringFieldUpdateOperationsInput
+  isPusblished: NullableBoolFieldUpdateOperationsInput
   listens: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   triggerdBy: UserUpdateOneRequiredWithoutMixdownInput
@@ -1635,15 +1836,21 @@ input MixdownUpdateWithoutProjectDataInput {
 }
 
 input MixdownUpdateWithoutTriggerdByDataInput {
-  audioUri: NullableStringFieldUpdateOperationsInput
+  audio: AudioAssetUpdateOneRequiredWithoutMixdownInput
   createdAt: DateTimeFieldUpdateOperationsInput
   FeedItem: FeedItemUpdateManyWithoutMixdownInput
   id: StringFieldUpdateOperationsInput
+  isPusblished: NullableBoolFieldUpdateOperationsInput
   listens: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   project: ProjectUpdateOneRequiredWithoutMixdownsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   version: IntFieldUpdateOperationsInput
+}
+
+input MixdownUpdateWithWhereUniqueWithoutAudioInput {
+  data: MixdownUpdateWithoutAudioDataInput!
+  where: MixdownWhereUniqueInput!
 }
 
 input MixdownUpdateWithWhereUniqueWithoutProjectInput {
@@ -1661,6 +1868,12 @@ input MixdownUpsertWithoutFeedItemInput {
   update: MixdownUpdateWithoutFeedItemDataInput!
 }
 
+input MixdownUpsertWithWhereUniqueWithoutAudioInput {
+  create: MixdownCreateWithoutAudioInput!
+  update: MixdownUpdateWithoutAudioDataInput!
+  where: MixdownWhereUniqueInput!
+}
+
 input MixdownUpsertWithWhereUniqueWithoutProjectInput {
   create: MixdownCreateWithoutProjectInput!
   update: MixdownUpdateWithoutProjectDataInput!
@@ -1675,10 +1888,12 @@ input MixdownUpsertWithWhereUniqueWithoutTriggerdByInput {
 
 input MixdownWhereInput {
   AND: [MixdownWhereInput!]
-  audioUri: StringNullableFilter
+  audio: AudioAssetRelationFilter
+  audioAssetId: StringFilter
   createdAt: DateTimeFilter
   FeedItem: FeedItemListRelationFilter
   id: StringFilter
+  isPusblished: BoolNullableFilter
   listens: IntFilter
   name: StringNullableFilter
   NOT: [MixdownWhereInput!]
@@ -1770,6 +1985,11 @@ input NestedBoolFilter {
   not: NestedBoolFilter
 }
 
+input NestedBoolNullableFilter {
+  equals: Boolean
+  not: NestedBoolNullableFilter
+}
+
 input NestedDateTimeFilter {
   equals: Timestamp
   gt: Timestamp
@@ -1836,6 +2056,10 @@ input NestedStringNullableFilter {
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
+}
+
+input NullableBoolFieldUpdateOperationsInput {
+  set: Boolean
 }
 
 input NullableDateTimeFieldUpdateOperationsInput {
@@ -2302,6 +2526,7 @@ scalar Timestamp
 type User {
   address: Address
   addressId: String
+  AudioAsset(cursor: AudioAssetWhereUniqueInput, distinct: [AudioAssetDistinctFieldEnum!], orderBy: [AudioAssetOrderByInput!], skip: Int, take: Int, where: AudioAssetWhereInput): [AudioAsset!]
   avatar: String
   CommentLike(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]
   createdAt: Timestamp!
@@ -2325,6 +2550,7 @@ type User {
 
 input UserCreateInput {
   address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
   avatar: String
   CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
@@ -2358,6 +2584,11 @@ input UserCreateManyWithoutFollowedByInput {
 input UserCreateManyWithoutFollowingInput {
   connect: [UserWhereUniqueInput!]
   create: [UserCreateWithoutFollowingInput!]
+}
+
+input UserCreateOneWithoutAudioAssetInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutAudioAssetInput
 }
 
 input UserCreateOneWithoutCommentLikeInput {
@@ -2396,6 +2627,29 @@ input UserCreateOneWithoutOwnsProjectsInput {
 }
 
 input UserCreateWithoutAddressInput {
+  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
+  avatar: String
+  CommentLike: CommentLikeCreateManyWithoutUserInput
+  createdAt: Timestamp
+  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
+  email: String!
+  feed: FeedItemCreateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
+  followedBy: UserCreateManyWithoutFollowingInput
+  following: UserCreateManyWithoutFollowedByInput
+  id: String
+  interests: TagCreateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  Mixdown: MixdownCreateManyWithoutTriggerdByInput
+  name: String!
+  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  password: String!
+  role: Role
+  updatedAt: Timestamp
+}
+
+input UserCreateWithoutAudioAssetInput {
+  address: AddressCreateOneWithoutUserInput
   avatar: String
   CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
@@ -2418,6 +2672,7 @@ input UserCreateWithoutAddressInput {
 
 input UserCreateWithoutCommentLikeInput {
   address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
   avatar: String
   createdAt: Timestamp
   EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
@@ -2439,6 +2694,7 @@ input UserCreateWithoutCommentLikeInput {
 
 input UserCreateWithoutFeedInput {
   address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
   avatar: String
   CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
@@ -2460,6 +2716,7 @@ input UserCreateWithoutFeedInput {
 
 input UserCreateWithoutFeedItemLikeInput {
   address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
   avatar: String
   CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
@@ -2481,6 +2738,7 @@ input UserCreateWithoutFeedItemLikeInput {
 
 input UserCreateWithoutFollowedByInput {
   address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
   avatar: String
   CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
@@ -2502,6 +2760,7 @@ input UserCreateWithoutFollowedByInput {
 
 input UserCreateWithoutFollowingInput {
   address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
   avatar: String
   CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
@@ -2523,6 +2782,7 @@ input UserCreateWithoutFollowingInput {
 
 input UserCreateWithoutInterestsInput {
   address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
   avatar: String
   CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
@@ -2544,6 +2804,7 @@ input UserCreateWithoutInterestsInput {
 
 input UserCreateWithoutMemberOfProjectsInput {
   address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
   avatar: String
   CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
@@ -2565,6 +2826,7 @@ input UserCreateWithoutMemberOfProjectsInput {
 
 input UserCreateWithoutMixdownInput {
   address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
   avatar: String
   CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
@@ -2586,6 +2848,7 @@ input UserCreateWithoutMixdownInput {
 
 input UserCreateWithoutOwnsProjectsInput {
   address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
   avatar: String
   CommentLike: CommentLikeCreateManyWithoutUserInput
   createdAt: Timestamp
@@ -2830,6 +3093,7 @@ input UsersOnProjectsWhereUniqueInput {
 
 input UserUpdateInput {
   address: AddressUpdateOneWithoutUserInput
+  AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
   avatar: NullableStringFieldUpdateOperationsInput
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -2955,6 +3219,15 @@ input UserUpdateOneRequiredWithoutOwnsProjectsInput {
   upsert: UserUpsertWithoutOwnsProjectsInput
 }
 
+input UserUpdateOneWithoutAudioAssetInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutAudioAssetInput
+  delete: Boolean
+  disconnect: Boolean
+  update: UserUpdateWithoutAudioAssetDataInput
+  upsert: UserUpsertWithoutAudioAssetInput
+}
+
 input UserUpdateOneWithoutInterestsInput {
   connect: UserWhereUniqueInput
   create: UserCreateWithoutInterestsInput
@@ -2965,6 +3238,29 @@ input UserUpdateOneWithoutInterestsInput {
 }
 
 input UserUpdateWithoutAddressDataInput {
+  AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  CommentLike: CommentLikeUpdateManyWithoutUserInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
+  email: StringFieldUpdateOperationsInput
+  feed: FeedItemUpdateManyWithoutOwnerInput
+  FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
+  id: StringFieldUpdateOperationsInput
+  interests: TagUpdateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
+  Mixdown: MixdownUpdateManyWithoutTriggerdByInput
+  name: StringFieldUpdateOperationsInput
+  ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  password: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UserUpdateWithoutAudioAssetDataInput {
+  address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -2987,6 +3283,7 @@ input UserUpdateWithoutAddressDataInput {
 
 input UserUpdateWithoutCommentLikeDataInput {
   address: AddressUpdateOneWithoutUserInput
+  AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
   avatar: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
@@ -3008,6 +3305,7 @@ input UserUpdateWithoutCommentLikeDataInput {
 
 input UserUpdateWithoutFeedDataInput {
   address: AddressUpdateOneWithoutUserInput
+  AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
   avatar: NullableStringFieldUpdateOperationsInput
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -3029,6 +3327,7 @@ input UserUpdateWithoutFeedDataInput {
 
 input UserUpdateWithoutFeedItemLikeDataInput {
   address: AddressUpdateOneWithoutUserInput
+  AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
   avatar: NullableStringFieldUpdateOperationsInput
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -3050,6 +3349,7 @@ input UserUpdateWithoutFeedItemLikeDataInput {
 
 input UserUpdateWithoutFollowedByDataInput {
   address: AddressUpdateOneWithoutUserInput
+  AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
   avatar: NullableStringFieldUpdateOperationsInput
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -3071,6 +3371,7 @@ input UserUpdateWithoutFollowedByDataInput {
 
 input UserUpdateWithoutFollowingDataInput {
   address: AddressUpdateOneWithoutUserInput
+  AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
   avatar: NullableStringFieldUpdateOperationsInput
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -3092,6 +3393,7 @@ input UserUpdateWithoutFollowingDataInput {
 
 input UserUpdateWithoutInterestsDataInput {
   address: AddressUpdateOneWithoutUserInput
+  AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
   avatar: NullableStringFieldUpdateOperationsInput
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -3113,6 +3415,7 @@ input UserUpdateWithoutInterestsDataInput {
 
 input UserUpdateWithoutMemberOfProjectsDataInput {
   address: AddressUpdateOneWithoutUserInput
+  AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
   avatar: NullableStringFieldUpdateOperationsInput
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -3134,6 +3437,7 @@ input UserUpdateWithoutMemberOfProjectsDataInput {
 
 input UserUpdateWithoutMixdownDataInput {
   address: AddressUpdateOneWithoutUserInput
+  AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
   avatar: NullableStringFieldUpdateOperationsInput
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -3155,6 +3459,7 @@ input UserUpdateWithoutMixdownDataInput {
 
 input UserUpdateWithoutOwnsProjectsDataInput {
   address: AddressUpdateOneWithoutUserInput
+  AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
   avatar: NullableStringFieldUpdateOperationsInput
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -3187,6 +3492,11 @@ input UserUpdateWithWhereUniqueWithoutFollowedByInput {
 input UserUpdateWithWhereUniqueWithoutFollowingInput {
   data: UserUpdateWithoutFollowingDataInput!
   where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithoutAudioAssetInput {
+  create: UserCreateWithoutAudioAssetInput!
+  update: UserUpdateWithoutAudioAssetDataInput!
 }
 
 input UserUpsertWithoutCommentLikeInput {
@@ -3246,6 +3556,7 @@ input UserWhereInput {
   address: AddressRelationFilter
   addressId: StringNullableFilter
   AND: [UserWhereInput!]
+  AudioAsset: AudioAssetListRelationFilter
   avatar: StringNullableFilter
   CommentLike: CommentLikeListRelationFilter
   createdAt: DateTimeFilter

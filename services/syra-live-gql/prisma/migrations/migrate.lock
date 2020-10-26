@@ -18,3 +18,5 @@
 20201023130539-added-optional-name-field-for-mixdown
 20201026113235-added-audio-asset-table
 20201026113333-connect-audioasset-to-mixdown
+20201026120857-added-is-published-flag-to-mixdown
+20201026122418-add-name-to-mixdown

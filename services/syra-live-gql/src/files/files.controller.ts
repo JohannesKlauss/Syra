@@ -1,23 +1,39 @@
-import { Controller, Get, Post, Req, UploadedFiles, UseInterceptors } from '@nestjs/common';
-import { SpacesService } from './spaces.service';
+import { Controller, Get, Param, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Multipart } from 'fastify-multipart';
+import { FilesService } from './files.service';
+import { CookieAuthGuard } from '../auth/cookie-auth.guard';
 
 @Controller('files')
 export class FilesController {
-  constructor(private spacesService: SpacesService) {
+  constructor(private filesServices: FilesService) {
   }
 
   @Post('upload')
-  async uploadFile(@Req() req) {
-    const parts = await req.parts();
+  @UseGuards(CookieAuthGuard)
+  async upload(@Req() req) {
+    const parts: Multipart[] = await req.parts();
+    const ids: Array<{id: string, location: string, name: string}> = [];
 
     for await (const part of parts) {
       if (part.file) {
-        await this.spacesService.putFile(`userTest/sessionTest/mixdownTest/${part.filename}`, part.file);
-      } else {
-        console.log(part);
+        const res = await this.filesServices.upload(part, req.user.id);
+
+        ids.push({
+          ...res,
+          name: part.filename,
+        });
       }
     }
 
-    return 'ok';
+    return ids;
+  }
+
+  @Get(':id')
+  @UseGuards(CookieAuthGuard)
+  async getFile(@Req() req, @Param('id') id, @Res() res) {
+    const result = await this.filesServices.get(id, req.user.id);
+
+    res.type(result.mimeType);
+    res.send(result.stream);
   }
 }

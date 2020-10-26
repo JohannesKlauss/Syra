@@ -1,7 +1,9 @@
 import { BadGatewayException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { S3 } from 'aws-sdk';
-import { PassThrough } from 'stream';
+import { PassThrough, Readable } from 'stream';
+import { MD5 } from 'crypto-js';
+import * as uniqid from 'uniqid';
 
 @Injectable()
 export class SpacesService {
@@ -15,35 +17,12 @@ export class SpacesService {
     });
   }
 
-  private writeToSpace(filename: string) {
-    const Body = new PassThrough();
+  putFile(folder: string, name: string, contentType: string, body: NodeJS.ReadableStream) {
+    const pipeline = body.pipe(this.writeToSpace(`${folder}/${MD5(uniqid(name)).toString()}`, contentType));
 
-    this.s3.upload({
-      Body,
-      Key: filename,
-      Bucket: this.configService.get('DO_SPACES_NAME'),
-    })
-      .send((err, data) => {
-        if (err) {
-          Body.destroy(err);
-        } else {
-          console.log(`File uploaded and available at ${data.Location}`);
-          Body.destroy();
-        }
-      });
-
-    return Body;
-  }
-
-  async putFile(name: string, body: ReadableStream) {
-    // @ts-ignore
-    const pipeline = body.pipe(this.writeToSpace(name));
-
-    pipeline.on('close', () => {
-      console.log('finished');
-    });
-    pipeline.on('error', () => {
-      console.log('error while uploading');
+    return new Promise<string>((resolve, reject) => {
+      pipeline.on('finished', location => resolve(location));
+      pipeline.on('error', err => reject(err.message));
     });
   }
 
@@ -60,7 +39,35 @@ export class SpacesService {
     }
 
     return {
-      contents: result.Body.toString(),
+      stream: new Readable({
+        read() {
+          this.push(result.Body)
+          this.push(null)
+        },
+      }),
+      mimeType: result.ContentType,
     };
+  }
+
+  private writeToSpace(filename: string, contentType: string) {
+    const Body = new PassThrough();
+
+    this.s3.upload({
+      Body,
+      Key: filename,
+      ContentType: contentType,
+      Bucket: this.configService.get('DO_SPACES_NAME'),
+    })
+      .send((err, data) => {
+        if (err) {
+          Body.emit('error', err);
+          Body.destroy(err);
+        } else {
+          Body.emit('finished', data.Location);
+          Body.destroy();
+        }
+      });
+
+    return Body;
   }
 }
