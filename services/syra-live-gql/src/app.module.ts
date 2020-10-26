@@ -45,6 +45,7 @@ import { CookieStrategy } from './auth/cookie.strategy';
 import { cookieAuthChecker } from './custom/authChecker/cookieAuthChecker';
 import { CustomFeedItemResolver } from './custom/resolvers/crud/FeedItem/CustomFeedItemResolver';
 import { FilesModule } from './files/files.module';
+import fastifyMultipart from 'fastify-multipart';
 
 const prisma = new PrismaClient();
 
@@ -68,6 +69,7 @@ const prisma = new PrismaClient();
           introspection: true,
           path: '/',
           emitSchemaFile: true,
+          uploads: false,
           context: async ({ request }): Promise<GraphQLContext> => ({
             prisma,
             user: await cookieStrategy.validate(request)

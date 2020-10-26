@@ -8,24 +8,11 @@ import { CookieKeys } from '../types/CookieKeys';
 import fastifyMultipart from 'fastify-multipart';
 
 async function bootstrap() {
-  const adapter = new FastifyAdapter({
-    logger: true,
-  });
-
-  adapter.register(fastifyMultipart, {
-    limits: {
-      fieldNameSize: 100, // Max field name size in bytes
-      fieldSize: 1000000, // Max field value size in bytes
-      fields: 10,         // Max number of non-file fields
-      fileSize: 100,      // For multipart forms, the max file size
-      files: 1,           // Max number of file fields
-      headerPairs: 2000,   // Max number of header key=>value pairs
-    },
-  });
-
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    adapter,
+    new FastifyAdapter({
+      logger: true,
+    }),
   );
 
   app.enableCors({
@@ -43,7 +30,7 @@ async function bootstrap() {
     }
   });
 
-  // app.register(require('fastify-multipart'));
+  app.register(fastifyMultipart);
 
   await app.listen(4000);
 }
