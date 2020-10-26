@@ -9,7 +9,11 @@ query myMixdowns {
                 id
                 version
                 name
-                audioUri
+                audio {
+                    id
+                    isPublic
+                    location
+                }
                 createdAt
                 listens
             }
@@ -20,7 +24,11 @@ query myMixdowns {
 query mixdown($id: String!) {
     mixdown(where: {id: $id}) {
         id
-        audioUri
+        audio {
+            id
+            isPublic
+            location
+        }
         listens
         createdAt
         name

@@ -1,12 +1,18 @@
 import { MixdownQuery, MyMixdownsQuery } from '../../gql/generated';
 
+const location = 'https://syra-dev-audio-static-1.fra1.digitaloceanspaces.com/9b6ada5b16dce699c59125735d80a828/790b560964ba328a022e24e8bcb16886';
+
 export const MixdownMock: MixdownQuery = {
   mixdown: {
     id: 'dasdas',
     version: 4,
     createdAt: 1603406790,
     name: 'Final release',
-    audioUri: 'https://syra-audio-s.fra1.digitaloceanspaces.com/01%20SWXW%20v2-MP3-REF.mp3',
+    audio: {
+      id: 'dhdhfdgh',
+      location,
+      isPublic: true,
+    },
     listens: 67,
     project: {
       name: 'New Song idea',
@@ -33,14 +39,22 @@ export const MyMixdownsMock: MyMixdownsQuery = {
             version: 4,
             createdAt: 1603406790,
             name: 'Final release',
-            audioUri: 'https://syra-audio-s.fra1.digitaloceanspaces.com/01%20SWXW%20v2-MP3-REF.mp3',
+            audio: {
+              id: 'dhdhfdgh',
+              location,
+              isPublic: true,
+            },
             listens: 67,
           },
           {
             id: '3',
             version: 3,
             name: 'Added base',
-            audioUri: 'https://syra-audio-s.fra1.digitaloceanspaces.com/01%20SWXW%20v2-MP3-REF.mp3',
+            audio: {
+              id: 'dhdhfnjdgh',
+              location,
+              isPublic: true,
+            },
             createdAt: 1603405790,
             listens: 18,
           },
@@ -48,7 +62,11 @@ export const MyMixdownsMock: MyMixdownsQuery = {
             id: '2',
             version: 2,
             name: 'idea1',
-            audioUri: 'https://syra-audio-s.fra1.digitaloceanspaces.com/01%20SWXW%20v2-MP3-REF.mp3',
+            audio: {
+              id: 'dhdhfjfghfdgh',
+              location,
+              isPublic: true,
+            },
             createdAt: 1603404790,
             listens: 34,
           },
@@ -56,7 +74,11 @@ export const MyMixdownsMock: MyMixdownsQuery = {
             id: '1',
             version: 1,
             name: 'Basic skit',
-            audioUri: 'https://syra-audio-s.fra1.digitaloceanspaces.com/01%20SWXW%20v2-MP3-REF.mp3',
+            audio: {
+              id: 'dhdhfdgbhjkbkh',
+              location,
+              isPublic: true,
+            },
             createdAt: 1603403790,
             listens: 3,
           }
@@ -72,7 +94,11 @@ export const MyMixdownsMock: MyMixdownsQuery = {
             id: '2',
             version: 2,
             name: 'Final Master',
-            audioUri: 'https://syra-audio-s.fra1.digitaloceanspaces.com/01%20SWXW%20v2-MP3-REF.mp3',
+            audio: {
+              id: 'dhdhfdgvgfcdfxh',
+              location,
+              isPublic: true,
+            },
             createdAt: 1603205790,
             listens: 23,
           },
@@ -80,7 +106,11 @@ export const MyMixdownsMock: MyMixdownsQuery = {
             id: '1',
             version: 1,
             name: 'Rough Mix',
-            audioUri: 'https://syra-audio-s.fra1.digitaloceanspaces.com/01%20SWXW%20v2-MP3-REF.mp3',
+            audio: {
+              id: 'dhysdhfjgdhfdgh',
+              location,
+              isPublic: true,
+            },
             createdAt: 1603204790,
             listens: 7,
           }

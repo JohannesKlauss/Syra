@@ -214,6 +214,8 @@ type AggregateUsersOnProjects {
 }
 
 type AudioAsset {
+  id: String!
+  isPublic: Boolean
   location: String!
   name: String!
   userId: String
@@ -231,6 +233,7 @@ input AudioAssetCreateOneWithoutMixdownInput {
 
 input AudioAssetCreateWithoutMixdownInput {
   id: String
+  isPublic: Boolean
   location: String!
   name: String!
   owner: UserCreateOneWithoutAudioAssetInput
@@ -238,6 +241,7 @@ input AudioAssetCreateWithoutMixdownInput {
 
 input AudioAssetCreateWithoutOwnerInput {
   id: String
+  isPublic: Boolean
   location: String!
   Mixdown: MixdownCreateManyWithoutAudioInput
   name: String!
@@ -245,6 +249,7 @@ input AudioAssetCreateWithoutOwnerInput {
 
 enum AudioAssetDistinctFieldEnum {
   id
+  isPublic
   location
   name
   userId
@@ -258,6 +263,7 @@ input AudioAssetListRelationFilter {
 
 input AudioAssetOrderByInput {
   id: SortOrder
+  isPublic: SortOrder
   location: SortOrder
   name: SortOrder
   userId: SortOrder
@@ -271,6 +277,7 @@ input AudioAssetRelationFilter {
 input AudioAssetScalarWhereInput {
   AND: [AudioAssetScalarWhereInput!]
   id: StringFilter
+  isPublic: BoolNullableFilter
   location: StringFilter
   name: StringFilter
   NOT: [AudioAssetScalarWhereInput!]
@@ -280,6 +287,7 @@ input AudioAssetScalarWhereInput {
 
 input AudioAssetUpdateManyDataInput {
   id: StringFieldUpdateOperationsInput
+  isPublic: NullableBoolFieldUpdateOperationsInput
   location: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
 }
@@ -310,6 +318,7 @@ input AudioAssetUpdateOneRequiredWithoutMixdownInput {
 
 input AudioAssetUpdateWithoutMixdownDataInput {
   id: StringFieldUpdateOperationsInput
+  isPublic: NullableBoolFieldUpdateOperationsInput
   location: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   owner: UserUpdateOneWithoutAudioAssetInput
@@ -317,6 +326,7 @@ input AudioAssetUpdateWithoutMixdownDataInput {
 
 input AudioAssetUpdateWithoutOwnerDataInput {
   id: StringFieldUpdateOperationsInput
+  isPublic: NullableBoolFieldUpdateOperationsInput
   location: StringFieldUpdateOperationsInput
   Mixdown: MixdownUpdateManyWithoutAudioInput
   name: StringFieldUpdateOperationsInput
@@ -341,6 +351,7 @@ input AudioAssetUpsertWithWhereUniqueWithoutOwnerInput {
 input AudioAssetWhereInput {
   AND: [AudioAssetWhereInput!]
   id: StringFilter
+  isPublic: BoolNullableFilter
   location: StringFilter
   Mixdown: MixdownListRelationFilter
   name: StringFilter

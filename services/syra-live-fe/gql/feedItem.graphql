@@ -6,7 +6,9 @@ mutation createFeedItem($me: String!, $text: String!, $mixdownId: String!) {
         createdAt
         updatedAt
         mixdown {
-            audioUri
+            audio {
+                location
+            }
             listens
             createdAt
             project {
