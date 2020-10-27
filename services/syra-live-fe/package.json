@@ -19,7 +19,7 @@
     "date-fns": "2.16.1",
     "emotion-theming": "10.0.27",
     "fuse.js": "6.4.2",
-    "graphql": "15.3.0",
+    "graphql": "15.4.0",
     "js-cookie": "2.2.1",
     "mixpanel-browser": "2.39.0",
     "next": "9.5.5",
