@@ -40,12 +40,8 @@ export default function Profile() {
   );
 }
 
-Profile.getInitialProps = async () => ({
-  namespacesRequired: ['default'],
-});
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const apolloClient = initializeApollo();
+  const apolloClient = initializeApollo(null, context.req.headers.cookie);
 
   await apolloClient.query({
     query: UserProfileByHandleDocument,
@@ -60,6 +56,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
+      namespacesRequired: ['default'],
       initialApolloState: apolloClient.cache.extract(),
     },
   }

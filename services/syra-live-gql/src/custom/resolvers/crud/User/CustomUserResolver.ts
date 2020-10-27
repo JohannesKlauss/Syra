@@ -30,6 +30,8 @@ export class CustomUserResolver {
     description: undefined,
   })
   async me(@TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<User | null> {
+    console.log('user', ctx.user);
+
     return ctx.prisma.user.findOne({ where: { id: ctx.user.id } });
   }
 

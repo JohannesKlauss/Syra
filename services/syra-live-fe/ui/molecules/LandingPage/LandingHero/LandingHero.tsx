@@ -41,7 +41,7 @@ function LandingHero({ onClickSignUp }: Props) {
         </Text>
       </Box>
       <IconButton icon={BsChevronCompactDown} aria-label={"scroll-down"} position={"absolute"} bottom={4} left={"50%"}
-                  transform={"translateX(-50%)"} onClick={() => window.scrollTo({top: window.visualViewport.height - 72})}/>
+                  transform={"translateX(-50%)"} onClick={() => typeof window !== undefined && window.scrollTo({top: window.visualViewport.height - 72})}/>
     </Box>
   );
 }

@@ -6,7 +6,7 @@ export default function useWavesurfer(containerId: string, src: string) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (window !== undefined) {
+    if (typeof window !== undefined) {
       (async () => {
         const WaveSurfer = (await import('wavesurfer.js')).default;
 
@@ -32,11 +32,11 @@ export default function useWavesurfer(containerId: string, src: string) {
 
         wave.current.on('error', e => console.log(e));
         wave.current.on('ready', () => setIsLoaded(true));
-        wave.current.load(src);
-
         wave.current.on('play', () => setIsPlaying(true));
         wave.current.on('pause', () => setIsPlaying(false));
         wave.current.on('finish', () => setIsPlaying(false));
+
+        wave.current.load(src);
       })();
     }
   }, [wave, containerId]);

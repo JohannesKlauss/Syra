@@ -13,7 +13,7 @@ axios.interceptors.response.use(response => response, error => error.response);
 mixpanel.init("6497f5e8ce1803840e22d2c93af089d9", { "api_host": "https://api-eu.mixpanel.com" }, "Syra Live");
 
 function MyApp({ Component, pageProps }) {
-  const apolloClient = useApollo(pageProps.initialApolloState); // TODO: THIS SHOULD BE POPULATED WITH THE SSR STATE
+  const apolloClient = useApollo(pageProps.initialApolloState);
 
   return (
     <ApolloProvider client={apolloClient}>

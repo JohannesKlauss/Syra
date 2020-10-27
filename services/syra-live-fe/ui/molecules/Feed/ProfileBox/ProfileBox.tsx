@@ -1,9 +1,21 @@
 import React from 'react';
-import { Avatar, Box, Button, Divider, Flex, List, ListItem, Skeleton, Text } from '@chakra-ui/core';
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Link as ChakraLink,
+  List,
+  ListItem,
+  Skeleton,
+  Text,
+} from '@chakra-ui/core';
 import { useTranslation } from 'react-i18next';
 import { RiFileMusicFill, RiHeartFill, RiEdit2Fill } from 'react-icons/ri';
 import { TiGroup } from 'react-icons/ti';
 import { useMeQuery } from '../../../../gql/generated';
+import Link from 'next/link';
 
 interface Props {
 }
@@ -29,7 +41,9 @@ function ProfileBox({}: Props) {
             <Avatar name={data.me.name} src={data.me.avatar}/>
           </Box>
           <Box marginLeft={8}>
-            <Text fontSize={'lg'} fontWeight={700}>{data.me.name}</Text>
+            <Link passHref href={`profile/${data.me.handle}`}>
+              <ChakraLink fontWeight={700} fontSize={'lg'}>{data.me.name}</ChakraLink>
+            </Link>
             <Text>{data.me.followedByCount} {t('Followers')} · {data.me.followingCount} {t('Following')}</Text>
           </Box>
         </Flex>

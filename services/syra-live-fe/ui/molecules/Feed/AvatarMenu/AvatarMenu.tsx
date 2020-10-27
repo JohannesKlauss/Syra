@@ -18,7 +18,7 @@ import { IoMdHelpBuoy } from 'react-icons/io';
 import { MdGroup, MdGroupAdd } from 'react-icons/md';
 import useLogout from './useLogout';
 import { useMeQuery } from '../../../../gql/generated';
-import mixpanel from 'mixpanel-browser';
+import { useRouter } from 'next/router';
 
 interface Props {
 }
@@ -26,6 +26,7 @@ interface Props {
 function AvatarMenu({}: Props) {
   const { t } = useTranslation();
   const logout = useLogout();
+  const { push } = useRouter();
   const { data, loading, error } = useMeQuery();
 
   const hasNotifications = false;
@@ -44,7 +45,7 @@ function AvatarMenu({}: Props) {
         </Avatar>
       </MenuButton>
       <MenuList color={'gray.400'}>
-        <MenuItem>
+        <MenuItem onClick={() => push(`/profile/${data.me.handle}`)}>
           <Avatar name={data.me.name} src={data.me.avatar} size={'sm'}/>
           <Box marginLeft={4}>
             <Text fontSize={'xs'} color={'gray.200'}>{data.me.name}</Text>

@@ -46,12 +46,8 @@ export default function Feed() {
   );
 }
 
-Feed.getInitialProps = async () => ({
-  namespacesRequired: ['default'],
-});
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const apolloClient = initializeApollo();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const apolloClient = initializeApollo(null, context.req.headers.cookie);
 
   await apolloClient.query({
     query: MeDocument,
@@ -59,6 +55,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: {
+      namespacesRequired: ['default'],
       initialApolloState: apolloClient.cache.extract(),
     },
   }
