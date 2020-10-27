@@ -1,43 +1,24 @@
 import FeedStack from './FeedStack';
 import * as React from 'react';
+import { withApolloClient } from 'storybook-addon-apollo-client';
+import { mockApollo, mockApolloResult } from '../../../../stories/mockApollo';
+import { MyFeedDocument, MyFeedQuery } from '../../../../gql/generated';
+import { FeedItemsByHandleMock } from '../../../../stories/apolloMocks/feedItem';
 
 const Template = (args) => <FeedStack {...args} />;
 
 export default {
   title: 'molecules/Feed/FeedStack',
   component: FeedStack,
+  decorators: [withApolloClient]
 };
 
 // Each story then reuses that template
 export const Default = Template.bind({});
 
 Default.args = {
-  items: [
-    {
-      owner: {
-        id: 2,
-        name: 'Manuel Neufeld',
-        avatar: ''
-      },
-      metaInfo: {
-        id: 'audio-sdfsdfsd',
-        timestamp: 1602691517,
-        title: 'Experimental-Song #1',
-        description: 'First experimentation steps with SYRA!'
-      }
-    },
-    {
-      owner: {
-        id: 3,
-        name: 'Martin Leibelt',
-        avatar: ''
-      },
-      metaInfo: {
-        id: 'audio-sdfsdfsdasd',
-        timestamp: 1602541517,
-        title: 'Klimperei für lang',
-        description: 'Being the Klimpergung I am 👌!'
-      }
-    }
-  ]
 };
+
+Default.parameters = mockApollo([
+  mockApolloResult<MyFeedQuery>(MyFeedDocument, FeedItemsByHandleMock),
+]);

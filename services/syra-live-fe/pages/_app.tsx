@@ -7,6 +7,8 @@ import { useApollo } from '../apollo/client';
 import { ApolloProvider } from '@apollo/client';
 import axios from 'axios';
 import mixpanel from 'mixpanel-browser';
+import Footer from '../ui/atoms/Footer/Footer';
+import Stopper from '../ui/atoms/Stopper/Stopper';
 
 axios.interceptors.response.use(response => response, error => error.response);
 
@@ -22,6 +24,8 @@ function MyApp({ Component, pageProps }) {
           <ColorModeProvider value={'dark'}>
             <CSSReset/>
             <Component {...pageProps} />
+            <Footer/>
+            <Stopper/>
           </ColorModeProvider>
         </ThemeProvider>
       </RecoilRoot>

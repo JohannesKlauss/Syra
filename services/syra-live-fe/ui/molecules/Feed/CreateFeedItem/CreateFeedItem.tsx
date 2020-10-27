@@ -44,7 +44,7 @@ function CreateFeedItem({}: Props) {
   if (loading) return <Skeleton h={4}/>;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete={'off'}>
       <Box marginBottom={8} rounded={'8px'} overflow={'hidden'} bg={'gray.900'} color={'gray.300'}
            boxShadow={'0px 3px 24px -5px rgba(0,0,0,1)'} w={'100%'}>
         <Box background={'linear-gradient(to right, #654ea3, #eaafc8)'} height={'2px'}/>

@@ -40,8 +40,6 @@ export default function Feed() {
           </Box>
         </Flex>
       </PageBox>
-      <Footer/>
-      <Stopper/>
     </>
   );
 }

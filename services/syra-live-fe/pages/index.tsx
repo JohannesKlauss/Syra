@@ -39,8 +39,6 @@ export default function Home() {
         <Image src="/assets/hero.jpg" alt="" objectFit={'cover'}w={'100%'}/>
       </Box>
       <Pricing tiers={tiers}/>
-      <Footer/>
-      <Stopper/>
       <SignUpModal isOpen={showSignUpModal} onClose={() => setShowSignUpModal(false)}
                    onClickSwitchToLogin={switchToLogin}/>
       <LogInModal isOpen={showLogInModal} onClose={() => setShowLogInModal(false)}
