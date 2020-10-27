@@ -7,7 +7,7 @@ import { RiHeartFill, RiShareForwardFill } from 'react-icons/ri';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
-  listens: number;
+  listens?: number;
   likes: number;
 }
 
@@ -18,15 +18,17 @@ function FeedItemActions({listens, likes}: Props) {
     <Box>
       <Flex justify={'space-between'} align={'center'}>
         <Box>
-          <Flex align={'center'}>
-            <Box as={FaPlay} size={'11px'} marginRight={2}/>
-            <Text fontWeight={400} fontSize={'sm'}>{listens}</Text>
-          </Flex>
+          {listens && (
+            <Flex align={'center'}>
+              <Box as={FaPlay} size={'11px'} marginRight={2}/>
+              <Text fontWeight={400} fontSize={'sm'}>{listens}</Text>
+            </Flex>
+          )}
         </Box>
         <Box>
           <Flex align={'center'}>
-            <Button marginX={2} leftIcon={CgGitFork} variantColor={'teal'}
-                    size={'sm'}>{t('Make it your own')}</Button>
+            {listens && <Button marginX={2} leftIcon={CgGitFork} variantColor={'teal'}
+                    size={'sm'}>{t('Make it your own')}</Button>}
             <Button marginX={2} leftIcon={RiShareForwardFill} variantColor={'gray'} size={'sm'}>{t('Share')}</Button>
             <Button marginX={2} rightIcon={RiHeartFill} variantColor={'gray'} size={'sm'}>{likes}</Button>
             <IconButton marginLeft={2} aria-label={'Expand menu'} icon={BsThreeDots} size={'sm'}/>

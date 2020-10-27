@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import { FeUser } from '../../../../../types/User';
 import { Badge, Box, Flex, IconButton, PseudoBox, Skeleton, Text } from '@chakra-ui/core';
 import { useTranslation } from 'react-i18next';
 import { FaPlay, FaPause } from 'react-icons/fa';
@@ -7,18 +6,16 @@ import useWavesurfer from './useWavesurfer';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
 import useInterval from '../../../../../hooks/useInterval';
 import { formatAudioDuration } from '../../../../../helpers/time/formatAudioDuration';
+import { FeedMixdownFragment } from '../../../../../gql/generated';
 
 interface Props {
-  owner: FeUser;
-  title: string;
-  src: string;
-  id: string;
-  timestamp: number;
+  authorName: string;
+  mixdown: FeedMixdownFragment;
 }
 
-function FeedItemAudio({ owner, title, src, id, timestamp }: Props) {
+function FeedItemAudio({ authorName, mixdown }: Props) {
   const { t } = useTranslation();
-  const { wave, isPlaying, isLoaded } = useWavesurfer(id, src);
+  const { wave, isPlaying, isLoaded } = useWavesurfer(mixdown.id, mixdown.audio.location);
   const [elapsedTime, setElapsedTime] = useState(0);
   const duration = useMemo(() => isLoaded && wave.current ? wave.current.getDuration() : 0, [isLoaded, wave.current]);
 
@@ -43,20 +40,20 @@ function FeedItemAudio({ owner, title, src, id, timestamp }: Props) {
             <Box marginX={4}>
               <Flex align={'center'}>
                 <Text fontWeight={600} fontSize={'sm'}>
-                  {title}
+                  {mixdown.project.name}
                   <Badge marginLeft={4}>Post Metal</Badge>
                 </Text>
               </Flex>
-              <Text fontWeight={400} fontSize={'sm'}>{owner.name}</Text>
+              <Text fontWeight={400} fontSize={'sm'}>{authorName}</Text>
             </Box>
           </Flex>
           <Box>
-            <Text fontWeight={400} fontSize={'sm'}>{t('{{time}} ago', {time: formatDistanceToNow(fromUnixTime(timestamp))})}</Text>
+            <Text fontWeight={400} fontSize={'sm'}>{t('{{time}} ago', {time: formatDistanceToNow(fromUnixTime(mixdown.createdAt))})}</Text>
           </Box>
         </Flex>
       </Box>
       <Skeleton isLoaded={isLoaded}>
-        <PseudoBox id={id} w={'100%'} margin={4}/>
+        <PseudoBox id={mixdown.id} w={'100%'} margin={4}/>
         <Badge marginTop={-4} float={'right'}>{formatAudioDuration(elapsedTime)} / {formatAudioDuration(duration)}</Badge>
       </Skeleton>
     </Box>

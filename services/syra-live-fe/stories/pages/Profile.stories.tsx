@@ -2,6 +2,8 @@ import * as React from 'react';
 import Profile from '../../pages/profile/[handle]';
 import { mockApolloResult } from '../mockApollo';
 import {
+  FeedItemsByHandleDocument,
+  FeedItemsByHandleQuery, FeedItemsByHandleQueryVariables,
   MeDocument,
   MeQuery,
   UserProfileByHandleDocument, UserProfileByHandleQuery, UserProfileByHandleQueryVariables,
@@ -9,6 +11,7 @@ import {
 import { MeMock, UserProfileByHandleMock } from '../apolloMocks/user';
 import { withApolloClient } from 'storybook-addon-apollo-client';
 import { withNextRouter } from 'storybook-addon-next-router';
+import { FeedItemsByHandleMock } from '../apolloMocks/feedItem';
 
 const Template = (args) => <Profile {...args} />;
 
@@ -31,6 +34,9 @@ Default.parameters = {
       mockApolloResult<UserProfileByHandleQuery, UserProfileByHandleQueryVariables>(UserProfileByHandleDocument, UserProfileByHandleMock, {
         handle: 'foo'
       }),
+      mockApolloResult<FeedItemsByHandleQuery, FeedItemsByHandleQueryVariables>(FeedItemsByHandleDocument, FeedItemsByHandleMock, {
+        handle: 'foo'
+      })
     ]
   },
   nextRouter: {

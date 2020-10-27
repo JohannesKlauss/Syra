@@ -1,51 +1,54 @@
-query feedItemsByHandle($handle: String!, $cursor: String) {
-    feedItems(where: {owner: {is: {handle: {equals: $handle}}}}, cursor: {id: $cursor}, orderBy: [{createdAt: desc}]) {
-        id
-        likeCount
-        commentCount
-        updatedAt
-        mixdown {
-            audio {
-                location
-            }
-            listens
-            createdAt
-            project {
-                id
-                name
-                isPrivate
-            }
-        }
-        comments(orderBy: [{createdAt: desc}]) {
-            id
-            likeCount
-            text
-            updatedAt
-            subComments(orderBy: [{createdAt: desc}]) {
-                updatedAt
-            }
+fragment FeedComment on Comment {
+    id
+    likeCount
+    text
+    updatedAt
+    author {
+        ...FeedUser
+    }
+}
+
+fragment DisplayFeedItem on FeedItem {
+    id
+    likeCount
+    commentCount
+    updatedAt
+    text
+    author {
+        ...FeedUser
+    }
+    mixdown {
+        ...FeedMixdown
+    }
+    comments(orderBy: [{createdAt: desc}]) {
+        ...FeedComment
+        subComments(orderBy: [{createdAt: desc}]) {
+            ...FeedComment
         }
     }
 }
 
+query feedItemsByHandle($handle: String!, $cursor: String) {
+    feedItems(where: {author: {is: {handle: {equals: $handle}}}}, cursor: {id: $cursor}, take: 8, orderBy: [{createdAt: desc}]) {
+        ...DisplayFeedItem
+    }
+}
+
+query myFeed($cursor: String, $me: String) {
+    feedItems(where: {author: {is: {followedBy: {some: {id: {equals: $me}}}}}}, orderBy: [{createdAt: desc}], cursor: {id: $cursor}) {
+        ...DisplayFeedItem
+    }
+}
+
 mutation createFeedItem($text: String!, $mixdownId: String, $me: String) {
-    createFeedItem(data: {text: $text, mixdown: {connect: {id: $mixdownId}} owner: {connect: {id: $me}}}) {
+    createFeedItem(data: {text: $text, mixdown: {connect: {id: $mixdownId}} author: {connect: {id: $me}}}) {
         id
         likeCount
         commentCount
         createdAt
         updatedAt
         mixdown {
-            audio {
-                location
-            }
-            listens
-            createdAt
-            project {
-                id
-                name
-                isPrivate
-            }
+            ...FeedMixdown
         }
     }
 }

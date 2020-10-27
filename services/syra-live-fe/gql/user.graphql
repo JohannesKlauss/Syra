@@ -3,6 +3,12 @@ fragment UserLink on User {
     name
 }
 
+fragment FeedUser on User {
+    handle
+    name
+    avatar
+}
+
 fragment BaseProfile on User {
     id
     name

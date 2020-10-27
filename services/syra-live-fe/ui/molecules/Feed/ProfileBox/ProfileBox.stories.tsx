@@ -7,7 +7,7 @@ import { withApolloClient } from 'storybook-addon-apollo-client';
 const Template = (args) => <ProfileBox {...args} />;
 
 export default {
-  title: 'molecules/feed/ProfileBox',
+  title: 'molecules/Feed/ProfileBox',
   component: ProfileBox,
   decorators: [withApolloClient]
 };

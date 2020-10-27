@@ -8,9 +8,11 @@ import ProfileInfo from '../../ui/molecules/Profile/ProfileInfo/ProfileInfo';
 import PageBox from '../../ui/atoms/PageBox/PageBox';
 import ProfileFeed from '../../ui/molecules/Profile/ProfileFeed/ProfileFeed';
 import { Divider, Flex, Text } from '@chakra-ui/core';
+import { useTranslation } from 'react-i18next';
 
 export default function Profile() {
   const router = useRouter()
+  const { t } = useTranslation();
   const { handle } = router.query;
 
   const { data, loading, error } = useUserProfileByHandleQuery({
@@ -29,10 +31,10 @@ export default function Profile() {
         <ProfileInfo user={data}/>
         <Flex align={"center"} marginY={2}>
           <Divider flex={4}/>
-          <Text marginX={4} fontSize={"md"} textAlign={"center"} color={'gray.400'}>{t('Sessions')}</Text>
+          <Text marginX={4} fontSize={"md"} textAlign={"center"} color={'gray.400'}>{t('Feed')}</Text>
           <Divider flex={4}/>
         </Flex>
-        <ProfileFeed/>
+        <ProfileFeed handle={data.user.handle}/>
       </PageBox>
     </>
   );

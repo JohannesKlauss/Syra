@@ -17,7 +17,7 @@ import { CreateFeedItemMock } from '../../../../stories/apolloMocks/feedItem';
 const Template = (args) => <CreateFeedItem {...args} />;
 
 export default {
-  title: 'molecules/feed/createFeedItem/CreateFeedItem',
+  title: 'molecules/Feed/CreateFeedItem/CreateFeedItem',
   component: CreateFeedItem,
   decorators: [withApolloClient]
 };

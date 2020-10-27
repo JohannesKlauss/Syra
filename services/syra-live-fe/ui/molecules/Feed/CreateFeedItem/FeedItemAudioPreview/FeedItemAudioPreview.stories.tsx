@@ -12,7 +12,7 @@ import { MixdownMock } from '../../../../../stories/apolloMocks/mixdown';
 const Template = (args) => <FeedItemAudioPreview {...args} />;
 
 export default {
-  title: 'molecules/feed/createFeedItem/FeedItemAudioPreview',
+  title: 'molecules/Feed/CreateFeedItem/FeedItemAudioPreview',
   component: FeedItemAudioPreview,
   decorators: [withApolloClient]
 };

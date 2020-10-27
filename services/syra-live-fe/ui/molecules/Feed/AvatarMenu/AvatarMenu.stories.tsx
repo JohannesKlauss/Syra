@@ -8,7 +8,7 @@ import { MeMock } from '../../../../stories/apolloMocks/user';
 const Template = (args) => <AvatarMenu {...args} />;
 
 export default {
-  title: 'molecules/feed/AvatarMenu',
+  title: 'molecules/Feed/AvatarMenu',
   component: AvatarMenu,
   decorators: [withApolloClient]
 };

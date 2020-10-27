@@ -4,7 +4,7 @@ import * as React from 'react';
 const Template = (args) => <FeedItemActions {...args} />;
 
 export default {
-  title: 'molecules/feed/feedItem/FeedItemActions',
+  title: 'molecules/Feed/FeedItem/FeedItemActions',
   component: FeedItemActions,
 };
 

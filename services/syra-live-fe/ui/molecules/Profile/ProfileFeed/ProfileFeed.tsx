@@ -1,22 +1,23 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { usePublicProjectsByHandleQuery } from '../../../../gql/generated';
+import { useFeedItemsByHandleQuery } from '../../../../gql/generated';
 import { Skeleton } from '@chakra-ui/core';
+import FeedItem from '../../Feed/FeedItem/FeedItem';
 
 interface Props {
-  handle: string
+  handle: string;
 }
 
 function ProfileFeed({handle}: Props) {
-  const { t } = useTranslation();
-  const { data, loading, error } = usePublicProjectsByHandleQuery({variables: {handle}});
+  const { data, loading, error } = useFeedItemsByHandleQuery({variables: {handle}});
 
   if (loading) return <Skeleton h={24}/>
   if (error) return null;
 
   return (
     <>
-      
+      {data.feedItems.map(item => (
+        <FeedItem feedItem={item} key={item.id}/>
+      ))}
     </>
   );
 }

@@ -23,10 +23,14 @@ export default function useWavesurfer(containerId: string, src: string) {
           cursorColor: 'transparent',
           xhr: {
             // @ts-ignore
-            mode: 'no-cors',
+            cache: 'default',
+            mode: 'no-cors'
           },
         });
 
+        fetch(src).then(res => console.log(res));
+
+        wave.current.on('error', e => console.log(e));
         wave.current.on('ready', () => setIsLoaded(true));
         wave.current.load(src);
 

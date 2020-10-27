@@ -1,10 +1,11 @@
 import FeedItem from './FeedItem';
 import * as React from 'react';
+import { FeedItemsByHandleMock } from '../../../../stories/apolloMocks/feedItem';
 
 const Template = (args) => <FeedItem {...args} />;
 
 export default {
-  title: 'molecules/Feed/feedItem/FeedItem',
+  title: 'molecules/Feed/FeedItem/FeedItem',
   component: FeedItem,
 };
 
@@ -12,15 +13,5 @@ export default {
 export const Default = Template.bind({});
 
 Default.args = {
-  owner: {
-    id: 2,
-    name: 'Manuel Neufeld',
-    avatar: ''
-  },
-  metaInfo: {
-    id: 'audio-sdfsdfsd',
-    timestamp: 1602691517,
-    title: 'Experimental-Song #1',
-    description: 'First experimentation steps with SYRA!'
-  }
+  feedItem: FeedItemsByHandleMock.feedItems[0],
 };

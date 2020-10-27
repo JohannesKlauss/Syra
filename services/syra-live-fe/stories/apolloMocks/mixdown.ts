@@ -4,19 +4,23 @@ const location = 'https://syra-dev-audio-static-1.fra1.digitaloceanspaces.com/9b
 
 export const MixdownMock: MixdownQuery = {
   mixdown: {
+    __typename: 'Mixdown',
     id: 'dasdas',
     version: 4,
     createdAt: 1603406790,
     name: 'Final release',
     audio: {
+      __typename: 'AudioAsset',
       id: 'dhdhfdgh',
       location,
       isPublic: true,
     },
     listens: 67,
     project: {
+      __typename: 'Project',
       name: 'New Song idea',
       owner: {
+        __typename: 'User',
         id: '432423',
         name: 'Johannes Klauss',
         avatar: null
@@ -27,14 +31,17 @@ export const MixdownMock: MixdownQuery = {
 
 export const MyMixdownsMock: MyMixdownsQuery = {
   me: {
+    __typename: 'User',
     ownsProjects: [
       {
+        __typename: 'Project',
         id: '1',
         name: "New song idea",
         updatedAt: 1603306790,
         isPrivate: true,
         mixdowns: [
           {
+            __typename: 'Mixdown',
             id: '4',
             version: 4,
             createdAt: 1603406790,
@@ -47,6 +54,7 @@ export const MyMixdownsMock: MyMixdownsQuery = {
             listens: 67,
           },
           {
+            __typename: 'Mixdown',
             id: '3',
             version: 3,
             name: 'Added base',
@@ -59,6 +67,7 @@ export const MyMixdownsMock: MyMixdownsQuery = {
             listens: 18,
           },
           {
+            __typename: 'Mixdown',
             id: '2',
             version: 2,
             name: 'idea1',
@@ -71,6 +80,7 @@ export const MyMixdownsMock: MyMixdownsQuery = {
             listens: 34,
           },
           {
+            __typename: 'Mixdown',
             id: '1',
             version: 1,
             name: 'Basic skit',
@@ -85,12 +95,14 @@ export const MyMixdownsMock: MyMixdownsQuery = {
         ]
       },
       {
+        __typename: 'Project',
         id: '2',
         name: "Old song idea",
         updatedAt: 1603203790,
         isPrivate: false,
         mixdowns: [
           {
+            __typename: 'Mixdown',
             id: '2',
             version: 2,
             name: 'Final Master',
@@ -103,6 +115,7 @@ export const MyMixdownsMock: MyMixdownsQuery = {
             listens: 23,
           },
           {
+            __typename: 'Mixdown',
             id: '1',
             version: 1,
             name: 'Rough Mix',

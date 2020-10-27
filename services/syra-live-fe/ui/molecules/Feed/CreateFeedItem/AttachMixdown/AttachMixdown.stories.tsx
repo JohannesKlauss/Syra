@@ -11,7 +11,7 @@ import { MyMixdownsMock } from '../../../../../stories/apolloMocks/mixdown';
 const Template = (args) => <AttachMixdown {...args} />;
 
 export default {
-  title: 'molecules/feed/createFeedItem/AttachMixdown',
+  title: 'molecules/Feed/CreateFeedItem/AttachMixdown',
   component: AttachMixdown,
   decorators: [withApolloClient]
 };

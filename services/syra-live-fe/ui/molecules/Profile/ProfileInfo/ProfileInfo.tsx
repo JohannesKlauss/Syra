@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Box, Flex, Link as ChakraLink, Stack, Tag, Text } from '@chakra-ui/core';
+import { Avatar, Box, Button, Flex, Link as ChakraLink, Stack, Tag, Text } from '@chakra-ui/core';
 import { UserProfileByHandleQuery } from '../../../../gql/generated';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
@@ -21,27 +21,29 @@ function ProfileInfo({ user: { user } }: Props) {
             <Text fontSize={'lg'} fontWeight={600}>@{user.handle}</Text>
             <ProfileActions baseIsFollowing={user.isFollowing} handle={user.handle}/>
           </Flex>
-          <Flex justify={'space-between'} marginY={4}>
-            <Text><strong>5</strong> {t('sessions')}</Text>
-            <Text><strong>{user.followedByCount}</strong> {t('Followers')}</Text>
-            <Text><strong>{user.followingCount}</strong> {t('Following')}</Text>
+          <Flex align={'center'} justify={'space-between'}>
+            <Box>
+              <Text fontWeight={600}>{user.name}</Text>
+              <Text marginY={1}>{user.bio}</Text>
+              <ChakraLink href={user.website} isExternal color={'teal.200'} fontWeight={600}>{user.website}</ChakraLink>
+            </Box>
+            <Flex>
+              <Text><strong>5</strong> {t('sessions')}</Text>
+              <Text marginX={8}><strong>{user.followedByCount}</strong> {t('Followers')}</Text>
+              <Text><strong>{user.followingCount}</strong> {t('Following')}</Text>
+            </Flex>
           </Flex>
-          <Box>
-            <Text fontWeight={600}>{user.name}</Text>
-            <Text marginY={1}>{user.bio}</Text>
-            <ChakraLink href={user.website} isExternal color={'teal.200'} fontWeight={600}>{user.website}</ChakraLink>
-          </Box>
           <Flex align={'center'} justify={'space-between'} marginY={4}>
             <Text color={'gray.400'} fontSize={'sm'}>
               {t('Followed by')}
               {' '}
               {user.followedBy.map((follower, i) => (
-                <>
+                <React.Fragment key={follower.handle}>
                   <Link passHref href={`profile/${follower.handle}`}>
                     <ChakraLink display={'inline'} fontWeight={600} color={'gray.300'}>{follower.name}</ChakraLink>
                   </Link>
                   {i < user.followedBy.length - 1 ? ', ' : ' '}
-                </>
+                </React.Fragment>
               ))}
               {t('and {{followers}} others', { followers: user.followedByCount - user.followedBy.length })}
             </Text>

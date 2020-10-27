@@ -8,7 +8,7 @@ import { withApolloClient } from 'storybook-addon-apollo-client';
 const Template = (args) => <AttachMixdownModal {...args} />;
 
 export default {
-  title: 'molecules/feed/createFeedItem/AttachMixdownModal',
+  title: 'molecules/Feed/CreateFeedItem/AttachMixdownModal',
   component: AttachMixdownModal,
   decorators: [withApolloClient]
 };

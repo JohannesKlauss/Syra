@@ -4,7 +4,7 @@ import * as React from 'react';
 const Template = (args) => <FollowRecommendationsBox {...args} />;
 
 export default {
-  title: 'molecules/feed/FollowRecommendationsBox',
+  title: 'molecules/Feed/FollowRecommendationsBox',
   component: FollowRecommendationsBox,
 };
 
