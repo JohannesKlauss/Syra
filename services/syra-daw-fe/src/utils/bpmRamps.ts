@@ -4,7 +4,7 @@
  *
  * The frame number is always relative to when the ramp function becomes active.
  *
- * So for illustration we have a static ramp with a 120 bpm for 2 seconds.
+ * So for illustration we have a staticText ramp with a 120 bpm for 2 seconds.
  *
  * Then we get a linear ramp over 2 seconds to 240 bpm. This means that the frame after two seconds will trigger the
  * linear ramp which start by itself at frame 1 even though the transport frame count is way higher.

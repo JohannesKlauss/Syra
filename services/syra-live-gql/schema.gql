@@ -384,20 +384,25 @@ input BoolNullableFilter {
 }
 
 type Comment {
+  Comment(cursor: CommentWhereUniqueInput, distinct: [CommentDistinctFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]
+  commentId: String
   createdAt: Timestamp!
-  feedItem: FeedItem!
-  feedItemId: String!
+  feedItem: FeedItem
+  feedItemId: String
   id: String!
   likes(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]
+  parentComment: Comment
   text: String!
   updatedAt: Timestamp!
 }
 
 input CommentCreateInput {
+  Comment: CommentCreateManyWithoutParentCommentInput
   createdAt: Timestamp
-  feedItem: FeedItemCreateOneWithoutCommentsInput!
+  feedItem: FeedItemCreateOneWithoutCommentsInput
   id: String
   likes: CommentLikeCreateManyWithoutCommentInput
+  parentComment: CommentCreateOneWithoutCommentInput
   text: String!
   updatedAt: Timestamp
 }
@@ -407,28 +412,63 @@ input CommentCreateManyWithoutFeedItemInput {
   create: [CommentCreateWithoutFeedItemInput!]
 }
 
+input CommentCreateManyWithoutParentCommentInput {
+  connect: [CommentWhereUniqueInput!]
+  create: [CommentCreateWithoutParentCommentInput!]
+}
+
+input CommentCreateOneWithoutCommentInput {
+  connect: CommentWhereUniqueInput
+  create: CommentCreateWithoutCommentInput
+}
+
 input CommentCreateOneWithoutLikesInput {
   connect: CommentWhereUniqueInput
   create: CommentCreateWithoutLikesInput
 }
 
-input CommentCreateWithoutFeedItemInput {
+input CommentCreateWithoutCommentInput {
   createdAt: Timestamp
+  feedItem: FeedItemCreateOneWithoutCommentsInput
+  id: String
+  likes: CommentLikeCreateManyWithoutCommentInput
+  parentComment: CommentCreateOneWithoutCommentInput
+  text: String!
+  updatedAt: Timestamp
+}
+
+input CommentCreateWithoutFeedItemInput {
+  Comment: CommentCreateManyWithoutParentCommentInput
+  createdAt: Timestamp
+  id: String
+  likes: CommentLikeCreateManyWithoutCommentInput
+  parentComment: CommentCreateOneWithoutCommentInput
+  text: String!
+  updatedAt: Timestamp
+}
+
+input CommentCreateWithoutLikesInput {
+  Comment: CommentCreateManyWithoutParentCommentInput
+  createdAt: Timestamp
+  feedItem: FeedItemCreateOneWithoutCommentsInput
+  id: String
+  parentComment: CommentCreateOneWithoutCommentInput
+  text: String!
+  updatedAt: Timestamp
+}
+
+input CommentCreateWithoutParentCommentInput {
+  Comment: CommentCreateManyWithoutParentCommentInput
+  createdAt: Timestamp
+  feedItem: FeedItemCreateOneWithoutCommentsInput
   id: String
   likes: CommentLikeCreateManyWithoutCommentInput
   text: String!
   updatedAt: Timestamp
 }
 
-input CommentCreateWithoutLikesInput {
-  createdAt: Timestamp
-  feedItem: FeedItemCreateOneWithoutCommentsInput!
-  id: String
-  text: String!
-  updatedAt: Timestamp
-}
-
 enum CommentDistinctFieldEnum {
+  commentId
   createdAt
   feedItemId
   id
@@ -594,6 +634,7 @@ input CommentListRelationFilter {
 }
 
 input CommentOrderByInput {
+  commentId: SortOrder
   createdAt: SortOrder
   feedItemId: SortOrder
   id: SortOrder
@@ -608,8 +649,9 @@ input CommentRelationFilter {
 
 input CommentScalarWhereInput {
   AND: [CommentScalarWhereInput!]
+  commentId: StringNullableFilter
   createdAt: DateTimeFilter
-  feedItemId: StringFilter
+  feedItemId: StringNullableFilter
   id: StringFilter
   NOT: [CommentScalarWhereInput!]
   OR: [CommentScalarWhereInput!]
@@ -618,10 +660,12 @@ input CommentScalarWhereInput {
 }
 
 input CommentUpdateInput {
+  Comment: CommentUpdateManyWithoutParentCommentInput
   createdAt: DateTimeFieldUpdateOperationsInput
-  feedItem: FeedItemUpdateOneRequiredWithoutCommentsInput
+  feedItem: FeedItemUpdateOneWithoutCommentsInput
   id: StringFieldUpdateOperationsInput
   likes: CommentLikeUpdateManyWithoutCommentInput
+  parentComment: CommentUpdateOneWithoutCommentInput
   text: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -652,6 +696,18 @@ input CommentUpdateManyWithoutFeedItemInput {
   upsert: [CommentUpsertWithWhereUniqueWithoutFeedItemInput!]
 }
 
+input CommentUpdateManyWithoutParentCommentInput {
+  connect: [CommentWhereUniqueInput!]
+  create: [CommentCreateWithoutParentCommentInput!]
+  delete: [CommentWhereUniqueInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutParentCommentInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutParentCommentInput!]
+}
+
 input CommentUpdateManyWithWhereNestedInput {
   data: CommentUpdateManyDataInput!
   where: CommentScalarWhereInput!
@@ -664,18 +720,51 @@ input CommentUpdateOneRequiredWithoutLikesInput {
   upsert: CommentUpsertWithoutLikesInput
 }
 
+input CommentUpdateOneWithoutCommentInput {
+  connect: CommentWhereUniqueInput
+  create: CommentCreateWithoutCommentInput
+  delete: Boolean
+  disconnect: Boolean
+  update: CommentUpdateWithoutCommentDataInput
+  upsert: CommentUpsertWithoutCommentInput
+}
+
+input CommentUpdateWithoutCommentDataInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  feedItem: FeedItemUpdateOneWithoutCommentsInput
+  id: StringFieldUpdateOperationsInput
+  likes: CommentLikeUpdateManyWithoutCommentInput
+  parentComment: CommentUpdateOneWithoutCommentInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
 input CommentUpdateWithoutFeedItemDataInput {
+  Comment: CommentUpdateManyWithoutParentCommentInput
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   likes: CommentLikeUpdateManyWithoutCommentInput
+  parentComment: CommentUpdateOneWithoutCommentInput
   text: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input CommentUpdateWithoutLikesDataInput {
+  Comment: CommentUpdateManyWithoutParentCommentInput
   createdAt: DateTimeFieldUpdateOperationsInput
-  feedItem: FeedItemUpdateOneRequiredWithoutCommentsInput
+  feedItem: FeedItemUpdateOneWithoutCommentsInput
   id: StringFieldUpdateOperationsInput
+  parentComment: CommentUpdateOneWithoutCommentInput
+  text: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input CommentUpdateWithoutParentCommentDataInput {
+  Comment: CommentUpdateManyWithoutParentCommentInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  feedItem: FeedItemUpdateOneWithoutCommentsInput
+  id: StringFieldUpdateOperationsInput
+  likes: CommentLikeUpdateManyWithoutCommentInput
   text: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -683,6 +772,16 @@ input CommentUpdateWithoutLikesDataInput {
 input CommentUpdateWithWhereUniqueWithoutFeedItemInput {
   data: CommentUpdateWithoutFeedItemDataInput!
   where: CommentWhereUniqueInput!
+}
+
+input CommentUpdateWithWhereUniqueWithoutParentCommentInput {
+  data: CommentUpdateWithoutParentCommentDataInput!
+  where: CommentWhereUniqueInput!
+}
+
+input CommentUpsertWithoutCommentInput {
+  create: CommentCreateWithoutCommentInput!
+  update: CommentUpdateWithoutCommentDataInput!
 }
 
 input CommentUpsertWithoutLikesInput {
@@ -696,15 +795,24 @@ input CommentUpsertWithWhereUniqueWithoutFeedItemInput {
   where: CommentWhereUniqueInput!
 }
 
+input CommentUpsertWithWhereUniqueWithoutParentCommentInput {
+  create: CommentCreateWithoutParentCommentInput!
+  update: CommentUpdateWithoutParentCommentDataInput!
+  where: CommentWhereUniqueInput!
+}
+
 input CommentWhereInput {
   AND: [CommentWhereInput!]
+  Comment: CommentListRelationFilter
+  commentId: StringNullableFilter
   createdAt: DateTimeFilter
   feedItem: FeedItemRelationFilter
-  feedItemId: StringFilter
+  feedItemId: StringNullableFilter
   id: StringFilter
   likes: CommentLikeListRelationFilter
   NOT: [CommentWhereInput!]
   OR: [CommentWhereInput!]
+  parentComment: CommentRelationFilter
   text: StringFilter
   updatedAt: DateTimeFilter
 }
@@ -1386,13 +1494,6 @@ input FeedItemUpdateManyWithWhereNestedInput {
   where: FeedItemScalarWhereInput!
 }
 
-input FeedItemUpdateOneRequiredWithoutCommentsInput {
-  connect: FeedItemWhereUniqueInput
-  create: FeedItemCreateWithoutCommentsInput
-  update: FeedItemUpdateWithoutCommentsDataInput
-  upsert: FeedItemUpsertWithoutCommentsInput
-}
-
 input FeedItemUpdateOneRequiredWithoutLikesInput {
   connect: FeedItemWhereUniqueInput
   create: FeedItemCreateWithoutLikesInput
@@ -1405,6 +1506,15 @@ input FeedItemUpdateOneRequiredWithoutRevisionsInput {
   create: FeedItemCreateWithoutRevisionsInput
   update: FeedItemUpdateWithoutRevisionsDataInput
   upsert: FeedItemUpsertWithoutRevisionsInput
+}
+
+input FeedItemUpdateOneWithoutCommentsInput {
+  connect: FeedItemWhereUniqueInput
+  create: FeedItemCreateWithoutCommentsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: FeedItemUpdateWithoutCommentsDataInput
+  upsert: FeedItemUpsertWithoutCommentsInput
 }
 
 input FeedItemUpdateWithoutCommentsDataInput {

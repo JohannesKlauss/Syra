@@ -11,8 +11,8 @@ import Pricing from "../ui/organisms/LandingPage/Pricing/Pricing";
 import { Box, Image } from "@chakra-ui/core";
 import Footer from "../ui/atoms/Footer/Footer";
 import Stopper from "../ui/atoms/Stopper/Stopper";
-import { benefits } from '../static/benefits';
-import { tiers } from '../static/tiers';
+import { benefits } from '../staticText/benefits';
+import { tiers } from '../staticText/tiers';
 
 export default function Home() {
   const [showLogInModal, setShowLogInModal] = useRecoilState(landingPageStore.showLogInModal);

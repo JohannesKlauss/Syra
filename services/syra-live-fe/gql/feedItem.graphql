@@ -1,4 +1,4 @@
-mutation createFeedItem($me: String!, $text: String!, $mixdownId: String!) {
+mutation createFeedItem($me: String!, $text: String!, $mixdownId: String) {
     createFeedItem(data: {text: $text, mixdown: {connect: {id: $mixdownId}} owner: {connect: {id: $me}}}) {
         id
         likeCount
