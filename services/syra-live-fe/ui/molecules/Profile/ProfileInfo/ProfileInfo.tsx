@@ -19,20 +19,18 @@ function ProfileInfo({ user: { user } }: Props) {
         <Box flex={1}>
           <Flex align={'center'} justify={'space-between'}>
             <Text fontSize={'lg'} fontWeight={600}>@{user.handle}</Text>
-            <ProfileActions baseIsFollowing={user.isFollowing} handle={user.handle}/>
+            <ProfileActions baseIsFollowing={user.isMeFollowing} handle={user.handle}/>
           </Flex>
-          <Flex align={'center'} justify={'space-between'}>
+          <Flex marginY={4}>
+            <Text><strong>5</strong> {t('sessions')}</Text>
+            <Text marginX={8}><strong>{user.followedByCount}</strong> {t('Followers')}</Text>
+            <Text><strong>{user.followingCount}</strong> {t('Following')}</Text>
+          </Flex>
             <Box>
               <Text fontWeight={600}>{user.name}</Text>
               <Text marginY={1}>{user.bio}</Text>
               <ChakraLink href={user.website} isExternal color={'teal.200'} fontWeight={600}>{user.website}</ChakraLink>
             </Box>
-            <Flex>
-              <Text><strong>5</strong> {t('sessions')}</Text>
-              <Text marginX={8}><strong>{user.followedByCount}</strong> {t('Followers')}</Text>
-              <Text><strong>{user.followingCount}</strong> {t('Following')}</Text>
-            </Flex>
-          </Flex>
           <Flex align={'center'} justify={'space-between'} marginY={4}>
             <Text color={'gray.400'} fontSize={'sm'}>
               {t('Followed by')}

@@ -36,8 +36,9 @@ function createApolloClient(cookie?: string) {
   });
 
   const authLink = setContext((_, { headers }) => {
-    // return the headers to the context so httpLink can read them
-    console.log('cookies', cookie);
+    if (cookie == null) {
+      return headers;
+    }
 
     return {
       headers: {
@@ -51,7 +52,7 @@ function createApolloClient(cookie?: string) {
     ssrMode,
     cache: new InMemoryCache(),
     link: from([authLink, injectUserIdLink, httpLink]),
-    connectToDevTools: process.env.NODE_ENV === 'development' && !ssrMode,
+    connectToDevTools: false,
   });
 }
 

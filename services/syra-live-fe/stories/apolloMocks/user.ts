@@ -49,7 +49,7 @@ export const UserProfileByHandleMock: UserProfileByHandleQuery = {
     ],
     followedByCount: 45,
     followingCount: 34,
-    isFollowing: true,
+    isMeFollowing: true,
     followedBy: [
       {
         __typename: 'User',

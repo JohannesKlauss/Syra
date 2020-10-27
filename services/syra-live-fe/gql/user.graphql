@@ -29,7 +29,7 @@ fragment BaseProfile on User {
 
 fragment Profile on User {
     ...BaseProfile
-    isFollowing
+    isMeFollowing
 }
 
 fragment MeProfile on User {
@@ -68,12 +68,12 @@ mutation signUpUser($name: String!, $email: String!, $password: String!, $access
 
 mutation followUser($handle: String!, $me: String) {
     updateUser(where: {handle: $handle}, data: {followedBy: {connect: [{id: $me}]}}) {
-        id
+        handle
     }
 }
 
 mutation unfollowUser($handle: String!, $me: String) {
-    updateUser(where: {handle: $handle}, data: {followedBy: {delete: [{id: $me}]}}) {
+    updateUser(where: {handle: $handle}, data: {followedBy: {disconnect: [{id: $me}]}}) {
         id
     }
 }

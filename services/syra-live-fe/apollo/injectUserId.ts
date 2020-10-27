@@ -4,7 +4,7 @@ import mixpanel from 'mixpanel-browser';
 
 const queryRequiresVariable = (variableName, operation) =>
   operation.query.definitions?.some(({ variableDefinitions }) => {
-      return variableDefinitions?.some(
+    return variableDefinitions?.some(
         ({ variable }) => variable.name.value === variableName,
       );
     },
@@ -17,12 +17,15 @@ export const injectUserId = async (operation: Operation, apolloClient: ApolloCli
     const results: ApolloQueryResult<MeQuery> = await apolloClient.query({
       query: MeDocument,
     });
-    // Identify user for tracking purposes.
-    mixpanel.people.set({
-      "USER_ID": results.data.me.id,
-      "$avatar": results.data.me.avatar,
-    });
-    mixpanel.identify(results.data.me.id);
+
+    try {
+      // Identify user for tracking purposes.
+      mixpanel.people.set({
+        "USER_ID": results.data.me.id,
+        "$avatar": results.data.me.avatar,
+      });
+      mixpanel.identify(results.data.me.id);
+    } catch(e) {}
 
     operation.variables[variableName] = results.data.me.id;
   }

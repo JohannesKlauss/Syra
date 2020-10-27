@@ -8,9 +8,9 @@ import { UnauthorizedException } from '@nestjs/common';
  * @constructor
  */
 export function ReplaceMe(): MiddlewareFn<GraphQLContext> {
-  return async ({info, context}, next) => {
+  return async ({info, context, args}, next) => {
     if (Object.keys(info.variableValues).includes('me') && info.variableValues['me'] !== context.user.id) {
-      throw new UnauthorizedException('Tried to use a different user id than logged in.');
+      throw new UnauthorizedException('Tried to use a different userId than logged in.');
     }
 
     return await next();

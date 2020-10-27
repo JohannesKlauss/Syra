@@ -24,6 +24,8 @@ export default function Profile() {
   if (error) return null;
   if (loading) return null;
 
+  console.log('render', typeof window);
+
   return (
     <>
       <TopBar/>

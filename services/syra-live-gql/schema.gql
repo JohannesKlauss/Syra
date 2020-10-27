@@ -2732,7 +2732,7 @@ type User {
   handle: String
   id: String!
   interests(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]
-  isFollowing: Boolean
+  isMeFollowing: Boolean
   memberOfProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
   Mixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownDistinctFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]
   name: String!

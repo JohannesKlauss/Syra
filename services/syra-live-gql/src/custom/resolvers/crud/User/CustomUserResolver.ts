@@ -20,8 +20,8 @@ export class CustomUserResolver {
   }
 
   @TypeGraphQL.FieldResolver(type => Boolean, { nullable: true })
-  async isFollowing(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
-    return ctx.prisma.user.count({ where: { id: user.id, followedBy: { some: { id: user.id } } } });
+  async isMeFollowing(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
+    return ctx.prisma.user.count({ where: { id: user.id, followedBy: { some: { id: ctx.user.id } } } });
   }
 
   @TypeGraphQL.Authorized([Role.USER])
@@ -30,8 +30,6 @@ export class CustomUserResolver {
     description: undefined,
   })
   async me(@TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<User | null> {
-    console.log('user', ctx.user);
-
     return ctx.prisma.user.findOne({ where: { id: ctx.user.id } });
   }
 
