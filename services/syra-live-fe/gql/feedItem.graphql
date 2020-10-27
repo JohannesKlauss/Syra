@@ -1,4 +1,34 @@
-mutation createFeedItem($me: String!, $text: String!, $mixdownId: String) {
+query feedItemsByHandle($handle: String!, $cursor: String) {
+    feedItems(where: {owner: {is: {handle: {equals: $handle}}}}, cursor: {id: $cursor}, orderBy: [{createdAt: desc}]) {
+        id
+        likeCount
+        commentCount
+        updatedAt
+        mixdown {
+            audio {
+                location
+            }
+            listens
+            createdAt
+            project {
+                id
+                name
+                isPrivate
+            }
+        }
+        comments(orderBy: [{createdAt: desc}]) {
+            id
+            likeCount
+            text
+            updatedAt
+            subComments(orderBy: [{createdAt: desc}]) {
+                updatedAt
+            }
+        }
+    }
+}
+
+mutation createFeedItem($text: String!, $mixdownId: String, $me: String) {
     createFeedItem(data: {text: $text, mixdown: {connect: {id: $mixdownId}} owner: {connect: {id: $me}}}) {
         id
         likeCount

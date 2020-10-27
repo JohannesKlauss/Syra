@@ -22,3 +22,7 @@
 20201026122418-add-name-to-mixdown
 20201026140111-add-ispublic-flag-to-audioasset
 20201027112601-add-one-level-to-comments
+20201027124428
+20201027124623-add-bio-and-website-to-user
+20201027162441-fixed-parent-child-comment-realtion
+20201027162736-set-author-for-comment-and-feed

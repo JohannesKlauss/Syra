@@ -48,6 +48,7 @@ import { FilesModule } from './files/files.module';
 import fastifyMultipart from 'fastify-multipart';
 import { ReplaceMe } from './custom/middleware/ReplaceMe';
 import { GqlAuthGuard } from './custom/middleware/GqlAuthGuard';
+import { CustomCommentResolver } from './custom/resolvers/crud/Comment/CustomCommentResolver';
 
 const prisma = new PrismaClient();
 
@@ -132,6 +133,7 @@ const prisma = new PrismaClient();
     // Custom
     CustomUserResolver,
     CustomFeedItemResolver,
+    CustomCommentResolver,
   ],
 })
 export class AppModule {}

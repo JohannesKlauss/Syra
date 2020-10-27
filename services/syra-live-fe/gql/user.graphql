@@ -1,18 +1,44 @@
-mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!) {
-    signUpUser(data: {name: $name, email: $email, password: $password, accessCode: $accessCode}) {
-        id
-        name
+fragment UserLink on User {
+    handle
+    name
+}
+
+fragment BaseProfile on User {
+    id
+    name
+    email
+    avatar
+    bio
+    website
+    handle
+    followedByCount
+    followingCount
+    followedBy(take: 3) {
+        ...UserLink
     }
+    interests {
+        value
+    }
+}
+
+fragment Profile on User {
+    ...BaseProfile
+    isFollowing
+}
+
+fragment MeProfile on User {
+    ...BaseProfile
 }
 
 query me {
     me {
-        id
-        name
-        email
-        avatar
-        followedByCount
-        followingCount
+        ...MeProfile
+    }
+}
+
+query userProfileByHandle($handle: String!) {
+    user(where: {handle: $handle}) {
+        ...Profile
     }
 }
 
@@ -24,5 +50,24 @@ query user($id: String!) {
         avatar
         followedByCount
         followingCount
+    }
+}
+
+mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!) {
+    signUpUser(data: {name: $name, email: $email, password: $password, accessCode: $accessCode}) {
+        id
+        name
+    }
+}
+
+mutation followUser($handle: String!, $me: String) {
+    updateUser(where: {handle: $handle}, data: {followedBy: {connect: [{id: $me}]}}) {
+        id
+    }
+}
+
+mutation unfollowUser($handle: String!, $me: String) {
+    updateUser(where: {handle: $handle}, data: {followedBy: {delete: [{id: $me}]}}) {
+        id
     }
 }

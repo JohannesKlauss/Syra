@@ -1,0 +1,64 @@
+import React from 'react';
+import TopBar from '../../ui/molecules/Feed/TopBar/TopBar';
+import { useRouter } from 'next/router';
+import { MeDocument, UserProfileByHandleDocument, useUserProfileByHandleQuery } from '../../gql/generated';
+import { initializeApollo } from '../../apollo/client';
+import { GetServerSideProps } from 'next';
+import ProfileInfo from '../../ui/molecules/Profile/ProfileInfo/ProfileInfo';
+import PageBox from '../../ui/atoms/PageBox/PageBox';
+import ProfileFeed from '../../ui/molecules/Profile/ProfileFeed/ProfileFeed';
+import { Divider, Flex, Text } from '@chakra-ui/core';
+
+export default function Profile() {
+  const router = useRouter()
+  const { handle } = router.query;
+
+  const { data, loading, error } = useUserProfileByHandleQuery({
+    variables: {
+      handle: handle as string,
+    }
+  });
+
+  if (error) return null;
+  if (loading) return null;
+
+  return (
+    <>
+      <TopBar/>
+      <PageBox>
+        <ProfileInfo user={data}/>
+        <Flex align={"center"} marginY={2}>
+          <Divider flex={4}/>
+          <Text marginX={4} fontSize={"md"} textAlign={"center"} color={'gray.400'}>{t('Sessions')}</Text>
+          <Divider flex={4}/>
+        </Flex>
+        <ProfileFeed/>
+      </PageBox>
+    </>
+  );
+}
+
+Profile.getInitialProps = async () => ({
+  namespacesRequired: ['default'],
+});
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query({
+    query: UserProfileByHandleDocument,
+    variables: {
+      handle: context.query.handle as string
+    }
+  });
+
+  await apolloClient.query({
+    query: MeDocument,
+  });
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+    },
+  }
+}

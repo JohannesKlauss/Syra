@@ -7,7 +7,11 @@ import FollowRecommendationsBox from '../../ui/molecules/Feed/FollowRecommendati
 import FeedStack from '../../ui/molecules/Feed/FeedStack/FeedStack';
 import Footer from '../../ui/atoms/Footer/Footer';
 import Stopper from '../../ui/atoms/Stopper/Stopper';
-import { useMeQuery } from '../../gql/generated';
+import CreateFeedItem from '../../ui/molecules/Feed/CreateFeedItem/CreateFeedItem';
+import { GetServerSideProps } from 'next';
+import { initializeApollo } from '../../apollo/client';
+import { MeDocument, useMeQuery } from '../../gql/generated';
+import { useRouter } from 'next/router';
 
 const items = [
   {
@@ -69,6 +73,12 @@ const items = [
 ];
 
 export default function Feed() {
+  const { data, error, loading } = useMeQuery();
+  const { push } = useRouter();
+
+  if (loading) return null;
+  if (error || data.me == null) push('/');
+
   return (
     <>
       <TopBar/>
@@ -83,7 +93,10 @@ export default function Feed() {
             </PseudoBox>
           </Box>
           <PseudoBox marginX={12}/>
-          <FeedStack items={items}/>
+          <Box w={'100%'}>
+            <CreateFeedItem/>
+            <FeedStack items={items}/>
+          </Box>
         </Flex>
       </PageBox>
       <Footer/>
@@ -94,4 +107,18 @@ export default function Feed() {
 
 Feed.getInitialProps = async () => ({
   namespacesRequired: ['default'],
-})
+});
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query({
+    query: MeDocument,
+  });
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+    },
+  }
+}

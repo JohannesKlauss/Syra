@@ -1,11 +1,12 @@
 import React from 'react';
-import { Avatar, Box, Flex, FormControl, FormLabel, Input, Skeleton, Text } from '@chakra-ui/core';
-import { useMeQuery } from '../../../../gql/generated';
+import { Avatar, Box, Button, Divider, Flex, FormControl, Input, Skeleton } from '@chakra-ui/core';
+import { useCreateFeedItemMutation, useMeQuery } from '../../../../gql/generated';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import AttachMixdown from './AttachMixdown/AttachMixdown';
-import FeedItemAudio from '../FeedItem/FeedItemAudio/FeedItemAudio';
 import FeedItemAudioPreview from './FeedItemAudioPreview/FeedItemAudioPreview';
+import { useSetRecoilState } from 'recoil';
+import { feedStore } from '../../../../recoil/feedStore';
 
 interface Props {
 
@@ -18,11 +19,25 @@ type TCreateFeedItemForm = {
 
 function CreateFeedItem({}: Props) {
   const { data, loading, error } = useMeQuery();
+  const [executeCreateFeedItem, {loading: isSending}] = useCreateFeedItemMutation();
+  const setRefetchFeed = useSetRecoilState(feedStore.refetchFeed);
   const { t } = useTranslation();
   const { register, handleSubmit, setValue, getValues } = useForm<TCreateFeedItemForm>();
 
-  const onSubmit = (data: TCreateFeedItemForm) => {
+  const onSubmit = async (formData: TCreateFeedItemForm) => {
+    const me = data.me.id;
 
+    const result = await executeCreateFeedItem({
+      variables: {
+        me,
+        text: formData.text,
+        mixdownId: formData.mixdownId
+      },
+    });
+
+    if (result.data.createFeedItem.id) {
+      setRefetchFeed(true);
+    }
   };
 
   if (error) return null;
@@ -30,13 +45,13 @@ function CreateFeedItem({}: Props) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box marginBottom={4} rounded={'8px'} overflow={'hidden'} bg={'gray.900'} color={'gray.300'}
-           boxShadow={'0px 3px 24px -5px rgba(0,0,0,1)'}>
+      <Box marginBottom={8} rounded={'8px'} overflow={'hidden'} bg={'gray.900'} color={'gray.300'}
+           boxShadow={'0px 3px 24px -5px rgba(0,0,0,1)'} w={'100%'}>
         <Box background={'linear-gradient(to right, #654ea3, #eaafc8)'} height={'2px'}/>
         <Box padding={4}>
           <Flex align={'center'}>
             <Avatar name={data.me.name} src={data.me.avatar}/>
-            <Box marginX={4} flex={4}>
+            <Box marginLeft={4} flex={4}>
               <FormControl>
                 <Input
                   type="text"
@@ -47,10 +62,14 @@ function CreateFeedItem({}: Props) {
                   placeholder={t('Share your work, {{name}}', { name: data.me.name })}/>
               </FormControl>
             </Box>
+          </Flex>
+          <Divider/>
+          <Flex>
             <AttachMixdown onSelectMixdown={mixdownId => setValue('mixdownId', mixdownId)}/>
+            <Button marginLeft={4} isFullWidth variantColor={'teal'} isLoading={isSending} type={'submit'}>{t('Post')}</Button>
           </Flex>
         </Box>
-        {getValues().mixdownId && <FeedItemAudioPreview/>}
+        {getValues().mixdownId && <FeedItemAudioPreview mixdownId={getValues().mixdownId}/>}
       </Box>
     </form>
   );

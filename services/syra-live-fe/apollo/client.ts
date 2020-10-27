@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { ApolloClient, ApolloLink, createHttpLink, from, InMemoryCache, Observable } from '@apollo/client';
+import { ApolloClient, ApolloLink, createHttpLink, from, HttpLink, InMemoryCache, Observable } from '@apollo/client';
 import { injectUserId } from './injectUserId';
 
 let apolloClient: ApolloClient<any>;
@@ -27,7 +27,7 @@ export const injectUserIdLink = new ApolloLink(
 );
 
 function createApolloClient() {
-  const httpLink = createHttpLink({
+  const httpLink = new HttpLink({
     uri: `${process.env.NEXT_PUBLIC_LIVE_GQL_URL}`,
     credentials: 'include',
   });
@@ -41,7 +41,7 @@ function createApolloClient() {
 }
 
 export function initializeApollo(initialState = null) {
-  _apolloClient = apolloClient ?? createApolloClient();
+  _apolloClient = createApolloClient();
 
   // Hydrate initial Next.js data fetching state.
   if (initialState) {

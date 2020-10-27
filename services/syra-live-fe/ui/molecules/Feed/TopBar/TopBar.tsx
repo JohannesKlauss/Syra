@@ -19,10 +19,7 @@ function TopBar({}: Props) {
   const [executeMutation] = useCreateProjectMutation();
 
   const onClickNewSession = async () => {
-    console.log('execute');
-    const res = await executeMutation();
-
-    console.log('executed', res.data);
+    await executeMutation();
   };
 
   return (

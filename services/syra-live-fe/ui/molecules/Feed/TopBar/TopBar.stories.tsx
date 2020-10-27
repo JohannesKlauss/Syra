@@ -3,6 +3,7 @@ import * as React from 'react';
 import { withApolloClient } from 'storybook-addon-apollo-client';
 import { mockApollo, mockApolloResult } from '../../../../stories/mockApollo';
 import { MeDocument, MeQuery } from '../../../../gql/generated';
+import { MeMock } from '../../../../stories/apolloMocks/user';
 
 const Template = (args) => <TopBar {...args} />;
 
@@ -20,14 +21,5 @@ Default.args = {
 };
 
 Default.parameters = mockApollo([
-  mockApolloResult<MeQuery>(MeDocument, {
-    me: {
-      avatar: '',
-      email: 'klauss.johannes@gmail.com',
-      followedByCount: 45,
-      followingCount: 34,
-      id: '',
-      name: 'Johannes Klauss',
-    }
-  })
+  mockApolloResult<MeQuery>(MeDocument, MeMock)
 ]);

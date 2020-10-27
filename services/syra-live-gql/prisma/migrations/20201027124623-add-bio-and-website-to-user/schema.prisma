@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("LIVE_DB_URL")
+  url = "***"
 }
 
 generator client {
@@ -113,8 +113,8 @@ model Tag {
 model FeedItem {
   id            String      @id @default(cuid())
   text          String?
-  author        User        @relation(fields: [authorId], references: [id])
-  authorId      String
+  owner         User        @relation(fields: [ownerId], references: [id])
+  ownerId       String
   comments      Comment[]
   likes         FeedItemLike[]
   revisions     FeedItemRevision[]
@@ -134,17 +134,13 @@ model FeedItemRevision {
 }
 
 model Comment {
-  id                String      @id @default(cuid())
-  text              String
-  feedItem          FeedItem?
-  parentCommentId   String?
-  parentComment     Comment?    @relation("ParentChildrenComments", fields: [parentCommentId], references: [id])
-  subComments       Comment[]   @relation("ParentChildrenComments")
-  likes             CommentLike[]
-  author            User        @relation(fields: [authorId], references: [id])
-  authorId          String
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
+  id            String      @id @default(cuid())
+  text          String
+  feedItem      FeedItem?
+  parentComment Comment?
+  likes         CommentLike[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
 
 model FeedItemLike {
