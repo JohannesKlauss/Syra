@@ -19,7 +19,7 @@
     "date-fns": "2.16.1",
     "emotion-theming": "10.0.27",
     "fuse.js": "6.4.2",
-    "graphql": "15.3.0",
+    "graphql": "15.4.0",
     "js-cookie": "2.2.1",
     "mixpanel-browser": "2.39.0",
     "next": "9.5.5",
@@ -41,15 +41,15 @@
     "@storybook/addon-links": "6.0.27",
     "@storybook/react": "6.0.27",
     "@types/mixpanel-browser": "2.35.4",
-    "@types/node": "12.19.1",
+    "@types/node": "12.19.2",
     "@types/react": "16.9.16",
     "@types/react-dom": "16.9.8",
     "@types/wavesurfer.js": "3.3.1",
-    "react-is": "17.0.0",
+    "react-is": "17.0.1",
     "storybook-addon-apollo-client": "3.0.0",
     "storybook-addon-next-router": "2.0.0",
     "storybook-dark-mode": "1.0.3",
-    "typescript": "4.0.3"
+    "typescript": "4.0.5"
   },
   "license": "MIT"
 }
