@@ -64,12 +64,11 @@ const prisma = new PrismaClient();
       inject: [CookieStrategy],
       useFactory: async (cookieStrategy: CookieStrategy) => {
         return {
-          validate: false,
+          validate: true,
           dateScalarMode: 'timestamp',
-          playground: true,
+          playground: false,
           authChecker: cookieAuthChecker,
           authMode: 'null',
-          introspection: true,
           path: '/',
           emitSchemaFile: true,
           uploads: false,

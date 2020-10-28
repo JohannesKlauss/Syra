@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Box, Button, Divider, Flex, FormControl, Input, Skeleton } from '@chakra-ui/core';
+import { Avatar, Box, Button, Divider, Flex, FormControl, Input, Skeleton, Textarea } from '@chakra-ui/core';
 import { useCreateFeedItemMutation, useMeQuery } from '../../../../gql/generated';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +7,7 @@ import AttachMixdown from './AttachMixdown/AttachMixdown';
 import FeedItemAudioPreview from './FeedItemAudioPreview/FeedItemAudioPreview';
 import { useSetRecoilState } from 'recoil';
 import { feedStore } from '../../../../recoil/feedStore';
+import AutoResizeTextarea from '../../../atoms/AutoResizeTextarea/AutoResizeTextarea';
 
 interface Props {
 
@@ -49,12 +50,11 @@ function CreateFeedItem({}: Props) {
            boxShadow={'0px 3px 24px -5px rgba(0,0,0,1)'} w={'100%'}>
         <Box background={'linear-gradient(to right, #654ea3, #eaafc8)'} height={'2px'}/>
         <Box padding={4}>
-          <Flex align={'center'}>
+          <Flex align={'top'}>
             <Avatar name={data.me.name} src={data.me.avatar}/>
             <Box marginLeft={4} flex={4}>
               <FormControl>
-                <Input
-                  type="text"
+                <AutoResizeTextarea
                   id="text"
                   name={'text'}
                   w={'100%'}
