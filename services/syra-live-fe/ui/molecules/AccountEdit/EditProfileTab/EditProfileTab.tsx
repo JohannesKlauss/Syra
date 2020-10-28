@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, FormControl } from '@chakra-ui/core';
+import { Box, Button, FormControl, FormHelperText, FormLabel, Input } from '@chakra-ui/core';
 import { useForm } from 'react-hook-form';
 import GenFormInput from '../../../atoms/Form/GenFormInput';
 import { useTranslation } from 'react-i18next';
@@ -47,13 +47,34 @@ function EditProfileTab({}: Props) {
         ref={register()}
       />
       <FormControl>
+        <FormLabel htmlFor={'bio'}>{t('Bio')}</FormLabel>
         <AutoResizeTextarea
           id="text"
-          name={'text'}
+          name={'bio'}
           w={'100%'}
           ref={register()}
           placeholder={t('Short Bio')}/>
       </FormControl>
+      <FormControl isRequired marginY={4}>
+        <FormLabel htmlFor="email">{t('Email address')}</FormLabel>
+        <Input
+          type="email"
+          id="email"
+          name={'email'}
+          ref={register({
+            required: true, pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: t('Invalid email address'),
+            },
+          })}
+          aria-describedby="email-helper-text"
+          placeholder={'you@example.com'}
+        />
+        <FormHelperText id="email-helper-text">
+          {t('We\'ll never share your email.')}
+        </FormHelperText>
+      </FormControl>
+      <Button isLoading={false} marginY={4} type={'submit'} isFullWidth variantColor={'teal'}>{t('Update')}</Button>
     </Box>
   );
 }
