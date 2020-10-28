@@ -1,0 +1,4 @@
+*:focus {
+    box-shadow: none !important;
+    border-color: inherit;
+}

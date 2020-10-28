@@ -9,6 +9,7 @@ import axios from 'axios';
 import mixpanel from 'mixpanel-browser';
 import Footer from '../ui/atoms/Footer/Footer';
 import Stopper from '../ui/atoms/Stopper/Stopper';
+import "../styles/global.css";
 
 axios.interceptors.response.use(response => response, error => error.response);
 

@@ -10,6 +10,7 @@ import AvatarMenu from '../AvatarMenu/AvatarMenu';
 import { IoMdAdd } from 'react-icons/io';
 import SearchField from "../../../atoms/SearchField/SearchField";
 import { useCreateProjectMutation } from '../../../../gql/generated';
+import Link from 'next/link';
 
 interface Props {
 }
@@ -31,7 +32,9 @@ function TopBar({}: Props) {
             <Text fontSize="lg" as={"span"} marginLeft={8} marginRight={8}>
               {t('S Y R A')} &nbsp; | &nbsp; {t('Live')}
             </Text>
-            <Button variant={"link"} marginX={4}>{t('Feed')}</Button>
+            <Link href={'/feed'}>
+              <Button variant={"link"} marginX={4}>{t('Feed')}</Button>
+            </Link>
             <Button variant={"link"} marginX={4}>{t('Explore')}</Button>
             <Button variant={"link"} marginX={4}>{t('Sessions')}</Button>
             <Button variant={"link"} marginX={4}>{t('Marketplace')}</Button>

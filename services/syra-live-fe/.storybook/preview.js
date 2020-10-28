@@ -4,6 +4,7 @@ import { RecoilRoot } from 'recoil';
 import { appWithTranslation } from '../i18n';
 import { addDecorator } from '@storybook/react';
 import { withNextRouter } from 'storybook-addon-next-router';
+import "focus-visible/dist/focus-visible";
 
 addDecorator(
   withNextRouter({

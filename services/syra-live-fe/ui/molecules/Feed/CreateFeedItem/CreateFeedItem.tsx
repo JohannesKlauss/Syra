@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Box, Button, Divider, Flex, FormControl, Input, Skeleton, Textarea } from '@chakra-ui/core';
+import { Avatar, Box, Button, Divider, Flex, FormControl, Skeleton } from '@chakra-ui/core';
 import { useCreateFeedItemMutation, useMeQuery } from '../../../../gql/generated';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

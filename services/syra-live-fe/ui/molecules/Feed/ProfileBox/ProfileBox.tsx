@@ -41,7 +41,7 @@ function ProfileBox({}: Props) {
             <Avatar name={data.me.name} src={data.me.avatar}/>
           </Box>
           <Box marginLeft={8}>
-            <Link passHref href={`profile/${data.me.handle}`}>
+            <Link passHref href={`/profile/${data.me.handle}`}>
               <ChakraLink fontWeight={700} fontSize={'lg'}>{data.me.name}</ChakraLink>
             </Link>
             <Text>{data.me.followedByCount} {t('Followers')} · {data.me.followingCount} {t('Following')}</Text>
@@ -51,7 +51,9 @@ function ProfileBox({}: Props) {
       <Box marginTop={'0.75rem'} paddingX={8}>
         <List spacing={3}>
           <ListItem>
-            <Button variant={'link'} leftIcon={RiEdit2Fill}>{t('Edit your profile')}</Button>
+            <Link href={`/account/edit`}>
+              <Button variant={'link'}  leftIcon={RiEdit2Fill}>{t('Edit your profile')}</Button>
+            </Link>
             <Divider/>
           </ListItem>
           <ListItem>
