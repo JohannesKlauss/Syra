@@ -12,11 +12,7 @@ export class AppController {
   async login(@Request() req) {
     const session = await this.authService.login(req.user);
 
-    console.log('session', session);
-
     req.session.set('sessionId', session);
-
-    console.log('set session');
 
     return { message: 'ok' };
   }

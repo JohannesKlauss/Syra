@@ -9,8 +9,6 @@ import LandingClaim from "../ui/molecules/LandingPage/LandingClaim/LandingClaim"
 import Benefits from "../ui/molecules/LandingPage/Benefits/Benefits";
 import Pricing from "../ui/organisms/LandingPage/Pricing/Pricing";
 import { Box, Image } from "@chakra-ui/core";
-import Footer from "../ui/atoms/Footer/Footer";
-import Stopper from "../ui/atoms/Stopper/Stopper";
 import { benefits } from '../staticText/benefits';
 import { tiers } from '../staticText/tiers';
 

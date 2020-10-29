@@ -3,18 +3,21 @@ import {
   Button,
   Divider,
   Flex,
+  Link,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
-  ModalOverlay, Text,
+  ModalOverlay,
+  Text,
 } from '@chakra-ui/core';
 import SocialSignUp from '../../../molecules/LandingPage/SocialSignUp/SocialSignUp';
 import LogInForm, { TLogInForm } from '../../../molecules/LandingPage/LogInForm/LogInForm';
 import { useTranslation } from 'react-i18next';
 import useLoginLocal from './useLoginLocal';
 import { useRouter } from 'next/router';
+import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
 
 interface Props {
   isOpen: boolean;
@@ -44,30 +47,30 @@ function LogInModal({ onClickSwitchToSignUp, onClose, isOpen }: Props) {
 
   return (
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
-      <ModalOverlay opacity={1}/>
+      <ModalOverlay opacity={1} />
       <ModalContent pb={5}>
         <ModalHeader>{t('S Y R A   -   Log In')}</ModalHeader>
-        <ModalCloseButton/>
+        <ModalCloseButton />
         <ModalBody>
-          <LogInForm onSubmit={onSubmit} hasError={hasError} isSending={isSending}/>
+          <LogInForm onSubmit={onSubmit} hasError={hasError} isSending={isSending} />
           <Flex align={'center'} marginY={2}>
-            <Divider flex={1}/>
-            <Text flex={1} fontSize={'md'} textAlign={'center'}>{t('or continue with')}</Text>
-            <Divider flex={1}/>
+            <Divider flex={1} />
+            <Text flex={1} fontSize={'md'} textAlign={'center'}>
+              {t('or continue with')}
+            </Text>
+            <Divider flex={1} />
           </Flex>
-          <SocialSignUp buttonSize={'lg'} fontSize={'2xl'} onClick={() => null}/>
+          <SocialSignUp buttonSize={'lg'} fontSize={'2xl'} onClick={() => null} />
           <Flex align={'center'} justify={'center'}>
             <Text fontSize={'sm'} textAlign={'center'}>
-              {t('Don\'t have an account?')}
-              <Button
-                variant={'link'}
-                size={'sm'} marginLeft={2}
-                variantColor={'teal'}
-                onClick={onClickSwitchToSignUp}
-              >
+              {t("Don't have an account?")}
+              <Button variant={'link'} size={'sm'} marginLeft={2} variantColor={'teal'} onClick={onClickSwitchToSignUp}>
                 {t('Sign Up')}.
               </Button>
             </Text>
+          </Flex>
+          <Flex align={'center'} justify={'center'} mt={4}>
+            <ForgotPasswordModal/>
           </Flex>
         </ModalBody>
       </ModalContent>

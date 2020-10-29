@@ -28,8 +28,6 @@ export default function useWavesurfer(containerId: string, src: string) {
           },
         });
 
-        fetch(src).then(res => console.log(res));
-
         wave.current.on('error', e => console.log(e));
         wave.current.on('ready', () => setIsLoaded(true));
         wave.current.on('play', () => setIsPlaying(true));

@@ -8,14 +8,15 @@ interface Props {
   placeholder: string;
   name: string;
   defaultValue?: string;
+  type?: string;
 }
 
-const GenFormInput = React.forwardRef<HTMLInputElement, Props>(({ defaultValue, isRequired, name, label, helpText, placeholder }, ref) => {
+const GenFormInput = React.forwardRef<HTMLInputElement, Props>(({ type, defaultValue, isRequired, name, label, helpText, placeholder }, ref) => {
   return (
     <FormControl isRequired={isRequired} marginY={4}>
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Input
-        type="text"
+        type={type}
         id={name}
         name={name}
         ref={ref}
@@ -29,5 +30,9 @@ const GenFormInput = React.forwardRef<HTMLInputElement, Props>(({ defaultValue, 
     </FormControl>
   );
 });
+
+GenFormInput.defaultProps = {
+  type: 'text'
+};
 
 export default GenFormInput;

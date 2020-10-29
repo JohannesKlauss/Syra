@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import {PrismaService} from "./prisma.service";
+import { PrismaService } from './prisma.service';
 import { PrismaClient } from '@prisma/client';
-import {TypeGraphQLModule} from "typegraphql-nestjs";
+import { TypeGraphQLModule } from 'typegraphql-nestjs';
 import {
   Address,
   AddressCrudResolver,
@@ -37,7 +37,7 @@ import {
   UsersOnProjectsRelationsResolver,
 } from '../prisma/generated/type-graphql';
 import { SessionModule } from './session/session.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLContext } from '../types/GraphQLContext';
 import { CustomUserResolver } from './custom/resolvers/crud/User/CustomUserResolver';
 import { AuthModule } from './auth/auth.module';
@@ -45,17 +45,20 @@ import { CookieStrategy } from './auth/cookie.strategy';
 import { cookieAuthChecker } from './custom/authChecker/cookieAuthChecker';
 import { CustomFeedItemResolver } from './custom/resolvers/crud/FeedItem/CustomFeedItemResolver';
 import { FilesModule } from './files/files.module';
-import fastifyMultipart from 'fastify-multipart';
 import { ReplaceMe } from './custom/middleware/ReplaceMe';
 import { GqlAuthGuard } from './custom/middleware/GqlAuthGuard';
 import { CustomCommentResolver } from './custom/resolvers/crud/Comment/CustomCommentResolver';
+import { PasswordModule } from './password/password.module';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { MailingModule } from './mailing/mailing.module';
+import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 
 const prisma = new PrismaClient();
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
     }),
     AuthModule,
     SessionModule,
@@ -75,7 +78,7 @@ const prisma = new PrismaClient();
           globalMiddlewares: [GqlAuthGuard(), ReplaceMe()],
           context: async ({ request }): Promise<GraphQLContext> => ({
             prisma,
-            user: await cookieStrategy.validate(request)
+            user: await cookieStrategy.validate(request),
           }),
           cors: {
             origin: 'http://local.syra.live:3000',
@@ -84,7 +87,26 @@ const prisma = new PrismaClient();
         };
       },
     }),
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        transport: `smtp://apikey:${configService.get('SENDGRID_API_KEY')}@smtp.sendgrid.net`,
+        defaults: {
+          from: '"Syra Admin" <admin@syra.live>',
+        },
+        template: {
+          dir: __dirname + '/../mailTemplates',
+          adapter: new PugAdapter(),
+          options: {
+            strict: true,
+          },
+        },
+      }),
+    }),
     FilesModule,
+    PasswordModule,
+    MailingModule,
   ],
   controllers: [AppController],
   providers: [
@@ -135,4 +157,5 @@ const prisma = new PrismaClient();
     CustomCommentResolver,
   ],
 })
-export class AppModule {}
+export class AppModule {
+}
