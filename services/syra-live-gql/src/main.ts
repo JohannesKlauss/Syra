@@ -17,7 +17,7 @@ async function bootstrap() {
 
   app.enableCors({
     credentials: true,
-    origin: 'http://localhost:3000'
+    origin: 'http://local.syra.live:3000'
   });
 
   app.register(SecureSessionPlugin, {

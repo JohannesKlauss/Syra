@@ -16,7 +16,6 @@ const panels = {
 };
 
 interface Props {
-
 }
 
 function AccountEdit({}: Props) {

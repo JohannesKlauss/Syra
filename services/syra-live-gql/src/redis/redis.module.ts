@@ -7,7 +7,7 @@ export const DynamicRedisModule: DynamicModule = RedisModule.forRootAsync({
   inject: [ConfigService],
   useFactory: (configService: ConfigService): RedisModuleOptions => {
     return {
-      host: 'localhost',
+      host: 'local.syra.live',
       port: 6379,
       password: configService.get('LIVE_SESSION_DB_PASSWORD'),
       db: 0,

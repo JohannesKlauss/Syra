@@ -36,4 +36,16 @@ export class FilesController {
     res.type(result.mimeType);
     res.send(result.stream);
   }
+
+  @Post('upload-avatar')
+  @UseGuards(CookieAuthGuard)
+  async uploadAvatar(@Req() req, @Query() query) {
+    const parts: Multipart[] = await req.parts();
+
+    for await (const part of parts) {
+      if (part.file) {
+        return await this.filesServices.uploadAvatar(part, req.user.id);
+      }
+    }
+  }
 }

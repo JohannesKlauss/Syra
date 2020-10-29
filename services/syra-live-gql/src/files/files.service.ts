@@ -39,6 +39,14 @@ export class FilesService {
     }
   }
 
+  async uploadAvatar(file: Multipart, userId: string) {
+    const avatar = await this.uploadFile(file, MD5(userId).toString(), true);
+
+    await this.prismaService.user.update({where: {id: userId}, data: {avatar}});
+
+    return avatar;
+  }
+
   private async uploadFile(file: Multipart, folder: string, isPublic: boolean = false) {
     return await this.spacesService.putFile(folder, file.filename, file.mimetype, file.file, isPublic);
   }

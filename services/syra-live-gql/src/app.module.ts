@@ -78,7 +78,7 @@ const prisma = new PrismaClient();
             user: await cookieStrategy.validate(request)
           }),
           cors: {
-            origin: 'http://localhost:3000',
+            origin: 'http://local.syra.live:3000',
             credentials: true,
           },
         };

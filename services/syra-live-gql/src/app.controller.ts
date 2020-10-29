@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { CookieAuthGuard } from './auth/cookie-auth.guard';
@@ -12,7 +12,11 @@ export class AppController {
   async login(@Request() req) {
     const session = await this.authService.login(req.user);
 
+    console.log('session', session);
+
     req.session.set('sessionId', session);
+
+    console.log('set session');
 
     return { message: 'ok' };
   }

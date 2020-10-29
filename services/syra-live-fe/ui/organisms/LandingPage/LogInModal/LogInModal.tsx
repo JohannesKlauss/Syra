@@ -35,11 +35,10 @@ function LogInModal({ onClickSwitchToSignUp, onClose, isOpen }: Props) {
     const success = await executeLocalLogin(data);
 
     setIsSending(false);
-
     setHasError(success);
 
     if (success) {
-      await push('/feed');
+      // await push('/feed');
     }
   };
 

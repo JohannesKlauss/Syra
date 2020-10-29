@@ -1,12 +1,25 @@
-import React from 'react';
-import { Box, Button, FormControl, FormHelperText, FormLabel, Input } from '@chakra-ui/core';
+import React, { useState } from 'react';
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
+  Skeleton,
+  Text,
+  Link as ChakraLink,
+} from '@chakra-ui/core';
 import { useForm } from 'react-hook-form';
 import GenFormInput from '../../../atoms/Form/GenFormInput';
 import { useTranslation } from 'react-i18next';
 import AutoResizeTextarea from '../../../atoms/AutoResizeTextarea/AutoResizeTextarea';
+import { useMeQuery } from '../../../../gql/generated';
+import ChangeAvatar from '../ChangeAvatar/ChangeAvatar';
 
 interface Props {
-
 }
 
 type TEditProfileForm = {
@@ -20,10 +33,27 @@ type TEditProfileForm = {
 
 function EditProfileTab({}: Props) {
   const { t } = useTranslation();
+  const [optimisticAvatar, setOptimisticAvatar] = useState<string>(null);
+  const { data: { me }, loading, error, refetch } = useMeQuery();
   const { register, handleSubmit } = useForm<TEditProfileForm>();
+
+  if (loading) return <Skeleton h={24}/>;
+  if (error) return null;
+
+  const onAvatarChanged = (src: string) => {
+    setOptimisticAvatar(src);
+    refetch();
+  }
 
   return (
     <Box>
+      <Flex align={'top'} mb={8}>
+        <Avatar name={me.name} src={me.avatar}/>
+        <Box ml={8}>
+          <Text fontWeight={600} fontSize={'lg'}>@{me.handle}</Text>
+          <ChangeAvatar avatar={optimisticAvatar ?? me.avatar} onAvatarChanged={onAvatarChanged}/>
+        </Box>
+      </Flex>
       <GenFormInput
         placeholder={t('Name')}
         name={'name'}
