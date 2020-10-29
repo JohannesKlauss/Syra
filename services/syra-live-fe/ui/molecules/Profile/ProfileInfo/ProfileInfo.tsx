@@ -4,6 +4,7 @@ import { UserProfileByHandleQuery } from '../../../../gql/generated';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import ProfileActions from '../ProfileActions/ProfileActions';
+import { RiEdit2Fill } from 'react-icons/ri';
 
 interface Props {
   user: UserProfileByHandleQuery;
@@ -19,18 +20,27 @@ function ProfileInfo({ user: { user } }: Props) {
         <Box flex={1}>
           <Flex align={'center'} justify={'space-between'}>
             <Text fontSize={'lg'} fontWeight={600}>@{user.handle}</Text>
-            <ProfileActions baseIsFollowing={user.isMeFollowing} handle={user.handle}/>
+            {user.isMyself
+              ? (
+                <Button leftIcon={RiEdit2Fill}>
+                  <Link href={'/account/edit'}>
+                    {t('Edit your profile')}
+                  </Link>
+                </Button>
+              )
+              : <ProfileActions baseIsFollowing={user.isMeFollowing} handle={user.handle}/>
+            }
           </Flex>
           <Flex marginY={4}>
             <Text><strong>5</strong> {t('sessions')}</Text>
             <Text marginX={8}><strong>{user.followedByCount}</strong> {t('Followers')}</Text>
             <Text><strong>{user.followingCount}</strong> {t('Following')}</Text>
           </Flex>
-            <Box>
-              <Text fontWeight={600}>{user.name}</Text>
-              <Text marginY={1}>{user.bio}</Text>
-              <ChakraLink href={user.website} isExternal color={'teal.200'} fontWeight={600}>{user.website}</ChakraLink>
-            </Box>
+          <Box>
+            <Text fontWeight={600}>{user.name}</Text>
+            <Text marginY={1}>{user.bio}</Text>
+            <ChakraLink href={user.website} isExternal color={'teal.200'} fontWeight={600}>{user.website}</ChakraLink>
+          </Box>
           <Flex align={'center'} justify={'space-between'} marginY={4}>
             <Text color={'gray.400'} fontSize={'sm'}>
               {t('Followed by')}

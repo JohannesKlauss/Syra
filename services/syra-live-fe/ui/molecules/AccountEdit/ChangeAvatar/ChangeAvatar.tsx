@@ -13,9 +13,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import Cropper from 'react-easy-crop';
 import { RiZoomOutLine, RiZoomInLine } from 'react-icons/ri';
-import readFile from '../../../../helpers/fs/readFile';
-import { getCroppedImg } from '../../../../helpers/canvas/imageCreation';
-import axios from 'axios';
 import useChangeAvatar from './useChangeAvatar';
 
 interface Props {

@@ -24,6 +24,11 @@ export class CustomUserResolver {
     return ctx.prisma.user.count({ where: { id: user.id, followedBy: { some: { id: ctx.user.id } } } });
   }
 
+  @TypeGraphQL.FieldResolver(type => Boolean, { nullable: true })
+  async isMyself(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<boolean> {
+    return user.id === ctx.user.id;
+  }
+
   @TypeGraphQL.Authorized([Role.USER])
   @TypeGraphQL.Query(_returns => User, {
     nullable: false,

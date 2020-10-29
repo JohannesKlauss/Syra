@@ -38,7 +38,7 @@ function LogInModal({ onClickSwitchToSignUp, onClose, isOpen }: Props) {
     setHasError(success);
 
     if (success) {
-      // await push('/feed');
+      await push('/feed');
     }
   };
 

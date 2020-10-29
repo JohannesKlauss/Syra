@@ -2,11 +2,15 @@ import { getCroppedImg } from '../../../../helpers/canvas/imageCreation';
 import axios from 'axios';
 import { useCallback, useState } from 'react';
 import readFile from '../../../../helpers/fs/readFile';
+import useApiResToast from '../../../../hooks/ui/useApiResToast';
+import { useTranslation } from 'react-i18next';
 
 export default function useChangeAvatar(avatar: string, onClose: () => void) {
   const [croppedPixels, setCroppedPixels] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [imageSrc, setImageSrc] = useState(avatar);
+  const toast = useApiResToast();
+  const { t } = useTranslation();
 
   const onCropComplete = useCallback((_, croppedAreaPixels) => {
     setCroppedPixels(croppedAreaPixels);
@@ -33,6 +37,7 @@ export default function useChangeAvatar(avatar: string, onClose: () => void) {
       });
 
       if (res.status === 201) {
+        toast(t('We updated your profile image.'));
         onClose();
         cb(res.data);
       }

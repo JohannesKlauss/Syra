@@ -5,9 +5,10 @@ export const MeMock: MeQuery = {
     __typename: 'User',
     avatar: 'https://lh3.googleusercontent.com/ogw/ADGmqu_DctzkJyd0vl_0irH3OXgL-ntQfsxjdnqV59S_Rw=s192-c-mo',
     email: 'klauss.johannes@gmail.com',
-    bio: 'Just a short selfdescription about myself.',
+    bio: 'Just a short self description about myself.',
     handle: 'foo',
     website: 'https://syra.live',
+    isMyself: true,
     interests: [
       {value: 'DAWs', __typename: 'Tag'},
       {value: 'Programming', __typename: 'Tag'},
@@ -41,6 +42,7 @@ export const UserProfileByHandleMock: UserProfileByHandleQuery = {
     bio: 'Just a short selfdescription about myself.',
     handle: 'foo',
     website: 'https://syra.live',
+    isMyself: false,
     interests: [
       {value: 'DAWs', __typename: 'Tag'},
       {value: 'Programming', __typename: 'Tag'},

@@ -3,8 +3,8 @@ const createImage: (url: string) => Promise<HTMLImageElement> = url =>
     const image = new Image();
     image.addEventListener('load', () => resolve(image));
     image.addEventListener('error', error => reject(error));
-    image.setAttribute('crossOrigin', 'anonymous'); // needed to avoid cross-origin issues on CodeSandbox
-    image.src = url;
+    image.setAttribute('crossOrigin', '');
+    image.src = `${url}?${new Date().getTime()}`;
   });
 
 function getRadianAngle(degreeValue) {

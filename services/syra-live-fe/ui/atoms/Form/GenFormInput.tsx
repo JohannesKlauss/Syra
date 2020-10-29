@@ -7,9 +7,10 @@ interface Props {
   helpText?: string;
   placeholder: string;
   name: string;
+  defaultValue?: string;
 }
 
-const GenFormInput = React.forwardRef<HTMLInputElement, Props>(({ isRequired, name, label, helpText, placeholder }, ref) => {
+const GenFormInput = React.forwardRef<HTMLInputElement, Props>(({ defaultValue, isRequired, name, label, helpText, placeholder }, ref) => {
   return (
     <FormControl isRequired={isRequired} marginY={4}>
       <FormLabel htmlFor={name}>{label}</FormLabel>
@@ -19,6 +20,7 @@ const GenFormInput = React.forwardRef<HTMLInputElement, Props>(({ isRequired, na
         name={name}
         ref={ref}
         isFullWidth
+        defaultValue={defaultValue}
         aria-describedby={`${name}-helper-text`}
         placeholder={placeholder}/>
       <FormHelperText id={`${name}-helper-text`}>

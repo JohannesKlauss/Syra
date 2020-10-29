@@ -19,6 +19,7 @@ fragment BaseProfile on User {
     handle
     followedByCount
     followingCount
+    isMyself
     followedBy(take: 3) {
         ...UserLink
     }
@@ -63,6 +64,12 @@ mutation signUpUser($name: String!, $email: String!, $password: String!, $access
     signUpUser(data: {name: $name, email: $email, password: $password, accessCode: $accessCode}) {
         id
         name
+    }
+}
+
+mutation updateUser($data: UserUpdateInput!, $me: String) {
+    updateUser(where: {id: $me}, data: $data) {
+        id
     }
 }
 

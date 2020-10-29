@@ -10,14 +10,15 @@ import {
   Input,
   Skeleton,
   Text,
-  Link as ChakraLink,
 } from '@chakra-ui/core';
 import { useForm } from 'react-hook-form';
 import GenFormInput from '../../../atoms/Form/GenFormInput';
 import { useTranslation } from 'react-i18next';
 import AutoResizeTextarea from '../../../atoms/AutoResizeTextarea/AutoResizeTextarea';
-import { useMeQuery } from '../../../../gql/generated';
+import { useMeQuery, useUpdateUserMutation } from '../../../../gql/generated';
 import ChangeAvatar from '../ChangeAvatar/ChangeAvatar';
+import transformFormDataToGqlInputObject from '../../../../helpers/gql/formDataTransformer';
+import useApiResToast from '../../../../hooks/ui/useApiResToast';
 
 interface Props {
 }
@@ -25,7 +26,6 @@ interface Props {
 type TEditProfileForm = {
   name: string;
   handle: string;
-  avatar: string;
   website: string;
   bio: string;
   email: string;
@@ -33,17 +33,31 @@ type TEditProfileForm = {
 
 function EditProfileTab({}: Props) {
   const { t } = useTranslation();
+  const toast = useApiResToast();
   const [optimisticAvatar, setOptimisticAvatar] = useState<string>(null);
   const { data: { me }, loading, error, refetch } = useMeQuery();
+  const [executeUpdateUser, {loading: isMutationExecuting}] = useUpdateUserMutation();
   const { register, handleSubmit } = useForm<TEditProfileForm>();
 
-  if (loading) return <Skeleton h={24}/>;
-  if (error) return null;
+  const onSubmit = async (data: TEditProfileForm) => {
+    const result = await executeUpdateUser({
+      variables: {
+        data: transformFormDataToGqlInputObject(data)
+      }
+    });
+
+    if (result.errors === undefined) {
+      toast(t('We updated your profile.'));
+    }
+  };
 
   const onAvatarChanged = (src: string) => {
     setOptimisticAvatar(src);
     refetch();
   }
+
+  if (loading) return <Skeleton h={24}/>;
+  if (error) return null;
 
   return (
     <Box>
@@ -54,57 +68,64 @@ function EditProfileTab({}: Props) {
           <ChangeAvatar avatar={optimisticAvatar ?? me.avatar} onAvatarChanged={onAvatarChanged}/>
         </Box>
       </Flex>
-      <GenFormInput
-        placeholder={t('Name')}
-        name={'name'}
-        label={t('Name')}
-        helpText={t('accountEditNameHelpText')}
-        isRequired
-        ref={register({ required: true })}
-      />
-      <GenFormInput
-        placeholder={t('Handle')}
-        name={'handle'}
-        label={t('Handle')}
-        helpText={t('accountEditHandleHelpText')}
-        isRequired
-        ref={register({ required: true, minLength: 3 })}
-      />
-      <GenFormInput
-        placeholder={t('Website')}
-        name={'website'}
-        label={t('Website')}
-        ref={register()}
-      />
-      <FormControl>
-        <FormLabel htmlFor={'bio'}>{t('Bio')}</FormLabel>
-        <AutoResizeTextarea
-          id="text"
-          name={'bio'}
-          w={'100%'}
-          ref={register()}
-          placeholder={t('Short Bio')}/>
-      </FormControl>
-      <FormControl isRequired marginY={4}>
-        <FormLabel htmlFor="email">{t('Email address')}</FormLabel>
-        <Input
-          type="email"
-          id="email"
-          name={'email'}
-          ref={register({
-            required: true, pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: t('Invalid email address'),
-            },
-          })}
-          aria-describedby="email-helper-text"
-          placeholder={'you@example.com'}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <GenFormInput
+          placeholder={t('Name')}
+          name={'name'}
+          label={t('Name')}
+          helpText={t('accountEditNameHelpText')}
+          isRequired
+          defaultValue={me.name}
+          ref={register({ required: true })}
         />
-        <FormHelperText id="email-helper-text">
-          {t('We\'ll never share your email.')}
-        </FormHelperText>
-      </FormControl>
-      <Button isLoading={false} marginY={4} type={'submit'} isFullWidth variantColor={'teal'}>{t('Update')}</Button>
+        <GenFormInput
+          placeholder={t('Handle')}
+          name={'handle'}
+          label={t('Handle')}
+          helpText={t('accountEditHandleHelpText')}
+          isRequired
+          defaultValue={me.handle}
+          ref={register({ required: true, minLength: 3 })}
+        />
+        <GenFormInput
+          placeholder={t('Website')}
+          name={'website'}
+          label={t('Website')}
+          defaultValue={me.website}
+          ref={register()}
+        />
+        <FormControl>
+          <FormLabel htmlFor={'bio'}>{t('Bio')}</FormLabel>
+          <AutoResizeTextarea
+            id="text"
+            name={'bio'}
+            w={'100%'}
+            ref={register()}
+            defaultValue={me.bio}
+            placeholder={t('Short Bio')}/>
+        </FormControl>
+        <FormControl isRequired marginY={4}>
+          <FormLabel htmlFor="email">{t('Email address')}</FormLabel>
+          <Input
+            type="email"
+            id="email"
+            name={'email'}
+            defaultValue={me.email}
+            ref={register({
+              required: true, pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: t('Invalid email address'),
+              },
+            })}
+            aria-describedby="email-helper-text"
+            placeholder={'you@example.com'}
+          />
+          <FormHelperText id="email-helper-text">
+            {t('We\'ll never share your email.')}
+          </FormHelperText>
+        </FormControl>
+        <Button isLoading={isMutationExecuting} marginY={4} type={'submit'} isFullWidth variantColor={'teal'}>{t('Update')}</Button>
+      </form>
     </Box>
   );
 }
