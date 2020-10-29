@@ -3,8 +3,8 @@ const createImage: (url: string) => Promise<HTMLImageElement> = url =>
     const image = new Image();
     image.addEventListener('load', () => resolve(image));
     image.addEventListener('error', error => reject(error));
-    image.setAttribute('crossOrigin', '');
-    image.src = `${url}?${new Date().getTime()}`;
+    image.setAttribute('crossOrigin', 'anonymous');
+    image.src = url;
   });
 
 function getRadianAngle(degreeValue) {

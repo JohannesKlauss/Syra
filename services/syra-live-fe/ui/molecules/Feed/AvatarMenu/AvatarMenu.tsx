@@ -49,7 +49,7 @@ function AvatarMenu({}: Props) {
           <Avatar name={data.me.name} src={data.me.avatar} size={'sm'}/>
           <Box marginLeft={4}>
             <Text fontSize={'xs'} color={'gray.200'}>{data.me.name}</Text>
-            <Text fontSize={'xs'} color={'teal.400'}>{t('View Profile')}</Text>
+            <Text fontSize={'xs'} color={'purple.400'}>{t('View Profile')}</Text>
           </Box>
         </MenuItem>
         <MenuDivider/>
@@ -91,7 +91,7 @@ function AvatarMenu({}: Props) {
           </Box>
         </MenuItem>
         <MenuDivider/>
-        <MenuItem>
+        <MenuItem onClick={() => push('/account/edit')}>
           <Box as={RiSettings4Fill}/>
           <Box marginLeft={4}>
             <Text>{t('Settings')}</Text>
