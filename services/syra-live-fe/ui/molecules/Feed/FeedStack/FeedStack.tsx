@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, Skeleton, Stack } from '@chakra-ui/core';
+import { Skeleton, Stack } from '@chakra-ui/core';
 import FeedItem from '../FeedItem/FeedItem';
-import { TFeedItem } from '../../../../types/Feed';
-import { DisplayFeedItemFragment, useMyFeedQuery } from '../../../../gql/generated';
+import { useMyFeedQuery } from '../../../../gql/generated';
+import EmptyFeed from "../../../atoms/EmptyFeed/EmptyFeed";
 
 interface Props {
 }
@@ -10,8 +10,12 @@ interface Props {
 function FeedStack({}: Props) {
   const { data, loading, error } = useMyFeedQuery();
 
-  if (loading) return <Skeleton h={24}/>
+  if (loading) return <Skeleton h={24} />;
   if (error) return null;
+
+  if (data.feedItems.length === 0) {
+    return <EmptyFeed />;
+  }
 
   return (
     <Stack spacing={8} w={'100%'}>

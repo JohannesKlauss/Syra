@@ -5,8 +5,6 @@ import { Box, Flex, PseudoBox } from '@chakra-ui/core';
 import ProfileBox from '../../ui/molecules/Feed/ProfileBox/ProfileBox';
 import FollowRecommendationsBox from '../../ui/molecules/Feed/FollowRecommendationsBox/FollowRecommendationsBox';
 import FeedStack from '../../ui/molecules/Feed/FeedStack/FeedStack';
-import Footer from '../../ui/atoms/Footer/Footer';
-import Stopper from '../../ui/atoms/Stopper/Stopper';
 import CreateFeedItem from '../../ui/molecules/Feed/CreateFeedItem/CreateFeedItem';
 import { GetServerSideProps } from 'next';
 import { initializeApollo } from '../../apollo/client';

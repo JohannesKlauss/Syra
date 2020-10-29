@@ -34,8 +34,8 @@ query feedItemsByHandle($handle: String!, $cursor: String) {
     }
 }
 
-query myFeed($cursor: String, $me: String) {
-    feedItems(where: {author: {is: {followedBy: {some: {id: {equals: $me}}}}}}, orderBy: [{createdAt: desc}], cursor: {id: $cursor}) {
+query myFeed($me: String) {
+    feedItems(where: {author: {is: {followedBy: {some: {id: {equals: $me}}}}}}, orderBy: [{createdAt: desc}], take: 5) {
         ...DisplayFeedItem
     }
 }
