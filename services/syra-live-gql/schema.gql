@@ -1714,6 +1714,10 @@ input FeedItemWhereUniqueInput {
 }
 
 input IntFieldUpdateOperationsInput {
+  decrement: Int
+  divide: Int
+  increment: Int
+  multiply: Int
   set: Int
 }
 
