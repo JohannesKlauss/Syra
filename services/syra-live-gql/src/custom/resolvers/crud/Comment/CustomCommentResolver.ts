@@ -14,4 +14,14 @@ export class CustomCommentResolver {
   async commentCount(@TypeGraphQL.Root() comment: Comment, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
     return ctx.prisma.comment.count({ where: { parentComment: { id: { equals: comment.id } } } });
   }
+
+  @TypeGraphQL.FieldResolver((type) => Boolean, { nullable: true })
+  async isMeLiking(@TypeGraphQL.Root() comment: Comment, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
+    return ctx.prisma.commentLike.count({
+      where: {
+        commentId: comment.id,
+        userId: ctx.user.id,
+      },
+    });
+  }
 }

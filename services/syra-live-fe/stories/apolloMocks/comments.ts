@@ -12,6 +12,7 @@ export const FirsLevelCommentsMock: FirstLevelCommentsQuery = {
       },
       id: 'foo',
       likeCount: 45,
+      isMeLiking: false,
       text:
         'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat',
       updatedAt: 1603801408,
@@ -32,6 +33,7 @@ export const SecondLevelCommentsMock: SecondLevelCommentsQuery = {
       },
       id: 'foo',
       likeCount: 45,
+      isMeLiking: false,
       text:
         'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat',
       updatedAt: 1603801408,

@@ -391,6 +391,7 @@ type Comment {
   feedItem: FeedItem
   feedItemId: String
   id: String!
+  isMeLiking: Boolean
   likeCount: Int
   likes(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]
   parentComment: Comment

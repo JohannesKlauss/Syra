@@ -8,6 +8,7 @@ fragment BlockComment on Comment {
     text
     updatedAt
     likeCount
+    isMeLiking
 }
 
 fragment CreatedComment on Comment {
@@ -39,5 +40,17 @@ mutation postCommentToFeedItem($feedItemId: String!, $text: String!, $me: String
 mutation postCommentToComment($commentId: String!, $text: String!, $me: String) {
     createComment(data: {text: $text, parentComment: {connect: {id: $commentId}}, author: {connect: {id: $me}}}) {
         ...CreatedComment
+    }
+}
+
+mutation likeComment($commentId: String!, $me: String) {
+    createCommentLike(data: {comment: {connect: {id: $commentId}}, user: {connect: {id: $me}}}) {
+        commentId
+    }
+}
+
+mutation unlikeComment($commentId: String!, $me: String!) {
+    deleteCommentLike(where: {userId_commentId: {commentId: $commentId, userId: $me}}) {
+        commentId
     }
 }
