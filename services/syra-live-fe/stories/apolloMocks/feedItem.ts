@@ -16,6 +16,7 @@ export const FeedItemByIdMockFoo: FeedItemByIdQuery = {
     __typename: 'FeedItem',
     updatedAt: 1603801408,
     likeCount: 34,
+    isMeLiking: true,
     id: 'foo',
     commentCount: 12,
     author: {
@@ -51,6 +52,7 @@ export const FeedItemByIdMockBar: FeedItemByIdQuery = {
     likeCount: 34,
     id: 'bar',
     commentCount: 12,
+    isMeLiking: false,
     author: {
       __typename: 'User',
       name: 'Johannes Klauss',

@@ -14,4 +14,9 @@ export class CustomFeedItemResolver {
   async commentCount(@TypeGraphQL.Root() feedItem: FeedItem, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
     return ctx.prisma.comment.count({ where: { feedItemId: feedItem.id } });
   }
+
+  @TypeGraphQL.FieldResolver(type => Boolean, { nullable: true })
+  async isMeLiking(@TypeGraphQL.Root() feedItem: FeedItem, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
+    return ctx.prisma.feedItemLike.count({ where: { feedItemId: feedItem.id, userId: ctx.user.id } });
+  }
 }

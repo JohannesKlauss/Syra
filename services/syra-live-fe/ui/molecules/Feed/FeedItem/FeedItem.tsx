@@ -7,7 +7,7 @@ import FeedItemActions from './FeedItemActions/FeedItemActions';
 import { useFeedItemByIdQuery } from '../../../../gql/generated';
 import Link from 'next/link';
 import CreateComment from '../CreateComment/CreateComment';
-import CommentList from "../CommentList/CommentList";
+import CommentList from '../CommentList/CommentList';
 
 interface Props {
   id: string;
@@ -57,11 +57,16 @@ function FeedItem({ id }: Props) {
         <Text fontSize={'sm'}>{feedItem.text}</Text>
       </Box>
       <Box paddingX={4} py={2}>
-        <FeedItemActions likes={feedItem.likeCount} listens={feedItem.mixdown && feedItem.mixdown.listens} />
+        <FeedItemActions
+          feedItemId={feedItem.id}
+          isMeLiking={feedItem.isMeLiking}
+          likes={feedItem.likeCount}
+          listens={feedItem.mixdown && feedItem.mixdown.listens}
+        />
         <Divider marginY={2} />
       </Box>
       <Box padding={4} paddingTop={0}>
-        <CommentList feedItemId={feedItem.id}/>
+        <CommentList feedItemId={feedItem.id} />
         <CreateComment feedItemId={feedItem.id} />
       </Box>
     </Box>

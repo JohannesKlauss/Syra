@@ -1055,6 +1055,7 @@ type FeedItem {
   comments(cursor: CommentWhereUniqueInput, distinct: [CommentDistinctFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]
   createdAt: Timestamp!
   id: String!
+  isMeLiking: Boolean
   isPublished: Boolean!
   likeCount: Int
   likes(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeDistinctFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]
