@@ -4,9 +4,15 @@ import { mockApollo, mockApolloResult } from '../mockApollo';
 import {
   CreateFeedItemDocument,
   CreateFeedItemMutation,
-  CreateFeedItemMutationVariables, FeedItemByIdDocument, FeedItemByIdQuery, FeedItemByIdQueryVariables,
+  CreateFeedItemMutationVariables,
+  FeedItemByIdDocument,
+  FeedItemByIdQuery,
+  FeedItemByIdQueryVariables, FirstLevelCommentsDocument,
+  FirstLevelCommentsQuery, FirstLevelCommentsQueryVariables,
   MeDocument,
-  MeQuery, MyFeedDocument, MyFeedQuery,
+  MeQuery,
+  MyFeedDocument,
+  MyFeedQuery,
   MyMixdownsDocument,
   MyMixdownsQuery
 } from "../../gql/generated";
@@ -19,6 +25,7 @@ import {
   FeedItemsByHandleMock
 } from "../apolloMocks/feedItem";
 import { withApolloClient } from 'storybook-addon-apollo-client';
+import { FirsLevelCommentsMock } from "../apolloMocks/comments";
 
 const Template = (args) => <Feed {...args} />;
 
@@ -48,4 +55,11 @@ Default.parameters = mockApollo([
     text: 'Test',
   }),
   mockApolloResult<MeQuery>(MeDocument, MeMock),
+  mockApolloResult<FirstLevelCommentsQuery, FirstLevelCommentsQueryVariables>(
+    FirstLevelCommentsDocument,
+    FirsLevelCommentsMock,
+    {
+      feedItemId: 'foo',
+    },
+  ),
 ]);

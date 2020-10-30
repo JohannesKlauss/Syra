@@ -20,12 +20,6 @@ fragment DisplayFeedItem on FeedItem {
     mixdown {
         ...FeedMixdown
     }
-    comments(orderBy: [{createdAt: desc}]) {
-        ...FeedComment
-        subComments(orderBy: [{createdAt: desc}]) {
-            ...FeedComment
-        }
-    }
 }
 
 query feedItemsByHandle($handle: String!, $cursor: String) {

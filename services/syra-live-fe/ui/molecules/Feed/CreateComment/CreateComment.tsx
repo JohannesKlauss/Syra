@@ -34,7 +34,7 @@ function CreateComment({ feedItemId }: Props) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
-      <Flex align={'top'}>
+      <Flex align={'top'} pt={4}>
         <Avatar size={'sm'} src={data.me.avatar} name={data.me.name}/>
         <FormControl ml={4} w={'100%'}>
           <AutoResizeTextarea

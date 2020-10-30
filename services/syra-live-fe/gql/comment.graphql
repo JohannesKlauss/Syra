@@ -4,6 +4,7 @@ fragment BlockComment on Comment {
         name
         handle
     }
+    id
     text
     updatedAt
     likeCount
@@ -16,17 +17,15 @@ fragment CreatedComment on Comment {
 }
 
 query firstLevelComments($feedItemId: String!) {
-    comments(where: {feedItemId: {equals: $feedItemId}}, take: 10, orderBy: [{createdAt: desc}]) {
+    comments(where: {feedItemId: {equals: $feedItemId}}, take: 2, orderBy: [{createdAt: desc}]) {
         ...BlockComment
         commentCount
     }
 }
 
 query secondLevelComments($commentId: String!) {
-    comment(where: {id: $commentId}) {
-        subComments(take: 10) {
-            ...BlockComment
-        }
+    comments(where: {parentComment: {is: {id: {equals: $commentId}}}}, take: 2) {
+        ...BlockComment
     }
 }
 
