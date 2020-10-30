@@ -4,15 +4,20 @@ import { mockApollo, mockApolloResult } from '../mockApollo';
 import {
   CreateFeedItemDocument,
   CreateFeedItemMutation,
-  CreateFeedItemMutationVariables,
+  CreateFeedItemMutationVariables, FeedItemByIdDocument, FeedItemByIdQuery, FeedItemByIdQueryVariables,
   MeDocument,
   MeQuery, MyFeedDocument, MyFeedQuery,
   MyMixdownsDocument,
-  MyMixdownsQuery,
-} from '../../gql/generated';
+  MyMixdownsQuery
+} from "../../gql/generated";
 import { MeMock } from '../apolloMocks/user';
 import { MyMixdownsMock } from '../apolloMocks/mixdown';
-import { CreateFeedItemMock, FeedItemsByHandleMock } from '../apolloMocks/feedItem';
+import {
+  CreateFeedItemMock,
+  FeedItemByIdMockBar,
+  FeedItemByIdMockFoo,
+  FeedItemsByHandleMock
+} from "../apolloMocks/feedItem";
 import { withApolloClient } from 'storybook-addon-apollo-client';
 
 const Template = (args) => <Feed {...args} />;
@@ -32,8 +37,15 @@ Default.parameters = mockApollo([
   mockApolloResult<MeQuery>(MeDocument, MeMock),
   mockApolloResult<MyMixdownsQuery>(MyMixdownsDocument, MyMixdownsMock),
   mockApolloResult<MyFeedQuery>(MyFeedDocument, FeedItemsByHandleMock),
+  mockApolloResult<FeedItemByIdQuery, FeedItemByIdQueryVariables>(FeedItemByIdDocument, FeedItemByIdMockFoo, {
+    id: 'foo'
+  }),
+  mockApolloResult<FeedItemByIdQuery, FeedItemByIdQueryVariables>(FeedItemByIdDocument, FeedItemByIdMockBar, {
+    id: 'bar'
+  }),
   mockApolloResult<CreateFeedItemMutation, CreateFeedItemMutationVariables>(CreateFeedItemDocument, CreateFeedItemMock, {
     me: 'foo',
     text: 'Test',
   }),
+  mockApolloResult<MeQuery>(MeDocument, MeMock),
 ]);

@@ -30,18 +30,34 @@ fragment DisplayFeedItem on FeedItem {
 
 query feedItemsByHandle($handle: String!, $cursor: String) {
     feedItems(where: {author: {is: {handle: {equals: $handle}}}}, cursor: {id: $cursor}, take: 8, orderBy: [{createdAt: desc}]) {
-        ...DisplayFeedItem
+        id
     }
 }
 
 query myFeed($me: String) {
     feedItems(where: {author: {is: {followedBy: {some: {id: {equals: $me}}}}}}, orderBy: [{createdAt: desc}], take: 5) {
+        id
+    }
+}
+
+query feedItemById($id: String!) {
+    feedItem(where: {id: $id}) {
         ...DisplayFeedItem
     }
 }
 
 mutation createFeedItem($text: String!, $mixdownId: String, $me: String) {
-    createFeedItem(data: {text: $text, mixdown: {connect: {id: $mixdownId}} author: {connect: {id: $me}}}) {
+    createFeedItem(data: {text: $text, mixdown: {connect: {id: $mixdownId}}, author: {connect: {id: $me}}}) {
+        id
+        likeCount
+        commentCount
+        createdAt
+        updatedAt
+    }
+}
+
+mutation createTextFeedItem($text: String!, $me: String) {
+    createFeedItem(data: {text: $text, author: {connect: {id: $me}}}) {
         id
         likeCount
         commentCount

@@ -1,0 +1,44 @@
+fragment BlockComment on Comment {
+    author {
+        avatar
+        name
+        handle
+    }
+    text
+    updatedAt
+    likeCount
+}
+
+fragment CreatedComment on Comment {
+    id
+    likeCount
+    updatedAt
+}
+
+query firstLevelComments($feedItemId: String!) {
+    comments(where: {feedItemId: {equals: $feedItemId}}, take: 10, orderBy: [{createdAt: desc}]) {
+        ...BlockComment
+        commentCount
+    }
+}
+
+query secondLevelComments($commentId: String!) {
+    comment(where: {id: $commentId}) {
+        subComments(take: 10) {
+            ...BlockComment
+        }
+    }
+}
+
+mutation postCommentToFeedItem($feedItemId: String!, $text: String!, $me: String) {
+    createComment(data: {text: $text, feedItem: {connect: {id: $feedItemId}}, author: {connect: {id: $me}}}) {
+        ...CreatedComment
+        commentCount
+    }
+}
+
+mutation postCommentToComment($commentId: String!, $text: String!, $me: String) {
+    createComment(data: {text: $text, parentComment: {connect: {id: $commentId}}, author: {connect: {id: $me}}}) {
+        ...CreatedComment
+    }
+}

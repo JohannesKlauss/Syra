@@ -7,7 +7,7 @@
     "start": "next start",
     "type-check": "tsc",
     "gql-generate": "graphql-codegen",
-    "storybook": "start-storybook -p 6006 -s ./,./public",
+    "storybook": "start-storybook -p 6006 -s ./public",
     "build-storybook": "build-storybook"
   },
   "dependencies": {

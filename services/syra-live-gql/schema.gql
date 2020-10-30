@@ -386,6 +386,7 @@ input BoolNullableFilter {
 type Comment {
   author: User!
   authorId: String!
+  commentCount: Int
   createdAt: Timestamp!
   feedItem: FeedItem
   feedItemId: String

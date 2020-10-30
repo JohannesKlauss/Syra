@@ -19,7 +19,7 @@ function FeedStack({}: Props) {
 
   return (
     <Stack spacing={8} w={'100%'}>
-      {data.feedItems.map((item, i) => <FeedItem key={i} feedItem={item}/>)}
+      {data.feedItems.map(({ id }) => <FeedItem key={id} id={id} />)}
     </Stack>
   );
 }

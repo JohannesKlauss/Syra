@@ -21,10 +21,7 @@ axios.interceptors.response.use(
 
 mixpanel.init('6497f5e8ce1803840e22d2c93af089d9', { api_host: 'https://api-eu.mixpanel.com' }, 'Syra Live');
 
-Router.events.on('routeChangeStart', (url) => {
-  console.log(`Loading: ${url}`);
-  NProgress.start();
-});
+Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
@@ -34,9 +31,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        {/* Import CSS for nprogress */}
         <link rel="stylesheet" type="text/css" href="/static/css/nprogress.css" />
-        <title>{pageProps.pageTitle ?? 'S Y R A  |  Live'}</title>
+        <title>{`S Y R A  |  Live ${pageProps.pageTitle}`}</title>
       </Head>
       <ApolloProvider client={apolloClient}>
       <RecoilRoot>
