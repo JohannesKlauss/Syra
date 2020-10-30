@@ -3216,17 +3216,25 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@prisma/cli@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.8.1.tgz#fdfeb56857f2fb08ec9769537279745749effcf7"
-  integrity sha512-mEGJplClGnXI5ki4R0Xq8nq62zcyu7Wzdhybege+cFPZFUbFj0petaPZl/tqta9o5neDyvpU/lDgOwef6mwySg==
+"@prisma/bar@^0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@prisma/bar/-/bar-0.0.0.tgz#9daff159a1a09abf7665a8b6e40ddc1fdc1ed4f7"
+  integrity sha512-3nez9n/vMyAr4+nmqj6Xh3cGZbreYHr3RWX0vgtrFRpiN6otuCzL+9HW8MW/DfZNuFz5YyIdfwnRSPueUZPoWQ==
 
-"@prisma/client@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.8.1.tgz#6fe87968eed42901cf76c623985222ebc318c292"
-  integrity sha512-apt6ioi2euOZA1O9mPA8AMRjPoPECsva76gMCcHCVgHvhkMNpFkcbn+UTkErJYrTgcRR7CPQt4D+fw8pkAHfjA==
+"@prisma/cli@2.10.1":
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.10.1.tgz#e99ebff7290e27c13062543f464f169448e5587c"
+  integrity sha512-I+51GBJyuGS5xsCl8pf4XfTt9HIdhCJQoaGCA9KLDzVRbFHElMQ++hhyhLohJ4buFZlSagIq8NI8yIC5yu+Wkg==
   dependencies:
-    pkg-up "^3.1.0"
+    "@prisma/bar" "^0.0.0"
+    "@prisma/engines" "2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111"
+
+"@prisma/client@2.10.1":
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.10.1.tgz#96fe79ad0d7763d0eda1ea91870a8882e4dbb21f"
+  integrity sha512-VwasxCCwdRmrcVVoLwXTEbwrBiqOYr2Umqw9btvMvHGRhA1nRKCvmt7SCiCjGrx6CuC8eCG/HGxruv04001YKQ==
+  dependencies:
+    "@prisma/engines-version" "2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111"
 
 "@prisma/debug@2.10.1":
   version "2.10.1"
@@ -3253,6 +3261,11 @@
     p-retry "^4.2.0"
     terminal-link "^2.1.1"
     undici "2.1.0"
+
+"@prisma/engines-version@2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111":
+  version "2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111"
+  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111.tgz#7f96aa61085fc803f81b3df0fa32297909ce4b08"
+  integrity sha512-OuOSTvEzXJwCJzNqZ9N/+J3lO64HgX9uGiVOuvlTrRSXoLZk0Q2IiLAx8qhY1U7jPpHJ7LTlZuGNScimqonpJg==
 
 "@prisma/engines@2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111":
   version "2.10.1-6-7d0087eadc7265e12d4b8d8c3516b02c4c965111"
