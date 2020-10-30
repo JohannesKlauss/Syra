@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar, Box, Button, Divider, Flex, FormControl, Skeleton } from '@chakra-ui/core';
-import { useCreateFeedItemMutation, useMeQuery } from '../../../../gql/generated';
+import { useCreateFeedItemMutation, useCreateTextFeedItemMutation, useMeQuery } from "../../../../gql/generated";
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import AttachMixdown from './AttachMixdown/AttachMixdown';
@@ -15,26 +15,37 @@ interface Props {
 
 type TCreateFeedItemForm = {
   text: string;
-  mixdownId: string;
+  mixdownId?: string;
 }
 
 function CreateFeedItem({}: Props) {
   const { data, loading, error } = useMeQuery();
   const [executeCreateFeedItem, {loading: isSending}] = useCreateFeedItemMutation();
+  const [executeCreateTextFeedItem, {loading: isSendingText}] = useCreateTextFeedItemMutation();
   const setRefetchFeed = useSetRecoilState(feedStore.refetchFeed);
   const { t } = useTranslation();
   const { register, handleSubmit, setValue, getValues } = useForm<TCreateFeedItemForm>();
 
   const onSubmit = async (formData: TCreateFeedItemForm) => {
     const me = data.me.id;
+    let result;
 
-    const result = await executeCreateFeedItem({
-      variables: {
-        me,
-        text: formData.text,
-        mixdownId: formData.mixdownId
-      },
-    });
+    if (formData.mixdownId) {
+      result = await executeCreateFeedItem({
+        variables: {
+          me,
+          text: formData.text,
+          mixdownId: formData.mixdownId
+        },
+      });
+    } else {
+      result = await executeCreateTextFeedItem({
+        variables: {
+          me,
+          text: formData.text,
+        },
+      });
+    }
 
     if (result.data.createFeedItem.id) {
       setRefetchFeed(true);
@@ -66,7 +77,7 @@ function CreateFeedItem({}: Props) {
           <Divider/>
           <Flex>
             <AttachMixdown onSelectMixdown={mixdownId => setValue('mixdownId', mixdownId)}/>
-            <Button marginLeft={4} isFullWidth variantColor={'teal'} isLoading={isSending} type={'submit'}>{t('Post')}</Button>
+            <Button marginLeft={4} isFullWidth variantColor={'teal'} isLoading={isSending || isSendingText} type={'submit'}>{t('Post')}</Button>
           </Flex>
         </Box>
         {getValues().mixdownId && <FeedItemAudioPreview mixdownId={getValues().mixdownId}/>}
