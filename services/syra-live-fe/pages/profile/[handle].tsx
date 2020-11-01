@@ -28,7 +28,7 @@ export default function Profile() {
     <>
       <TopBar/>
       <PageBox>
-        <ProfileInfo user={data}/>
+        <ProfileInfo user={data.user}/>
         <Flex align={"center"} marginY={2}>
           <Divider flex={4}/>
           <Text marginX={4} fontSize={"md"} textAlign={"center"} color={'gray.400'}>{t('Feed')}</Text>

@@ -2,7 +2,6 @@ import React from 'react';
 import App from 'next/app';
 import { ColorModeProvider, CSSReset, ThemeProvider } from '@chakra-ui/core';
 import { RecoilRoot } from 'recoil';
-import { appWithTranslation } from '../i18n';
 import { useApollo } from '../apollo/client';
 import { ApolloProvider } from '@apollo/client';
 import axios from 'axios';
@@ -12,7 +11,8 @@ import Stopper from '../ui/atoms/Stopper/Stopper';
 import '../styles/global.css';
 import { Router } from 'next/router';
 import * as NProgress from 'nprogress';
-import Head from "next/head";
+import Head from 'next/head';
+import { appWithTranslation } from '../i18n';
 
 axios.interceptors.response.use(
   (response) => response,
@@ -32,22 +32,21 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <link rel="stylesheet" type="text/css" href="/static/css/nprogress.css" />
-        <title>{`S Y R A  |  Live ${pageProps.pageTitle}`}</title>
+        <title>{`S Y R A  |  Live ${pageProps.pageTitle ?? ''}`}</title>
       </Head>
       <ApolloProvider client={apolloClient}>
-      <RecoilRoot>
-        <ThemeProvider>
-          <ColorModeProvider value={'dark'}>
-            <CSSReset />
-            <Component {...pageProps} />
-            <Footer />
-            <Stopper />
-          </ColorModeProvider>
-        </ThemeProvider>
-      </RecoilRoot>
-    </ApolloProvider>
+        <RecoilRoot>
+          <ThemeProvider>
+            <ColorModeProvider value={'dark'}>
+              <CSSReset />
+              <Component {...pageProps} />
+              <Footer />
+              <Stopper />
+            </ColorModeProvider>
+          </ThemeProvider>
+        </RecoilRoot>
+      </ApolloProvider>
     </>
-
   );
 }
 

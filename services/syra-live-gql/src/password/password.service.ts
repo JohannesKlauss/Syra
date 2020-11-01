@@ -16,7 +16,7 @@ export class PasswordService {
   ) {}
 
   private async getRedisClient() {
-    return this.redisService.getClient('syra-session');
+    return this.redisService.getClient('syra-password-reset');
   }
 
   async updatePassword(userId: string, currentPassword: string, newPassword: string, confirmNewPassword: string) {

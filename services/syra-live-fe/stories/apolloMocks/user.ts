@@ -1,4 +1,4 @@
-import { MeQuery, UserProfileByHandleQuery } from '../../gql/generated';
+import { MeFollowingQuery, MeQuery, UserProfileByHandleQuery } from "../../gql/generated";
 
 export const MeMock: MeQuery = {
   me: {
@@ -18,11 +18,13 @@ export const MeMock: MeQuery = {
     followedBy: [
       {
         __typename: 'User',
+        id: 'foo',
         handle: 'test',
         name: 'Test'
       },
       {
         __typename: 'User',
+        id: 'bar',
         handle: 'Syra',
         name: 'Syra'
       }
@@ -55,16 +57,54 @@ export const UserProfileByHandleMock: UserProfileByHandleQuery = {
     followedBy: [
       {
         __typename: 'User',
+        id: 'foo',
         handle: 'test',
         name: 'Test'
       },
       {
         __typename: 'User',
+        id: 'bar',
         handle: 'Syra',
         name: 'Syra'
       }
     ],
     id: 'foo',
     name: 'Johannes Klauss',
+  }
+}
+
+export const MeFollowingMock: MeFollowingQuery = {
+  me: {
+    __typename: 'User',
+    following: [
+      {
+        __typename: 'User',
+        id: 'foo',
+        avatar: null,
+        handle: 'foobar',
+        name: 'Foo Bar'
+      },
+      {
+        __typename: 'User',
+        id: 'bar',
+        avatar: null,
+        handle: 'foobar2',
+        name: 'Foo Bar 2'
+      },
+      {
+        __typename: 'User',
+        id: 'baz',
+        avatar: null,
+        handle: 'foobar3',
+        name: 'Foo Bar 3'
+      },
+      {
+        __typename: 'User',
+        id: 'foobar',
+        avatar: null,
+        handle: 'foobar4',
+        name: 'Foo Bar 4'
+      }
+    ]
   }
 }

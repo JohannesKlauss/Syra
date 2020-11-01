@@ -1,12 +1,15 @@
 fragment UserLink on User {
+    id
     handle
     name
 }
 
 fragment FeedUser on User {
+    id
     handle
     name
     avatar
+    isMeFollowing
 }
 
 fragment BaseProfile on User {
@@ -60,6 +63,22 @@ query user($id: String!) {
     }
 }
 
+query myFollowers {
+    me {
+        followedBy {
+            ...FeedUser
+        }
+    }
+}
+
+query meFollowing {
+    me {
+        following {
+            ...FeedUser
+        }
+    }
+}
+
 mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!) {
     signUpUser(data: {name: $name, email: $email, password: $password, accessCode: $accessCode}) {
         id
@@ -75,7 +94,7 @@ mutation updateUser($data: UserUpdateInput!, $me: String) {
 
 mutation followUser($handle: String!, $me: String) {
     updateUser(where: {handle: $handle}, data: {followedBy: {connect: [{id: $me}]}}) {
-        handle
+        id
     }
 }
 

@@ -19,6 +19,7 @@ import { MdGroup, MdGroupAdd } from 'react-icons/md';
 import useLogout from './useLogout';
 import { useMeQuery } from '../../../../gql/generated';
 import { useRouter } from 'next/router';
+import { RiMessage3Line } from "react-icons/ri";
 
 interface Props {
 }
@@ -72,13 +73,19 @@ function AvatarMenu({}: Props) {
           </Box>
         </MenuItem>
         <MenuDivider/>
-        <MenuItem>
+        <MenuItem onClick={() => push('/chat')}>
+          <Box as={RiMessage3Line}/>
+          <Box marginLeft={4}>
+            <Text>{t('Messages')}</Text>
+          </Box>
+        </MenuItem>
+        <MenuItem onClick={() => push('/followers')}>
           <Box as={MdGroup}/>
           <Box marginLeft={4}>
             <Text>{t('Followers')}</Text>
           </Box>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={() => push('/following')}>
           <Box as={MdGroupAdd}/>
           <Box marginLeft={4}>
             <Text>{t('Following')}</Text>

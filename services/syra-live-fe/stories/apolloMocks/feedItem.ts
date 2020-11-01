@@ -21,8 +21,10 @@ export const FeedItemByIdMockFoo: FeedItemByIdQuery = {
     commentCount: 12,
     author: {
       __typename: 'User',
+      id: 'foo',
       name: 'Johannes Klauss',
       handle: 'johannesklauss',
+      isMeFollowing: true,
       avatar: 'https://lh3.googleusercontent.com/ogw/ADGmqu_DctzkJyd0vl_0irH3OXgL-ntQfsxjdnqV59S_Rw=s192-c-mo'
     },
     mixdown: {
@@ -55,8 +57,10 @@ export const FeedItemByIdMockBar: FeedItemByIdQuery = {
     isMeLiking: false,
     author: {
       __typename: 'User',
+      id: 'bar',
       name: 'Johannes Klauss',
       handle: 'johannesklauss',
+      isMeFollowing: false,
       avatar: 'https://lh3.googleusercontent.com/ogw/ADGmqu_DctzkJyd0vl_0irH3OXgL-ntQfsxjdnqV59S_Rw=s192-c-mo'
     },
     mixdown: {

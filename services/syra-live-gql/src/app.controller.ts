@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { CookieAuthGuard } from './auth/cookie-auth.guard';

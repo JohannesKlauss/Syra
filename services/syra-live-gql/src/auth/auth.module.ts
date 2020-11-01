@@ -17,7 +17,7 @@ import { CookieStrategy } from './cookie.strategy';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET'),
-        signOptions: { expiresIn: '3600s' },
+        signOptions: { expiresIn: '7d' },
       }),
       inject: [ConfigService]
     }),

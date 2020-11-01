@@ -34,8 +34,8 @@ import {
   UserRelationsResolver,
   UsersOnProjects,
   UsersOnProjectsCrudResolver,
-  UsersOnProjectsRelationsResolver,
-} from '../prisma/generated/type-graphql';
+  UsersOnProjectsRelationsResolver
+} from "../prisma/generated/type-graphql";
 import { SessionModule } from './session/session.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLContext } from '../types/GraphQLContext';
@@ -52,6 +52,7 @@ import { PasswordModule } from './password/password.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailingModule } from './mailing/mailing.module';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
+import { ChatModule } from './chat/chat.module';
 
 const prisma = new PrismaClient();
 
@@ -69,7 +70,7 @@ const prisma = new PrismaClient();
         return {
           validate: true,
           dateScalarMode: 'timestamp',
-          playground: false,
+          playground: true,
           authChecker: cookieAuthChecker,
           authMode: 'null',
           path: '/',
@@ -107,6 +108,7 @@ const prisma = new PrismaClient();
     FilesModule,
     PasswordModule,
     MailingModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [
