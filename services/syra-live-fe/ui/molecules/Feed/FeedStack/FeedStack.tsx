@@ -5,23 +5,14 @@ import { useMyFeedQuery } from '../../../../gql/generated';
 import EmptyFeed from "../../../atoms/EmptyFeed/EmptyFeed";
 import { feedStore } from "../../../../recoil/feedStore";
 import { useRecoilState } from "recoil";
+import useListenForRefetch from "../../../../hooks/apollo/useListenForRefetch";
 
 interface Props {
 }
 
 function FeedStack({}: Props) {
-  const [refetchFeed, setRefetchFeed] = useRecoilState(feedStore.refetchFeed);
   const { data, loading, error, refetch } = useMyFeedQuery();
-
-  useEffect(() => {
-    (async () => {
-      if (refetchFeed) {
-        await refetch();
-
-        setRefetchFeed(false);
-      }
-    })();
-  }, [refetchFeed]);
+  useListenForRefetch(feedStore.refetchFeed, refetch);
 
   if (loading) return <Skeleton h={24} />;
   if (error) return null;
