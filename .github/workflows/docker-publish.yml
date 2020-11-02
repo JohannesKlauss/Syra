@@ -4,7 +4,7 @@ on:
   push:
     # Publish `main` as Docker `latest` image.
     branches:
-      - release
+      - main
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -26,9 +26,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Log into GitHub Container Registry
+      #- name: Log into GitHub Container Registry
         # TODO: Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
-        run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+      #  run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Login to DO registry
+        run: doctl registry login
 
       - name: create env file
         run: |
@@ -44,7 +52,7 @@ jobs:
 
           SYRA_LIVE_GRAPHQL_ENDPOINT=${{secrets.SYRA_LIVE_GRAPHQL_ENDPOINT}}
 
-          REPO_HOST=ghcr.io/${{ github.repository_owner }}
+          REPO_HOST=registry.digitalocean.com/syra-do
           EOT
 
       - name: Build and push Docker images to GitHub Container Registry
@@ -55,7 +63,7 @@ jobs:
           for CMP in $COMPONENTS
           do
             IMAGE_NAME=$(dirname $CMP)
-            IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+            IMAGE_ID=registry.digitalocean.com/syra-do/$IMAGE_NAME
 
             echo build and push $IMAGE_NAME:$REF
 

@@ -21,7 +21,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate save --experimental && prisma migrate up --experimental",
-    "session:gen-key": "secure-session-gen-key > ./src/session-key"
+    "session:gen-key": "secure-session-gen-key > ./src/session-key && cp ./src/session-key ./dist/src/session-key",
+    "docker:build": "yarn prisma:generate && yarn build && yarn session:gen-key"
   },
   "dependencies": {
     "@nestjs/common": "7.4.4",

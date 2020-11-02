@@ -70,7 +70,7 @@ const prisma = new PrismaClient();
         return {
           validate: true,
           dateScalarMode: 'timestamp',
-          playground: true,
+          playground: false,
           authChecker: cookieAuthChecker,
           authMode: 'null',
           path: '/',
