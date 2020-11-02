@@ -26,4 +26,4 @@ RUN yarn run build
 # start app
 EXPOSE 3000
 USER node
-CMD [ "yarn", "run", "pm2-runtime", "start" ]
+CMD [ "pm2-runtime", "start", "yarn", "--", "start" ]
