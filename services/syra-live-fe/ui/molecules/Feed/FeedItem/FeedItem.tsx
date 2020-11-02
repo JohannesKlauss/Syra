@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Avatar, Box, Divider, Flex, Link as ChakraLink, Skeleton, Text } from '@chakra-ui/core';
 import { useTranslation } from 'react-i18next';
 import FeedItemAudio from './FeedItemAudio/FeedItemAudio';
@@ -48,13 +48,13 @@ function FeedItem({ id }: Props) {
               </ChakraLink>
             </Link>
             <Text color={'gray.400'} fontSize={'sm'}>
-              {t('{{time}} ago', { time: formatDistanceToNow(fromUnixTime(feedItem.updatedAt)) })}
+              {t('{{time}} ago', { time: formatDistanceToNow(fromUnixTime(feedItem.updatedAt / 1000)) })}
             </Text>
           </Box>
         </Flex>
       </Box>
       <Box padding={4} paddingTop={0}>
-        <Text fontSize={'sm'}>{feedItem.text}</Text>
+        <Text whiteSpace={'pre'} fontSize={'sm'}>{feedItem.text}</Text>
       </Box>
       <Box paddingX={4} py={2}>
         <FeedItemActions

@@ -30,7 +30,7 @@ query feedItemsByHandle($handle: String!, $cursor: String) {
 }
 
 query myFeed($me: String) {
-    feedItems(where: {author: {is: {followedBy: {some: {id: {equals: $me}}}}}}, orderBy: [{createdAt: desc}], take: 5) {
+    feedItems(where: {OR: [{author: {is: {followedBy: {some: {id: {equals: $me}}}}}}, {author:{is: {id: {equals: $me}}}}]}, orderBy: [{createdAt: desc}], take: 5) {
         id
     }
 }
@@ -38,6 +38,12 @@ query myFeed($me: String) {
 query feedItemById($id: String!) {
     feedItem(where: {id: $id}) {
         ...DisplayFeedItem
+    }
+}
+
+query myLikes($me: String) {
+    feedItemLikes(where: {userId: {equals: $me}}, orderBy: [{createdAt: desc}]) {
+        feedItemId
     }
 }
 

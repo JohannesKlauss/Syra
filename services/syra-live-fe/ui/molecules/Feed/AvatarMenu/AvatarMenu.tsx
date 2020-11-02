@@ -91,7 +91,7 @@ function AvatarMenu({}: Props) {
             <Text>{t('Following')}</Text>
           </Box>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={() => push('/likes')}>
           <Box as={RiHeartFill}/>
           <Box marginLeft={4}>
             <Text>{t('Likes')}</Text>

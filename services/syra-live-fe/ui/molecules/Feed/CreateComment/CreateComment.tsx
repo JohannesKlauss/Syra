@@ -4,6 +4,8 @@ import { useMeQuery, usePostCommentToFeedItemMutation } from '../../../../gql/ge
 import { useForm } from 'react-hook-form';
 import AutoResizeTextarea from '../../../atoms/AutoResizeTextarea/AutoResizeTextarea';
 import { useTranslation } from 'react-i18next';
+import { useSetRecoilState } from "recoil";
+import { feedStore } from "../../../../recoil/feedStore";
 
 interface Props {
   feedItemId: string;
@@ -17,7 +19,8 @@ function CreateComment({ feedItemId }: Props) {
   const { t } = useTranslation();
   const { data, error, loading } = useMeQuery();
   const [executePost, { loading: isSending }] = usePostCommentToFeedItemMutation();
-  const { register, handleSubmit } = useForm<TCommentForm>();
+  const setRefetchCommentList = useSetRecoilState(feedStore.refetchCommentList(feedItemId));
+  const { register, handleSubmit, reset } = useForm<TCommentForm>();
   const formRef = useRef<HTMLFormElement>();
 
   const onSubmit = async ({ text }: TCommentForm) => {
@@ -27,6 +30,9 @@ function CreateComment({ feedItemId }: Props) {
         text,
       },
     });
+
+    setRefetchCommentList(true);
+    reset();
   };
 
   if (loading) return <Skeleton h={8} />;

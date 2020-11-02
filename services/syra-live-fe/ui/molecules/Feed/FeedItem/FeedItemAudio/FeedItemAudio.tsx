@@ -48,7 +48,7 @@ function FeedItemAudio({ authorName, mixdown }: Props) {
             </Box>
           </Flex>
           <Box>
-            <Text fontWeight={400} fontSize={'sm'}>{t('{{time}} ago', {time: formatDistanceToNow(fromUnixTime(mixdown.createdAt))})}</Text>
+            <Text fontWeight={400} fontSize={'sm'}>{t('{{time}} ago', {time: formatDistanceToNow(fromUnixTime(mixdown.createdAt / 1000))})}</Text>
           </Box>
         </Flex>
       </Box>

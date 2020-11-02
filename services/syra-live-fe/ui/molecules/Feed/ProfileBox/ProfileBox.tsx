@@ -12,7 +12,7 @@ import {
   Text,
 } from '@chakra-ui/core';
 import { useTranslation } from 'react-i18next';
-import { RiFileMusicFill, RiHeartFill, RiEdit2Fill } from 'react-icons/ri';
+import { RiFileMusicFill, RiHeartFill, RiEdit2Fill, RiMessage3Line } from 'react-icons/ri';
 import { TiGroup } from 'react-icons/ti';
 import { useMeQuery } from '../../../../gql/generated';
 import Link from 'next/link';
@@ -57,6 +57,12 @@ function ProfileBox({}: Props) {
             <Divider/>
           </ListItem>
           <ListItem>
+            <Link href={`/chat`}>
+              <Button variant={'link'}  leftIcon={RiMessage3Line}>{t('Messages')}</Button>
+            </Link>
+            <Divider/>
+          </ListItem>
+          <ListItem>
             <Button variant={'link'} leftIcon={RiFileMusicFill}>{t('Sessions')}</Button>
             <Divider/>
           </ListItem>
@@ -65,7 +71,9 @@ function ProfileBox({}: Props) {
             <Divider/>
           </ListItem>
           <ListItem>
-            <Button variant={'link'} leftIcon={RiHeartFill}>{t('Likes')}</Button>
+            <Link href={`/likes`}>
+              <Button variant={'link'} leftIcon={RiHeartFill}>{t('Likes')}</Button>
+            </Link>
             <Divider/>
           </ListItem>
         </List>

@@ -41,9 +41,9 @@ function Comment({ comment }: Props) {
   };
 
   return (
-    <Flex align={'top'}>
+    <Flex align={'top'} mb={4}>
       <Avatar size={'sm'} src={comment.author.avatar} name={comment.author.name} />
-      <Box ml={4}>
+      <Box ml={4} w={'100%'}>
         <Flex justify={'space-between'}>
           <Link passHref href={`/profile/${comment.author.handle}`}>
             <Text fontSize={'sm'} cursor={'pointer'} color={'gray.400'}>
@@ -54,7 +54,7 @@ function Comment({ comment }: Props) {
             </Text>
           </Link>
           <Text fontSize={'xs'} color={'gray.400'}>
-            {t('{{time}} ago', { time: formatDistanceToNow(fromUnixTime(comment.updatedAt)) })}
+            {t('{{time}} ago', { time: formatDistanceToNow(fromUnixTime(comment.updatedAt / 1000)) })}
           </Text>
         </Flex>
         <Text fontSize={'sm'}>{comment.text}</Text>

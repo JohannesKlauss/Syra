@@ -6,7 +6,7 @@ import { TypeGraphQLModule } from 'typegraphql-nestjs';
 import {
   Address,
   AddressCrudResolver,
-  AddressRelationsResolver,
+  AddressRelationsResolver, Band, BandCrudResolver, BandRelationsResolver,
   Comment,
   CommentCrudResolver,
   CommentLike, CommentLikeCrudResolver,
@@ -128,6 +128,7 @@ const prisma = new PrismaClient();
     Comment,
     FeedItemLike,
     CommentLike,
+    Band,
     // Relations
     UserRelationsResolver,
     AddressRelationsResolver,
@@ -141,6 +142,7 @@ const prisma = new PrismaClient();
     CommentRelationsResolver,
     FeedItemLikeRelationsResolver,
     CommentLikeRelationsResolver,
+    BandRelationsResolver,
     // Crud
     UserCrudResolver,
     AddressCrudResolver,
@@ -153,6 +155,7 @@ const prisma = new PrismaClient();
     CommentCrudResolver,
     FeedItemLikeCrudResolver,
     CommentLikeCrudResolver,
+    BandCrudResolver,
     // Custom
     CustomUserResolver,
     CustomFeedItemResolver,

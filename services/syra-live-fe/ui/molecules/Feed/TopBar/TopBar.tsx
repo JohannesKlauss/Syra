@@ -29,9 +29,11 @@ function TopBar({}: Props) {
       <Box h={'32px'}>
         <Flex alignItems={"center"} justify={"space-between"}>
           <Box>
-            <Text fontSize="lg" as={"span"} marginLeft={8} marginRight={8}>
-              {t('S Y R A')} &nbsp; | &nbsp; {t('Live')}
-            </Text>
+            <Link href={'/feed'}>
+              <Text cursor={'pointer'} fontSize="lg" as={"span"} marginLeft={8} marginRight={8}>
+                {t('S Y R A')} &nbsp; | &nbsp; {t('Live')}
+              </Text>
+            </Link>
             <Link href={'/feed'}>
               <Button variant={"link"} marginX={4}>{t('Feed')}</Button>
             </Link>

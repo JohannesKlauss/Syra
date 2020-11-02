@@ -51,7 +51,7 @@ function AttachMixdownModal({ onClose, isOpen, onSelectMixdownId }: Props) {
                 key={item.id}
                 isSelected={selectedProject && selectedProject.id === item.id}
                 title={item.name}
-                subtext={t('{{time}} ago', { time: formatDistanceToNow(fromUnixTime(item.updatedAt)) })}
+                subtext={t('{{time}} ago', { time: formatDistanceToNow(fromUnixTime(item.updatedAt / 1000)) })}
                 onSelect={() => setSelectedProject(item)}
               />
             )}
@@ -68,11 +68,11 @@ function AttachMixdownModal({ onClose, isOpen, onSelectMixdownId }: Props) {
                 isSelected={selectedMixdownId === item.id}
                 title={item.name || `Version #${item.version}`}
                 overline={item.name && `Version #${item.version}`}
-                subtext={t('{{time}} ago', { time: formatDistanceToNow(fromUnixTime(item.createdAt)) })}
+                subtext={t('{{time}} ago', { time: formatDistanceToNow(fromUnixTime(item.createdAt / 1000)) })}
                 onSelect={() => setSelectedMixdownId(item.id)}
               >
                 <Box position={'absolute'} left={4} top={4}>
-                  <PreviewPlay size={'xs'} audioUri={item.audioUri}/>
+                  <PreviewPlay size={'xs'} audioUri={item.audio.location}/>
                 </Box>
               </ClickableTextBox>
             )}
