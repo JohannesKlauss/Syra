@@ -55,7 +55,7 @@ jobs:
           REPO_HOST=registry.digitalocean.com/syra-do
           EOT
 
-      - name: Build and push Docker images to GitHub Container Registry
+      - name: Build and push Docker images to DO Registry
         run: |
           REF=$(git rev-parse --short HEAD)
           COMPONENTS=$(find services/syra-*/Dockerfile)
