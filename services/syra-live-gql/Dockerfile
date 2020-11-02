@@ -1,25 +1,18 @@
-FROM node:15.0.1-buster as development
-
-ARG IMAGE_NAME=syra-live-gql
-
-WORKDIR /$IMAGE_NAME
-
-COPY . .
-
-RUN yarn install --ignore-engines
-RUN yarn run docker:build
-
-CMD ["yarn", "start:dev"]
-
 FROM node:15.0.1-buster as production
 
 ARG IMAGE_NAME=syra-live-gql
 
 WORKDIR /$IMAGE_NAME
 
+ENV NODE_ENV production
+
 COPY . .
 
 RUN yarn install --ignore-engines
+RUN yarn add global pm2 @nestjs/cli --ignore-engines
+
+ENV PATH /$IMAGE_NAME/node_modules/.bin:$PATH
+
 RUN yarn run docker:build
 
-CMD ["yarn", "start:prod"]
+CMD [ "pm2-runtime", "start", "dist/src/main.js" ]
