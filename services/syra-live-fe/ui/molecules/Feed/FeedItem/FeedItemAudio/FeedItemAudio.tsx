@@ -6,14 +6,15 @@ import useWavesurfer from './useWavesurfer';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
 import useInterval from '../../../../../hooks/useInterval';
 import { formatAudioDuration } from '../../../../../helpers/time/formatAudioDuration';
-import { FeedMixdownFragment } from '../../../../../gql/generated';
+import { FeedMixdownFragment, PreviewMixdownFragment } from "../../../../../gql/generated";
 
 interface Props {
   authorName: string;
-  mixdown: FeedMixdownFragment;
+  projectName: string;
+  mixdown: PreviewMixdownFragment;
 }
 
-function FeedItemAudio({ authorName, mixdown }: Props) {
+function FeedItemAudio({ authorName, projectName, mixdown }: Props) {
   const { t } = useTranslation();
   const { wave, isPlaying, isLoaded } = useWavesurfer(mixdown.id, mixdown.audio.location);
   const [elapsedTime, setElapsedTime] = useState(0);
@@ -40,7 +41,7 @@ function FeedItemAudio({ authorName, mixdown }: Props) {
             <Box marginX={4}>
               <Flex align={'center'}>
                 <Text fontWeight={600} fontSize={'sm'}>
-                  {mixdown.project.name}
+                  {projectName}
                   <Badge marginLeft={4}>Post Metal</Badge>
                 </Text>
               </Flex>

@@ -12,6 +12,19 @@ fragment FeedMixdown on Mixdown {
     }
 }
 
+fragment PreviewMixdown on Mixdown {
+    id
+    version
+    name
+    audio {
+        id
+        isPublic
+        location
+    }
+    createdAt
+    listens
+}
+
 query myMixdowns {
     me {
         ownsProjects {
@@ -20,16 +33,7 @@ query myMixdowns {
             isPrivate
             updatedAt
             mixdowns {
-                id
-                version
-                name
-                audio {
-                    id
-                    isPublic
-                    location
-                }
-                createdAt
-                listens
+                ...PreviewMixdown
             }
         }
     }

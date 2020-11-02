@@ -13,13 +13,13 @@ function FeedItemAudioPreview({mixdownId}: Props) {
   if (loading) return <Skeleton/>
   if (error) return null;
 
-  const { name, version, project, audioUri, id, createdAt } = data.mixdown;
+  const { name, version, project } = data.mixdown;
 
   const displayName = name ?? `${project.name} #${version}`;
 
   return (
     <Box marginY={4} marginX={4} padding={4} background={'linear-gradient(to right, #24243e, #302b63, #24243e)'}>
-      <FeedItemAudio title={displayName} id={id} src={audioUri} owner={project.owner} timestamp={createdAt}/>
+      <FeedItemAudio authorName={project.owner.name} mixdown={data.mixdown} projectName={displayName}/>
     </Box>
   );
 }

@@ -15,8 +15,8 @@ function ProfileFeed({handle}: Props) {
 
   return (
     <>
-      {data.feedItems.map(item => (
-        <FeedItem feedItem={item} key={item.id}/>
+      {data.feedItems.map(({ id }) => (
+        <FeedItem id={id} key={id}/>
       ))}
     </>
   );

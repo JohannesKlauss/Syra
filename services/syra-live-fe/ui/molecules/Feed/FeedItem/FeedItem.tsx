@@ -33,7 +33,7 @@ function FeedItem({ id }: Props) {
     >
       {feedItem.mixdown && (
         <Box padding={4} background={'linear-gradient(to right, #24243e, #302b63, #24243e)'}>
-          <FeedItemAudio authorName={feedItem.author.name} mixdown={feedItem.mixdown} />
+          {/*<FeedItemAudio authorName={feedItem.author.name} mixdown={feedItem.mixdown} />*/}
         </Box>
       )}
       <Box padding={4}>

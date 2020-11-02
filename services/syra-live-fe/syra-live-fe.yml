@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: syra-live-fe
-          image: registry.digitalocean.com/syra-do/services_syra-live-gql
+          image: registry.digitalocean.com/syra-do/services/syra-live-fe:f9b9d74
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -32,6 +32,6 @@ spec:
     - port: 80
       targetPort: 80
       protocol: TCP
-      nodePort: 3000
+      nodePort: 31000
   selector:
     app: syra-live-fe

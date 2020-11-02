@@ -66,8 +66,8 @@ function AttachMixdownModal({ onClose, isOpen, onSelectMixdownId }: Props) {
               <ClickableTextBox
                 key={item.id}
                 isSelected={selectedMixdownId === item.id}
-                title={item.name || `Version #${item.version}`}
-                overline={item.name && `Version #${item.version}`}
+                title={t('Not implemented yet')}
+                overline={t('Not implemented yet')}
                 subtext={t('{{time}} ago', { time: formatDistanceToNow(fromUnixTime(item.createdAt / 1000)) })}
                 onSelect={() => setSelectedMixdownId(item.id)}
               >
