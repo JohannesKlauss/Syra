@@ -67,8 +67,8 @@ jobs:
 
             echo build and push $IMAGE_NAME:$REF
 
-            docker build $IMAGE_NAME --tag $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):$REF
-            docker push $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):$REF
+            docker build $IMAGE_NAME --tag $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):latest
+            docker push $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):latest
 
             echo "$IMAGE_NAME done! \n\n"
           done
