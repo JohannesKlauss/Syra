@@ -24,14 +24,14 @@
     "session:gen-key": "secure-session-gen-key > ./src/session-key"
   },
   "dependencies": {
-    "@nestjs/common": "7.4.4",
+    "@nestjs/common": "7.5.0",
     "@nestjs/config": "0.5.0",
-    "@nestjs/core": "7.4.4",
+    "@nestjs/core": "7.5.0",
     "@nestjs/graphql": "7.7.0",
     "@nestjs/jwt": "7.1.0",
-    "@nestjs/microservices": "7.4.4",
+    "@nestjs/microservices": "7.5.0",
     "@nestjs/passport": "7.1.0",
-    "@nestjs/platform-fastify": "7.4.4",
+    "@nestjs/platform-fastify": "7.5.0",
     "@nestjs-modules/mailer": "1.5.1",
     "@prisma/client": "2.10.1",
     "@types/busboy": "0.2.3",
@@ -61,7 +61,7 @@
   "devDependencies": {
     "@nestjs/cli": "7.5.1",
     "@nestjs/schematics": "7.1.2",
-    "@nestjs/testing": "7.4.4",
+    "@nestjs/testing": "7.5.0",
     "@prisma/cli": "2.10.1",
     "@types/bcrypt": "3.0.0",
     "@types/crypto-js": "4.0.1",
