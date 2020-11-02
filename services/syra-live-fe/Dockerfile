@@ -15,7 +15,7 @@ COPY /package.json .
 
 # Ignore engines because of weird yarn bug when installing @apollo/client
 RUN yarn install --ignore-engines
-RUN yarn add pm2 typescript @types/node
+RUN yarn add global pm2 typescript @types/node
 
 COPY . .
 
@@ -26,4 +26,4 @@ RUN yarn run build
 # start app
 EXPOSE 3000
 USER node
-CMD [ "pm2-runtime", "start", "yarn", "--", "start" ]
+CMD [ "pm2-runtime", "start", "npm", "--", "start" ]
