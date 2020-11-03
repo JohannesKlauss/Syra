@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
-import { ApolloClient, ApolloLink, createHttpLink, from, HttpLink, InMemoryCache, Observable } from '@apollo/client';
+import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache, Observable } from '@apollo/client';
 import { injectUserId } from './injectUserId';
 import { setContext } from '@apollo/client/link/context';
+import publicRuntimeConfig from '../const/config';
 
 let apolloClient: ApolloClient<any>;
 let _apolloClient: ApolloClient<any>;
@@ -31,7 +32,7 @@ function createApolloClient(cookie?: string) {
   const ssrMode = typeof window === 'undefined';
 
   const httpLink = new HttpLink({
-    uri: `${process.env.NEXT_PUBLIC_LIVE_GQL_URL}`,
+    uri: `${publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL}`,
     credentials: 'include',
   });
 

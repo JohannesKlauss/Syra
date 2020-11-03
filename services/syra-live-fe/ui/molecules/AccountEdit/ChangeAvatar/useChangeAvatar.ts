@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import readFile from '../../../../helpers/fs/readFile';
 import useApiResToast from '../../../../hooks/ui/useApiResToast';
 import { useTranslation } from 'react-i18next';
+import publicRuntimeConfig from "../../../../const/config";
 
 export default function useChangeAvatar(avatar: string, onClose: () => void) {
   const [croppedPixels, setCroppedPixels] = useState();
@@ -29,7 +30,7 @@ export default function useChangeAvatar(avatar: string, onClose: () => void) {
       const data = new FormData();
       data.append('file', croppedImage, 'newAvatar.jpeg');
 
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_LIVE_GQL_URL}/files/upload-avatar`, data, {
+      const res = await axios.post(`${publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL}/files/upload-avatar`, data, {
         headers: {
           'Content-Type': `multipart/form-data`,
         },

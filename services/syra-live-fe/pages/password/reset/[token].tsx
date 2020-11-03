@@ -4,6 +4,7 @@ import axios from 'axios';
 import Home from '../../index';
 import useApiResToast from '../../../hooks/ui/useApiResToast';
 import { useTranslation } from 'react-i18next';
+import publicRuntimeConfig from "../../../const/config";
 
 export default function Profile({ success }) {
   const toast = useApiResToast();
@@ -31,7 +32,7 @@ export default function Profile({ success }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_LIVE_GQL_URL}/password/reset/${context.query.token}`);
+  const res = await axios.get(`${publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL}/password/reset/${context.query.token}`);
 
   const success = res.status === 200;
 

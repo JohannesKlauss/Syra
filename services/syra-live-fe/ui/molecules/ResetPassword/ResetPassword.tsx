@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import useApiResToast from '../../../hooks/ui/useApiResToast';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import publicRuntimeConfig from "../../../const/config";
 
 type TResetPasswordForm = {
   email: string;
@@ -37,7 +38,7 @@ function ResetPassword({ isOpen, onClose }: Props) {
   const onSubmit = async (data: TResetPasswordForm) => {
     setIsLoading(true);
 
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_LIVE_GQL_URL}/password/reset`, data);
+    const res = await axios.post(`${publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL}/password/reset`, data);
 
     setIsLoading(false);
 
