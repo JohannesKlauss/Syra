@@ -118,9 +118,9 @@ apiVersion: v1
 metadata:
   name: syra-live-gql
 spec:
+  type: ClusterIP
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: http
+    - port: 80
+      targetPort: 4000
   selector:
     app: syra-live-gql

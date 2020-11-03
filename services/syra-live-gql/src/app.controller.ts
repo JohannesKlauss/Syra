@@ -7,6 +7,11 @@ import { CookieAuthGuard } from './auth/cookie-auth.guard';
 export class AppController {
   constructor(private authService: AuthService) {}
 
+  @Get('/v')
+  version() {
+    return { version: '0.0.1' };
+  }
+
   @UseGuards(LocalAuthGuard)
   @Post('auth/login/local')
   async login(@Request() req) {
