@@ -26,6 +26,7 @@ async function bootstrap() {
     cookieName: CookieKeys.Session,
     cookie: {
       path: '/',
+      domain: 'syra.live',
       httpOnly: true,
     }
   });
