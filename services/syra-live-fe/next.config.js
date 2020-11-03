@@ -14,5 +14,7 @@ module.exports = {
   rewrites: async () => nextI18NextRewrites(localeSubpaths),
   publicRuntimeConfig: {
     localeSubpaths,
+    NEXT_PUBLIC_LIVE_GQL_URL: process.env.NEXT_PUBLIC_LIVE_GQL_URL,
+    NEXT_PUBLIC_STREAM_CHAT_KEY: process.env.NEXT_PUBLIC_STREAM_CHAT_KEY,
   },
 }

@@ -7,6 +7,7 @@ dist
 .env.local
 .env.production
 .env.integration
+.env.k8s
 
 # cypress
 .nyc_output

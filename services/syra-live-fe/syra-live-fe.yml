@@ -18,6 +18,17 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
+          env:
+          - name: NEXT_PUBLIC_LIVE_GQL_URL
+            valueFrom:
+              secretKeyRef:
+                name: syra-live-secrets
+                key: NEXT_PUBLIC_LIVE_GQL_URL
+          - name: NEXT_PUBLIC_STREAM_CHAT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: syra-live-secrets
+                key: NEXT_PUBLIC_STREAM_CHAT_KEY
       imagePullSecrets:
         - name: registry-syra-do
       restartPolicy: Always

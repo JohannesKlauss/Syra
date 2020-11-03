@@ -1,18 +1,18 @@
-apiVersion: cert-manager.io/v1
+apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-staging
+  name: letsencrypt-prod
+  namespace: cert-manager
 spec:
   acme:
-    # You must replace this email address with your own.
-    # Let's Encrypt will use this to contact you about expiring
-    # certificates, and issues related to your account.
-    email: admin@syra.live
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    # The ACME server URL
+    server: https://acme-v02.api.letsencrypt.org/directory
+    # Email address used for ACME registration
+    email: klauss.johannes@gmail.com
+    # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
-      # Secret resource that will be used to store the account's private key.
-      name: syra-issuer-account-key
-    # Add a single challenge solver, HTTP01 using nginx
+      name: letsencrypt-prod
+    # Enable the HTTP-01 challenge provider
     solvers:
       - http01:
           ingress:

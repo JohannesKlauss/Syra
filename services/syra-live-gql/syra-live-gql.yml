@@ -58,6 +58,11 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 4000
+          volumeMounts:
+          - name: ca-pemstore
+            mountPath: /syra-live-gql/prisma/ca-certificate.crt
+            subPath: ca-certificate.crt
+            readOnly: true
           env:
             - name: LIVE_DB_URL
               valueFrom:
@@ -114,7 +119,10 @@ spec:
                 secretKeyRef:
                   name: syra-live-secrets
                   key: STREAM_CHAT_SECRET
-
+      volumes:
+      - name: ca-pemstore
+        configMap:
+          name: ca-pemstore
       imagePullSecrets:
         - name: registry-syra-do
       restartPolicy: Always
