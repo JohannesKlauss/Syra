@@ -36,7 +36,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: syra-live-secrets
-                  key: LIVE_SESSION_DB_PASSWORD
+                  key: REDIS_PASSWORD
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -59,11 +59,11 @@ spec:
           ports:
             - containerPort: 4000
           env:
-            - name: LIVE_SESSION_DB_PASSWORD
+            - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: syra-live-secrets
-                  key: LIVE_SESSION_DB_PASSWORD
+                  key: REDIS_PASSWORD
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
@@ -94,11 +94,6 @@ spec:
                 secretKeyRef:
                   name: syra-live-secrets
                   key: SENDGRID_API_KEY
-            - name: HOST_DOMAIN
-              valueFrom:
-                secretKeyRef:
-                  name: syra-live-secrets
-                  key: HOST_DOMAIN
             - name: STREAM_CHAT_KEY
               valueFrom:
                 secretKeyRef:
@@ -123,11 +118,9 @@ apiVersion: v1
 metadata:
   name: syra-live-gql
 spec:
-  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 4000
-      name: http
+      targetPort: http
   selector:
     app: syra-live-gql

@@ -3,7 +3,6 @@ import { RedisModule, RedisModuleOptions } from 'nestjs-redis';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 const baseOptions = {
-  host: 'local.syra.live',
   port: 6379,
 }
 
@@ -14,19 +13,22 @@ export const DynamicRedisModule: DynamicModule = RedisModule.forRootAsync({
     return [
       {
         ...baseOptions,
-        password: configService.get('LIVE_SESSION_DB_PASSWORD'),
+        password: configService.get('REDIS_PASSWORD'),
+        host: configService.get('REDIS_HOST'),
         db: 0,
         name: 'syra-session'
       },
       {
         ...baseOptions,
-        password: configService.get('LIVE_SESSION_DB_PASSWORD'),
+        password: configService.get('REDIS_PASSWORD'),
+        host: configService.get('REDIS_HOST'),
         db: 1,
         name: 'syra-password-reset'
       },
       {
         ...baseOptions,
-        password: configService.get('LIVE_SESSION_DB_PASSWORD'),
+        password: configService.get('REDIS_PASSWORD'),
+        host: configService.get('REDIS_HOST'),
         db: 2,
         name: 'syra-chat-token'
       }
