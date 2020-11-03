@@ -8,16 +8,22 @@ import { CookieKeys } from '../types/CookieKeys';
 import fastifyMultipart from 'fastify-multipart';
 
 async function bootstrap() {
+  const certPath = __dirname + '/../../../../';
+
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({
       logger: true,
+      https: {
+        key: fs.readFileSync(certPath + 'localhost.key'),
+        cert: fs.readFileSync(certPath + 'localhost.crt'),
+      }
     }),
   );
 
   app.enableCors({
     credentials: true,
-    origin: ['http://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live']
+    origin: ['https://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live']
   });
 
   app.register(SecureSessionPlugin, {

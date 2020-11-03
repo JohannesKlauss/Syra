@@ -82,7 +82,7 @@ const prisma = new PrismaClient();
             user: await cookieStrategy.validate(request),
           }),
           cors: {
-            origin: ['http://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live'],
+            origin: ['https://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live'],
             credentials: true,
           },
         };

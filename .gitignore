@@ -9,6 +9,9 @@ dist
 .env.integration
 .env.k8s
 
+localhost.crt
+localhost.key
+
 # cypress
 .nyc_output
 coverage
