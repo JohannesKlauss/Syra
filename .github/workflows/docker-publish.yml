@@ -38,23 +38,6 @@ jobs:
       - name: Login to DO registry
         run: doctl registry login
 
-      - name: create env file
-        run: |
-          cat <<EOT >> .env
-          LIVE_DB_USER=${{secrets.POSTGRES_USER}}
-          LIVE_DB_PASSWORD=${{secrets.POSTGRES_PASSWORD}}
-          LIVE_DB_DB=${{secrets.POSTGRES_DB}}
-
-          API_GATEWAY_DB_HOST=${{secrets.REDIS_HOST}}
-          API_GATEWAY_DB_PASSWORD=${{secrets.REDIS_PASSWORD}}
-          API_GATEWAY_DB_SESSION_SECRET=${{secrets.REDIS_SESSION_SECRET}}
-          API_GATEWAY_DB_REPLICATION_MODE=master
-
-          SYRA_LIVE_GRAPHQL_ENDPOINT=${{secrets.SYRA_LIVE_GRAPHQL_ENDPOINT}}
-
-          REPO_HOST=registry.digitalocean.com/syra-do
-          EOT
-
       - name: Build and push Docker images to DO Registry
         run: |
           REF=$(git rev-parse --short HEAD)
