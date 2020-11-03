@@ -15,8 +15,8 @@ async function bootstrap() {
     new FastifyAdapter({
       logger: true,
       https: {
-        key: fs.readFileSync(certPath + 'localhost.key'),
-        cert: fs.readFileSync(certPath + 'localhost.crt'),
+        key: fs.readFileSync(certPath + 'local.syra.live.key'),
+        cert: fs.readFileSync(certPath + 'local.syra.live.crt'),
       }
     }),
   );

@@ -11,6 +11,9 @@ dist
 
 localhost.crt
 localhost.key
+localhost.pem
+myCA.*
+local.syra.live.*
 
 # cypress
 .nyc_output
