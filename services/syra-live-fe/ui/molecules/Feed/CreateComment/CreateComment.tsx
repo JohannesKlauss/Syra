@@ -1,11 +1,12 @@
 import React, { useRef } from "react";
-import { Avatar, Flex, FormControl, Skeleton } from '@chakra-ui/core';
+import { Avatar, Flex, FormControl } from '@chakra-ui/core';
 import { useMeQuery, usePostCommentToFeedItemMutation } from '../../../../gql/generated';
 import { useForm } from 'react-hook-form';
 import AutoResizeTextarea from '../../../atoms/AutoResizeTextarea/AutoResizeTextarea';
 import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from "recoil";
 import { feedStore } from "../../../../recoil/feedStore";
+import useSuspendableQuery from "../../../../hooks/apollo/useSuspendableQuery";
 
 interface Props {
   feedItemId: string;
@@ -17,7 +18,7 @@ type TCommentForm = {
 
 function CreateComment({ feedItemId }: Props) {
   const { t } = useTranslation();
-  const { data, error, loading } = useMeQuery();
+  const { data } = useSuspendableQuery(useMeQuery());
   const [executePost, { loading: isSending }] = usePostCommentToFeedItemMutation();
   const setRefetchCommentList = useSetRecoilState(feedStore.refetchCommentList(feedItemId));
   const { register, handleSubmit, reset } = useForm<TCommentForm>();
@@ -34,9 +35,6 @@ function CreateComment({ feedItemId }: Props) {
     setRefetchCommentList(true);
     reset();
   };
-
-  if (loading) return <Skeleton h={8} />;
-  if (error) return null;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>

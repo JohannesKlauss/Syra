@@ -1,22 +1,17 @@
 import React from "react";
 import { useFirstLevelCommentsQuery } from "../../../../gql/generated";
-import { Skeleton } from "@chakra-ui/core";
 import Comment from '../Comment/Comment';
 import { feedStore } from "../../../../recoil/feedStore";
 import useListenForRefetch from "../../../../hooks/apollo/useListenForRefetch";
+import useSuspendableQuery from "../../../../hooks/apollo/useSuspendableQuery";
 
 interface Props {
   feedItemId: string;
 }
 
 function CommentList({feedItemId}: Props) {
-  const { data, error, loading, refetch } = useFirstLevelCommentsQuery({variables: {feedItemId}});
-
+  const { data, refetch } = useSuspendableQuery(useFirstLevelCommentsQuery({variables: {feedItemId}}));
   useListenForRefetch(feedStore.refetchCommentList(feedItemId), refetch);
-
-
-  if (loading) return <Skeleton h={8} />;
-  if (error) return null;
 
   return (
     <>

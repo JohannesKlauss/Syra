@@ -9,8 +9,6 @@ import { UnauthorizedException } from '@nestjs/common';
  */
 export function GqlAuthGuard(): MiddlewareFn<GraphQLContext> {
   return async ({context, info}, next) => {
-    console.log('info', info);
-
     if (context.user === null && info.fieldName !== 'signUpUser') {
       throw new UnauthorizedException('Not logged in.');
     }
