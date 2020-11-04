@@ -9,9 +9,17 @@ import Pricing from "../ui/organisms/LandingPage/Pricing/Pricing";
 import { Box, Image } from "@chakra-ui/core";
 import { benefits } from '../staticText/benefits';
 import { tiers } from '../staticText/tiers';
+import { useAuth } from "../providers/auth/AuthProvider";
+import { useRouter } from "next/router";
 
 function Home() {
   const setShowSignUpModal = useSetRecoilState(landingPageStore.showSignUpModal);
+  const { isAuthenticated } = useAuth();
+  const { push } = useRouter();
+
+  if (isAuthenticated) {
+    push('/feed');
+  }
 
   return (
     <>
