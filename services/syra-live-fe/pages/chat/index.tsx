@@ -1,10 +1,6 @@
 import React from 'react';
-import TopBar from '../../ui/molecules/Feed/TopBar/TopBar';
 import PageBox from '../../ui/atoms/PageBox/PageBox';
-import { GetServerSideProps } from 'next';
-import { initializeApollo } from '../../apollo/client';
-import { MeDocument, useMeQuery } from '../../gql/generated';
-import { useRouter } from 'next/router';
+import { useMeQuery } from '../../gql/generated';
 import {
   Channel,
   ChannelHeader,
@@ -24,25 +20,19 @@ import * as Client from 'stream-chat';
 import useStreamChat from '../../hooks/useStreamChat';
 import { Skeleton } from '@chakra-ui/core';
 import 'stream-chat-react/dist/css/index.css';
+import ProtectedRoute from "../../providers/auth/ProtectedRoute";
 
 export default function ChatPage() {
-  const { data, error, loading } = useMeQuery();
-  const { push } = useRouter();
+  const { data, loading } = useMeQuery();
   const [chatClient, isInitialized] = useStreamChat();
 
   if (loading) return <Skeleton h={24} />;
-  if (error || data.me == null) {
-    push('/');
-
-    return null;
-  }
 
   const filters = { type: 'messaging', members: { $in: [data.me.id] } };
   const sort: Client.ChannelSort = { last_message_at: -1 };
 
   return (
-    <>
-      <TopBar />
+    <ProtectedRoute>
       <PageBox>
         {isInitialized ? (
           <Chat client={chatClient} theme={'messaging dark'}>
@@ -60,21 +50,6 @@ export default function ChatPage() {
           <Skeleton h={24} />
         )}
       </PageBox>
-    </>
+    </ProtectedRoute>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const apolloClient = initializeApollo(null, context.req.headers.cookie);
-
-  await apolloClient.query({
-    query: MeDocument,
-  });
-
-  return {
-    props: {
-      namespacesRequired: ['default'],
-      initialApolloState: apolloClient.cache.extract(),
-    },
-  };
-};

@@ -40,6 +40,7 @@
     "apollo-server-fastify": "3.0.0-alpha.3",
     "aws-sdk": "2.784.0",
     "bcrypt": "5.0.0",
+    "class-validator": "0.12.2",
     "crypto-js": "4.0.0",
     "fastify-multipart": "3.3.0",
     "fastify-secure-session": "2.3.0",
@@ -89,6 +90,9 @@
     "ts-node": "9.0.0",
     "tsconfig-paths": "3.9.0",
     "typescript": "4.0.5"
+  },
+  "resolutions": {
+    "class-validator": "0.12.2"
   },
   "jest": {
     "moduleFileExtensions": [

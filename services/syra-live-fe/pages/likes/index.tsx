@@ -1,13 +1,11 @@
 import React from 'react';
-import TopBar from '../../ui/molecules/Feed/TopBar/TopBar';
 import PageBox from '../../ui/atoms/PageBox/PageBox';
-import { Divider, Flex, Stack, Text } from "@chakra-ui/core";
-import { GetServerSideProps } from 'next';
-import { initializeApollo } from '../../apollo/client';
-import { MeDocument, MyLikesDocument, useMeQuery } from "../../gql/generated";
-import ProfileInfo from "../../ui/molecules/Profile/ProfileInfo/ProfileInfo";
-import { useTranslation } from "react-i18next";
+import { Divider, Flex, Stack, Text } from '@chakra-ui/core';
+import { useMeQuery } from '../../gql/generated';
+import ProfileInfo from '../../ui/molecules/Profile/ProfileInfo/ProfileInfo';
+import { useTranslation } from 'react-i18next';
 import LikeFeedStack from '../../ui/molecules/Feed/LikeFeedStack/LikeFeedStack';
+import ProtectedRoute from '../../providers/auth/ProtectedRoute';
 
 export default function Likes() {
   const { data, loading, error } = useMeQuery();
@@ -17,8 +15,7 @@ export default function Likes() {
   if (error) return null;
 
   return (
-    <>
-      <TopBar />
+    <ProtectedRoute>
       <PageBox>
         <ProfileInfo user={data.me} />
         <Flex align={'center'} marginY={2}>
@@ -29,28 +26,9 @@ export default function Likes() {
           <Divider flex={4} />
         </Flex>
         <Stack spacing={8} w={'100%'}>
-          <LikeFeedStack/>
+          <LikeFeedStack />
         </Stack>
       </PageBox>
-    </>
+    </ProtectedRoute>
   );
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const apolloClient = initializeApollo(null, context.req.headers.cookie);
-
-  await apolloClient.query({
-    query: MeDocument,
-  });
-
-  await apolloClient.query({
-    query: MyLikesDocument,
-  });
-
-  return {
-    props: {
-      namespacesRequired: ['default'],
-      initialApolloState: apolloClient.cache.extract(),
-    },
-  }
 }

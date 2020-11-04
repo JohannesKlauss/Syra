@@ -12,12 +12,12 @@ interface Props {
 function Search({}: Props) {
   const { t } = useTranslation();
   const [searchString, setSearchString] = useState('');
-  const { data, refetch, loading } = useSuspendableQuery(useSearchQuery({
+  const { data, refetch, loading } = useSearchQuery({
     variables: {
       searchString,
     },
     skip: searchString.length < 3,
-  }));
+  });
 
   return (
     <>

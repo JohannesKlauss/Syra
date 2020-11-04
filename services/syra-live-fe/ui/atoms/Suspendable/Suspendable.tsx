@@ -2,11 +2,16 @@ import React from "react";
 import { Skeleton } from '@chakra-ui/core';
 
 interface Props {
-  loadingComponent?: JSX.Element;
+  fallback?: JSX.Element;
+  skeletonHeight?: number;
 }
 
-const Suspendable: React.FC<Props> = ({ children, loadingComponent }) => {
-  return <React.Suspense fallback={loadingComponent ?? <Skeleton h={24} />}>{children}</React.Suspense>;
+const Suspendable: React.FC<Props> = ({ children, fallback, skeletonHeight }) => {
+  return <React.Suspense fallback={fallback ?? <Skeleton h={skeletonHeight} />}>{children}</React.Suspense>;
+};
+
+Suspendable.defaultProps = {
+  skeletonHeight: 24,
 };
 
 export default Suspendable;

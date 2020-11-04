@@ -1,14 +1,12 @@
 import React from 'react';
-import TopBar from '../../ui/molecules/Feed/TopBar/TopBar';
 import { useRouter } from 'next/router';
-import { MeDocument, UserProfileByHandleDocument, useUserProfileByHandleQuery } from '../../gql/generated';
-import { initializeApollo } from '../../apollo/client';
-import { GetServerSideProps } from 'next';
+import { useUserProfileByHandleQuery } from '../../gql/generated';
 import ProfileInfo from '../../ui/molecules/Profile/ProfileInfo/ProfileInfo';
 import PageBox from '../../ui/atoms/PageBox/PageBox';
 import ProfileFeed from '../../ui/molecules/Profile/ProfileFeed/ProfileFeed';
 import { Divider, Flex, Text } from '@chakra-ui/core';
 import { useTranslation } from 'react-i18next';
+import ProtectedRoute from "../../providers/auth/ProtectedRoute";
 
 export default function Profile() {
   const router = useRouter()
@@ -25,8 +23,7 @@ export default function Profile() {
   if (loading) return null;
 
   return (
-    <>
-      <TopBar/>
+    <ProtectedRoute>
       <PageBox>
         <ProfileInfo user={data.user}/>
         <Flex align={"center"} marginY={2}>
@@ -36,28 +33,6 @@ export default function Profile() {
         </Flex>
         <ProfileFeed handle={data.user.handle}/>
       </PageBox>
-    </>
+    </ProtectedRoute>
   );
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const apolloClient = initializeApollo(null, context.req.headers.cookie);
-
-  await apolloClient.query({
-    query: UserProfileByHandleDocument,
-    variables: {
-      handle: context.query.handle as string
-    }
-  });
-
-  await apolloClient.query({
-    query: MeDocument,
-  });
-
-  return {
-    props: {
-      namespacesRequired: ['default'],
-      initialApolloState: apolloClient.cache.extract(),
-    },
-  }
 }

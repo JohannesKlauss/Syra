@@ -2,7 +2,7 @@ import React from 'react';
 import App from 'next/app';
 import { ColorModeProvider, CSSReset, ThemeProvider } from '@chakra-ui/core';
 import { RecoilRoot } from 'recoil';
-import { useApollo } from '../apollo/client';
+import { useApollo } from "../apollo/client";
 import { ApolloProvider } from '@apollo/client';
 import axios from 'axios';
 import mixpanel from 'mixpanel-browser';
@@ -13,6 +13,7 @@ import { Router } from 'next/router';
 import * as NProgress from 'nprogress';
 import Head from 'next/head';
 import { appWithTranslation } from '../i18n';
+import AuthProvider from "../providers/auth/AuthProvider";
 
 axios.interceptors.response.use(
   (response) => response,
@@ -39,9 +40,11 @@ function MyApp({ Component, pageProps }) {
           <ThemeProvider>
             <ColorModeProvider value={'dark'}>
               <CSSReset />
-              <Component {...pageProps} />
-              <Footer />
-              <Stopper />
+              <AuthProvider>
+                <Component {...pageProps} />
+                <Footer />
+                <Stopper />
+              </AuthProvider>
             </ColorModeProvider>
           </ThemeProvider>
         </RecoilRoot>
