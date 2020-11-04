@@ -3,7 +3,6 @@ import { useFirstLevelCommentsQuery } from "../../../../gql/generated";
 import { Skeleton } from "@chakra-ui/core";
 import Comment from '../Comment/Comment';
 import { feedStore } from "../../../../recoil/feedStore";
-import { useRecoilValue } from "recoil";
 import useListenForRefetch from "../../../../hooks/apollo/useListenForRefetch";
 
 interface Props {
@@ -22,7 +21,7 @@ function CommentList({feedItemId}: Props) {
   return (
     <>
       {data.comments.map((comment) => (
-        <Comment comment={comment} />
+        <Comment key={comment.id} comment={comment} />
       ))}
     </>
   );

@@ -72,7 +72,6 @@ const prisma = new PrismaClient();
           dateScalarMode: 'timestamp',
           playground: false,
           authChecker: cookieAuthChecker,
-          authMode: 'null',
           path: '/',
           emitSchemaFile: true,
           uploads: false,

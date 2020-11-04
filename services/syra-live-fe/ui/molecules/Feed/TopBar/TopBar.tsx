@@ -42,7 +42,7 @@ function TopBar({}: Props) {
             <Button variant={"link"} marginX={4}>{t('Marketplace')}</Button>
           </Box>
           <Box>
-            AvatarList of active sessions
+            AvatarList of active session
           </Box>
           <Box>
             <Flex align={'center'} justify={'space-between'}>

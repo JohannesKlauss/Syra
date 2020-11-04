@@ -60,10 +60,10 @@ function Comment({ comment }: Props) {
         <Text fontSize={'sm'}>{comment.text}</Text>
         <Flex mt={2} justify={'space-between'} color={'gray.400'}>
           <Flex>
-            <Button size={'xs'} variant={'link'} fontWeight={600} variantColor={null}>
+            <Button size={'xs'} variant={'link'} fontWeight={600}>
               {t('Reply')}
             </Button>
-            <Button ml={4} size={'xs'} variant={'link'} fontWeight={600} variantColor={isMeLiking && 'teal'} onClick={onToggleLike}>
+            <Button ml={4} size={'xs'} variant={'link'} fontWeight={600} variantColor={isMeLiking ? 'teal' : 'gray'} onClick={onToggleLike}>
               {t(isMeLiking ? 'Liked' : 'Like')}
             </Button>
           </Flex>
