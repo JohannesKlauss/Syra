@@ -2746,6 +2746,7 @@ type Query {
   findFirstUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): UsersOnProjects
   findManyUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]!
   findOneUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
+  followRecommendations: [User!]!
   me: User!
   mixdown(where: MixdownWhereUniqueInput!): Mixdown
   mixdowns(cursor: MixdownWhereUniqueInput, distinct: [MixdownDistinctFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]!
@@ -2942,7 +2943,7 @@ type User {
   followedByCount: Int
   following(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
   followingCount: Int
-  handle: String
+  handle: String!
   id: String!
   interests(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]
   isMeFollowing: Boolean
@@ -2972,7 +2973,7 @@ input UserCreateInput {
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3070,7 +3071,7 @@ input UserCreateWithoutAddressInput {
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3098,7 +3099,7 @@ input UserCreateWithoutAudioAssetInput {
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3126,7 +3127,7 @@ input UserCreateWithoutCommentInput {
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3154,7 +3155,7 @@ input UserCreateWithoutCommentLikeInput {
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3182,7 +3183,7 @@ input UserCreateWithoutFeedInput {
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3210,7 +3211,7 @@ input UserCreateWithoutFeedItemLikeInput {
   feed: FeedItemCreateManyWithoutAuthorInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3238,7 +3239,7 @@ input UserCreateWithoutFollowedByInput {
   feed: FeedItemCreateManyWithoutAuthorInput
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3266,7 +3267,7 @@ input UserCreateWithoutFollowingInput {
   feed: FeedItemCreateManyWithoutAuthorInput
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3295,7 +3296,7 @@ input UserCreateWithoutInterestsInput {
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
@@ -3323,7 +3324,7 @@ input UserCreateWithoutMemberOfBandsInput {
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
@@ -3351,7 +3352,7 @@ input UserCreateWithoutMemberOfProjectsInput {
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3379,7 +3380,7 @@ input UserCreateWithoutMixdownInput {
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3407,7 +3408,7 @@ input UserCreateWithoutOwnsBandsInput {
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3435,7 +3436,7 @@ input UserCreateWithoutOwnsProjectsInput {
   FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
   followedBy: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowedByInput
-  handle: String
+  handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
@@ -3517,7 +3518,7 @@ input UserScalarWhereInput {
   bio: StringNullableFilter
   createdAt: DateTimeFilter
   email: StringFilter
-  handle: StringNullableFilter
+  handle: StringFilter
   id: StringFilter
   name: StringFilter
   NOT: [UserScalarWhereInput!]
@@ -3531,6 +3532,7 @@ input UserScalarWhereInput {
 input UserSignUpInput {
   accessCode: String!
   email: String!
+  handle: String!
   name: String!
   password: String!
 }
@@ -3833,7 +3835,7 @@ input UserUpdateInput {
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -3853,7 +3855,7 @@ input UserUpdateManyDataInput {
   bio: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
@@ -3867,7 +3869,7 @@ input UserUpdateManyMutationInput {
   bio: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
@@ -4011,7 +4013,7 @@ input UserUpdateWithoutAddressDataInput {
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -4039,7 +4041,7 @@ input UserUpdateWithoutAudioAssetDataInput {
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -4067,7 +4069,7 @@ input UserUpdateWithoutCommentDataInput {
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -4095,7 +4097,7 @@ input UserUpdateWithoutCommentLikeDataInput {
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -4123,7 +4125,7 @@ input UserUpdateWithoutFeedDataInput {
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -4151,7 +4153,7 @@ input UserUpdateWithoutFeedItemLikeDataInput {
   feed: FeedItemUpdateManyWithoutAuthorInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -4179,7 +4181,7 @@ input UserUpdateWithoutFollowedByDataInput {
   feed: FeedItemUpdateManyWithoutAuthorInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -4207,7 +4209,7 @@ input UserUpdateWithoutFollowingDataInput {
   feed: FeedItemUpdateManyWithoutAuthorInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -4236,7 +4238,7 @@ input UserUpdateWithoutInterestsDataInput {
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
@@ -4264,7 +4266,7 @@ input UserUpdateWithoutMemberOfBandsDataInput {
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
@@ -4292,7 +4294,7 @@ input UserUpdateWithoutMemberOfProjectsDataInput {
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -4320,7 +4322,7 @@ input UserUpdateWithoutMixdownDataInput {
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -4348,7 +4350,7 @@ input UserUpdateWithoutOwnsBandsDataInput {
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -4376,7 +4378,7 @@ input UserUpdateWithoutOwnsProjectsDataInput {
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
   followedBy: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowedByInput
-  handle: NullableStringFieldUpdateOperationsInput
+  handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
@@ -4494,7 +4496,7 @@ input UserWhereInput {
   FeedItemLike: FeedItemLikeListRelationFilter
   followedBy: UserListRelationFilter
   following: UserListRelationFilter
-  handle: StringNullableFilter
+  handle: StringFilter
   id: StringFilter
   interests: TagListRelationFilter
   memberOfBands: UsersOnBandsListRelationFilter
@@ -4515,5 +4517,4 @@ input UserWhereUniqueInput {
   email: String
   handle: String
   id: String
-  name: String
 }

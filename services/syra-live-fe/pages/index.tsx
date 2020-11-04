@@ -1,50 +1,42 @@
 import React from "react";
-import TopBar from "../ui/molecules/LandingPage/TopBar/TopBar";
+import LandingPageTopBar from "../ui/molecules/LandingPage/LandingPageTopBar/LandingPageTopBar";
 import LandingHero from "../ui/molecules/LandingPage/LandingHero/LandingHero";
 import { landingPageStore } from "../recoil/landingPageStore";
-import { useRecoilState } from "recoil";
-import SignUpModal from "../ui/organisms/LandingPage/SignUpModal/SignUpModal";
-import LogInModal from "../ui/organisms/LandingPage/LogInModal/LogInModal";
+import { useSetRecoilState } from "recoil";
 import LandingClaim from "../ui/molecules/LandingPage/LandingClaim/LandingClaim";
 import Benefits from "../ui/molecules/LandingPage/Benefits/Benefits";
 import Pricing from "../ui/organisms/LandingPage/Pricing/Pricing";
 import { Box, Image } from "@chakra-ui/core";
 import { benefits } from '../staticText/benefits';
 import { tiers } from '../staticText/tiers';
+import { useAuth } from "../providers/auth/AuthProvider";
+import { useRouter } from "next/router";
 
-export default function Home() {
-  const [showLogInModal, setShowLogInModal] = useRecoilState(landingPageStore.showLogInModal);
-  const [showSignUpModal, setShowSignUpModal] = useRecoilState(landingPageStore.showSignUpModal);
+function Home() {
+  const setShowSignUpModal = useSetRecoilState(landingPageStore.showSignUpModal);
+  const { isAuthenticated } = useAuth();
+  const { push } = useRouter();
 
-  const toggleSignUpModal = () => setShowSignUpModal(currVal => !currVal);
-  const toggleLogInModal = () => setShowLogInModal(currVal => !currVal);
-  const switchToLogin = () => {
-    setShowSignUpModal(false);
-    setShowLogInModal(true);
-  };
-  const switchToSignUp = () => {
-    setShowSignUpModal(true);
-    setShowLogInModal(false);
-  };
+  if (isAuthenticated) {
+    push('/feed');
+  }
 
   return (
     <>
-      <TopBar onClickLogIn={toggleLogInModal} onClickSignUp={toggleSignUpModal}/>
-      <LandingHero onClickSignUp={toggleSignUpModal}/>
+      <LandingPageTopBar/>
+      <LandingHero onClickSignUp={() => setShowSignUpModal(currVal => !currVal)}/>
       <LandingClaim py={12}/>
       <Benefits py={12} benefits={benefits}/>
       <Box h={'768px'} overflow={'hidden'}>
-        <Image src="/assets/hero.jpg" alt="" objectFit={'cover'}w={'100%'}/>
+        <Image src="/assets/hero.jpg" alt="" objectFit={'cover'} w={'100%'}/>
       </Box>
       <Pricing tiers={tiers}/>
-      <SignUpModal isOpen={showSignUpModal} onClose={() => setShowSignUpModal(false)}
-                   onClickSwitchToLogin={switchToLogin}/>
-      <LogInModal isOpen={showLogInModal} onClose={() => setShowLogInModal(false)}
-                   onClickSwitchToSignUp={switchToSignUp}/>
     </>
   );
 }
 
 Home.getInitialProps = async () => ({
   namespacesRequired: ['default'],
-})
+});
+
+export default Home;

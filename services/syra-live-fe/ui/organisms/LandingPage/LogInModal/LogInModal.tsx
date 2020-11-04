@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import useLoginLocal from './useLoginLocal';
 import { useRouter } from 'next/router';
 import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
+import useApiResToast from "../../../../hooks/ui/useApiResToast";
 
 interface Props {
   isOpen: boolean;
@@ -30,6 +31,7 @@ function LogInModal({ onClickSwitchToSignUp, onClose, isOpen }: Props) {
   const [isSending, setIsSending] = useState(false);
   const { t } = useTranslation();
   const executeLocalLogin = useLoginLocal();
+  const toast = useApiResToast();
   const { push } = useRouter();
 
   const onSubmit = async (data: TLogInForm) => {
@@ -42,6 +44,8 @@ function LogInModal({ onClickSwitchToSignUp, onClose, isOpen }: Props) {
 
     if (success) {
       await push('/feed');
+    } else {
+      toast(t('Problem during Log In'), 'warning', t('Email or password are incorrect.'))
     }
   };
 

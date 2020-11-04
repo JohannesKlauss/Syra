@@ -8,7 +8,7 @@ interface Props {
 function ErrorPage({}: Props) {
   return (
     <>
-
+      Oh no. There was an error. Please try again later.
     </>
   );
 }

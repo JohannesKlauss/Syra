@@ -1,36 +1,58 @@
 import { hash } from 'bcrypt';
 import * as TypeGraphQL from 'type-graphql';
-import { FeedItem, User } from '../../../../../prisma/generated/type-graphql/models';
+import { User } from '../../../../../prisma/generated/type-graphql/models';
 import { SignUpUserArgs } from './Args/SignUpUserArgs';
 import { GraphQLContext } from '../../../../../types/GraphQLContext';
 import { BadRequestException } from '@nestjs/common';
 import { Role } from '../../../../../prisma/generated/type-graphql/enums';
 import { Int } from 'type-graphql';
+import knuthShuffle from '../../../../helpers/knuthShuffle';
 
-@TypeGraphQL.Resolver(_of => User)
+@TypeGraphQL.Resolver((_of) => User)
 export class CustomUserResolver {
-  @TypeGraphQL.FieldResolver(type => Int, { nullable: true })
+  @TypeGraphQL.FieldResolver((type) => Int, { nullable: true })
   async followedByCount(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
     return ctx.prisma.user.count({ where: { following: { some: { id: user.id } } } });
   }
 
-  @TypeGraphQL.FieldResolver(type => Int, { nullable: true })
+  @TypeGraphQL.FieldResolver((type) => Int, { nullable: true })
   async followingCount(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
     return ctx.prisma.user.count({ where: { followedBy: { some: { id: user.id } } } });
   }
 
-  @TypeGraphQL.FieldResolver(type => Boolean, { nullable: true })
+  @TypeGraphQL.FieldResolver((type) => Boolean, { nullable: true })
   async isMeFollowing(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
     return ctx.prisma.user.count({ where: { id: user.id, followedBy: { some: { id: ctx.user.id } } } });
   }
 
-  @TypeGraphQL.FieldResolver(type => Boolean, { nullable: true })
+  @TypeGraphQL.FieldResolver((type) => Boolean, { nullable: true })
   async isMyself(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<boolean> {
     return user.id === ctx.user.id;
   }
 
   @TypeGraphQL.Authorized([Role.USER])
-  @TypeGraphQL.Query(_returns => User, {
+  @TypeGraphQL.Query((_returns) => [User], {
+    nullable: false,
+    description: undefined,
+  })
+  async followRecommendations(@TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<User[]> {
+    const ids = await ctx.prisma.user.findMany({
+      where: {
+        followedBy: { none: { id: ctx.user.id } },
+        id: { not: { equals: ctx.user.id } },
+      },
+      select: { id: true },
+    });
+
+    return await ctx.prisma.user.findMany({
+      where: {
+        OR: knuthShuffle(ids).slice(0, 3),
+      },
+    });
+  }
+
+  @TypeGraphQL.Authorized([Role.USER])
+  @TypeGraphQL.Query((_returns) => User, {
     nullable: false,
     description: undefined,
   })
@@ -38,17 +60,19 @@ export class CustomUserResolver {
     return ctx.prisma.user.findOne({ where: { id: ctx.user.id } });
   }
 
-  @TypeGraphQL.Mutation(_returns => User, {
+  @TypeGraphQL.Mutation((_returns) => User, {
     nullable: false,
     description: undefined,
   })
   async signUpUser(@TypeGraphQL.Ctx() ctx: GraphQLContext, @TypeGraphQL.Args() args: SignUpUserArgs): Promise<User> {
-    const { data: { password, name, email, accessCode } } = args;
+    const {
+      data: { password, name, email, handle, accessCode },
+    } = args;
 
-    const dbEntry = await ctx.prisma.user.findOne({ where: { email: email }, select: { id: true } });
+    const dbEntry = await ctx.prisma.user.findMany({ where: { OR: [{ email }, { handle }] }, select: { id: true } });
 
-    if (dbEntry) {
-      throw new BadRequestException('Email is already taken.');
+    if (dbEntry.length > 0) {
+      throw new BadRequestException('Email or handle is already taken.');
     }
 
     const code = await ctx.prisma.earlyAccessCode.findOne({
@@ -66,6 +90,7 @@ export class CustomUserResolver {
       data: {
         name,
         email,
+        handle,
         password: hashedPassword,
       },
     });

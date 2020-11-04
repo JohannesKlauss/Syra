@@ -8,12 +8,13 @@ interface Props {
   placeholder?: string
   icon?: IconType;
   onKeyup: (value: string) => void;
+  onClick: () => void;
 }
 
-const SearchField: React.FC<Props> = ({placeholder, icon, onKeyup}) => {
+const SearchField: React.FC<Props> = ({placeholder, icon, onKeyup, onClick}) => {
   return (
     <InputGroup mx={8}>
-      <Input placeholder={placeholder} onKeyUp={e => onKeyup(e.target.value)} />
+      <Input onClick={onClick} placeholder={placeholder} onKeyUp={e => onKeyup(e.target.value)} />
       <InputRightElement children={<Box as={icon} color="gray.500" />} />
     </InputGroup>
   );

@@ -1,13 +1,12 @@
 import React from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/core";
 import { useTranslation } from 'react-i18next';
+import LogInSignUp from "../LogInSignUp/LogInSignUp";
 
 interface Props {
-  onClickSignUp: () => void;
-  onClickLogIn: () => void;
 }
 
-function TopBar({onClickSignUp, onClickLogIn}: Props) {
+function LandingPageTopBar({}: Props) {
   const { t } = useTranslation();
 
   return (
@@ -26,14 +25,11 @@ function TopBar({onClickSignUp, onClickLogIn}: Props) {
             <Button variant={"link"} marginX={4}>{t('Community')}</Button>
             <Button variant={"link"} marginX={4}>{t('Blog')}</Button>
           </Box>
-          <Box>
-            <Button marginX={4} onClick={onClickLogIn}>{t('Log in')}</Button>
-            <Button onClick={onClickSignUp}>{t('Sign up')}</Button>
-          </Box>
+          <LogInSignUp/>
         </Flex>
       </Box>
     </Box>
   );
 }
 
-export default TopBar;
+export default LandingPageTopBar;

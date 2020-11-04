@@ -28,4 +28,10 @@ export class UserSignUpInput {
     description: undefined
   })
   accessCode!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false,
+    description: undefined
+  })
+  handle!: string;
 }

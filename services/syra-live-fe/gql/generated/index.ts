@@ -3220,6 +3220,7 @@ export type Query = {
   findFirstUsersOnProjects?: Maybe<UsersOnProjects>;
   findManyUsersOnProjects: Array<UsersOnProjects>;
   findOneUsersOnProjects?: Maybe<UsersOnProjects>;
+  followRecommendations: Array<User>;
   me: User;
   mixdown?: Maybe<Mixdown>;
   mixdowns: Array<Mixdown>;
@@ -3785,7 +3786,7 @@ export type User = {
   followedByCount?: Maybe<Scalars['Int']>;
   following?: Maybe<Array<User>>;
   followingCount?: Maybe<Scalars['Int']>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id: Scalars['String'];
   interests?: Maybe<Array<Tag>>;
   isMeFollowing?: Maybe<Scalars['Boolean']>;
@@ -3941,7 +3942,7 @@ export type UserCreateInput = {
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4039,7 +4040,7 @@ export type UserCreateWithoutAddressInput = {
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4067,7 +4068,7 @@ export type UserCreateWithoutAudioAssetInput = {
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4095,7 +4096,7 @@ export type UserCreateWithoutCommentInput = {
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4123,7 +4124,7 @@ export type UserCreateWithoutCommentLikeInput = {
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4151,7 +4152,7 @@ export type UserCreateWithoutFeedInput = {
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4179,7 +4180,7 @@ export type UserCreateWithoutFeedItemLikeInput = {
   feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4207,7 +4208,7 @@ export type UserCreateWithoutFollowedByInput = {
   feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4235,7 +4236,7 @@ export type UserCreateWithoutFollowingInput = {
   feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4264,7 +4265,7 @@ export type UserCreateWithoutInterestsInput = {
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
@@ -4292,7 +4293,7 @@ export type UserCreateWithoutMemberOfBandsInput = {
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
@@ -4320,7 +4321,7 @@ export type UserCreateWithoutMemberOfProjectsInput = {
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4348,7 +4349,7 @@ export type UserCreateWithoutMixdownInput = {
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4376,7 +4377,7 @@ export type UserCreateWithoutOwnsBandsInput = {
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4404,7 +4405,7 @@ export type UserCreateWithoutOwnsProjectsInput = {
   FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
   followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
-  handle?: Maybe<Scalars['String']>;
+  handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
@@ -4486,7 +4487,7 @@ export type UserScalarWhereInput = {
   bio?: Maybe<StringNullableFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   email?: Maybe<StringFilter>;
-  handle?: Maybe<StringNullableFilter>;
+  handle?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
   name?: Maybe<StringFilter>;
   NOT?: Maybe<Array<UserScalarWhereInput>>;
@@ -4500,6 +4501,7 @@ export type UserScalarWhereInput = {
 export type UserSignUpInput = {
   accessCode: Scalars['String'];
   email: Scalars['String'];
+  handle: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
 };
@@ -4804,7 +4806,7 @@ export type UserUpdateInput = {
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -4824,7 +4826,7 @@ export type UserUpdateManyDataInput = {
   bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   password?: Maybe<StringFieldUpdateOperationsInput>;
@@ -4838,7 +4840,7 @@ export type UserUpdateManyMutationInput = {
   bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   password?: Maybe<StringFieldUpdateOperationsInput>;
@@ -4982,7 +4984,7 @@ export type UserUpdateWithoutAddressDataInput = {
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -5010,7 +5012,7 @@ export type UserUpdateWithoutAudioAssetDataInput = {
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -5038,7 +5040,7 @@ export type UserUpdateWithoutCommentDataInput = {
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -5066,7 +5068,7 @@ export type UserUpdateWithoutCommentLikeDataInput = {
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -5094,7 +5096,7 @@ export type UserUpdateWithoutFeedDataInput = {
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -5122,7 +5124,7 @@ export type UserUpdateWithoutFeedItemLikeDataInput = {
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -5150,7 +5152,7 @@ export type UserUpdateWithoutFollowedByDataInput = {
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -5178,7 +5180,7 @@ export type UserUpdateWithoutFollowingDataInput = {
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -5207,7 +5209,7 @@ export type UserUpdateWithoutInterestsDataInput = {
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
@@ -5235,7 +5237,7 @@ export type UserUpdateWithoutMemberOfBandsDataInput = {
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
@@ -5263,7 +5265,7 @@ export type UserUpdateWithoutMemberOfProjectsDataInput = {
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -5291,7 +5293,7 @@ export type UserUpdateWithoutMixdownDataInput = {
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -5319,7 +5321,7 @@ export type UserUpdateWithoutOwnsBandsDataInput = {
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -5347,7 +5349,7 @@ export type UserUpdateWithoutOwnsProjectsDataInput = {
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
-  handle?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
@@ -5465,7 +5467,7 @@ export type UserWhereInput = {
   FeedItemLike?: Maybe<FeedItemLikeListRelationFilter>;
   followedBy?: Maybe<UserListRelationFilter>;
   following?: Maybe<UserListRelationFilter>;
-  handle?: Maybe<StringNullableFilter>;
+  handle?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
   interests?: Maybe<TagListRelationFilter>;
   memberOfBands?: Maybe<UsersOnBandsListRelationFilter>;
@@ -5486,7 +5488,6 @@ export type UserWhereUniqueInput = {
   email?: Maybe<Scalars['String']>;
   handle?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
 };
 
 export type BlockCommentFragment = { __typename?: 'Comment' } & Pick<
@@ -5708,12 +5709,9 @@ export type CreateProjectMutation = { __typename?: 'Mutation' } & {
   createProject: { __typename?: 'Project' } & SessionListDataFragment;
 };
 
-export type UserLinkFragment = { __typename?: 'User' } & Pick<User, 'id' | 'handle' | 'name'>;
+export type UserLinkFragment = { __typename?: 'User' } & Pick<User, 'id' | 'handle' | 'name' | 'avatar'>;
 
-export type FeedUserFragment = { __typename?: 'User' } & Pick<
-  User,
-  'id' | 'handle' | 'name' | 'avatar' | 'isMeFollowing'
->;
+export type FeedUserFragment = { __typename?: 'User' } & Pick<User, 'isMeFollowing'> & UserLinkFragment;
 
 export type BaseProfileFragment = { __typename?: 'User' } & Pick<
   User,
@@ -5761,11 +5759,26 @@ export type MeFollowingQuery = { __typename?: 'Query' } & {
   me: { __typename?: 'User' } & { following?: Maybe<Array<{ __typename?: 'User' } & FeedUserFragment>> };
 };
 
+export type FollowRecommendationsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type FollowRecommendationsQuery = { __typename?: 'Query' } & {
+  followRecommendations: Array<
+    { __typename?: 'User' } & Pick<User, 'followedByCount' | 'isMeFollowing'> & UserLinkFragment
+  >;
+};
+
+export type SearchQueryVariables = Exact<{
+  searchString: Scalars['String'];
+}>;
+
+export type SearchQuery = { __typename?: 'Query' } & { users: Array<{ __typename?: 'User' } & FeedUserFragment> };
+
 export type SignUpUserMutationVariables = Exact<{
   name: Scalars['String'];
   email: Scalars['String'];
   password: Scalars['String'];
   accessCode: Scalars['String'];
+  handle: Scalars['String'];
 }>;
 
 export type SignUpUserMutation = { __typename?: 'Mutation' } & {
@@ -5820,14 +5833,20 @@ export const CreatedCommentFragmentDoc = gql`
     updatedAt
   }
 `;
-export const FeedUserFragmentDoc = gql`
-  fragment FeedUser on User {
+export const UserLinkFragmentDoc = gql`
+  fragment UserLink on User {
     id
     handle
     name
     avatar
+  }
+`;
+export const FeedUserFragmentDoc = gql`
+  fragment FeedUser on User {
+    ...UserLink
     isMeFollowing
   }
+  ${UserLinkFragmentDoc}
 `;
 export const FeedCommentFragmentDoc = gql`
   fragment FeedComment on Comment {
@@ -5894,13 +5913,6 @@ export const SessionListDataFragmentDoc = gql`
     createdAt
     name
     updatedAt
-  }
-`;
-export const UserLinkFragmentDoc = gql`
-  fragment UserLink on User {
-    id
-    handle
-    name
   }
 `;
 export const BaseProfileFragmentDoc = gql`
@@ -6950,9 +6962,98 @@ export function useMeFollowingLazyQuery(
 export type MeFollowingQueryHookResult = ReturnType<typeof useMeFollowingQuery>;
 export type MeFollowingLazyQueryHookResult = ReturnType<typeof useMeFollowingLazyQuery>;
 export type MeFollowingQueryResult = Apollo.QueryResult<MeFollowingQuery, MeFollowingQueryVariables>;
+export const FollowRecommendationsDocument = gql`
+  query followRecommendations {
+    followRecommendations {
+      ...UserLink
+      followedByCount
+      isMeFollowing
+    }
+  }
+  ${UserLinkFragmentDoc}
+`;
+
+/**
+ * __useFollowRecommendationsQuery__
+ *
+ * To run a query within a React component, call `useFollowRecommendationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFollowRecommendationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFollowRecommendationsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFollowRecommendationsQuery(
+  baseOptions?: Apollo.QueryHookOptions<FollowRecommendationsQuery, FollowRecommendationsQueryVariables>,
+) {
+  return Apollo.useQuery<FollowRecommendationsQuery, FollowRecommendationsQueryVariables>(
+    FollowRecommendationsDocument,
+    baseOptions,
+  );
+}
+export function useFollowRecommendationsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<FollowRecommendationsQuery, FollowRecommendationsQueryVariables>,
+) {
+  return Apollo.useLazyQuery<FollowRecommendationsQuery, FollowRecommendationsQueryVariables>(
+    FollowRecommendationsDocument,
+    baseOptions,
+  );
+}
+export type FollowRecommendationsQueryHookResult = ReturnType<typeof useFollowRecommendationsQuery>;
+export type FollowRecommendationsLazyQueryHookResult = ReturnType<typeof useFollowRecommendationsLazyQuery>;
+export type FollowRecommendationsQueryResult = Apollo.QueryResult<
+  FollowRecommendationsQuery,
+  FollowRecommendationsQueryVariables
+>;
+export const SearchDocument = gql`
+  query search($searchString: String!) {
+    users(
+      where: {
+        OR: [
+          { name: { contains: $searchString, mode: insensitive } }
+          { handle: { contains: $searchString, mode: insensitive } }
+        ]
+      }
+    ) {
+      ...FeedUser
+    }
+  }
+  ${FeedUserFragmentDoc}
+`;
+
+/**
+ * __useSearchQuery__
+ *
+ * To run a query within a React component, call `useSearchQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchQuery({
+ *   variables: {
+ *      searchString: // value for 'searchString'
+ *   },
+ * });
+ */
+export function useSearchQuery(baseOptions?: Apollo.QueryHookOptions<SearchQuery, SearchQueryVariables>) {
+  return Apollo.useQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions);
+}
+export function useSearchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchQuery, SearchQueryVariables>) {
+  return Apollo.useLazyQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions);
+}
+export type SearchQueryHookResult = ReturnType<typeof useSearchQuery>;
+export type SearchLazyQueryHookResult = ReturnType<typeof useSearchLazyQuery>;
+export type SearchQueryResult = Apollo.QueryResult<SearchQuery, SearchQueryVariables>;
 export const SignUpUserDocument = gql`
-  mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!) {
-    signUpUser(data: { name: $name, email: $email, password: $password, accessCode: $accessCode }) {
+  mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!, $handle: String!) {
+    signUpUser(data: { name: $name, email: $email, password: $password, accessCode: $accessCode, handle: $handle }) {
       id
       name
     }
@@ -6977,6 +7078,7 @@ export type SignUpUserMutationFn = Apollo.MutationFunction<SignUpUserMutation, S
  *      email: // value for 'email'
  *      password: // value for 'password'
  *      accessCode: // value for 'accessCode'
+ *      handle: // value for 'handle'
  *   },
  * });
  */
