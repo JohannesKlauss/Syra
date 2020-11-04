@@ -9305,7 +9305,7 @@ date-fns@^1.27.2:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
-dayjs@^1.8.16, dayjs@^1.9.1:
+dayjs@^1.8.16, dayjs@^1.9.4:
   version "1.9.4"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.9.4.tgz#fcde984e227f4296f04e7b05720adad2e1071f1b"
   integrity sha512-ABSF3alrldf7nM9sQ2U+Ln67NRwmzlLOqG7kK03kck0mw3wlSSEKv/XhKGGxUjQcS57QeiCyNdrFgtj9nWlrng==
@@ -10015,6 +10015,11 @@ emoji-regex@^9.0.0:
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-9.1.1.tgz#1d5ffce26d8191e6c3f3a9d27987b1c5bba7d20a"
   integrity sha512-AaWyDiNO9rbtMIcGl7tdxMcNu8SOLaDLxmQEFT5JhgKufOJzPPkYmgN2QwqTgw4doWMZZQttC6sUWVQjb+1VdA==
+
+emoji-regex@^9.2.0:
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-9.2.0.tgz#a26da8e832b16a9753309f25e35e3c0efb9a066a"
+  integrity sha512-DNc3KFPK18bPdElMJnf/Pkv5TXhxFU3YFDEuGLDRtPmV4rkmCjBkCSEp22u6rBHdSN9Vlp/GK7k98prmE1Jgug==
 
 emojis-list@^2.0.0:
   version "2.1.0"
@@ -12581,7 +12586,7 @@ i18next@^19.6.3:
   dependencies:
     "@babel/runtime" "^7.10.1"
 
-i18next@^19.8.1:
+i18next@^19.8.2:
   version "19.8.3"
   resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.8.3.tgz#10df7222db8c23389b13bceb9ba67a5e20a0241e"
   integrity sha512-eVrqAw2gGGYYJaJMYw4VM1FNFawLD4b84IsoTZMVXeWHaxAM2gyTa34j2Sip15UkBz/LrSxdFJj0Jhlrz7EvHA==
@@ -19183,7 +19188,7 @@ react-inspector@^5.0.1:
     is-dom "^1.0.0"
     prop-types "^15.0.0"
 
-react-is@16.13.1, react-is@^16.12.0, react-is@^16.13.1, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1, react-is@^16.8.6:
+react-is@16.13.1, react-is@^16.12.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1, react-is@^16.8.6:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
@@ -21149,17 +21154,17 @@ stream-browserify@^2.0.1:
     inherits "~2.0.1"
     readable-stream "^2.0.2"
 
-stream-chat-react@3.1.7:
-  version "3.1.7"
-  resolved "https://registry.yarnpkg.com/stream-chat-react/-/stream-chat-react-3.1.7.tgz#395dfe60ab1c08aa1d68c7afc4b00eeacedd3b44"
-  integrity sha512-Co5YjVZARl7mzn44A2sySmjZZ8ClaVGN6gLVFfv/xenAvXuoEJHn48YFHCinqxeDL3j5SlB4QBKqtjYwd3VcpQ==
+stream-chat-react@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/stream-chat-react/-/stream-chat-react-3.2.0.tgz#ff965f5e7211e949d46683921aa9549b4bf1d87f"
+  integrity sha512-oH6ZvHK0KDiIDXd7+LWCrxW8sXuor8O/FCh5C0oqnjM5pWbfbb7XQCZw3xjQajBIfrgvPX/XVPC5wQ6Ii2r+5g==
   dependencies:
     "@braintree/sanitize-url" "5.0.0"
     custom-event "^1.0.1"
-    dayjs "^1.9.1"
+    dayjs "^1.9.4"
     emoji-mart "3.0.0"
-    emoji-regex "^9.0.0"
-    i18next "^19.8.1"
+    emoji-regex "^9.2.0"
+    i18next "^19.8.2"
     isomorphic-ws "^4.0.1"
     linkifyjs "^2.1.9"
     lodash.debounce "^4.0.8"
@@ -21170,7 +21175,7 @@ stream-chat-react@3.1.7:
     react-fast-compare "^3.2.0"
     react-file-utils "0.4.0"
     react-images "^1.1.7"
-    react-is "^16.13.1"
+    react-is "^17.0.1"
     react-markdown "^4.3.1"
     react-player "^2.6.2"
     react-textarea-autosize "^8.2.0"
