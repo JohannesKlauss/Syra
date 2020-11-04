@@ -66,13 +66,13 @@ export class CustomUserResolver {
   })
   async signUpUser(@TypeGraphQL.Ctx() ctx: GraphQLContext, @TypeGraphQL.Args() args: SignUpUserArgs): Promise<User> {
     const {
-      data: { password, name, email, accessCode },
+      data: { password, name, email, handle, accessCode },
     } = args;
 
-    const dbEntry = await ctx.prisma.user.findOne({ where: { email: email }, select: { id: true } });
+    const dbEntry = await ctx.prisma.user.findMany({ where: { OR: [{ email }, { handle }] }, select: { id: true } });
 
-    if (dbEntry) {
-      throw new BadRequestException('Email is already taken.');
+    if (dbEntry.length > 0) {
+      throw new BadRequestException('Email or handle is already taken.');
     }
 
     const code = await ctx.prisma.earlyAccessCode.findOne({
@@ -90,6 +90,7 @@ export class CustomUserResolver {
       data: {
         name,
         email,
+        handle,
         password: hashedPassword,
       },
     });

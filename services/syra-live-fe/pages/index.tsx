@@ -11,6 +11,9 @@ import Pricing from "../ui/organisms/LandingPage/Pricing/Pricing";
 import { Box, Image } from "@chakra-ui/core";
 import { benefits } from '../staticText/benefits';
 import { tiers } from '../staticText/tiers';
+import { GetServerSideProps } from "next";
+import { initializeApollo } from "../apollo/client";
+import { MeDocument, MyLikesDocument } from "../gql/generated";
 
 export default function Home() {
   const [showLogInModal, setShowLogInModal] = useRecoilState(landingPageStore.showLogInModal);
@@ -45,6 +48,27 @@ export default function Home() {
   );
 }
 
-Home.getInitialProps = async () => ({
-  namespacesRequired: ['default'],
-})
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const apolloClient = initializeApollo(null, context.req.headers.cookie);
+
+  try {
+    const user = await apolloClient.query({
+      query: MeDocument,
+    });
+
+    if (user.data != null) {
+      context.res.writeHead(301, {
+        Location: '/feed',
+      });
+
+      context.res.end();
+    }
+  } catch(e) {}
+
+  return {
+    props: {
+      namespacesRequired: ['default'],
+      initialApolloState: apolloClient.cache.extract(),
+    },
+  }
+}

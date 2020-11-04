@@ -24,7 +24,7 @@ function RecommendationList({ recommendations }: Props) {
                     {user.name}
                   </Text>
                   <Text fontSize={"xs"} color={"gray.400"}>
-                    <strong>{user.followingCount}</strong> {t("Followers")}
+                    <strong>{user.followedByCount}</strong> {t("Followers")}
                   </Text>
                 </Box>
               </Flex>

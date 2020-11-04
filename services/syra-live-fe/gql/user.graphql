@@ -80,13 +80,13 @@ query meFollowing {
 query followRecommendations {
     followRecommendations {
         ...UserLink
-        followingCount
+        followedByCount
         isMeFollowing
     }
 }
 
-mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!) {
-    signUpUser(data: {name: $name, email: $email, password: $password, accessCode: $accessCode}) {
+mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!, $handle: String!) {
+    signUpUser(data: {name: $name, email: $email, password: $password, accessCode: $accessCode, handle: $handle}) {
         id
         name
     }
