@@ -22,6 +22,6 @@ app.prepare()
       handle(req, res, parsedUrl);
     }).listen(port, err => {
       if (err) throw err;
-      console.log(`> Ready on https://localhost:${port}`);
+      console.log(`> Ready on https://local.syra.live:${port}`);
     })
   });

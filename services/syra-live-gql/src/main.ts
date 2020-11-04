@@ -10,20 +10,22 @@ import fastifyMultipart from 'fastify-multipart';
 async function bootstrap() {
   const certPath = __dirname + '/../../../../';
 
+  console.log('env', process.env.NODE_ENV);
+
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({
       logger: true,
-      https: {
+      https: process.env.NODE_ENV !== 'production' && {
         key: fs.readFileSync(certPath + 'local.syra.live.key'),
         cert: fs.readFileSync(certPath + 'local.syra.live.crt'),
-      }
+      },
     }),
   );
 
   app.enableCors({
     credentials: true,
-    origin: ['https://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live']
+    origin: ['https://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live'],
   });
 
   app.register(SecureSessionPlugin, {
@@ -34,7 +36,7 @@ async function bootstrap() {
       path: '/',
       domain: 'syra.live',
       httpOnly: true,
-    }
+    },
   });
 
   app.register(fastifyMultipart);

@@ -20,21 +20,23 @@ export default function Feed() {
 
   return (
     <>
-      <TopBar/>
+      <TopBar />
       <PageBox>
         <Flex>
           <Box flex={'none'}>
             <PseudoBox w={'20rem'}>
               <Box pos={'fixed'}>
-                <ProfileBox/>
-                <FollowRecommendationsBox recommendations={[{followers: 453, name: 'Manuel Neufeld', id: 3, avatar: ''}]}/>
+                <ProfileBox />
+                <FollowRecommendationsBox
+                  recommendations={[{ followers: 453, name: 'Manuel Neufeld', id: 3, avatar: '' }]}
+                />
               </Box>
             </PseudoBox>
           </Box>
-          <PseudoBox marginX={12}/>
+          <PseudoBox marginX={12} />
           <Box w={'100%'}>
-            <CreateFeedItem/>
-            <FeedStack/>
+            <CreateFeedItem />
+            <FeedStack />
           </Box>
         </Flex>
       </PageBox>
@@ -54,5 +56,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       namespacesRequired: ['default'],
       initialApolloState: apolloClient.cache.extract(),
     },
-  }
-}
+  };
+};

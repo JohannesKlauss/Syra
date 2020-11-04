@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Avatar, Box, Divider, Flex, Link as ChakraLink, Skeleton, Text } from '@chakra-ui/core';
 import { useTranslation } from 'react-i18next';
 import FeedItemAudio from './FeedItemAudio/FeedItemAudio';
@@ -8,6 +8,8 @@ import { useFeedItemByIdQuery } from '../../../../gql/generated';
 import Link from 'next/link';
 import CreateComment from '../CreateComment/CreateComment';
 import CommentList from '../CommentList/CommentList';
+import useSuspendableQuery from '../../../../hooks/apollo/useSuspendableQuery';
+import Suspendable from "../../../atoms/Suspendable/Suspendable";
 
 interface Props {
   id: string;
@@ -15,10 +17,7 @@ interface Props {
 
 function FeedItem({ id }: Props) {
   const { t } = useTranslation();
-  const { data, error, loading } = useFeedItemByIdQuery({ variables: { id } });
-
-  if (loading) return <Skeleton h={16} />;
-  if (error) return null;
+  const { data } = useSuspendableQuery(useFeedItemByIdQuery({ variables: { id } }));
 
   const feedItem = data.feedItem;
 
@@ -54,7 +53,9 @@ function FeedItem({ id }: Props) {
         </Flex>
       </Box>
       <Box padding={4} paddingTop={0}>
-        <Text whiteSpace={'pre'} fontSize={'sm'}>{feedItem.text}</Text>
+        <Text whiteSpace={'pre'} fontSize={'sm'}>
+          {feedItem.text}
+        </Text>
       </Box>
       <Box paddingX={4} py={2}>
         <FeedItemActions
@@ -66,8 +67,10 @@ function FeedItem({ id }: Props) {
         <Divider marginY={2} />
       </Box>
       <Box padding={4} paddingTop={0}>
-        <CommentList feedItemId={feedItem.id} />
-        <CreateComment feedItemId={feedItem.id} />
+        <Suspendable>
+          <CommentList feedItemId={feedItem.id} />
+          <CreateComment feedItemId={feedItem.id} />
+        </Suspendable>
       </Box>
     </Box>
   );
