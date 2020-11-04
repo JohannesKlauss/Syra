@@ -86,7 +86,7 @@ query followRecommendations {
 }
 
 query search($searchString: String!) {
-    users(where: {OR: [{name: {contains: $searchString}}, {handle: {contains: $searchString}}]}) {
+    users(where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {handle: {contains: $searchString, mode: insensitive}}]}) {
         ...FeedUser
     }
 }

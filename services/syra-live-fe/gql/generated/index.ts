@@ -5771,7 +5771,7 @@ export type SearchQueryVariables = Exact<{
   searchString: Scalars['String'];
 }>;
 
-export type SearchQuery = { __typename?: 'Query' } & { users: Array<{ __typename?: 'User' } & UserLinkFragment> };
+export type SearchQuery = { __typename?: 'Query' } & { users: Array<{ __typename?: 'User' } & FeedUserFragment> };
 
 export type SignUpUserMutationVariables = Exact<{
   name: Scalars['String'];
@@ -7012,11 +7012,18 @@ export type FollowRecommendationsQueryResult = Apollo.QueryResult<
 >;
 export const SearchDocument = gql`
   query search($searchString: String!) {
-    users(where: { OR: [{ name: { contains: $searchString } }, { handle: { contains: $searchString } }] }) {
-      ...UserLink
+    users(
+      where: {
+        OR: [
+          { name: { contains: $searchString, mode: insensitive } }
+          { handle: { contains: $searchString, mode: insensitive } }
+        ]
+      }
+    ) {
+      ...FeedUser
     }
   }
-  ${UserLinkFragmentDoc}
+  ${FeedUserFragmentDoc}
 `;
 
 /**
