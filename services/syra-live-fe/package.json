@@ -28,6 +28,7 @@
     "next-i18next": "7.0.1",
     "nprogress": "0.2.0",
     "react": "16.14.0",
+    "react-click-away-listener": "1.4.3",
     "react-dom": "16.14.0",
     "react-easy-crop": "3.3.0",
     "react-hook-form": "6.10.1",
