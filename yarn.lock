@@ -18563,10 +18563,10 @@ react-view-pager@^0.6.0:
     resize-observer-polyfill "1.5.0"
     tabbable "1.1.2"
 
-react-virtuoso@0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-0.20.0.tgz#df1d6e33e358f817dbf954bd556333fcdcc91eb1"
-  integrity sha512-h+U6t/+m91AzfUe6bBfaacdLLJl1y8v7CfcXwPgQ/Dic+vNlgQmi6cIKTq18zuF+kI8Q7QN0ojIeqPHWbU8TZA==
+react-virtuoso@^0.20.1:
+  version "0.20.1"
+  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-0.20.1.tgz#a75617e806c7c4a4a4ea998770f794f9a2273001"
+  integrity sha512-rYPQTsVK/44AVRCVxcFSp4wetjO2I14OyohbHFY97qGE76FBxTo+VcwKHaIkuziNqFJqyrFfBjQZabbiwEtFFg==
   dependencies:
     resize-observer-polyfill "^1.5.1"
     tslib "^1.11.1"
@@ -20204,10 +20204,10 @@ stream-browserify@^2.0.1:
     inherits "~2.0.1"
     readable-stream "^2.0.2"
 
-stream-chat-react@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/stream-chat-react/-/stream-chat-react-3.2.0.tgz#ff965f5e7211e949d46683921aa9549b4bf1d87f"
-  integrity sha512-oH6ZvHK0KDiIDXd7+LWCrxW8sXuor8O/FCh5C0oqnjM5pWbfbb7XQCZw3xjQajBIfrgvPX/XVPC5wQ6Ii2r+5g==
+stream-chat-react@3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/stream-chat-react/-/stream-chat-react-3.2.1.tgz#de4136be18343ca31bb199f069039c838102befa"
+  integrity sha512-m76tBMCkTcUQs9KsGWaamsA1kLcNcLA6hSWF0IIkX9l5aBhqP4kwmGCfOF7MWN1DOnPsX9Bjvsw/8AfhAsBUHg==
   dependencies:
     "@braintree/sanitize-url" "5.0.0"
     custom-event "^1.0.1"
@@ -20229,7 +20229,7 @@ stream-chat-react@3.2.0:
     react-markdown "^4.3.1"
     react-player "^2.6.2"
     react-textarea-autosize "^8.2.0"
-    react-virtuoso "0.20.0"
+    react-virtuoso "^0.20.1"
     seamless-immutable "^7.1.4"
     textarea-caret "^3.1.0"
     uuid "^8.3.1"
