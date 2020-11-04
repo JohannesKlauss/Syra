@@ -2746,6 +2746,7 @@ type Query {
   findFirstUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): UsersOnProjects
   findManyUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]!
   findOneUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
+  followRecommendations: [User!]!
   me: User!
   mixdown(where: MixdownWhereUniqueInput!): Mixdown
   mixdowns(cursor: MixdownWhereUniqueInput, distinct: [MixdownDistinctFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]!

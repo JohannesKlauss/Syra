@@ -2,13 +2,11 @@ fragment UserLink on User {
     id
     handle
     name
+    avatar
 }
 
 fragment FeedUser on User {
-    id
-    handle
-    name
-    avatar
+    ...UserLink
     isMeFollowing
 }
 
@@ -76,6 +74,14 @@ query meFollowing {
         following {
             ...FeedUser
         }
+    }
+}
+
+query followRecommendations {
+    followRecommendations {
+        ...UserLink
+        followingCount
+        isMeFollowing
     }
 }
 

@@ -25,11 +25,9 @@ export default function Feed() {
         <Flex>
           <Box flex={'none'}>
             <PseudoBox w={'20rem'}>
-              <Box pos={'fixed'}>
+              <Box pos={'fixed'} w={'24rem'}>
                 <ProfileBox />
-                <FollowRecommendationsBox
-                  recommendations={[{ followers: 453, name: 'Manuel Neufeld', id: 3, avatar: '' }]}
-                />
+                <FollowRecommendationsBox/>
               </Box>
             </PseudoBox>
           </Box>

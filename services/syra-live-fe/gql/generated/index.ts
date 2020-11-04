@@ -3220,6 +3220,7 @@ export type Query = {
   findFirstUsersOnProjects?: Maybe<UsersOnProjects>;
   findManyUsersOnProjects: Array<UsersOnProjects>;
   findOneUsersOnProjects?: Maybe<UsersOnProjects>;
+  followRecommendations: Array<User>;
   me: User;
   mixdown?: Maybe<Mixdown>;
   mixdowns: Array<Mixdown>;
@@ -5708,12 +5709,9 @@ export type CreateProjectMutation = { __typename?: 'Mutation' } & {
   createProject: { __typename?: 'Project' } & SessionListDataFragment;
 };
 
-export type UserLinkFragment = { __typename?: 'User' } & Pick<User, 'id' | 'handle' | 'name'>;
+export type UserLinkFragment = { __typename?: 'User' } & Pick<User, 'id' | 'handle' | 'name' | 'avatar'>;
 
-export type FeedUserFragment = { __typename?: 'User' } & Pick<
-  User,
-  'id' | 'handle' | 'name' | 'avatar' | 'isMeFollowing'
->;
+export type FeedUserFragment = { __typename?: 'User' } & Pick<User, 'isMeFollowing'> & UserLinkFragment;
 
 export type BaseProfileFragment = { __typename?: 'User' } & Pick<
   User,
@@ -5759,6 +5757,14 @@ export type MeFollowingQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeFollowingQuery = { __typename?: 'Query' } & {
   me: { __typename?: 'User' } & { following?: Maybe<Array<{ __typename?: 'User' } & FeedUserFragment>> };
+};
+
+export type FollowRecommendationsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type FollowRecommendationsQuery = { __typename?: 'Query' } & {
+  followRecommendations: Array<
+    { __typename?: 'User' } & Pick<User, 'followingCount' | 'isMeFollowing'> & UserLinkFragment
+  >;
 };
 
 export type SignUpUserMutationVariables = Exact<{
@@ -5820,14 +5826,20 @@ export const CreatedCommentFragmentDoc = gql`
     updatedAt
   }
 `;
-export const FeedUserFragmentDoc = gql`
-  fragment FeedUser on User {
+export const UserLinkFragmentDoc = gql`
+  fragment UserLink on User {
     id
     handle
     name
     avatar
+  }
+`;
+export const FeedUserFragmentDoc = gql`
+  fragment FeedUser on User {
+    ...UserLink
     isMeFollowing
   }
+  ${UserLinkFragmentDoc}
 `;
 export const FeedCommentFragmentDoc = gql`
   fragment FeedComment on Comment {
@@ -5894,13 +5906,6 @@ export const SessionListDataFragmentDoc = gql`
     createdAt
     name
     updatedAt
-  }
-`;
-export const UserLinkFragmentDoc = gql`
-  fragment UserLink on User {
-    id
-    handle
-    name
   }
 `;
 export const BaseProfileFragmentDoc = gql`
@@ -6950,6 +6955,54 @@ export function useMeFollowingLazyQuery(
 export type MeFollowingQueryHookResult = ReturnType<typeof useMeFollowingQuery>;
 export type MeFollowingLazyQueryHookResult = ReturnType<typeof useMeFollowingLazyQuery>;
 export type MeFollowingQueryResult = Apollo.QueryResult<MeFollowingQuery, MeFollowingQueryVariables>;
+export const FollowRecommendationsDocument = gql`
+  query followRecommendations {
+    followRecommendations {
+      ...UserLink
+      followingCount
+      isMeFollowing
+    }
+  }
+  ${UserLinkFragmentDoc}
+`;
+
+/**
+ * __useFollowRecommendationsQuery__
+ *
+ * To run a query within a React component, call `useFollowRecommendationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFollowRecommendationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFollowRecommendationsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFollowRecommendationsQuery(
+  baseOptions?: Apollo.QueryHookOptions<FollowRecommendationsQuery, FollowRecommendationsQueryVariables>,
+) {
+  return Apollo.useQuery<FollowRecommendationsQuery, FollowRecommendationsQueryVariables>(
+    FollowRecommendationsDocument,
+    baseOptions,
+  );
+}
+export function useFollowRecommendationsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<FollowRecommendationsQuery, FollowRecommendationsQueryVariables>,
+) {
+  return Apollo.useLazyQuery<FollowRecommendationsQuery, FollowRecommendationsQueryVariables>(
+    FollowRecommendationsDocument,
+    baseOptions,
+  );
+}
+export type FollowRecommendationsQueryHookResult = ReturnType<typeof useFollowRecommendationsQuery>;
+export type FollowRecommendationsLazyQueryHookResult = ReturnType<typeof useFollowRecommendationsLazyQuery>;
+export type FollowRecommendationsQueryResult = Apollo.QueryResult<
+  FollowRecommendationsQuery,
+  FollowRecommendationsQueryVariables
+>;
 export const SignUpUserDocument = gql`
   mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!) {
     signUpUser(data: { name: $name, email: $email, password: $password, accessCode: $accessCode }) {
