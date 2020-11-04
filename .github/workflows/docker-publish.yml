@@ -1,0 +1,60 @@
+name: Docker
+
+on:
+  push:
+    # Publish `main` as Docker `latest` image.
+    branches:
+      - release
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+  # Run tests for any PRs.
+  pull_request:
+
+jobs:
+  # Push image to GitHub Packages.
+  # See also https://docs.docker.com/docker-hub/builds/
+  push:
+    # Ensure test job passes before pushing image.
+    # needs: test
+
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      #- name: Log into GitHub Container Registry
+        # TODO: Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
+      #  run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Login to DO registry
+        run: doctl registry login
+
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+
+      - name: Build and push Docker images to DO Registry
+        run: |
+          COMPONENTS=$(find services/syra-*/Dockerfile)
+
+          for CMP in $COMPONENTS
+          do
+            IMAGE_NAME=$(dirname $CMP)
+            IMAGE_ID=registry.digitalocean.com/syra-do/$IMAGE_NAME
+
+            echo build and push $IMAGE_NAME:$REF
+
+            docker build $IMAGE_NAME --tag $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):${{ steps.get_version.outputs.VERSION }}
+            docker push $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):${{ steps.get_version.outputs.VERSION }}
+
+            echo "$IMAGE_NAME done! \n\n"
+          done

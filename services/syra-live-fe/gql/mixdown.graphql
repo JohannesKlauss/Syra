@@ -1,0 +1,63 @@
+fragment FeedMixdown on Mixdown {
+    id
+    audio {
+        location
+    }
+    listens
+    createdAt
+    project {
+        id
+        name
+        isPrivate
+    }
+}
+
+fragment PreviewMixdown on Mixdown {
+    id
+    version
+    name
+    audio {
+        id
+        isPublic
+        location
+    }
+    createdAt
+    listens
+}
+
+query myMixdowns {
+    me {
+        ownsProjects {
+            id
+            name
+            isPrivate
+            updatedAt
+            mixdowns {
+                ...PreviewMixdown
+            }
+        }
+    }
+}
+
+query mixdown($id: String!) {
+    mixdown(where: {id: $id}) {
+        id
+        audio {
+            id
+            isPublic
+            location
+        }
+        listens
+        createdAt
+        name
+        version
+        project {
+            name
+            owner {
+                id
+                avatar
+                name
+            }
+        }
+    }
+}

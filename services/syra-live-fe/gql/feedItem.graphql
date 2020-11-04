@@ -1,0 +1,83 @@
+fragment FeedComment on Comment {
+    id
+    likeCount
+    text
+    updatedAt
+    author {
+        ...FeedUser
+    }
+}
+
+fragment DisplayFeedItem on FeedItem {
+    id
+    likeCount
+    commentCount
+    updatedAt
+    text
+    isMeLiking
+    author {
+        ...FeedUser
+    }
+    mixdown {
+        ...FeedMixdown
+    }
+}
+
+query feedItemsByHandle($handle: String!, $cursor: String) {
+    feedItems(where: {author: {is: {handle: {equals: $handle}}}}, cursor: {id: $cursor}, take: 8, orderBy: [{createdAt: desc}]) {
+        id
+    }
+}
+
+query myFeed($me: String) {
+    feedItems(where: {OR: [{author: {is: {followedBy: {some: {id: {equals: $me}}}}}}, {author:{is: {id: {equals: $me}}}}]}, orderBy: [{createdAt: desc}], take: 5) {
+        id
+    }
+}
+
+query feedItemById($id: String!) {
+    feedItem(where: {id: $id}) {
+        ...DisplayFeedItem
+    }
+}
+
+query myLikes($me: String) {
+    feedItemLikes(where: {userId: {equals: $me}}, orderBy: [{createdAt: desc}]) {
+        feedItemId
+    }
+}
+
+mutation createFeedItem($text: String!, $mixdownId: String, $me: String) {
+    createFeedItem(data: {text: $text, mixdown: {connect: {id: $mixdownId}}, author: {connect: {id: $me}}}) {
+        id
+        likeCount
+        commentCount
+        createdAt
+        updatedAt
+    }
+}
+
+mutation createTextFeedItem($text: String!, $me: String) {
+    createFeedItem(data: {text: $text, author: {connect: {id: $me}}}) {
+        id
+        likeCount
+        commentCount
+        createdAt
+        updatedAt
+        mixdown {
+            ...FeedMixdown
+        }
+    }
+}
+
+mutation likeFeedItem($feedItemId: String!, $me: String) {
+    createFeedItemLike(data: {feedItem: {connect: {id: $feedItemId}}, user: {connect: {id: $me}}}) {
+        feedItemId
+    }
+}
+
+mutation unlikeFeedItem($feedItemId: String!, $me: String!) {
+    deleteFeedItemLike(where: {userId_feedItemId: {feedItemId: $feedItemId, userId: $me}}) {
+        feedItemId
+    }
+}

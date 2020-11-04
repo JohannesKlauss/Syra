@@ -1,0 +1,140 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: syra-redis-cluster
+spec:
+  selector:
+    app: syra-redis-cluster
+  ports:
+    - port: 6379
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: syra-redis-cluster
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: syra-redis-cluster
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: syra-redis-cluster
+    spec:
+      containers:
+        - name: syra-redis-cluster
+          image: redis:5-alpine
+          ports:
+            - containerPort: 6379
+          args: ["--requirepass", "$(REDIS_PASSWORD)"]
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: REDIS_PASSWORD
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: syra-live-gql
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: syra-live-gql
+  template:
+    metadata:
+      labels:
+        app: syra-live-gql
+    spec:
+      containers:
+        - name: syra-live-gql
+          image: registry.digitalocean.com/syra-do/services/syra-live-gql:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4000
+          volumeMounts:
+          - name: ca-pemstore
+            mountPath: /syra-live-gql/prisma/ca-certificate.crt
+            subPath: ca-certificate.crt
+            readOnly: true
+          env:
+            - name: LIVE_DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: LIVE_DB_URL
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: REDIS_HOST
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: REDIS_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: JWT_SECRET
+            - name: DO_SPACES_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: DO_SPACES_NAME
+            - name: DO_SPACES_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: DO_SPACES_SECRET_KEY
+            - name: DO_SPACES_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: DO_SPACES_ACCESS_KEY
+            - name: DO_SPACES_REGION_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: DO_SPACES_REGION_ENDPOINT
+            - name: SENDGRID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: SENDGRID_API_KEY
+            - name: STREAM_CHAT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: STREAM_CHAT_KEY
+            - name: STREAM_CHAT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: STREAM_CHAT_SECRET
+      volumes:
+      - name: ca-pemstore
+        configMap:
+          name: ca-pemstore
+      imagePullSecrets:
+        - name: registry-syra-do
+      restartPolicy: Always
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: syra-live-gql
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 4000
+  selector:
+    app: syra-live-gql

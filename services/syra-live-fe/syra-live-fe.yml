@@ -1,0 +1,46 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: syra-live-fe
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: syra-live-fe
+  template:
+    metadata:
+      labels:
+        app: syra-live-fe
+    spec:
+      containers:
+        - name: syra-live-fe
+          image: registry.digitalocean.com/syra-do/services/syra-live-fe:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+          - name: NEXT_PUBLIC_LIVE_GQL_URL
+            valueFrom:
+              secretKeyRef:
+                name: syra-live-secrets
+                key: NEXT_PUBLIC_LIVE_GQL_URL
+          - name: NEXT_PUBLIC_STREAM_CHAT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: syra-live-secrets
+                key: NEXT_PUBLIC_STREAM_CHAT_KEY
+      imagePullSecrets:
+        - name: registry-syra-do
+      restartPolicy: Always
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: syra-live-fe
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 3000
+  selector:
+    app: syra-live-fe

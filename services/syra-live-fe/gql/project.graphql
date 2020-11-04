@@ -1,0 +1,24 @@
+fragment SessionListData on Project {
+    id
+    createdAt
+    name
+    updatedAt
+}
+
+query myProjects($me: String) {
+    projects(where: {owner: {is: {id: {equals: $me}}}}) {
+        ...SessionListData
+    }
+}
+
+query publicProjectsByHandle($handle: String!) {
+    projects(where: {owner: {is: {handle: {equals: $handle}}}, isPrivate: {equals: false}}) {
+        ...SessionListData
+    }
+}
+
+mutation createProject($name: String! = "New Syra Project", $me: String) {
+    createProject(data: {name: $name, isPrivate: false, owner: {connect: {id: $me}}}) {
+        ...SessionListData
+    }
+}

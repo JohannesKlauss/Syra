@@ -1,0 +1,30 @@
+name: Deploy to staging
+
+env:
+  ARCHITECT_EMAIL: ${{ secrets.ARCHITECT_EMAIL }}
+  ARCHITECT_PASSWORD: ${{ secrets.ARCHITECT_PASSWORD }}
+  ARCHITECT_ACCOUNT: ${{ secrets.ARCHITECT_ACCOUNT }}
+  MAINLINE_TAG_NAME: latest
+
+on:
+  push:
+    branches:
+      - preview
+
+jobs:
+  architect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: tests
+        run: echo "Run your tests here"
+      - name: install architect
+        run: yarn add @architect-io/cli -W
+      - name: login
+        run: yarn run architect login -e $ARCHITECT_EMAIL -p $ARCHITECT_PASSWORD
+      - name: Tag architect component
+        run: |
+          yarn run architect register --tag ${{ env.MAINLINE_TAG_NAME }} ./services/architect.yml
+      - name: deploy to staging
+        run: |
+          yarn run architect deploy --environment staging

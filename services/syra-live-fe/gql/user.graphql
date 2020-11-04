@@ -1,0 +1,105 @@
+fragment UserLink on User {
+    id
+    handle
+    name
+}
+
+fragment FeedUser on User {
+    id
+    handle
+    name
+    avatar
+    isMeFollowing
+}
+
+fragment BaseProfile on User {
+    id
+    name
+    email
+    avatar
+    bio
+    website
+    handle
+    followedByCount
+    followingCount
+    isMyself
+    followedBy(take: 3) {
+        ...UserLink
+    }
+    interests {
+        value
+    }
+}
+
+fragment Profile on User {
+    ...BaseProfile
+    isMeFollowing
+}
+
+fragment MeProfile on User {
+    ...BaseProfile
+}
+
+query me {
+    me {
+        ...MeProfile
+    }
+}
+
+query userProfileByHandle($handle: String!) {
+    user(where: {handle: $handle}) {
+        ...Profile
+    }
+}
+
+query user($id: String!) {
+    user(where: {id: $id}) {
+        id
+        name
+        email
+        avatar
+        followedByCount
+        followingCount
+    }
+}
+
+query myFollowers {
+    me {
+        followedBy {
+            ...FeedUser
+        }
+    }
+}
+
+query meFollowing {
+    me {
+        following {
+            ...FeedUser
+        }
+    }
+}
+
+mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!) {
+    signUpUser(data: {name: $name, email: $email, password: $password, accessCode: $accessCode}) {
+        id
+        name
+    }
+}
+
+mutation updateUser($data: UserUpdateInput!, $me: String) {
+    updateUser(where: {id: $me}, data: $data) {
+        id
+    }
+}
+
+mutation followUser($handle: String!, $me: String) {
+    updateUser(where: {handle: $handle}, data: {followedBy: {connect: [{id: $me}]}}) {
+        id
+    }
+}
+
+mutation unfollowUser($handle: String!, $me: String) {
+    updateUser(where: {handle: $handle}, data: {followedBy: {disconnect: [{id: $me}]}}) {
+        id
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "UpdateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "EarylAccessCode",
+          "field": "isValid"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "newValue": "true"
+    }
+  ]
+}

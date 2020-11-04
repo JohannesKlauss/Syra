@@ -1,0 +1,15 @@
+{
+  "name": "Syra GraphQL Schema",
+  "schemaPath": "./services/syra-live-gql/schema.gql",
+  "extensions": {
+    "endpoints": {
+      "Nest.js GraphQL API": {
+        "url": "http://localhost:4000/",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      }
+    }
+  }
+}
