@@ -85,6 +85,12 @@ query followRecommendations {
     }
 }
 
+query search($searchString: String!) {
+    users(where: {OR: [{name: {contains: $searchString}}, {handle: {contains: $searchString}}]}) {
+        ...FeedUser
+    }
+}
+
 mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!, $handle: String!) {
     signUpUser(data: {name: $name, email: $email, password: $password, accessCode: $accessCode, handle: $handle}) {
         id

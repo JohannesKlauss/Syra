@@ -5767,6 +5767,12 @@ export type FollowRecommendationsQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type SearchQueryVariables = Exact<{
+  searchString: Scalars['String'];
+}>;
+
+export type SearchQuery = { __typename?: 'Query' } & { users: Array<{ __typename?: 'User' } & UserLinkFragment> };
+
 export type SignUpUserMutationVariables = Exact<{
   name: Scalars['String'];
   email: Scalars['String'];
@@ -7004,6 +7010,40 @@ export type FollowRecommendationsQueryResult = Apollo.QueryResult<
   FollowRecommendationsQuery,
   FollowRecommendationsQueryVariables
 >;
+export const SearchDocument = gql`
+  query search($searchString: String!) {
+    users(where: { OR: [{ name: { contains: $searchString } }, { handle: { contains: $searchString } }] }) {
+      ...UserLink
+    }
+  }
+  ${UserLinkFragmentDoc}
+`;
+
+/**
+ * __useSearchQuery__
+ *
+ * To run a query within a React component, call `useSearchQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchQuery({
+ *   variables: {
+ *      searchString: // value for 'searchString'
+ *   },
+ * });
+ */
+export function useSearchQuery(baseOptions?: Apollo.QueryHookOptions<SearchQuery, SearchQueryVariables>) {
+  return Apollo.useQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions);
+}
+export function useSearchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchQuery, SearchQueryVariables>) {
+  return Apollo.useLazyQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions);
+}
+export type SearchQueryHookResult = ReturnType<typeof useSearchQuery>;
+export type SearchLazyQueryHookResult = ReturnType<typeof useSearchLazyQuery>;
+export type SearchQueryResult = Apollo.QueryResult<SearchQuery, SearchQueryVariables>;
 export const SignUpUserDocument = gql`
   mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!, $handle: String!) {
     signUpUser(data: { name: $name, email: $email, password: $password, accessCode: $accessCode, handle: $handle }) {

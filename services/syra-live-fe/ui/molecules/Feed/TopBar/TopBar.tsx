@@ -8,9 +8,9 @@ import {
 import { useTranslation } from 'react-i18next';
 import AvatarMenu from '../AvatarMenu/AvatarMenu';
 import { IoMdAdd } from 'react-icons/io';
-import SearchField from "../../../atoms/SearchField/SearchField";
 import { useCreateProjectMutation } from '../../../../gql/generated';
 import Link from 'next/link';
+import Search from "../../Search/Search";
 
 interface Props {
 }
@@ -42,12 +42,12 @@ function TopBar({}: Props) {
             <Button variant={"link"} marginX={4}>{t('Marketplace')}</Button>
           </Box>
           <Box>
-            AvatarList of active session
+            AvatarList of active sessions
           </Box>
           <Box>
             <Flex align={'center'} justify={'space-between'}>
               <Button variant={"link"} marginX={8} leftIcon={IoMdAdd} onClick={onClickNewSession}>{t('New Session')}</Button>
-              <SearchField placeholder={`${t('Search')} ${' '} ${t('S Y R A')}`} onKeyup={() => null}/>
+              <Search/>
               <AvatarMenu/>
             </Flex>
           </Box>
