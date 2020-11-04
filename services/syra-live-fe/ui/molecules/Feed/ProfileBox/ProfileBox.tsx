@@ -36,7 +36,7 @@ function ProfileBox({}: Props) {
     <Box overflow={'hidden'} rounded={8} bg={'gray.900'} boxShadow={'0px 3px 24px -5px rgba(0,0,0,1)'}
          marginBottom={16}>
       <Box background={'linear-gradient(to right, #654ea3, #eaafc8)'}>
-        <Flex justify={'space-between'} paddingX={8} paddingY={4}>
+        <Flex justify={'flex-start'} paddingX={8} paddingY={4}>
           <Box>
             <Avatar name={data.me.name} src={data.me.avatar}/>
           </Box>
