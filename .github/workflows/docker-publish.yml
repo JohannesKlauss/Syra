@@ -38,9 +38,12 @@ jobs:
       - name: Login to DO registry
         run: doctl registry login
 
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+
       - name: Build and push Docker images to DO Registry
         run: |
-          REF=$(git rev-parse --short HEAD)
           COMPONENTS=$(find services/syra-*/Dockerfile)
 
           for CMP in $COMPONENTS
@@ -50,8 +53,8 @@ jobs:
 
             echo build and push $IMAGE_NAME:$REF
 
-            docker build $IMAGE_NAME --tag $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):latest
-            docker push $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):latest
+            docker build $IMAGE_NAME --tag $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):${{ steps.get_version.outputs.VERSION }}
+            docker push $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):${{ steps.get_version.outputs.VERSION }}
 
             echo "$IMAGE_NAME done! \n\n"
           done
