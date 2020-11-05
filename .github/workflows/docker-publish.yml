@@ -36,7 +36,7 @@ jobs:
             IMAGE_NAME=$(dirname $CMP)
             IMAGE_ID=registry.digitalocean.com/syra-do/$IMAGE_NAME
 
-            echo build and push $IMAGE_NAME:$REF
+            echo build and push $IMAGE_NAME:${{ steps.get_version.outputs.VERSION }}
 
             docker build $IMAGE_NAME --tag $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):${{ steps.get_version.outputs.VERSION }}
             docker push $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):${{ steps.get_version.outputs.VERSION }}
