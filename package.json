@@ -20,7 +20,7 @@
     "@graphql-codegen/cli": "1.19.1",
     "@graphql-codegen/typescript": "1.17.11",
     "@graphql-codegen/typescript-operations": "1.17.9",
-    "@graphql-codegen/typescript-react-apollo": "2.1.0",
+    "@graphql-codegen/typescript-react-apollo": "2.1.1",
     "babel-loader": "8.1.0",
     "eslint": "7.12.1",
     "eslint-config-prettier": "6.15.0",
