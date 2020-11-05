@@ -17,10 +17,10 @@
     "live-fe:storybook": "yarn workspace syra-live-fe storybook"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.19.0",
+    "@graphql-codegen/cli": "1.19.1",
     "@graphql-codegen/typescript": "1.17.11",
-    "@graphql-codegen/typescript-operations": "1.17.8",
-    "@graphql-codegen/typescript-react-apollo": "2.0.7",
+    "@graphql-codegen/typescript-operations": "1.17.9",
+    "@graphql-codegen/typescript-react-apollo": "2.1.0",
     "babel-loader": "8.1.0",
     "eslint": "7.12.1",
     "eslint-config-prettier": "6.15.0",

@@ -1,0 +1,46 @@
+name: Release CI
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - release
+
+env:
+  CI: "true"
+
+jobs:
+  # Push image to Github Image Registry.
+  build_images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: GitHub Slug Action
+        uses: rlespinasse/github-slug-action@3.1.0
+
+      - name: Log into GitHub Container Registry
+        run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and push Docker images to GH Registry
+        if: ${{ env.GITHUB_REF_SLUG }} === "release"
+        run: |
+          REF=$(git rev-parse --short HEAD)
+          COMPONENTS=$(find services/syra-*/Dockerfile)
+
+          for CMP in $COMPONENTS
+          do
+            IMAGE_NAME=$(dirname $CMP)
+            IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+
+            echo build and push $IMAGE_NAME:$REF
+
+            docker build $IMAGE_NAME --tag $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):$REF
+            docker push $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):$REF
+
+            echo "$IMAGE_NAME done! \n\n"
+          done

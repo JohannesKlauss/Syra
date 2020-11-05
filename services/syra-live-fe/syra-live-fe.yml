@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: syra-live-fe
-          image: registry.digitalocean.com/syra-do/services/syra-live-fe:v0.0.6
+          image: registry.digitalocean.com/syra-do/services/syra-live-fe:v0.0.7
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
