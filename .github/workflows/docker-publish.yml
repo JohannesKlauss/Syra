@@ -6,8 +6,6 @@ on:
       - published
     branches:
       - release
-    branches-ignore:
-      - master
 
 jobs:
   # Push image to Digital Ocean Image Registry.
