@@ -8,7 +8,7 @@ interface Props {
   placeholder?: string
   icon?: IconType;
   onKeyup: (value: string) => void;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const SearchField: React.FC<Props> = ({placeholder, icon, onKeyup, onClick}) => {
