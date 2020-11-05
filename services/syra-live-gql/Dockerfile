@@ -6,10 +6,12 @@ WORKDIR /$IMAGE_NAME
 
 ENV NODE_ENV production
 
-COPY . .
+COPY package.json .
 
 RUN yarn install --ignore-engines
 RUN yarn add global pm2 @nestjs/cli --ignore-engines
+
+COPY . .
 
 ENV PATH /$IMAGE_NAME/node_modules/.bin:$PATH
 
