@@ -16,7 +16,6 @@ import SocialSignUp from '../../../molecules/LandingPage/SocialSignUp/SocialSign
 import LogInForm, { TLogInForm } from '../../../molecules/LandingPage/LogInForm/LogInForm';
 import { useTranslation } from 'react-i18next';
 import useLoginLocal from './useLoginLocal';
-import { useRouter } from 'next/router';
 import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
 import useApiResToast from "../../../../hooks/ui/useApiResToast";
 
@@ -32,7 +31,6 @@ function LogInModal({ onClickSwitchToSignUp, onClose, isOpen }: Props) {
   const { t } = useTranslation();
   const executeLocalLogin = useLoginLocal();
   const toast = useApiResToast();
-  const { push } = useRouter();
 
   const onSubmit = async (data: TLogInForm) => {
     setIsSending(true);
@@ -43,7 +41,8 @@ function LogInModal({ onClickSwitchToSignUp, onClose, isOpen }: Props) {
     setHasError(success);
 
     if (success) {
-      await push('/feed');
+      // We use the hard coded version because the cookie doesn't get set when using useRouter.
+      window.location.href = '/feed';
     } else {
       toast(t('Problem during Log In'), 'warning', t('Email or password are incorrect.'))
     }

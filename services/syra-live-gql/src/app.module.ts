@@ -53,6 +53,9 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { MailingModule } from './mailing/mailing.module';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { ChatModule } from './chat/chat.module';
+import { RedisPubSub } from "graphql-redis-subscriptions";
+import { DynamicRedisModule } from "./redis/redis.module";
+import { RedisService } from "nestjs-redis";
 
 const prisma = new PrismaClient();
 
@@ -64,9 +67,9 @@ const prisma = new PrismaClient();
     AuthModule,
     SessionModule,
     TypeGraphQLModule.forRootAsync({
-      imports: [AuthModule],
-      inject: [CookieStrategy],
-      useFactory: async (cookieStrategy: CookieStrategy) => {
+      imports: [AuthModule, DynamicRedisModule],
+      inject: [CookieStrategy, RedisService],
+      useFactory: async (cookieStrategy: CookieStrategy, redisService: RedisService) => {
         return {
           validate: true,
           dateScalarMode: 'timestamp',
@@ -84,6 +87,11 @@ const prisma = new PrismaClient();
             origin: ['https://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live'],
             credentials: true,
           },
+          pubSub: new RedisPubSub({
+            publisher: redisService.getClient('syra-publisher'),
+            subscriber: redisService.getClient('syra-subscriber'),
+          }),
+          installSubscriptionHandlers: true,
         };
       },
     }),

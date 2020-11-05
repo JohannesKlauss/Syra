@@ -31,6 +31,20 @@ export const DynamicRedisModule: DynamicModule = RedisModule.forRootAsync({
         host: configService.get('REDIS_HOST'),
         db: 2,
         name: 'syra-chat-token'
+      },
+      {
+        ...baseOptions,
+        password: configService.get('REDIS_PASSWORD'),
+        host: configService.get('REDIS_HOST'),
+        db: 3,
+        name: 'syra-publisher'
+      },
+      {
+        ...baseOptions,
+        password: configService.get('REDIS_PASSWORD'),
+        host: configService.get('REDIS_HOST'),
+        db: 4,
+        name: 'syra-subscriber'
       }
     ];
   },

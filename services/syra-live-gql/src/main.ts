@@ -10,8 +10,6 @@ import fastifyMultipart from 'fastify-multipart';
 async function bootstrap() {
   const certPath = __dirname + '/../../../../';
 
-  console.log('env', process.env.NODE_ENV);
-
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({

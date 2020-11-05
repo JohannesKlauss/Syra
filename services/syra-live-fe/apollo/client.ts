@@ -1,9 +1,12 @@
 import { useMemo } from 'react';
-import { ApolloClient, ApolloLink, from, InMemoryCache, Observable } from '@apollo/client';
+import { ApolloClient, ApolloLink, from, InMemoryCache, Observable, split } from "@apollo/client";
 import { injectUserId } from './injectUserId';
 import { setContext } from '@apollo/client/link/context';
 import { BatchHttpLink } from "@apollo/client/link/batch-http";
 import publicRuntimeConfig from '../const/config';
+import { WebSocketLink } from "@apollo/client/link/ws";
+import { getMainDefinition } from "@apollo/client/utilities";
+import { isServer } from "../helpers/ssr/isServer";
 
 let apolloClient: ApolloClient<any>;
 let _apolloClient: ApolloClient<any>;
@@ -37,6 +40,13 @@ function createApolloClient(cookie?: string) {
     credentials: 'include',
   });
 
+  const wsLink = isServer ? httpLink : new WebSocketLink({
+    uri: `${publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL.replace('https', 'wss')}`,
+    options: {
+      reconnect: true,
+    }
+  });
+
   const authLink = setContext((_, { headers }) => {
     if (cookie == null) {
       return headers;
@@ -50,10 +60,22 @@ function createApolloClient(cookie?: string) {
     };
   });
 
+  const splitLink = split(
+    ({ query }) => {
+      const definition = getMainDefinition(query);
+      return (
+        definition.kind === 'OperationDefinition' &&
+        definition.operation === 'subscription'
+      );
+    },
+    wsLink,
+    httpLink,
+  );
+
   return new ApolloClient({
     ssrMode,
     cache: new InMemoryCache(),
-    link: from([authLink, injectUserIdLink, httpLink]),
+    link: from([authLink, injectUserIdLink, splitLink]),
     connectToDevTools: false,
   });
 }

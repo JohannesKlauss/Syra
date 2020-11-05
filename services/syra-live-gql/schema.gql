@@ -2808,6 +2808,10 @@ input StringNullableFilter {
   startsWith: String
 }
 
+type Subscription {
+  newComment(feedItemId: String!): Comment!
+}
+
 type Tag {
   User: User
   userId: String

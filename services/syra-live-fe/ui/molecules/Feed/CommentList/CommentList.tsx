@@ -1,5 +1,5 @@
 import React from "react";
-import { useFirstLevelCommentsQuery } from "../../../../gql/generated";
+import { useFirstLevelCommentsQuery, useNewCommentSubscription } from "../../../../gql/generated";
 import Comment from '../Comment/Comment';
 import { feedStore } from "../../../../recoil/feedStore";
 import useListenForRefetch from "../../../../hooks/apollo/useListenForRefetch";
@@ -12,6 +12,10 @@ interface Props {
 function CommentList({feedItemId}: Props) {
   const { data, refetch } = useSuspendableQuery(useFirstLevelCommentsQuery({variables: {feedItemId}}));
   useListenForRefetch(feedStore.refetchCommentList(feedItemId), refetch);
+
+  const { data: newCommentData } = useNewCommentSubscription({variables: {feedItemId}});
+
+  console.log('new Data', newCommentData);
 
   return (
     <>

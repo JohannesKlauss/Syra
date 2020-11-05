@@ -54,3 +54,9 @@ mutation unlikeComment($commentId: String!, $me: String!) {
         commentId
     }
 }
+
+subscription newComment($feedItemId: String!) {
+    newComment(feedItemId: $feedItemId) {
+        ...BlockComment
+    }
+}
