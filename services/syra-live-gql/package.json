@@ -54,7 +54,7 @@
     "passport-cookie": "1.0.8",
     "passport-local": "1.0.0",
     "pug": "3.0.0",
-    "stream-chat": "2.7.3",
+    "stream-chat": "2.7.4",
     "tailwindcss": "1.9.6",
     "type-graphql": "1.1.1",
     "typegraphql-nestjs": "0.2.5",
