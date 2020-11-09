@@ -19,12 +19,14 @@ export const MeMock: MeQuery = {
       {
         __typename: 'User',
         id: 'foo',
+        isOnline: true,
         handle: 'test',
         name: 'Test'
       },
       {
         __typename: 'User',
         id: 'bar',
+        isOnline: true,
         handle: 'Syra',
         name: 'Syra'
       }
@@ -58,12 +60,14 @@ export const UserProfileByHandleMock: UserProfileByHandleQuery = {
       {
         __typename: 'User',
         id: 'foo',
+        isOnline: true,
         handle: 'test',
         name: 'Test'
       },
       {
         __typename: 'User',
         id: 'bar',
+        isOnline: true,
         handle: 'Syra',
         name: 'Syra'
       }
@@ -80,6 +84,7 @@ export const MeFollowingMock: MeFollowingQuery = {
       {
         __typename: 'User',
         id: 'foo',
+        isOnline: true,
         avatar: null,
         handle: 'foobar',
         name: 'Foo Bar'
@@ -87,6 +92,7 @@ export const MeFollowingMock: MeFollowingQuery = {
       {
         __typename: 'User',
         id: 'bar',
+        isOnline: true,
         avatar: null,
         handle: 'foobar2',
         name: 'Foo Bar 2'
@@ -94,6 +100,7 @@ export const MeFollowingMock: MeFollowingQuery = {
       {
         __typename: 'User',
         id: 'baz',
+        isOnline: true,
         avatar: null,
         handle: 'foobar3',
         name: 'Foo Bar 3'
@@ -101,6 +108,7 @@ export const MeFollowingMock: MeFollowingQuery = {
       {
         __typename: 'User',
         id: 'foobar',
+        isOnline: true,
         avatar: null,
         handle: 'foobar4',
         name: 'Foo Bar 4'

@@ -32,6 +32,7 @@ export const MixdownMock: MixdownQuery = {
 export const MyMixdownsMock: MyMixdownsQuery = {
   me: {
     __typename: 'User',
+    id: 'foo',
     ownsProjects: [
       {
         __typename: 'Project',
