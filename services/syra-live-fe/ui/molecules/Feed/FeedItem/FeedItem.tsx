@@ -10,6 +10,7 @@ import CreateComment from '../CreateComment/CreateComment';
 import CommentList from '../CommentList/CommentList';
 import useSuspendableQuery from '../../../../hooks/apollo/useSuspendableQuery';
 import Suspendable from "../../../atoms/Suspendable/Suspendable";
+import AvatarWithOnlineStatus from "../../Avatar/AvatarWithOnlineStatus";
 
 interface Props {
   id: string;
@@ -38,7 +39,7 @@ function FeedItem({ id }: Props) {
       <Box padding={4}>
         <Flex align={'center'}>
           <Link href={`profile/${feedItem.author.handle}`}>
-            <Avatar name={feedItem.author.name} src={feedItem.author.avatar} cursor={'pointer'} size={'sm'} />
+            <AvatarWithOnlineStatus user={feedItem.author} cursor={"pointer"}/>
           </Link>
           <Box marginLeft={4}>
             <Link passHref href={`profile/${feedItem.author.handle}`}>

@@ -27,6 +27,7 @@ fragment PreviewMixdown on Mixdown {
 
 query myMixdowns {
     me {
+        id
         ownsProjects {
             id
             name

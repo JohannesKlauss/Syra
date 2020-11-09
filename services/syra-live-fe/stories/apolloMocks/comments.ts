@@ -6,6 +6,8 @@ export const FirsLevelCommentsMock: FirstLevelCommentsQuery = {
       __typename: 'Comment',
       author: {
         __typename: 'User',
+        id: 'foo',
+        isOnline: true,
         name: 'Johannes Klauss',
         handle: 'johannesklauss',
         avatar: 'https://lh3.googleusercontent.com/ogw/ADGmqu_DctzkJyd0vl_0irH3OXgL-ntQfsxjdnqV59S_Rw=s192-c-mo',
@@ -27,6 +29,8 @@ export const SecondLevelCommentsMock: SecondLevelCommentsQuery = {
       __typename: 'Comment',
       author: {
         __typename: 'User',
+        id: 'foo',
+        isOnline: true,
         name: 'Johannes Klauss',
         handle: 'johannesklauss',
         avatar: 'https://lh3.googleusercontent.com/ogw/ADGmqu_DctzkJyd0vl_0irH3OXgL-ntQfsxjdnqV59S_Rw=s192-c-mo',

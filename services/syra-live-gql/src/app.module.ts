@@ -1,15 +1,17 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { PrismaService } from './prisma.service';
-import { PrismaClient } from '@prisma/client';
 import { TypeGraphQLModule } from 'typegraphql-nestjs';
 import {
   Address,
   AddressCrudResolver,
-  AddressRelationsResolver, Band, BandCrudResolver, BandRelationsResolver,
+  AddressRelationsResolver,
+  Band,
+  BandCrudResolver,
+  BandRelationsResolver,
   Comment,
   CommentCrudResolver,
-  CommentLike, CommentLikeCrudResolver,
+  CommentLike,
+  CommentLikeCrudResolver,
   CommentLikeRelationsResolver,
   CommentRelationsResolver,
   EarlyAccessCode,
@@ -22,7 +24,10 @@ import {
   FeedItemRelationsResolver,
   FeedItemRevision,
   FeedItemRevisionCrudResolver,
-  FeedItemRevisionRelationsResolver, Mixdown, MixdownCrudResolver, MixdownRelationsResolver,
+  FeedItemRevisionRelationsResolver,
+  Mixdown,
+  MixdownCrudResolver,
+  MixdownRelationsResolver,
   Project,
   ProjectCrudResolver,
   ProjectRelationsResolver,
@@ -34,8 +39,8 @@ import {
   UserRelationsResolver,
   UsersOnProjects,
   UsersOnProjectsCrudResolver,
-  UsersOnProjectsRelationsResolver
-} from "../prisma/generated/type-graphql";
+  UsersOnProjectsRelationsResolver,
+} from '../prisma/generated/type-graphql';
 import { SessionModule } from './session/session.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLContext } from '../types/GraphQLContext';
@@ -53,8 +58,14 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { MailingModule } from './mailing/mailing.module';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { ChatModule } from './chat/chat.module';
-
-const prisma = new PrismaClient();
+import { RedisPubSub } from 'graphql-redis-subscriptions';
+import { DynamicRedisModule } from './redis/redis.module';
+import { RedisService } from 'nestjs-redis';
+import { parseCookie } from './helpers/parseCookie';
+import { Subscriptions } from '../types/Subscriptions';
+import { PrismaModule } from './prisma/prisma.module';
+import { PrismaService } from './prisma/prisma.service';
+import { MailingService } from './mailing/mailing.service';
 
 @Module({
   imports: [
@@ -63,10 +74,21 @@ const prisma = new PrismaClient();
     }),
     AuthModule,
     SessionModule,
+    PrismaModule,
     TypeGraphQLModule.forRootAsync({
-      imports: [AuthModule],
-      inject: [CookieStrategy],
-      useFactory: async (cookieStrategy: CookieStrategy) => {
+      imports: [AuthModule, DynamicRedisModule, PrismaModule, MailingModule],
+      inject: [CookieStrategy, RedisService, PrismaService, MailingService],
+      useFactory: async (
+        cookieStrategy: CookieStrategy,
+        redisService: RedisService,
+        prismaService: PrismaService,
+        mailingService: MailingService,
+      ) => {
+        const pubSub = new RedisPubSub({
+          publisher: redisService.getClient('syra-publisher'),
+          subscriber: redisService.getClient('syra-subscriber'),
+        });
+
         return {
           validate: true,
           dateScalarMode: 'timestamp',
@@ -76,13 +98,45 @@ const prisma = new PrismaClient();
           emitSchemaFile: true,
           uploads: false,
           globalMiddlewares: [GqlAuthGuard(), ReplaceMe()],
-          context: async ({ request }): Promise<GraphQLContext> => ({
-            prisma,
-            user: await cookieStrategy.validate(request),
+          context: async (ctx): Promise<GraphQLContext> => ({
+            prisma: prismaService,
+            mailingService,
+            user: ctx.connection
+              ? await cookieStrategy.validateSubscription(parseCookie(ctx.connection.context.headers.cookie).session)
+              : await cookieStrategy.validate(ctx.request),
           }),
           cors: {
             origin: ['https://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live'],
             credentials: true,
+          },
+          pubSub,
+          installSubscriptionHandlers: true,
+          subscriptions: {
+            path: '/subscriptions',
+            onConnect: async (params, ws, ctx) => {
+              const user = await cookieStrategy.validateSubscription(parseCookie(ctx.request.headers.cookie).session);
+
+              if (user) {
+                const updatedUser = await prismaService.user.update({
+                  where: { id: user.id },
+                  data: { isOnline: true },
+                });
+                await pubSub.publish(Subscriptions.ONLINE_STATUS, updatedUser);
+              }
+
+              return ctx.request;
+            },
+            onDisconnect: async (websocket, ctx) => {
+              const user = await cookieStrategy.validateSubscription(parseCookie(ctx.request.headers.cookie).session);
+
+              if (user) {
+                const updatedUser = await prismaService.user.update({
+                  where: { id: user.id },
+                  data: { isOnline: false },
+                });
+                await pubSub.publish(Subscriptions.ONLINE_STATUS, updatedUser);
+              }
+            },
           },
         };
       },
@@ -96,7 +150,7 @@ const prisma = new PrismaClient();
           from: '"Syra Admin" <admin@syra.live>',
         },
         template: {
-          dir: __dirname + '/../mailTemplates',
+          dir: __dirname + '/../mailing/mailTemplates',
           adapter: new PugAdapter(),
           options: {
             strict: true,
@@ -106,13 +160,10 @@ const prisma = new PrismaClient();
     }),
     FilesModule,
     PasswordModule,
-    MailingModule,
     ChatModule,
   ],
   controllers: [AppController],
   providers: [
-    PrismaService,
-
     // TYPE GRAPHQL
     // Models,
     User,
@@ -161,5 +212,4 @@ const prisma = new PrismaClient();
     CustomCommentResolver,
   ],
 })
-export class AppModule {
-}
+export class AppModule {}

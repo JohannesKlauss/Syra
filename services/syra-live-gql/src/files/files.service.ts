@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
 import { SpacesService } from './spaces.service';
 import { Multipart } from 'fastify-multipart';
 import { MD5 } from 'crypto-js';
+import { PrismaService } from "../prisma/prisma.service";
 
 @Injectable()
 export class FilesService {

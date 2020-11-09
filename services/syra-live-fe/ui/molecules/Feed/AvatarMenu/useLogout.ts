@@ -1,11 +1,8 @@
 import { useCallback } from 'react';
-import { useRouter } from 'next/router';
 import axios from 'axios';
 import publicRuntimeConfig from "../../../../const/config";
 
 export default function useLogout() {
-  const { push } = useRouter();
-
   return useCallback(async () => {
     const res = await axios.get(publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL + '/auth/logout',{
       withCredentials: true,
@@ -15,7 +12,8 @@ export default function useLogout() {
     });
 
     if (res.data.message === 'ok') {
-      await push('/');
+      // We use the hard coded version because the cookie doesn't get set when using useRouter.
+      window.location.href = '/';
     }
-  }, [push]);
+  }, []);
 }

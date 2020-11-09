@@ -1,8 +1,6 @@
 fragment BlockComment on Comment {
     author {
-        avatar
-        name
-        handle
+        ...UserLink
     }
     id
     text
@@ -18,14 +16,14 @@ fragment CreatedComment on Comment {
 }
 
 query firstLevelComments($feedItemId: String!) {
-    comments(where: {feedItemId: {equals: $feedItemId}}, take: 2, orderBy: [{createdAt: desc}]) {
+    comments(where: {feedItemId: {equals: $feedItemId}}, take: 5, orderBy: [{createdAt: desc}]) {
         ...BlockComment
         commentCount
     }
 }
 
 query secondLevelComments($commentId: String!) {
-    comments(where: {parentComment: {is: {id: {equals: $commentId}}}}, take: 2) {
+    comments(where: {parentComment: {is: {id: {equals: $commentId}}}}, take: 5) {
         ...BlockComment
     }
 }
@@ -52,5 +50,11 @@ mutation likeComment($commentId: String!, $me: String) {
 mutation unlikeComment($commentId: String!, $me: String!) {
     deleteCommentLike(where: {userId_commentId: {commentId: $commentId, userId: $me}}) {
         commentId
+    }
+}
+
+subscription newComment($feedItemId: String!) {
+    newComment(feedItemId: $feedItemId) {
+        ...BlockComment
     }
 }

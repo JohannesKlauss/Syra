@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { useSignUpUserMutation } from '../../../../gql/generated';
 import SignUpForm, { TSignUpForm } from '../../../molecules/LandingPage/SignUpForm/SignUpForm';
 import useApiResToast from "../../../../hooks/ui/useApiResToast";
+import useLoginLocal from "../LogInModal/useLoginLocal";
 
 interface Props {
   isOpen: boolean;
@@ -31,6 +32,7 @@ function SignUpModal({ isOpen, onClose, onClickSwitchToLogin }: Props) {
   const setShowSignUpModal = useSetRecoilState(landingPageStore.showSignUpModal);
   const toast = useApiResToast();
   const { t } = useTranslation();
+  const executeLocalLogin = useLoginLocal();
 
   const onSubmit = async (data: TSignUpForm) => {
     try {
@@ -38,6 +40,13 @@ function SignUpModal({ isOpen, onClose, onClickSwitchToLogin }: Props) {
 
       if (result.data.signUpUser.id) {
         setShowSignUpModal(false);
+
+        const success = await executeLocalLogin(data);
+
+        if (success) {
+          // We use the hard coded version because the cookie doesn't get set when using useRouter.
+          window.location.href = '/feed';
+        }
       }
     } catch (e) {
       setHasError(true);

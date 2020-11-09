@@ -11,7 +11,7 @@ function EmptyFeed({}: Props) {
   return (
     <Flex justify={'center'} px={64} py={24}>
       <Text fontSize={'2xl'} fontWeight={200}>
-        {t('Looks like your feed is empty. Why not create some content to share with your friends?')}
+        {t('Looks like your feed is empty. Create awesome music to share with your friends!')}
       </Text>
     </Flex>
   );
