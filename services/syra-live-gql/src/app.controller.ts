@@ -27,7 +27,7 @@ export class AppController {
   async logout(@Request() req) {
     const sessionId = await req.session.get('sessionId');
 
-    await this.authService.logout(sessionId);
+    await this.authService.logout(sessionId, req.user.id);
     await req.session.delete('sessionId');
 
     return { message: 'ok' };
