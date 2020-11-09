@@ -44,12 +44,17 @@ export class CustomCommentResolver {
     return comment;
   }
 
-  @TypeGraphQL.Subscription(returns => Comment, {
+  @TypeGraphQL.Subscription((returns) => Comment, {
     topics: Subscriptions.NEW_COMMENT,
-    filter: ({ payload, args, context }: ResolverFilterData<Comment, NewCommentSubscriptionArgs, GraphQLContext>) => {
+    filter: async ({ payload, args, context }: ResolverFilterData<Comment, NewCommentSubscriptionArgs, GraphQLContext>) => {
+      // TODO: THIS MIGHT BECOME A PROBLEM WHEN THERE IS A LOT OF ACTIVITY. BECAUSE FOR EACH NEW COMMENT WE CHECK FOR EACH
+      // SUB IF THEY ARE FOLLOWING.
+      const author = await context.prisma.user.findOne({where: {id: payload.authorId}, select: {followedBy: { select: {id: true} }}});
+
       return (
         payload.feedItemId === args.feedItemId &&
-        payload.feedItem.author.followedBy.find((user) => user.id === context.user.id) !== undefined
+        payload.authorId !== context.user.id &&
+        author.followedBy.find((user) => user.id === context.user.id) !== undefined
       );
     },
   })
@@ -58,6 +63,10 @@ export class CustomCommentResolver {
     @TypeGraphQL.Ctx() ctx: GraphQLContext,
     @TypeGraphQL.Args() args: NewCommentSubscriptionArgs,
   ) {
+    // There is a weird bug going on that Dates are actually strings when used in Subscriptions.
+    comment.updatedAt = new Date(comment.updatedAt);
+    comment.createdAt = new Date(comment.createdAt);
+
     return comment;
   }
 }

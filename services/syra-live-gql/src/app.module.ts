@@ -63,10 +63,9 @@ import { ChatModule } from './chat/chat.module';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
 import { DynamicRedisModule } from './redis/redis.module';
 import { RedisService } from 'nestjs-redis';
+import { parseCookie } from "./helpers/parseCookie";
 
 const prisma = new PrismaClient();
-
-console.log(__dirname);
 
 @Module({
   imports: [
@@ -88,9 +87,11 @@ console.log(__dirname);
           emitSchemaFile: true,
           uploads: false,
           globalMiddlewares: [GqlAuthGuard(), ReplaceMe()],
-          context: async ({ request }): Promise<GraphQLContext> => ({
+          context: async (ctx): Promise<GraphQLContext> => ({
             prisma,
-            user: await cookieStrategy.validate(request),
+            user: ctx.connection
+              ? await cookieStrategy.validateSubscription(parseCookie(ctx.connection.context.headers.cookie).session)
+              : await cookieStrategy.validate(ctx.request),
           }),
           cors: {
             origin: ['https://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live'],
@@ -103,8 +104,8 @@ console.log(__dirname);
           installSubscriptionHandlers: true,
           subscriptions: {
             path: '/subscriptions',
-            onConnect: (params, ws, ctx) => {
-              console.log('connected');
+            onConnect: async (params, ws, ctx) => {
+              return ctx.request;
             },
             onDisconnect: ( websocket, context ) => {
               console.log('disconnected');

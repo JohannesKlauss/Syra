@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useFirstLevelCommentsQuery, useNewCommentSubscription } from "../../../../gql/generated";
 import Comment from '../Comment/Comment';
 import { feedStore } from "../../../../recoil/feedStore";
@@ -15,11 +15,13 @@ function CommentList({feedItemId}: Props) {
 
   const { data: newCommentData } = useNewCommentSubscription({variables: {feedItemId}});
 
-  console.log('new Data', newCommentData);
+  const comments = useMemo(() => {
+    return data.comments.concat(newCommentData?.newComment ?? []);
+  }, [data?.comments, newCommentData?.newComment]);
 
   return (
     <>
-      {data.comments.map((comment) => (
+      {comments.map((comment) => (
         <Comment key={comment.id} comment={comment} />
       ))}
     </>

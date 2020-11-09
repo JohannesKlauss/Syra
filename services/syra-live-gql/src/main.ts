@@ -39,7 +39,7 @@ async function bootstrap() {
     },
   });
 
-  // await app.register(fastifyMultipart);
+  await app.register(fastifyMultipart);
 
   await app.listen(PORT, '0.0.0.0');
 }
