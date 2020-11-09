@@ -26,7 +26,7 @@ export default function ChatPage() {
   const { data, loading } = useMeQuery();
   const [chatClient, isInitialized] = useStreamChat();
 
-  if (loading) return <Skeleton h={24} />;
+  if (loading) return <Skeleton h={'85vh'} />;
 
   const filters = { type: 'messaging', members: { $in: [data.me.id] } };
   const sort: Client.ChannelSort = { last_message_at: -1 };
@@ -47,7 +47,7 @@ export default function ChatPage() {
             </Channel>
           </Chat>
         ) : (
-          <Skeleton h={24} />
+          <Skeleton h={'85vh'} />
         )}
       </PageBox>
     </ProtectedRoute>

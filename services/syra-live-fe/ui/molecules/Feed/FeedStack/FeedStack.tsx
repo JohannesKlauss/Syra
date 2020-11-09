@@ -13,7 +13,7 @@ function FeedStack({}: Props) {
   const { data, loading, error, refetch } = useMyFeedQuery();
   useListenForRefetch(feedStore.refetchFeed, refetch);
 
-  if (loading || error) return <Skeleton h={24}/>;
+  if (loading || error) return <Skeleton h={'85vh'}/>;
 
   if (data.feedItems.length === 0) {
     return <EmptyFeed />;

@@ -10,8 +10,6 @@ function AvatarWithOnlineStatus({ user, ...props }: Props) {
   const { data } = useOnlineStatusSubscription({variables: {userId: user.id}});
 
   const isOnline = useMemo(() => {
-    console.log(user.id, data?.onlineStatus);
-
     return data?.onlineStatus ?? user.isOnline;
   }, [user.isOnline, data?.onlineStatus])
 

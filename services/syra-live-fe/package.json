@@ -37,6 +37,7 @@
     "react-textarea-autosize": "8.3.0",
     "react-hotkeys-hook": "2.4.0",
     "recoil": "0.1.2",
+    "sass": "1.29.0",
     "stream-chat": "2.7.4",
     "stream-chat-react": "3.2.2",
     "subscriptions-transport-ws": "0.9.18",

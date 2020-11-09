@@ -28,7 +28,7 @@ function ProfileInfo({ user }: Props) {
                   </Link>
                 </Button>
               )
-              : <ProfileActions baseIsFollowing={user.isMeFollowing} handle={user.handle}/>
+              : <ProfileActions userId={user.id} baseIsFollowing={user.isMeFollowing} handle={user.handle}/>
             }
           </Flex>
           <Flex marginY={4}>

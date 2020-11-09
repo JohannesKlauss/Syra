@@ -25,8 +25,6 @@ function MessageAction({userId}: Props) {
       members: [data.me.id, userId],
     });
 
-    const destroy = await conversation.delete();
-
     await conversation.create();
     await push('/chat');
   };

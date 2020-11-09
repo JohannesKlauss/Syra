@@ -44,7 +44,15 @@ function ProfileBox({}: Props) {
             <Link passHref href={`/profile/${data.me.handle}`}>
               <ChakraLink fontWeight={700} fontSize={'lg'}>{data.me.name}</ChakraLink>
             </Link>
-            <Text>{data.me.followedByCount} {t('Followers')} · {data.me.followingCount} {t('Following')}</Text>
+            <Text>
+              <Link passHref href={`/followers`}>
+                <ChakraLink>{data.me.followedByCount} {t('Followers')}</ChakraLink>
+              </Link>
+              {' · '}
+              <Link passHref href={`/following`}>
+                <ChakraLink>{data.me.followingCount} {t('Following')}</ChakraLink>
+              </Link>
+            </Text>
           </Box>
         </Flex>
       </Box>
