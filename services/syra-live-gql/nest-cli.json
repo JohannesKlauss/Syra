@@ -1,8 +1,8 @@
 {
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
+  "watchAssets": true,
   "compilerOptions": {
-    "assets": ["mailTemplates/**/*.pug"],
-    "watchAssets": true
+    "assets": ["**/*.pug"]
   }
 }

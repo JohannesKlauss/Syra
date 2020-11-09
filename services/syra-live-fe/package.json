@@ -2,7 +2,7 @@
   "name": "syra-live-fe",
   "version": "1.0.0",
   "scripts": {
-    "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 node server.js",
+    "dev": "node server.js",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",

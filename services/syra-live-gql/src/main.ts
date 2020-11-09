@@ -8,6 +8,8 @@ import { CookieKeys } from '../types/CookieKeys';
 import fastifyMultipart from 'fastify-multipart';
 
 async function bootstrap() {
+  const PORT = (process.env.PORT || 4000) as number;
+
   const certPath = __dirname + '/../../../../';
 
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -26,7 +28,7 @@ async function bootstrap() {
     origin: ['https://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live'],
   });
 
-  app.register(SecureSessionPlugin, {
+  await app.register(SecureSessionPlugin, {
     key: fs.readFileSync(join(__dirname, 'session-key')),
     logLevel: 'debug',
     cookieName: CookieKeys.Session,
@@ -37,9 +39,9 @@ async function bootstrap() {
     },
   });
 
-  app.register(fastifyMultipart);
+  // await app.register(fastifyMultipart);
 
-  await app.listen(4000, '0.0.0.0');
+  await app.listen(PORT, '0.0.0.0');
 }
 
 bootstrap();

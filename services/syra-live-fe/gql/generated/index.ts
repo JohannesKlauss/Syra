@@ -5670,15 +5670,15 @@ export type PreviewMixdownFragment = { __typename?: 'Mixdown' } & Pick<
 export type MyMixdownsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MyMixdownsQuery = { __typename?: 'Query' } & {
-  me: { __typename?: 'User' } & {
-    ownsProjects?: Maybe<
-      Array<
-        { __typename?: 'Project' } & Pick<Project, 'id' | 'name' | 'isPrivate' | 'updatedAt'> & {
-            mixdowns?: Maybe<Array<{ __typename?: 'Mixdown' } & PreviewMixdownFragment>>;
-          }
-      >
-    >;
-  };
+  me: { __typename?: 'User' } & Pick<User, 'id'> & {
+      ownsProjects?: Maybe<
+        Array<
+          { __typename?: 'Project' } & Pick<Project, 'id' | 'name' | 'isPrivate' | 'updatedAt'> & {
+              mixdowns?: Maybe<Array<{ __typename?: 'Mixdown' } & PreviewMixdownFragment>>;
+            }
+        >
+      >;
+    };
 };
 
 export type MixdownQueryVariables = Exact<{
@@ -6095,7 +6095,7 @@ export type PostCommentToFeedItemMutationFn = Apollo.MutationFunction<
  * });
  */
 export function usePostCommentToFeedItemMutation(
-  baseOptions: Apollo.MutationHookOptions<PostCommentToFeedItemMutation, PostCommentToFeedItemMutationVariables>,
+  baseOptions?: Apollo.MutationHookOptions<PostCommentToFeedItemMutation, PostCommentToFeedItemMutationVariables>,
 ) {
   return Apollo.useMutation<PostCommentToFeedItemMutation, PostCommentToFeedItemMutationVariables>(
     PostCommentToFeedItemDocument,
@@ -6143,7 +6143,7 @@ export type PostCommentToCommentMutationFn = Apollo.MutationFunction<
  * });
  */
 export function usePostCommentToCommentMutation(
-  baseOptions: Apollo.MutationHookOptions<PostCommentToCommentMutation, PostCommentToCommentMutationVariables>,
+  baseOptions?: Apollo.MutationHookOptions<PostCommentToCommentMutation, PostCommentToCommentMutationVariables>,
 ) {
   return Apollo.useMutation<PostCommentToCommentMutation, PostCommentToCommentMutationVariables>(
     PostCommentToCommentDocument,
@@ -6184,7 +6184,7 @@ export type LikeCommentMutationFn = Apollo.MutationFunction<LikeCommentMutation,
  * });
  */
 export function useLikeCommentMutation(
-  baseOptions: Apollo.MutationHookOptions<LikeCommentMutation, LikeCommentMutationVariables>,
+  baseOptions?: Apollo.MutationHookOptions<LikeCommentMutation, LikeCommentMutationVariables>,
 ) {
   return Apollo.useMutation<LikeCommentMutation, LikeCommentMutationVariables>(LikeCommentDocument, baseOptions);
 }
@@ -6219,7 +6219,7 @@ export type UnlikeCommentMutationFn = Apollo.MutationFunction<UnlikeCommentMutat
  * });
  */
 export function useUnlikeCommentMutation(
-  baseOptions: Apollo.MutationHookOptions<UnlikeCommentMutation, UnlikeCommentMutationVariables>,
+  baseOptions?: Apollo.MutationHookOptions<UnlikeCommentMutation, UnlikeCommentMutationVariables>,
 ) {
   return Apollo.useMutation<UnlikeCommentMutation, UnlikeCommentMutationVariables>(UnlikeCommentDocument, baseOptions);
 }
@@ -6459,7 +6459,7 @@ export type CreateFeedItemMutationFn = Apollo.MutationFunction<CreateFeedItemMut
  * });
  */
 export function useCreateFeedItemMutation(
-  baseOptions: Apollo.MutationHookOptions<CreateFeedItemMutation, CreateFeedItemMutationVariables>,
+  baseOptions?: Apollo.MutationHookOptions<CreateFeedItemMutation, CreateFeedItemMutationVariables>,
 ) {
   return Apollo.useMutation<CreateFeedItemMutation, CreateFeedItemMutationVariables>(
     CreateFeedItemDocument,
@@ -6511,7 +6511,7 @@ export type CreateTextFeedItemMutationFn = Apollo.MutationFunction<
  * });
  */
 export function useCreateTextFeedItemMutation(
-  baseOptions: Apollo.MutationHookOptions<CreateTextFeedItemMutation, CreateTextFeedItemMutationVariables>,
+  baseOptions?: Apollo.MutationHookOptions<CreateTextFeedItemMutation, CreateTextFeedItemMutationVariables>,
 ) {
   return Apollo.useMutation<CreateTextFeedItemMutation, CreateTextFeedItemMutationVariables>(
     CreateTextFeedItemDocument,
@@ -6552,7 +6552,7 @@ export type LikeFeedItemMutationFn = Apollo.MutationFunction<LikeFeedItemMutatio
  * });
  */
 export function useLikeFeedItemMutation(
-  baseOptions: Apollo.MutationHookOptions<LikeFeedItemMutation, LikeFeedItemMutationVariables>,
+  baseOptions?: Apollo.MutationHookOptions<LikeFeedItemMutation, LikeFeedItemMutationVariables>,
 ) {
   return Apollo.useMutation<LikeFeedItemMutation, LikeFeedItemMutationVariables>(LikeFeedItemDocument, baseOptions);
 }
@@ -6590,7 +6590,7 @@ export type UnlikeFeedItemMutationFn = Apollo.MutationFunction<UnlikeFeedItemMut
  * });
  */
 export function useUnlikeFeedItemMutation(
-  baseOptions: Apollo.MutationHookOptions<UnlikeFeedItemMutation, UnlikeFeedItemMutationVariables>,
+  baseOptions?: Apollo.MutationHookOptions<UnlikeFeedItemMutation, UnlikeFeedItemMutationVariables>,
 ) {
   return Apollo.useMutation<UnlikeFeedItemMutation, UnlikeFeedItemMutationVariables>(
     UnlikeFeedItemDocument,
@@ -6606,6 +6606,7 @@ export type UnlikeFeedItemMutationOptions = Apollo.BaseMutationOptions<
 export const MyMixdownsDocument = gql`
   query myMixdowns {
     me {
+      id
       ownsProjects {
         id
         name
@@ -7135,7 +7136,7 @@ export type SignUpUserMutationFn = Apollo.MutationFunction<SignUpUserMutation, S
  * });
  */
 export function useSignUpUserMutation(
-  baseOptions: Apollo.MutationHookOptions<SignUpUserMutation, SignUpUserMutationVariables>,
+  baseOptions?: Apollo.MutationHookOptions<SignUpUserMutation, SignUpUserMutationVariables>,
 ) {
   return Apollo.useMutation<SignUpUserMutation, SignUpUserMutationVariables>(SignUpUserDocument, baseOptions);
 }
@@ -7170,7 +7171,7 @@ export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, U
  * });
  */
 export function useUpdateUserMutation(
-  baseOptions: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>,
+  baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>,
 ) {
   return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, baseOptions);
 }
@@ -7205,7 +7206,7 @@ export type FollowUserMutationFn = Apollo.MutationFunction<FollowUserMutation, F
  * });
  */
 export function useFollowUserMutation(
-  baseOptions: Apollo.MutationHookOptions<FollowUserMutation, FollowUserMutationVariables>,
+  baseOptions?: Apollo.MutationHookOptions<FollowUserMutation, FollowUserMutationVariables>,
 ) {
   return Apollo.useMutation<FollowUserMutation, FollowUserMutationVariables>(FollowUserDocument, baseOptions);
 }
@@ -7240,7 +7241,7 @@ export type UnfollowUserMutationFn = Apollo.MutationFunction<UnfollowUserMutatio
  * });
  */
 export function useUnfollowUserMutation(
-  baseOptions: Apollo.MutationHookOptions<UnfollowUserMutation, UnfollowUserMutationVariables>,
+  baseOptions?: Apollo.MutationHookOptions<UnfollowUserMutation, UnfollowUserMutationVariables>,
 ) {
   return Apollo.useMutation<UnfollowUserMutation, UnfollowUserMutationVariables>(UnfollowUserDocument, baseOptions);
 }

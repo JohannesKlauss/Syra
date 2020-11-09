@@ -1,22 +1,23 @@
 import { useMemo } from 'react';
-import { ApolloClient, ApolloLink, from, InMemoryCache, Observable, split } from "@apollo/client";
+import { ApolloClient, ApolloLink, from, InMemoryCache, Observable, split } from '@apollo/client';
 import { injectUserId } from './injectUserId';
 import { setContext } from '@apollo/client/link/context';
-import { BatchHttpLink } from "@apollo/client/link/batch-http";
+import { BatchHttpLink } from '@apollo/client/link/batch-http';
 import publicRuntimeConfig from '../const/config';
-import { WebSocketLink } from "@apollo/client/link/ws";
-import { getMainDefinition } from "@apollo/client/utilities";
-import { isServer } from "../helpers/ssr/isServer";
+import { WebSocketLink } from '@apollo/client/link/ws';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { isServer } from '../helpers/ssr/isServer';
+import * as https from "https";
 
 let apolloClient: ApolloClient<any>;
 let _apolloClient: ApolloClient<any>;
 
 export const injectUserIdLink = new ApolloLink(
   (operation, forward) =>
-    new Observable(observer => {
+    new Observable((observer) => {
       let handle;
       Promise.resolve(operation)
-        .then(operation => injectUserId(operation, apolloClient ?? _apolloClient))
+        .then((operation) => injectUserId(operation, apolloClient ?? _apolloClient))
         .then(() => {
           handle = forward(operation).subscribe({
             next: observer.next.bind(observer),
@@ -38,14 +39,22 @@ function createApolloClient(cookie?: string) {
   const httpLink = new BatchHttpLink({
     uri: `${publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL}`,
     credentials: 'include',
-  });
-
-  const wsLink = isServer ? httpLink : new WebSocketLink({
-    uri: `${publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL.replace('https', 'wss')}`,
-    options: {
-      reconnect: true,
+    fetchOptions: {
+      agent: new https.Agent({
+        rejectUnauthorized: process.env.NODE_ENV === 'production',
+        ecdhCurve: 'auto',
+      }),
     }
   });
+
+  const wsLink = isServer
+    ? httpLink
+    : new WebSocketLink({
+        uri: `${publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL.replace('http', 'ws')}/subscriptions`,
+        options: {
+          reconnect: true,
+        }
+      });
 
   const authLink = setContext((_, { headers }) => {
     if (cookie == null) {
@@ -55,7 +64,7 @@ function createApolloClient(cookie?: string) {
     return {
       headers: {
         ...headers,
-        "Cookie": cookie,
+        Cookie: cookie,
       },
     };
   });
@@ -63,10 +72,7 @@ function createApolloClient(cookie?: string) {
   const splitLink = split(
     ({ query }) => {
       const definition = getMainDefinition(query);
-      return (
-        definition.kind === 'OperationDefinition' &&
-        definition.operation === 'subscription'
-      );
+      return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
     },
     wsLink,
     httpLink,
@@ -77,6 +83,7 @@ function createApolloClient(cookie?: string) {
     cache: new InMemoryCache(),
     link: from([authLink, injectUserIdLink, splitLink]),
     connectToDevTools: false,
+
   });
 }
 

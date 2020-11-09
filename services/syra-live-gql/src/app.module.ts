@@ -6,10 +6,14 @@ import { TypeGraphQLModule } from 'typegraphql-nestjs';
 import {
   Address,
   AddressCrudResolver,
-  AddressRelationsResolver, Band, BandCrudResolver, BandRelationsResolver,
+  AddressRelationsResolver,
+  Band,
+  BandCrudResolver,
+  BandRelationsResolver,
   Comment,
   CommentCrudResolver,
-  CommentLike, CommentLikeCrudResolver,
+  CommentLike,
+  CommentLikeCrudResolver,
   CommentLikeRelationsResolver,
   CommentRelationsResolver,
   EarlyAccessCode,
@@ -22,7 +26,10 @@ import {
   FeedItemRelationsResolver,
   FeedItemRevision,
   FeedItemRevisionCrudResolver,
-  FeedItemRevisionRelationsResolver, Mixdown, MixdownCrudResolver, MixdownRelationsResolver,
+  FeedItemRevisionRelationsResolver,
+  Mixdown,
+  MixdownCrudResolver,
+  MixdownRelationsResolver,
   Project,
   ProjectCrudResolver,
   ProjectRelationsResolver,
@@ -34,8 +41,8 @@ import {
   UserRelationsResolver,
   UsersOnProjects,
   UsersOnProjectsCrudResolver,
-  UsersOnProjectsRelationsResolver
-} from "../prisma/generated/type-graphql";
+  UsersOnProjectsRelationsResolver,
+} from '../prisma/generated/type-graphql';
 import { SessionModule } from './session/session.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLContext } from '../types/GraphQLContext';
@@ -53,11 +60,13 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { MailingModule } from './mailing/mailing.module';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { ChatModule } from './chat/chat.module';
-import { RedisPubSub } from "graphql-redis-subscriptions";
-import { DynamicRedisModule } from "./redis/redis.module";
-import { RedisService } from "nestjs-redis";
+import { RedisPubSub } from 'graphql-redis-subscriptions';
+import { DynamicRedisModule } from './redis/redis.module';
+import { RedisService } from 'nestjs-redis';
 
 const prisma = new PrismaClient();
+
+console.log(__dirname);
 
 @Module({
   imports: [
@@ -92,6 +101,15 @@ const prisma = new PrismaClient();
             subscriber: redisService.getClient('syra-subscriber'),
           }),
           installSubscriptionHandlers: true,
+          subscriptions: {
+            path: '/subscriptions',
+            onConnect: (params, ws, ctx) => {
+              console.log('connected');
+            },
+            onDisconnect: ( websocket, context ) => {
+              console.log('disconnected');
+            }
+          },
         };
       },
     }),
@@ -104,7 +122,7 @@ const prisma = new PrismaClient();
           from: '"Syra Admin" <admin@syra.live>',
         },
         template: {
-          dir: __dirname + '/../mailTemplates',
+          dir: __dirname + '/../mailing/mailTemplates',
           adapter: new PugAdapter(),
           options: {
             strict: true,
@@ -169,5 +187,4 @@ const prisma = new PrismaClient();
     CustomCommentResolver,
   ],
 })
-export class AppModule {
-}
+export class AppModule {}
