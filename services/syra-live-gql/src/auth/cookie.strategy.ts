@@ -29,7 +29,13 @@ export class CookieStrategy extends PassportStrategy(Strategy) {
 
   async validateSubscription(cookieSessionKey: string): Promise<JwtPayload | null> {
     const adapterInstance = this.adapterHost.httpAdapter.getInstance();
-    const jwt = await this.sessionService.getToken(adapterInstance.decodeSecureSession(cookieSessionKey).get('sessionId'));
+    const session = adapterInstance.decodeSecureSession(cookieSessionKey);
+
+    if (session === null ) {
+      return null;
+    }
+
+    const jwt = await this.sessionService.getToken(session.get('sessionId'));
 
     if (jwt === null) {
       return null;
