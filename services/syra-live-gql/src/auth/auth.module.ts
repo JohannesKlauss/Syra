@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { PrismaService } from '../prisma.service';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './local.strategy';
 import { JwtModule } from '@nestjs/jwt';
@@ -8,11 +7,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SessionModule } from '../session/session.module';
 import { SessionService } from '../session/session.service';
 import { CookieStrategy } from './cookie.strategy';
+import { PrismaModule } from "../prisma/prisma.module";
 
 @Module({
   imports: [
     PassportModule,
     SessionModule,
+    PrismaModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -22,7 +23,7 @@ import { CookieStrategy } from './cookie.strategy';
       inject: [ConfigService]
     }),
   ],
-  providers: [AuthService, PrismaService, SessionService, LocalStrategy, CookieStrategy],
+  providers: [AuthService, SessionService, LocalStrategy, CookieStrategy],
   exports: [AuthService, CookieStrategy]
 })
 export class AuthModule {}

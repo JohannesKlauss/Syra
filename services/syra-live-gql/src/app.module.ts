@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { PrismaService } from './prisma.service';
-import { PrismaClient } from '@prisma/client';
 import { TypeGraphQLModule } from 'typegraphql-nestjs';
 import {
   Address,
@@ -64,8 +62,9 @@ import { RedisPubSub } from 'graphql-redis-subscriptions';
 import { DynamicRedisModule } from './redis/redis.module';
 import { RedisService } from 'nestjs-redis';
 import { parseCookie } from "./helpers/parseCookie";
-
-const prisma = new PrismaClient();
+import { Subscriptions } from "../types/Subscriptions";
+import { PrismaModule } from "./prisma/prisma.module";
+import { PrismaService } from "./prisma/prisma.service";
 
 @Module({
   imports: [
@@ -74,10 +73,16 @@ const prisma = new PrismaClient();
     }),
     AuthModule,
     SessionModule,
+    PrismaModule,
     TypeGraphQLModule.forRootAsync({
-      imports: [AuthModule, DynamicRedisModule],
-      inject: [CookieStrategy, RedisService],
-      useFactory: async (cookieStrategy: CookieStrategy, redisService: RedisService) => {
+      imports: [AuthModule, DynamicRedisModule, PrismaModule],
+      inject: [CookieStrategy, RedisService, PrismaService],
+      useFactory: async (cookieStrategy: CookieStrategy, redisService: RedisService, prismaService: PrismaService) => {
+        const pubSub = new RedisPubSub({
+          publisher: redisService.getClient('syra-publisher'),
+          subscriber: redisService.getClient('syra-subscriber'),
+        });
+
         return {
           validate: true,
           dateScalarMode: 'timestamp',
@@ -88,7 +93,7 @@ const prisma = new PrismaClient();
           uploads: false,
           globalMiddlewares: [GqlAuthGuard(), ReplaceMe()],
           context: async (ctx): Promise<GraphQLContext> => ({
-            prisma,
+            prisma: prismaService,
             user: ctx.connection
               ? await cookieStrategy.validateSubscription(parseCookie(ctx.connection.context.headers.cookie).session)
               : await cookieStrategy.validate(ctx.request),
@@ -97,18 +102,27 @@ const prisma = new PrismaClient();
             origin: ['https://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live'],
             credentials: true,
           },
-          pubSub: new RedisPubSub({
-            publisher: redisService.getClient('syra-publisher'),
-            subscriber: redisService.getClient('syra-subscriber'),
-          }),
+          pubSub,
           installSubscriptionHandlers: true,
           subscriptions: {
             path: '/subscriptions',
             onConnect: async (params, ws, ctx) => {
+              const user = await cookieStrategy.validateSubscription(parseCookie(ctx.request.headers.cookie).session);
+
+              if (user) {
+                const updatedUser = await prismaService.user.update({where: {id: user.id}, data: {isOnline: true}});
+                await pubSub.publish(Subscriptions.ONLINE_STATUS, updatedUser);
+              }
+
               return ctx.request;
             },
-            onDisconnect: ( websocket, context ) => {
-              console.log('disconnected');
+            onDisconnect: async ( websocket, ctx ) => {
+              const user = await cookieStrategy.validateSubscription(parseCookie(ctx.request.headers.cookie).session);
+
+              if (user) {
+                const updatedUser = await prismaService.user.update({where: {id: user.id}, data: {isOnline: false}});
+                await pubSub.publish(Subscriptions.ONLINE_STATUS, updatedUser);
+              }
             }
           },
         };
@@ -138,8 +152,6 @@ const prisma = new PrismaClient();
   ],
   controllers: [AppController],
   providers: [
-    PrismaService,
-
     // TYPE GRAPHQL
     // Models,
     User,

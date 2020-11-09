@@ -2810,6 +2810,7 @@ input StringNullableFilter {
 
 type Subscription {
   newComment(feedItemId: String!): Comment!
+  onlineStatus(userId: String!): Boolean!
 }
 
 type Tag {
@@ -2952,6 +2953,7 @@ type User {
   interests(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]
   isMeFollowing: Boolean
   isMyself: Boolean
+  isOnline: Boolean!
   memberOfBands(cursor: UsersOnBandsWhereUniqueInput, distinct: [UsersOnBandsDistinctFieldEnum!], orderBy: [UsersOnBandsOrderByInput!], skip: Int, take: Int, where: UsersOnBandsWhereInput): [UsersOnBands!]
   memberOfProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
   Mixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownDistinctFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]
@@ -2980,6 +2982,7 @@ input UserCreateInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
@@ -3078,6 +3081,7 @@ input UserCreateWithoutAddressInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
@@ -3106,6 +3110,7 @@ input UserCreateWithoutAudioAssetInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
@@ -3134,6 +3139,7 @@ input UserCreateWithoutCommentInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
@@ -3162,6 +3168,7 @@ input UserCreateWithoutCommentLikeInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
@@ -3190,6 +3197,7 @@ input UserCreateWithoutFeedInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
@@ -3218,6 +3226,7 @@ input UserCreateWithoutFeedItemLikeInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
@@ -3246,6 +3255,7 @@ input UserCreateWithoutFollowedByInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
@@ -3274,6 +3284,7 @@ input UserCreateWithoutFollowingInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
@@ -3302,6 +3313,7 @@ input UserCreateWithoutInterestsInput {
   following: UserCreateManyWithoutFollowedByInput
   handle: String!
   id: String
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
@@ -3331,6 +3343,7 @@ input UserCreateWithoutMemberOfBandsInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
   name: String!
@@ -3359,6 +3372,7 @@ input UserCreateWithoutMemberOfProjectsInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
   name: String!
@@ -3387,6 +3401,7 @@ input UserCreateWithoutMixdownInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   name: String!
@@ -3415,6 +3430,7 @@ input UserCreateWithoutOwnsBandsInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
@@ -3443,6 +3459,7 @@ input UserCreateWithoutOwnsProjectsInput {
   handle: String!
   id: String
   interests: TagCreateManyWithoutUserInput
+  isOnline: Boolean
   memberOfBands: UsersOnBandsCreateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
   Mixdown: MixdownCreateManyWithoutTriggerdByInput
@@ -3462,6 +3479,7 @@ enum UserDistinctFieldEnum {
   email
   handle
   id
+  isOnline
   name
   password
   role
@@ -3503,6 +3521,7 @@ input UserOrderByInput {
   email: SortOrder
   handle: SortOrder
   id: SortOrder
+  isOnline: SortOrder
   name: SortOrder
   password: SortOrder
   role: SortOrder
@@ -3524,6 +3543,7 @@ input UserScalarWhereInput {
   email: StringFilter
   handle: StringFilter
   id: StringFilter
+  isOnline: BoolFilter
   name: StringFilter
   NOT: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
@@ -3842,6 +3862,7 @@ input UserUpdateInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
@@ -3861,6 +3882,7 @@ input UserUpdateManyDataInput {
   email: StringFieldUpdateOperationsInput
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isOnline: BoolFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
@@ -3875,6 +3897,7 @@ input UserUpdateManyMutationInput {
   email: StringFieldUpdateOperationsInput
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isOnline: BoolFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
@@ -4020,6 +4043,7 @@ input UserUpdateWithoutAddressDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
@@ -4048,6 +4072,7 @@ input UserUpdateWithoutAudioAssetDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
@@ -4076,6 +4101,7 @@ input UserUpdateWithoutCommentDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
@@ -4104,6 +4130,7 @@ input UserUpdateWithoutCommentLikeDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
@@ -4132,6 +4159,7 @@ input UserUpdateWithoutFeedDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
@@ -4160,6 +4188,7 @@ input UserUpdateWithoutFeedItemLikeDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
@@ -4188,6 +4217,7 @@ input UserUpdateWithoutFollowedByDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
@@ -4216,6 +4246,7 @@ input UserUpdateWithoutFollowingDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
@@ -4244,6 +4275,7 @@ input UserUpdateWithoutInterestsDataInput {
   following: UserUpdateManyWithoutFollowedByInput
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
@@ -4273,6 +4305,7 @@ input UserUpdateWithoutMemberOfBandsDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   name: StringFieldUpdateOperationsInput
@@ -4301,6 +4334,7 @@ input UserUpdateWithoutMemberOfProjectsDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   name: StringFieldUpdateOperationsInput
@@ -4329,6 +4363,7 @@ input UserUpdateWithoutMixdownDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   name: StringFieldUpdateOperationsInput
@@ -4357,6 +4392,7 @@ input UserUpdateWithoutOwnsBandsDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
@@ -4385,6 +4421,7 @@ input UserUpdateWithoutOwnsProjectsDataInput {
   handle: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
   memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
   memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
@@ -4503,6 +4540,7 @@ input UserWhereInput {
   handle: StringFilter
   id: StringFilter
   interests: TagListRelationFilter
+  isOnline: BoolFilter
   memberOfBands: UsersOnBandsListRelationFilter
   memberOfProjects: UsersOnProjectsListRelationFilter
   Mixdown: MixdownListRelationFilter

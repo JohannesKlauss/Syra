@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import { RiHeartFill } from 'react-icons/ri';
+import AvatarWithOnlineStatus from "../../Avatar/AvatarWithOnlineStatus";
 
 interface Props {
   comment: BlockCommentFragment;
@@ -42,7 +43,7 @@ function Comment({ comment }: Props) {
 
   return (
     <Flex align={'top'} mb={4}>
-      <Avatar size={'sm'} src={comment.author.avatar} name={comment.author.name} />
+      <AvatarWithOnlineStatus user={comment.author} size={"sm"}/>
       <Box ml={4} w={'100%'}>
         <Flex justify={'space-between'}>
           <Link passHref href={`/profile/${comment.author.handle}`}>

@@ -5,8 +5,11 @@ import { SignUpUserArgs } from './Args/SignUpUserArgs';
 import { GraphQLContext } from '../../../../../types/GraphQLContext';
 import { BadRequestException } from '@nestjs/common';
 import { Role } from '../../../../../prisma/generated/type-graphql/enums';
-import { Int } from 'type-graphql';
+import { Int, Publisher, ResolverFilterData } from 'type-graphql';
 import knuthShuffle from '../../../../helpers/knuthShuffle';
+import { Subscriptions } from '../../../../../types/Subscriptions';
+import { UserOnlineStatusSubscriptionArgs } from '../../inputs/UserOnlineStatusSubscriptionArgs';
+import { UpdateUserArgs } from '../../../../../prisma/generated/type-graphql/resolvers/crud/User/args';
 
 @TypeGraphQL.Resolver((_of) => User)
 export class CustomUserResolver {
@@ -103,5 +106,30 @@ export class CustomUserResolver {
     }
 
     return user;
+  }
+
+  @TypeGraphQL.Subscription((returns) => Boolean, {
+    topics: Subscriptions.ONLINE_STATUS,
+    filter: async ({
+      payload,
+      args,
+      context,
+    }: ResolverFilterData<User, UserOnlineStatusSubscriptionArgs, GraphQLContext>) => {
+      // TODO: THIS MIGHT BECOME A PROBLEM WHEN THERE IS A LOT OF ACTIVITY. BECAUSE FOR EACH NEW COMMENT WE CHECK FOR EACH
+      // SUB IF THEY ARE FOLLOWING.
+      const user = await context.prisma.user.findOne({
+        where: { id: payload.id },
+        select: { followedBy: { select: { id: true } } },
+      });
+
+      return payload.id === args.userId && user.followedBy.find((user) => user.id === context.user.id) !== undefined;
+    },
+  })
+  onlineStatus(
+    @TypeGraphQL.Root() user: User,
+    @TypeGraphQL.Ctx() ctx: GraphQLContext,
+    @TypeGraphQL.Args() args: UserOnlineStatusSubscriptionArgs,
+  ) {
+    return user.isOnline;
   }
 }

@@ -3,10 +3,11 @@ import { FilesService } from './files.service';
 import { ConfigService } from '@nestjs/config';
 import { SpacesService } from './spaces.service';
 import { FilesController } from './files.controller';
-import { PrismaService } from '../prisma.service';
+import { PrismaModule } from "../prisma/prisma.module";
 
 @Module({
-  providers: [FilesService, ConfigService, SpacesService, PrismaService],
+  imports: [PrismaModule],
+  providers: [FilesService, ConfigService, SpacesService],
   exports: [FilesService],
   controllers: [FilesController],
 })

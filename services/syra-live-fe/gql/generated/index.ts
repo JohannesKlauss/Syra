@@ -3657,10 +3657,15 @@ export type StringNullableFilter = {
 export type Subscription = {
   __typename?: 'Subscription';
   newComment: Comment;
+  onlineStatus: Scalars['Boolean'];
 };
 
 export type SubscriptionNewCommentArgs = {
   feedItemId: Scalars['String'];
+};
+
+export type SubscriptionOnlineStatusArgs = {
+  userId: Scalars['String'];
 };
 
 export type Tag = {
@@ -3800,6 +3805,7 @@ export type User = {
   interests?: Maybe<Array<Tag>>;
   isMeFollowing?: Maybe<Scalars['Boolean']>;
   isMyself?: Maybe<Scalars['Boolean']>;
+  isOnline: Scalars['Boolean'];
   memberOfBands?: Maybe<Array<UsersOnBands>>;
   memberOfProjects?: Maybe<Array<UsersOnProjects>>;
   Mixdown?: Maybe<Array<Mixdown>>;
@@ -3954,6 +3960,7 @@ export type UserCreateInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
@@ -4052,6 +4059,7 @@ export type UserCreateWithoutAddressInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
@@ -4080,6 +4088,7 @@ export type UserCreateWithoutAudioAssetInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
@@ -4108,6 +4117,7 @@ export type UserCreateWithoutCommentInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
@@ -4136,6 +4146,7 @@ export type UserCreateWithoutCommentLikeInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
@@ -4164,6 +4175,7 @@ export type UserCreateWithoutFeedInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
@@ -4192,6 +4204,7 @@ export type UserCreateWithoutFeedItemLikeInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
@@ -4220,6 +4233,7 @@ export type UserCreateWithoutFollowedByInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
@@ -4248,6 +4262,7 @@ export type UserCreateWithoutFollowingInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
@@ -4276,6 +4291,7 @@ export type UserCreateWithoutInterestsInput = {
   following?: Maybe<UserCreateManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
@@ -4305,6 +4321,7 @@ export type UserCreateWithoutMemberOfBandsInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
   name: Scalars['String'];
@@ -4333,6 +4350,7 @@ export type UserCreateWithoutMemberOfProjectsInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
   name: Scalars['String'];
@@ -4361,6 +4379,7 @@ export type UserCreateWithoutMixdownInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   name: Scalars['String'];
@@ -4389,6 +4408,7 @@ export type UserCreateWithoutOwnsBandsInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
@@ -4417,6 +4437,7 @@ export type UserCreateWithoutOwnsProjectsInput = {
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   interests?: Maybe<TagCreateManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
   memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
@@ -4436,6 +4457,7 @@ export enum UserDistinctFieldEnum {
   Email = 'email',
   Handle = 'handle',
   Id = 'id',
+  IsOnline = 'isOnline',
   Name = 'name',
   Password = 'password',
   Role = 'role',
@@ -4477,6 +4499,7 @@ export type UserOrderByInput = {
   email?: Maybe<SortOrder>;
   handle?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
+  isOnline?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   password?: Maybe<SortOrder>;
   role?: Maybe<SortOrder>;
@@ -4498,6 +4521,7 @@ export type UserScalarWhereInput = {
   email?: Maybe<StringFilter>;
   handle?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
+  isOnline?: Maybe<BoolFilter>;
   name?: Maybe<StringFilter>;
   NOT?: Maybe<Array<UserScalarWhereInput>>;
   OR?: Maybe<Array<UserScalarWhereInput>>;
@@ -4818,6 +4842,7 @@ export type UserUpdateInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
@@ -4837,6 +4862,7 @@ export type UserUpdateManyDataInput = {
   email?: Maybe<StringFieldUpdateOperationsInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   password?: Maybe<StringFieldUpdateOperationsInput>;
   role?: Maybe<EnumRoleFieldUpdateOperationsInput>;
@@ -4851,6 +4877,7 @@ export type UserUpdateManyMutationInput = {
   email?: Maybe<StringFieldUpdateOperationsInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   password?: Maybe<StringFieldUpdateOperationsInput>;
   role?: Maybe<EnumRoleFieldUpdateOperationsInput>;
@@ -4996,6 +5023,7 @@ export type UserUpdateWithoutAddressDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
@@ -5024,6 +5052,7 @@ export type UserUpdateWithoutAudioAssetDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
@@ -5052,6 +5081,7 @@ export type UserUpdateWithoutCommentDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
@@ -5080,6 +5110,7 @@ export type UserUpdateWithoutCommentLikeDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
@@ -5108,6 +5139,7 @@ export type UserUpdateWithoutFeedDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
@@ -5136,6 +5168,7 @@ export type UserUpdateWithoutFeedItemLikeDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
@@ -5164,6 +5197,7 @@ export type UserUpdateWithoutFollowedByDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
@@ -5192,6 +5226,7 @@ export type UserUpdateWithoutFollowingDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
@@ -5220,6 +5255,7 @@ export type UserUpdateWithoutInterestsDataInput = {
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
@@ -5249,6 +5285,7 @@ export type UserUpdateWithoutMemberOfBandsDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
@@ -5277,6 +5314,7 @@ export type UserUpdateWithoutMemberOfProjectsDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
@@ -5305,6 +5343,7 @@ export type UserUpdateWithoutMixdownDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
@@ -5333,6 +5372,7 @@ export type UserUpdateWithoutOwnsBandsDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
@@ -5361,6 +5401,7 @@ export type UserUpdateWithoutOwnsProjectsDataInput = {
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
@@ -5479,6 +5520,7 @@ export type UserWhereInput = {
   handle?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
   interests?: Maybe<TagListRelationFilter>;
+  isOnline?: Maybe<BoolFilter>;
   memberOfBands?: Maybe<UsersOnBandsListRelationFilter>;
   memberOfProjects?: Maybe<UsersOnProjectsListRelationFilter>;
   Mixdown?: Maybe<MixdownListRelationFilter>;
@@ -5502,7 +5544,7 @@ export type UserWhereUniqueInput = {
 export type BlockCommentFragment = { __typename?: 'Comment' } & Pick<
   Comment,
   'id' | 'text' | 'updatedAt' | 'likeCount' | 'isMeLiking'
-> & { author: { __typename?: 'User' } & Pick<User, 'avatar' | 'name' | 'handle'> };
+> & { author: { __typename?: 'User' } & UserLinkFragment };
 
 export type CreatedCommentFragment = { __typename?: 'Comment' } & Pick<Comment, 'id' | 'likeCount' | 'updatedAt'>;
 
@@ -5726,7 +5768,7 @@ export type CreateProjectMutation = { __typename?: 'Mutation' } & {
   createProject: { __typename?: 'Project' } & SessionListDataFragment;
 };
 
-export type UserLinkFragment = { __typename?: 'User' } & Pick<User, 'id' | 'handle' | 'name' | 'avatar'>;
+export type UserLinkFragment = { __typename?: 'User' } & Pick<User, 'id' | 'handle' | 'name' | 'avatar' | 'isOnline'>;
 
 export type FeedUserFragment = { __typename?: 'User' } & Pick<User, 'isMeFollowing'> & UserLinkFragment;
 
@@ -5829,12 +5871,25 @@ export type UnfollowUserMutation = { __typename?: 'Mutation' } & {
   updateUser?: Maybe<{ __typename?: 'User' } & Pick<User, 'id'>>;
 };
 
+export type OnlineStatusSubscriptionVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+export type OnlineStatusSubscription = { __typename?: 'Subscription' } & Pick<Subscription, 'onlineStatus'>;
+
+export const UserLinkFragmentDoc = gql`
+  fragment UserLink on User {
+    id
+    handle
+    name
+    avatar
+    isOnline
+  }
+`;
 export const BlockCommentFragmentDoc = gql`
   fragment BlockComment on Comment {
     author {
-      avatar
-      name
-      handle
+      ...UserLink
     }
     id
     text
@@ -5842,20 +5897,13 @@ export const BlockCommentFragmentDoc = gql`
     likeCount
     isMeLiking
   }
+  ${UserLinkFragmentDoc}
 `;
 export const CreatedCommentFragmentDoc = gql`
   fragment CreatedComment on Comment {
     id
     likeCount
     updatedAt
-  }
-`;
-export const UserLinkFragmentDoc = gql`
-  fragment UserLink on User {
-    id
-    handle
-    name
-    avatar
   }
 `;
 export const FeedUserFragmentDoc = gql`
@@ -7251,3 +7299,35 @@ export type UnfollowUserMutationOptions = Apollo.BaseMutationOptions<
   UnfollowUserMutation,
   UnfollowUserMutationVariables
 >;
+export const OnlineStatusDocument = gql`
+  subscription onlineStatus($userId: String!) {
+    onlineStatus(userId: $userId)
+  }
+`;
+
+/**
+ * __useOnlineStatusSubscription__
+ *
+ * To run a query within a React component, call `useOnlineStatusSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useOnlineStatusSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOnlineStatusSubscription({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useOnlineStatusSubscription(
+  baseOptions: Apollo.SubscriptionHookOptions<OnlineStatusSubscription, OnlineStatusSubscriptionVariables>,
+) {
+  return Apollo.useSubscription<OnlineStatusSubscription, OnlineStatusSubscriptionVariables>(
+    OnlineStatusDocument,
+    baseOptions,
+  );
+}
+export type OnlineStatusSubscriptionHookResult = ReturnType<typeof useOnlineStatusSubscription>;
+export type OnlineStatusSubscriptionResult = Apollo.SubscriptionResult<OnlineStatusSubscription>;

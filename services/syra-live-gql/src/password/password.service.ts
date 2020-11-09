@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
 import { compare, hash } from 'bcrypt';
 import { RedisService } from 'nestjs-redis';
 import { MD5 } from 'crypto-js';
 import * as uniqid from 'uniqid';
 import { MailingService } from '../mailing/mailing.service';
 import { generate } from 'generate-password';
+import { PrismaService } from "../prisma/prisma.service";
 
 @Injectable()
 export class PasswordService {

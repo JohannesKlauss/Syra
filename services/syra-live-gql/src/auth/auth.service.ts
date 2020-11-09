@@ -1,11 +1,11 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../../prisma/generated/type-graphql/models';
 import { SessionService } from '../session/session.service';
 import * as uniqid from 'uniqid';
 import { JwtPayload } from '../../types/JwtPayload';
+import { PrismaService } from "../prisma/prisma.service";
 
 @Injectable()
 export class AuthService {

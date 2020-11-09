@@ -3,6 +3,7 @@ fragment UserLink on User {
     handle
     name
     avatar
+    isOnline
 }
 
 fragment FeedUser on User {
@@ -114,4 +115,8 @@ mutation unfollowUser($handle: String!, $me: String) {
     updateUser(where: {handle: $handle}, data: {followedBy: {disconnect: [{id: $me}]}}) {
         id
     }
+}
+
+subscription onlineStatus($userId: String!) {
+    onlineStatus(userId: $userId)
 }
