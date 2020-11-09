@@ -168,11 +168,6 @@
   dependencies:
     xss "^1.0.6"
 
-"@ardatan/aggregate-error@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@ardatan/aggregate-error/-/aggregate-error-0.0.1.tgz#1403ac5de10d8ca689fc1f65844c27179ae1d44f"
-  integrity sha512-UQ9BequOTIavs0pTHLMwQwKQF8tTV1oezY/H2O9chA+JNPFZSua55xpU5dPSjAU9/jLJ1VwU+HJuTVN8u7S6Fg==
-
 "@ardatan/aggregate-error@0.0.6":
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/@ardatan/aggregate-error/-/aggregate-error-0.0.6.tgz#fe6924771ea40fc98dc7a7045c2e872dc8527609"
@@ -2000,16 +1995,7 @@
     unixify "1.0.0"
     valid-url "1.0.9"
 
-"@graphql-tools/merge@6.0.13":
-  version "6.0.13"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/merge/-/merge-6.0.13.tgz#d7d6c5d4b1fe7a525a99d276d18beb814d4990d8"
-  integrity sha512-t8M1ytadf8JAKBSappzWqDzpCoufYPRPimadqxFxgeGZ/LrwzsJ7lCw8EIT1eZZYT7DbqYfAUalIQ124GazuEQ==
-  dependencies:
-    "@graphql-tools/schema" "6.0.13"
-    "@graphql-tools/utils" "6.0.13"
-    tslib "~2.0.0"
-
-"@graphql-tools/merge@^6.0.0", "@graphql-tools/merge@^6.0.18", "@graphql-tools/merge@^6.2.5":
+"@graphql-tools/merge@6.2.5", "@graphql-tools/merge@^6.0.0", "@graphql-tools/merge@^6.0.18", "@graphql-tools/merge@^6.2.5":
   version "6.2.5"
   resolved "https://registry.yarnpkg.com/@graphql-tools/merge/-/merge-6.2.5.tgz#a03d6711f2a468b8de97c0fe9092469280ca66c9"
   integrity sha512-T2UEm7L5MeS1ggbGKBkdV9kTqLqSHQM13RrjPzIAYzkFL/mK837sf+oq8h2+R8B+senuHX8akUhMTcU85kcMvw==
@@ -2057,13 +2043,13 @@
     relay-compiler "10.0.1"
     tslib "~2.0.1"
 
-"@graphql-tools/schema@6.0.13":
-  version "6.0.13"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/schema/-/schema-6.0.13.tgz#bc08d914cbd055ead08e9deecd9e122194dcb4df"
-  integrity sha512-Uy2J7L3rr8QeIr+SwWltcAlvAu3q0EKuq41qMhL23dgqpoTAg1BIWlvYSoOdoGaRZP95bvLCEiyf/X5Q1VMEFw==
+"@graphql-tools/schema@6.2.4":
+  version "6.2.4"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/schema/-/schema-6.2.4.tgz#cc4e9f5cab0f4ec48500e666719d99fc5042481d"
+  integrity sha512-rh+14lSY1q8IPbEv2J9x8UBFJ5NrDX9W5asXEUlPp+7vraLp/Tiox4GXdgyA92JhwpYco3nTf5Bo2JDMt1KnAQ==
   dependencies:
-    "@graphql-tools/utils" "6.0.13"
-    tslib "~2.0.0"
+    "@graphql-tools/utils" "^6.2.4"
+    tslib "~2.0.1"
 
 "@graphql-tools/schema@^7.0.0":
   version "7.0.0"
@@ -2089,15 +2075,7 @@
     valid-url "1.0.9"
     websocket "1.0.32"
 
-"@graphql-tools/utils@6.0.13":
-  version "6.0.13"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-6.0.13.tgz#5ea073e8aafa766e88a018432d0f0737e92f41ff"
-  integrity sha512-9jTI1HAM9HoXU2tV5CV8w7XXvJe7r37rythgo2FTe1Mws0+O6pQNjVVg7GDDr6FJ/eyMccyMx2SIf+5t7/XPrQ==
-  dependencies:
-    "@ardatan/aggregate-error" "0.0.1"
-    camel-case "4.1.1"
-
-"@graphql-tools/utils@^6", "@graphql-tools/utils@^6.0.0", "@graphql-tools/utils@^6.0.18":
+"@graphql-tools/utils@6.2.4", "@graphql-tools/utils@^6", "@graphql-tools/utils@^6.0.0", "@graphql-tools/utils@^6.0.18", "@graphql-tools/utils@^6.2.4":
   version "6.2.4"
   resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-6.2.4.tgz#38a2314d2e5e229ad4f78cca44e1199e18d55856"
   integrity sha512-ybgZ9EIJE3JMOtTrTd2VcIpTXtDrn2q6eiYkeYMKRVh3K41+LZa6YnR2zKERTXqTWqhobROwLt4BZbw2O3Aeeg==
@@ -2626,23 +2604,27 @@
     tslib "1.11.1"
     uuid "7.0.1"
 
-"@nestjs/graphql@7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/graphql/-/graphql-7.7.0.tgz#efffe7e6eea965f1dcbbe317237a482889f66603"
-  integrity sha512-CkiUEFjaOjn0nDqpBl2LC+4oAbMnWIx0aPL/QnT0JmYVdTPozHk1hMHTiDeI6zhCd7z/rff8hrpbjuXRRJZENQ==
+"@nestjs/graphql@7.8.0":
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/graphql/-/graphql-7.8.0.tgz#59c2d8188792556d638e73a99ace4782230e22a9"
+  integrity sha512-RlVNMRr5cGBwPk7lWuENMOWGWIAuY3h6qL6kIuecloVKFvaHMcFU4ysWpgaz8GAWZrEXX7ix6fhul3pUz7HTMA==
   dependencies:
-    "@graphql-tools/merge" "6.0.13"
-    "@nestjs/mapped-types" "0.1.0"
+    "@graphql-tools/merge" "6.2.5"
+    "@graphql-tools/schema" "6.2.4"
+    "@graphql-tools/utils" "6.2.4"
+    "@nestjs/mapped-types" "0.1.1"
+    apollo-env "0.6.5"
     apollo-server-core "2.16.1"
-    chokidar "3.4.2"
+    chokidar "3.4.3"
     fast-glob "3.2.4"
     iterall "1.2.2"
     lodash "4.17.20"
     normalize-path "3.0.0"
-    tslib "2.0.1"
-    uuid "8.3.0"
+    tslib "2.0.3"
+    uuid "8.3.1"
   optionalDependencies:
     "@apollo/gateway" "^0.17.0"
+    apollo-server-testing "^2.16.1"
     ts-morph "^8.0.0"
 
 "@nestjs/jwt@7.2.0":
@@ -2653,10 +2635,10 @@
     "@types/jsonwebtoken" "8.5.0"
     jsonwebtoken "8.5.1"
 
-"@nestjs/mapped-types@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-0.1.0.tgz#248435b4af4305bf6d1214d228c84926be56125a"
-  integrity sha512-FfQsZK5K1OvvGqjPHCJtrNTLlKLg7bLuphtCRTFb5K2P98JTfslauMbT7bS8huOoK/86HMNmNoHR/EVLAd4FzA==
+"@nestjs/mapped-types@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-0.1.1.tgz#2fa9ff0f1ddbe66d5d1c80ae59df21c0ed0d1361"
+  integrity sha512-FROYmmZ2F+tLJP/aHasPMX40iUHQPtEAzOAcfAp21baebN5iLUrdyTuphoXjIqubfPFSwtnAGpVm9kLJjQ//ig==
 
 "@nestjs/microservices@7.5.1":
   version "7.5.1"
@@ -5707,7 +5689,7 @@ apollo-engine-reporting@^2.3.0:
     async-retry "^1.2.1"
     uuid "^8.0.0"
 
-apollo-env@^0.6.1, apollo-env@^0.6.5:
+apollo-env@0.6.5, apollo-env@^0.6.1, apollo-env@^0.6.5:
   version "0.6.5"
   resolved "https://registry.yarnpkg.com/apollo-env/-/apollo-env-0.6.5.tgz#5a36e699d39e2356381f7203493187260fded9f3"
   integrity sha512-jeBUVsGymeTHYWp3me0R2CZRZrFeuSZeICZHCeRflHTfnQtlmbSXdy5E0pOyRM9CU4JfQkKDC98S1YglQj7Bzg==
@@ -5864,6 +5846,13 @@ apollo-server-plugin-base@^0.9.1:
   integrity sha512-kvrX4Z3FdpjrZdHkyl5iY2A1Wvp4b6KQp00DeZqss7GyyKNUBKr80/7RQgBLEw7EWM7WB19j459xM/TjvW0FKQ==
   dependencies:
     apollo-server-types "^0.5.1"
+
+apollo-server-testing@^2.16.1:
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/apollo-server-testing/-/apollo-server-testing-2.19.0.tgz#b068a2c80afffc4180268337ef1011a28be2b913"
+  integrity sha512-ZrFflLC84ZzBZCfJehC2gLodkb5wwlwYLg+wMXZfDZpBIXDbC0Y9zR0zGqOYhrDMpmI1yIt3fUade33Y4UrNpA==
+  dependencies:
+    apollo-server-core "^2.19.0"
 
 apollo-server-types@^0.5.1:
   version "0.5.1"
