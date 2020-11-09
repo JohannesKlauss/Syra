@@ -61,10 +61,11 @@ import { ChatModule } from './chat/chat.module';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
 import { DynamicRedisModule } from './redis/redis.module';
 import { RedisService } from 'nestjs-redis';
-import { parseCookie } from "./helpers/parseCookie";
-import { Subscriptions } from "../types/Subscriptions";
-import { PrismaModule } from "./prisma/prisma.module";
-import { PrismaService } from "./prisma/prisma.service";
+import { parseCookie } from './helpers/parseCookie';
+import { Subscriptions } from '../types/Subscriptions';
+import { PrismaModule } from './prisma/prisma.module';
+import { PrismaService } from './prisma/prisma.service';
+import { MailingService } from './mailing/mailing.service';
 
 @Module({
   imports: [
@@ -75,9 +76,14 @@ import { PrismaService } from "./prisma/prisma.service";
     SessionModule,
     PrismaModule,
     TypeGraphQLModule.forRootAsync({
-      imports: [AuthModule, DynamicRedisModule, PrismaModule],
-      inject: [CookieStrategy, RedisService, PrismaService],
-      useFactory: async (cookieStrategy: CookieStrategy, redisService: RedisService, prismaService: PrismaService) => {
+      imports: [AuthModule, DynamicRedisModule, PrismaModule, MailingModule],
+      inject: [CookieStrategy, RedisService, PrismaService, MailingService],
+      useFactory: async (
+        cookieStrategy: CookieStrategy,
+        redisService: RedisService,
+        prismaService: PrismaService,
+        mailingService: MailingService,
+      ) => {
         const pubSub = new RedisPubSub({
           publisher: redisService.getClient('syra-publisher'),
           subscriber: redisService.getClient('syra-subscriber'),
@@ -94,6 +100,7 @@ import { PrismaService } from "./prisma/prisma.service";
           globalMiddlewares: [GqlAuthGuard(), ReplaceMe()],
           context: async (ctx): Promise<GraphQLContext> => ({
             prisma: prismaService,
+            mailingService,
             user: ctx.connection
               ? await cookieStrategy.validateSubscription(parseCookie(ctx.connection.context.headers.cookie).session)
               : await cookieStrategy.validate(ctx.request),
@@ -110,20 +117,26 @@ import { PrismaService } from "./prisma/prisma.service";
               const user = await cookieStrategy.validateSubscription(parseCookie(ctx.request.headers.cookie).session);
 
               if (user) {
-                const updatedUser = await prismaService.user.update({where: {id: user.id}, data: {isOnline: true}});
+                const updatedUser = await prismaService.user.update({
+                  where: { id: user.id },
+                  data: { isOnline: true },
+                });
                 await pubSub.publish(Subscriptions.ONLINE_STATUS, updatedUser);
               }
 
               return ctx.request;
             },
-            onDisconnect: async ( websocket, ctx ) => {
+            onDisconnect: async (websocket, ctx) => {
               const user = await cookieStrategy.validateSubscription(parseCookie(ctx.request.headers.cookie).session);
 
               if (user) {
-                const updatedUser = await prismaService.user.update({where: {id: user.id}, data: {isOnline: false}});
+                const updatedUser = await prismaService.user.update({
+                  where: { id: user.id },
+                  data: { isOnline: false },
+                });
                 await pubSub.publish(Subscriptions.ONLINE_STATUS, updatedUser);
               }
-            }
+            },
           },
         };
       },
@@ -147,7 +160,6 @@ import { PrismaService } from "./prisma/prisma.service";
     }),
     FilesModule,
     PasswordModule,
-    MailingModule,
     ChatModule,
   ],
   controllers: [AppController],

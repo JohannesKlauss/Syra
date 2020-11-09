@@ -6016,7 +6016,7 @@ export const MeProfileFragmentDoc = gql`
 `;
 export const FirstLevelCommentsDocument = gql`
   query firstLevelComments($feedItemId: String!) {
-    comments(where: { feedItemId: { equals: $feedItemId } }, take: 2, orderBy: [{ createdAt: desc }]) {
+    comments(where: { feedItemId: { equals: $feedItemId } }, take: 5, orderBy: [{ createdAt: desc }]) {
       ...BlockComment
       commentCount
     }
@@ -6064,7 +6064,7 @@ export type FirstLevelCommentsQueryResult = Apollo.QueryResult<
 >;
 export const SecondLevelCommentsDocument = gql`
   query secondLevelComments($commentId: String!) {
-    comments(where: { parentComment: { is: { id: { equals: $commentId } } } }, take: 2) {
+    comments(where: { parentComment: { is: { id: { equals: $commentId } } } }, take: 5) {
       ...BlockComment
     }
   }

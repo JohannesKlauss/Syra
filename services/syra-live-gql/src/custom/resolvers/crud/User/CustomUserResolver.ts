@@ -5,11 +5,10 @@ import { SignUpUserArgs } from './Args/SignUpUserArgs';
 import { GraphQLContext } from '../../../../../types/GraphQLContext';
 import { BadRequestException } from '@nestjs/common';
 import { Role } from '../../../../../prisma/generated/type-graphql/enums';
-import { Int, Publisher, ResolverFilterData } from 'type-graphql';
+import { Int, ResolverFilterData } from 'type-graphql';
 import knuthShuffle from '../../../../helpers/knuthShuffle';
 import { Subscriptions } from '../../../../../types/Subscriptions';
 import { UserOnlineStatusSubscriptionArgs } from '../../inputs/UserOnlineStatusSubscriptionArgs';
-import { UpdateUserArgs } from '../../../../../prisma/generated/type-graphql/resolvers/crud/User/args';
 
 @TypeGraphQL.Resolver((_of) => User)
 export class CustomUserResolver {
@@ -99,6 +98,8 @@ export class CustomUserResolver {
     });
 
     if (user) {
+      await ctx.mailingService.sendSignUp(email, name, password);
+
       await ctx.prisma.earlyAccessCode.update({
         where: { id: code.id },
         data: { isValid: false, claimedBy: { connect: { id: user.id } } },

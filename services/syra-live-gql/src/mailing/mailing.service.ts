@@ -32,4 +32,18 @@ export class MailingService {
       }
     });
   }
+
+  async sendSignUp(email: string, name: string, password: string) {
+    await this.mailerService.sendMail({
+      to: email,
+      from: 'admin@syra.live',
+      subject: 'Welcome to Syra',
+      template: 'sign-up',
+      context: {
+        name,
+        password,
+        email,
+      }
+    });
+  }
 }
