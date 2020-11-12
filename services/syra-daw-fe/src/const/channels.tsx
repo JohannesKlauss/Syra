@@ -1,35 +1,35 @@
-import GraphicEqOutlinedIcon from '@material-ui/icons/GraphicEqOutlined';
 import { ChannelType } from '../types/Channel';
-import StraightenIcon from '@material-ui/icons/Straighten';
-import MergeTypeIcon from '@material-ui/icons/MergeType';
-import FolderIcon from '@material-ui/icons/Folder';
-import TuneIcon from '@material-ui/icons/Tune';
 import React from 'react';
+import {SiMidi, SiMastercard} from "react-icons/si";
+import {GiSoundWaves} from "react-icons/gi";
+import {FaLayerGroup} from "react-icons/fa";
+import {FiSliders} from "react-icons/fi";
+import {MdCallMerge} from "react-icons/md";
 
 type ChannelTypeMap = Partial<Record<ChannelType, { icon: JSX.Element, name: string }>>;
 export const channelTypeMap: ChannelTypeMap = {
   [ChannelType.AUDIO]: {
-    icon: <GraphicEqOutlinedIcon/>,
+    icon: <GiSoundWaves/>,
     name: 'Audio',
   },
   [ChannelType.INSTRUMENT]: {
-    icon: <StraightenIcon/>,
+    icon: <SiMidi/>,
     name: 'Instrument'
   },
   [ChannelType.AUX]: {
-    icon: <MergeTypeIcon/>,
+    icon: <MdCallMerge/>,
     name: 'Aux'
   },
   [ChannelType.VCA_GROUP]: {
-    icon: <FolderIcon/>,
+    icon: <FaLayerGroup/>,
     name: 'Group'
   },
   [ChannelType.MIX_GROUP]: {
-    icon: <TuneIcon/>,
+    icon: <FiSliders/>,
     name: 'Mix'
   },
   [ChannelType.MASTER]: {
-    icon: <TuneIcon/>,
+    icon: <SiMastercard/>,
     name: 'Master',
   }
 };

@@ -2,7 +2,6 @@ import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
 import { RegionState, regionStore } from './regionStore';
-import { cyan } from '@material-ui/core/colors';
 
 let lastChannelNum = 1;
 
@@ -21,7 +20,7 @@ const type = atomFamily<ChannelType, string>({
 
 const color = atomFamily<string, string>({
   key: 'channel/color',
-  default: cyan[400],
+  default: 'cyan.400',
 })
 
 // Whether the user clicked the record button the channel or not.
