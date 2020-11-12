@@ -2228,13 +2228,14 @@
   resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
   integrity sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw==
 
-"@inlet/react-pixi@6.0.2":
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/@inlet/react-pixi/-/react-pixi-6.0.2.tgz#9d9349930bf95b75e943d1c613f0cbc082167b1e"
-  integrity sha512-YGXhM7u9frjYOBzu1lsr5bbTYGre+YqN9DTWKUp9zApZIt/Ot/YJuFBQbOO45ChCi6GDyQutDssdvbAqc2L5aw==
+"@inlet/react-pixi@6.0.6":
+  version "6.0.6"
+  resolved "https://registry.yarnpkg.com/@inlet/react-pixi/-/react-pixi-6.0.6.tgz#b233a65d3712d02348f85b07d8f686f97b9061c7"
+  integrity sha512-ECp5ilJUi+ZD+u5QrqesN8dkzCIwA1/TEclw1fFayv6pbcpIx11nynfAwp2h+sIhwkAClwrWT0JBh7vGUmvtYA==
   dependencies:
     performance-now "2.1.0"
     react-reconciler "0.26.1"
+    replace-in-file "6.1.0"
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
@@ -19060,6 +19061,15 @@ replace-ext@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
   integrity sha1-3mMSg3P8v3w8z6TeWkgMRaZ5WOs=
+
+replace-in-file@6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/replace-in-file/-/replace-in-file-6.1.0.tgz#9f9ddd7bb70d6ad231d2ad692e1b646e73d06647"
+  integrity sha512-URzjyF3nucvejuY13HFd7O+Q6tFJRLKGHLYVvSh+LiZj3gFXzSYGnIkQflnJJulCAI2/RTZaZkpOtdVdW0EhQA==
+  dependencies:
+    chalk "^4.0.0"
+    glob "^7.1.6"
+    yargs "^15.3.1"
 
 replaceall@^0.1.6:
   version "0.1.6"
