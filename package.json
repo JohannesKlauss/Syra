@@ -16,7 +16,8 @@
     "live-fe:build": "yarn workspace syra-live-fe build",
     "live-fe:storybook": "yarn workspace syra-live-fe storybook",
     "  --  DAW  - FE --  ": "",
-    "daw-fe:start": "yarn workspace syra-daw-fe start"
+    "daw-fe:start": "yarn workspace syra-daw-fe start",
+    "daw-fe:storybook": "yarn workspace syra-daw-fe storybook"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.19.1",

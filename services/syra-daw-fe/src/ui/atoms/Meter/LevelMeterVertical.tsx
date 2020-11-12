@@ -1,28 +1,18 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { styled } from '@material-ui/core';
 import Konva from 'konva';
-import { amber, red, teal } from '@material-ui/core/colors';
 import { mapDbToUiMeterVal } from '../../../utils/levelMeterMapping';
 import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import { ChannelContext } from '../../../providers/ChannelContext';
+import { Box } from '@chakra-ui/core';
 
 const uniqid = require('uniqid');
-
-const LevelMeter = styled('div')({
-  width: '100%',
-  height: 160,
-  marginTop: 20,
-  overflow: 'hidden',
-  position: 'relative',
-});
-
 const METER_WIDTH = 24;
 
 function LevelMeterVertical() {
   const containerId = useRef(uniqid('konva-container-'));
   const canvas = useRef<HTMLDivElement>(null);
   const channelId = useContext(ChannelContext);
-  const {rmsMeter} = useBackboneChannel(channelId);
+  const { rmsMeter } = useBackboneChannel(channelId);
 
   useEffect(() => {
     // TODO: WRITE THIS IS A CLEANER WAY, THIS IS JUST HACKED IN HERE AS A Poc.
@@ -40,7 +30,7 @@ function LevelMeterVertical() {
         y: 0,
         width: METER_WIDTH,
         height: 0,
-        fill: teal['A200'],
+        fill: 'teal.200',
         offsetY: -100,
       });
 
@@ -50,7 +40,7 @@ function LevelMeterVertical() {
       let max = -1000;
 
       const anim = new Konva.Animation(() => {
-        const val = rmsMeter.getValue() as number
+        const val = rmsMeter.getValue() as number;
 
         if (val > max) {
           max = val;
@@ -66,16 +56,14 @@ function LevelMeterVertical() {
 
         rms.height(rmsHeight);
         rms.offsetY(-160 + rmsHeight);
-        rms.fill(val >= -4 ? (val >= -1 ? red['A200'] : amber['A200']) : teal['A200']);
+        rms.fill(val >= -4 ? (val >= -1 ? 'red.200' : 'yellow.200') : 'teal.200');
       }, layer);
 
       anim.start();
     }
   }, [canvas, containerId, rmsMeter]);
 
-  return (
-    <LevelMeter id={containerId.current} ref={canvas}/>
-  );
+  return <Box id={containerId.current} ref={canvas} w={'100%'} h={160} mt={8} overflow={'hidden'} pos={'relative'} />;
 }
 
 export default React.memo(LevelMeterVertical);
