@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/core';
+import { VscChevronDown } from "react-icons/vsc";
 
 type TMenuItem = {
   label: string;
@@ -19,12 +20,12 @@ const DropdownButton: React.FC<Props> = ({ onClick, menuItems, color, size, labe
     <>
       <Menu>
         <React.Fragment>
-          <MenuButton size={size} as={Button} variantColor={color} rightIcon="chevron-down" onClick={onClick}>
+          <MenuButton size={size} as={Button} colorScheme={color} rightIcon={<VscChevronDown/>} onClick={onClick}>
             {label}
           </MenuButton>
           <MenuList>
             {menuItems.map(({ onClick, label }) => (
-              <MenuItem onClick={onClick}>{label}</MenuItem>
+              <MenuItem key={label} onClick={onClick}>{label}</MenuItem>
             ))}
           </MenuList>
         </React.Fragment>

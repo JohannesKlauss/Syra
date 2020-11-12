@@ -10,7 +10,7 @@ interface Props {
 
 const LetterButton: React.FC<Props> = React.memo(({ onClick, isActive, width, color, children }) => {
   return (
-    <Button variant={isActive ? 'solid' : 'ghost'} size="sm" variantColor={color}
+    <Button variant={isActive ? 'solid' : 'ghost'} size="sm" colorScheme={color}
             onClick={onClick} w={width}>
       {children}
     </Button>
