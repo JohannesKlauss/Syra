@@ -1,27 +1,16 @@
-import React, { useState } from 'react';
-import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import React from 'react';
 import useAvailableChannels from '../../../../../hooks/ui/channels/useAvailableChannels';
 import useCreateChannel from '../../../../../hooks/recoil/channel/useCreateChannel';
 import { ChannelType } from '../../../../../types/Channel';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/core';
+import {AiOutlinePlus} from 'react-icons/ai';
 
 function AddChannelMenu() {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
   const actions = useAvailableChannels();
   const createChannel = useCreateChannel();
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   const onClick = async (type: ChannelType) => {
-    handleClose();
     await createChannel(type);
   };
 
@@ -29,26 +18,19 @@ function AddChannelMenu() {
   useHotkeys('alt+cmd+s', () => {(async () => await createChannel(ChannelType.INSTRUMENT))()});
 
   return (
-    <>
-      <IconButton onClick={handleClick} size={'small'} title={'Add Channel'}>
-        <AddIcon/>
-      </IconButton>
-      <Menu
-        anchorEl={anchorEl}
-        keepMounted
-        open={open}
-        onClose={handleClose}
-      >
-          {actions.map(action => (
-            <MenuItem onClick={() => onClick(action.type)} key={action.type}>
-              <ListItemIcon>
-                {action.icon}
-              </ListItemIcon>
-              <Typography variant="inherit">{action.name}</Typography>
-            </MenuItem>
-          ))}
-      </Menu>
-    </>
+    <Menu>
+      <MenuButton as={IconButton} aria-label={"Add Channel"} icon={<AiOutlinePlus/>}/>
+      <MenuList>
+        {actions.map(action => (
+          <MenuItem onClick={() => onClick(action.type)} key={action.type}>
+            <Flex>
+              {action.icon}
+              <Text>{action.name}</Text>
+            </Flex>
+          </MenuItem>
+        ))}
+    </MenuList>
+    </Menu>
   );
 }
 

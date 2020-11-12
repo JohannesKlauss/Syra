@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box, BoxProps, styled, Theme, useTheme } from '@material-ui/core';
 import { useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { channelStore } from '../../../recoil/channelStore';
@@ -11,22 +10,9 @@ import SelectionTool from '../../atoms/SelectionTool';
 import useSelectRegions from '../../../hooks/ui/arrangeGrid/useSelectRegions';
 import useMuteSelectedRegions from '../../../hooks/recoil/region/useMuteSelectedRegions';
 import useAnalyzeTempoForSelectedRegion from '../../../hooks/recoil/region/useAnalyzeTempoForSelectedRegion';
-
-interface ArrangeWindowProps {
-  windowWidth: number;
-}
-
-const BaseContainer = styled(
-  ({ windowWidth, ...other }: ArrangeWindowProps & Omit<BoxProps, keyof ArrangeWindowProps>) => <Box {...other} />,
-)<Theme, ArrangeWindowProps>(({ theme, windowWidth }) => ({
-  backgroundColor: theme.palette.background.default,
-  position: 'relative',
-  width: windowWidth,
-  zIndex: 0,
-}));
+import { Box } from '@chakra-ui/core';
 
 function GridTracks() {
-  const theme = useTheme();
   const windowWidth = useRecoilValue(arrangeWindowStore.width);
   const channelIds = useRecoilValue(channelStore.ids);
   const onSelect = useSelectRegions();
@@ -38,16 +24,16 @@ function GridTracks() {
   });
 
   return (
-    <BaseContainer windowWidth={windowWidth}>
+    <Box bg={'gray.800'} pos={'relative'} w={windowWidth} zIndex={0}>
       <BackgroundGrid ticksFullHeight={true}/>
       <SelectionTool onSelect={onSelect}>
         {channelIds.map((id, i) => (
           <ChannelContext.Provider key={id} value={id}>
-            <Track backgroundColor={i % 2 === 0 ? theme.palette.background.paper : theme.palette.background.default}/>
+            <Track backgroundColor={i % 2 === 0 ? 'gray.900' : 'gray.800'}/>
           </ChannelContext.Provider>
         ))}
       </SelectionTool>
-    </BaseContainer>
+    </Box>
   );
 }
 

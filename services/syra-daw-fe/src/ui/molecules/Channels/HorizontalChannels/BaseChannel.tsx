@@ -2,39 +2,23 @@ import React, { useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { ChannelType } from '../../../../types/Channel';
 import { ChannelContext } from '../../../../providers/ChannelContext';
-import { Box, BoxProps, styled, useTheme } from '@material-ui/core';
 import { channelStore } from '../../../../recoil/channelStore';
 import AudioChannel from './AudioChannel';
 import InstrumentChannel from './InstrumentChannel';
+import { Box } from '@chakra-ui/core';
 
-interface BaseContainerProps {
-  backgroundColor: string;
-}
-
-const BaseContainer = styled(
-  ({ backgroundColor, ...other }: BaseContainerProps & Omit<BoxProps, keyof BaseContainerProps>) => <Box {...other} />,
-)({
-  maxWidth: 150,
-  width: 150,
-  marginLeft: 1,
-  backgroundColor: ({ backgroundColor }: BaseContainerProps) => backgroundColor,
-  '&:focus': {
-    outline: 'none',
-  }
-});
 
 interface Props {
   channelId: string;
 }
 
 function BaseChannel({ channelId }: Props) {
-  const theme = useTheme();
   const type = useRecoilValue(channelStore.type(channelId));
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
 
   const backgroundColor = useMemo(() => {
-    return channelId === selectedChannelId ? '#606060' : theme.palette.background.paper;
-  }, [channelId, selectedChannelId, theme]);
+    return channelId === selectedChannelId ? '#606060' : 'gray.900';
+  }, [channelId, selectedChannelId]);
 
   const ChannelComponent = useMemo(() => {
     switch (type) {
@@ -47,9 +31,9 @@ function BaseChannel({ channelId }: Props) {
 
   return (
     <ChannelContext.Provider value={channelId}>
-      <BaseContainer backgroundColor={backgroundColor} onClick={() => setSelectedChannelId(channelId)}>
+      <Box maxW={'150px'} w={'150px'} ml={1} bg={backgroundColor}>
         {ChannelComponent}
-      </BaseContainer>
+      </Box>
     </ChannelContext.Provider>
   );
 }

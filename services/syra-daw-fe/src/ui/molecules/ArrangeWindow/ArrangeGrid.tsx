@@ -1,18 +1,11 @@
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
-import { styled } from '@material-ui/core';
 import GridTracks from './GridTracks';
 import Ruler from '../Ruler/Ruler';
 import useWindowSize from '../../../hooks/ui/useWindowResize';
 import { useSetRecoilState } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import DropTrack from '../Track/DropTrack';
-
-const BaseContainer = styled('div')(({ theme }) => ({
-  overflowX: 'scroll',
-  overflowY: 'hidden',
-  position: 'relative',
-  backgroundColor: theme.palette.background.default,
-}));
+import { Box } from '@chakra-ui/core';
 
 function ArrangeGrid() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -29,11 +22,11 @@ function ArrangeGrid() {
   }, [windowSize, containerRef, setViewportWidth]);
 
   return (
-    <BaseContainer ref={containerRef}>
+    <Box overflowX={'scroll'} overflowY={'hidden'} pos={'relative'} bg={'gray.800'}>
       <Ruler/>
       <GridTracks/>
       <DropTrack/>
-    </BaseContainer>
+    </Box>
   );
 }
 
