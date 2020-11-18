@@ -20346,10 +20346,10 @@ stream-chat-react@3.2.3:
     textarea-caret "^3.1.0"
     uuid "^8.3.1"
 
-stream-chat@2.7.4:
-  version "2.7.4"
-  resolved "https://registry.yarnpkg.com/stream-chat/-/stream-chat-2.7.4.tgz#663593211e18c1e6d3657207b043d0cf99266fac"
-  integrity sha512-ub2EQGeQixy/jRTyPJ4fCJofjKH1gu1JCWVSP+WdJ9iZSH/UOnONJ6Ibir+t5d3SJZyrkzqejyx6SZ7sRtx8ZA==
+stream-chat@2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/stream-chat/-/stream-chat-2.8.0.tgz#1390b5389156d837a29b1bf08a35adc987884cfb"
+  integrity sha512-CG7m0n5ofawmoRQ7watxOXEuub61xdfNqmBl2RKsysvz1mkjBN6/P0MceHQQV9VJItBpRWf8Q+JCuFybG8umzQ==
   dependencies:
     "@babel/runtime" "^7.12.1"
     "@types/jsonwebtoken" "^8.5.0"
