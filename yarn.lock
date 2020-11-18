@@ -75,18 +75,29 @@
     rxjs "6.6.3"
     source-map "0.7.3"
 
-"@angular-devkit/schematics-cli@0.1002.0":
-  version "0.1002.0"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics-cli/-/schematics-cli-0.1002.0.tgz#41f2947a3232f2e19c3e425c6e9f5b62d0d4f286"
-  integrity sha512-wV5YPdcolPAXo5oyMu9vM3fm3grb3ZT9amrTMC9oc3OWQUVFySPCIzvguHf8bVGMQ/AHfel2TaYxIQv/LurBrQ==
+"@angular-devkit/core@11.0.1":
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-11.0.1.tgz#7125b07ac7d66a8fdaaf612a3b757817d23b8107"
+  integrity sha512-ui3g7w/0SpU9oq8uwN9upR8Y1eOXZ+P2p3NyDydBrR7ZEfEkRLS1mhozN/ib8farrwK5N3kIIJxMb5t3187Hng==
   dependencies:
-    "@angular-devkit/core" "10.2.0"
-    "@angular-devkit/schematics" "10.2.0"
-    "@schematics/schematics" "0.1002.0"
+    ajv "6.12.6"
+    fast-json-stable-stringify "2.1.0"
+    magic-string "0.25.7"
+    rxjs "6.6.3"
+    source-map "0.7.3"
+
+"@angular-devkit/schematics-cli@0.1100.1":
+  version "0.1100.1"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics-cli/-/schematics-cli-0.1100.1.tgz#6d3cd6a7639a45ef64f221470ff7927b265184ee"
+  integrity sha512-6iGauhYKSkgsqA8HK7sul7lrVzrkxXAghGd3FcTHtXsmjh/leBezi7R82MphzcoYAOQ36COLMcOJnYurVG1Y6g==
+  dependencies:
+    "@angular-devkit/core" "11.0.1"
+    "@angular-devkit/schematics" "11.0.1"
+    "@schematics/schematics" "0.1100.1"
+    ansi-colors "4.1.1"
     inquirer "7.3.3"
     minimist "1.2.5"
-    rxjs "6.6.2"
-    symbol-observable "1.2.0"
+    symbol-observable "2.0.3"
 
 "@angular-devkit/schematics@10.2.0":
   version "10.2.0"
@@ -103,6 +114,15 @@
   integrity sha512-oCz9E0thA5WdGDuv6biu3X5kw5/vNE4ZZOKT2sHBQMpAuuDYrDpfTYQJjXQtjfXWvmlr8L8aqDD9N4HXsE4Esw==
   dependencies:
     "@angular-devkit/core" "11.0.0"
+    ora "5.1.0"
+    rxjs "6.6.3"
+
+"@angular-devkit/schematics@11.0.1":
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-11.0.1.tgz#d0826cde52a2c015b24a7c6f3b4df31665eb67ed"
+  integrity sha512-rAOnAndcybEH398xf5wzmcUPCoCi0dKiOo/+1dkKU5aTxynw1OUnANt5K6A+ZZTGnJmfjtP0ovkZGYun9IUDxQ==
+  dependencies:
+    "@angular-devkit/core" "11.0.1"
     ora "5.1.0"
     rxjs "6.6.3"
 
@@ -2613,21 +2633,21 @@
     handlebars "^4.7.6"
     pug "^2.0.4"
 
-"@nestjs/cli@7.5.2":
-  version "7.5.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-7.5.2.tgz#2a5fd61919ea3bcb7bbf62c0ac8e034ad1b67fe5"
-  integrity sha512-qxh5aqQbxzQe8Tuc3CF8nLb1KsWCjLabSAZm+hlxrWYSJzbffbn947MPmsIwZdXgAXZ6AprmJV5KeB2U6DoM+w==
+"@nestjs/cli@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-7.5.3.tgz#80a97faebf03e60650aab91bd77a775fc398f9bb"
+  integrity sha512-PgpdXaNNtWMRAnDzMEXjbCXDiJWoNcmnKa6HhJ9iLJaqdXkIILiLthJx64sZxB6GiE4UYWjbX/KuPH3N2dx/6Q==
   dependencies:
-    "@angular-devkit/core" "10.2.0"
-    "@angular-devkit/schematics" "10.2.0"
-    "@angular-devkit/schematics-cli" "0.1002.0"
+    "@angular-devkit/core" "11.0.1"
+    "@angular-devkit/schematics" "11.0.1"
+    "@angular-devkit/schematics-cli" "0.1100.1"
     "@nestjs/schematics" "^7.1.0"
-    "@types/webpack" "4.41.24"
+    "@types/webpack" "4.41.25"
     chalk "3.0.0"
     chokidar "3.4.3"
     cli-table3 "0.5.1"
     commander "4.1.1"
-    fork-ts-checker-webpack-plugin "5.2.1"
+    fork-ts-checker-webpack-plugin "6.0.2"
     inquirer "7.3.3"
     node-emoji "1.10.0"
     ora "5.1.0"
@@ -2650,10 +2670,10 @@
     cli-color "1.4.0"
     uuid "3.3.2"
 
-"@nestjs/common@7.5.2":
-  version "7.5.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.5.2.tgz#8229081c8aab8a656c5509f1060411bfb8cf03eb"
-  integrity sha512-b1rKSOCO20qFgS9qr4Blu24XyVs+PAa4GIFDZxw+4HiPPKrU9PMLC3YdJ2K+wB1xEO9D7bmS0mlEz3fimD/z0A==
+"@nestjs/common@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.5.3.tgz#b69ccdc30964571292fad186575db3caa657f05c"
+  integrity sha512-b1HF+gbF9FP8yfBjNfy1O/este1nM24zP/+XkP+zsO1+e1Gh10EuHFEOljfUcgawVIBI/o2m860eYXJl3qEpbA==
   dependencies:
     axios "0.21.0"
     iterare "1.2.1"
@@ -2672,10 +2692,10 @@
     lodash.set "4.3.2"
     uuid "8.3.1"
 
-"@nestjs/core@7.5.2":
-  version "7.5.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.5.2.tgz#8c358a753825041efc5012a24f545e54ac9df59f"
-  integrity sha512-StAYVexFqEch7NLV5wcjMwM/q2JKJ8Qi46bnsXVOxEQV8qlBc9aflJ3DWpM4pERvtUFJyfgo9iLk5IMQAPnnCg==
+"@nestjs/core@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.5.3.tgz#6360b0701ace3a36508f6db8c3baf6b3aed4b039"
+  integrity sha512-UVEoqwF7bAeiweQytRR5XPcNEO8dr8R4g0zyareRlzjlQtCPxTgD0jhXM8zfsYcfddGJ6OlMuLGXroDJgchKOA==
   dependencies:
     "@nuxtjs/opencollective" "0.2.2"
     fast-safe-stringify "2.0.7"
@@ -2734,10 +2754,10 @@
   resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-0.1.1.tgz#2fa9ff0f1ddbe66d5d1c80ae59df21c0ed0d1361"
   integrity sha512-FROYmmZ2F+tLJP/aHasPMX40iUHQPtEAzOAcfAp21baebN5iLUrdyTuphoXjIqubfPFSwtnAGpVm9kLJjQ//ig==
 
-"@nestjs/microservices@7.5.2":
-  version "7.5.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/microservices/-/microservices-7.5.2.tgz#6ae1630af8c90fec3041b0ab468f0cf0ee481f0c"
-  integrity sha512-IUigZlYdss+Kb8PyIMQNc7UQ9FhxulykPwKVbR0RwJLmLP8j36HIr+e19YO36c4FUFfm4pRdF+b+nKAa6wCQdA==
+"@nestjs/microservices@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/microservices/-/microservices-7.5.3.tgz#423a961b55309a3d6f50b8c6bd65251e819f92ad"
+  integrity sha512-YP8OaxD6CNbEbePZvpyEYGTRudLHS42jPvGhwVDRRJjeQSWsRe7f5F6Nwqu7T0MKCi3ucZaNHhauH/13ILGRKg==
   dependencies:
     iterare "1.2.1"
     json-socket "0.3.0"
@@ -2748,10 +2768,10 @@
   resolved "https://registry.yarnpkg.com/@nestjs/passport/-/passport-7.1.3.tgz#9b0860f9925ae410a30b4c3279343a5f11d46597"
   integrity sha512-kQp1oDbfdsxlWxXCSshswysCjtfRCiBsYmpVD6s//fTEHpFZRM1XBuQ6jEVPCIQrtfhytqmi7wzMdgv8PVtKIA==
 
-"@nestjs/platform-fastify@7.5.2":
-  version "7.5.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/platform-fastify/-/platform-fastify-7.5.2.tgz#ad9160b6cf0c302776f9e2ff3139cfe109314369"
-  integrity sha512-r2oYUmipehoCgDGQY7Zk7ghOPfdVLy6DyPjBUToyP5hRvgv8NUIFDEOU2qoAW2RWPgD3YVxb21WSHd1fzsMVSA==
+"@nestjs/platform-fastify@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/platform-fastify/-/platform-fastify-7.5.3.tgz#e9b5048b9707555efef704e7f2e974b79f0c0b21"
+  integrity sha512-RpMhT/2ysbpz4rfVUeR0uE+ZIiLT6xcQvWTYU6+ttyFdXZj1H02Lwm0pAiE0DCWHBkDcLAiKwaJija7fi3765w==
   dependencies:
     fastify "3.7.0"
     fastify-cors "4.1.0"
@@ -2781,10 +2801,10 @@
     fs-extra "9.0.1"
     pluralize "8.0.0"
 
-"@nestjs/testing@7.5.2":
-  version "7.5.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-7.5.2.tgz#69ffe58d66d76489d2cad24984024623d3f08880"
-  integrity sha512-sFkkS6S97F9dFk8Kk5ksBLJGHQZ7n1S1s3BkHxwHwcJqglcpE45wyhoMQ/YzJP5uPyLkgqCQFT2Hst9ndpBV+Q==
+"@nestjs/testing@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-7.5.3.tgz#0d3aa8b2e2f8de71e74194b6185670ed6e0c1aa8"
+  integrity sha512-u51ycYEI9HqONlQXPSkY1w33adm7egURvBP7+5V55X6doNVJuVkpBPzx+tCsF1oq2EM1qgH1Nz/q1TZT8IDdxA==
   dependencies:
     optional "0.1.4"
     tslib "2.0.3"
@@ -3457,13 +3477,13 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@schematics/schematics@0.1002.0":
-  version "0.1002.0"
-  resolved "https://registry.yarnpkg.com/@schematics/schematics/-/schematics-0.1002.0.tgz#91debcc3870b785838d054a0a6bd1d98dd3737bc"
-  integrity sha512-A6z0j+GCgj3NPAJ3+OZPgU/8KYLHcVWN+ZELuQTFXZgN6mpgbxCmM3yymfo7+riaF0xx1mXlt8G+tO7xDsLVvQ==
+"@schematics/schematics@0.1100.1":
+  version "0.1100.1"
+  resolved "https://registry.yarnpkg.com/@schematics/schematics/-/schematics-0.1100.1.tgz#aa91b86ad4190a338d5c643bce16e29d72c6815e"
+  integrity sha512-Y5J/qafyZtsu6spEFywGLjYMqEgONSDx9m8c8KL4c45+KqqerQeh2QQHims3G0brKUFIK3nCw95zqw+RMsGcsA==
   dependencies:
-    "@angular-devkit/core" "10.2.0"
-    "@angular-devkit/schematics" "10.2.0"
+    "@angular-devkit/core" "11.0.1"
+    "@angular-devkit/schematics" "11.0.1"
 
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
@@ -5073,7 +5093,19 @@
     "@types/source-list-map" "*"
     source-map "^0.7.3"
 
-"@types/webpack@4.41.24", "@types/webpack@^4.41.8":
+"@types/webpack@4.41.25":
+  version "4.41.25"
+  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.41.25.tgz#4d3b5aecc4e44117b376280fbfd2dc36697968c4"
+  integrity sha512-cr6kZ+4m9lp86ytQc1jPOJXgINQyz3kLLunZ57jznW+WIAL0JqZbGubQk4GlD42MuQL5JGOABrxdpqqWeovlVQ==
+  dependencies:
+    "@types/anymatch" "*"
+    "@types/node" "*"
+    "@types/tapable" "*"
+    "@types/uglify-js" "*"
+    "@types/webpack-sources" "*"
+    source-map "^0.6.0"
+
+"@types/webpack@^4.41.8":
   version "4.41.24"
   resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.41.24.tgz#75b664abe3d5bcfe54e64313ca3b43e498550422"
   integrity sha512-1A0MXPwZiMOD3DPMuOKUKcpkdPo8Lq33UGggZ7xio6wJ/jV1dAu5cXDrOfGDnldUroPIRLsr/DT43/GqOA4RFQ==
@@ -5708,15 +5740,15 @@ ansi-align@^3.0.0:
   dependencies:
     string-width "^3.0.0"
 
+ansi-colors@4.1.1, ansi-colors@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"
+  integrity sha512-JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
   integrity sha512-hHUXGagefjN2iRrID63xckIvotOXOojhQKWIPUZ4mNUZ9nLZW+7FMNoE1lOkEhNWYsx/7ysGIuJYCiMAA9FnrA==
-
-ansi-colors@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"
-  integrity sha512-JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==
 
 ansi-escapes@^3.0.0:
   version "3.2.0"
@@ -7693,7 +7725,7 @@ chokidar@3.4.2:
   optionalDependencies:
     fsevents "~2.1.2"
 
-chokidar@3.4.3, "chokidar@>=2.0.0 <4.0.0", chokidar@^3.3.0, chokidar@^3.4.1, chokidar@^3.4.3:
+chokidar@3.4.3, "chokidar@>=2.0.0 <4.0.0", chokidar@^3.3.0, chokidar@^3.4.1, chokidar@^3.4.2, chokidar@^3.4.3:
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.4.3.tgz#c1df38231448e45ca4ac588e6c79573ba6a57d5b"
   integrity sha512-DtM3g7juCXQxFVSNPNByEC2+NImtBuxQQvWlHunpJIS5Ocr0lG306cC7FCi7cEA0fzmybPUIl4txBIobk1gGOQ==
@@ -10914,14 +10946,15 @@ fork-ts-checker-webpack-plugin@4.1.6, fork-ts-checker-webpack-plugin@^4.1.4:
     tapable "^1.0.0"
     worker-rpc "^0.1.0"
 
-fork-ts-checker-webpack-plugin@5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-5.2.1.tgz#79326d869797906fa8b24e2abcf9421fc805450d"
-  integrity sha512-SVi+ZAQOGbtAsUWrZvGzz38ga2YqjWvca1pXQFUArIVXqli0lLoDQ8uS0wg0kSpcwpZmaW5jVCZXQebkyUQSsw==
+fork-ts-checker-webpack-plugin@6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-6.0.2.tgz#3c490536b302c60cd8fc4654cffd7d15225859f4"
+  integrity sha512-3WrR/gNMcOAJ+macFpYTXxbt/xZDF9MLCYsPU3j9IUmS8LAvi8WoTiI001z1A8qkgmDtkoh6MTytTQqf8/7aOA==
   dependencies:
     "@babel/code-frame" "^7.8.3"
     "@types/json-schema" "^7.0.5"
     chalk "^4.1.0"
+    chokidar "^3.4.2"
     cosmiconfig "^6.0.0"
     deepmerge "^4.2.2"
     fs-extra "^9.0.0"
@@ -20820,15 +20853,15 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-symbol-observable@1.2.0, symbol-observable@^1.0.4, symbol-observable@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
-  integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
-
-symbol-observable@^2.0.0:
+symbol-observable@2.0.3, symbol-observable@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-2.0.3.tgz#5b521d3d07a43c351055fa43b8355b62d33fd16a"
   integrity sha512-sQV7phh2WCYAn81oAkakC5qjq2Ml0g8ozqz03wOGnx9dDlG1de6yrF+0RAzSJD8fPUow3PTSMf2SAbOGxb93BA==
+
+symbol-observable@^1.0.4, symbol-observable@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+  integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
 symbol-tree@^3.2.4:
   version "3.2.4"
