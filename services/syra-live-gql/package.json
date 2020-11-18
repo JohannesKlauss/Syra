@@ -55,7 +55,7 @@
     "passport-local": "1.0.0",
     "pug": "3.0.0",
     "stream-chat": "2.8.0",
-    "tailwindcss": "1.9.6",
+    "tailwindcss": "2.0.1",
     "type-graphql": "1.1.1",
     "typegraphql-nestjs": "0.2.5",
     "typegraphql-prisma": "0.8.5",
