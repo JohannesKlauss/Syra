@@ -32,7 +32,7 @@
     "uniqid": "5.2.0",
     "urql": "1.11.3",
     "web-audio-beat-detector": "8.0.33",
-    "web-vitals": "0.2.4",
+    "web-vitals": "1.0.1",
     "webmidi": "2.5.1"
   },
   "devDependencies": {
