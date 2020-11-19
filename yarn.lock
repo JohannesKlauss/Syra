@@ -4822,10 +4822,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.19.5.tgz#9be3946136e818597c71c62d04240d0602c645d4"
   integrity sha512-Wgdl27uw/jUYUFyajUGKSjDNGxmJrZi9sjeG6UJImgUtKbJoO9aldx+1XODN1EpNDX9DirvbvHHmTsNlb8GwMA==
 
-"@types/node@13.13.31":
-  version "13.13.31"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.31.tgz#b8fc04d46bc22959a99fbdba71b15f37a48da3ec"
-  integrity sha512-gBk54XbcRj8EKTi7Syo4JU4purbRJaZpkvMVs7+t+b9JaOtwsGo7vCbXdVJN3gH/wu/GyZGD8lAKo0qpQuNjOw==
+"@types/node@13.13.32":
+  version "13.13.32"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.32.tgz#f0edd0fb57b3c9f6e64a0b3ddb1e0f729b6f71ce"
+  integrity sha512-sPBvDnrwZE1uePhkCEyI/qQlgZM5kePPAhHIFDWNsOrWBFRBOk3LKJYmVCLeLZlL9Ub/FzMJb31OTWCg2F+06g==
 
 "@types/node@^10.1.0":
   version "10.17.44"
