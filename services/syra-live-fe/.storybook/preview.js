@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColorModeProvider, CSSReset, Skeleton, ThemeProvider } from "@chakra-ui/core";
+import { ChakraProvider, Skeleton } from "@chakra-ui/core";
 import { RecoilRoot } from 'recoil';
 import { appWithTranslation } from '../i18n';
 import { addDecorator } from '@storybook/react';
@@ -30,14 +30,11 @@ export const decorators = [
 
     return (
       <RecoilRoot>
-        <ThemeProvider>
-          <ColorModeProvider>
-            <CSSReset/>
-            <React.Suspense fallback={<Skeleton h={24}/>}>
-              <StoryWithTranslation/>
-            </React.Suspense>
-          </ColorModeProvider>
-        </ThemeProvider>
+        <ChakraProvider>
+          <React.Suspense fallback={<Skeleton h={24}/>}>
+            <StoryWithTranslation/>
+          </React.Suspense>
+        </ChakraProvider>
       </RecoilRoot>
     );
   },

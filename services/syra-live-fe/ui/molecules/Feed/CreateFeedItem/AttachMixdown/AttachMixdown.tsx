@@ -14,7 +14,7 @@ function AttachMixdown({ onSelectMixdown }: Props) {
 
   return (
     <>
-      <Button leftIcon={IoMdAdd} isFullWidth onClick={() => setIsOpen(true)}>Attach Mixdown</Button>
+      <Button leftIcon={<IoMdAdd/>} isFullWidth onClick={() => setIsOpen(true)}>Attach Mixdown</Button>
       <AttachMixdownModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

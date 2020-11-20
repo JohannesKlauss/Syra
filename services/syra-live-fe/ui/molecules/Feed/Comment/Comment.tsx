@@ -64,7 +64,7 @@ function Comment({ comment }: Props) {
             <Button size={'xs'} variant={'link'} fontWeight={600}>
               {t('Reply')}
             </Button>
-            <Button ml={4} size={'xs'} variant={'link'} fontWeight={600} variantColor={isMeLiking ? 'teal' : 'gray'} onClick={onToggleLike}>
+            <Button ml={4} size={'xs'} variant={'link'} fontWeight={600} colorScheme={isMeLiking ? 'teal' : 'gray'} onClick={onToggleLike}>
               {t(isMeLiking ? 'Liked' : 'Like')}
             </Button>
           </Flex>

@@ -13,7 +13,7 @@ function ForgotPasswordModal({}: Props) {
 
   return (
     <>
-      <Button variant={'link'} size={'xs'} marginLeft={2} variantColor={'teal'} onClick={onOpen}>
+      <Button variant={'link'} size={'xs'} marginLeft={2} colorScheme={'teal'} onClick={onOpen}>
         {t('Forgot Password.')}
       </Button>
       <ResetPassword isOpen={isOpen} onClose={onClose}/>

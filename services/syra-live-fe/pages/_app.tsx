@@ -1,6 +1,6 @@
 import React from 'react';
 import App from 'next/app';
-import { ColorModeProvider, CSSReset, ThemeProvider } from '@chakra-ui/core';
+import { ChakraProvider } from "@chakra-ui/core";
 import { RecoilRoot } from 'recoil';
 import { useApollo } from "../apollo/client";
 import { ApolloProvider } from '@apollo/client';
@@ -37,16 +37,13 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <ApolloProvider client={apolloClient}>
         <RecoilRoot>
-          <ThemeProvider>
-            <ColorModeProvider value={'dark'}>
-              <CSSReset />
-              <AuthProvider>
-                <Component {...pageProps} />
-                <Footer />
-                <Stopper />
-              </AuthProvider>
-            </ColorModeProvider>
-          </ThemeProvider>
+          <ChakraProvider>
+            <AuthProvider>
+              <Component {...pageProps} />
+              <Footer />
+              <Stopper />
+            </AuthProvider>
+          </ChakraProvider>
         </RecoilRoot>
       </ApolloProvider>
     </>

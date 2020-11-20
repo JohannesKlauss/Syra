@@ -22,7 +22,7 @@ function ProfileInfo({ user }: Props) {
             <Text fontSize={'lg'} fontWeight={600}>@{user.handle}</Text>
             {user.isMyself
               ? (
-                <Button leftIcon={RiEdit2Fill}>
+                <Button leftIcon={<RiEdit2Fill/>}>
                   <Link href={'/account/edit'}>
                     {t('Edit your profile')}
                   </Link>
@@ -62,7 +62,7 @@ function ProfileInfo({ user }: Props) {
               </Text>
               <Stack spacing={2} isInline>
                 {user.interests.map(({ value }) => (
-                  <Tag size={'sm'} key={value} variantColor="gray">{value}</Tag>
+                  <Tag size={'sm'} key={value} colorScheme="gray">{value}</Tag>
                 ))}
               </Stack>
             </Flex>

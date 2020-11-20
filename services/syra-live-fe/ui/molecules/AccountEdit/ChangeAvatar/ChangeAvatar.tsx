@@ -34,7 +34,7 @@ function ChangeAvatar({ avatar, onAvatarChanged }: Props) {
 
   return (
     <>
-      <Button variant={'link'} variantColor={'teal'} onClick={onOpen}>{t('Change profile image')}</Button>
+      <Button variant={'link'} colorScheme={'teal'} onClick={onOpen}>{t('Change profile image')}</Button>
       <Modal isOpen={isOpen} onClose={onClose} size={'xl'}>
         <ModalOverlay/>
         <ModalContent>
@@ -84,14 +84,14 @@ function ChangeAvatar({ avatar, onAvatarChanged }: Props) {
                      onClick={() => setZoom(zoom => zoom + SLIDER_STEP)}/>
               </Flex>
 
-              <Button ml={8} size={'sm'} variantColor={'teal'} onClick={() => inputRef.current?.click()}>
+              <Button ml={8} size={'sm'} colorScheme={'teal'} onClick={() => inputRef.current?.click()}>
                 {t('Upload new image')}
               </Button>
             </Flex>
           </ModalBody>
 
           <ModalFooter>
-            <Button variantColor="teal" mr={3} onClick={() => onApply(onAvatarChanged)} isLoading={isLoading}>{t('Apply')}</Button>
+            <Button colorScheme="teal" mr={3} onClick={() => onApply(onAvatarChanged)} isLoading={isLoading}>{t('Apply')}</Button>
             <Button variant="ghost" onClick={onClose}>{t('Cancel')}</Button>
           </ModalFooter>
         </ModalContent>

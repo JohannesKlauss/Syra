@@ -1,14 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { channelStore } from '../../../../recoil/channelStore';
-import {
-  Box,
-  Card,
-  CardContent,
-  CardProps,
-  styled, Theme,
-  useTheme,
-} from '@material-ui/core';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import ChannelLetterButtons from '../ChannelLetterButtons';
 import useMuteChannelHotkey from '../../../../hooks/hotkeys/channel/useMuteChannelHotkey';
@@ -17,66 +9,40 @@ import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT } from '../../../../const/ui';
 import ChannelName from '../ChannelName';
 import BackboneAudioMixer from '../../BackboneMixer/BackboneAudioMixer';
-
-interface BaseContainerProps {
-  channelColor: string;
-  backgroundColor: string;
-  height: number;
-}
-
-const BaseCard = styled(
-  ({ channelColor, height, backgroundColor, innerRef, ...other }: BaseContainerProps & Omit<CardProps, keyof BaseContainerProps>) => <Card {...other} />,
-)<Theme, BaseContainerProps>(({theme, backgroundColor, channelColor, height}) => ({
-  width: '100%',
-  borderBottom: `1px solid ${theme.palette.background.default}`,
-  backgroundColor: backgroundColor,
-  borderRight: `3px solid ${channelColor}`,
-  height: height,
-  padding: 5,
-  display: 'flex',
-  flexDirection: 'column',
-  '&:focus': {
-    outline: 'none',
-  }
-}));
-
-const CustomCardContent = styled(CardContent)({
-  paddingTop: 0,
-  paddingBottom: 0,
-  background: 'transparent',
-});
-
-const SmrContainer = styled(Box)({
-  padding: 0,
-  background: 'transparent',
-});
+import { Box, Flex, useTheme } from '@chakra-ui/core';
 
 function VerticalChannel() {
-  const theme = useTheme();
   const channelId = useContext(ChannelContext);
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
   const color = useRecoilValue(channelStore.color(channelId));
   const verticalZoomLevel = useRecoilValue(arrangeWindowStore.verticalZoomLevel);
+  
+  const theme = useTheme();
 
   useMuteChannelHotkey();
   useSoloChannelHotkey();
 
   const backgroundColor = useMemo(() => {
-    return channelId === selectedChannelId ? '#606060' : theme.palette.background.paper;
-  }, [channelId, selectedChannelId, theme]);
+    return channelId === selectedChannelId ? '#606060' : theme.colors.gray[900];
+  }, [channelId, selectedChannelId]);
 
   return (
-    <BaseCard channelColor={color} backgroundColor={backgroundColor} onClick={() => setSelectedChannelId(channelId)}
-              tabIndex={0} data-cy={channelId} height={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}>
-      <CustomCardContent>
-        <ChannelName />
-      </CustomCardContent>
-      <SmrContainer>
-        <ChannelLetterButtons/>
-      </SmrContainer>
+    <Flex
+      w={'100%'}
+      borderBottom={`1px solid ${theme.colors.gray[800]}`}
+      bg={backgroundColor}
+      borderRight={`3px solid ${color}`}
+      h={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}
+      p={2}
+      onClick={() => setSelectedChannelId(channelId)}
+    >
+      <ChannelName />
+      <Box bg={'transparent'}>
+        <ChannelLetterButtons />
+      </Box>
 
-      <BackboneAudioMixer channelId={channelId}/>
-    </BaseCard>
+      <BackboneAudioMixer channelId={channelId} />
+    </Flex>
   );
 }
 

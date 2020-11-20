@@ -1,9 +1,8 @@
-import { Textarea } from '@chakra-ui/core';
+import { Textarea, TextareaProps } from '@chakra-ui/core';
 import React from 'react';
 import ResizeTextarea from 'react-textarea-autosize';
-import { InputProps } from '@chakra-ui/core/dist/Input';
 
-const AutoResizeTextarea: React.FC<InputProps<HTMLTextAreaElement>> = React.forwardRef<HTMLTextAreaElement, InputProps<HTMLTextAreaElement>>((props, ref) => {
+const AutoResizeTextarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, ref) => {
   return (
     <Textarea
       minH="unset"

@@ -40,7 +40,7 @@ function LogInForm({onSubmit, hasError, isSending}: Props) {
           aria-describedby="password-helper-text"
           placeholder={t('Password')}/>
       </FormControl>
-      <Button isLoading={isSending} marginY={4} type={"submit"} isFullWidth variantColor={"teal"}>{t('L O G   I N')}</Button>
+      <Button isLoading={isSending} marginY={4} type={"submit"} isFullWidth colorScheme={"teal"}>{t('L O G   I N')}</Button>
     </form>
   );
 }

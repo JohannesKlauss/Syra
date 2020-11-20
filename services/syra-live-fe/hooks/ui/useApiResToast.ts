@@ -1,11 +1,11 @@
-import { IAlert, useToast } from '@chakra-ui/core';
+import { AlertStatus, useToast } from '@chakra-ui/core';
 import { useCallback } from 'react';
 
 export default function useApiResToast() {
   const toast = useToast();
 
   return useCallback(
-    (title: string, status: IAlert['status'] = 'success', description?: string, duration?: number) => {
+    (title: string, status: AlertStatus = 'success', description?: string, duration?: number) => {
       toast({
         title,
         status,

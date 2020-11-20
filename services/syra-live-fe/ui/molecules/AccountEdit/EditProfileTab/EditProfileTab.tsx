@@ -124,7 +124,7 @@ function EditProfileTab({}: Props) {
             {t('We\'ll never share your email.')}
           </FormHelperText>
         </FormControl>
-        <Button isLoading={isMutationExecuting} marginY={4} type={'submit'} isFullWidth variantColor={'teal'}>{t('Update')}</Button>
+        <Button isLoading={isMutationExecuting} marginY={4} type={'submit'} isFullWidth colorScheme={'teal'}>{t('Update')}</Button>
       </form>
     </Box>
   );

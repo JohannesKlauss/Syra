@@ -56,24 +56,24 @@ function FeedItemActions({ listens, likes, isMeLiking, feedItemId }: Props) {
         <Box>
           <Flex align={'center'}>
             {listens && (
-              <Button marginX={2} leftIcon={CgGitFork} variantColor={'teal'} size={'sm'}>
+              <Button marginX={2} leftIcon={<CgGitFork/>} colorScheme={'teal'} size={'sm'}>
                 {t('Make it your own')}
               </Button>
             )}
-            <Button marginX={2} leftIcon={RiShareForwardFill} variantColor={'gray'} size={'sm'}>
+            <Button marginX={2} leftIcon={<RiShareForwardFill/>} colorScheme={'gray'} size={'sm'}>
               {t('Share')}
             </Button>
             <Button
               marginX={2}
-              rightIcon={RiHeartFill}
-              variantColor={isOptimisticMeLiking ? 'teal' : 'gray'}
+              rightIcon={<RiHeartFill/>}
+              colorScheme={isOptimisticMeLiking ? 'teal' : 'gray'}
               onClick={onToggleLike}
               isLoading={isLikeLoading || isUnlikeLoading}
               size={'sm'}
             >
               {optimisticLikes}
             </Button>
-            <IconButton marginLeft={2} aria-label={'Expand menu'} icon={BsThreeDots} size={'sm'} />
+            <IconButton marginLeft={2} aria-label={'Expand menu'} icon={<BsThreeDots/>} size={'sm'} />
           </Flex>
         </Box>
       </Flex>

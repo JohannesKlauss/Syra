@@ -77,7 +77,7 @@ function CreateFeedItem({}: Props) {
           <Divider/>
           <Flex>
             <AttachMixdown onSelectMixdown={mixdownId => setValue('mixdownId', mixdownId)}/>
-            <Button marginLeft={4} isFullWidth variantColor={'teal'} isLoading={isSending || isSendingText} type={'submit'}>{t('Post')}</Button>
+            <Button marginLeft={4} isFullWidth colorScheme={'teal'} isLoading={isSending || isSendingText} type={'submit'}>{t('Post')}</Button>
           </Flex>
         </Box>
         {getValues().mixdownId && <FeedItemAudioPreview mixdownId={getValues().mixdownId}/>}

@@ -21,7 +21,7 @@ function Pricing({ tiers }: Props) {
           {t('For the full experience get the Studio package to enable all features that make SYRA the number one online collaborative DAW.')}
         </Text>
         <Text fontWeight={400} marginTop={12} marginBottom={8}>{t('Do you need more information to decide?')}</Text>
-        <Button variantColor={'cyan'} rounded={'full'} size={'lg'}>{t('Check our FAQ')}</Button>
+        <Button colorScheme={'cyan'} rounded={'full'} size={'lg'}>{t('Check our FAQ')}</Button>
       </Box>
       <Box flex={1}>
         <div>

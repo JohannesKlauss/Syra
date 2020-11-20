@@ -26,7 +26,7 @@ function FollowRecommendationsBox({}: Props) {
           {t('People to follow')}
         </Text>
         <IconButton
-          icon={FiRefreshCw}
+          icon={<FiRefreshCw/>}
           aria-label={t('Refresh people to follow')}
           onClick={() => refetch()}
           isLoading={networkStatus === NetworkStatus.refetch}

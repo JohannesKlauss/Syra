@@ -91,7 +91,7 @@ function ResetPassword({ isOpen, onClose }: Props) {
             <Button ref={cancelRef} onClick={onClose}>
               Cancel
             </Button>
-            <Button isLoading={isLoading} variantColor="teal" type={'submit'} ml={4}>
+            <Button isLoading={isLoading} colorScheme="teal" type={'submit'} ml={4}>
               Reset
             </Button>
           </AlertDialogFooter>

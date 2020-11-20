@@ -32,7 +32,7 @@ function PreviewPlay({ audioUri, size = 'md' }: Props) {
   };
 
   return (
-    <IconButton size={size} icon={isPlaying ? FaPause : FaPlay} onClick={togglePlay} aria-label={t('Preview Mixdown')}/>
+    <IconButton size={size} icon={isPlaying ? <FaPause/> : <FaPlay/>} onClick={togglePlay} aria-label={t('Preview Mixdown')}/>
   );
 }
 

@@ -21,7 +21,7 @@ function ProfileActions({ baseIsFollowing, handle, userId }: Props) {
         isMeFollowing={baseIsFollowing}
         followingContent={<MessageAction userId={userId}/>}
       />
-      <IconButton size={'sm'} variant={'ghost'} icon={BsThreeDots} aria-label={t('more actions')} />
+      <IconButton size={'sm'} variant={'ghost'} icon={<BsThreeDots/>} aria-label={t('more actions')} />
     </Box>
   );
 }

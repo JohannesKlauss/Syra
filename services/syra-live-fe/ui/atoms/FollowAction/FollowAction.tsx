@@ -39,7 +39,7 @@ const FollowAction: React.FC<Props> = ({handle, isMeFollowing, followingContent}
           <IconButton
             onClick={unfollow}
             isLoading={isUnfollowLoading}
-            icon={RiUserFollowLine}
+            icon={<RiUserFollowLine/>}
             marginLeft={8}
             marginRight={4}
             size={'sm'}
@@ -53,7 +53,7 @@ const FollowAction: React.FC<Props> = ({handle, isMeFollowing, followingContent}
           onClick={follow}
           marginRight={4}
           size={'sm'}
-          variantColor={'teal'}
+          colorScheme={'teal'}
           isLoading={isFollowLoading}
         >
           {t('Follow user')}

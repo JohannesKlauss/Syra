@@ -68,7 +68,7 @@ function ChangePasswordTab({}: Props) {
                       placeholder={t("Confirm your current password")}
                       ref={register({ required: true, minLength: 6 })}/>
         <Button isLoading={isSending} marginY={4} type={"submit"} isFullWidth
-                variantColor={"teal"}>{t("Update")}</Button>
+                colorScheme={"teal"}>{t("Update")}</Button>
       </form>
     </Box>
   );

@@ -74,7 +74,7 @@ function SignUpModal({ isOpen, onClose, onClickSwitchToLogin }: Props) {
           <Flex align={'center'} justify={'center'}>
             <Text fontSize={'sm'} textAlign={'center'}>
               {t('Have an account?')}
-              <Button variant={'link'} size={'sm'} marginLeft={2} variantColor={'teal'} onClick={onClickSwitchToLogin}>
+              <Button variant={'link'} size={'sm'} marginLeft={2} colorScheme={'teal'} onClick={onClickSwitchToLogin}>
                 {t('Log In')}.
               </Button>
             </Text>

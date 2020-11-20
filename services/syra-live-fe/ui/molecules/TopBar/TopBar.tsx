@@ -56,7 +56,7 @@ function TopBar({}: Props) {
           <Box>AvatarList of active sessions</Box>
           <Box>
             <Flex align={'center'} justify={'space-between'}>
-              <Button variant={'link'} marginX={8} leftIcon={IoMdAdd} onClick={onClickNewSession}>
+              <Button variant={'link'} marginX={8} leftIcon={<IoMdAdd/>} onClick={onClickNewSession}>
                 {t('New Session')}
               </Button>
               <Search />

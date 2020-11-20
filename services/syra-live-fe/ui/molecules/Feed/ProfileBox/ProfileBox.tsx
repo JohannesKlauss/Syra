@@ -60,27 +60,27 @@ function ProfileBox({}: Props) {
         <List spacing={3}>
           <ListItem>
             <Link href={`/account/edit`}>
-              <Button variant={'link'}  leftIcon={RiEdit2Fill}>{t('Edit your profile')}</Button>
+              <Button variant={'link'}  leftIcon={<RiEdit2Fill/>}>{t('Edit your profile')}</Button>
             </Link>
             <Divider/>
           </ListItem>
           <ListItem>
             <Link href={`/chat`}>
-              <Button variant={'link'}  leftIcon={RiMessage3Line}>{t('Messages')}</Button>
+              <Button variant={'link'}  leftIcon={<RiMessage3Line/>}>{t('Messages')}</Button>
             </Link>
             <Divider/>
           </ListItem>
           <ListItem>
-            <Button variant={'link'} leftIcon={RiFileMusicFill}>{t('Sessions')}</Button>
+            <Button variant={'link'} leftIcon={<RiFileMusicFill/>}>{t('Sessions')}</Button>
             <Divider/>
           </ListItem>
           <ListItem>
-            <Button variant={'link'} leftIcon={TiGroup}>{t('Bands')}</Button>
+            <Button variant={'link'} leftIcon={<TiGroup/>}>{t('Bands')}</Button>
             <Divider/>
           </ListItem>
           <ListItem>
             <Link href={`/likes`}>
-              <Button variant={'link'} leftIcon={RiHeartFill}>{t('Likes')}</Button>
+              <Button variant={'link'} leftIcon={<RiHeartFill/>}>{t('Likes')}</Button>
             </Link>
             <Divider/>
           </ListItem>
