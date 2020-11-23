@@ -25,14 +25,14 @@
     "docker:build": "yarn prisma:generate && yarn build && yarn session:gen-key"
   },
   "dependencies": {
-    "@nestjs/common": "7.5.4",
+    "@nestjs/common": "7.5.5",
     "@nestjs/config": "0.6.1",
-    "@nestjs/core": "7.5.4",
+    "@nestjs/core": "7.5.5",
     "@nestjs/graphql": "7.8.2",
     "@nestjs/jwt": "7.2.0",
-    "@nestjs/microservices": "7.5.4",
+    "@nestjs/microservices": "7.5.5",
     "@nestjs/passport": "7.1.4",
-    "@nestjs/platform-fastify": "7.5.4",
+    "@nestjs/platform-fastify": "7.5.5",
     "@nestjs-modules/mailer": "1.5.1",
     "@prisma/client": "2.11.0",
     "@types/busboy": "0.2.3",
@@ -64,7 +64,7 @@
   "devDependencies": {
     "@nestjs/cli": "7.5.3",
     "@nestjs/schematics": "7.2.2",
-    "@nestjs/testing": "7.5.4",
+    "@nestjs/testing": "7.5.5",
     "@prisma/cli": "2.11.0",
     "@types/bcrypt": "3.0.0",
     "@types/crypto-js": "4.0.1",
