@@ -18,7 +18,7 @@ function ChannelHeader() {
       {channelType === ChannelType.AUDIO ? <AudioChannelInput/> : <InstrumentChannelInput/>}
 
       <Menu>
-        <MenuButton as={IconButton} aria-label="Search database" icon={<RiMore2Fill />} />
+        <MenuButton as={IconButton} size={'xs'} aria-label="Search database" icon={<RiMore2Fill />} />
         <ChannelMenu />
       </Menu>
     </Flex>
