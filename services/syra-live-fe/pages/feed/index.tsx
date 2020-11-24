@@ -1,6 +1,6 @@
 import React from 'react';
 import PageBox from '../../ui/atoms/PageBox/PageBox';
-import { Box, Flex } from '@chakra-ui/core';
+import { Box, Flex } from '@chakra-ui/react';
 import ProfileBox from '../../ui/molecules/Feed/ProfileBox/ProfileBox';
 import FollowRecommendationsBox from '../../ui/molecules/Feed/FollowRecommendationsBox/FollowRecommendationsBox';
 import FeedStack from '../../ui/molecules/Feed/FeedStack/FeedStack';

@@ -4,7 +4,7 @@ import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
 import { useRecoilState } from 'recoil';
 import ClickAwayListener from 'react-click-away-listener';
-import { Box, Input, Text } from '@chakra-ui/core';
+import { Box, Input, Text } from '@chakra-ui/react';
 
 interface Props {
   backgroundColor?: string;

@@ -11,7 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import SocialSignUp from '../../../molecules/LandingPage/SocialSignUp/SocialSignUp';
 import LogInForm, { TLogInForm } from '../../../molecules/LandingPage/LogInForm/LogInForm';
 import { useTranslation } from 'react-i18next';

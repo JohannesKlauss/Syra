@@ -10,7 +10,7 @@ import {
   Input,
   Skeleton,
   Text,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import GenFormInput from '../../../atoms/Form/GenFormInput';
 import { useTranslation } from 'react-i18next';

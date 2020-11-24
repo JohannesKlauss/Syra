@@ -8,7 +8,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay, Skeleton,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
 import { useMyMixdownsQuery } from '../../../../../gql/generated';
 import { PartialProject } from '../../../../../types/dtos';

@@ -3,7 +3,7 @@ import useMovementTracker from '../../hooks/ui/useMovementTracker';
 import { BoxArea } from '../../types/Ui';
 import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import { useRecoilValue } from 'recoil';
-import { Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/react';
 
 interface Props {
   onSelect: (area: BoxArea) => void;

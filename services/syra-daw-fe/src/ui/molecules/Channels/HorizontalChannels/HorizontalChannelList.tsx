@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import NewChannelFab from '../../Fabs/NewChannelFab';
 import { channelStore } from '../../../../recoil/channelStore';
 import BaseChannel from './BaseChannel';
-import { Box, Flex } from '@chakra-ui/core';
+import { Box, Flex } from '@chakra-ui/react';
 
 function HorizontalChannelList() {
   const channels = useRecoilValue(channelStore.ids);

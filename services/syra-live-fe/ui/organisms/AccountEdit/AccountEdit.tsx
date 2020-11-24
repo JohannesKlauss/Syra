@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/core';
+import { Box, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import EditProfileTab from '../../molecules/AccountEdit/EditProfileTab/EditProfileTab';
 import { useTranslation } from 'react-i18next';
 import ChangePasswordTab from '../../molecules/AccountEdit/ChangePasswordTab/ChangePasswordTab';

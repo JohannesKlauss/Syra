@@ -3,7 +3,7 @@ import useAvailableChannels from '../../../../../hooks/ui/channels/useAvailableC
 import useCreateChannel from '../../../../../hooks/recoil/channel/useCreateChannel';
 import { ChannelType } from '../../../../../types/Channel';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/core';
+import { Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
 import {AiOutlinePlus} from 'react-icons/ai';
 
 function AddChannelMenu() {

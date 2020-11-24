@@ -4,7 +4,7 @@ import { ChannelContext } from '../../../../providers/ChannelContext';
 import { channelStore } from '../../../../recoil/channelStore';
 import { useRecoilState } from 'recoil';
 import useDeleteChannel from '../../../../hooks/recoil/channel/useDeleteChannel';
-import { MenuItem, MenuList } from '@chakra-ui/core';
+import { MenuItem, MenuList } from '@chakra-ui/react';
 
 interface Props {
 }

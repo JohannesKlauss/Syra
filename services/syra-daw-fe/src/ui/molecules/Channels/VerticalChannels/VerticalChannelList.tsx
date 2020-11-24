@@ -7,7 +7,7 @@ import VerticalChannelListHeader from './VerticalChannelListHeader';
 import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';
 import useCreateChannel from '../../../../hooks/recoil/channel/useCreateChannel';
 import { ChannelType } from '../../../../types/Channel';
-import { Flex } from '@chakra-ui/core';
+import { Flex } from '@chakra-ui/react';
 
 function VerticalChannelList() {
   const channels = useRecoilValue(channelStore.ids);

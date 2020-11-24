@@ -10,7 +10,7 @@ import SelectionTool from '../../atoms/SelectionTool';
 import useSelectRegions from '../../../hooks/ui/arrangeGrid/useSelectRegions';
 import useMuteSelectedRegions from '../../../hooks/recoil/region/useMuteSelectedRegions';
 import useAnalyzeTempoForSelectedRegion from '../../../hooks/recoil/region/useAnalyzeTempoForSelectedRegion';
-import { Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/react';
 
 function GridTracks() {
   const windowWidth = useRecoilValue(arrangeWindowStore.width);

@@ -5,7 +5,7 @@ import { ChannelContext } from '../../../../providers/ChannelContext';
 import { channelStore } from '../../../../recoil/channelStore';
 import AudioChannel from './AudioChannel';
 import InstrumentChannel from './InstrumentChannel';
-import { Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/react';
 
 
 interface Props {

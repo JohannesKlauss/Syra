@@ -4,7 +4,7 @@ import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
 import { channelTypeMap } from '../../../const/channels';
 import ChannelColorPicker from '../../molecules/Channels/ChannelMenu/ChannelColorPicker';
-import { Text, Button, Checkbox, Input, SimpleGrid } from '@chakra-ui/core';
+import { Text, Button, Checkbox, Input, SimpleGrid } from '@chakra-ui/react';
 
 function DebugChannel() {
   const channelId = useContext(ChannelContext);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mapVolumeFaderValToDb } from '../../../utils/volumeFaderMapping';
-import { Flex, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from "@chakra-ui/core";
+import { Flex, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from "@chakra-ui/react";
 
 interface Props {
   onChange: (newVal: number) => void;

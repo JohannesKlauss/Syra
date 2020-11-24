@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChakraProvider, Skeleton, extendTheme } from "@chakra-ui/core";
+import { ChakraProvider, Skeleton, extendTheme } from "@chakra-ui/react";
 import { RecoilRoot } from 'recoil';
 import "focus-visible/dist/focus-visible";
 
@@ -16,8 +16,7 @@ const config = {
   initialColorMode: "dark",
 }
 
-// 3. extend the theme
-const customTheme = extendTheme({ config })
+const customTheme = extendTheme({ config });
 
 export const decorators = [
   (Story) => {

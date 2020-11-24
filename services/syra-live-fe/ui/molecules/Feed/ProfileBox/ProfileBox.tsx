@@ -10,7 +10,7 @@ import {
   ListItem,
   Skeleton,
   Text,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { RiFileMusicFill, RiHeartFill, RiEdit2Fill, RiMessage3Line } from 'react-icons/ri';
 import { TiGroup } from 'react-icons/ti';

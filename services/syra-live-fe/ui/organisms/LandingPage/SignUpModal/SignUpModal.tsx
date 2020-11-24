@@ -10,7 +10,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import SocialSignUp from '../../../molecules/LandingPage/SocialSignUp/SocialSignUp';
 import { useSetRecoilState } from 'recoil';
 import { landingPageStore } from '../../../../recoil/landingPageStore';

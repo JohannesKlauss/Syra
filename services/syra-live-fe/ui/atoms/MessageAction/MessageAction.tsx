@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@chakra-ui/core";
+import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { RiMessage2Line } from 'react-icons/ri';
 import { useTranslation } from "react-i18next";

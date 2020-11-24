@@ -6,7 +6,7 @@ import {
   Flex,
   Skeleton,
   Text
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { useMeQuery } from "../../../../gql/generated";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";

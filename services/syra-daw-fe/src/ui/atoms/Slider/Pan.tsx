@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Slider, SliderThumb, SliderTrack } from "@chakra-ui/core";
+import { Box, Slider, SliderThumb, SliderTrack } from "@chakra-ui/react";
 
 interface Props {
   onChange: (newVal: number) => void;

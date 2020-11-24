@@ -3,7 +3,7 @@ import { ChannelContext } from '../../../providers/ChannelContext';
 import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import { transportStore } from '../../../recoil/transportStore';
 import { useRecoilValue } from 'recoil';
-import { Box, Text } from "@chakra-ui/core";
+import { Box, Text } from "@chakra-ui/react";
 
 function LevelMeterText() {
   const channelId = useContext(ChannelContext);

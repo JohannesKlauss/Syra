@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, IconButton } from "@chakra-ui/core";
+import { Button, IconButton } from "@chakra-ui/react";
 import { useFollowUserMutation, useUnfollowUserMutation } from "../../../gql/generated";
 import { useTranslation } from "react-i18next";
 import { RiUserFollowLine } from 'react-icons/ri';

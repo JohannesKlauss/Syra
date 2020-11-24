@@ -15,7 +15,7 @@ import {
   SliderTrack,
   Text,
   Flex,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { IoIosCheckmarkCircle } from "react-icons/io/index";
 
 function DebugPlayers() {

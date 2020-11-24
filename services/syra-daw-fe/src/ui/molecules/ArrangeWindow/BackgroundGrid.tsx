@@ -2,7 +2,7 @@ import React from 'react';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { useRecoilValue } from 'recoil';
 import { createNewId } from '../../../utils/createNewId';
-import { Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/react';
 
 interface Props {
   ticksFullHeight?: boolean;

@@ -8,7 +8,7 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 

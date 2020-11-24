@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, IconButton } from "@chakra-ui/core";
+import { Flex, IconButton } from "@chakra-ui/react";
 import { FaFacebook, FaGoogle, FaSoundcloud, FaSpotify, FaTwitter, FaInstagram } from "react-icons/fa";
 import { SignInUpType } from "../../../../types/SocialSign";
 

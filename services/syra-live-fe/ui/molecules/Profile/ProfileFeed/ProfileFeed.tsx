@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFeedItemsByHandleQuery } from '../../../../gql/generated';
-import { Skeleton } from '@chakra-ui/core';
+import { Skeleton } from '@chakra-ui/react';
 import FeedItem from '../../Feed/FeedItem/FeedItem';
 
 interface Props {

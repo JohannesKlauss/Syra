@@ -1,4 +1,4 @@
-import { Box, useTheme } from '@chakra-ui/core';
+import { Box, useTheme } from '@chakra-ui/react';
 import React from 'react';
 import AddChannelMenu from './Header/AddChannelMenu';
 

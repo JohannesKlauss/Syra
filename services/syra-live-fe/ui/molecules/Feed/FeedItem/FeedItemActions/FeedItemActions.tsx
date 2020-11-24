@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, Flex, IconButton, Text } from '@chakra-ui/core';
+import { Box, Button, Flex, IconButton, Text } from '@chakra-ui/react';
 import { FaPlay } from 'react-icons/fa';
 import { CgGitFork } from 'react-icons/cg';
 import { BsThreeDots } from 'react-icons/bs';

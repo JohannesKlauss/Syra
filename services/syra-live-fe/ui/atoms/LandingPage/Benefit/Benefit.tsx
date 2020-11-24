@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Divider, Text } from "@chakra-ui/core";
+import { Box, Divider, Text } from "@chakra-ui/react";
 
 interface Props {
   text: string;

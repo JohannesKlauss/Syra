@@ -6,7 +6,7 @@ import TransportView from '../Transport/TransportView';
 import useListenForExternalMidiIn from '../../../hooks/midi/useListenForExternalMidiIn';
 import useUpdateMidiStore from '../../../hooks/midi/useUpdateMidiStore';
 import { ARRANGE_GRID_CHANNEL_LIST_GAP } from '../../../const/ui';
-import { Box, Flex } from '@chakra-ui/core';
+import { Box, Flex } from '@chakra-ui/react';
 
 function ArrangeWindow() {
   useListenForExternalMidiIn(useUpdateMidiStore());

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { RegionContext } from '../../../providers/RegionContext';
 import { regionStore } from '../../../recoil/regionStore';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Text, SimpleGrid, Checkbox, Input } from '@chakra-ui/core';
+import { Text, SimpleGrid, Checkbox, Input } from '@chakra-ui/react';
 import {IoIosCheckmarkCircle} from "react-icons/io";
 import { MdError } from 'react-icons/md';
 

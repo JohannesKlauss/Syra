@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Button,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { IoMdAdd } from 'react-icons/io';
 import AttachMixdownModal from '../AttachMixdownModal/AttachMixdownModal';
 

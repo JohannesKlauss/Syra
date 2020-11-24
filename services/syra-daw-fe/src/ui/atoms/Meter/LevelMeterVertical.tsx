@@ -3,7 +3,7 @@ import Konva from 'konva';
 import { mapDbToUiMeterVal } from '../../../utils/levelMeterMapping';
 import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import { Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/react';
 
 const uniqid = require('uniqid');
 const METER_WIDTH = 24;

@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Avatar, AvatarBadge, AvatarProps } from "@chakra-ui/core";
+import { Avatar, AvatarBadge, AvatarProps } from "@chakra-ui/react";
 import { useOnlineStatusSubscription, UserLinkFragment } from "../../../gql/generated";
 
 interface Props extends AvatarProps{

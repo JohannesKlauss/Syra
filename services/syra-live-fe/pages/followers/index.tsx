@@ -1,6 +1,6 @@
 import React from 'react';
 import PageBox from '../../ui/atoms/PageBox/PageBox';
-import { Divider, Flex, Text } from "@chakra-ui/core";
+import { Divider, Flex, Text } from "@chakra-ui/react";
 import {
   useMeQuery,
   useMyFollowersQuery

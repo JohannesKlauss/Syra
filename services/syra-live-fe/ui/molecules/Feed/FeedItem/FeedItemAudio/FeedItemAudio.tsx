@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Badge, Box, Flex, IconButton, Skeleton, Text } from '@chakra-ui/core';
+import { Badge, Box, Flex, IconButton, Skeleton, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { FaPlay, FaPause } from 'react-icons/fa';
 import useWavesurfer from './useWavesurfer';

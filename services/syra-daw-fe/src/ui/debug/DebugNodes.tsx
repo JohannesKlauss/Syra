@@ -1,6 +1,6 @@
 import React from 'react';
 import DebugPlayers from './toneJsNodes/DebugPlayers';
-import { Heading } from '@chakra-ui/core';
+import { Heading } from '@chakra-ui/react';
 
 function DebugNodes() {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Box, IconButton } from "@chakra-ui/core";
+import { Badge, Box, IconButton } from "@chakra-ui/react";
 import { RiMessage2Line } from 'react-icons/ri';
 import useNewMessageNotifier from "../../../../hooks/notifications/useNewMessageNotifier";
 import { useRouter } from "next/router";

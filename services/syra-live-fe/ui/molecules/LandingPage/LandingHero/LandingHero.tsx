@@ -1,6 +1,6 @@
 import React from "react";
 import { BsChevronCompactDown } from "react-icons/bs";
-import { Box, Button, IconButton, Image, Text } from "@chakra-ui/core";
+import { Box, Button, IconButton, Image, Text } from "@chakra-ui/react";
 import { useTranslation } from 'react-i18next';
 
 interface Props {

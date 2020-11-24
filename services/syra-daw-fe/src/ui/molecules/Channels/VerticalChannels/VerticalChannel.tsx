@@ -9,7 +9,7 @@ import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT } from '../../../../const/ui';
 import ChannelName from '../ChannelName';
 import BackboneAudioMixer from '../../BackboneMixer/BackboneAudioMixer';
-import { Box, Flex, useTheme } from '@chakra-ui/core';
+import { Box, Flex, useTheme } from '@chakra-ui/react';
 
 function VerticalChannel() {
   const channelId = useContext(ChannelContext);

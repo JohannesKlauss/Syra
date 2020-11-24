@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Flex, List, ListIcon, ListItem, Text } from "@chakra-ui/core";
+import { Box, Button, Flex, List, ListIcon, ListItem, Text } from "@chakra-ui/react";
 import { FaCheckCircle } from 'react-icons/fa';
 
 interface Props {

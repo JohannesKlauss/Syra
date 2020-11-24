@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Box, Button, Flex, Link as ChakraLink, Stack, Tag, Text } from '@chakra-ui/core';
+import { Avatar, Box, Button, Flex, Link as ChakraLink, Stack, Tag, Text } from '@chakra-ui/react';
 import { ProfileFragment } from "../../../../gql/generated";
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';

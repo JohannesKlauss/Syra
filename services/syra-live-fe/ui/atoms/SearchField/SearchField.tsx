@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Input, InputGroup, InputRightElement } from '@chakra-ui/core';
+import { Box, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';
 import { IconType } from 'react-icons';
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, useDisclosure } from "@chakra-ui/core";
+import { Button, useDisclosure } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import ResetPassword from "../../../molecules/ResetPassword/ResetPassword";
 

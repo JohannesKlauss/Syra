@@ -6,7 +6,7 @@ import { channelStore } from '../../../../../recoil/channelStore';
 import { ChannelContext } from '../../../../../providers/ChannelContext';
 import { ChannelType } from '../../../../../types/Channel';
 import InstrumentChannelInput from './Input/InstrumentChannelInput';
-import { Flex, IconButton, Menu, MenuButton } from '@chakra-ui/core';
+import { Flex, IconButton, Menu, MenuButton } from '@chakra-ui/react';
 import {RiMore2Fill} from 'react-icons/ri';
 
 function ChannelHeader() {

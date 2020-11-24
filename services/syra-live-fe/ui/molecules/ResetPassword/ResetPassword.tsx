@@ -12,7 +12,7 @@ import {
   FormLabel,
   Input,
   Text,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import useApiResToast from '../../../hooks/ui/useApiResToast';
 import { useForm } from 'react-hook-form';

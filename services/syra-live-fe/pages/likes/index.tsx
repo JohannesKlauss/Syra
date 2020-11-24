@@ -1,6 +1,6 @@
 import React from 'react';
 import PageBox from '../../ui/atoms/PageBox/PageBox';
-import { Divider, Flex, Stack, Text } from '@chakra-ui/core';
+import { Divider, Flex, Stack, Text } from '@chakra-ui/react';
 import { useMeQuery } from '../../gql/generated';
 import ProfileInfo from '../../ui/molecules/Profile/ProfileInfo/ProfileInfo';
 import { useTranslation } from 'react-i18next';

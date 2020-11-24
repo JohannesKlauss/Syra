@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay, Slider, SliderFilledTrack, SliderThumb, SliderTrack, useDisclosure,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import Cropper from 'react-easy-crop';
 import { RiZoomOutLine, RiZoomInLine } from 'react-icons/ri';

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { IconButton } from '@chakra-ui/core';
+import { IconButton } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { FaPause, FaPlay } from 'react-icons/fa';
 

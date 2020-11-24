@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/core';
+import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { VscChevronDown } from "react-icons/vsc";
 
 type TMenuItem = {

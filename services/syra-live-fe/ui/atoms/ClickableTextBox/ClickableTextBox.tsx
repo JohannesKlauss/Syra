@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, StatHelpText, StatLabel, StatNumber } from '@chakra-ui/core';
+import { Box, StatHelpText, StatLabel, StatNumber } from '@chakra-ui/react';
 import { RiCheckboxCircleLine } from 'react-icons/ri';
 
 interface Props {

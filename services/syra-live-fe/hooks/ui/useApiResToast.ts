@@ -1,4 +1,4 @@
-import { AlertStatus, useToast } from '@chakra-ui/core';
+import { AlertStatus, useToast } from '@chakra-ui/react';
 import { useCallback } from 'react';
 
 export default function useApiResToast() {

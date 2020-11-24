@@ -10,7 +10,7 @@ import LevelMeterVertical from '../../../../atoms/Meter/LevelMeterVertical';
 import ChannelName from '../../ChannelName';
 import useBackboneChannel from '../../../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import LevelMeterText from '../../../../atoms/Meter/LevelMeterText';
-import { Box, Divider, Flex } from '@chakra-ui/core';
+import { Box, Divider, Flex } from '@chakra-ui/react';
 
 const ChannelBody: React.FC = React.memo(() => {
   const channelId = useContext(ChannelContext);
