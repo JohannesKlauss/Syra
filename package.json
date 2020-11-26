@@ -20,9 +20,9 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.19.2",
-    "@graphql-codegen/typescript": "1.17.11",
-    "@graphql-codegen/typescript-operations": "1.17.10",
-    "@graphql-codegen/typescript-react-apollo": "2.1.1",
+    "@graphql-codegen/typescript": "1.18.0",
+    "@graphql-codegen/typescript-operations": "1.17.11",
+    "@graphql-codegen/typescript-react-apollo": "2.2.0",
     "@types/jest": "26.0.15",
     "@types/node": "12.19.7",
     "@typescript-eslint/eslint-plugin": "4.8.2",
