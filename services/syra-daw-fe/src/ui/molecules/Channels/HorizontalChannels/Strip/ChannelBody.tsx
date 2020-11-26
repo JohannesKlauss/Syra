@@ -17,7 +17,6 @@ const ChannelBody: React.FC = React.memo(() => {
   const channelId = useContext(ChannelContext);
   const channelColor = useRecoilValue(channelStore.color(channelId));
   const [volumeFaderValue, setVolumeFaderValue] = useState(0);
-
   const { volume, pan } = useBackboneChannel(channelId);
 
   const onChangeVolume = useCallback(newVal => {
@@ -27,7 +26,7 @@ const ChannelBody: React.FC = React.memo(() => {
   }, [volume]);
 
   return (
-    <Box bg={'gray.700'}>
+    <Box>
       <Divider mb={2}/>
       <ChannelPluginList/>
       <Divider my={2}/>

@@ -14,9 +14,8 @@ function ChannelHeader() {
   const channelType = useRecoilValue(channelStore.type(channelId));
 
   return (
-    <Flex bg={'gray.700'} p={2}>
+    <Flex p={2} justify={'space-between'}>
       {channelType === ChannelType.AUDIO ? <AudioChannelInput/> : <InstrumentChannelInput/>}
-
       <Menu>
         <MenuButton as={IconButton} size={'xs'} aria-label="Search database" icon={<RiMore2Fill />} />
         <ChannelMenu />

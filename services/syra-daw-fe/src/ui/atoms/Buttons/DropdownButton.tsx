@@ -27,6 +27,7 @@ const DropdownButton: React.FC<Props> = ({ onClick, menuItems, color, size, labe
           colorScheme={color}
           rightIcon={<VscChevronDown />}
           onClick={onClick}
+          mt={'-3px'}
         >
           {label}
         </MenuButton>
