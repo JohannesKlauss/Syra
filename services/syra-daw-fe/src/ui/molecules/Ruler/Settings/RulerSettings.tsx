@@ -1,31 +1,16 @@
 import React from 'react';
-import { Box, Divider, styled } from '@material-ui/core';
 import RulerZoomInOut from './RulerZoomInOut';
 import RulerSnapSettings from './RulerSnapSettings';
 import RulerCycleSettings from './RulerCycleSettings';
-
-const BaseContainer = styled(Box)(({theme}) => ({
-  width: '100%',
-  height: 40,
-  display: 'flex',
-  flexFlow: 'row-reverse',
-  position: 'relative',
-  paddingBottom: 10,
-  zIndex: 20,
-  paddingRight: 10,
-  borderBottom: `1px solid ${theme.palette.background.default}`,
-  backgroundColor: theme.palette.background.paper,
-}));
+import { Flex } from '@chakra-ui/react';
 
 function RulerSettings() {
   return (
-    <BaseContainer>
+    <Flex w={'100%'} justify={'space-around'} pos={'relative'} py={2} zIndex={20} borderBottom={'1px solid #1D4044'} bg={'gray.900'}>
       <RulerSnapSettings/>
-      <Divider variant={'inset'}/>
       <RulerZoomInOut/>
-      <Divider variant={'inset'}/>
       <RulerCycleSettings/>
-    </BaseContainer>
+    </Flex>
   );
 }
 

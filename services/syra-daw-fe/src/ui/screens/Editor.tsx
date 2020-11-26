@@ -7,14 +7,15 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { useHotkeys } from 'react-hotkeys-hook';
 import Video from '../molecules/Video/Video';
 import { Box } from '@chakra-ui/react';
-import useWebMidiListener from "../../hooks/midi/useWebMidiListener";
+import useWebMidi from "../../hooks/midi/useWebMidi";
+import TransportView from "../molecules/Transport/TransportView";
 
 function Editor() {
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
   const [showVideo, setShowVideo] = useRecoilState(editorStore.showVideo);
 
-  useWebMidiListener();
+  useWebMidi();
   useHotkeys('v', () => setShowVideo(currVal => !currVal));
 
   return (
@@ -24,6 +25,9 @@ function Editor() {
           {showMixer && <HorizontalChannelList/>}
           {showPianoRoll && <Piano min={36} max={67}/>}
           {showVideo && <Video/>}
+          <Box pos={'fixed'} bottom={0} left={0} w={'100%'} zIndex={1}>
+            <TransportView/>
+          </Box>
         </Box>
       </>
   );
