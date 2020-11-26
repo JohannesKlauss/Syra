@@ -1,22 +1,13 @@
 import React from 'react';
-import { Button, ButtonGroup, styled } from '@material-ui/core';
-import TuneIcon from '@material-ui/icons/Tune';
-import StraightenIcon from '@material-ui/icons/Straighten';
 import { useRecoilValue } from 'recoil';
 import { editorStore } from '../../../recoil/editorStore';
 import useUpdateView from '../../../hooks/recoil/editor/useUpdateView';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { View } from '../../../types/View';
 import { buttonInfo } from '../../../utils/text';
-
-const CustomTuneIcon = styled(TuneIcon)({
-  transform: 'rotate(90deg)',
-});
-
-const BaseContainer = styled('div')({
-  display: 'flex',
-  flex: 1,
-});
+import { Button, Flex, IconButton } from '@chakra-ui/react';
+import { CgPiano } from 'react-icons/cg';
+import { MdTune } from 'react-icons/md';
 
 function ViewToggles() {
   const updateView = useUpdateView();
@@ -28,17 +19,24 @@ function ViewToggles() {
   useHotkeys('x', () => updateView(View.MIXER));
 
   return (
-    <BaseContainer>
-      <ButtonGroup variant={'text'} size={'small'}>
-        <Button size={'small'} onClick={() => updateView(View.PIANO_ROLL)} title={buttonInfo('Toggle Piano roll', 'P')}
-                color={showPianoRoll ? 'primary' : 'default'}>
-          <StraightenIcon/>
-        </Button>
-        <Button size="small" onClick={() => updateView(View.MIXER)} color={showMixer ? 'primary' : 'default'} title={buttonInfo('Toggle Mixer', 'X')}>
-          <CustomTuneIcon/>
-        </Button>
-      </ButtonGroup>
-    </BaseContainer>
+    <Flex>
+      <IconButton
+        icon={<CgPiano />}
+        aria-label={'Toggle Piano view'}
+        onClick={() => updateView(View.PIANO_ROLL)}
+        title={buttonInfo('Toggle Piano roll', 'P')}
+        colorScheme={showPianoRoll ? 'teal' : 'gray'}
+        variant={'ghost'}
+      />
+      <IconButton
+        icon={<MdTune/>}
+        aria-label={'Toggle Mixer view'}
+        onClick={() => updateView(View.MIXER)}
+        colorScheme={showMixer ? 'teal' : 'gray'}
+        variant={'ghost'}
+        title={buttonInfo('Toggle Mixer', 'X')}
+      />
+    </Flex>
   );
 }
 
