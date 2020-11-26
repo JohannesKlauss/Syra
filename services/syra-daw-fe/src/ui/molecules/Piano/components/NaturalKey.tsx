@@ -1,13 +1,14 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, FlexProps } from "@chakra-ui/react";
 import React from 'react';
 
-interface Props {
+interface Props extends FlexProps {
   isActive: boolean;
 }
 
-function NaturalKey({ isActive }: Props) {
+function NaturalKey({ isActive, ...props }: Props) {
   return (
     <Flex
+      {...props}
       zIndex={0}
       borderWidth={'1px'}
       borderColor={'#4a5568'}
@@ -21,7 +22,7 @@ function NaturalKey({ isActive }: Props) {
       userSelect={'none'}
       transition={'all 200ms'}
       width={'auto !important'}
-      height={isActive ? '205px' : '210px'}
+      height={isActive ? '210px' : '205px'}
       backgroundImage={isActive ? 'linear-gradient(#42c9ff, #28e6ff)' : 'none'}
       borderBottom={'4px solid #90caf9'}
     />

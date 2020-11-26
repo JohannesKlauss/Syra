@@ -18,8 +18,7 @@ const AccidentalKey: React.FC<Props> = ({isActive, ...props}) => {
       cursor={'pointer'}
       userSelect={'none'}
       transition={'all 200ms'}
-      width={'auto !important'}
-      height={isActive ? '5.8rem' : '6rem'}
+      height={isActive ? '6rem' : '5.8rem'}
       pos={'absolute'}
       top={0}
       backgroundImage={isActive ? 'linear-gradient(#42c9ff, #28e6ff)' : 'none'}

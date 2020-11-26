@@ -48,7 +48,7 @@ const Piano = (props: Props) => {
           width: `${isAccidental ? 0.65 * naturalKeyWidth : naturalKeyWidth}%`,
         };
 
-        const KeyComponent = isAccidental ? AccidentalKey : NaturalKey
+        const KeyComponent = isAccidental ? AccidentalKey : NaturalKey;
 
         return (
           <KeyComponent
