@@ -45,7 +45,7 @@
     "wavesurfer.js": "4.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.12.8",
+    "@babel/core": "7.12.9",
     "@storybook/addon-actions": "6.1.6",
     "@storybook/addon-essentials": "6.1.6",
     "@storybook/addon-links": "6.1.6",
