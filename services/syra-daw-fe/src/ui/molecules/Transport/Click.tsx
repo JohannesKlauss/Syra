@@ -1,9 +1,9 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import { IconButton } from '@material-ui/core';
 import { projectStore } from '../../../recoil/projectStore';
-import TimerIcon from '@material-ui/icons/Timer';
 import useClick from '../../../hooks/tone/useClick';
+import { IconButton } from '@chakra-ui/react';
+import { RiPulseFill } from 'react-icons/ri';
 
 function Click() {
   const [isClickMuted, setIsClickMuted] = useRecoilState(projectStore.isClickMuted);
@@ -11,9 +11,13 @@ function Click() {
   useClick();
 
   return (
-    <IconButton color={isClickMuted ? 'default' : 'primary'} component="span" onClick={() => setIsClickMuted(currVal => !currVal)}>
-      <TimerIcon/>
-    </IconButton>
+    <IconButton
+      aria-label={'Toggle metronome'}
+      icon={<RiPulseFill />}
+      colorScheme={isClickMuted ? 'teal' : 'gray'}
+      component="span"
+      onClick={() => setIsClickMuted((currVal) => !currVal)}
+    />
   );
 }
 

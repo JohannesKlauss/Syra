@@ -1,12 +1,8 @@
 import React from 'react';
-import { Box, styled, Typography } from '@material-ui/core';
 import { projectStore } from '../../../recoil/projectStore';
 import { useRecoilValue } from 'recoil';
 import useTimeSignatureMapScheduler from '../../../hooks/tone/useTimeSignatureMapScheduler';
-
-const BaseContainer = styled(Box)({
-  marginLeft: 20,
-});
+import { Box, Text } from '@chakra-ui/react';
 
 function TimeSignature() {
   const currentTimeSignature = useRecoilValue(projectStore.currentTimeSignature);
@@ -14,9 +10,9 @@ function TimeSignature() {
   useTimeSignatureMapScheduler();
 
   return (
-    <BaseContainer>
-      <Typography variant={'body2'}>{currentTimeSignature[0]} / {currentTimeSignature[1]}</Typography>
-    </BaseContainer>
+    <Box>
+      <Text fontSize={'sm'}>{currentTimeSignature[0]} / {currentTimeSignature[1]}</Text>
+    </Box>
   );
 }
 

@@ -94,6 +94,7 @@ function PlayRecord() {
         icon={isPlaying ? <BsFillPauseFill /> : <BsFillPlayFill />}
         colorScheme={'teal'}
         onClick={onClickPlayPause}
+        mx={1}
         title={buttonInfo('Play and pause project', 'Return')}
       />
       <IconButton

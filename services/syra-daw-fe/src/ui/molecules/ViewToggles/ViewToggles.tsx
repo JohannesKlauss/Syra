@@ -19,7 +19,7 @@ function ViewToggles() {
   useHotkeys('x', () => updateView(View.MIXER));
 
   return (
-    <Flex>
+    <Flex mr={16}>
       <IconButton
         icon={<CgPiano />}
         aria-label={'Toggle Piano view'}
