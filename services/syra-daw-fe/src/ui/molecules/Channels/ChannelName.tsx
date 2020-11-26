@@ -19,13 +19,18 @@ function ChannelName({ backgroundColor }: Props) {
     <Box whiteSpace={'nowrap'} bg={backgroundColor} px={2}>
       {isEditingName ? (
         <ClickAwayListener onClickAway={() => setIsEditingName(false)}>
-          <Input size={'sm'} defaultValue={name} onChange={(e) => setName(e.target.value)} />
+          <Input size={'sm'} py={2} defaultValue={name} onChange={(e) => setName(e.target.value)} />
         </ClickAwayListener>
       ) : (
         <Text
           textOverflow={'ellipsis'}
           overflow={'hidden'}
           userSelect={'none'}
+          fontSize={'sm'}
+          textAlign={'center'}
+          fontWeight={'600'}
+          py={2}
+          onDoubleClick={() => setIsEditingName(true)}
           color={backgroundColor ? determineTextColor(backgroundColor) : 'gray.50'}
         >
           {name}

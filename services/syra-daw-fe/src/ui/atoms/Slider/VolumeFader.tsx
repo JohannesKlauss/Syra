@@ -9,7 +9,7 @@ interface Props {
 function VolumeFader({ onChange }: Props) {
   return (
     <Flex h={200} p={8} justify={'center'}>
-      <Slider defaultValue={0} orientation={'vertical'} min={-100} max={100} step={1} onChange={newValue => onChange(mapVolumeFaderValToDb(newValue))}>
+      <Slider defaultValue={180} orientation={'vertical'} min={0} max={240} step={1} onChange={newValue => onChange(mapVolumeFaderValToDb(newValue))}>
         <SliderTrack />
         <SliderFilledTrack />
         <SliderThumb />

@@ -7,7 +7,7 @@ interface Props {
 
 function Pan({onChange}: Props) {
   return (
-    <Box px={8} bg={'transparent'}>
+    <Box px={2} bg={'transparent'}>
       <Slider defaultValue={0} min={-100} max={100} step={1} onChange={onChange}>
         <SliderTrack />
         <SliderThumb />

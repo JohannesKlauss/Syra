@@ -67,6 +67,7 @@ function SoulPlugin({ id, isInstrument }: Props) {
         menuItems={menuItems}
         color={isPluginActive ? 'teal' : 'gray'}
         size={'xs'}
+        isFullWidth
         label={activePlugin?.soulPatch.descriptor.description.name ?? '-'}
       >
       </DropdownButton>

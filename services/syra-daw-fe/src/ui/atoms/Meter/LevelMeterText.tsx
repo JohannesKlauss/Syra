@@ -35,7 +35,7 @@ function LevelMeterText() {
   }, [isPlaying, isRecording]);
 
   return (
-    <Box p={2}>
+    <Box w={'32%'} bg={'gray.800'} boxShadow={'inner'} p={2} rounded={'md'}>
       <Text textAlign={'center'}>
         {level <= -95 ? '-∞' : level.toFixed(1)}
       </Text>

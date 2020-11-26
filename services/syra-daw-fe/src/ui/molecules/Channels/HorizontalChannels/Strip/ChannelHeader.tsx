@@ -14,7 +14,7 @@ function ChannelHeader() {
   const channelType = useRecoilValue(channelStore.type(channelId));
 
   return (
-    <Flex>
+    <Flex bg={'gray.700'} p={2}>
       {channelType === ChannelType.AUDIO ? <AudioChannelInput/> : <InstrumentChannelInput/>}
 
       <Menu>

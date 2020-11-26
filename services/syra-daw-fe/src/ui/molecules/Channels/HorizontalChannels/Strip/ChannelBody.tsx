@@ -11,6 +11,7 @@ import ChannelName from '../../ChannelName';
 import useBackboneChannel from '../../../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import LevelMeterText from '../../../../atoms/Meter/LevelMeterText';
 import { Box, Divider, Flex } from '@chakra-ui/react';
+import VolumeFaderText from "../../../../atoms/Slider/VolumeFaderText";
 
 const ChannelBody: React.FC = React.memo(() => {
   const channelId = useContext(ChannelContext);
@@ -26,18 +27,18 @@ const ChannelBody: React.FC = React.memo(() => {
   }, [volume]);
 
   return (
-    <>
-      <Divider/>
+    <Box bg={'gray.700'}>
+      <Divider mb={2}/>
       <ChannelPluginList/>
-      <Divider/>
+      <Divider my={2}/>
 
-      <Pan onChange={newVal => pan.set({pan: newVal})}/>
+      <Pan onChange={newVal => pan.set({pan: newVal / 100})}/>
 
-      <Flex justify={'space-between'} align={'center'}>
-        <span>{volumeFaderValue}</span>
+      <Flex justify={'space-around'} align={'center'}>
+        <VolumeFaderText value={volumeFaderValue}/>
         <LevelMeterText/>
       </Flex>
-      <Flex justify={'space-between'} align={'center'}>
+      <Flex justify={'space-around'} align={'center'}>
         <VolumeFader onChange={onChangeVolume}/>
         <LevelMeterVertical/>
       </Flex>
@@ -49,7 +50,7 @@ const ChannelBody: React.FC = React.memo(() => {
       </Box>
 
       <ChannelName backgroundColor={channelColor}/>
-    </>
+    </Box>
   );
 });
 
