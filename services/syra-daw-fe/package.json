@@ -36,10 +36,10 @@
     "webmidi": "2.5.1"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "6.1.7",
+    "@storybook/addon-actions": "6.1.8",
     "@storybook/addon-essentials": "6.1.8",
-    "@storybook/addon-links": "6.1.7",
-    "@storybook/react": "6.1.7",
+    "@storybook/addon-links": "6.1.8",
+    "@storybook/react": "6.1.8",
     "@types/dom-mediacapture-record": "1.0.7",
     "@types/lodash": "4.14.165",
     "@types/react": "17.0.0",
