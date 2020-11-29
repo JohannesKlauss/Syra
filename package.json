@@ -19,8 +19,8 @@
     "daw-fe:start": "yarn workspace syra-daw-fe start"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.19.3",
-    "@graphql-codegen/typescript": "1.18.1",
+    "@graphql-codegen/cli": "1.19.4",
+    "@graphql-codegen/typescript": "1.19.0",
     "@graphql-codegen/typescript-operations": "1.17.12",
     "@graphql-codegen/typescript-react-apollo": "2.2.1",
     "@types/jest": "26.0.15",
