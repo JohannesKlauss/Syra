@@ -12,7 +12,7 @@ const TrimEndHandle: React.FC<Props> = ({trigger}: Props) => {
       pos={'absolute'}
       bottom={'5px'}
       right={'5px'}
-      cursor={'e-resize'}
+      cursor={'w-resize'}
       width={'15px'}
       height={'15px'}
       borderRadius={'8px'}
