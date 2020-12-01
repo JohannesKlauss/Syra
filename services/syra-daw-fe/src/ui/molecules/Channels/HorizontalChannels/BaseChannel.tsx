@@ -16,7 +16,7 @@ function BaseChannel({ channelId }: Props) {
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
 
   const backgroundColor = useMemo(() => {
-    return channelId === selectedChannelId ? 'gray.900' : 'gray.700';
+    return channelId === selectedChannelId ? 'gray.700' : 'gray.900';
   }, [channelId, selectedChannelId]);
 
   const ChannelComponent = useMemo(() => {

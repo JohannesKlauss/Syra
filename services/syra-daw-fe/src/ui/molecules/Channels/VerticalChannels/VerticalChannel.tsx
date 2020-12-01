@@ -16,14 +16,13 @@ function VerticalChannel() {
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
   const color = useRecoilValue(channelStore.color(channelId));
   const verticalZoomLevel = useRecoilValue(arrangeWindowStore.verticalZoomLevel);
-  
   const theme = useTheme();
-
+  
   useMuteChannelHotkey();
   useSoloChannelHotkey();
 
   const backgroundColor = useMemo(() => {
-    return channelId === selectedChannelId ? '#606060' : theme.colors.gray[900];
+    return channelId === selectedChannelId ? 'gray.700' : 'gray.900';
   }, [channelId, selectedChannelId]);
 
   return (
@@ -34,6 +33,7 @@ function VerticalChannel() {
       borderRight={`3px solid ${color}`}
       h={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}
       p={2}
+      flexDir={'column'}
       onClick={() => setSelectedChannelId(channelId)}
     >
       <ChannelName />

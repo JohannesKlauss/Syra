@@ -19,13 +19,13 @@ function AddChannelMenu() {
 
   return (
     <Menu>
-      <MenuButton as={IconButton} aria-label={"Add Channel"} icon={<AiOutlinePlus/>}/>
+      <MenuButton as={IconButton} aria-label={"Add Channel"} size={'xs'} icon={<AiOutlinePlus/>}/>
       <MenuList>
         {actions.map(action => (
           <MenuItem onClick={() => onClick(action.type)} key={action.type}>
-            <Flex>
+            <Flex align={'center'}>
               {action.icon}
-              <Text>{action.name}</Text>
+              <Text ml={2}>{action.name}</Text>
             </Flex>
           </MenuItem>
         ))}
