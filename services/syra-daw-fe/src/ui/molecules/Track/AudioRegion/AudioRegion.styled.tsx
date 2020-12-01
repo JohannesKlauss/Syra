@@ -1,7 +1,7 @@
-import { Paper, PaperProps, styled, Theme, Typography, TypographyProps } from '@material-ui/core';
-import React, { HTMLAttributes } from 'react';
+import React from 'react';
 import { determineTextColor } from '../../../../utils/color';
 import tinycolor from 'tinycolor2';
+import { Box, BoxProps, Text } from '@chakra-ui/react';
 
 interface BaseContainerProps {
   isMuted: boolean;
@@ -12,91 +12,46 @@ interface BaseContainerProps {
   top: number;
 }
 
-export const BaseContainer = styled(
-  ({ isMuted, isMoving, isSelected, color, left, ...other }: BaseContainerProps & Omit<PaperProps, keyof BaseContainerProps>) =>
-    <Paper {...other} />,
-)({
-  margin: 0,
-  height: '100%',
-  willChange: 'transform',
-  position: 'absolute',
-  top: ({ top }: BaseContainerProps) => top,
-  opacity: ({ isMuted }: BaseContainerProps) => isMuted ? 0.5 : 1,
-  transform: ({ left }: BaseContainerProps) => `translateX(${left}px)`,
-  border: ({isSelected, color}: BaseContainerProps) => isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(5).toRgbString()}`,
-  zIndex: ({isMoving, isSelected}: BaseContainerProps) => isMoving || isSelected ? 10 : 1,
-  '&:focus': {
-    outline: 'none',
-  },
-});
+export const BaseContainer: React.FC<BaseContainerProps> = ({ isMuted, isMoving, isSelected, color, left, top, children }) => (
+  <Box
+    h={'100%'}
+    willChange={'transform'}
+    pos={'absolute'}
+    top={top}
+    opacity={isMuted ? 0.5 : 1}
+    transform={`translateX(${left}px`}
+    border={isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(5).toRgbString()}`}
+    zIndex={(isMoving || isSelected ? 10 : 1)}
+  >
+    {children}
+  </Box>
+);
 
 interface RegionFirstLoopProps {
   width: number;
   color: string;
 }
 
-// The "first loop" is the main region. Every dragged out loop is regarded as second loop and on.
-export const RegionFirstLoop = styled(
-  ({ width, color, ...other }: RegionFirstLoopProps & Omit<HTMLAttributes<HTMLDivElement>, keyof RegionFirstLoopProps>) =>
-    <div {...other} />,
-)({
-  height: '100%',
-  position: 'relative',
-  overflow: 'hidden',
-  width: ({ width }: RegionFirstLoopProps) => 325,
-  backgroundColor: ({ color }: RegionFirstLoopProps) => color,
-  '&:focus': {
-    outline: 'none',
-  },
-});
+export const RegionFirstLoop: React.FC<RegionFirstLoopProps> = ({width, color, children}) => (
+  <Box h={'100%'} pos={'relative'} overflow={'hidden'} w={325} bg={color}>{children}</Box>
+);
 
-interface ManipulationsProps {
+interface ManipulationsProps extends BoxProps {
   isMoving: boolean;
 }
 
-export const Manipulations = styled(
-  ({ isMoving, ...other }: ManipulationsProps & Omit<HTMLAttributes<HTMLDivElement>, keyof ManipulationsProps>) =>
-    <div {...other} />,
-)({
-  height: '50%',
-  width: '100%',
-  position: 'absolute',
-  cursor: ({isMoving}: ManipulationsProps) => isMoving ? 'grabbing' : 'grab',
-  bottom: 0,
-  left: 0,
-});
+export const Manipulations: React.FC<ManipulationsProps> = ({isMoving, children}) => (
+  <Box h={'50%'} w={'100%'} pos={'absolute'} cursor={isMoving ? 'grabbing' : 'grab'} bottom={0} left={0}>{children}</Box>
+);
 
-interface TopBarProps {
-  color: string;
-}
-
-export const TopBar = styled(
-  ({ color, ...other }: TopBarProps & Omit<HTMLAttributes<HTMLDivElement>, keyof TopBarProps>) =>
-    <div {...other} />,
-)<Theme, TopBarProps>(({color}) => ({
-  width: '100%',
-  position: 'absolute',
-  backgroundColor: 'transparent',
-  overflow: 'hidden',
-  top: 0,
-  left: 0,
-}));
+export const TopBar: React.FC = ({children}) => (
+  <Box w={'100%'} pos={'absolute'} bg={'transparent'} overflow={'hidden'} top={0} left={0}>{children}</Box>
+);
 
 interface RegionNameProps {
   color: string;
 }
 
-export const RegionName = styled(
-  ({ color, ...other }: RegionNameProps & Omit<TypographyProps, keyof RegionNameProps>) =>
-    <Typography {...other} />,
-)<Theme, RegionNameProps>(({color}) => ({
-  color: determineTextColor(color),
-  position: 'relative',
-  display: 'inline-block',
-  zIndex: 1,
-  cursor: 'text',
-  userSelect: 'none',
-  fontSize: '11px',
-  lineHeight: '11px',
-  marginLeft: 15,
-}));
+export const RegionName: React.FC<RegionNameProps> = ({color, children}) => (
+  <Text color={determineTextColor(color)} pos={'relative'} display={'inline-block'} zIndex={1} userSelect={'none'} cursor={'text'} fontSize={'xs'} ml={'15px'}>{children}</Text>
+);

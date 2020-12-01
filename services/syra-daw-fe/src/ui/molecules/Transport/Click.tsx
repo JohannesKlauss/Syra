@@ -14,7 +14,7 @@ function Click() {
     <IconButton
       aria-label={'Toggle metronome'}
       icon={<RiPulseFill />}
-      colorScheme={isClickMuted ? 'teal' : 'gray'}
+      colorScheme={isClickMuted ? 'gray' : 'teal'}
       component="span"
       onClick={() => setIsClickMuted((currVal) => !currVal)}
     />

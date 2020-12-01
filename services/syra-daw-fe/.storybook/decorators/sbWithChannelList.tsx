@@ -1,7 +1,7 @@
 import * as React from 'react';
 import useCreateChannel from '../../src/hooks/recoil/channel/useCreateChannel';
 import { ChannelType } from '../../src/types/Channel';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function withChannel(Story) {
   const createChannel = useCreateChannel();

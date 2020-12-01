@@ -3,7 +3,7 @@ import * as React from "react";
 import useCreateChannel from "../../src/hooks/recoil/channel/useCreateChannel";
 import { ChannelType } from "../../src/types/Channel";
 
-export default function withChannel(Story) {
+export default function sbWithChannel(Story) {
   const createChannel = useCreateChannel();
 
   return (

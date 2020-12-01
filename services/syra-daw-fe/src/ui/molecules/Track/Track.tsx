@@ -1,5 +1,4 @@
-import React, { HTMLAttributes, useCallback, useContext, useMemo } from 'react';
-import { styled, Theme, Typography } from '@material-ui/core';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { useDropzone } from 'react-dropzone';
 import RegionList from './Regions/RegionList';
@@ -11,41 +10,7 @@ import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useCreateAudioRegion from '../../../hooks/recoil/region/useCreateAudioRegion';
 import MarqueeContainer from './MarqueeContainer';
 import usePixelToQuarter from '../../../hooks/ui/usePixelToQuarter';
-
-interface BaseContainerProps {
-  backgroundColor: string;
-  height: number;
-}
-
-const BaseContainer = styled(
-  ({ backgroundColor, height, ...other }: BaseContainerProps & Omit<HTMLAttributes<HTMLDivElement>, keyof BaseContainerProps>) => <div {...other} />,
-)({
-  opacity: 0.8,
-  width: '100%',
-  height: ({height}: BaseContainerProps) => height,
-  backgroundColor: ({ backgroundColor }: BaseContainerProps) => backgroundColor,
-  position: 'relative',
-  '&:focus': {
-    outline: 'none',
-  }
-});
-
-interface DropIndicatorProps {
-  doShow: boolean;
-}
-
-const DropIndicator = styled(
-  ({ doShow, ...other }: DropIndicatorProps & Omit<HTMLAttributes<HTMLDivElement>, keyof DropIndicatorProps>) => <div {...other} />,
-)<Theme, DropIndicatorProps>(({theme, doShow}) => ({
-  display: doShow ? 'flex' : 'none',
-  opacity: 0.5,
-  paddingLeft: 150,
-  top: 0,
-  left: 0,
-  height: '100%',
-  alignItems: 'center',
-  backgroundColor: theme.palette.background.paper,
-}));
+import { Box, Flex, Text } from '@chakra-ui/react';
 
 interface Props {
   backgroundColor: string;
@@ -79,16 +44,16 @@ const Track = React.memo(({ backgroundColor }: Props) => {
 
   // TODO: BECAUSE OF A WEIRD ERROR WE REMOVED THE {...getRootProps()} FOR NOW.
   return (
-    <BaseContainer backgroundColor={background} id={`track-${channelId}`} height={trackHeight}>
+    <Box bg={background} id={`track-${channelId}`} h={`${trackHeight}px`} opacity={0.8} w={'100%'} pos={'relative'}>
       {isDragOnDocument && <input {...getInputProps()} />}
-      <DropIndicator doShow={isDragOnDocument}>
-        <Typography variant="overline" color={isDragActive ? 'primary' : 'initial'} display={'block'}>
+      <Flex display={isDragOnDocument ? 'flex' : 'none'} opacity={0.5} pl={'150px'} top={0} left={0} h={'100%'} align={'center'} bg={'gray.800'}>
+        <Text variant="overline" color={isDragActive ? 'primary' : 'initial'} display={'block'}>
           Drop Track to add to region.
-        </Typography>
-      </DropIndicator>
+        </Text>
+      </Flex>
       <RegionList/>
       <MarqueeContainer/>
-    </BaseContainer>
+    </Box>
   );
 });
 

@@ -4,9 +4,9 @@ import { Graphics } from 'pixi.js';
 import { audioBufferStore } from '../../../recoil/audioBufferStore';
 import { useRecoilValue } from 'recoil';
 import useDownsampleAudioBuffer from '../../../hooks/audio/useDownsampleAudioBuffer';
-import { Box, styled } from '@material-ui/core';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { DPR } from '../../../const/ui';
+import { Box } from '@chakra-ui/react';
 
 const Bar = PixiComponent<{ x: number, y: number, height: number, color: number }, Graphics>('Rectangle', {
   create: () => new Graphics(),
@@ -49,18 +49,6 @@ const WaveformHalf = PixiComponent<{ peaks: number[], trackHeight: number, color
   },
 });
 
-interface WaveformProps {
-  height: number;
-}
-
-const Waveform = styled(Box)({
-  height: ({ height }: WaveformProps) => height,
-  width: '100%',
-  position: 'absolute',
-  top: 0,
-  left: 0,
-});
-
 interface Props {
   bufferId: string;
   trimStart: number;
@@ -76,15 +64,13 @@ function WaveformV4({ bufferId, trimStart }: Props) {
     return null;
   }
 
-  console.log('peaks', pixelPeaks);
-
   return (
-    <Waveform height={trackHeight}>
+    <Box h={`${trackHeight}px`} w={'100%'} pos={'absolute'} top={0} left={0}>
       <Stage width={pixelPeaks.length / DPR} height={trackHeight / DPR}
              options={{ transparent: true, antialias: true, resolution: DPR }}>
         <WaveformHalf color={0xffffff} peaks={pixelPeaks} smoothing={3} trackHeight={trackHeight / DPR}/>
       </Stage>
-    </Waveform>
+    </Box>
   );
 }
 

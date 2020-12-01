@@ -53,8 +53,8 @@ function AudioRegion() {
         <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)}
                                onChangeIsMoving={isMoving => setIsMoving(isMoving)}
                                onUpdateTopOffset={cssTop => setTop(cssTop)}/>
-        <TopBar color={color}>
-          <RegionName variant={'overline'} color={color}>{name}</RegionName>
+        <TopBar>
+          <RegionName color={color}>{name}</RegionName>
         </TopBar>
       </BaseContainer>
     </>

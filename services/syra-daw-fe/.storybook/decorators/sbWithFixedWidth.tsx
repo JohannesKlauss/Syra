@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Box} from "@chakra-ui/react";
 
-const withFixedWidth = (width: number) => (Story) => {
+const sbWithFixedWidth = (width: number) => (Story) => {
   return (
     <Box w={`${width}px`}>
       <Story/>
@@ -9,4 +9,4 @@ const withFixedWidth = (width: number) => (Story) => {
   )
 }
 
-export default withFixedWidth;
+export default sbWithFixedWidth;

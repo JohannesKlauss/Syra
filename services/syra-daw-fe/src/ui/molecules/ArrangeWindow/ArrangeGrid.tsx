@@ -1,6 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import GridTracks from './GridTracks';
-import Ruler from '../Ruler/Ruler';
 import useWindowSize from '../../../hooks/ui/useWindowResize';
 import { useSetRecoilState } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
@@ -23,7 +22,6 @@ function ArrangeGrid() {
 
   return (
     <Box overflowX={'scroll'} overflowY={'hidden'} pos={'relative'} bg={'gray.800'}>
-      <Ruler/>
       <GridTracks/>
       <DropTrack/>
     </Box>

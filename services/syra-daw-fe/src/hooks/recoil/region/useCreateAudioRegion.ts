@@ -46,6 +46,10 @@ export default function useCreateAudioRegion() {
           set(projectStore.lastAnalyzedBpmFromImport, analyzedTempo);
         }
       }
+    } else {
+      // TODO: ERROR DURING DECODING
     }
+
+    return newRegionId;
   }, []);
 }
