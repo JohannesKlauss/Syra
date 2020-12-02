@@ -1,8 +1,7 @@
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { useDropzone } from 'react-dropzone';
 import RegionList from './Regions/RegionList';
-import { hexToRgb } from '../../../utils/color';
 import useIsDragOnDocument from '../../../hooks/ui/useIsDragOnDocument';
 import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
 import { useRecoilValue } from 'recoil';
@@ -13,22 +12,16 @@ import usePixelToQuarter from '../../../hooks/ui/usePixelToQuarter';
 import { Box, Flex, Text } from '@chakra-ui/react';
 
 interface Props {
-  backgroundColor: string;
+  bg: string;
 }
 
-const Track = React.memo(({ backgroundColor }: Props) => {
+const Track = React.memo(({ bg }: Props) => {
   const channelId = useContext(ChannelContext);
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
   const createRegion = useCreateAudioRegion();
   const isDragOnDocument = useIsDragOnDocument();
   const pixelToQuarter = usePixelToQuarter();
   const calcSnappedX = useSnapCtrlPixelCalc();
-
-  const background = useMemo(() => {
-    const rgb = hexToRgb(backgroundColor);
-
-    return `rgba(${rgb.red}, ${rgb.blue}, ${rgb.green}, 0.7)`;
-  }, [backgroundColor]);
 
   // TODO: WE SHOULD ALSO BE ABLE TO SUPPORT MIDI FILES LATER ON.
   const onDrop = useCallback(async (files: File[], _, e) => {
@@ -44,7 +37,7 @@ const Track = React.memo(({ backgroundColor }: Props) => {
 
   // TODO: BECAUSE OF A WEIRD ERROR WE REMOVED THE {...getRootProps()} FOR NOW.
   return (
-    <Box bg={background} id={`track-${channelId}`} h={`${trackHeight}px`} opacity={0.8} w={'100%'} pos={'relative'}>
+    <Box bg={bg} id={`track-${channelId}`} h={`${trackHeight}px`} opacity={0.8} w={'100%'} pos={'relative'}>
       {isDragOnDocument && <input {...getInputProps()} />}
       <Flex display={isDragOnDocument ? 'flex' : 'none'} opacity={0.5} pl={'150px'} top={0} left={0} h={'100%'} align={'center'} bg={'gray.800'}>
         <Text variant="overline" color={isDragActive ? 'primary' : 'initial'} display={'block'}>

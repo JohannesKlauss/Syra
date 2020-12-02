@@ -28,7 +28,7 @@ function VerticalChannel() {
   return (
     <Flex
       w={'100%'}
-      borderBottom={`1px solid ${theme.colors.gray[800]}`}
+      borderBottom={`1px solid ${theme.colors.gray[600]}`}
       bg={backgroundColor}
       borderRight={`3px solid ${color}`}
       h={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}

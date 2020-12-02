@@ -6,7 +6,7 @@ function VerticalChannelListHeader() {
   const theme = useTheme();
 
   return (
-    <Box h={'40px'} width={'250px'} p={2} borderBottom={`1px solid ${theme.colors.gray[800]}`} bg={'gray.900'}>
+    <Box h={'40px'} width={'250px'} p={2} borderBottom={`1px solid ${theme.colors.gray[600]}`} bg={'gray.900'}>
       <AddChannelMenu/>
     </Box>
   );

@@ -29,7 +29,7 @@ function GridTracks() {
       <SelectionTool onSelect={onSelect}>
         {channelIds.map((id, i) => (
           <ChannelContext.Provider key={id} value={id}>
-            <Track backgroundColor={i % 2 === 0 ? 'gray.900' : 'gray.800'}/>
+            <Track bg={i % 2 === 0 ? 'gray.800' : 'gray.900'}/>
           </ChannelContext.Provider>
         ))}
       </SelectionTool>

@@ -49,7 +49,7 @@ function RulerTransportCursor() {
 
     if (!isBetween(playheadPosition, [scrollLeft, scrollLeft + viewportWidth])) {
       arrangeWindowRef?.current?.scrollTo({
-        left: Math.max(0, playheadPosition - 30)
+        left: Math.max(0, Math.min(playheadPosition / viewportWidth) * viewportWidth - 60)
       });
     }
   }, [playheadPosition, viewportWidth, arrangeWindowRef]);

@@ -2,7 +2,6 @@ import React from 'react';
 import RulerSettings from '../Ruler/Settings/RulerSettings';
 import ArrangeGrid from './ArrangeGrid';
 import VerticalChannelList from '../Channels/VerticalChannels/VerticalChannelList';
-import { ARRANGE_GRID_CHANNEL_LIST_GAP } from '../../../const/ui';
 import { Box, Flex } from '@chakra-ui/react';
 
 function ArrangeWindow() {
@@ -11,7 +10,7 @@ function ArrangeWindow() {
       <RulerSettings/>
       <Flex overflow={'auto'} maxH={'calc(100vh - 163px)'}>
         <VerticalChannelList/>
-        <Box w={'100%'} overflowX={'auto'} h={'100%'} pl={ARRANGE_GRID_CHANNEL_LIST_GAP} bg={'gray.800'}>
+        <Box w={'100%'} overflowX={'auto'} h={'100%'} bg={'gray.800'}>
           <ArrangeGrid/>
         </Box>
       </Flex>

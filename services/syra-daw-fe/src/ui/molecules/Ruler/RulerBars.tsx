@@ -30,6 +30,7 @@ const RulerItem: React.FC<{ left: number }> = ({ left, children }) => (
     pl={'4px'}
     pointerEvents={'none'}
     zIndex={3}
+    fontSize={'13.5px'}
     left={`${left}px`}
   >
     {children}

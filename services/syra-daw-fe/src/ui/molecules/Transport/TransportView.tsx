@@ -10,7 +10,7 @@ import { Box, Flex } from '@chakra-ui/react';
 
 function TransportView() {
   return (
-    <Flex justify={'space-between'} align={'center'} py={4} my={4} borderTop={'1px solid #4FD1C5'} bg={'gray.800'}>
+    <Flex justify={'space-between'} align={'center'} py={4} borderTop={'1px solid #4FD1C5'} bg={'gray.800'}>
       <Flex w={'33%'} justify={'center'}>
         <ViewToggles />
         <PlayRecord />
