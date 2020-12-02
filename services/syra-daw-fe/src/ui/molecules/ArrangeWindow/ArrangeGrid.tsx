@@ -5,6 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import DropTrack from '../Track/DropTrack';
 import { Box } from '@chakra-ui/react';
+import Ruler from "../Ruler/Ruler";
 
 function ArrangeGrid() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -21,7 +22,8 @@ function ArrangeGrid() {
   }, [windowSize, containerRef, setViewportWidth]);
 
   return (
-    <Box overflowX={'scroll'} overflowY={'hidden'} pos={'relative'} bg={'gray.800'}>
+    <Box overflowX={'scroll'} overflowY={'hidden'} pos={'relative'} bg={'gray.800'} ref={containerRef}>
+      <Ruler/>
       <GridTracks/>
       <DropTrack/>
     </Box>

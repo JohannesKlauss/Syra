@@ -1,67 +1,75 @@
-import { Box, BoxProps, styled } from '@material-ui/core';
-import { amber } from '@material-ui/core/colors';
-import React, { HTMLAttributes } from 'react';
+import { Box, BoxProps } from '@chakra-ui/react';
+import React from 'react';
 
-interface BaseContainerProps {
+interface BaseContainerProps extends BoxProps {
   windowWidth: number;
 }
 
-export const BaseContainer = styled(
-  ({ windowWidth, ...other }: BaseContainerProps & Omit<BoxProps, keyof BaseContainerProps>) => <Box {...other} />,
-)({
-  backgroundColor: 'transparent',
-  width: ({ windowWidth }: BaseContainerProps) => windowWidth,
-  position: 'absolute',
-  top: 0,
-  height: 20,
-  zIndex: 1,
-});
+export const BaseContainer: React.FC<BaseContainerProps> = ({ windowWidth, children, ...props }) => (
+  <Box {...props} bg={'transparent'} w={windowWidth} pos={'absolute'} top={0} h={'20px'} zIndex={1}>
+    {children}
+  </Box>
+);
 
-interface CycleBarProps {
+interface CycleBarProps extends BoxProps {
   isCycleActive: boolean;
   cycleStartTranslateX: number;
   cycleWidth: number;
 }
 
-export const CycleBar = styled(
-  ({ isCycleActive, cycleStartTranslateX, cycleWidth, ...other }: CycleBarProps & Omit<HTMLAttributes<HTMLDivElement>, keyof CycleBarProps>) => <div {...other} />,
-)({
-  zIndex: 1,
-  position: 'absolute',
-  height: 20,
-  cursor: 'move',
-  opacity: ({ isCycleActive }: CycleBarProps) => isCycleActive ? 0.7 : 0.3,
-  willChange: 'transform',
-  transform: ({ cycleStartTranslateX }: CycleBarProps) => `translateX(${cycleStartTranslateX}px)`,
-  width: ({ cycleWidth }: CycleBarProps) => cycleWidth,
-  backgroundColor: amber[500],
-});
+export const CycleBar: React.FC<CycleBarProps> = ({
+  isCycleActive,
+  cycleStartTranslateX,
+  cycleWidth,
+  children,
+  ...props
+}) => (
+  <Box
+    zIndex={1}
+    pos={'absolute'}
+    h={'20px'}
+    cursor={'move'}
+    opacity={isCycleActive ? 0.7 : 0.3}
+    willChange={'transform'}
+    transform={`translateX(${cycleStartTranslateX}px)`}
+    w={`${cycleWidth}px`}
+    bg={'yellow.500'}
+    {...props}
+  >
+    {children}
+  </Box>
+);
 
-interface CycleHandleProps {
+interface CycleHandleProps extends BoxProps {
   isCycleActive: boolean;
 }
 
-export const CycleStartHandle = styled(
-  ({ isCycleActive, ...other }: CycleHandleProps & Omit<HTMLAttributes<HTMLDivElement>, keyof CycleHandleProps>) => <div {...other} />,
-)({
-  width: 20,
-  cursor: 'ew-resize',
-  height: 20,
-  opacity: ({ isCycleActive }: CycleHandleProps) => isCycleActive ? 0.7 : 0.0,
-  backgroundColor: amber[500],
-  position: 'absolute',
-  left: 0,
-});
+export const CycleStartHandle: React.FC<CycleHandleProps> = ({ isCycleActive, children, ...props }) => (
+  <Box
+    w={'20px'}
+    cursor={'ew-resize'}
+    h={'20px'}
+    opacity={isCycleActive ? 0.7 : 0}
+    bg={'yellow.500'}
+    pos={'absolute'}
+    left={0}
+    {...props}
+  >
+    {children}
+  </Box>
+);
 
-export const CycleEndHandle = styled(
-  ({ isCycleActive, ...other }: CycleHandleProps & Omit<HTMLAttributes<HTMLDivElement>, keyof CycleHandleProps>) => <div {...other} />,
-)({
-  width: 20,
-  cursor: 'ew-resize',
-  height: 20,
-  opacity: ({ isCycleActive }: CycleHandleProps) => isCycleActive ? 0.7 : 0.0,
-  backgroundColor: amber[500],
-  position: 'absolute',
-  right: 0,
-  zIndex: 2,
-});
+export const CycleEndHandle: React.FC<CycleHandleProps> = ({ isCycleActive, children, ...props }) => (
+  <Box
+    w={'20px'}
+    cursor={'ew-resize'}
+    h={'20px'}
+    opacity={isCycleActive ? 0.7 : 0}
+    bg={'yellow.500'}
+    pos={'absolute'}
+    right={0}
+    {...props}
+  >
+    {children}
+  </Box>
+);
