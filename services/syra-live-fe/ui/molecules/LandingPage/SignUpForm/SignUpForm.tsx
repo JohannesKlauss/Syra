@@ -8,7 +8,7 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -115,7 +115,7 @@ function SignUpForm({ hasError, onSubmit, isSending }: Props) {
         </FormHelperText>
         {hasError && <FormErrorMessage>{t('Something went wrong. Please try again.')}</FormErrorMessage>}
       </FormControl>
-      <Button isLoading={isSending} marginY={4} type={'submit'} isFullWidth variantColor={'teal'}>
+      <Button isLoading={isSending} marginY={4} type={'submit'} isFullWidth colorScheme={'teal'}>
         {t('S I G N  U P')}
       </Button>
     </form>

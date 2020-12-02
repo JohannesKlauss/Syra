@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect } from 'react';
-import { Box, BoxProps, styled } from '@material-ui/core';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   arrangeWindowStore,
@@ -10,21 +9,7 @@ import useMovable from '../../../hooks/ui/useMovable';
 import { transportStore } from '../../../recoil/transportStore';
 import { isBetween } from '../../../utils/numbers';
 import useBarAtPixel from '../../../hooks/ui/transportCursor/useBarAtPixel';
-
-interface BaseContainerProps {
-  windowWidth: number;
-}
-
-const BaseContainer = styled(
-  ({ windowWidth, ...other }: BaseContainerProps & Omit<BoxProps, keyof BaseContainerProps>) => <Box {...other} />,
-)({
-  backgroundColor: 'transparent',
-  width: ({ windowWidth }: BaseContainerProps) => windowWidth,
-  position: 'absolute',
-  bottom: 0,
-  height: 20,
-  zIndex: 2,
-});
+import { Box } from '@chakra-ui/react';
 
 function RulerTransportCursor() {
   const setTransportQuarters = useSetRecoilState(transportStore.currentQuarter);
@@ -64,15 +49,15 @@ function RulerTransportCursor() {
 
     if (!isBetween(playheadPosition, [scrollLeft, scrollLeft + viewportWidth])) {
       arrangeWindowRef?.current?.scrollTo({
-        left: Math.max(0, playheadPosition - 30)
+        left: Math.max(0, Math.min(playheadPosition / viewportWidth) * viewportWidth - 60)
       });
     }
   }, [playheadPosition, viewportWidth, arrangeWindowRef]);
 
   return (
-    <BaseContainer windowWidth={windowWidth} onMouseDown={onMouseDown}>
+    <Box w={`${windowWidth}px`} bg={'transparent'} pos={'absolute'} bottom={0} h={'20px'} zIndex={2} onMouseDown={onMouseDown}>
       <RulerPlayhead/>
-    </BaseContainer>
+    </Box>
   );
 }
 

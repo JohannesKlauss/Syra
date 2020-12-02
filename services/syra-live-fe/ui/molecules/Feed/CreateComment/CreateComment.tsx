@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Avatar, Flex, FormControl } from '@chakra-ui/core';
+import { Avatar, Flex, FormControl } from '@chakra-ui/react';
 import { useMeQuery, usePostCommentToFeedItemMutation } from '../../../../gql/generated';
 import { useForm } from 'react-hook-form';
 import AutoResizeTextarea from '../../../atoms/AutoResizeTextarea/AutoResizeTextarea';

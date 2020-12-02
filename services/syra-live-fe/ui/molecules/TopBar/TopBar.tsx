@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Flex, Text } from '@chakra-ui/core';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { IoMdAdd } from 'react-icons/io';
 import Link from 'next/link';
@@ -56,7 +56,7 @@ function TopBar({}: Props) {
           <Box>AvatarList of active sessions</Box>
           <Box>
             <Flex align={'center'} justify={'space-between'}>
-              <Button variant={'link'} marginX={8} leftIcon={IoMdAdd} onClick={onClickNewSession}>
+              <Button variant={'link'} marginX={8} leftIcon={<IoMdAdd/>} onClick={onClickNewSession}>
                 {t('New Session')}
               </Button>
               <Search />

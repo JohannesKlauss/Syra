@@ -1,20 +1,14 @@
+import { Box, useTheme } from '@chakra-ui/react';
 import React from 'react';
-import { styled } from '@material-ui/core';
 import AddChannelMenu from './Header/AddChannelMenu';
 
-const BaseContainer = styled('div')(({theme}) => ({
-  height: 40,
-  width: 250,
-  padding: 5,
-  borderBottom: `1px solid ${theme.palette.background.default}`,
-  background: theme.palette.background.paper,
-}));
-
 function VerticalChannelListHeader() {
+  const theme = useTheme();
+
   return (
-    <BaseContainer>
+    <Box h={'40px'} width={'250px'} p={2} borderBottom={`1px solid ${theme.colors.gray[600]}`} bg={'gray.900'}>
       <AddChannelMenu/>
-    </BaseContainer>
+    </Box>
   );
 }
 

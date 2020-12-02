@@ -18,10 +18,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
-    "typeRoots": [ "./src/ambient", "./node_modules/@types", "../../node_modules/@types"]
+    "jsx": "react-jsx",
+    "typeRoots": [
+      "./src/ambient",
+      "./node_modules/@types",
+      "../../node_modules/@types"
+    ]
   },
   "include": [
     "./src"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.stories.ts",
+    "**/*.stories.tsx"
   ]
 }

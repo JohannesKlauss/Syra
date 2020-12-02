@@ -1,14 +1,14 @@
-import React, { HTMLAttributes, useCallback, useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
-import { styled, Theme } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { useHotkeys } from 'react-hotkeys-hook';
 import useCutRegionAtMarqueeIndicator from '../../../hooks/recoil/track/useCutRegionAtMarqueeIndicator';
+import { Box } from '@chakra-ui/react';
 
-const useStyles = makeStyles({
+// TODO: WE HAVE TO FIGURE OUT A WAY TO DEFINE CUSTOM ANIMATIONS WITH CHAKRA UI
+/*const useStyles = makeStyles({
   '@global': {
     '@keyframes marqueeBlink': {
       'from, to': {
@@ -25,36 +25,17 @@ const useStyles = makeStyles({
       },
     },
   },
-});
-
-const BaseContainer = styled('div')({
-  height: '50%',
-  width: '100%',
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  cursor: 'text',
-  zIndex: 10,
-  userSelect: 'none',
-});
+});*/
 
 interface MarqueeIndicatorProps {
   left: number;
 }
 
-const MarqueeIndicator = styled(
-  ({ left, ...other }: MarqueeIndicatorProps & Omit<HTMLAttributes<HTMLDivElement>, keyof MarqueeIndicatorProps>) => <div {...other} />,
-)<Theme, MarqueeIndicatorProps>(({left}) => ({
-  borderLeft: `1px solid white`,
-  height: '200%',
-  position: 'absolute',
-  left,
-  animation: 'marqueeBlink 1s infinite ease-in-out',
-}));
+const MarqueeIndicator: React.FC<MarqueeIndicatorProps> = ({left}) => (
+  <Box borderLeft={'1px solid white'} h={'200%'} pos={'absolute'} left={left} animation={'marqueeBlink 1s infinite ease-in-out'}/>
+);
 
 function MarqueeContainer() {
-  useStyles();
-
   const channelId = useContext(ChannelContext);
 
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
@@ -82,9 +63,9 @@ function MarqueeContainer() {
   }
 
   return (
-    <BaseContainer onMouseDown={onSetMarquee}>
+    <Box h={'50%'} w={'100%'} pos={'absolute'} top={0} left={0} cursor={'text'} zIndex={10} userSelect={'none'} onMouseDown={onSetMarquee}>
       {content}
-    </BaseContainer>
+    </Box>
   );
 }
 

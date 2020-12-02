@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton } from '@chakra-ui/core';
+import { Box, IconButton } from '@chakra-ui/react';
 import { BsThreeDots } from 'react-icons/bs';
 import { useTranslation } from 'react-i18next';
 import FollowAction from '../../../atoms/FollowAction/FollowAction';
@@ -21,7 +21,7 @@ function ProfileActions({ baseIsFollowing, handle, userId }: Props) {
         isMeFollowing={baseIsFollowing}
         followingContent={<MessageAction userId={userId}/>}
       />
-      <IconButton size={'sm'} variant={'ghost'} icon={BsThreeDots} aria-label={t('more actions')} />
+      <IconButton size={'sm'} variant={'ghost'} icon={<BsThreeDots/>} aria-label={t('more actions')} />
     </Box>
   );
 }

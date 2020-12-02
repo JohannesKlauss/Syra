@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@chakra-ui/core";
+import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { RiMessage2Line } from 'react-icons/ri';
 import { useTranslation } from "react-i18next";
@@ -30,7 +30,7 @@ function MessageAction({userId}: Props) {
   };
 
   return (
-    <Button onClick={initChat} marginRight={4} size={'sm'} leftIcon={RiMessage2Line}>
+    <Button onClick={initChat} marginRight={4} size={'sm'} leftIcon={<RiMessage2Line/>}>
       {t('Write message')}
     </Button>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import AuthProvider, { useAuth } from "./AuthProvider";
-import { Skeleton } from "@chakra-ui/core";
+import { Skeleton } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Unauthorized from "../../ui/atoms/Unauthorized/Unauthorized";
 import TopBar from "../../ui/molecules/TopBar/TopBar";

@@ -1,21 +1,16 @@
-import React, { useContext, useEffect, useLayoutEffect } from 'react';
-import WindowedWaveform from '../../../Waveform/WindowedWaveform';
-import { determineTextColor } from '../../../../../utils/color';
+import React, { useContext, useEffect, useLayoutEffect } from "react";
 import TrimStartHandle from './TrimStartHandle';
 import TrimEndHandle from './TrimEndHandle';
 import { Manipulations, RegionFirstLoop } from '../AudioRegion.styled';
-import { RegionContext } from '../../../../../providers/RegionContext';
-import { useRecoilValue } from 'recoil';
-import { regionStore } from '../../../../../recoil/regionStore';
-import { arrangeWindowStore } from '../../../../../recoil/arrangeWindowStore';
 import useRegionColor from '../../../../../hooks/ui/region/useRegionColor';
-import useAsyncWaveformWorker from '../../../../../hooks/audio/useAsyncWaveformWorker';
 import useMove from '../../../../../hooks/ui/region/manipulations/useMove';
 import useTrimStart from '../../../../../hooks/ui/region/manipulations/useTrimStart';
 import useTrimEnd from '../../../../../hooks/ui/region/manipulations/useTrimEnd';
-import useDownsampleAudioBuffer from '../../../../../hooks/audio/useDownsampleAudioBuffer';
-import { audioBufferStore } from '../../../../../recoil/audioBufferStore';
-import WaveformV4 from '../../../Waveform/WaveformV4';
+import WaveformV4 from "../../../Waveform/WaveformV4";
+import { RegionContext } from "../../../../../providers/RegionContext";
+import { useRecoilValue } from "recoil";
+import { regionStore } from "../../../../../recoil/regionStore";
+import { arrangeWindowStore } from "../../../../../recoil/arrangeWindowStore";
 
 interface Props {
   onChangeIsMoving: (isMoving: boolean) => void;

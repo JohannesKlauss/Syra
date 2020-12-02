@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton, Stack } from "@chakra-ui/core";
+import { Skeleton, Stack } from "@chakra-ui/react";
 import FeedItem from '../FeedItem/FeedItem';
 import { useMyFeedQuery } from '../../../../gql/generated';
 import EmptyFeed from '../../../atoms/EmptyFeed/EmptyFeed';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BlockCommentFragment, useLikeCommentMutation, useUnlikeCommentMutation } from '../../../../gql/generated';
-import { Avatar, Box, Flex, Text, Link as ChakraLink, Button } from '@chakra-ui/core';
+import { Avatar, Box, Flex, Text, Link as ChakraLink, Button } from '@chakra-ui/react';
 import Link from 'next/link';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
 import { useTranslation } from 'react-i18next';
@@ -64,7 +64,7 @@ function Comment({ comment }: Props) {
             <Button size={'xs'} variant={'link'} fontWeight={600}>
               {t('Reply')}
             </Button>
-            <Button ml={4} size={'xs'} variant={'link'} fontWeight={600} variantColor={isMeLiking ? 'teal' : 'gray'} onClick={onToggleLike}>
+            <Button ml={4} size={'xs'} variant={'link'} fontWeight={600} colorScheme={isMeLiking ? 'teal' : 'gray'} onClick={onToggleLike}>
               {t(isMeLiking ? 'Liked' : 'Like')}
             </Button>
           </Flex>

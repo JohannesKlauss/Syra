@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Box, Divider, Flex, ListItem, Text } from "@chakra-ui/core";
+import { Avatar, Box, Divider, Flex, ListItem, Text } from "@chakra-ui/react";
 import FollowAction from "../../../../atoms/FollowAction/FollowAction";
 import { FollowRecommendationsQuery } from "../../../../../gql/generated";
 import { useTranslation } from "react-i18next";

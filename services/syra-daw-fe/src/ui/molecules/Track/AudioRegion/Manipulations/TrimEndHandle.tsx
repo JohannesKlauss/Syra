@@ -1,27 +1,6 @@
 import React from 'react';
-import { styled } from '@material-ui/core';
-import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-
-const BaseContainer = styled('div')({
-  position: 'absolute',
-  bottom: 5,
-  right: 5,
-  cursor: 'w-resize',
-  width: 15,
-  height: 15,
-  borderRadius: 8,
-  background: 'white',
-  color: 'black',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
-
-const CustomArrowRightAltIcon = styled(ArrowRightAltIcon)({
-  width: 18,
-  height: 18,
-  transform: 'scaleX(-1)',
-});
+import { Flex } from "@chakra-ui/react";
+import { MdChevronLeft } from 'react-icons/md';
 
 interface Props {
   trigger: (e: React.MouseEvent) => void;
@@ -29,9 +8,22 @@ interface Props {
 
 const TrimEndHandle: React.FC<Props> = ({trigger}: Props) => {
   return (
-    <BaseContainer onMouseDown={trigger}>
-      <CustomArrowRightAltIcon/>
-    </BaseContainer>
+    <Flex
+      pos={'absolute'}
+      bottom={'5px'}
+      right={'5px'}
+      cursor={'w-resize'}
+      width={'15px'}
+      height={'15px'}
+      borderRadius={'8px'}
+      bg={'gray.50'}
+      color={'gray.900'}
+      align={'center'}
+      justify={'center'}
+      onMouseDown={trigger}
+    >
+      <MdChevronLeft />
+    </Flex>
   );
 };
 

@@ -1,6 +1,6 @@
+import { IconButton } from '@chakra-ui/react';
 import React from 'react';
-import RepeatIcon from '@material-ui/icons/Repeat';
-import { Button } from '@material-ui/core';
+import { MdRepeat } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 import { transportStore } from '../../../../recoil/transportStore';
 import { buttonInfo } from '../../../../utils/text';
@@ -9,10 +9,14 @@ function RulerCycleSettings() {
   const [isCycleActive, setIsCycleActive] = useRecoilState(transportStore.isCycleActive);
 
   return (
-    <Button size={'small'} color={isCycleActive ? 'primary' : 'default'}
-            onClick={() => setIsCycleActive(currVal => !currVal)} title={buttonInfo('Toggle Cycle', 'C')}>
-      <RepeatIcon/>
-    </Button>
+    <IconButton
+      aria-label={'Toggle cycle'}
+      size={'sm'}
+      icon={<MdRepeat />}
+      colorScheme={isCycleActive ? 'teal' : 'gray'}
+      onClick={() => setIsCycleActive((currVal) => !currVal)}
+      title={buttonInfo('Toggle Cycle', 'C')}
+    />
   );
 }
 

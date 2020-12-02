@@ -1,5 +1,5 @@
+import { Flex, Slider, SliderThumb, SliderTrack, Text } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
-import { Grid, Slider, Typography } from '@material-ui/core';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { channelStore } from '../../../../recoil/channelStore';
 
@@ -14,7 +14,7 @@ const SliderParameter = React.memo(({ soulInstanceId, parameterId }: Props) => {
 
   const { minValue, maxValue, index, value, step, name, unit, id } = parameter;
 
-  const onChange = useCallback((_, newValue) => {
+  const onChange = useCallback(newValue => {
     patch?.audioNode.port.postMessage({
       type: 'PARAMETER_UPDATE',
       value: {
@@ -30,21 +30,14 @@ const SliderParameter = React.memo(({ soulInstanceId, parameterId }: Props) => {
   }, [patch, index, setParameter]);
   
   return (
-      <Grid container spacing={2}>
-        <Grid item xs>
-          <Typography id="continuous-slider" gutterBottom>
-            {name}
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Slider value={value as number} min={minValue} max={maxValue} step={step} id={id} onChange={onChange}/>
-        </Grid>
-        <Grid item xs>
-          <Typography id="continuous-slider" gutterBottom>
-            {value} {unit}
-          </Typography>
-        </Grid>
-      </Grid>
+      <Flex>
+          <Text>{name}</Text>
+          <Slider mx={4} flex={3} value={value as number} min={minValue} max={maxValue} step={step} id={id} onChange={onChange}>
+            <SliderTrack />
+            <SliderThumb />
+          </Slider>
+          <Text>{value} {unit}</Text>
+      </Flex>
   );
 });
 

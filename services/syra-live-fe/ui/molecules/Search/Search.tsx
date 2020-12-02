@@ -3,7 +3,7 @@ import SearchField from '../../atoms/SearchField/SearchField';
 import { useTranslation } from 'react-i18next';
 import { SearchQuery, useSearchQuery } from '../../../gql/generated';
 import SearchResults from '../SearchResults/SearchResults';
-import { Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/react';
 import { useHotkeys } from "react-hotkeys-hook";
 import ClickAwayListener from "react-click-away-listener";
 

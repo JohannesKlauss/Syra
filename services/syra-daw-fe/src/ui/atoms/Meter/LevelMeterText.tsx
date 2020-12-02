@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
-import { Typography } from '@material-ui/core';
 import { transportStore } from '../../../recoil/transportStore';
 import { useRecoilValue } from 'recoil';
+import { Box, Text } from "@chakra-ui/react";
 
 function LevelMeterText() {
   const channelId = useContext(ChannelContext);
@@ -35,9 +35,11 @@ function LevelMeterText() {
   }, [isPlaying, isRecording]);
 
   return (
-    <Typography gutterBottom align={'center'}>
-      {level <= -95 ? '-∞' : level.toFixed(1)}
-    </Typography>
+    <Box w={'32%'} bg={'gray.800'} boxShadow={'inner'} p={2} rounded={'md'}>
+      <Text textAlign={'center'}>
+        {level <= -95 ? '-∞' : level.toFixed(1)}
+      </Text>
+    </Box>
   );
 }
 

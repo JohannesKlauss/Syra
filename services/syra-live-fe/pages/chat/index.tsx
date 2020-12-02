@@ -18,7 +18,7 @@ import {
 } from 'stream-chat-react';
 import * as Client from 'stream-chat';
 import useStreamChat from '../../hooks/useStreamChat';
-import { Skeleton } from '@chakra-ui/core';
+import { Skeleton } from '@chakra-ui/react';
 import 'stream-chat-react/dist/css/index.css';
 import ProtectedRoute from "../../providers/auth/ProtectedRoute";
 

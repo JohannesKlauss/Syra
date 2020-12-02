@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControl, FormHelperText, FormLabel, Input } from '@chakra-ui/core';
+import { FormControl, FormHelperText, FormLabel, Input } from '@chakra-ui/react';
 
 interface Props {
   isRequired?: boolean;

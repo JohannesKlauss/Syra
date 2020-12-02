@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from 'react';
-import { Badge, Box, Flex, IconButton, PseudoBox, Skeleton, Text } from '@chakra-ui/core';
+import { Badge, Box, Flex, IconButton, Skeleton, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { FaPlay, FaPause } from 'react-icons/fa';
 import useWavesurfer from './useWavesurfer';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
 import useInterval from '../../../../../hooks/useInterval';
 import { formatAudioDuration } from '../../../../../helpers/time/formatAudioDuration';
-import { FeedMixdownFragment, PreviewMixdownFragment } from "../../../../../gql/generated";
+import { PreviewMixdownFragment } from "../../../../../gql/generated";
 
 interface Props {
   authorName: string;
@@ -37,7 +37,7 @@ function FeedItemAudio({ authorName, projectName, mixdown }: Props) {
       <Box>
         <Flex justify={'space-between'}>
           <Flex align={'center'}>
-            <IconButton onClick={onClickPlayPause} size={'sm'} icon={isPlaying ? FaPause : FaPlay} aria-label={t('Play / Pause')}/>
+            <IconButton onClick={onClickPlayPause} size={'sm'} icon={isPlaying ? <FaPause/> : <FaPlay/>} aria-label={t('Play / Pause')}/>
             <Box marginX={4}>
               <Flex align={'center'}>
                 <Text fontWeight={600} fontSize={'sm'}>
@@ -54,7 +54,7 @@ function FeedItemAudio({ authorName, projectName, mixdown }: Props) {
         </Flex>
       </Box>
       <Skeleton isLoaded={isLoaded}>
-        <PseudoBox id={mixdown.id} w={'100%'} margin={4}/>
+        <Box id={mixdown.id} w={'100%'} margin={4}/>
         <Badge marginTop={-4} float={'right'}>{formatAudioDuration(elapsedTime)} / {formatAudioDuration(duration)}</Badge>
       </Skeleton>
     </Box>

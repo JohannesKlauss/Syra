@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Typography } from '@material-ui/core';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { formatSecondsToTime } from '../../../utils/time';
 import { transportStore } from '../../../recoil/transportStore';
 import { useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
+import { Text } from '@chakra-ui/react';
 
 function TimeInformation() {
   const isRecording = useRecoilValue(transportStore.isRecording);
@@ -20,13 +20,12 @@ function TimeInformation() {
     updater();
 
     animRef.current = requestAnimationFrame(updateTime);
-  }
+  };
 
   useEffect(() => {
     if (isRecording || isPlaying) {
       animRef.current = requestAnimationFrame(updateTime);
-    }
-    else {
+    } else {
       cancelAnimationFrame(animRef.current);
     }
 
@@ -34,11 +33,7 @@ function TimeInformation() {
   }, [isRecording, isPlaying, playheadPosition]);
 
   return (
-    <>
-      <Typography variant={'h5'}>
-        {time}
-      </Typography>
-    </>
+    <Text fontSize={'3xl'}>{time}</Text>
   );
 }
 

@@ -1,16 +1,8 @@
 import React from 'react';
-import { Box, styled } from '@material-ui/core';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { useRecoilValue } from 'recoil';
 import { createNewId } from '../../../utils/createNewId';
-
-const CustomContainer = styled(Box)({
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-});
+import { Box } from '@chakra-ui/react';
 
 interface Props {
   ticksFullHeight?: boolean;
@@ -24,7 +16,7 @@ function BackgroundGrid({ticksFullHeight}: Props) {
   const rectWidth = 1 / window.devicePixelRatio;
 
   return (
-    <CustomContainer>
+    <Box pos={'absolute'} top={0} left={0} w={'100%'} h={'100%'}>
       <svg width={windowWidth} height={ticksFullHeight ? '3200' : '100%'} pointerEvents={'none'}>
         <defs>
           <pattern id={gridId} x="0" y="0" width={rulerItemWidth} height="100%" patternUnits="userSpaceOnUse">
@@ -36,7 +28,7 @@ function BackgroundGrid({ticksFullHeight}: Props) {
         </defs>
         <rect fill={`url(#${gridId})`} x="0" y="0" width={windowWidth} height="100%"/>
       </svg>
-    </CustomContainer>
+    </Box>
   );
 }
 

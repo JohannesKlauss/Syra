@@ -1,53 +1,60 @@
+import { Box } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Box, styled } from '@material-ui/core';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { projectStore } from '../../../recoil/projectStore';
 import { transportStore } from '../../../recoil/transportStore';
 
-const Bars = styled(Box)(({ theme }) => ({
-  height: 20,
-  position: 'absolute',
-  top: 0,
-  width: '100%',
-  pointerEvents: 'none',
-  userSelect: 'none',
-  backgroundColor: theme.palette.background.paper,
-}));
+const ProjectEndHandle: React.FC<{ left: number }> = ({ left, children }) => (
+  <Box
+    as={'span'}
+    pos={'absolute'}
+    borderLeft={'3px solid rgba(255, 255, 255, 0.3)'}
+    pl={'4px'}
+    pointerEvents={'none'}
+    zIndex={3}
+    h={'20px'}
+    w={'inherit'}
+    bg={'gray.800'}
+    left={`${left}px`}
+  >
+    {children}
+  </Box>
+);
 
-const RulerItem = styled('span')(({ theme }) => ({
-  position: 'absolute',
-  borderLeft: `1px solid rgba(255, 255, 255, 0.3)`,
-  paddingLeft: 4,
-  pointerEvent: 'none',
-  zIndex: 3,
-}));
-
-const ProjectEndHandle = styled('span')(({ theme }) => ({
-  position: 'absolute',
-  borderLeft: `3px solid rgba(255, 255, 255, 0.3)`,
-  paddingLeft: 4,
-  pointerEvent: 'none',
-  zIndex: 3,
-  height: 20,
-  width: 'inherit',
-  backgroundColor: theme.palette.background.default,
-}));
+const RulerItem: React.FC<{ left: number }> = ({ left, children }) => (
+  <Box
+    as={'span'}
+    pos={'absolute'}
+    borderLeft={'1px solid rgba(255, 255, 255, 0.3)'}
+    pl={'4px'}
+    pointerEvents={'none'}
+    zIndex={3}
+    fontSize={'13.5px'}
+    left={`${left}px`}
+  >
+    {children}
+  </Box>
+);
 
 function RulerBars() {
   const bars = useRecoilValue(transportStore.filteredBars);
   const zoomedQuarterPixelWidth = useRecoilValue(arrangeWindowStore.zoomedQuarterPixelWidth);
   const projectLengthInQuarters = useRecoilValue(projectStore.lengthInQuarters);
 
-  const filteredBars = useMemo(() => bars.filter(item => item.displayOnRulerBar), [bars]);
+  const filteredBars = useMemo(() => bars.filter((item) => item.displayOnRulerBar), [bars]);
 
   return (
-    <Bars>
-      {filteredBars.map(bar => {
-        return <RulerItem key={bar.bar} style={{ left: `${zoomedQuarterPixelWidth * (bar.quarterInProject)}px` }}>{bar.bar}</RulerItem>
+    <Box h={'20px'} pos={'absolute'} top={0} w={'100%'} pointerEvents={'none'} userSelect={'none'} bg={'gray.900'}>
+      {filteredBars.map((bar) => {
+        return (
+          <RulerItem key={bar.bar} left={zoomedQuarterPixelWidth * bar.quarterInProject}>
+            {bar.bar}
+          </RulerItem>
+        );
       })}
-      <ProjectEndHandle style={{ left: `${zoomedQuarterPixelWidth * projectLengthInQuarters}px`}}/>
-    </Bars>
+      <ProjectEndHandle left={zoomedQuarterPixelWidth * projectLengthInQuarters} />
+    </Box>
   );
 }
 

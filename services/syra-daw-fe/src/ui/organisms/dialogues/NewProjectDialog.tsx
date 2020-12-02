@@ -1,27 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { projectStore } from "../../../recoil/projectStore";
+import { useRecoilState } from "recoil";
+import { ChannelType } from "../../../types/Channel";
+import useTapTempo from "../../../hooks/audio/useTapTempo";
+import { buttonInfo } from "../../../utils/text";
+import { useHotkeys } from "react-hotkeys-hook";
+import { TIME_CONVERSION_RESOLUTION } from "../../../const/musicalConversionConstants";
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   Button,
-  Dialog, DialogActions,
-  DialogContent, DialogContentText,
-  DialogTitle, Grid, styled,
-  TextField, Typography,
-} from '@material-ui/core';
-import { projectStore } from '../../../recoil/projectStore';
-import { useRecoilState } from 'recoil';
-import { Alert, ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
-import { ChannelType } from '../../../types/Channel';
-import useTapTempo from '../../../hooks/audio/useTapTempo';
-import { buttonInfo } from '../../../utils/text';
-import { useHotkeys } from 'react-hotkeys-hook';
-import { TIME_CONVERSION_RESOLUTION } from '../../../const/musicalConversionConstants';
-
-const CustomToggleButtonGroup = styled(ToggleButtonGroup)({
-  width: '100%',
-});
-
-const CustomToggleButton = styled(ToggleButton)({
-  width: '50%',
-});
+  Divider,
+  Flex,
+  FormControl,
+  FormLabel,
+  HStack,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  Text,
+  useRadioGroup
+} from "@chakra-ui/react";
+import RadioCard from "../../atoms/Buttons/RadioCard";
+import { channelTypeToLabel } from "../../../utils/channelTypeToLabel";
 
 interface Props {
   open: boolean;
@@ -29,7 +41,7 @@ interface Props {
   onCreate?: (channelType: ChannelType, numChannels: number) => void;
 }
 
-function NewProjectDialog({onCreate, open, onCancel}: Props) {
+function NewProjectDialog({ onCreate, open, onCancel }: Props) {
   const [name, setName] = useRecoilState(projectStore.name);
   const [tempoMap, setTempoMap] = useRecoilState(projectStore.tempoMap);
   const [length, setLength] = useRecoilState(projectStore.lengthInQuarters);
@@ -45,98 +57,105 @@ function NewProjectDialog({onCreate, open, onCancel}: Props) {
     setTempoMap({ 0: tappedTempo });
   }, [tappedTempo, setTempoMap]);
 
+  const onClose = () => onCancel && onCancel;
+
+  const options = [ChannelType.AUDIO, ChannelType.INSTRUMENT]
+
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    name: "channel-type",
+    defaultValue: "react",
+    onChange: val => setChannelType(val as ChannelType),
+  })
+
+  const group = getRootProps();
+
   return (
-    <Dialog open={open}>
-      <DialogTitle>Welcome To Syra - Create a new Project</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          <Typography variant={'body2'}>
+    <Modal isOpen={open} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Welcome To Syra - Create a new Project</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <Text fontSize={'lg'}>
             Syra is a web based DAW with a professional workflow that empowers you to create top notch music with your
             friends and colleagues.
-          </Typography>
-        </DialogContentText>
-      </DialogContent>
-      <DialogContent>
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Project name"
-          fullWidth
-          value={name}
-          onChange={e => setName(e.target.value)}
-        />
-      </DialogContent>
-      <DialogContent>
-        <Grid container spacing={3} alignItems={'center'}>
-          <Grid item>
-            <TextField
-              margin="dense"
-              type={'number'}
-              label={'Tempo'}
-              value={tempoMap[0]}
-              onChange={e => setTempoMap({ 0: parseFloat(e.target.value) })}
-            />
-          </Grid>
-          <Grid item>
-            <Button variant={'contained'} onClick={tap} title={buttonInfo('Tap Tempo', 'Space')}>Tap</Button>
-          </Grid>
-          <Grid item>
-            <TextField
-              margin="dense"
-              label={'Key'}
-              value={'C Maj'}
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              margin="dense"
-              type={'number'}
-              label={'Project length in bars'}
-              value={length}
-              onChange={e => setLength(parseInt(e.target.value) / TIME_CONVERSION_RESOLUTION)}
-            />
-          </Grid>
-        </Grid>
-      </DialogContent>
-      <DialogContent>
-        <TextField
-          margin="dense"
-          label="Number of channels to create"
-          type={'number'}
-          fullWidth
-          value={numChannels}
-          onChange={e => setNumChannels(parseInt(e.target.value))}
-        />
-      </DialogContent>
-      <DialogContent>
-        <CustomToggleButtonGroup
-          value={channelType}
-          exclusive
-          onChange={(_, newValue) => setChannelType(newValue)}
-          size={'large'}
-        >
-          <CustomToggleButton value={ChannelType.AUDIO}>
-            <Typography variant={'overline'}>Audio Channels</Typography>
-          </CustomToggleButton>
-          <CustomToggleButton value={ChannelType.INSTRUMENT}>
-            <Typography variant={'overline'}>Software Instrument Channels</Typography>
-          </CustomToggleButton>
-        </CustomToggleButtonGroup>
-      </DialogContent>
-      <DialogContent>
-        <DialogContentText>
-          <Alert severity="info">You can always change all the parameters later inside the editor.</Alert>
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => onCancel && onCancel } color="default">
-          Cancel
-        </Button>
-        <Button onClick={() => onCreate && onCreate(channelType, numChannels)} color="primary">
-          Create
-        </Button>
-      </DialogActions>
-    </Dialog>
+          </Text>
+          <Divider mt={4}/>
+          <FormControl isRequired marginY={4}>
+            <FormLabel>Project Name</FormLabel>
+            <Input
+              type="text"
+              id="name"
+              name={'name'}
+              aria-describedby="name-helper-text"
+              onChange={e => setName(e.target.value)}
+              value={name}/>
+          </FormControl>
+          <Flex marginY={4}>
+            <FormControl isRequired flex={2}>
+              <FormLabel>Tempo</FormLabel>
+              <NumberInput value={tempoMap[0]} onChange={val => setTempoMap({ 0: parseFloat(val) })}>
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+            </FormControl>
+            <Button flex={1} colorScheme={'teal'} onClick={tap} title={buttonInfo('Tap Tempo', 'Space')}>
+              Tap
+            </Button>
+          </Flex>
+          <FormControl isRequired flex={2}>
+            <FormLabel>Project Length</FormLabel>
+            <NumberInput value={length / TIME_CONVERSION_RESOLUTION} onChange={val => setLength(parseInt(val) / TIME_CONVERSION_RESOLUTION)}>
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </FormControl>
+
+          <FormControl isRequired flex={2}>
+            <FormLabel>Create Channels</FormLabel>
+            <NumberInput value={numChannels} onChange={val => setNumChannels(parseInt(val))}>
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </FormControl>
+
+          <HStack {...group}>
+            {options.map((value) => {
+              const radio = getRadioProps({ value });
+
+              return (
+                <RadioCard key={value} {...radio}>
+                  {channelTypeToLabel(value)}
+                </RadioCard>
+              )
+            })}
+          </HStack>
+
+          <Alert status="info">
+            <AlertIcon />
+            <AlertDescription>You can always change all the parameters later inside the editor.</AlertDescription>
+          </Alert>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button colorScheme="teal" mr={3} onClick={() => onCreate && onCreate(channelType, numChannels)}>
+            Create
+          </Button>
+          <Button variant="ghost" onClick={onClose}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 }
 

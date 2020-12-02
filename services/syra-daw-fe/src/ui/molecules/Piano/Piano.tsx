@@ -4,13 +4,16 @@ import React, { useCallback } from 'react';
 import * as Tone from 'tone';
 import { MidiNumbers } from 'piano-utils';
 import { getAllMidiNumbersInRange, getNaturalKeyWidthRatio, getRelativeKeyPosition } from '../../../utils/keyboardMidiHelper';
-import { AccidentalKey, KeyLabel, NaturalKey, PianoContainer } from './Piano.styled';
 import useUpdateMidiStore from '../../../hooks/midi/useUpdateMidiStore';
 import { useRecoilValue } from 'recoil';
 import { keyboardMidiStore } from '../../../recoil/keyboardMidiStore';
 import usePianoRoll from '../../../hooks/ui/usePianoRoll';
 import { OnMidiEvent } from '../../../types/Midi';
 import useConnectPianoRollToSelectedChannel from '../../../hooks/midi/useConnectPianoRollToSelectedChannel';
+import PianoContainer from './components/PianoContainer';
+import AccidentalKey from "./components/AccidentalKey";
+import NaturalKey from "./components/NaturalKey";
+import KeyLabel from "./components/KeyLabel";
 
 interface Props {
   min: number;
@@ -45,7 +48,7 @@ const Piano = (props: Props) => {
           width: `${isAccidental ? 0.65 * naturalKeyWidth : naturalKeyWidth}%`,
         };
 
-        const KeyComponent = isAccidental ? AccidentalKey : NaturalKey
+        const KeyComponent = isAccidental ? AccidentalKey : NaturalKey;
 
         return (
           <KeyComponent

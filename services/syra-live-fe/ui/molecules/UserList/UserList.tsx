@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Box, Flex, List, ListItem, Text, Link as ChakraLink } from "@chakra-ui/core";
+import { Avatar, Box, Flex, List, ListItem, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { FeedUserFragment } from "../../../gql/generated";
 import { useRouter } from "next/router";
 import Link from 'next/link';

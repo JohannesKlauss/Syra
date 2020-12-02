@@ -1,6 +1,6 @@
 import React from 'react';
 import PageBox from '../../ui/atoms/PageBox/PageBox';
-import { Box, Flex, PseudoBox } from '@chakra-ui/core';
+import { Box, Flex } from '@chakra-ui/react';
 import ProfileBox from '../../ui/molecules/Feed/ProfileBox/ProfileBox';
 import FollowRecommendationsBox from '../../ui/molecules/Feed/FollowRecommendationsBox/FollowRecommendationsBox';
 import FeedStack from '../../ui/molecules/Feed/FeedStack/FeedStack';
@@ -13,14 +13,14 @@ export default function Feed() {
       <PageBox>
         <Flex>
           <Box flex={'none'}>
-            <PseudoBox w={'20rem'}>
+            <Box w={'20rem'}>
               <Box pos={'fixed'} w={'24rem'}>
                 <ProfileBox />
                 <FollowRecommendationsBox />
               </Box>
-            </PseudoBox>
+            </Box>
           </Box>
-          <PseudoBox marginX={12} />
+          <Box marginX={12} />
           <Box w={'100%'}>
             <CreateFeedItem />
             <FeedStack />

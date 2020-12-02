@@ -1,6 +1,6 @@
 import React from "react";
 import { BsChevronCompactDown } from "react-icons/bs";
-import { Box, Button, IconButton, Image, Text } from "@chakra-ui/core";
+import { Box, Button, IconButton, Image, Text } from "@chakra-ui/react";
 import { useTranslation } from 'react-i18next';
 
 interface Props {
@@ -23,7 +23,7 @@ function LandingHero({ onClickSignUp }: Props) {
         <Text fontSize={"xl"} marginY={6} fontWeight={600}>
           {t('landingHeroText')}
         </Text>
-        <Button rounded={"full"} variantColor={"cyan"} onClick={onClickSignUp}>Try for free</Button>
+        <Button rounded={"full"} colorScheme={"cyan"} onClick={onClickSignUp}>Try for free</Button>
       </Box>
       <Box position={"absolute"} top={32} right={64} w={"400px"} textAlign={"center"} marginTop={'-20px'}>
         <Text fontSize={"112px"} fontWeight={700}>
@@ -40,7 +40,7 @@ function LandingHero({ onClickSignUp }: Props) {
           {t('Advanced AI algorithms.')}<br/>
         </Text>
       </Box>
-      <IconButton icon={BsChevronCompactDown} aria-label={"scroll-down"} position={"absolute"} bottom={4} left={"50%"}
+      <IconButton icon={<BsChevronCompactDown/>} aria-label={"scroll-down"} position={"absolute"} bottom={4} left={"50%"}
                   transform={"translateX(-50%)"} onClick={() => typeof window !== undefined && window.scrollTo({top: window.visualViewport.height - 72})}/>
     </Box>
   );

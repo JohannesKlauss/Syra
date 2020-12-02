@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/react';
 import { FeedUserFragment } from '../../../../gql/generated';
 import FollowAction from '../../../atoms/FollowAction/FollowAction';
 import MessageAction from "../../../atoms/MessageAction/MessageAction";

@@ -1,6 +1,6 @@
 import React from 'react';
 import { UserLinkFragment } from '../../../gql/generated';
-import { Box, Text } from '@chakra-ui/core';
+import { Box, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import UserList from '../UserList/UserList';
 
