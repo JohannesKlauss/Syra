@@ -54,7 +54,7 @@
     "@testing-library/jest-dom": "5.11.6",
     "@testing-library/react": "11.2.2",
     "@testing-library/react-hooks": "3.4.2",
-    "@testing-library/user-event": "12.3.0",
+    "@testing-library/user-event": "12.5.0",
     "@welldone-software/why-did-you-render": "6.0.3",
     "storybook-addon-apollo-client": "3.0.0",
     "storybook-dark-mode": "1.0.3",
