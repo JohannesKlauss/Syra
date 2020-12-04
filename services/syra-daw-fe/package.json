@@ -10,7 +10,7 @@
     "@inlet/react-pixi": "6.0.5",
     "array-move": "3.0.1",
     "fm.liveswitch": "1.9.4-33424",
-    "framer-motion": "2.9.4",
+    "framer-motion": "2.9.5",
     "graphql": "15.4.0",
     "hotkeys-js": "3.8.1",
     "konva": "7.2.0",
