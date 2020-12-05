@@ -30,7 +30,7 @@
     "@typescript-eslint/parser": "4.9.0",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.2.2",
-    "eslint": "7.14.0",
+    "eslint": "7.15.0",
     "eslint-config-prettier": "6.15.0",
     "eslint-config-react-app": "6.0.0",
     "eslint-plugin-flowtype": "5.2.0",
@@ -44,7 +44,7 @@
     "@types/react": "17.0.0",
     "@typescript-eslint/eslint-plugin": "4.9.0",
     "@typescript-eslint/parser": "4.9.0",
-    "eslint": "7.14.0"
+    "eslint": "7.15.0"
   },
   "prettier": {
     "printWidth": 120,
