@@ -14228,10 +14228,10 @@ klona@^2.0.4:
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
   integrity sha512-ZRbnvdg/NxqzC7L9Uyqzf4psi1OM4Cuc+sJAkQPjO6XkQIJTNbfK2Rsmbw8fx1p2mkZdp2FZYo2+LwXYY/uwIA==
 
-konva@7.2.0:
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/konva/-/konva-7.2.0.tgz#5a670a2a953463e04ecbe48bddc9103b89887f5a"
-  integrity sha512-YgSNIV588TWZuVlgP9vD+/TpLIpyNAw3ZwhXGCSC/6wKVKo/z5rqWMedw9Mg8MhvvSLWlEFQXEMPbgNJLIHVgw==
+konva@7.2.1:
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-7.2.1.tgz#81fa8c9237b76b1d37320e8bd7e17e72217a321e"
+  integrity sha512-Odza46JhOxVxpknjM23KGjNywQvHHoxWC0Mp6In2EUpE+fJ1Yli7NGOtAcDF7rIRA8dxc7hqDeGJtDhqWfFIsg==
 
 language-subtag-registry@~0.3.2:
   version "0.3.21"
