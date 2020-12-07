@@ -30,9 +30,9 @@ export default function useRegionSelfDestruct(regionId: string) {
   cbRef.current = shouldSelfDestruct;
 
   useEffect(() => {
-    if (shouldSelfDestruct()) {
-      // If the
+    if (cbRef.current()) {
+      // If the region has no valid audio buffer it will check again in three seconds. If it's still empty the region self destructs.
       setTimeout(() => cbRef.current(true), 3000);
     }
-  }, [shouldSelfDestruct, cbRef]);
+  }, [cbRef]);
 }

@@ -3,7 +3,7 @@ import Konva from 'konva';
 import { mapDbToUiMeterVal } from '../../../utils/levelMeterMapping';
 import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import { Box } from '@chakra-ui/react';
+import { Box, useTheme } from '@chakra-ui/react';
 
 const uniqid = require('uniqid');
 const METER_WIDTH = 24;
@@ -12,6 +12,7 @@ function LevelMeterVertical() {
   const containerId = useRef(uniqid('konva-container-'));
   const canvas = useRef<HTMLDivElement>(null);
   const channelId = useContext(ChannelContext);
+  const theme = useTheme();
   const { rmsMeter } = useBackboneChannel(channelId);
 
   useEffect(() => {
@@ -30,23 +31,15 @@ function LevelMeterVertical() {
         y: 0,
         width: METER_WIDTH,
         height: 0,
-        fill: 'teal.200',
+        fill: theme.colors.green[200],
         offsetY: -100,
       });
 
       layer.add(rms);
       stage.add(layer);
 
-      let max = -1000;
-
       const anim = new Konva.Animation(() => {
         const val = rmsMeter.getValue() as number;
-
-        if (val > max) {
-          max = val;
-
-          console.log('val', val);
-        }
 
         let rmsHeight = mapDbToUiMeterVal(val);
 
@@ -56,7 +49,7 @@ function LevelMeterVertical() {
 
         rms.height(rmsHeight);
         rms.offsetY(-160 + rmsHeight);
-        rms.fill(val >= -4 ? (val >= -1 ? 'red.200' : 'yellow.200') : 'teal.200');
+        rms.fill(val >= -4 ? (val >= -1 ? theme.colors.red[200] : theme.colors.yellow[200]) : theme.colors.green[200]);
       }, layer);
 
       anim.start();

@@ -19,7 +19,7 @@ function VerticalChannelList() {
   useEffect(() => {
     if (ids.length === 0) {
       (async () => {
-        await createChannel(ChannelType.AUDIO, 0, 'Audio 1');
+        await createChannel(ChannelType.INSTRUMENT, 0, 'Instrument 1');
       })();
     }
   }, [ids, createChannel]);

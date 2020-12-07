@@ -38,7 +38,6 @@ function audioNodesFactory(nodes: Map<string, any>) {
     volume: mixerNodeFactory(nodes, ChannelNode.VOLUME, Tone.Volume) as Tone.Volume,
     pan: mixerNodeFactory(nodes, ChannelNode.PAN, Tone.Panner) as Tone.Panner,
     solo: mixerNodeFactory(nodes, ChannelNode.SOLO, Tone.Solo) as Tone.Solo,
-    channel: mixerNodeFactory(nodes, ChannelNode.CHANNEL, Tone.Channel) as Tone.Channel,
     rmsMeter: mixerNodeFactory(nodes, ChannelNode.METER, Tone.Meter, {smoothing: 0.9}) as Tone.Meter,
     recorder: recorderFactory(nodes),
   };
@@ -70,14 +69,18 @@ export function instantiateMixer() {
       Tone.disconnect(retNodes.players);
     };
 
-    const rewireAudio = (plugins: AudioWorkletNode[]) => {
-      if (retNodes.recorder) {
+    const rewireAudio = (plugins: AudioWorkletNode[], audioNode?: AudioWorkletNode) => {
+      if (retNodes.recorder && !audioNode) {
         Tone.connectSeries(retNodes.audioIn, retNodes.recorder);
       }
 
       disconnect();
 
-      Tone.connectSeries(retNodes.players, ...plugins, retNodes.volume, retNodes.rmsMeter, retNodes.pan, retNodes.solo, Tone.Destination);
+      if (audioNode) {
+        Tone.connectSeries(audioNode, ...plugins, retNodes.volume, retNodes.rmsMeter, retNodes.pan, retNodes.solo, Tone.Destination);
+      } else {
+        Tone.connectSeries(retNodes.players, ...plugins, retNodes.volume, retNodes.rmsMeter, retNodes.pan, retNodes.solo, Tone.Destination);
+      }
     };
 
     const updateArming = async (isArmed: boolean = false) => {

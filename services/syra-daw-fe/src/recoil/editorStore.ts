@@ -10,6 +10,11 @@ const showPianoRoll = atom({
   default: false
 });
 
+const showSettings = atom({
+  key: 'editorStore/showSettings',
+  default: false
+});
+
 const showVideo = atom({
   key: 'editorStore/showVideo',
   default: false
@@ -18,5 +23,6 @@ const showVideo = atom({
 export const editorStore = {
   showMixer,
   showPianoRoll,
+  showSettings,
   showVideo,
 };

@@ -24,6 +24,7 @@ function LevelMeterText() {
   }
 
   useEffect(() => {
+    // TODO: THIS IS A BIT STUPID BECAUSE WE DON'T SEE LEVELS WHEN WE ARE NOT PLAYING OR RECORDING. I.E. SYNTHS OR INPUT MONITORING DOESN'T WORK THAT WAY.
     if (isPlaying || isRecording) {
       setLevel(-95);
       intervalRef.current = setInterval(anim, 60);
@@ -35,7 +36,7 @@ function LevelMeterText() {
   }, [isPlaying, isRecording]);
 
   return (
-    <Box w={'32%'} bg={'gray.800'} boxShadow={'inner'} p={2} rounded={'md'}>
+    <Box w={'35%'} bg={'gray.800'} boxShadow={'inner'} p={2} rounded={'md'}>
       <Text textAlign={'center'}>
         {level <= -95 ? '-∞' : level.toFixed(1)}
       </Text>

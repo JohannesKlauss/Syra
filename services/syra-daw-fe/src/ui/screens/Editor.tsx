@@ -8,6 +8,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { Box } from '@chakra-ui/react';
 import useWebMidi from "../../hooks/midi/useWebMidi";
 import TransportView from "../molecules/Transport/TransportView";
+import Settings from '../organisms/dialogues/Settings/Settings';
 
 function Editor() {
   const showMixer = useRecoilValue(editorStore.showMixer);
@@ -26,6 +27,9 @@ function Editor() {
           <Box pos={'fixed'} bottom={0} left={0} w={'100%'} zIndex={1}>
             <TransportView/>
           </Box>
+          <>
+            <Settings/>
+          </>
         </Box>
       </>
   );
