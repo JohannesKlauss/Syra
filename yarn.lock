@@ -3962,7 +3962,7 @@
     global "^4.3.2"
     regenerator-runtime "^0.13.7"
 
-"@storybook/api@6.1.10":
+"@storybook/api@6.1.10", "@storybook/api@6.x":
   version "6.1.10"
   resolved "https://registry.yarnpkg.com/@storybook/api/-/api-6.1.10.tgz#7261c43ace576201945bbbc8289b7e0adc174a57"
   integrity sha512-SjAhQ261KagU29jraNZo0hCn8XxuEl8i6WWwJiQyPzk1Grw3Rag/fl2FpQnNHj+3O87PfRrJLSVnGQZcfiW5zw==
@@ -4083,7 +4083,7 @@
     core-js "^3.0.1"
     global "^4.3.2"
 
-"@storybook/components@6.1.10":
+"@storybook/components@6.1.10", "@storybook/components@6.x":
   version "6.1.10"
   resolved "https://registry.yarnpkg.com/@storybook/components/-/components-6.1.10.tgz#1c82504ebdb24c317168745600fb5264f572694e"
   integrity sha512-n3+tlSFt+hapNxkASpAIEhyXDR7xmE/x+LW4xxuYfRRxvOy0zAgcrgY8BkDmxWzGH3M/Ev5uVVVdxaRIw7i2SA==
@@ -20514,12 +20514,14 @@ store2@^2.7.1:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.12.0.tgz#e1f1b7e1a59b6083b2596a8d067f6ee88fd4d3cf"
   integrity sha512-7t+/wpKLanLzSnQPX8WAcuLCCeuSHoWdQuh9SB3xD0kNOM38DNf+0Oa+wmvxmYueRzkmh6IcdKFtvTa+ecgPDw==
 
-storybook-addon-apollo-client@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/storybook-addon-apollo-client/-/storybook-addon-apollo-client-3.0.0.tgz#9f1b33c4dc31e43471f6ad32215e36dfd0cf3f8c"
-  integrity sha512-OU4wsfBpQIuuALSmJKIJASuKOTLXIrLOnRY2MwpuobkNDLiUr9HMx2T4ioGGTvpqDKf622zTvzSirJYTMipijg==
+storybook-addon-apollo-client@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/storybook-addon-apollo-client/-/storybook-addon-apollo-client-4.0.0.tgz#d4dadee52b5bf34dffba549626e80826de7fc82c"
+  integrity sha512-CCRUDM5lbtN04pyfqrVlhEAT1lUCYjdcKzB4TMqZEg9ouCf/q4c7BKaV5oi47EPvFgsck9G9dwGuAiYnFHoWZA==
   dependencies:
     "@storybook/addons" "6.x"
+    "@storybook/api" "6.x"
+    "@storybook/components" "6.x"
 
 storybook-addon-next-router@2.0.2:
   version "2.0.2"
