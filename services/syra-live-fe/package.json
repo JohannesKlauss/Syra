@@ -38,7 +38,7 @@
     "react-hotkeys-hook": "2.4.0",
     "recoil": "0.1.2",
     "sass": "1.30.0",
-    "stream-chat": "2.8.4",
+    "stream-chat": "2.9.0",
     "stream-chat-react": "3.3.0",
     "subscriptions-transport-ws": "0.9.18",
     "typewriter-effect": "2.17.0",
