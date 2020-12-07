@@ -20497,10 +20497,10 @@ store2@^2.7.1:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.12.0.tgz#e1f1b7e1a59b6083b2596a8d067f6ee88fd4d3cf"
   integrity sha512-7t+/wpKLanLzSnQPX8WAcuLCCeuSHoWdQuh9SB3xD0kNOM38DNf+0Oa+wmvxmYueRzkmh6IcdKFtvTa+ecgPDw==
 
-storybook-addon-apollo-client@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/storybook-addon-apollo-client/-/storybook-addon-apollo-client-4.0.0.tgz#d4dadee52b5bf34dffba549626e80826de7fc82c"
-  integrity sha512-CCRUDM5lbtN04pyfqrVlhEAT1lUCYjdcKzB4TMqZEg9ouCf/q4c7BKaV5oi47EPvFgsck9G9dwGuAiYnFHoWZA==
+storybook-addon-apollo-client@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/storybook-addon-apollo-client/-/storybook-addon-apollo-client-4.0.1.tgz#6821082ba2ba94b73ef2b5ce9be8b515fc9a3fa6"
+  integrity sha512-NkTpMVuxOpw+XwRyKBcfuzOFRN3pqg0sj3kR1mpQaYJsTKxEi4P7MLZ6o/JPyI6D6hEKRpkwUcPWCUXj7ntJmg==
   dependencies:
     "@storybook/addons" "6.x"
     "@storybook/api" "6.x"
