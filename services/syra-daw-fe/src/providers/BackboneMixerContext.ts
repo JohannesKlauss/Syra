@@ -69,15 +69,15 @@ export function instantiateMixer() {
       Tone.disconnect(retNodes.players);
     };
 
-    const rewireAudio = (plugins: AudioWorkletNode[], audioNode?: AudioWorkletNode) => {
-      if (retNodes.recorder && !audioNode) {
+    const rewireAudio = (plugins: AudioWorkletNode[], virtualInstrumentNode?: AudioWorkletNode) => {
+      if (retNodes.recorder && !virtualInstrumentNode) {
         Tone.connectSeries(retNodes.audioIn, retNodes.recorder);
       }
 
       disconnect();
 
-      if (audioNode) {
-        Tone.connectSeries(audioNode, ...plugins, retNodes.volume, retNodes.rmsMeter, retNodes.pan, retNodes.solo, Tone.Destination);
+      if (virtualInstrumentNode) {
+        Tone.connectSeries(virtualInstrumentNode, ...plugins, retNodes.volume, retNodes.rmsMeter, retNodes.pan, retNodes.solo, Tone.Destination);
       } else {
         Tone.connectSeries(retNodes.players, ...plugins, retNodes.volume, retNodes.rmsMeter, retNodes.pan, retNodes.solo, Tone.Destination);
       }

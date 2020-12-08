@@ -22,8 +22,6 @@ const ChannelBody: React.FC = React.memo(() => {
   const onChangeVolume = useCallback(newVal => {
     volume.set({volume: newVal});
 
-    console.log('volume', volume.get().volume);
-
     setVolumeFaderValue(newVal < -95 ? '-∞' : newVal.toFixed(1));
   }, [volume]);
 
