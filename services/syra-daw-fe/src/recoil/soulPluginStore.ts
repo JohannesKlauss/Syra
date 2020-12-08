@@ -54,6 +54,16 @@ const availableSoulInstruments = atom<AvailableSoulPatch[]>({
       displayName: 'ElectroPiano',
       pathWasm: 'electroPiano',
       UID: 'com.yourcompany.ElectroPiano'
+    },
+    {
+      displayName: 'LatelyBass',
+      pathWasm: 'latelyBass',
+      UID: 'com.yourcompany.LatelyBass'
+    },
+    {
+      displayName: 'SY-09',
+      pathWasm: 'sy09',
+      UID: 'dev.soul.examples.SY09'
     }
   ],
 });
