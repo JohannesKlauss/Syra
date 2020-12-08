@@ -4,7 +4,7 @@ import { projectStore } from '../../../recoil/projectStore';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { transportStore } from '../../../recoil/transportStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 
 function BarsAndBeats() {
   const [bars, setBars] = useState(0);

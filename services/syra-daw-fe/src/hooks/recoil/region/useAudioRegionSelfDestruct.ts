@@ -7,7 +7,7 @@ import useDeleteAudioRegion from './useDeleteAudioRegion';
 // This hook is used to clean up any broken regions.
 // The region listen to their audioBuffer state and if it's broken (e.g. it has a pointer, but that pointer has no actual buffer)
 // Then the region will check again in a few seconds and self destruct if the statement is still true.
-export default function useRegionSelfDestruct(regionId: string) {
+export default function useAudioRegionSelfDestruct(regionId: string) {
   const audioBuffer = useRecoilValue(regionStore.audioBuffer(regionId));
   const audioBufferPointer = useRecoilValue(regionStore.audioBufferPointer(regionId));
   const isPlaying = useRecoilValue(transportStore.isPlaying);

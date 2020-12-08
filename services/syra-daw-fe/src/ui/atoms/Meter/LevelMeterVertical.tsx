@@ -54,7 +54,7 @@ function LevelMeterVertical() {
 
       anim.start();
     }
-  }, [canvas, containerId, rmsMeter]);
+  }, [canvas, containerId, rmsMeter, theme.colors.red, theme.colors.yellow, theme.colors.green]);
 
   return <Box id={containerId.current} ref={canvas} w={'100%'} h={160} mt={8} overflow={'hidden'} pos={'relative'} />;
 }

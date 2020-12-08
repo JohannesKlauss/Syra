@@ -1,0 +1,6 @@
+export enum SendMidiMode {
+  ALWAYS,
+  WHEN_ARMED,
+  WHEN_PLAYBACK,
+  WHEN_RECORDING_AND_ARMED,
+}

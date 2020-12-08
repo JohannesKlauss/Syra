@@ -3,8 +3,8 @@ import { ChannelContext } from '../../../../providers/ChannelContext';
 import { useRecoilValue } from 'recoil';
 import { regionStore } from '../../../../recoil/regionStore';
 import { RegionContext } from '../../../../providers/RegionContext';
-import AudioRegion from '../AudioRegion/AudioRegion';
 import { Box } from '@chakra-ui/react';
+import RegionDecider from "./RegionDecider";
 
 function RegionList() {
   const channelId = useContext(ChannelContext);
@@ -14,7 +14,7 @@ function RegionList() {
     <Box top={0} left={0} pos={'absolute'} w={'100%'} h={'100%'}>
       {regions.map(id => (
         <RegionContext.Provider key={id} value={id}>
-          <AudioRegion/>
+          <RegionDecider/>
         </RegionContext.Provider>
       ))}
     </Box>

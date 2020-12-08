@@ -8,27 +8,12 @@ import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { DPR } from '../../../const/ui';
 import { Box } from '@chakra-ui/react';
 
-const Bar = PixiComponent<{ x: number, y: number, height: number, color: number }, Graphics>('Rectangle', {
-  create: () => new Graphics(),
-  applyProps: (instance, oldProps, props) => {
-    const { x, y, height, color } = props;
-
-    if (height !== oldProps.height) {
-      instance.clear();
-      instance.beginFill(color);
-      instance.drawRect(x, y, 1, height / 2);
-      instance.endFill();
-    }
-  },
-});
-
 const WaveformHalf = PixiComponent<{ peaks: number[], trackHeight: number, color: number, smoothing: number, inverse?: boolean }, Graphics>('Rectangle', {
   create: () => new Graphics(),
   applyProps: (instance, oldProps, props) => {
     const { peaks, trackHeight, color, smoothing, inverse } = props;
 
     const points = [0, trackHeight / 2];
-    const subtractFrom = inverse ? 255 : 0;
 
     if (trackHeight !== oldProps.trackHeight) {
       for (let i = 0; i < peaks.length; i += smoothing) {
@@ -38,8 +23,6 @@ const WaveformHalf = PixiComponent<{ peaks: number[], trackHeight: number, color
 
       points.push(peaks.length + 1);
       points.push(trackHeight / 2);
-
-      console.log(points);
 
       instance.clear();
       instance.beginFill(color);
@@ -54,7 +37,7 @@ interface Props {
   trimStart: number;
 }
 
-function WaveformV4({ bufferId, trimStart }: Props) {
+function WaveformV4({ bufferId }: Props) {
   useDownsampleAudioBuffer(bufferId);
 
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);

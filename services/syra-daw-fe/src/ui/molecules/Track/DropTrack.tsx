@@ -23,7 +23,7 @@ function DropTrack() {
     arrangeWindowRef,
   );
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'audio/mpeg, audio/wav' });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'audio/mpeg, audio/wav, audio/midi' });
 
   const [lastAnalyzedBpmFromImport, setLastAnalyzedBpmFromImport] = useRecoilState(
     projectStore.lastAnalyzedBpmFromImport,
@@ -44,7 +44,7 @@ function DropTrack() {
       //setCurrentTempo(lastAnalyzedBpmFromImport!);
       setLastAnalyzedBpmFromImport(null);
     }
-  }, [lastAnalyzedBpmFromImport !== null])
+  }, [setLastAnalyzedBpmFromImport, lastAnalyzedBpmFromImport, toast])
 
   return (
     <>

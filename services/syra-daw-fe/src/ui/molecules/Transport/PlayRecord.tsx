@@ -59,7 +59,7 @@ function PlayRecord() {
     }
 
     setIsPlaying((currVal) => !currVal);
-  }, [setIsPlaying, transport, isPlaying, isRecording, cycleStart, isCycleActive, lengthInQuarters]);
+  }, [setIsPlaying, transport, isPlaying, isRecording, cycleStart, isCycleActive, lengthInQuarters, setCurrentTransportQuarter]);
 
   const onClickReset = useCallback(() => setCurrentTransportQuarter(0), [setCurrentTransportQuarter]);
 

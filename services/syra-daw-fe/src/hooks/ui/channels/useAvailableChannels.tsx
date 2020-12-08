@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { ChannelType } from '../../../types/Channel';
 import { buttonInfo } from '../../../utils/text';
 import { channelTypeMap } from '../../../const/channels';

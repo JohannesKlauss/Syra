@@ -8,6 +8,7 @@
     "@emotion/react": "11.1.2",
     "@emotion/styled": "11.0.0",
     "@inlet/react-pixi": "6.0.5",
+    "@tonejs/midi": "2.0.25",
     "array-move": "3.0.1",
     "fm.liveswitch": "1.9.4-33424",
     "framer-motion": "2.9.5",

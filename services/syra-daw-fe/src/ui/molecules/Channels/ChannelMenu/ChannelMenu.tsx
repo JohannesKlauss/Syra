@@ -6,10 +6,7 @@ import { useRecoilState } from 'recoil';
 import useDeleteChannel from '../../../../hooks/recoil/channel/useDeleteChannel';
 import { MenuItem, MenuList } from '@chakra-ui/react';
 
-interface Props {
-}
-
-function ChannelMenu({}: Props) {
+function ChannelMenu() {
   const channelId = useContext(ChannelContext);
   const [color, setColor] = useRecoilState(channelStore.color(channelId));
   const deleteChannel = useDeleteChannel();

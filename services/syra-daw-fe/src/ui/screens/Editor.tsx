@@ -3,8 +3,7 @@ import HorizontalChannelList from '../molecules/Channels/HorizontalChannels/Hori
 import ArrangeWindow from '../molecules/ArrangeWindow/ArrangeWindow';
 import Piano from '../molecules/Piano/Piano';
 import { editorStore } from '../../recoil/editorStore';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { useHotkeys } from 'react-hotkeys-hook';
+import { useRecoilValue } from 'recoil';
 import { Box } from '@chakra-ui/react';
 import useWebMidi from "../../hooks/midi/useWebMidi";
 import TransportView from "../molecules/Transport/TransportView";
@@ -13,10 +12,8 @@ import Settings from '../organisms/dialogues/Settings/Settings';
 function Editor() {
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
-  const [showVideo, setShowVideo] = useRecoilState(editorStore.showVideo);
 
   useWebMidi();
-  useHotkeys('v', () => setShowVideo(currVal => !currVal));
 
   return (
       <>

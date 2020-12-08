@@ -5,11 +5,11 @@ import { regionStore } from '../../../../recoil/regionStore';
 import { useRecoilValue } from 'recoil';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 import useRegionDawRecordingSync from '../../../../hooks/ui/region/useRegionDawRecordingSync';
-import useRegionScheduler from '../../../../hooks/tone/useRegionScheduler';
+import useAudioRegionScheduler from '../../../../hooks/tone/useAudioRegionScheduler';
 import ClonedAudioRegion from './ClonedAudioRegion';
-import ManipulationContainer from './Manipulations/ManipulationContainer';
+import ManipulationContainer from '../Manipulations/ManipulationContainer';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
-import useRegionSelfDestruct from '../../../../hooks/recoil/region/useRegionSelfDestruct';
+import useAudioRegionSelfDestruct from '../../../../hooks/recoil/region/useAudioRegionSelfDestruct';
 import useQuarterToPixel from '../../../../hooks/ui/useQuarterToPixel';
 
 /**
@@ -35,8 +35,8 @@ function AudioRegion() {
   const [isMoving, setIsMoving] = useState(false);
 
   useRegionDawRecordingSync();
-  useRegionScheduler();
-  useRegionSelfDestruct(regionId);
+  useAudioRegionScheduler();
+  useAudioRegionSelfDestruct(regionId);
 
   useEffect(() => {
     if (!isMoving) {
@@ -53,7 +53,7 @@ function AudioRegion() {
         <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)}
                                onChangeIsMoving={isMoving => setIsMoving(isMoving)}
                                onUpdateTopOffset={cssTop => setTop(cssTop)}/>
-        <TopBar>
+        <TopBar color={color}>
           <RegionName color={color}>{name}</RegionName>
         </TopBar>
       </BaseContainer>

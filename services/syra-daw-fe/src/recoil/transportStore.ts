@@ -5,7 +5,7 @@ import { Bar } from '../types/Ui';
 import { projectStore } from './projectStore';
 import { getSortedKeysOfEventMap } from '../utils/eventMap';
 import { arrangeWindowStore } from './arrangeWindowStore';
-import { convertTransportPositionStringToQuarters, getToneJsPositionInQuarter } from '../utils/tonejs';
+import { getToneJsPositionInQuarter } from '../utils/tonejs';
 
 // Internal atoms are just used to sync everything with the ToneJs transport itself. Never expose them to the rest of the app.
 

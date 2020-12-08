@@ -5,7 +5,6 @@ import { regionStore } from '../../../recoil/regionStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { isBetween } from '../../../utils/numbers';
 import useCutAudioRegion from '../region/useCutAudioRegion';
-import usePixelToSeconds from '../../ui/usePixelToSeconds';
 import usePixelToQuarter from '../../ui/usePixelToQuarter';
 
 export default function useCutRegionAtMarqueeIndicator() {

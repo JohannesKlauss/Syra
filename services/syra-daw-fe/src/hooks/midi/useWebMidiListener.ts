@@ -1,17 +1,15 @@
 import { useSetRecoilState } from "recoil";
 import { keyboardMidiStore } from "../../recoil/keyboardMidiStore";
-import { useToast } from "@chakra-ui/react";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import WebMidi from "webmidi";
 import useSelectLastMidiDevice from "./useSelectLastMidiDevice";
 
 export default function useWebMidiListener() {
   const setMidiDevice = useSetRecoilState(keyboardMidiStore.selectedMidiDevice);
   const setIsMidiEnabled = useSetRecoilState(keyboardMidiStore.isMidiEnabled);
-  const toast = useToast();
   const selectLastMidiDevice = useSelectLastMidiDevice();
 
-  const showToast = useCallback((description: string) => {
+  /*const showToast = useCallback((description: string) => {
     toast({
       title: "Updated MIDI I/O.",
       description,
@@ -19,7 +17,7 @@ export default function useWebMidiListener() {
       duration: 9000,
       isClosable: true,
     });
-  }, [toast]) ;
+  }, [toast]) ;*/
 
   useEffect(() => {
     WebMidi.enable(function(error) {

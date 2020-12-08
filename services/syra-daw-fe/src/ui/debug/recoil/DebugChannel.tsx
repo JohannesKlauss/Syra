@@ -9,7 +9,7 @@ import { Text, Button, Checkbox, Input, SimpleGrid } from '@chakra-ui/react';
 function DebugChannel() {
   const channelId = useContext(ChannelContext);
   const [name, setName] = useRecoilState(channelStore.name(channelId));
-  const [type, setType] = useRecoilState(channelStore.type(channelId));
+  const [type] = useRecoilState(channelStore.type(channelId));
   const [color, setColor] = useRecoilState(channelStore.color(channelId));
   const [isArmed, setIsArmed] = useRecoilState(channelStore.isArmed(channelId));
   const [isSolo, setIsSolo] = useRecoilState(channelStore.isSolo(channelId));

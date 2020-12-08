@@ -1,7 +1,7 @@
 import { atom, atomFamily, selectorFamily } from 'recoil';
 import { audioBufferStore } from './audioBufferStore';
 import { arrangeWindowStore } from './arrangeWindowStore';
-import { ARRANGE_GRID_WAVEFORM_SAMPLE_RATE } from '../const/ui';
+import { Note } from "@tonejs/midi/dist/Note";
 
 // Sets the time that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamily<number, string>({
@@ -25,13 +25,18 @@ const isRecording = atomFamily<boolean, string>({
   default: false,
 });
 
-// The seconds that the region get trimmed at the beginning (this is basically the offset in relation to the audio buffer)
+const isMidi = atomFamily<boolean, string>({
+  key: 'region/isMidi',
+  default: false,
+})
+
+// The seconds that the region get trimmed at the beginning (this is basically the offset in relation to the audio buffer or first midi note)
 const trimStart = atomFamily<number, string>({
   key: 'region/trimStart',
   default: 0,
 });
 
-// The seconds that the region get trimmed at the end (also in relation to the audio buffer duration)
+// The seconds that the region get trimmed at the end (also in relation to the audio buffer duration or first midi note)
 const trimEnd = atomFamily<number, string>({
   key: 'region/trimEnd',
   default: 0,
@@ -47,15 +52,22 @@ const audioBufferPointer = atomFamily<string | null, string>({
   default: null,
 });
 
+const midiNotes = atomFamily<Note[], string>({
+  key: 'region/midiNotes',
+  default: []
+})
+
 export interface RegionState {
   audioBuffer: AudioBuffer | null;
   start: number;
   isMuted: boolean;
   isSolo: boolean;
   isRecording: boolean;
+  isMidi: boolean;
   trimStart: number;
   trimEnd: number;
   name: string;
+  midiNotes: Note[];
 }
 
 const regionState = selectorFamily<RegionState, string>({
@@ -74,9 +86,11 @@ const regionState = selectorFamily<RegionState, string>({
       isSolo: get(isSolo(id)),
       isMuted: get(isMuted(id)),
       isRecording: get(isRecording(id)),
+      isMidi: get(isMidi(id)),
       trimEnd: get(trimEnd(id)),
       trimStart: get(trimStart(id)),
       name: get(name(id)),
+      midiNotes: get(midiNotes(id)),
     };
   }
 });
@@ -145,12 +159,14 @@ const occupiedArea = selectorFamily<[number, number], string>({
 export const regionStore = {
   start,
   name,
+  midiNotes,
   audioBuffer,
   audioBufferPointer,
   isSolo,
   isMuted,
   isRecording,
   isSelected,
+  isMidi,
   trimStart,
   trimEnd,
   regionState,

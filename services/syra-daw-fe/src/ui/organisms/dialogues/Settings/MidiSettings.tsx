@@ -1,14 +1,10 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
 import { keyboardMidiStore } from "../../../../recoil/keyboardMidiStore";
 import { useRecoilState } from "recoil";
 import { FormControl, FormLabel, Select } from '@chakra-ui/react';
 import WebMidi from "webmidi";
 
-interface Props {
-
-}
-
-const MidiSettings: React.FC<Props> = ({}) => {
+const MidiSettings: React.FC = () => {
   const [selectedMidiDevice, setSelectedMidiDevice] = useRecoilState(keyboardMidiStore.selectedMidiDevice);
 
   const updateSelectedMidiDevice = (e: React.ChangeEvent<HTMLSelectElement>) => {

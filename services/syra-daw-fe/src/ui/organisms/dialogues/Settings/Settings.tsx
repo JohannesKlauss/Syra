@@ -16,11 +16,7 @@ import MidiSettings from "./MidiSettings";
 import { editorStore } from "../../../../recoil/editorStore";
 import { useRecoilState } from "recoil";
 
-interface Props {
-
-}
-
-const Settings: React.FC<Props> = ({}) => {
+const Settings: React.FC = () => {
   const [showSettings, setShowSettings] = useRecoilState(editorStore.showSettings);
 
   return (

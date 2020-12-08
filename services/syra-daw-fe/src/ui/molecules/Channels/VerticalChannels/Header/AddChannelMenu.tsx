@@ -4,7 +4,7 @@ import useCreateChannel from '../../../../../hooks/recoil/channel/useCreateChann
 import { ChannelType } from '../../../../../types/Channel';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
-import {AiOutlinePlus} from 'react-icons/ai';
+import { IoIosAdd } from 'react-icons/io';
 
 function AddChannelMenu() {
   const actions = useAvailableChannels();
@@ -19,7 +19,7 @@ function AddChannelMenu() {
 
   return (
     <Menu>
-      <MenuButton as={IconButton} aria-label={"Add Channel"} size={'xs'} icon={<AiOutlinePlus/>}/>
+      <MenuButton as={IconButton} aria-label={"Add Channel"} size={'xs'} icon={<IoIosAdd/>}/>
       <MenuList>
         {actions.map(action => (
           <MenuItem onClick={() => onClick(action.type)} key={action.type}>

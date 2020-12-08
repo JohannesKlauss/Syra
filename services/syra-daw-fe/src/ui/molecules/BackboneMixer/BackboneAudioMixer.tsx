@@ -20,8 +20,6 @@ function BackboneAudioMixer({channelId}: Props) {
   const soulInstance = useRecoilValue(channelStore.soulInstance(channelId));
   const plugins = useRecoilValue(channelStore.findActivePluginsByIds(pluginIds));
 
-  console.log('soulInstance', soulInstance);
-
   useEffect(() => {
     // TODO: WE COULD PROBABLY JUST CREATE A INSTANCE LIKE Tone.Solo, BUT FOR MUTING. THIS WOULD SAVE US A REWIRING CALL.
     isMuted ? mixerChannelStrip.disconnect() : mixerChannelStrip.rewireAudio(plugins.map(plugin => plugin.audioNode), soulInstance?.audioNode);
@@ -41,6 +39,7 @@ function BackboneAudioMixer({channelId}: Props) {
     mixerChannelStrip.solo.set({ solo: isSolo });
   }, [isSolo]);
 
+  // TODO: THIS MIGHT CAUSE SOME TROUBLE BECAUSE THIS IS RUNNING FOR EVERY CHANNEL ON EVERY CHANNEL CHANGE. ALSO THIS IS NOT NEEDED FOR MIDI.
   useRecorder(channelId);
 
   return null;

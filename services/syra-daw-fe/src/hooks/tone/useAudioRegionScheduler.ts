@@ -5,7 +5,7 @@ import { regionStore } from '../../recoil/regionStore';
 import useBackboneChannel from './BackboneMixer/useBackboneChannel';
 import { ChannelContext } from '../../providers/ChannelContext';
 
-export default function useRegionScheduler() {
+export default function useAudioRegionScheduler() {
   const channelId = useContext(ChannelContext);
   const { players } = useBackboneChannel(channelId);
   const regionId = useContext(RegionContext);

@@ -1,19 +1,12 @@
-import React, { useCallback, useEffect } from 'react';
-import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
+import React, { useCallback } from 'react';
+import {  useRecoilState } from 'recoil';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { buttonInfo } from '../../../../utils/text';
-import useSecondsToPixel from '../../../../hooks/ui/useSecondsToPixel';
-import { transportStore } from '../../../../recoil/transportStore';
 import { Flex, IconButton } from '@chakra-ui/react';
 import { VscZoomIn, VscZoomOut } from 'react-icons/vsc';
 
 function RulerZoomInOut() {
-  const secondsToPixel = useSecondsToPixel();
-
-  const isRecording = useRecoilValue(transportStore.isRecording);
-  const isPlaying = useRecoilValue(transportStore.isPlaying);
-
   const [horizontalZoomLevel, setHorizontalZoomLevel] = useRecoilState(arrangeWindowStore.horizontalZoomLevel);
   const [, setVerticalZoomLevel] = useRecoilState(arrangeWindowStore.verticalZoomLevel);
 

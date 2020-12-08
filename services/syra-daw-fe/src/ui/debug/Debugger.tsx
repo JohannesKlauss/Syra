@@ -7,7 +7,7 @@ import { RegionContext } from '../../providers/RegionContext';
 import DebugNodes from './DebugNodes';
 import DebugChannel from './recoil/DebugChannel';
 import DebugRegion from './recoil/DebugRegion';
-import { Box, Heading, Text, SimpleGrid, Select, Flex, Divider } from '@chakra-ui/react';
+import { Box, Heading, Select, Flex, Divider } from '@chakra-ui/react';
 
 function Debugger() {
   const [selectedChannelId, setSelectedChannelId] = useState('');
