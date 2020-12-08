@@ -49,6 +49,11 @@ const availableSoulInstruments = atom<AvailableSoulPatch[]>({
       displayName: 'Sine Synth',
       pathWasm: 'sineSynth',
       UID: 'com.yourcompany.sineSynth'
+    },
+    {
+      displayName: 'ElectroPiano',
+      pathWasm: 'electroPiano',
+      UID: 'com.yourcompany.ElectroPiano'
     }
   ],
 });

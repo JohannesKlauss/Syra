@@ -11,6 +11,7 @@ import ManipulationContainer from "../Manipulations/ManipulationContainer";
 import { RegionName, TopBar } from "../AudioRegion/AudioRegion.styled";
 import { Flex } from '@chakra-ui/react';
 import { SiMidi } from 'react-icons/si';
+import useMidiRegionScheduler from "../../../../hooks/tone/useMidiRegionScheduler";
 
 const MidiRegion: React.FC = () => {
   const regionId = useContext(RegionContext);
@@ -27,6 +28,7 @@ const MidiRegion: React.FC = () => {
   const [isMoving, setIsMoving] = useState(false);
 
   useRegionDawRecordingSync();
+  useMidiRegionScheduler();
 
   useEffect(() => {
     if (!isMoving) {

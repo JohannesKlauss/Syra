@@ -22,7 +22,7 @@ export default function useCreateMidiRegion() {
 
       set(regionStore.ids(params.channelId), (currVal) => [...currVal, newRegionId]);
       set(regionStore.start(newRegionId), params.start);
-      set(regionStore.trimEnd(newRegionId), 0);
+      set(regionStore.trimEnd(newRegionId), params.duration);
       set(regionStore.name(newRegionId), `${params.channelName} #${staticCounter}`);
       set(regionStore.isMidi(newRegionId), true);
       set(regionStore.midiNotes(newRegionId), params.notes);

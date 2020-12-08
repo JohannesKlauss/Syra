@@ -17,7 +17,7 @@ export default function useImportMidiFile() {
       const channelName = midi.tracks.length > 1 ? `${file.name.split('.')[0] } - ${track.instrument.name}` : file.name.split('.')[0];
       const channelId = await createChannel(ChannelType.INSTRUMENT, importIndex, channelName);
 
-      await setInstrument(channelId, 'com.yourcompany.sineSynth');
+      await setInstrument(channelId, 'com.yourcompany.ElectroPiano');
 
       await createMidiRegion({
         channelId,
