@@ -1,13 +1,13 @@
 import RulerSettings from "./RulerSettings";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 
 const Template = (args) => <RulerSettings {...args} />;
 
 export default {
   title: "molecules/Ruler/Settings/RulerSettings",
   component: RulerSettings,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

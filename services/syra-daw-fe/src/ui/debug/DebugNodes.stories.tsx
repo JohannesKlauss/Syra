@@ -1,13 +1,13 @@
 import DebugNodes from "./DebugNodes";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 
 const Template = (args) => <DebugNodes {...args} />;
 
 export default {
   title: "debug/DebugNodes",
   component: DebugNodes,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

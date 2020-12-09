@@ -1,13 +1,13 @@
 import LevelMeterVertical from "./LevelMeterVertical";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 
 const Template = (args) => <LevelMeterVertical {...args} />;
 
 export default {
   title: "atoms/Meter/LevelMeterVertical",
   component: LevelMeterVertical,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

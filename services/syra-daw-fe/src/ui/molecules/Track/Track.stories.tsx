@@ -1,6 +1,6 @@
 import Track from "./Track";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 import sbWithChannel from "../../../../.storybook/decorators/sbWithChannel";
 import withChannelList from "../../../../.storybook/decorators/sbWithChannelList";
 import sbWithRegion from "../../../../.storybook/decorators/sbWithRegion";
@@ -11,7 +11,7 @@ const Template = (args) => <Track {...args} />;
 export default {
   title: "molecules/Track/Track",
   component: Track,
-  decorators: [withApolloClient, sbWithRegion],
+  decorators: [sbWithRegion],
   loaders: [sbLoadAudioFile],
   argTypes: {
     backgroundColor: { control: 'color' }

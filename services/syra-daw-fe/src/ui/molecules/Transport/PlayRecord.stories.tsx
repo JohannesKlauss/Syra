@@ -1,13 +1,13 @@
 import PlayRecord from "./PlayRecord";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 
 const Template = (args) => <PlayRecord {...args} />;
 
 export default {
   title: "molecules/Transport/PlayRecord",
   component: PlayRecord,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

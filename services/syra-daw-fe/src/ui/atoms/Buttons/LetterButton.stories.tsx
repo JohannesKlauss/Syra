@@ -1,13 +1,12 @@
 import LetterButton from "./LetterButton";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
 
 const Template = (args) => <LetterButton {...args} />;
 
 export default {
   title: "atoms/Buttons/LetterButton",
   component: LetterButton,
-  decorators: [withApolloClient],
+  decorators: [],
   argTypes: {
     isActive: {
       control: 'boolean'

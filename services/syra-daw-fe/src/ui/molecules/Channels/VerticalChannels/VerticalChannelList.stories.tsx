@@ -1,6 +1,6 @@
 import VerticalChannelList from "./VerticalChannelList";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 import withChannelList from "../../../../../.storybook/decorators/sbWithChannelList";
 
 const Template = (args) => <VerticalChannelList {...args} />;
@@ -8,7 +8,7 @@ const Template = (args) => <VerticalChannelList {...args} />;
 export default {
   title: "molecules/Channels/Vertical/VerticalChannelList",
   component: VerticalChannelList,
-  decorators: [withApolloClient, withChannelList]
+  decorators: [withChannelList]
 };
 
 // Each story then reuses that template

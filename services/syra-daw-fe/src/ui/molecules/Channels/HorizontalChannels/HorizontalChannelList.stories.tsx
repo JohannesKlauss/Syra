@@ -1,6 +1,6 @@
 import HorizontalChannelList from "./HorizontalChannelList";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 import withChannelList from "../../../../../.storybook/decorators/sbWithChannelList";
 
 const Template = (args) => <HorizontalChannelList {...args} />;
@@ -8,7 +8,7 @@ const Template = (args) => <HorizontalChannelList {...args} />;
 export default {
   title: "molecules/Channels/Horizontal/HorizontalChannelList",
   component: HorizontalChannelList,
-  decorators: [withApolloClient, withChannelList]
+  decorators: [withChannelList]
 };
 
 // Each story then reuses that template

@@ -1,13 +1,13 @@
 import DebugPlayers from "./DebugPlayers";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 
 const Template = (args) => <DebugPlayers {...args} />;
 
 export default {
   title: "debug/ToneJsNodes/DebugPlayers",
   component: DebugPlayers,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

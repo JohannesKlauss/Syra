@@ -1,13 +1,13 @@
 import DropdownButton from "./DropdownButton";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 
 const Template = (args) => <DropdownButton {...args} />;
 
 export default {
   title: "atoms/Buttons/DropdownButton",
   component: DropdownButton,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

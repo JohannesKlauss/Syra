@@ -1,13 +1,13 @@
 import DropTrack from "./DropTrack";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 
 const Template = (args) => <DropTrack {...args} />;
 
 export default {
   title: "molecules/Track/DropTrack",
   component: DropTrack,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

@@ -1,13 +1,13 @@
 import Piano from "./Piano";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 
 const Template = (args) => <Piano {...args} />;
 
 export default {
   title: "molecules/Piano",
   component: Piano,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template
