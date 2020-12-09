@@ -10,7 +10,7 @@ const PianoContainer: React.FC<Props> = ({ renderVertical, children }) => {
     <Flex
       w={'100%'}
       pos={'relative'}
-      overflowX={'hidden'}
+      overflowX={renderVertical ? 'visible' : 'hidden'}
       justify={'center'}
       transform={renderVertical ? 'rotate(-90deg)' : ''}
     >

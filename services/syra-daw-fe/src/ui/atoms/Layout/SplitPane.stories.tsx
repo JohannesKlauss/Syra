@@ -15,7 +15,7 @@ const Template = (args) => (
 );
 
 export default {
-  title: 'atoms/SplitPane',
+  title: 'atoms/Layout/SplitPane',
   component: SplitPane,
   decorators: [],
 };

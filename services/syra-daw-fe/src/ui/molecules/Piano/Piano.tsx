@@ -3,7 +3,11 @@
 import React, { useCallback } from 'react';
 import * as Tone from 'tone';
 import { MidiNumbers } from 'piano-utils';
-import { getAllMidiNumbersInRange, getNaturalKeyWidthRatio, getRelativeKeyPosition } from '../../../utils/keyboardMidiHelper';
+import {
+  getAllMidiNumbersInRange,
+  getNaturalKeyWidthRatio,
+  getRelativeKeyPosition,
+} from '../../../utils/keyboardMidiHelper';
 import useUpdateMidiStore from '../../../hooks/midi/useUpdateMidiStore';
 import { useRecoilValue } from 'recoil';
 import { keyboardMidiStore } from '../../../recoil/keyboardMidiStore';
@@ -11,17 +15,19 @@ import usePianoRoll from '../../../hooks/ui/usePianoRoll';
 import { OnMidiEvent } from '../../../types/Midi';
 import useConnectPianoRollToSelectedChannel from '../../../hooks/midi/useConnectPianoRollToSelectedChannel';
 import PianoContainer from './components/PianoContainer';
-import AccidentalKey from "./components/AccidentalKey";
-import NaturalKey from "./components/NaturalKey";
-import KeyLabel from "./components/KeyLabel";
+import AccidentalKey from './components/AccidentalKey';
+import NaturalKey from './components/NaturalKey';
+import KeyLabel from './components/KeyLabel';
 
 interface Props {
   min: number;
   max: number;
   renderVertical?: boolean;
+  renderTooltip?: boolean;
+  baseHeight?: number;
 }
 
-const Piano = ({ renderVertical, min, max }: Props) => {
+const Piano = ({ renderVertical, renderTooltip, min, max, baseHeight = 205 }: Props) => {
   const activeMidis = useRecoilValue(keyboardMidiStore.activeKeyboardMidiNotes);
   const updateStore = useUpdateMidiStore();
   const onNote = useConnectPianoRollToSelectedChannel();
@@ -44,6 +50,7 @@ const Piano = ({ renderVertical, min, max }: Props) => {
       {midis.map((note) => {
         const { isAccidental } = MidiNumbers.getAttributes(note);
         const naturalKeyWidth = getNaturalKeyWidthRatio(range) * 100;
+        const noteAsString = Tone.Frequency(note, 'midi').toNote();
 
         const style = {
           left: `${getRelativeKeyPosition(note, range) * naturalKeyWidth}%`,
@@ -60,9 +67,12 @@ const Piano = ({ renderVertical, min, max }: Props) => {
             onMouseEnter={isMousePressed ? () => onEvent(144, note, 120) : undefined}
             onMouseLeave={isMousePressed ? () => onEvent(128, note, 0) : undefined}
             key={note}
+            baseHeight={isAccidental ? baseHeight / 1.8 : baseHeight}
             style={style}
           >
-            {!isAccidental && <KeyLabel>{Tone.Frequency(note, 'midi').toNote()}</KeyLabel>}
+            {!isAccidental && noteAsString.startsWith('C') && (
+              <KeyLabel renderVertical={renderVertical}>{noteAsString}</KeyLabel>
+            )}
           </KeyComponent>
         );
       })}

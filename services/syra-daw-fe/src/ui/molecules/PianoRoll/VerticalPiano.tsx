@@ -1,6 +1,5 @@
-import { Box } from '@chakra-ui/react';
 import React from "react";
-import Piano from "../../Piano/Piano";
+import Piano from "../Piano/Piano";
 
 interface Props {
 
@@ -8,7 +7,7 @@ interface Props {
 
 const VerticalPiano: React.FC<Props> = ({}) => {
   return (
-      <Piano min={36} max={67} renderVertical={true}/>
+      <Piano min={12} max={114} baseHeight={50} renderVertical/>
   );
 };
 

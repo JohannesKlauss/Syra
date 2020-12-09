@@ -4,10 +4,9 @@ import React from "react";
 interface Props extends FlexProps {
   isActive: boolean;
   baseHeight?: number;
-  activeHeight?: number;
 }
 
-const AccidentalKey: React.FC<Props> = ({isActive, activeHeight = 125, baseHeight = 120, ...props}) => {
+const AccidentalKey: React.FC<Props> = ({isActive, baseHeight = 120, ...props}) => {
   return (
     <Flex
       {...props}
@@ -20,7 +19,7 @@ const AccidentalKey: React.FC<Props> = ({isActive, activeHeight = 125, baseHeigh
       cursor={'pointer'}
       userSelect={'none'}
       transition={'all 200ms'}
-      height={isActive ? `${activeHeight}px` : `${baseHeight}px`}
+      height={isActive ? `${baseHeight * 1.041}px` : `${baseHeight}px`}
       pos={'absolute'}
       top={0}
       backgroundImage={isActive ? 'linear-gradient(#42c9ff, #28e6ff)' : 'none'}

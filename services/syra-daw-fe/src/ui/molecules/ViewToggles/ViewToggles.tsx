@@ -3,7 +3,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { editorStore } from '../../../recoil/editorStore';
 import useUpdateView from '../../../hooks/recoil/editor/useUpdateView';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { View } from '../../../types/View';
+import { WindowView } from '../../../types/WindowView';
 import { buttonInfo } from '../../../utils/text';
 import { Flex, IconButton } from '@chakra-ui/react';
 import { CgPiano } from 'react-icons/cg';
@@ -17,8 +17,8 @@ function ViewToggles() {
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
   const setShowSettings = useSetRecoilState(editorStore.showSettings);
 
-  useHotkeys('p', () => updateView(View.PIANO_ROLL));
-  useHotkeys('x', () => updateView(View.MIXER));
+  useHotkeys('p', () => updateView(WindowView.PIANO_ROLL));
+  useHotkeys('x', () => updateView(WindowView.MIXER));
   useHotkeys('cmd+,', (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -31,7 +31,7 @@ function ViewToggles() {
       <IconButton
         icon={<CgPiano />}
         aria-label={'Toggle Piano view'}
-        onClick={() => updateView(View.PIANO_ROLL)}
+        onClick={() => updateView(WindowView.PIANO_ROLL)}
         title={buttonInfo('Toggle Piano roll', 'P')}
         colorScheme={showPianoRoll ? 'teal' : 'gray'}
         variant={'ghost'}
@@ -39,7 +39,7 @@ function ViewToggles() {
       <IconButton
         icon={<GoSettings/>}
         aria-label={'Toggle Mixer view'}
-        onClick={() => updateView(View.MIXER)}
+        onClick={() => updateView(WindowView.MIXER)}
         colorScheme={showMixer ? 'teal' : 'gray'}
         variant={'ghost'}
         title={buttonInfo('Toggle Mixer', 'X')}
