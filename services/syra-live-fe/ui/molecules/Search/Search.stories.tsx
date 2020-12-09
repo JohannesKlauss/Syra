@@ -1,13 +1,13 @@
 import Search from "./Search";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 
 const Template = (args) => <Search {...args} />;
 
 export default {
   title: "molecules/Search",
   component: Search,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

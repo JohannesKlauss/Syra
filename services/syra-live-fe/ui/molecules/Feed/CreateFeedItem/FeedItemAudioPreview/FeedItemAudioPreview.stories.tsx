@@ -1,6 +1,6 @@
 import FeedItemAudioPreview from './FeedItemAudioPreview';
 import * as React from 'react';
-import { withApolloClient } from 'storybook-addon-apollo-client';
+
 import { mockApollo, mockApolloResult } from '../../../../../stories/mockApollo';
 import {
   MixdownDocument,
@@ -14,7 +14,7 @@ const Template = (args) => <FeedItemAudioPreview {...args} />;
 export default {
   title: 'molecules/Feed/CreateFeedItem/FeedItemAudioPreview',
   component: FeedItemAudioPreview,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

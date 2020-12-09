@@ -9,7 +9,7 @@ import {
   UserProfileByHandleDocument, UserProfileByHandleQuery, UserProfileByHandleQueryVariables,
 } from '../../gql/generated';
 import { MeMock, UserProfileByHandleMock } from '../apolloMocks/user';
-import { withApolloClient } from 'storybook-addon-apollo-client';
+
 import { withNextRouter } from 'storybook-addon-next-router';
 import { FeedItemsByHandleMock } from '../apolloMocks/feedItem';
 
@@ -18,7 +18,7 @@ const Template = (args) => <Profile {...args} />;
 export default {
   title: 'x pages/Profile',
   component: Profile,
-  decorators: [withApolloClient, withNextRouter]
+  decorators: [withNextRouter]
 };
 
 // Each story then reuses that template

@@ -1,7 +1,7 @@
 import FeedItem from './FeedItem';
 import * as React from 'react';
 import { FeedItemByIdMockBar, FeedItemByIdMockFoo } from "../../../../stories/apolloMocks/feedItem";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 import { mockApollo, mockApolloResult } from "../../../../stories/mockApollo";
 import {
   FeedItemByIdDocument,
@@ -17,7 +17,7 @@ const Template = (args) => <FeedItem {...args} />;
 export default {
   title: 'molecules/Feed/FeedItem/FeedItem',
   component: FeedItem,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

@@ -1,6 +1,6 @@
 import Comment from "./Comment";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 import { mockApollo } from "../../../../stories/mockApollo";
 
 const Template = (args) => <Comment {...args} />;
@@ -8,7 +8,7 @@ const Template = (args) => <Comment {...args} />;
 export default {
   title: "molecules/Feed/Comment",
   component: Comment,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

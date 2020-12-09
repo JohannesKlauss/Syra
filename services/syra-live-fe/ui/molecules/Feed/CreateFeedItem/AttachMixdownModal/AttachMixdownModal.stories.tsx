@@ -3,14 +3,14 @@ import * as React from 'react';
 import { mockApollo, mockApolloResult } from '../../../../../stories/mockApollo';
 import { MyMixdownsDocument, MyMixdownsQuery } from '../../../../../gql/generated';
 import { MyMixdownsMock } from '../../../../../stories/apolloMocks/mixdown';
-import { withApolloClient } from 'storybook-addon-apollo-client';
+
 
 const Template = (args) => <AttachMixdownModal {...args} />;
 
 export default {
   title: 'molecules/Feed/CreateFeedItem/AttachMixdownModal',
   component: AttachMixdownModal,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template
