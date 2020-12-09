@@ -18,28 +18,30 @@ import KeyLabel from "./components/KeyLabel";
 interface Props {
   min: number;
   max: number;
+  renderVertical?: boolean;
 }
 
-const Piano = (props: Props) => {
-  const { min, max } = props;
-
+const Piano = ({ renderVertical, min, max }: Props) => {
   const activeMidis = useRecoilValue(keyboardMidiStore.activeKeyboardMidiNotes);
   const updateStore = useUpdateMidiStore();
   const onNote = useConnectPianoRollToSelectedChannel();
 
-  const onEvent = useCallback<OnMidiEvent>((msg, note, velocity) => {
-    updateStore(msg, note, velocity);
-    onNote(msg, note, velocity);
-  }, [onNote, updateStore]);
+  const onEvent = useCallback<OnMidiEvent>(
+    (msg, note, velocity) => {
+      updateStore(msg, note, velocity);
+      onNote(msg, note, velocity);
+    },
+    [onNote, updateStore],
+  );
 
-  const {isMousePressed, onMouseUp, onMouseDown} = usePianoRoll(onEvent);
+  const { isMousePressed, onMouseUp, onMouseDown } = usePianoRoll(onEvent);
 
   const range = { first: min, last: max };
   const midis = getAllMidiNumbersInRange(range);
 
   return (
-    <PianoContainer>
-      {midis.map(note => {
+    <PianoContainer renderVertical={renderVertical}>
+      {midis.map((note) => {
         const { isAccidental } = MidiNumbers.getAttributes(note);
         const naturalKeyWidth = getNaturalKeyWidthRatio(range) * 100;
 

@@ -3,9 +3,11 @@ import React from 'react';
 
 interface Props extends FlexProps {
   isActive: boolean;
+  baseHeight?: number;
+  activeHeight?: number;
 }
 
-function NaturalKey({ isActive, ...props }: Props) {
+function NaturalKey({ isActive, activeHeight = 210, baseHeight = 205, ...props }: Props) {
   return (
     <Flex
       {...props}
@@ -22,7 +24,7 @@ function NaturalKey({ isActive, ...props }: Props) {
       userSelect={'none'}
       transition={'all 200ms'}
       width={'auto !important'}
-      height={isActive ? '210px' : '205px'}
+      height={isActive ? `${activeHeight}px` : `${baseHeight}px`}
       backgroundImage={isActive ? 'linear-gradient(#42c9ff, #28e6ff)' : 'none'}
       borderBottom={'4px solid #90caf9'}
     />
