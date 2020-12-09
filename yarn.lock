@@ -16768,10 +16768,10 @@ pascalcase@^0.1.1:
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
   integrity sha1-s2PlXoAGym/iF4TS2yK9FdeRfxQ=
 
-passport-cookie@1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/passport-cookie/-/passport-cookie-1.0.8.tgz#64bb1fbe1e6737de7d94df9ec7f026ba11b251c3"
-  integrity sha512-nZkR8adREifrAQnlpVt82eJ6B7InWUjWJlPgGZsZcjvHtrQt63jtRzAc/lkXmJOPaSs0OKf1YlGVbri9XqYAIw==
+passport-cookie@1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/passport-cookie/-/passport-cookie-1.0.9.tgz#a21dca7ce6cc95fb929083a171a9f894024dcecb"
+  integrity sha512-8a6foX2bbGoJzup0RAiNcC2tTqzYS46RQEK3Z4u8p86wesPUjgDaji3C7+5j4TGyCq4ZoOV+3YLw1Hy6cV6kyw==
   dependencies:
     passport-strategy "^1.0.0"
 
