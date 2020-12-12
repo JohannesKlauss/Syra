@@ -64,6 +64,11 @@ const availableSoulInstruments = atom<AvailableSoulPatch[]>({
       displayName: 'SY-09',
       pathWasm: 'sy09',
       UID: 'dev.soul.examples.SY09'
+    },
+    {
+      displayName: 'Syra 60',
+      pathWasm: 'syra60',
+      UID: 'com.syra.Syra60'
     }
   ],
 });
