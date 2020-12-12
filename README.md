@@ -40,7 +40,7 @@ Resources
     <a href="https://github.com/JohannesKlauss/Syra"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/JohannesKlauss/Syra">View Demo</a>
+    <a href="https://syra.live">Open Syra</a>
     ·
     <a href="https://github.com/JohannesKlauss/Syra/issues">Report Bug</a>
     ·
