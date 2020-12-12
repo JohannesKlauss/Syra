@@ -57,7 +57,7 @@
     "@types/react-dom": "17.0.0",
     "@types/wavesurfer.js": "3.3.1",
     "react-is": "17.0.1",
-    "storybook-addon-apollo-client": "4.0.2",
+    "storybook-addon-apollo-client": "4.0.3",
     "storybook-addon-next-router": "2.0.2",
     "typescript": "4.1.2"
   },
