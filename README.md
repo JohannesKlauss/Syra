@@ -32,7 +32,7 @@ Resources
     <img src="logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Syra</h3>
+  <h3 align="center">S Y R A</h3>
 
   <p align="center">
     Your web based live collaboration DAW.
@@ -40,7 +40,7 @@ Resources
     <a href="https://github.com/JohannesKlauss/Syra"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://syra.live">Open Syra</a>
+    <a href="https://syra.live">Open S Y R A</a>
     ·
     <a href="https://github.com/JohannesKlauss/Syra/issues">Report Bug</a>
     ·
