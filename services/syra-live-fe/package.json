@@ -42,7 +42,7 @@
     "stream-chat-react": "3.3.2",
     "subscriptions-transport-ws": "0.9.18",
     "typewriter-effect": "2.17.0",
-    "wavesurfer.js": "4.2.0"
+    "wavesurfer.js": "4.3.0"
   },
   "devDependencies": {
     "@babel/core": "7.12.10",
