@@ -7,13 +7,15 @@ export default function usePanic(port?: MessagePort) {
       return;
     }
 
-    for (let channel = 128; channel < 144; channel++) {
-      for (let note = 0; note < 128; note++) {
-        port.postMessage({
-          type: 'MIDI_MESSAGE',
-          value: createMidiMessage(channel, note, 0),
-        });
+    setTimeout(() => {
+      for (let channel = 128; channel < 144; channel++) {
+        for (let note = 0; note < 128; note++) {
+          port.postMessage({
+            type: 'MIDI_MESSAGE',
+            value: createMidiMessage(channel, note, 0),
+          });
+        }
       }
-    }
+    }, 50);
   }, [port]);
 }

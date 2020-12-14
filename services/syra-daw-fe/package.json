@@ -33,6 +33,7 @@
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.1",
     "react-split": "2.0.9",
+    "react-virtualized": "9.22.2",
     "recoil": "0.1.2",
     "tinycolor2": "1.4.2",
     "tone": "14.7.58",
