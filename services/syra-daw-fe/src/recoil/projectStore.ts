@@ -81,7 +81,7 @@ const lastAnalyzedBpmFromImport = atom<number | null>({
 // The project length in quarters. TODO: SETTING THE PROJECT LENGTH IN THE NEW PROJECT DIALOG HAS TO ACCOUNT TIME SIGNATURES.
 const lengthInQuarters = atom({
   key: 'project/length',
-  default: TIME_CONVERSION_RESOLUTION * 20
+  default: TIME_CONVERSION_RESOLUTION * 60
 });
 
 const beatsPerSecond = selector({

@@ -50,7 +50,7 @@ function AvatarMenu({}: Props) {
           <Avatar name={data.me.name} src={data.me.avatar} size={'sm'}/>
           <Box marginLeft={4}>
             <Text fontSize={'xs'} color={'gray.200'}>{data.me.name}</Text>
-            <Text fontSize={'xs'} color={'purple.400'}>{t('WindowView Profile')}</Text>
+            <Text fontSize={'xs'} color={'purple.400'}>{t('View Profile')}</Text>
           </Box>
         </MenuItem>
         <MenuDivider/>

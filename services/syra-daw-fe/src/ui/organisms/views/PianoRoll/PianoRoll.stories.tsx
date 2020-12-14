@@ -4,7 +4,7 @@ import * as React from "react";
 const Template = (args) => <PianoRoll {...args} />;
 
 export default {
-  title: "organisms/PianoRoll",
+  title: "organisms/views/PianoRoll",
   component: PianoRoll,
   decorators: []
 };

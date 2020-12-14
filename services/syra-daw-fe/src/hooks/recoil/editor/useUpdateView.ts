@@ -1,18 +1,18 @@
 import { useSetRecoilState } from 'recoil';
 import { editorStore } from '../../../recoil/editorStore';
-import { WindowView } from '../../../types/WindowView';
+import { View } from '../../../types/View';
 
 export default function useUpdateView() {
   const setShowPianoRoll = useSetRecoilState(editorStore.showPianoRoll);
   const setShowMixer = useSetRecoilState(editorStore.showMixer);
 
-  return (view: WindowView) => {
+  return (view: View) => {
     switch(view) {
-      case WindowView.PIANO_ROLL:
+      case View.PIANO:
         setShowMixer(false);
         setShowPianoRoll(val => !val);
         break;
-      case WindowView.MIXER:
+      case View.MIXER:
         setShowPianoRoll(false);
         setShowMixer(val => !val);
         break;

@@ -57,7 +57,7 @@ const playheadPosition = selector({
 });
 
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.
-// This goes from 1 to 11
+// This goes from 1 to 11.
 const horizontalZoomLevel = atom({
   key: 'arrangeWindow/horizontalZoomLevel',
   default: 6,
@@ -99,7 +99,7 @@ const pixelPerSecond = selector({
 
 const barWidthInPixel = selector({
   key: 'arrangeWindow/barWidthInPixel',
-  get: ({get}) => get(width) / get(transportStore.bars).length
+  get: ({get}) => get(width) / get(transportStore.bars).length,
 });
 
 // 30 is just a margin, so that the last quarter doesn't exactly end on the border of the arrange window, but has some
