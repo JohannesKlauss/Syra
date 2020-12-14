@@ -8,11 +8,12 @@ interface Props {
 const PianoContainer: React.FC<Props> = ({ renderVertical, children }) => {
   return (
     <Flex
-      w={'100%'}
+      w={renderVertical ? 'auto' : '100%'}
+      h={renderVertical ? '100%' : 'auto'}
       pos={'relative'}
       overflowX={renderVertical ? 'visible' : 'hidden'}
       justify={'center'}
-      transform={renderVertical ? 'rotate(-90deg)' : ''}
+      flexDir={renderVertical ? 'column' : 'row'}
     >
       {children}
     </Flex>

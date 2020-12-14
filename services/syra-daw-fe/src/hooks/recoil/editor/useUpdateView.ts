@@ -8,7 +8,7 @@ export default function useUpdateView() {
 
   return (view: View) => {
     switch(view) {
-      case View.PIANO:
+      case View.PIANO_ROLL:
         setShowMixer(false);
         setShowPianoRoll(val => !val);
         break;

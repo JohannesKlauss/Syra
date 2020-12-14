@@ -1,13 +1,13 @@
 import React from 'react';
 import HorizontalChannelList from '../molecules/Channels/HorizontalChannels/HorizontalChannelList';
 import ArrangeWindow from '../molecules/ArrangeWindow/ArrangeWindow';
-import Piano from '../molecules/Piano/Piano';
 import { editorStore } from '../../recoil/editorStore';
 import { useRecoilValue } from 'recoil';
 import { Box } from '@chakra-ui/react';
 import useWebMidi from "../../hooks/midi/useWebMidi";
 import TransportView from "../molecules/Transport/TransportView";
 import Settings from '../organisms/dialogues/Settings/Settings';
+import PianoRoll from "../organisms/views/PianoRoll/PianoRoll";
 
 function Editor() {
   const showMixer = useRecoilValue(editorStore.showMixer);
@@ -19,9 +19,11 @@ function Editor() {
       <>
         <Box>
           <ArrangeWindow/>
-          {showMixer && <HorizontalChannelList/>}
-          {showPianoRoll && <Piano min={36} max={67}/>}
-          <Box pos={'fixed'} bottom={0} left={0} w={'100%'} zIndex={1}>
+          <Box pos={'fixed'} bottom={78} left={0} w={'100%'} h={'50%'} zIndex={1} display={showMixer || showPianoRoll ? 'block' : 'none'}>
+            {showMixer && <HorizontalChannelList/>}
+            {showPianoRoll && <PianoRoll minNote={12} maxNote={115}/>}
+          </Box>
+          <Box pos={'fixed'} bottom={0} left={0} w={'100%'} zIndex={10}>
             <TransportView/>
           </Box>
           <>

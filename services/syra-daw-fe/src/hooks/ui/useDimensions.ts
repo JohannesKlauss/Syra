@@ -6,14 +6,18 @@ export default function useDimensions(ref: RefObject<HTMLElement>) {
 
   useEffect(() => {
     resizeObserverRef.current = new ResizeObserver(entries => {
-      entries.forEach((entry) => {
+      entries.forEach(entry => {
         const { width, height } = entry.contentRect;
 
         setDimensions({ width, height });
       });
     });
 
-    ref.current && resizeObserverRef.current.observe(ref.current);
+    try {
+      ref.current && resizeObserverRef.current.observe(ref.current);
+    } catch (e) {
+      console.log('could not observe ref');
+    }
 
     return () => {
       resizeObserverRef.current?.disconnect();

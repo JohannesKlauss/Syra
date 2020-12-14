@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from "react";
 import TrimStartHandle from './TrimStartHandle';
 import TrimEndHandle from './TrimEndHandle';
 import { Manipulations, RegionFirstLoop } from '../AudioRegion/AudioRegion.styled';
@@ -11,12 +11,14 @@ interface Props {
   onChangeIsMoving: (isMoving: boolean) => void;
   onUpdateLeftOffset: (pos: number) => void;
   onUpdateTopOffset: (pos: number) => void;
+  onDoubleClick: () => void;
 }
 
 const ManipulationContainer: React.FC<Props> = ({
   onChangeIsMoving,
   onUpdateLeftOffset,
   onUpdateTopOffset,
+  onDoubleClick,
   children,
 }) => {
   const color = useRegionColor(false);
@@ -39,7 +41,7 @@ const ManipulationContainer: React.FC<Props> = ({
   return (
     <RegionFirstLoop color={color} width={deltaXTrimEnd - deltaXTrimStart}>
       {children}
-      <Manipulations onMouseDown={triggerMove} isMoving={isMoving}>
+      <Manipulations onMouseDown={triggerMove} isMoving={isMoving} onDoubleClick={onDoubleClick}>
         <TrimStartHandle trigger={triggerTrimStart} />
         <TrimEndHandle trigger={triggerTrimEnd} />
       </Manipulations>

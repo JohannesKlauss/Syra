@@ -14,9 +14,8 @@ const KeyLabel: React.FC<Props> = ({ children, renderVertical }) => {
       fontSize={'0.775rem'}
       color={'#4a5568'}
       pb={renderVertical ? 0 : '1rem'}
-      justify={'center'}
-      alignSelf={'flex-end'}
-      transform={renderVertical ? 'rotate(90deg)' : ''}
+      justify={renderVertical ? 'flex-end' : 'center'}
+      alignSelf={renderVertical ? 'center' : 'flex-end'}
     >
       {children}
     </Flex>

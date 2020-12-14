@@ -12,4 +12,7 @@ export default {
 // Each story then reuses that template
 export const Default = Template.bind({});
 
-Default.args = {};
+Default.args = {
+  minNote: 12,
+  maxNote: 115,
+};

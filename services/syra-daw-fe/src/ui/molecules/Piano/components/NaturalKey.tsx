@@ -4,9 +4,12 @@ import React from 'react';
 interface Props extends FlexProps {
   isActive: boolean;
   baseHeight?: number;
+  renderVertical?: boolean;
 }
 
-function NaturalKey({ isActive, baseHeight = 205, ...props }: Props) {
+function NaturalKey({ isActive, baseHeight = 205, renderVertical, width, ...props }: Props) {
+  const height = isActive ? `${baseHeight * 1.024}px` : `${baseHeight}px`;
+
   return (
     <Flex
       {...props}
@@ -22,10 +25,10 @@ function NaturalKey({ isActive, baseHeight = 205, ...props }: Props) {
       cursor={'pointer'}
       userSelect={'none'}
       transition={'all 200ms'}
-      width={'auto !important'}
-      height={isActive ? `${baseHeight * 1.024}px` : `${baseHeight}px`}
+      width={renderVertical ? height : width}
+      height={renderVertical ? width : height}
       backgroundImage={isActive ? 'linear-gradient(#42c9ff, #28e6ff)' : 'none'}
-      borderBottom={'4px solid #90caf9'}
+      borderBottom={renderVertical ? '1px solid #4a5568' : '4px solid #90caf9'}
     />
   );
 }

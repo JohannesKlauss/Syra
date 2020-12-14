@@ -3,12 +3,12 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import useMovable from '../../../hooks/ui/useMovable';
 import { transportStore } from '../../../recoil/transportStore';
 import { isBetween } from '../../../utils/numbers';
-import useBarAtPixel from '../../../hooks/ui/transportCursor/useBarAtPixel';
 import { Box } from '@chakra-ui/react';
 import { gridStore } from "../../../recoil/gridStore";
 import { ViewContext } from "../../../providers/ViewContext";
 import RulerPlayheadV2 from "./RulerPlayheadV2";
 import useSnapPixelValue from "../../../hooks/ui/useSnapPixelValue";
+import useBarAtPixelV2 from "../../../hooks/ui/transportCursor/useBarAtPixelV2";
 
 function RulerTransportCursorV2() {
   const view = useContext(ViewContext);
@@ -20,7 +20,7 @@ function RulerTransportCursorV2() {
   const viewWidth = useRecoilValue(gridStore.viewWidth(view));
   const gridRef = useRecoilValue(gridStore.ref(view));
   const snapValue = useRecoilValue(gridStore.snapValue(view));
-  const barAtPixel = useBarAtPixel();
+  const barAtPixel = useBarAtPixelV2();
   const isSnapActive = useRecoilValue(gridStore.isSnapActive(view));
 
   const onMouseInteraction = useCallback(e => {

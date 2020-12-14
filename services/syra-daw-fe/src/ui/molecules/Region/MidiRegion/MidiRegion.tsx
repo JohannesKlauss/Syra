@@ -4,7 +4,6 @@ import { RegionContext } from "../../../../providers/RegionContext";
 import { useRecoilValue } from "recoil";
 import { regionStore } from "../../../../recoil/regionStore";
 import useQuarterToPixel from "../../../../hooks/ui/useQuarterToPixel";
-import { useIsHotkeyPressed } from "react-hotkeys-hook";
 import useRegionColor from "../../../../hooks/ui/region/useRegionColor";
 import BaseRegion from "../BaseRegion";
 import ManipulationContainer from "../Manipulations/ManipulationContainer";
@@ -12,20 +11,21 @@ import { RegionName, TopBar } from "../AudioRegion/AudioRegion.styled";
 import { Flex } from '@chakra-ui/react';
 import { SiMidi } from 'react-icons/si';
 import useMidiRegionScheduler from "../../../../hooks/tone/useMidiRegionScheduler";
+import useOpenPianoRoll from "../../../../hooks/ui/views/useOpenPianoRoll";
+import { ChannelContext } from "../../../../providers/ChannelContext";
 
 const MidiRegion: React.FC = () => {
   const regionId = useContext(RegionContext);
-  const isMuted = useRecoilValue(regionStore.isMuted(regionId));
-  const isSelected = useRecoilValue(regionStore.isSelected(regionId));
+  const channelId = useContext(ChannelContext);
   const name = useRecoilValue(regionStore.name(regionId));
   const trimStart = useRecoilValue(regionStore.trimStart(regionId));
   const start = useRecoilValue(regionStore.start(regionId));
   const quarterToPixel = useQuarterToPixel();
-  const isPressed = useIsHotkeyPressed();
   const color = useRegionColor(false);
   const [left, setLeft] = useState(quarterToPixel(trimStart + start));
   const [top, setTop] = useState(0);
   const [isMoving, setIsMoving] = useState(false);
+  const openPianoRoll = useOpenPianoRoll();
 
   useRegionDawRecordingSync();
   useMidiRegionScheduler();
@@ -35,8 +35,6 @@ const MidiRegion: React.FC = () => {
       setTop(0);
     }
   }, [isMoving]);
-
-  const isDuplicating = isPressed('alt') && isMoving;
 
   return (
     <BaseRegion top={top} left={left} isMoving={isMoving}>
@@ -48,7 +46,9 @@ const MidiRegion: React.FC = () => {
       </TopBar>
       <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)}
                              onChangeIsMoving={isMoving => setIsMoving(isMoving)}
-                             onUpdateTopOffset={cssTop => setTop(cssTop)}>
+                             onUpdateTopOffset={cssTop => setTop(cssTop)}
+                             onDoubleClick={() => openPianoRoll(channelId, regionId)}
+      >
         Midi!
       </ManipulationContainer>
     </BaseRegion>

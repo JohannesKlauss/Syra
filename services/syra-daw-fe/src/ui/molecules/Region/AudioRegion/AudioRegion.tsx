@@ -52,7 +52,9 @@ function AudioRegion() {
       <BaseContainer isMuted={isMuted} left={left} isMoving={isMoving} isSelected={isSelected} color={color} top={top}>
         <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)}
                                onChangeIsMoving={isMoving => setIsMoving(isMoving)}
-                               onUpdateTopOffset={cssTop => setTop(cssTop)}/>
+                               onUpdateTopOffset={cssTop => setTop(cssTop)}
+                               onDoubleClick={() => null}
+        />
         <TopBar color={color}>
           <RegionName color={color}>{name}</RegionName>
         </TopBar>

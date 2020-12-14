@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import React, { useContext, useMemo } from "react";
+import React, { useContext } from "react";
 import { useRecoilValue } from 'recoil';
 import { projectStore } from '../../../recoil/projectStore';
 import { ViewContext } from "../../../providers/ViewContext";
@@ -42,18 +42,13 @@ function RulerBarsV2() {
   const zoomedQuarterPixelWidth = useRecoilValue(gridStore.zoomedQuarterPixelWidth(view));
   const projectLengthInQuarters = useRecoilValue(projectStore.lengthInQuarters);
 
-  console.log('zoomedPixelWidthQ', zoomedQuarterPixelWidth);
-
   return (
     <Box h={'20px'} pos={'absolute'} top={0} w={'100%'} pointerEvents={'none'} userSelect={'none'} bg={'gray.900'}>
-      {bars.map(bar => {
-        console.log('quarterInProject', bar);
-        return (
-          <RulerItem key={bar.bar} left={zoomedQuarterPixelWidth * bar.quarterInProject}>
-            {bar.bar}
-          </RulerItem>
-        );
-      })}
+      {bars.map(bar => (
+        <RulerItem key={bar.bar} left={zoomedQuarterPixelWidth * bar.quarterInProject}>
+          {bar.bar}
+        </RulerItem>
+      ))}
       <ProjectEndHandle left={zoomedQuarterPixelWidth * projectLengthInQuarters} />
     </Box>
   );

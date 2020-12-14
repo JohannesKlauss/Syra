@@ -17,7 +17,7 @@ function ViewToggles() {
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
   const setShowSettings = useSetRecoilState(editorStore.showSettings);
 
-  useHotkeys('p', () => updateView(View.PIANO));
+  useHotkeys('p', () => updateView(View.PIANO_ROLL));
   useHotkeys('x', () => updateView(View.MIXER));
   useHotkeys('cmd+,', (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ function ViewToggles() {
       <IconButton
         icon={<CgPiano />}
         aria-label={'Toggle Piano view'}
-        onClick={() => updateView(View.PIANO)}
+        onClick={() => updateView(View.PIANO_ROLL)}
         title={buttonInfo('Toggle Piano roll', 'P')}
         colorScheme={showPianoRoll ? 'teal' : 'gray'}
         variant={'ghost'}

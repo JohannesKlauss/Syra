@@ -11,7 +11,7 @@ const SplitScroller: React.FC<Props> = ({children}) => {
       <Box flexDir={'column'} h={'100%'}>
         {children[0]}
       </Box>
-      <Box flexDir={'column'} h={'100%'} overflowX={'auto'}>
+      <Box flexDir={'column'} h={'100%'} overflowX={'auto'} w={'fill-available'}>
         {children[1]}
       </Box>
     </Flex>

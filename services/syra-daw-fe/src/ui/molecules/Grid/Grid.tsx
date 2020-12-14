@@ -26,7 +26,7 @@ const Grid: React.FC<Props> = ({ windowView, children }) => {
   }, [width, setViewWidth]);
 
   return (
-    <Box overflowX={'scroll'} overflowY={'hidden'} pos={'relative'} bg={'gray.800'} ref={containerRef}>
+    <Box overflowX={'scroll'} overflowY={'hidden'} pos={'relative'} bg={'gray.800'} w={'100%'} ref={containerRef}>
       <ViewContext.Provider value={windowView}>
         <RulerV2 />
         {children}

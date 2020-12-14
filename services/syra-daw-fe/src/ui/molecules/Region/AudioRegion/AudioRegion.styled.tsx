@@ -50,8 +50,8 @@ interface ManipulationsProps extends BoxProps {
   isMoving: boolean;
 }
 
-export const Manipulations: React.FC<ManipulationsProps> = ({ isMoving, children }) => (
-  <Box h={'50%'} w={'100%'} pos={'absolute'} cursor={isMoving ? 'grabbing' : 'grab'} bottom={0} left={0}>
+export const Manipulations: React.FC<ManipulationsProps> = ({ isMoving, children, ...props }) => (
+  <Box {...props} h={'50%'} w={'100%'} pos={'absolute'} cursor={isMoving ? 'grabbing' : 'grab'} bottom={0} left={0}>
     {children}
   </Box>
 );

@@ -12,8 +12,14 @@ export default {
 
 // Each story then reuses that template
 export const Default = Template.bind({});
+export const Vertical = Template.bind({});
 
-Default.args = {
+Default.args = Vertical.args = {
   min: 36,
   max: 67
 };
+
+Vertical.args = {
+  ...Vertical.args,
+  renderVertical: true,
+}
