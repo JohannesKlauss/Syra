@@ -18,9 +18,7 @@ export default function useDimensions(ref: RefObject<HTMLElement>) {
     }
 
     return () => {
-      if (ref.current) {
-        resizeObserverRef.current?.disconnect();
-      }
+      resizeObserverRef.current?.disconnect();
     };
   }, [ref]);
   return dimensions;

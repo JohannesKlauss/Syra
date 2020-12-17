@@ -1,12 +1,15 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from "react";
 import { mapNumberToNote } from '../../../../utils/noteMapper';
 import DropdownButton from '../../../atoms/Buttons/DropdownButton';
 import { useRecoilState } from 'recoil';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
+import { ViewContext } from "../../../../providers/ViewContext";
+import { gridStore } from "../../../../recoil/gridStore";
 
 function RulerSnapSettings() {
-  const [isSnapActive, setIsSnapActive] = useRecoilState(arrangeWindowStore.isSnapActive);
-  const [gridSnapValue, setGridSnapValue] = useRecoilState(arrangeWindowStore.snapValue);
+  const { view } = useContext(ViewContext);
+  const [isSnapActive, setIsSnapActive] = useRecoilState(gridStore.isSnapActive(view));
+  const [gridSnapValue, setGridSnapValue] = useRecoilState(gridStore.snapValue(view));
 
   const snapValueItems = useMemo(
     () =>

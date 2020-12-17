@@ -8,14 +8,17 @@ import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import MarqueeContainer from './MarqueeContainer';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import useOnDropCreateRegion from "../../../hooks/recoil/region/useOnDropCreateRegion";
+import { gridStore } from "../../../recoil/gridStore";
+import { ViewContext } from "../../../providers/ViewContext";
 
 interface Props {
   bg: string;
 }
 
 const Track = React.memo(({ bg }: Props) => {
+  const { view } = useContext(ViewContext);
   const channelId = useContext(ChannelContext);
-  const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
+  const trackHeight = useRecoilValue(gridStore.trackHeight(view));
   const isDragOnDocument = useIsDragOnDocument();
   const onDrop = useOnDropCreateRegion();
 

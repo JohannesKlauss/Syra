@@ -1,13 +1,16 @@
 import { useRecoilCallback } from 'recoil';
 import { BoxArea } from '../../../types/Ui';
 import { channelStore } from '../../../recoil/channelStore';
-import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { regionStore } from '../../../recoil/regionStore';
 import { isIntersecting } from '../../../utils/numbers';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
+import { gridStore } from "../../../recoil/gridStore";
+import { ViewContext } from "../../../providers/ViewContext";
+import { useContext } from "react";
 
 export default function useSelectRegions() {
   const isPressed = useIsHotkeyPressed();
+  const { view } = useContext(ViewContext);
 
   return useRecoilCallback(({set, snapshot}) => (selectedArea: BoxArea) => {
     let selectedRegionIds: string[] = [];
@@ -18,7 +21,7 @@ export default function useSelectRegions() {
       selectedRegionIds = [...(snapshot.getLoadable(regionStore.selectedIds).contents as string[])];
     }
 
-    const trackHeight = snapshot.getLoadable(arrangeWindowStore.trackHeight).contents as number;
+    const trackHeight = snapshot.getLoadable(gridStore.trackHeight(view)).contents as number;
     const channelIds = snapshot.getLoadable(channelStore.ids).contents as string[];
 
     // When the selectedArea is 0 it was likely a click.
@@ -53,5 +56,5 @@ export default function useSelectRegions() {
     });
 
     set(regionStore.selectedIds, selectedRegionIds);
-  }, [isPressed]);
+  }, [isPressed, view]);
 }

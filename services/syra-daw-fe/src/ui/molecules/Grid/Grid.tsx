@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { View } from '../../../types/View';
 import { useSetRecoilState } from 'recoil';
 import { Box } from '@chakra-ui/react';
@@ -8,23 +8,23 @@ import RulerV2 from '../RulerV2/RulerV2';
 import useDimensions from '../../../hooks/ui/useDimensions';
 
 interface Props {
-  windowView: View;
+  view: View;
 }
 
-const Grid: React.FC<Props> = ({ windowView, children }) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const setViewWidth = useSetRecoilState(gridStore.viewWidth(windowView));
-  const { width } = useDimensions(containerRef);
+const Grid: React.FC<Props> = ({ view, children }) => {
+  const viewRef = useRef<HTMLDivElement | null>(null);
+  const setViewWidth = useSetRecoilState(gridStore.viewWidth(view));
+  const { width } = useDimensions(viewRef);
 
   useLayoutEffect(() => {
     setViewWidth(width);
   }, [width, setViewWidth]);
 
   return (
-    <Box overflowX={'scroll'} overflowY={'hidden'} pos={'relative'} bg={'gray.800'} w={'100%'} ref={containerRef}>
+    <Box overflowX={'scroll'} overflowY={'hidden'} pos={'relative'} bg={'gray.800'} w={'100%'} ref={viewRef}>
       <ViewContext.Provider value={{
-        viewRef: containerRef,
-        view: View.PIANO_ROLL
+        viewRef: viewRef,
+        view
       }}>
         <RulerV2 />
         {children}

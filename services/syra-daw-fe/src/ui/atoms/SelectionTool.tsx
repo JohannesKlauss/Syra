@@ -1,22 +1,24 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useContext, useRef, useState } from "react";
 import useMovementTracker from '../../hooks/ui/useMovementTracker';
 import { BoxArea } from '../../types/Ui';
-import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import { useRecoilValue } from 'recoil';
 import { Box } from '@chakra-ui/react';
+import { ViewContext } from "../../providers/ViewContext";
+import { gridStore } from "../../recoil/gridStore";
 
 interface Props {
   onSelect: (area: BoxArea) => void;
 }
 
 const SelectionTool: React.FC<Props> = ({ children, onSelect }) => {
+  const { view } = useContext(ViewContext);
   const [x0, setX0] = useState(-1);
   const [x1, setX1] = useState(-1);
   const [y0, setY0] = useState(-1);
   const [y1, setY1] = useState(-1);
   const [isHidden, setIsHidden] = useState(true);
   const divRef = useRef<HTMLDivElement>(null);
-  const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
+  const trackHeight = useRecoilValue(gridStore.trackHeight(view));
 
   const onMouseMove = useCallback(
     (pos) => {

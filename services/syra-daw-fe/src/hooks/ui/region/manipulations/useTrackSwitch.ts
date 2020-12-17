@@ -7,12 +7,15 @@ import { channelStore } from '../../../../recoil/channelStore';
 import { regionStore } from '../../../../recoil/regionStore';
 import { removeItemAtIndex } from '../../../../utils/recoil';
 import { RegionContext } from '../../../../providers/RegionContext';
+import { gridStore } from "../../../../recoil/gridStore";
+import { ViewContext } from "../../../../providers/ViewContext";
 
 export default function useTrackSwitch() {
+  const { view } = useContext(ViewContext);
   const channelId = useContext(ChannelContext);
   const regionId = useContext(RegionContext);
   const ids = useRecoilValue(channelStore.ids);
-  const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
+  const trackHeight = useRecoilValue(gridStore.trackHeight(view));
 
   const index = ids.findIndex(id => id === channelId);
 

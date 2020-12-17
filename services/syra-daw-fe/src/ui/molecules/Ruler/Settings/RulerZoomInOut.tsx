@@ -1,14 +1,17 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from "react";
 import {  useRecoilState } from 'recoil';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { buttonInfo } from '../../../../utils/text';
 import { Flex, IconButton } from '@chakra-ui/react';
 import { VscZoomIn, VscZoomOut } from 'react-icons/vsc';
+import { ViewContext } from "../../../../providers/ViewContext";
+import { gridStore } from "../../../../recoil/gridStore";
 
 function RulerZoomInOut() {
-  const [horizontalZoomLevel, setHorizontalZoomLevel] = useRecoilState(arrangeWindowStore.horizontalZoomLevel);
-  const [, setVerticalZoomLevel] = useRecoilState(arrangeWindowStore.verticalZoomLevel);
+  const { view } = useContext(ViewContext);
+  const [horizontalZoomLevel, setHorizontalZoomLevel] = useRecoilState(gridStore.horizontalZoomLevel(view));
+  const [, setVerticalZoomLevel] = useRecoilState(gridStore.verticalZoomLevel(view));
 
   const horizontalZoomIn = useCallback(() => setHorizontalZoomLevel((currVal) => (currVal < 14 ? currVal + 1 : 14)), [
     setHorizontalZoomLevel,

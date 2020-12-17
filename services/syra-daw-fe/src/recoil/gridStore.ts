@@ -1,8 +1,9 @@
-import { atomFamily, selectorFamily } from "recoil";
+import { atom, atomFamily, selector, selectorFamily } from "recoil";
 import { View } from "../types/View";
 import { projectStore } from "./projectStore";
 import { transportStore } from "./transportStore";
 import { Bar } from "../types/Ui";
+import { ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT } from "../const/ui";
 
 // This is the width of the specific window viewport (i.e. arrange view, piano roll view, etc.), not the whole browser screen.
 const viewWidth = atomFamily<number, View>({
@@ -15,6 +16,18 @@ const viewWidth = atomFamily<number, View>({
 const horizontalZoomLevel = atomFamily<number, View>({
   key: 'grid/horizontalZoomLevel',
   default: 6,
+});
+
+// This is the zoom level. The zoom level defines how many tracks are visible in the arrange window.
+// This goes from 1 to 11
+const verticalZoomLevel = atomFamily<number, View>({
+  key: 'grid/verticalZoomLevel',
+  default: 6,
+});
+
+const trackHeight = selectorFamily<number, View>({
+  key: 'arrangeWindow/trackHeight',
+  get: view => ({get}) => ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[get(verticalZoomLevel(view))],
 });
 
 // The total width of the inner scrollable container (region window, midi notes window, channel list, etc.)
@@ -83,6 +96,8 @@ const filteredBars = selectorFamily<Bar[], View>({
 
 export const gridStore = {
   horizontalZoomLevel,
+  verticalZoomLevel,
+  trackHeight,
   viewWidth,
   totalWidth,
   baseQuarterPixelWidth,

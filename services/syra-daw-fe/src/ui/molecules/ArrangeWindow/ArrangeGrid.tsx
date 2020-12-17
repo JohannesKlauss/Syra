@@ -10,7 +10,6 @@ import Ruler from "../Ruler/Ruler";
 function ArrangeGrid() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const windowSize = useWindowSize();
-  const setRef = useSetRecoilState(arrangeWindowStore.ref);
   const setViewportWidth = useSetRecoilState(arrangeWindowStore.viewportWidth);
 
   useEffect(() => {
@@ -24,8 +23,7 @@ function ArrangeGrid() {
   return (
     <Box overflowX={'scroll'} overflowY={'hidden'} pos={'relative'} bg={'gray.800'} ref={containerRef}>
       <Ruler/>
-      <GridTracks/>
-      <DropTrack/>
+
     </Box>
   );
 }
