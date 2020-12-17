@@ -6,7 +6,7 @@ import { ViewContext } from '../../../providers/ViewContext';
 import { gridStore } from '../../../recoil/gridStore';
 import RulerTransportCursorV2 from './RulerTransportCursorV2';
 
-function RulerV2() {
+const RulerV2: React.FC = ({children}) => {
   const { view } = useContext(ViewContext);
   const windowWidth = useRecoilValue(gridStore.totalWidth(view));
 
@@ -22,9 +22,11 @@ function RulerV2() {
       userSelect={'none'}
     >
       <RulerBarsV2 />
-      <RulerTransportCursorV2 />
+      <RulerTransportCursorV2>
+        {children}
+      </RulerTransportCursorV2>
     </Box>
   );
-}
+};
 
 export default React.memo(RulerV2);

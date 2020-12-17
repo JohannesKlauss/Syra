@@ -10,7 +10,7 @@ import RulerPlayheadV2 from "./RulerPlayheadV2";
 import useSnapPixelValue from "../../../hooks/ui/useSnapPixelValue";
 import useBarAtPixelV2 from "../../../hooks/ui/transportCursor/useBarAtPixelV2";
 
-function RulerTransportCursorV2() {
+const RulerTransportCursorV2: React.FC = ({children}) => {
   const { view, viewRef } = useContext(ViewContext);
   const setTransportQuarters = useSetRecoilState(transportStore.currentQuarter);
   const windowWidth = useRecoilValue(gridStore.totalWidth(view));
@@ -56,8 +56,9 @@ function RulerTransportCursorV2() {
   return (
     <Box w={`${windowWidth}px`} bg={'transparent'} pos={'absolute'} bottom={0} h={'20px'} zIndex={2} onMouseDown={onMouseDown}>
       <RulerPlayheadV2/>
+      {children}
     </Box>
   );
-}
+};
 
 export default RulerTransportCursorV2;

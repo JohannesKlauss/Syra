@@ -6,6 +6,10 @@ import VerticalPiano from '../../../molecules/Piano/VerticalPiano';
 import { View } from "../../../../types/View";
 import MidiTrackList from "../../../molecules/Midi/MidiTrackList";
 import PianoRollSettings from "../../../molecules/PianoRoll/PianoRollSettings";
+import { ChannelContext } from "../../../../providers/ChannelContext";
+import { pianoRollStore } from "../../../../recoil/pianoRollStore";
+import { useRecoilValue } from "recoil";
+import MidiRegionIndicatorList from "./MidiRegionIndicatorList";
 
 interface Props {
   minNote: number;
@@ -14,17 +18,20 @@ interface Props {
 
 const PianoRoll: React.FC<Props> = ({minNote, maxNote}) => {
   const theme = useTheme();
+  const selectedChannelId = useRecoilValue(pianoRollStore.selectedChannelId);
 
   return (
-    <Box w={'100%'} h={'100%'} borderTop={`1px solid ${theme.colors.teal[300]}`}>
-      <PianoRollSettings/>
-      <SplitScroller>
-        <VerticalPiano min={minNote} max={maxNote} />
-        <Grid view={View.PIANO_ROLL} >
-          <MidiTrackList min={minNote} max={maxNote}/>
-        </Grid>
-      </SplitScroller>
-    </Box>
+    <ChannelContext.Provider value={selectedChannelId}>
+      <Box w={'100%'} h={'100%'} borderTop={`1px solid ${theme.colors.teal[300]}`}>
+        <PianoRollSettings/>
+        <SplitScroller>
+          <VerticalPiano min={minNote} max={maxNote} />
+          <Grid view={View.PIANO_ROLL} additionalRulerContent={<MidiRegionIndicatorList/>}>
+            <MidiTrackList min={minNote} max={maxNote}/>
+          </Grid>
+        </SplitScroller>
+      </Box>
+    </ChannelContext.Provider>
   );
 };
 

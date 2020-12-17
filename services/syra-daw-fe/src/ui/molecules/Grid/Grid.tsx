@@ -9,9 +9,10 @@ import useDimensions from '../../../hooks/ui/useDimensions';
 
 interface Props {
   view: View;
+  additionalRulerContent?: React.ReactNode;
 }
 
-const Grid: React.FC<Props> = ({ view, children }) => {
+const Grid: React.FC<Props> = ({ view, additionalRulerContent, children }) => {
   const viewRef = useRef<HTMLDivElement | null>(null);
   const setViewWidth = useSetRecoilState(gridStore.viewWidth(view));
   const { width } = useDimensions(viewRef);
@@ -26,7 +27,10 @@ const Grid: React.FC<Props> = ({ view, children }) => {
         viewRef: viewRef,
         view
       }}>
-        <RulerV2 />
+        {/* @ts-ignore */}
+        <RulerV2>
+          {additionalRulerContent}
+        </RulerV2>
         {children}
       </ViewContext.Provider>
     </Box>
