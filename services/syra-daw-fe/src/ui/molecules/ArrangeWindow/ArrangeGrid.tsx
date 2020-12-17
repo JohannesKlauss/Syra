@@ -3,7 +3,7 @@ import GridTracks from './GridTracks';
 import useWindowSize from '../../../hooks/ui/useWindowResize';
 import { useSetRecoilState } from 'recoil';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
-import DropTrack from '../Track/DropTrack';
+import DropTrack from './Track/DropTrack';
 import { Box } from '@chakra-ui/react';
 import Ruler from "../Ruler/Ruler";
 

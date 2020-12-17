@@ -1,10 +1,10 @@
 import Track from "./Track";
 import * as React from "react";
 
-import sbWithChannel from "../../../../.storybook/decorators/sbWithChannel";
-import withChannelList from "../../../../.storybook/decorators/sbWithChannelList";
-import sbWithRegion from "../../../../.storybook/decorators/sbWithRegion";
-import sbLoadAudioFile from "../../../../.storybook/loaders/sbLoadAudioFile";
+import sbWithChannel from "../../../../../.storybook/decorators/sbWithChannel";
+import withChannelList from "../../../../../.storybook/decorators/sbWithChannelList";
+import sbWithRegion from "../../../../../.storybook/decorators/sbWithRegion";
+import sbLoadAudioFile from "../../../../../.storybook/loaders/sbLoadAudioFile";
 
 const Template = (args) => <Track {...args} />;
 

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useRecoilValue } from 'recoil';
 import { channelStore } from '../../../recoil/channelStore';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import Track from '../Track/Track';
+import Track from './Track/Track';
 import { useHotkeys } from 'react-hotkeys-hook';
 import SelectionTool from '../../atoms/SelectionTool';
 import useSelectRegions from '../../../hooks/ui/arrangeGrid/useSelectRegions';

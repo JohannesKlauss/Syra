@@ -6,7 +6,7 @@ import { Box, useTheme } from "@chakra-ui/react";
 import RulerSettings from "../../../molecules/Ruler/Settings/RulerSettings";
 import VerticalChannelList from "../../../molecules/Channels/VerticalChannels/VerticalChannelList";
 import GridTracks from "../../../molecules/ArrangeWindow/GridTracks";
-import DropTrack from "../../../molecules/Track/DropTrack";
+import DropTrack from "../../../molecules/ArrangeWindow/Track/DropTrack";
 
 interface Props {
 
@@ -20,7 +20,7 @@ const ArrangeWindowV2: React.FC<Props> = ({}) => {
       <RulerSettings/>
       <SplitScroller>
         <VerticalChannelList/>
-        <Grid view={View.ARRANGE_WINDOW} >
+        <Grid view={View.ARRANGE_WINDOW}>
           <GridTracks/>
           <DropTrack/>
         </Grid>

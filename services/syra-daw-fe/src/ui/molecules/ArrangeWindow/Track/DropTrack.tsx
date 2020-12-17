@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { useDropzone } from 'react-dropzone';
-import useIsDragOnDocument from '../../../hooks/ui/useIsDragOnDocument';
+import useIsDragOnDocument from '../../../../hooks/ui/useIsDragOnDocument';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
-import useScrollPosition from '../../../hooks/ui/useScrollPosition';
-import useOnDropTrack from '../../../hooks/ui/arrangeGrid/useOnDropTrack';
-import { projectStore } from '../../../recoil/projectStore';
+import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
+import useScrollPosition from '../../../../hooks/ui/useScrollPosition';
+import useOnDropTrack from '../../../../hooks/ui/arrangeGrid/useOnDropTrack';
+import { projectStore } from '../../../../recoil/projectStore';
 import { Flex, Text, useToast } from '@chakra-ui/react';
 
 function DropTrack() {

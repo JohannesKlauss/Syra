@@ -1,10 +1,10 @@
 import React, { useCallback, useContext } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
-import useSnapCtrlPixelCalc from '../../../hooks/ui/useSnapCtrlPixelCalc';
-import { ChannelContext } from '../../../providers/ChannelContext';
+import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
+import useSnapCtrlPixelCalc from '../../../../hooks/ui/useSnapCtrlPixelCalc';
+import { ChannelContext } from '../../../../providers/ChannelContext';
 import { useHotkeys } from 'react-hotkeys-hook';
-import useCutRegionAtMarqueeIndicator from '../../../hooks/recoil/track/useCutRegionAtMarqueeIndicator';
+import useCutRegionAtMarqueeIndicator from '../../../../hooks/recoil/track/useCutRegionAtMarqueeIndicator';
 import { Box } from '@chakra-ui/react';
 
 // TODO: WE HAVE TO FIGURE OUT A WAY TO DEFINE CUSTOM ANIMATIONS WITH CHAKRA UI

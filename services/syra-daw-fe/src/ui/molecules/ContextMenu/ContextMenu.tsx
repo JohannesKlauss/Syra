@@ -1,32 +1,38 @@
 import { Menu, MenuList, Portal, useDisclosure } from '@chakra-ui/react';
-import React, { useContext, useEffect } from "react";
-import { ViewContext } from "../../../providers/ViewContext";
-import ClickAwayListener from "react-click-away-listener";
+import React, { ReactNode, useContext, useEffect, useRef, useState } from "react";
+import { ViewContext } from '../../../providers/ViewContext';
+import ClickAwayListener from 'react-click-away-listener';
 
-interface Props {}
+interface Props {
+  children: ReadonlyArray<ReactNode>;
+}
 
-const ContextMenu: React.FC<Props> = ({children}) => {
+const ContextMenu: React.FC<Props> = ({ children }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const { viewRef } = useContext(ViewContext);
+  const [offset, setOffset] = useState<[number, number]>([0, 0]);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    viewRef.current?.addEventListener('contextmenu', e => {
+    ref.current?.addEventListener('contextmenu', (e) => {
       e.preventDefault();
+
+      setOffset([e.clientX, e.clientY]);
 
       onOpen();
     });
-  }, [viewRef]);
+  }, [ref, ref]);
 
   return (
-    <ClickAwayListener onClickAway={onClose}>
-      <Menu isLazy isOpen={isOpen}>
-        <Portal>
-          <MenuList>
-            {children}
-          </MenuList>
-        </Portal>
-      </Menu>
-    </ClickAwayListener>
+    <>
+      <div ref={ref}>{children[0]}</div>
+      <ClickAwayListener onClickAway={onClose}>
+        <Menu isLazy isOpen={isOpen} size={'xs'}>
+          <Portal>
+            <MenuList fontSize={'xs'} pos={'fixed'} left={offset[0]} top={offset[1]}>{children[1]}</MenuList>
+          </Portal>
+        </Menu>
+      </ClickAwayListener>
+    </>
   );
 };
 
