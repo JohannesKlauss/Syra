@@ -3,11 +3,10 @@ import { createNewId } from '../../../utils/createNewId';
 import { REGION_ID_PREFIX } from '../../../const/ids';
 import { regionStore } from '../../../recoil/regionStore';
 import { Note } from "@tonejs/midi/dist/Note";
+import { channelStore } from "../../../recoil/channelStore";
 
 export type CreateMidiRegionParams = {
   channelId: string;
-  channelName: string;
-  file: File;
   notes: Note[];
   start: number;
   duration: number;
@@ -19,11 +18,12 @@ export default function useCreateMidiRegion() {
     ({ set, snapshot }) => async (params: CreateMidiRegionParams) => {
       const newRegionId = params.regionId ?? createNewId(REGION_ID_PREFIX);
       const staticCounter = snapshot.getLoadable(regionStore.staticCounter(params.channelId)).contents as number;
+      const channelName = snapshot.getLoadable(channelStore.name(params.channelId)).contents as string;
 
       set(regionStore.ids(params.channelId), (currVal) => [...currVal, newRegionId]);
       set(regionStore.start(newRegionId), params.start);
       set(regionStore.trimEnd(newRegionId), params.duration);
-      set(regionStore.name(newRegionId), `${params.channelName} #${staticCounter}`);
+      set(regionStore.name(newRegionId), `${channelName} #${staticCounter}`);
       set(regionStore.isMidi(newRegionId), true);
       set(regionStore.midiNotes(newRegionId), params.notes);
 
