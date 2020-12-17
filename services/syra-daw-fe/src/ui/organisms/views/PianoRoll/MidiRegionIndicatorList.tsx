@@ -16,7 +16,7 @@ const MidiRegionIndicatorList: React.FC<Props> = ({}) => {
   return (
     <>
       {regionIds.map(id => (
-        <RegionContext.Provider value={id}>
+        <RegionContext.Provider value={id} key={id}>
           <MidiRegionIndicator/>
         </RegionContext.Provider>
       ))}

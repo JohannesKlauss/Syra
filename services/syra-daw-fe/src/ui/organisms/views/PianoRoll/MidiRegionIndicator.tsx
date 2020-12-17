@@ -17,7 +17,7 @@ const MidiRegionIndicator: React.FC<Props> = ({}) => {
 
   return (
     <Box h={'20px'} w={'400px'} pos={'relative'}>
-      <TopBar color={color}>
+      <TopBar color={color} rounded={4}>
         <Flex justify={'flex-start'} align={'center'} ml={2}>
           <SiMidi/>
           <RegionName color={color}>{name}</RegionName>

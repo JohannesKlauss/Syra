@@ -81,4 +81,6 @@ const Piano = ({ renderVertical, min, max, baseHeight = 205 }: Props) => {
   );
 };
 
+Piano.whyDidYouRender = true;
+
 export default React.memo(Piano);

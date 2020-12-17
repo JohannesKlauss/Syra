@@ -30,6 +30,7 @@ export const BaseContainer: React.FC<BaseContainerProps> = ({
     transform={`translateX(${left}px`}
     border={isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(5).toRgbString()}`}
     zIndex={isMoving || isSelected ? 10 : 1}
+    rounded={4}
   >
     {children}
   </Box>
@@ -56,12 +57,13 @@ export const Manipulations: React.FC<ManipulationsProps> = ({ isMoving, children
   </Box>
 );
 
-interface TopBarProps {
+interface TopBarProps extends BoxProps {
   color: string;
 }
 
-export const TopBar: React.FC<TopBarProps> = ({ color, children }) => (
+export const TopBar: React.FC<TopBarProps> = ({ color, children, ...props }) => (
   <Box
+    {...props}
     w={'100%'}
     pos={'absolute'}
     bg={tinycolor(color).darken(5).toRgbString()}

@@ -27,6 +27,7 @@ const BaseRegion: React.FC<Props> = ({ left, top, isMoving, children }) => {
       opacity={isMuted ? 0.5 : 1}
       transform={`translateX(${left})px`}
       zIndex={(isMoving || isSelected ? 10 : 1)}
+      rounded={4}
       border={isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(5).toRgbString()}`}
     >
       {children}
