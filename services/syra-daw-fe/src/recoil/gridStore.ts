@@ -1,6 +1,5 @@
-import { atomFamily, selector, selectorFamily } from "recoil";
+import { atomFamily, selectorFamily } from "recoil";
 import { View } from "../types/View";
-import { RefObject } from "react";
 import { projectStore } from "./projectStore";
 import { transportStore } from "./transportStore";
 import { Bar } from "../types/Ui";
@@ -22,12 +21,6 @@ const horizontalZoomLevel = atomFamily<number, View>({
 const totalWidth = selectorFamily<number, View>({
   key: 'grid/totalWidth',
   get: view => ({get}) => get(viewWidth(view)) * get(horizontalZoomLevel(view)),
-});
-
-// The ref object of the grid view itself. Used to track scrolling inside the grid view.
-const ref = atomFamily<RefObject<HTMLDivElement> | undefined, View>({
-  key: 'grid/ref',
-  default: undefined,
 });
 
 const baseQuarterPixelWidth = selectorFamily<number, View>({
@@ -92,7 +85,6 @@ export const gridStore = {
   horizontalZoomLevel,
   viewWidth,
   totalWidth,
-  ref,
   baseQuarterPixelWidth,
   zoomedQuarterPixelWidth,
   playheadPosition,

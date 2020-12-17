@@ -5,7 +5,7 @@ import { ViewContext } from "../../providers/ViewContext";
 import { gridStore } from "../../recoil/gridStore";
 
 export default function useSnapPixelValue() {
-  const view = useContext(ViewContext);
+  const { view } = useContext(ViewContext);
   const snapWidth = useRecoilValue(gridStore.snapValueWidthInPixels(view));
   const isSnapActive = useRecoilValue(gridStore.isSnapActive(view));
   const isPressed = useIsHotkeyPressed();

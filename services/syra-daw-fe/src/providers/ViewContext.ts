@@ -1,4 +1,10 @@
-import React from 'react';
+import React, { RefObject } from "react";
 import { View } from "../types/View";
 
-export const ViewContext = React.createContext<View>(View.ARRANGE_WINDOW);
+export const ViewContext = React.createContext<{
+  viewRef: RefObject<HTMLElement>,
+  view: View,
+}>({
+  viewRef: React.createRef(),
+  view: View.ARRANGE_WINDOW,
+});

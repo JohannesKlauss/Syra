@@ -37,7 +37,7 @@ const RulerItem: React.FC<{ left: number }> = ({ left, children }) => (
 );
 
 function RulerBarsV2() {
-  const view = useContext(ViewContext);
+  const { view } = useContext(ViewContext);
   const bars = useRecoilValue(gridStore.filteredBars(view));
   const zoomedQuarterPixelWidth = useRecoilValue(gridStore.zoomedQuarterPixelWidth(view));
   const projectLengthInQuarters = useRecoilValue(projectStore.lengthInQuarters);

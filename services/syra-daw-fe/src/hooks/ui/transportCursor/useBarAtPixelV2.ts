@@ -6,7 +6,7 @@ import { ViewContext } from "../../../providers/ViewContext";
 import { useContext } from "react";
 
 export default function useBarAtPixelV2() {
-  const view = useContext(ViewContext);
+  const { view } = useContext(ViewContext);
   const zoomedQuarterPixelWidth = useRecoilValue(gridStore.zoomedQuarterPixelWidth(view));
 
   return useRecoilCallback(({snapshot}) => (x: number) => {

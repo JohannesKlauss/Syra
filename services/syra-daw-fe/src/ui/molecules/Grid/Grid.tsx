@@ -13,13 +13,8 @@ interface Props {
 
 const Grid: React.FC<Props> = ({ windowView, children }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const setRef = useSetRecoilState(gridStore.ref(windowView));
   const setViewWidth = useSetRecoilState(gridStore.viewWidth(windowView));
   const { width } = useDimensions(containerRef);
-
-  useEffect(() => {
-    setRef(containerRef);
-  }, [containerRef, setRef]);
 
   useLayoutEffect(() => {
     setViewWidth(width);
@@ -27,7 +22,10 @@ const Grid: React.FC<Props> = ({ windowView, children }) => {
 
   return (
     <Box overflowX={'scroll'} overflowY={'hidden'} pos={'relative'} bg={'gray.800'} w={'100%'} ref={containerRef}>
-      <ViewContext.Provider value={windowView}>
+      <ViewContext.Provider value={{
+        viewRef: containerRef,
+        view: View.PIANO_ROLL
+      }}>
         <RulerV2 />
         {children}
       </ViewContext.Provider>

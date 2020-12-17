@@ -11,14 +11,13 @@ import useSnapPixelValue from "../../../hooks/ui/useSnapPixelValue";
 import useBarAtPixelV2 from "../../../hooks/ui/transportCursor/useBarAtPixelV2";
 
 function RulerTransportCursorV2() {
-  const view = useContext(ViewContext);
+  const { view, viewRef } = useContext(ViewContext);
   const setTransportQuarters = useSetRecoilState(transportStore.currentQuarter);
   const windowWidth = useRecoilValue(gridStore.totalWidth(view));
   const playheadPosition = useRecoilValue(gridStore.playheadPosition(view));
   const snapPixelValue = useSnapPixelValue();
   const zoomedQuarterPixelWidth = useRecoilValue(gridStore.zoomedQuarterPixelWidth(view));
   const viewWidth = useRecoilValue(gridStore.viewWidth(view));
-  const gridRef = useRecoilValue(gridStore.ref(view));
   const snapValue = useRecoilValue(gridStore.snapValue(view));
   const barAtPixel = useBarAtPixelV2();
   const isSnapActive = useRecoilValue(gridStore.isSnapActive(view));
@@ -45,14 +44,14 @@ function RulerTransportCursorV2() {
 
   // Scroll the grid view if playhead exceed viewport
   useEffect(() => {
-    const scrollLeft = gridRef?.current?.scrollLeft ?? 0;
+    const scrollLeft = viewRef?.current?.scrollLeft ?? 0;
 
     if (!isBetween(playheadPosition, [scrollLeft, scrollLeft + viewWidth - 60])) {
-      gridRef?.current?.scrollTo({
+      viewRef?.current?.scrollTo({
         left: Math.max(0, Math.ceil((playheadPosition / viewWidth)) * viewWidth - 60)
       });
     }
-  }, [playheadPosition, viewWidth, gridRef]);
+  }, [playheadPosition, viewWidth, viewRef]);
 
   return (
     <Box w={`${windowWidth}px`} bg={'transparent'} pos={'absolute'} bottom={0} h={'20px'} zIndex={2} onMouseDown={onMouseDown}>

@@ -5,8 +5,8 @@ import { useRecoilValue } from 'recoil';
 import { ViewContext } from "../../providers/ViewContext";
 import { gridStore } from "../../recoil/gridStore";
 
-export default function usePlayheadAnimation() {
-  const view = useContext(ViewContext);
+export default function usePlayheadAnimationV2() {
+  const { view, viewRef } = useContext(ViewContext);
   const transport = useToneJsTransport();
   const isRecording = useRecoilValue(transportStore.isRecording);
   const isPlaying = useRecoilValue(transportStore.isPlaying);
@@ -17,7 +17,6 @@ export default function usePlayheadAnimation() {
   const lastSeconds = useRef<number>(transport.seconds);
   const currentTranslate = useRef<number>(transportTranslate);
   const viewportWidth = useRecoilValue(gridStore.viewWidth(view));
-  const arrangeWindowRef = useRecoilValue(gridStore.ref(view));
   const pixelPerSecond = useRecoilValue(gridStore.pixelPerSecond(view));
   const secondsToPixel = useCallback((seconds: number) => pixelPerSecond * seconds, [pixelPerSecond]);
 
@@ -37,8 +36,8 @@ export default function usePlayheadAnimation() {
     const mod = secondsToPixel(transport.seconds) % viewportWidth;
 
     if (mod > viewportWidth - 30 && !scrolled.current) {
-      arrangeWindowRef?.current?.scrollTo({
-        left: (arrangeWindowRef?.current?.scrollLeft ?? 0) + viewportWidth,
+      viewRef?.current?.scrollTo({
+        left: (viewRef?.current?.scrollLeft ?? 0) + viewportWidth,
       });
 
       scrolled.current = true;

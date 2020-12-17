@@ -11,7 +11,7 @@ interface Props {
 }
 
 const MidiNote: React.FC<Props> = ({note}) => {
-  const view = useContext(ViewContext);
+  const { view } = useContext(ViewContext);
   const velocityColor = useVelocityColors();
   const pixelPerSecond = useRecoilValue(gridStore.pixelPerSecond(view));
 

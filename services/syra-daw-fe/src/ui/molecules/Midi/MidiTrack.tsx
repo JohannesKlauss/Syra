@@ -16,7 +16,7 @@ interface Props {
 const MidiTrack: React.FC<Props> = ({ note, isEven }) => {
   const theme = useTheme();
   const { isAccidental } = MidiNumbers.getAttributes(note);
-  const view = useContext(ViewContext);
+  const { view } = useContext(ViewContext);
   const totalWidth = useRecoilValue(gridStore.totalWidth(view));
   const midiNotesAtTrack = useRecoilValue(pianoRollStore.midiNotesAtTrack(note));
 
