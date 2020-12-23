@@ -42,7 +42,7 @@
   },
   "resolutions": {
     "@chakra-ui/react": "1.0.4",
-    "@emotion/react": "11.1.2",
+    "@emotion/react": "11.1.4",
     "@emotion/styled": "11.0.0",
     "@types/react": "17.0.0",
     "@typescript-eslint/eslint-plugin": "4.11.0",
