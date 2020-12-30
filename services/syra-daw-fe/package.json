@@ -58,7 +58,7 @@
     "@types/resize-observer-browser": "0.1.4",
     "@types/tinycolor2": "1.4.2",
     "@types/uniqid": "5.2.0",
-    "@testing-library/jest-dom": "5.11.6",
+    "@testing-library/jest-dom": "5.11.8",
     "@testing-library/react": "11.2.2",
     "@testing-library/react-hooks": "3.7.0",
     "@testing-library/user-event": "12.6.0",
