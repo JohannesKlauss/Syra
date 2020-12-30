@@ -53,7 +53,7 @@
     "@types/react": "17.0.0",
     "@types/react-color": "3.0.4",
     "@types/react-dom": "17.0.0",
-    "@types/react-router-dom": "5.1.6",
+    "@types/react-router-dom": "5.1.7",
     "@types/react-window": "1.8.2",
     "@types/resize-observer-browser": "0.1.4",
     "@types/tinycolor2": "1.4.2",
