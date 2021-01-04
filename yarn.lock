@@ -2748,10 +2748,10 @@
   resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
   integrity sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw==
 
-"@inlet/react-pixi@6.0.5":
-  version "6.0.5"
-  resolved "https://registry.yarnpkg.com/@inlet/react-pixi/-/react-pixi-6.0.5.tgz#66fa3a81d2fd4b5428fecba0fef6296522204b89"
-  integrity sha512-UqWKd0rQGu66C3UOCDEk3uvYjQAcd42uZwphzQXWgv9U4eHdvlPm0dpC68EiMcoBE43l0qHt6fL22zS1P8gMPQ==
+"@inlet/react-pixi@6.0.7":
+  version "6.0.7"
+  resolved "https://registry.yarnpkg.com/@inlet/react-pixi/-/react-pixi-6.0.7.tgz#0b05a85893213b78962c1cbe9c5016f3c183f032"
+  integrity sha512-xJF8pucMxdQVwKwBgipFrfPLJ4UfZsIvntUtNA6j1FOc5Aigyc1gKLXQpC7y5W9/T7DfbFhpLohgMIQTdCwCvw==
   dependencies:
     performance-now "2.1.0"
     react-reconciler "0.26.1"
