@@ -9718,7 +9718,12 @@ date-fns@^1.27.2:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
-dayjs@^1.8.16, dayjs@^1.9.6, dayjs@^1.9.7:
+dayjs@^1.10.2:
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.2.tgz#8f3a424ceb944a8193506804b0045a773d2d0672"
+  integrity sha512-h/YtykNNTR8Qgtd1Fxl5J1/SFP1b7SOk/M1P+Re+bCdFMV0IMkuKNgHPN7rlvvuhfw24w0LX78iYKt4YmePJNQ==
+
+dayjs@^1.8.16:
   version "1.9.7"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.9.7.tgz#4b260bb17dceed2d5f29038dfee03c65a6786fc0"
   integrity sha512-IC877KBdMhBrCfBfJXHQlo0G8keZ0Opy7YIIq5QKtUbCuHMzim8S4PyiVK4YmihI3iOF9lhfUBW4AQWHTR5WHA==
@@ -16002,16 +16007,16 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@^0.5.5, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-mml-react@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/mml-react/-/mml-react-0.3.1.tgz#318be5e6fdc461efd472bd000adbaa7381193ca6"
-  integrity sha512-yq8aIlhu13h/kIXe0YH5We4TeGkcY25AemIhJATT3NwItCG5U0kIq1IVuyQzP14QUaCH9+sHyteHANeYNYbN4g==
+mml-react@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/mml-react/-/mml-react-0.3.2.tgz#6c0c8bdce4b07f5ff7a4857b1d0e404e3a727809"
+  integrity sha512-NC9/dQ7YgrE7TLhNUavYGWQL2iCKap07YblbWNHK3Wo/+Q3ULKj69TI1d3660A5u+fdC+xdhZMpB3bp+O4kzfw==
   dependencies:
     "@braintree/sanitize-url" "^5.0.0"
     "@rgrove/parse-xml" "^2.0.4"
     "@types/linkifyjs" "^2.1.3"
     "@types/rgrove__parse-xml" "^1.1.1"
-    dayjs "^1.9.7"
+    dayjs "^1.10.2"
     ical-expander "^3.1.0"
     linkifyjs "^2.1.9"
     react-markdown "^5.0.3"
@@ -21195,14 +21200,14 @@ stream-browserify@^2.0.1:
     inherits "~2.0.1"
     readable-stream "^2.0.2"
 
-stream-chat-react@3.4.4:
-  version "3.4.4"
-  resolved "https://registry.yarnpkg.com/stream-chat-react/-/stream-chat-react-3.4.4.tgz#7ace722020cc2be5ad53fe675a2738b9286992d2"
-  integrity sha512-NptbwfjBcxZJbZyGFL3+/b8WAMg1rbTsK/hK22r+I7l6aN6MILrstzxvNUyStXs6DTs5ex0h7F+7ylkOKXV6dA==
+stream-chat-react@3.4.5:
+  version "3.4.5"
+  resolved "https://registry.yarnpkg.com/stream-chat-react/-/stream-chat-react-3.4.5.tgz#fc694affa1a5a10eb314a85e6125a53f9adc6116"
+  integrity sha512-XPfmwtYshe4cyrTTzlO9y/P0a/TJKBfbUEy4kgv8J/fXGr7pbk5O5438d+6e/5y+uxJSjNWLSCS1rKKNQ/WdGw==
   dependencies:
     "@braintree/sanitize-url" "5.0.0"
     custom-event "^1.0.1"
-    dayjs "^1.9.6"
+    dayjs "^1.10.2"
     emoji-mart "3.0.0"
     emoji-regex "^9.2.0"
     i18next "^19.8.4"
@@ -21211,7 +21216,7 @@ stream-chat-react@3.4.4:
     lodash.debounce "^4.0.8"
     lodash.throttle "^4.1.1"
     lodash.uniqby "^4.7.0"
-    mml-react "^0.3.1"
+    mml-react "^0.3.2"
     pretty-bytes "^5.4.1"
     prop-types "^15.7.2"
     react-fast-compare "^3.2.0"
