@@ -12,3 +12,9 @@ export interface Bar {
   timeSignature: [number, number];
   displayOnRulerBar: boolean;
 }
+
+export enum DragMode {
+  START_HANDLE,
+  MOVE,
+  END_HANDLE,
+}

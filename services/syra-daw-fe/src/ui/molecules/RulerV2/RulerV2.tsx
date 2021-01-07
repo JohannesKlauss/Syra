@@ -5,6 +5,7 @@ import { Box } from '@chakra-ui/react';
 import { ViewContext } from '../../../providers/ViewContext';
 import { gridStore } from '../../../recoil/gridStore';
 import RulerTransportCursorV2 from './RulerTransportCursorV2';
+import BackgroundGridV2 from '../Grid/BackgroundGridV2';
 
 const RulerV2: React.FC = ({children}) => {
   const { view } = useContext(ViewContext);
@@ -21,6 +22,7 @@ const RulerV2: React.FC = ({children}) => {
       borderBottom={`1px solid rgba(255, 255, 255, 0.3)`}
       userSelect={'none'}
     >
+      <BackgroundGridV2/>
       <RulerBarsV2 />
       <RulerTransportCursorV2>
         {children}

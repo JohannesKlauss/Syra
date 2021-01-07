@@ -9,7 +9,7 @@ import useDimensions from '../../../hooks/ui/useDimensions';
 
 interface Props {
   view: View;
-  additionalRulerContent?: React.ReactNode;
+  additionalRulerContent?: JSX.Element;
 }
 
 const Grid: React.FC<Props> = ({ view, additionalRulerContent, children }) => {

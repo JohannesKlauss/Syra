@@ -27,6 +27,7 @@ const MidiTrack: React.FC<Props> = ({ note, isEven }) => {
       h={'14px'}
       bg={isAccidental ? 'gray.800' : 'gray.700'}
       w={totalWidth}
+      opacity={0.7}
       title={Tone.Frequency(note, 'midi').toNote()}
     >
       {midiNotesAtTrack.map((note, i) => <MidiNote note={note} key={i}/>)}
