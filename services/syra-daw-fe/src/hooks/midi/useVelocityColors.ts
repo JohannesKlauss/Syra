@@ -15,7 +15,7 @@ export default function useVelocityColors() {
   ]);
 
   // normalizedVelocity ranges from 0..1
-  return useCallback((normalizedVelocity: number) => {
-      return colorMap(normalizedVelocity);
+  return useCallback((velocity: number) => {
+      return colorMap(velocity / 127);
   }, [colorMap]);
 }

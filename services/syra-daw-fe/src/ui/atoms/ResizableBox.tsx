@@ -4,13 +4,12 @@ import {motion, PanInfo, useMotionValue} from 'framer-motion';
 import {DragMode} from "../../types/Ui";
 
 interface Props extends BoxProps {
-  defaultSnap: boolean;
-  dragHandleWidth: number;
+  dragHandleWidth?: number;
   baseWidth: number;
   onPositionChanged: (x: number, width: number) => void;
 }
 
-const ResizableBox: React.FC<Props> = ({defaultSnap, baseWidth, dragHandleWidth, children, onPositionChanged, ...props}) => {
+const ResizableBox: React.FC<Props> = ({baseWidth, dragHandleWidth = 4, children, onPositionChanged, ...props}) => {
   const width = useMotionValue(baseWidth);
   const oldWidth = useMotionValue(baseWidth);
   const x = useMotionValue(0);
@@ -48,8 +47,10 @@ const ResizableBox: React.FC<Props> = ({defaultSnap, baseWidth, dragHandleWidth,
     oldX.set(x.get());
   }
 
+  console.log('width', width.get());
+
   return (
-    <motion.div dragElastic={0} drag={'x'} dragMomentum={false} style={{width, x}}
+    <motion.div dragElastic={0} drag={'x'} dragMomentum={false} style={{width, x, position: 'relative'}}
                 onDragEnd={onDragEnd} onDrag={onDrag} onMouseDown={onMouseDown} ref={ref}>
         <Box {...props} width={`100%`}>
           {children}

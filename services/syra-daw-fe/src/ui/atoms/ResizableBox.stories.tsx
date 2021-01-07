@@ -13,7 +13,5 @@ export default {
 export const Default = Template.bind({});
 
 Default.args = {
-  defaultSnap: true,
-  dragHandleWidth: 4,
-  width: 100,
+  baseWidth: 100,
 };

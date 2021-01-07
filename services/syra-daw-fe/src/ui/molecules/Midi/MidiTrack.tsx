@@ -7,6 +7,8 @@ import { gridStore } from "../../../recoil/gridStore";
 import { useRecoilValue } from "recoil";
 import { pianoRollStore } from "../../../recoil/pianoRollStore";
 import MidiNote from "./MidiNote";
+import useDrawMidiNote from "../../../hooks/ui/views/pianoRoll/useDrawMidiNote";
+import usePixelToTicks from "../../../hooks/tone/usePixelToTicks";
 
 interface Props {
   note: number;
@@ -19,6 +21,15 @@ const MidiTrack: React.FC<Props> = ({ note, isEven }) => {
   const { view } = useContext(ViewContext);
   const totalWidth = useRecoilValue(gridStore.totalWidth(view));
   const midiNotesAtTrack = useRecoilValue(pianoRollStore.midiNotesAtTrack(note));
+  const drawMidiNote = useDrawMidiNote(note);
+  const pixelToTicks = usePixelToTicks();
+
+  const onClickMidiTrack = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    console.log('x', e.clientX - 50);
+    console.log('ticks', pixelToTicks(e.clientX - 50).toTicks());
+
+    drawMidiNote(pixelToTicks(e.clientX - 50).toTicks(), pixelToTicks(e.clientX + 100 - 50).toTicks(), 64);
+  };
 
   return (
     <Box
@@ -28,7 +39,9 @@ const MidiTrack: React.FC<Props> = ({ note, isEven }) => {
       bg={isAccidental ? 'gray.800' : 'gray.700'}
       w={totalWidth}
       opacity={0.7}
+      onClick={onClickMidiTrack}
       title={Tone.Frequency(note, 'midi').toNote()}
+      cursor={'url("/icons/cursor/pencil.svg") 0 24, auto'}
     >
       {midiNotesAtTrack.map((note, i) => <MidiNote note={note} key={i}/>)}
     </Box>
