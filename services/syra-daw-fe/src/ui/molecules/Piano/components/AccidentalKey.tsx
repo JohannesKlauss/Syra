@@ -36,4 +36,7 @@ const AccidentalKey: React.FC<Props> = ({isActive, baseHeight = 120, renderVerti
   );
 };
 
+// @ts-ignore
+AccidentalKey.whyDidYouRender = true;
+
 export default AccidentalKey;

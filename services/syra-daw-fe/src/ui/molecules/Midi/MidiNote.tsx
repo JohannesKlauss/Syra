@@ -28,4 +28,7 @@ const MidiNote: React.FC<Props> = ({note}) => {
   );
 };
 
+// @ts-ignore
+MidiNote.whyDidYouRender = true;
+
 export default MidiNote;

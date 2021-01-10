@@ -39,6 +39,8 @@ export default function useMidiRegionScheduler() {
       }, `+${note.time + note.duration}`));
     });
 
+    console.log('notes changed', notes);
+
     return () => {
       scheduleIds.current.forEach(id => transport.clear(id));
     }

@@ -33,4 +33,6 @@ function NaturalKey({ isActive, baseHeight = 205, renderVertical, width, ...prop
   );
 }
 
+NaturalKey.whyDidYouRender = true;
+
 export default NaturalKey;

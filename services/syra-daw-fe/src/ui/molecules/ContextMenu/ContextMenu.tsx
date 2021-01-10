@@ -28,7 +28,7 @@ const ContextMenu: React.FC<Props> = ({ children }) => {
       <ClickAwayListener onClickAway={onClose}>
         <Menu isLazy isOpen={isOpen} size={'xs'}>
           <Portal>
-            <MenuList fontSize={'xs'} pos={'fixed'} left={offset[0]} top={offset[1]}>{children[1]}</MenuList>
+            <MenuList onClick={onClose} fontSize={'xs'} pos={'fixed'} left={offset[0]} top={offset[1]}>{children[1]}</MenuList>
           </Portal>
         </Menu>
       </ClickAwayListener>

@@ -1,17 +1,16 @@
 import { useIsHotkeyPressed } from "react-hotkeys-hook";
-import {useRecoilCallback} from "recoil";
-import {RegionContext} from "../../../../providers/RegionContext";
-import {useContext} from "react";
+import {useRecoilCallback, useRecoilValue} from "recoil";
 import {regionStore} from "../../../../recoil/regionStore";
 import {Note} from "@tonejs/midi/dist/Note";
 import { Header } from "@tonejs/midi";
+import {pianoRollStore} from "../../../../recoil/pianoRollStore";
 
 export default function useDrawMidiNote(note: number) {
   const isPressed = useIsHotkeyPressed();
-  const regionId = useContext(RegionContext);
+  const focusedMidiRegionId = useRecoilValue(pianoRollStore.focusedMidiRegionId);
 
   return useRecoilCallback(({set, snapshot}) => (noteOnAtTicks: number, noteOffAtTicks: number, velocity: number) => {
-    const midiNotes = snapshot.getLoadable(regionStore.midiNotes(regionId)).contents as Note[];
+    const midiNotes = snapshot.getLoadable(regionStore.midiNotes(focusedMidiRegionId)).contents as Note[];
 
     const header = new Header();
     header.setTempo(180);
@@ -25,6 +24,8 @@ export default function useDrawMidiNote(note: number) {
       velocity: 0,
     }, header);
 
-    set(regionStore.midiNotes(regionId), [...midiNotes, newNote]);
-  }, [isPressed, note, regionId]);
+    console.log('Midi Notes', midiNotes);
+
+    set(regionStore.midiNotes(focusedMidiRegionId), [...midiNotes, newNote]);
+  }, [isPressed, note, focusedMidiRegionId]);
 }

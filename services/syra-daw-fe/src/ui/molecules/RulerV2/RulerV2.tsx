@@ -31,4 +31,4 @@ const RulerV2: React.FC = ({children}) => {
   );
 };
 
-export default React.memo(RulerV2);
+export default RulerV2;

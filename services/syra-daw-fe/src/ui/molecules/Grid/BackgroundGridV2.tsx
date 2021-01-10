@@ -13,12 +13,12 @@ function BackgroundGridV2({ticksFullHeight}: Props) {
   const { view } = useContext(ViewContext);
   const gridId = createNewId('grid-pattern');
   const windowWidth = useRecoilValue(gridStore.viewWidth(view));
-  const zoomedBarPixelWidth = useRecoilValue(gridStore.zoomedQuarterPixelWidth(view)) * 4;
+  const zoomedBarPixelWidth = Math.max(useRecoilValue(gridStore.zoomedQuarterPixelWidth(view)) * 4, 0);
 
   const rectWidth = 1 / window.devicePixelRatio;
 
   return (
-    <Box pos={'absolute'} top={0} left={0} w={'100%'} h={'100%'}>
+    <Box pos={'absolute'} top={0} left={0} w={'100%'} h={'100%'} bg={'transparent'} pointerEvents={'none'}>
       <svg width={windowWidth} height={ticksFullHeight ? '3200' : '100%'} pointerEvents={'none'}>
         <defs>
           <pattern id={gridId} x="0" y="0" width={zoomedBarPixelWidth} height="100%" patternUnits="userSpaceOnUse">

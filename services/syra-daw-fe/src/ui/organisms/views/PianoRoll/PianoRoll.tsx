@@ -28,8 +28,8 @@ const PianoRoll: React.FC<Props> = ({minNote, maxNote}) => {
         <SplitScroller>
           <VerticalPiano min={minNote} max={maxNote} />
           <Grid view={View.PIANO_ROLL} additionalRulerContent={<MidiRegionIndicatorList/>}>
-            <BackgroundGridV2/>
             <MidiTrackList min={minNote} max={maxNote}/>
+            <BackgroundGridV2/>
           </Grid>
         </SplitScroller>
       </Box>

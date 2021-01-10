@@ -4,7 +4,6 @@ import { useDropzone } from 'react-dropzone';
 import RegionList from '../../Region/Regions/RegionList';
 import useIsDragOnDocument from '../../../../hooks/ui/useIsDragOnDocument';
 import { useRecoilValue } from 'recoil';
-import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import MarqueeContainer from './MarqueeContainer';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import useOnDropCreateRegion from "../../../../hooks/recoil/region/useOnDropCreateRegion";
