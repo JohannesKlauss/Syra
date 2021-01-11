@@ -19,9 +19,9 @@ function Editor() {
       <>
         <Box>
           <ArrangeWindowV2/>
-          <Box pos={'fixed'} bottom={78} left={0} w={'100%'} h={'50%'} zIndex={1} display={showMixer || showPianoRoll ? 'block' : 'none'}>
-            {showMixer && <HorizontalChannelList/>}
-            {showPianoRoll && <PianoRoll minNote={12} maxNote={115}/>}
+          <Box pos={'fixed'} bottom={78} left={0} w={'100%'} h={'50%'} zIndex={1}>
+            <HorizontalChannelList showView={showMixer}/>
+            <PianoRoll minNote={12} maxNote={115} showView={showPianoRoll}/>
           </Box>
           <Box pos={'fixed'} bottom={0} left={0} w={'100%'} zIndex={10}>
             <TransportView/>

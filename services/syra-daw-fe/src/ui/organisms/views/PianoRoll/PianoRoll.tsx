@@ -15,15 +15,16 @@ import BackgroundGridV2 from '../../../molecules/Grid/BackgroundGridV2';
 interface Props {
   minNote: number;
   maxNote: number;
+  showView?: boolean;
 }
 
-const PianoRoll: React.FC<Props> = ({minNote, maxNote}) => {
+const PianoRoll: React.FC<Props> = ({minNote, maxNote, showView}) => {
   const theme = useTheme();
   const selectedChannelId = useRecoilValue(pianoRollStore.selectedChannelId);
 
   return (
     <ChannelContext.Provider value={selectedChannelId}>
-      <Box w={'100%'} h={'100%'} borderTop={`1px solid ${theme.colors.teal[300]}`}>
+      <Box w={'100%'} h={'100%'} borderTop={`1px solid ${theme.colors.teal[300]}`} display={showView ? 'block' : 'none'}>
         <PianoRollSettings/>
         <SplitScroller>
           <VerticalPiano min={minNote} max={maxNote} />

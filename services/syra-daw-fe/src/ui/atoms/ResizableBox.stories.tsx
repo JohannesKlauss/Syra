@@ -14,4 +14,6 @@ export const Default = Template.bind({});
 
 Default.args = {
   baseWidth: 100,
+  height: '100px',
+  bg: 'white'
 };

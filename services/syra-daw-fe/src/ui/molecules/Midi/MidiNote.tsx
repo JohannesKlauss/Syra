@@ -18,10 +18,8 @@ const MidiNote: React.FC<Props> = ({note}) => {
   const onPositionChanged = useRecoilCallback(({set, snapshot}) => (offset: number, width: number) => {
   }, []);
 
-  console.log('note', note);
-
   return (
-    <ResizableBox cursor={'default'} bg={velocityColor(note.velocity)} pos={'absolute'} left={`${note.time * pixelPerSecond}px`}
+    <ResizableBox cursor={'default'} bg={velocityColor(note.velocity)} baseX={note.time * pixelPerSecond}
                   baseWidth={note.duration * pixelPerSecond} h={'14px'} border={'1px solid black'} onPositionChanged={onPositionChanged}>
 
     </ResizableBox>

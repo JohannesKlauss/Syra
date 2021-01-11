@@ -27,7 +27,7 @@ const Grid: React.FC<Props> = ({view, additionalRulerContent, children}) => {
   }), [viewRef, view]);
 
   return (
-    <Box overflowX={'scroll'} overflowY={'hidden'} pos={'relative'} bg={'gray.800'} w={'100%'} ref={viewRef}>
+    <Box overflowX={'scroll'} overflowY={'hidden'} pos={'relative'} bg={'gray.800'} w={'100%'} ref={viewRef} userSelect={'none'}>
       {viewRef.current !== null && (
         <ViewContext.Provider value={viewContextValue}>
           <RulerV2>

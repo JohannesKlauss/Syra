@@ -23,7 +23,7 @@
       "./node_modules/@types",
       "../../node_modules/@types"
     ],
-    "jsx": "react-jsx"
+    "jsx": "react"
   },
   "include": [
     "./src"

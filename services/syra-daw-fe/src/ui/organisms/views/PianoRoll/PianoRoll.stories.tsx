@@ -15,4 +15,5 @@ export const Default = Template.bind({});
 Default.args = {
   minNote: 12,
   maxNote: 115,
+  showView: true,
 };
