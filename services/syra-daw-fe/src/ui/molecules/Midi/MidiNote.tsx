@@ -1,13 +1,13 @@
-import {Note} from '@tonejs/midi/dist/Note';
 import React, {useContext} from "react";
 import useVelocityColors from "../../../hooks/midi/useVelocityColors";
 import {useRecoilValue, useRecoilCallback} from "recoil";
 import {gridStore} from "../../../recoil/gridStore";
 import {ViewContext} from "../../../providers/ViewContext";
 import ResizableBox from "../../atoms/ResizableBox";
+import {MidiNote as TMidiNote} from "../../../types/Midi";
 
 interface Props {
-  note: Note;
+  note: TMidiNote;
 }
 
 const MidiNote: React.FC<Props> = ({note}) => {
@@ -17,6 +17,8 @@ const MidiNote: React.FC<Props> = ({note}) => {
 
   const onPositionChanged = useRecoilCallback(({set, snapshot}) => (offset: number, width: number) => {
   }, []);
+
+  console.log('note.time', note.time);
 
   return (
     <ResizableBox cursor={'default'} bg={velocityColor(note.velocity)} baseX={note.time * pixelPerSecond}

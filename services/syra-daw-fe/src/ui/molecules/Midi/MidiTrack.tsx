@@ -1,5 +1,5 @@
 import { Box, useTheme } from '@chakra-ui/react';
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useCallback } from "react";
 import * as Tone from 'tone';
 import { MidiNumbers } from "piano-utils";
 import { ViewContext } from "../../../providers/ViewContext";
@@ -23,14 +23,14 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
   const pixelToTicks = usePixelToTicks();
   const ref = useRef<HTMLDivElement>(null);
 
-  const onClickMidiTrack = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const onClickMidiTrack = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // TODO: THIS IS WEIRD. THE CLICK BUBBLING DOESN't STOP INSIDE RESIZABLE BOX, EVEN THOUGH WE CANCEL EVERYTHING.
     if (e.target !== ref.current) {
       return;
     }
 
-    drawMidiNote(pixelToTicks(e.clientX - 50).toTicks(), pixelToTicks(e.clientX + 100 - 50).toTicks(), 127);
-  };
+    drawMidiNote(pixelToTicks(e.clientX - 50), pixelToTicks(e.clientX + 100 - 50), 127);
+  }, [ref, drawMidiNote, pixelToTicks]);
 
   return (
     <Box

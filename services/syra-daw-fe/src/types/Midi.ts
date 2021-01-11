@@ -16,3 +16,13 @@ export enum MIDI_MSG {
   CH1_CHANNEL_AFTER_TOUCH = 208,
   CH1_PITCH_BEND_CHANGE = 224,
 }
+
+export interface MidiNote {
+  duration: number;
+  durationTicks: number;
+  midi: number;
+  noteOffVelocity: number;
+  velocity: number;
+  ticks: number;
+  time: number;
+}

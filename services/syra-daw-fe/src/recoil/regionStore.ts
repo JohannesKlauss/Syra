@@ -1,7 +1,7 @@
 import { atom, atomFamily, selectorFamily } from 'recoil';
 import { audioBufferStore } from './audioBufferStore';
 import { arrangeWindowStore } from './arrangeWindowStore';
-import { Note } from "@tonejs/midi/dist/Note";
+import {MidiNote} from "../types/Midi";
 
 // Sets the time that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamily<number, string>({
@@ -52,7 +52,7 @@ const audioBufferPointer = atomFamily<string | null, string>({
   default: null,
 });
 
-const midiNotes = atomFamily<Note[], string>({
+const midiNotes = atomFamily<MidiNote[], string>({
   key: 'region/midiNotes',
   default: []
 })
@@ -67,7 +67,7 @@ export interface RegionState {
   trimStart: number;
   trimEnd: number;
   name: string;
-  midiNotes: Note[];
+  midiNotes: MidiNote[];
 }
 
 const regionState = selectorFamily<RegionState, string>({

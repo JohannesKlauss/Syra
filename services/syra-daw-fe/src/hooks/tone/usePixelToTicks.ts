@@ -11,6 +11,6 @@ export default function usePixelToTicks() {
   return useCallback((pixel: number) => {
     const quarter = pixel / zoomedQuarterPixelWidth;
 
-    return Tone.Ticks(`${quarter}:0:0`);
+    return Tone.Ticks(quarter, 'm');
   }, [zoomedQuarterPixelWidth]);
 }

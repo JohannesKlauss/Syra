@@ -1,6 +1,6 @@
 import { atom, selector, selectorFamily } from "recoil";
 import { regionStore } from "./regionStore";
-import { Note } from "@tonejs/midi/dist/Note";
+import {MidiNote} from "../types/Midi";
 
 const selectedChannelId = atom({
   key: 'pianoRoll/selectedChannelId',
@@ -18,7 +18,7 @@ const midiNotes = selector({
   get: ({get}) => get(regionStore.midiNotes(get(focusedMidiRegionId))),
 });
 
-const midiNotesAtTrack = selectorFamily<Note[], number>({
+const midiNotesAtTrack = selectorFamily<MidiNote[], number>({
   key: 'pianoRoll/midiNotesAtTrack',
   get: trackNote => ({get}) => get(midiNotes).filter(note => note.midi === trackNote),
 });

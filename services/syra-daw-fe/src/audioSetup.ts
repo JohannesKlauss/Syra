@@ -1,7 +1,7 @@
 import * as Tone from 'tone';
 
 export function audioSetup() {
-  Tone.getTransport().timeSignature = [1, 4]; // Internally we let track Tone handle everything in quarters.
+  Tone.getTransport().timeSignature = [1, 4]; // Internally we let Tone handle everything in quarters.
 
   async function firstClick() {
     await Tone.start();
