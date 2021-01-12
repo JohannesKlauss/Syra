@@ -32,10 +32,11 @@ const PlayheadIndicator: React.FC<PlayheadProps> = ({ x, isRecording }) => (
         textAlign: 'center',
         width: '31px',
         top: '-23px',
+        textShadow: '0px 0px 4px rgba(0, 0, 0, 0.7)',
       }}
       _after={{
         backgroundColor: isRecording ? 'red.500' : 'gray.50',
-        boxShadow: '0 0 4px 0 black',
+        boxShadow: '0 0 4px 0 rgba(0, 0, 0, 0.7)',
         content: '""',
         display: 'inline-block',
         height: '100%',
