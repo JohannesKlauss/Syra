@@ -9,6 +9,7 @@ import createMidiMessage from "../../utils/midi";
 import { MIDI_MSG } from "../../types/Midi";
 import { transportStore } from "../../recoil/transportStore";
 import usePanic from "../midi/usePanic";
+import * as Tone from 'tone';
 
 export default function useMidiRegionScheduler() {
   const regionId = useContext(RegionContext);
@@ -25,20 +26,18 @@ export default function useMidiRegionScheduler() {
   useEffect(() => {
     notes.forEach(note => {
       scheduleIds.current.push(transport.schedule(() => {
-        console.log('trigger on');
         soulInstance?.audioNode.port.postMessage({
           type: "MIDI_MESSAGE",
           value: createMidiMessage(MIDI_MSG.CH1_NOTE_ON, note.midi, note.velocity)
         });
-      }, `+${note.time}`));
+      }, Tone.TransportTime(note.time)));
 
       scheduleIds.current.push(transport.schedule(() => {
-        console.log('trigger off');
         soulInstance?.audioNode.port.postMessage({
           type: "MIDI_MESSAGE",
           value: createMidiMessage(MIDI_MSG.CH1_NOTE_OFF, note.midi, 0)
         });
-      }, `+${note.time + note.duration}`));
+      }, Tone.TransportTime(note.time + note.duration)));
     });
 
     return () => {
