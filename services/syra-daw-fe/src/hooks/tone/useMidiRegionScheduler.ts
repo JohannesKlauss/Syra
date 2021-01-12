@@ -25,13 +25,15 @@ export default function useMidiRegionScheduler() {
   useEffect(() => {
     notes.forEach(note => {
       scheduleIds.current.push(transport.schedule(() => {
+        console.log('trigger on');
         soulInstance?.audioNode.port.postMessage({
           type: "MIDI_MESSAGE",
-          value: createMidiMessage(MIDI_MSG.CH1_NOTE_ON, note.midi, note.velocity * 127)
+          value: createMidiMessage(MIDI_MSG.CH1_NOTE_ON, note.midi, note.velocity)
         });
       }, `+${note.time}`));
 
       scheduleIds.current.push(transport.schedule(() => {
+        console.log('trigger off');
         soulInstance?.audioNode.port.postMessage({
           type: "MIDI_MESSAGE",
           value: createMidiMessage(MIDI_MSG.CH1_NOTE_OFF, note.midi, 0)

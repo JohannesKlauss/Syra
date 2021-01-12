@@ -12,6 +12,8 @@ import { SiMidi } from 'react-icons/si';
 import useMidiRegionScheduler from "../../../../hooks/tone/useMidiRegionScheduler";
 import ResizableBox from "../../../atoms/ResizableBox";
 import useMidiRegionWidth from "../../../../hooks/ui/region/useMidiRegionWidth";
+import useUpdateRegionPosition from "../../../../hooks/recoil/region/useUpdateRegionPosition";
+import usePixelToTicks from "../../../../hooks/tone/usePixelToTicks";
 
 const MidiRegion: React.FC = () => {
   const regionId = useContext(RegionContext);
@@ -19,12 +21,18 @@ const MidiRegion: React.FC = () => {
   const offset = useRecoilValue(regionStore.offset(regionId));
   const color = useRegionColor(false);
   const regionWidth = useMidiRegionWidth();
+  const pixelToTicks = usePixelToTicks();
+  const updatePosition = useUpdateRegionPosition();
 
   useRegionDawRecordingSync();
   useMidiRegionScheduler();
 
+  const onPositionChanged = (start: number, duration: number, offsetDelta: number) => {
+    updatePosition(pixelToTicks(start), pixelToTicks(duration), pixelToTicks(offsetDelta));
+  };
+
   return (
-    <ResizableBox baseX={offset} baseWidth={regionWidth} onPositionChanged={(start, duration, offsetDelta) => console.log('changed', start, duration, offsetDelta)}>
+    <ResizableBox baseX={offset} baseWidth={regionWidth} onPositionChanged={onPositionChanged}>
       <BaseRegion>
         <TopBar color={color}>
           <Flex justify={'flex-start'} align={'center'} ml={2}>

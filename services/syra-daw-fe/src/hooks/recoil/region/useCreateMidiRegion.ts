@@ -2,13 +2,13 @@ import { useRecoilCallback } from 'recoil';
 import { createNewId } from '../../../utils/createNewId';
 import { REGION_ID_PREFIX } from '../../../const/ids';
 import { regionStore } from '../../../recoil/regionStore';
-import { Note } from "@tonejs/midi/dist/Note";
 import { channelStore } from "../../../recoil/channelStore";
 import * as Tone from 'tone';
+import {MidiNote} from "../../../types/Midi";
 
 export type CreateMidiRegionParams = {
   channelId: string;
-  notes: Note[];
+  notes: MidiNote[];
   start: Tone.TimeClass;
   duration: Tone.TimeClass;
   regionId?: string;

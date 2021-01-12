@@ -6,6 +6,7 @@ import { RegionName, TopBar } from "../../../molecules/Region/AudioRegion/AudioR
 import { SiMidi } from 'react-icons/si';
 import useRegionColor from "../../../../hooks/ui/region/useRegionColor";
 import { RegionContext } from "../../../../providers/RegionContext";
+import useMidiRegionWidth from "../../../../hooks/ui/region/useMidiRegionWidth";
 
 interface Props {
 }
@@ -14,9 +15,10 @@ const MidiRegionIndicator: React.FC<Props> = () => {
   const regionId = useContext(RegionContext);
   const name = useRecoilValue(regionStore.name(regionId));
   const color = useRegionColor(false);
+  const regionWidth = useMidiRegionWidth();
 
   return (
-    <Box h={'20px'} w={'400px'} pos={'relative'}>
+    <Box h={'20px'} w={`${regionWidth}px`} pos={'relative'}>
       <TopBar color={color} rounded={4}>
         <Flex justify={'flex-start'} align={'center'} ml={2}>
           <SiMidi/>

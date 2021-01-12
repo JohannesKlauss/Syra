@@ -7,7 +7,5 @@ export default function usePixelToTicks() {
   const {view} = useContext(ViewContext);
   const pixelPerTick = useRecoilValue(gridStore.pixelPerTick(view));
 
-  console.log('pixelPerTick', pixelPerTick);
-
   return useCallback((pixel: number) => pixel / pixelPerTick, [pixelPerTick]);
 }

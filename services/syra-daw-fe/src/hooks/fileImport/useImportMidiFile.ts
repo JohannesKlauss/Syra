@@ -5,6 +5,8 @@ import { Midi } from "@tonejs/midi";
 import useSetInstrument from "../recoil/channel/useSetInstrument";
 import { useCallback } from "react";
 import * as Tone from 'tone';
+import { createNewId } from "../../utils/createNewId";
+import {MIDI_ID_PREFIX} from "../../const/ids";
 
 export default function useImportMidiFile() {
   const createChannel = useCreateChannel();
@@ -19,10 +21,17 @@ export default function useImportMidiFile() {
       const channelId = await createChannel(ChannelType.INSTRUMENT, importIndex, channelName);
 
       await setInstrument(channelId, 'com.yourcompany.ElectroPiano');
+      
+      const notes = track.notes.map(note => ({
+        ...note,
+        duration: note.duration,
+        time: note.time,
+        id: createNewId(MIDI_ID_PREFIX),
+      }));
 
       await createMidiRegion({
         channelId,
-        notes: track.notes,
+        notes,
         start,
         duration: Tone.Ticks(midi.durationTicks),
       });

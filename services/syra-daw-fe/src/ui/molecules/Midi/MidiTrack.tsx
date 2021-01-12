@@ -22,11 +22,12 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
   const totalWidth = useRecoilValue(gridStore.totalWidth(view));
   const drawMidiNote = useDrawMidiNote(note);
   const pixelToTicks = usePixelToTicks();
-  const snapPixelValue = useSnapPixelValue();
+  const snapPixelValue = useSnapPixelValue(0.25);
   const ref = useRef<HTMLDivElement>(null);
 
   const onClickMidiTrack = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // TODO: THIS IS WEIRD. THE CLICK BUBBLING DOESN't STOP INSIDE RESIZABLE BOX, EVEN THOUGH WE CANCEL EVERYTHING.
+    // SO WE CURRENTLY USE A REF, BUT THIS IS SUPER WONKY AND SHOULDN'T BE NECESSARY.
     if (e.target !== ref.current) {
       return;
     }

@@ -5,6 +5,8 @@ import { Header } from "@tonejs/midi";
 import {pianoRollStore} from "../../../../recoil/pianoRollStore";
 import {MidiNote} from "../../../../types/Midi";
 import * as Tone from 'tone';
+import {createNewId} from "../../../../utils/createNewId";
+import {MIDI_ID_PREFIX} from "../../../../const/ids";
 
 export default function useDrawMidiNote(note: number) {
   const isPressed = useIsHotkeyPressed();
@@ -17,6 +19,7 @@ export default function useDrawMidiNote(note: number) {
     header.setTempo(120);
 
     const newNote: MidiNote = {
+      id: createNewId(MIDI_ID_PREFIX),
       ticks: noteOnAt.toTicks(),
       time: noteOnAt.toSeconds(),
       velocity,
@@ -27,7 +30,5 @@ export default function useDrawMidiNote(note: number) {
     };
 
     set(regionStore.midiNotes(focusedMidiRegionId), [...midiNotes, newNote]);
-
-    console.log('Midi Note', newNote);
   }, [isPressed, note, focusedMidiRegionId]);
 }

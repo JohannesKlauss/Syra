@@ -1,12 +1,12 @@
 import React, { useCallback, useContext } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
-import useSnapCtrlPixelCalc from '../../../../hooks/ui/useSnapCtrlPixelCalc';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import { useHotkeys } from 'react-hotkeys-hook';
 import useCutRegionAtMarqueeIndicator from '../../../../hooks/recoil/track/useCutRegionAtMarqueeIndicator';
 import { Box } from '@chakra-ui/react';
 import {motion} from "framer-motion";
+import useSnapPixelValue from "../../../../hooks/ui/useSnapPixelValue";
 
 interface MarqueeIndicatorProps {
   left: number;
@@ -28,7 +28,7 @@ function MarqueeContainer() {
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
   const [marqueeChannelPosition, setMarqueeChannelPosition] = useRecoilState(arrangeWindowStore.marqueeChannelPosition);
   const [marqueePosition, setMarqueePosition] = useRecoilState(arrangeWindowStore.marqueePosition);
-  const calcSnappedX = useSnapCtrlPixelCalc();
+  const snapPixelValue = useSnapPixelValue();
   const maybeCutRegion = useCutRegionAtMarqueeIndicator();
 
   useHotkeys('b', maybeCutRegion);
@@ -39,11 +39,11 @@ function MarqueeContainer() {
       const x = e.clientX - e.target.getBoundingClientRect().left;
 
       if (y <= trackHeight / 2) {
-        setMarqueePosition(calcSnappedX(x));
+        setMarqueePosition(snapPixelValue(x));
         setMarqueeChannelPosition(channelId);
       }
     },
-    [calcSnappedX, trackHeight, setMarqueePosition, setMarqueeChannelPosition, channelId],
+    [snapPixelValue, trackHeight, setMarqueePosition, setMarqueeChannelPosition, channelId],
   );
 
   let content = null;

@@ -18,6 +18,7 @@ export enum MIDI_MSG {
 }
 
 export interface MidiNote {
+  id: string;
   duration: number;
   durationTicks: number;
   midi: number;
