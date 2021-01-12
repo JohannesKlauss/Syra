@@ -24,7 +24,7 @@ const MidiRegion: React.FC = () => {
   useMidiRegionScheduler();
 
   return (
-    <ResizableBox baseX={offset} baseWidth={regionWidth} onPositionChanged={(w, x) => console.log('changed', w, x)}>
+    <ResizableBox baseX={offset} baseWidth={regionWidth} onPositionChanged={(start, duration, offsetDelta) => console.log('changed', start, duration, offsetDelta)}>
       <BaseRegion>
         <TopBar color={color}>
           <Flex justify={'flex-start'} align={'center'} ml={2}>

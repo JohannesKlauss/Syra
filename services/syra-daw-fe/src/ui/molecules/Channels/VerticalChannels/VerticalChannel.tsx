@@ -10,11 +10,12 @@ import { ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT } from '../../../../const/ui';
 import ChannelName from '../ChannelName';
 import BackboneAudioMixer from '../../BackboneMixer/BackboneAudioMixer';
 import { Box, Flex, useTheme } from '@chakra-ui/react';
+import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
 
 function VerticalChannel() {
   const channelId = useContext(ChannelContext);
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
-  const color = useRecoilValue(channelStore.color(channelId));
+  const color = useRegionColor(false);
   const verticalZoomLevel = useRecoilValue(arrangeWindowStore.verticalZoomLevel);
   const theme = useTheme();
   
@@ -30,7 +31,7 @@ function VerticalChannel() {
       w={'100%'}
       borderBottom={`1px solid ${theme.colors.gray[600]}`}
       bg={backgroundColor}
-      borderRight={`3px solid ${color}`}
+      borderLeft={`3px solid ${color}`}
       h={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}
       p={2}
       flexDir={'column'}
