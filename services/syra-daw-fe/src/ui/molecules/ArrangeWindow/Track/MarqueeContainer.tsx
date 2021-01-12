@@ -6,26 +6,7 @@ import { ChannelContext } from '../../../../providers/ChannelContext';
 import { useHotkeys } from 'react-hotkeys-hook';
 import useCutRegionAtMarqueeIndicator from '../../../../hooks/recoil/track/useCutRegionAtMarqueeIndicator';
 import { Box } from '@chakra-ui/react';
-
-// TODO: WE HAVE TO FIGURE OUT A WAY TO DEFINE CUSTOM ANIMATIONS WITH CHAKRA UI
-/*const useStyles = makeStyles({
-  '@global': {
-    '@keyframes marqueeBlink': {
-      'from, to': {
-        opacity: 0,
-      },
-      [`25%`]: {
-        opacity: 1
-      },
-      [`50%`]: {
-        opacity: 1
-      },
-      [`75%`]: {
-        opacity: 1
-      },
-    },
-  },
-});*/
+import {motion} from "framer-motion";
 
 interface MarqueeIndicatorProps {
   left: number;
@@ -72,20 +53,26 @@ function MarqueeContainer() {
   }
 
   return (
-    <Box
-      h={'50%'}
-      w={'100%'}
-      pos={'absolute'}
-      top={0}
-      left={0}
-      cursor={'text'}
-      zIndex={10}
-      userSelect={'none'}
-      onMouseDown={onSetMarquee}
-      onContextMenu={e => e.preventDefault()}
-    >
-      {content}
-    </Box>
+    <motion.div animate={{opacity: 0}} transition={{
+      repeat: Infinity,
+      repeatType: "reverse",
+      duration: 0.74
+    }}>
+      <Box
+        h={'50%'}
+        w={'100%'}
+        pos={'absolute'}
+        top={0}
+        left={0}
+        cursor={'text'}
+        zIndex={10}
+        userSelect={'none'}
+        onMouseDown={onSetMarquee}
+        onContextMenu={e => e.preventDefault()}
+      >
+        {content}
+      </Box>
+    </motion.div>
   );
 }
 
