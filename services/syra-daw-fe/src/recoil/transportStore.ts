@@ -8,6 +8,7 @@ import { arrangeWindowStore } from './arrangeWindowStore';
 import { getToneJsPositionInQuarter } from '../utils/tonejs';
 
 // Internal atoms are just used to sync everything with the ToneJs transport itself. Never expose them to the rest of the app.
+// TODO: WE SHOULD BE ABLE TO REFACTOR THIS TO ATOM EFFECTS INSIDE RECOIL ATOMS ONCE THEIR API IS STABLE.
 
 const internalSeconds = atom({
   key: 'transport/internalSeconds',

@@ -17,6 +17,11 @@ export default function usePlayheadAnimationV3() {
   const animRef = useRef<number>(0);
   const ticksToPixel = useTicksToPixel();
   const hasScrolled = useRef<boolean>(false);
+  const seconds = useRecoilValue(transportStore.seconds);
+
+  useEffect(() => {
+    x.set(ticksToPixel(transport.ticks));
+  }, [seconds]);
 
   const animate = () => {
     const pixelPosition = ticksToPixel(transport.ticks);
