@@ -14,7 +14,7 @@ export default function useDrawMidiNote(note: number) {
     const midiNotes = snapshot.getLoadable(regionStore.midiNotes(focusedMidiRegionId)).contents as MidiNote[];
 
     const header = new Header();
-    header.setTempo(180);
+    header.setTempo(120);
 
     const newNote: MidiNote = {
       ticks: noteOnAt.toTicks(),
@@ -22,8 +22,8 @@ export default function useDrawMidiNote(note: number) {
       velocity,
       midi: note,
       noteOffVelocity: 0,
-      durationTicks: noteOnAt.toTicks() + duration.toTicks(),
-      duration: noteOnAt.toSeconds() + duration.toSeconds(),
+      durationTicks: duration.toTicks(),
+      duration: duration.toSeconds(),
     };
 
     set(regionStore.midiNotes(focusedMidiRegionId), [...midiNotes, newNote]);
