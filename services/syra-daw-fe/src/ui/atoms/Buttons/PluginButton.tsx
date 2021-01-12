@@ -18,7 +18,7 @@ const PluginButton: React.FC<Props> = ({pluginId, isInstrument, onClick}) => {
   return (
     <Flex align={'center'}>
       <PluginBypassButton pluginId={pluginId}/>
-      <Button size={'xs'} colorScheme={isPluginActive ? 'teal' : 'gray'} onClick={onClick}>
+      <Button size={'xs'} colorScheme={isPluginActive ? 'teal' : 'gray'} onClick={onClick} rounded={0}>
         {activePlugin?.soulPatch.descriptor.description.name ?? '-'}
       </Button>
       <PluginMenuButton isInstrument={isInstrument} pluginId={pluginId}/>

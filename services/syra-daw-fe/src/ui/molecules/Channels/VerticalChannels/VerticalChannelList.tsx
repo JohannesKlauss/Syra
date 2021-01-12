@@ -27,9 +27,9 @@ function VerticalChannelList() {
   return (
       <Flex w={'250px'} h={'100%'} flexDirection={'column'}>
         <VerticalChannelListHeader/>
-        {channels.map(id => (
+        {channels.map((id, i) => (
           <ChannelContext.Provider key={id} value={id}>
-            <VerticalChannel/>
+            <VerticalChannel index={i + 1}/>
           </ChannelContext.Provider>
         ))}
       </Flex>

@@ -17,6 +17,8 @@ const PluginBypassButton: React.FC<Props> = ({pluginId}) => {
       size={'xs'}
       aria-label={`Bypass Plugin`}
       colorScheme={isPluginActive ? 'teal' : 'gray'}
+      roundedBottomRight={0}
+      roundedTopRight={0}
       onClick={() => setIsPluginActive(currVal => !currVal)}
     />
   );

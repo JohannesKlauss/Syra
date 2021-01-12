@@ -12,7 +12,11 @@ import BackboneAudioMixer from '../../BackboneMixer/BackboneAudioMixer';
 import { Box, Flex, useTheme } from '@chakra-ui/react';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
 
-function VerticalChannel() {
+interface Props {
+  index: number;
+}
+
+function VerticalChannel({index}: Props) {
   const channelId = useContext(ChannelContext);
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
   const color = useRegionColor(false);
@@ -37,7 +41,7 @@ function VerticalChannel() {
       flexDir={'column'}
       onClick={() => setSelectedChannelId(channelId)}
     >
-      <ChannelName />
+      <ChannelName prefix={index} />
       <Box bg={'transparent'}>
         <ChannelLetterButtons />
       </Box>

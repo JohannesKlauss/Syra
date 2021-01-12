@@ -10,7 +10,7 @@ function Pan({onChange}: Props) {
     <Box px={2} bg={'transparent'}>
       <Slider defaultValue={0} min={-100} max={100} step={1} onChange={onChange}>
         <SliderTrack />
-        <SliderThumb />
+        <SliderThumb zIndex={0} />
       </Slider>
     </Box>
   );

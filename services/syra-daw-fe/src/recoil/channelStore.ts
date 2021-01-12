@@ -3,7 +3,7 @@ import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
 import { RegionState, regionStore } from './regionStore';
 
-let lastChannelNum = 1;
+let lastChannelNum = 2;
 
 const name = atomFamily<string, string>({
   key: 'channel/name',

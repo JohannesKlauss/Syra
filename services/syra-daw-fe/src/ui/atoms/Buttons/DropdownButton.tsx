@@ -32,7 +32,7 @@ const DropdownButton: React.FC<Props> = ({ onClick, menuItems, color, size, labe
         >
           {label}
         </MenuButton>
-        <MenuList zIndex={1000}>
+        <MenuList>
           {menuItems.map(({ onClick, label }) => (
             <MenuItem key={label} onClick={onClick}>
               {label}

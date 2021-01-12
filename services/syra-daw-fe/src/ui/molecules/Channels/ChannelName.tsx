@@ -8,9 +8,10 @@ import { Box, Input, Text } from '@chakra-ui/react';
 
 interface Props {
   backgroundColor?: string;
+  prefix?: number;
 }
 
-function ChannelName({ backgroundColor }: Props) {
+function ChannelName({ backgroundColor, prefix }: Props) {
   const channelId = useContext(ChannelContext);
   const [name, setName] = useRecoilState(channelStore.name(channelId));
   const [isEditingName, setIsEditingName] = useState(false);
@@ -33,7 +34,7 @@ function ChannelName({ backgroundColor }: Props) {
           onDoubleClick={() => setIsEditingName(true)}
           color={backgroundColor ? determineTextColor(backgroundColor) : 'gray.50'}
         >
-          {name}
+          {prefix}{prefix && ' - '}{name}
         </Text>
       )}
     </Box>

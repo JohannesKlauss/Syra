@@ -14,8 +14,8 @@ function HorizontalChannelList({showView}: Props) {
   return (
     <Box overflowX={'scroll'} transform={'translateZ(0)'} display={showView ? 'block' : 'none'}>
       <Flex align={'flex-start'} zIndex={1} w={'100%'}>
-        {channels.map((id) => (
-          <BaseChannel key={id} channelId={id} />
+        {channels.map((id, i) => (
+          <BaseChannel key={id} channelId={id} index={i}/>
         ))}
       </Flex>
     </Box>

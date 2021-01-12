@@ -9,9 +9,10 @@ import { Box } from '@chakra-ui/react';
 
 interface Props {
   channelId: string;
+  index: number;
 }
 
-function BaseChannel({ channelId }: Props) {
+function BaseChannel({ channelId, index }: Props) {
   const type = useRecoilValue(channelStore.type(channelId));
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
 

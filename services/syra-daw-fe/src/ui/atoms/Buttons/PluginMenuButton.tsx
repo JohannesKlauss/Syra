@@ -43,6 +43,8 @@ const PluginMenuButton: React.FC<Props> = ({pluginId, isInstrument}) => {
       <MenuButton
         size={'xs'}
         as={Button}
+        roundedBottomLeft={0}
+        roundedTopLeft={0}
         colorScheme={isPluginActive ? 'teal': 'gray'}
       >
         <VscChevronDown />

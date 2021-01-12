@@ -12,7 +12,7 @@ function VolumeFader({ onChange }: Props) {
       <Slider defaultValue={180} orientation={'vertical'} min={0} max={240} step={1} onChange={newValue => onChange(mapVolumeFaderValToDb(newValue))}>
         <SliderTrack />
         <SliderFilledTrack />
-        <SliderThumb />
+        <SliderThumb zIndex={0} />
       </Slider>
     </Flex>
   );
