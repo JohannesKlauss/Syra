@@ -5,6 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { Text, SimpleGrid, Checkbox, Input } from '@chakra-ui/react';
 import {IoIosCheckmarkCircle} from "react-icons/io";
 import { MdError } from 'react-icons/md';
+import * as Tone from 'tone';
 
 function DebugRegion() {
   const regionId = useContext(RegionContext);
@@ -46,7 +47,7 @@ function DebugRegion() {
       <Checkbox isChecked={isRecording} onChange={e => setIsRecording(e.target.checked)}/>
 
       <Text>Start:</Text>
-      <Input type={'number'} value={start} onChange={e => setStart(parseFloat(e.target.value))}/>
+      {/*<Input type={'number'} value={start.toSeconds()} onChange={e => setStart(Tone.Ticks(parseFloat(e.target.value), 's'))}/>*/}
 
       <Text>Trim Start:</Text>
       <Input type={'number'} value={trimStart} onChange={e => setTrimStart(parseFloat(e.target.value))}/>

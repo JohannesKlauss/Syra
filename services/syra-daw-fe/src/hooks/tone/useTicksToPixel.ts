@@ -3,9 +3,9 @@ import {ViewContext} from "../../providers/ViewContext";
 import {useRecoilValue} from "recoil";
 import {gridStore} from "../../recoil/gridStore";
 
-export default function usePixelToTicks() {
+export default function useTicksToPixel() {
   const {view} = useContext(ViewContext);
   const pixelPerTick = useRecoilValue(gridStore.pixelPerTick(view));
 
-  return useCallback((pixel: number) => pixel / pixelPerTick, [pixelPerTick]);
+  return useCallback((ticks: number) => ticks * pixelPerTick, [pixelPerTick]);
 }

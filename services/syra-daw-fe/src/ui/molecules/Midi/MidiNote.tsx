@@ -16,9 +16,8 @@ const MidiNote: React.FC<Props> = ({note}) => {
   const pixelPerSecond = useRecoilValue(gridStore.pixelPerSecond(view));
 
   const onPositionChanged = useRecoilCallback(({set, snapshot}) => (offset: number, width: number) => {
+    console.log('position changed', offset, width);
   }, []);
-
-  console.log('note.time', note.time);
 
   return (
     <ResizableBox cursor={'default'} bg={velocityColor(note.velocity)} baseX={note.time * pixelPerSecond}

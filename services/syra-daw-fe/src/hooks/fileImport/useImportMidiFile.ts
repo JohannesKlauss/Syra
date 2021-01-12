@@ -4,13 +4,14 @@ import { ChannelType } from "../../types/Channel";
 import { Midi } from "@tonejs/midi";
 import useSetInstrument from "../recoil/channel/useSetInstrument";
 import { useCallback } from "react";
+import * as Tone from 'tone';
 
 export default function useImportMidiFile() {
   const createChannel = useCreateChannel();
   const createMidiRegion = useCreateMidiRegion();
   const setInstrument = useSetInstrument();
 
-  return useCallback(async (file: File, importIndex: number, start: number = 0) => {
+  return useCallback(async (file: File, importIndex: number, start: Tone.TimeClass = Tone.Ticks(0)) => {
     const midi = new Midi(await file.arrayBuffer());
 
     for (const track of midi.tracks) {
@@ -23,7 +24,7 @@ export default function useImportMidiFile() {
         channelId,
         notes: track.notes,
         start,
-        duration: midi.duration,
+        duration: Tone.Ticks(midi.durationTicks),
       });
     }
   }, [createChannel, createMidiRegion]);

@@ -24,7 +24,8 @@ export default function useAudioRegionScheduler() {
     players.player(regionId)
       .set({mute: isMuted})
       .unsync().sync()
-      .start(`${start + trimStart}:0:0`, `${trimStart}:0:0`, `${trimEnd - trimStart}:0:0`);
+      // TODO: THIS IS RIGHT NOW COMPLETELY WRONG, BUT WE HAVE TO REFACTOR THE AUDIO REGION STUFF ANYWAY.
+      //.start(start.toSeconds() + trimStart, `${trimStart}:0:0`, `${trimEnd - trimStart}:0:0`);
 
     return () => {
       players.player(regionId).unsync();

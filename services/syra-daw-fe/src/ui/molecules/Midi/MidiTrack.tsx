@@ -29,7 +29,7 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
       return;
     }
 
-    drawMidiNote(pixelToTicks(e.clientX - 50), pixelToTicks(e.clientX + 100 - 50), 127);
+    drawMidiNote(Tone.Ticks(pixelToTicks(e.clientX - 50)), Tone.Ticks(pixelToTicks(e.clientX + 100 - 50)), 127);
   }, [ref, drawMidiNote, pixelToTicks]);
 
   return (

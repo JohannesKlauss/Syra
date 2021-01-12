@@ -3,6 +3,7 @@ import { ChannelType } from '../../../types/Channel';
 import useCreateChannel from '../../recoil/channel/useCreateChannel';
 import useCreateAudioRegion from '../../recoil/region/useCreateAudioRegion';
 import useImportMidiFile from "../../fileImport/useImportMidiFile";
+import * as Tone from 'tone';
 
 export default function useOnDropTrack() {
   const createChannel = useCreateChannel();
@@ -16,7 +17,7 @@ export default function useOnDropTrack() {
           await importMidiFile(file, i);
         } else {
           const channelId = await createChannel(ChannelType.AUDIO, i, file.name.split('.')[0]);
-          await createRegion(channelId, file, 0, i === 0);
+          await createRegion(channelId, file, Tone.Ticks(0), i === 0);
         }
       })();
     });

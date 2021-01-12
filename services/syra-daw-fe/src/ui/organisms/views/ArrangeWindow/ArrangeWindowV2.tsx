@@ -12,7 +12,7 @@ interface Props {
 
 }
 
-const ArrangeWindowV2: React.FC<Props> = ({}) => {
+const ArrangeWindowV2: React.FC<Props> = () => {
   const theme = useTheme();
 
   return (

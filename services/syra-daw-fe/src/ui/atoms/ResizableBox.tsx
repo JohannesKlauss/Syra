@@ -18,8 +18,6 @@ const ResizableBox: React.FC<Props> = ({baseWidth, baseX, dragHandleWidth = 8, c
   const ref = useRef<HTMLDivElement>(null);
   const dragMode = useRef(DragMode.MOVE);
 
-  console.log('baseX', baseX);
-
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const distance = e.clientX - (ref.current?.getBoundingClientRect().x ?? 0);
 

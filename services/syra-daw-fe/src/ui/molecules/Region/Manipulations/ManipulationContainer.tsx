@@ -1,50 +1,16 @@
-import React, { useEffect, useLayoutEffect } from "react";
-import TrimStartHandle from './TrimStartHandle';
-import TrimEndHandle from './TrimEndHandle';
-import { Manipulations, RegionFirstLoop } from '../AudioRegion/AudioRegion.styled';
+import React from "react";
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
-import useMove from '../../../../hooks/ui/region/manipulations/useMove';
-import useTrimStart from '../../../../hooks/ui/region/manipulations/useTrimStart';
-import useTrimEnd from '../../../../hooks/ui/region/manipulations/useTrimEnd';
+import RegionFirstLoop from "../RegionFirstLoop";
 
 interface Props {
-  onChangeIsMoving: (isMoving: boolean) => void;
-  onUpdateLeftOffset: (pos: number) => void;
-  onUpdateTopOffset: (pos: number) => void;
-  onDoubleClick: () => void;
 }
 
-const ManipulationContainer: React.FC<Props> = ({
-  onChangeIsMoving,
-  onUpdateLeftOffset,
-  onUpdateTopOffset,
-  onDoubleClick,
-  children,
-}) => {
+const ManipulationContainer: React.FC<Props> = ({children}) => {
   const color = useRegionColor(false);
-  const { triggerMove, deltaXMove, isMoving, cssTop } = useMove();
-  const { triggerTrimStart, deltaXTrimStart } = useTrimStart();
-  const { triggerTrimEnd, deltaXTrimEnd } = useTrimEnd();
-
-  useEffect(() => {
-    onChangeIsMoving(isMoving);
-  }, [isMoving, onChangeIsMoving]);
-
-  useLayoutEffect(() => {
-    onUpdateLeftOffset(deltaXMove + deltaXTrimStart);
-  }, [deltaXMove, deltaXTrimStart, onUpdateLeftOffset]);
-
-  useLayoutEffect(() => {
-    onUpdateTopOffset(cssTop);
-  }, [cssTop, onUpdateTopOffset]);
 
   return (
-    <RegionFirstLoop color={color} width={deltaXTrimEnd - deltaXTrimStart}>
+    <RegionFirstLoop color={color}>
       {children}
-      <Manipulations onMouseDown={triggerMove} isMoving={isMoving} onDoubleClick={onDoubleClick}>
-        <TrimStartHandle trigger={triggerTrimStart} />
-        <TrimEndHandle trigger={triggerTrimEnd} />
-      </Manipulations>
     </RegionFirstLoop>
   );
 };

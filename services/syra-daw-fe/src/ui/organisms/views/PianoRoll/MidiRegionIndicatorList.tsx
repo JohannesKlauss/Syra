@@ -9,7 +9,7 @@ interface Props {
 
 }
 
-const MidiRegionIndicatorList: React.FC<Props> = ({}) => {
+const MidiRegionIndicatorList: React.FC<Props> = () => {
   const channelId = useContext(ChannelContext);
   const regionIds = useRecoilValue(regionStore.findIdsByChannelId(channelId));
   

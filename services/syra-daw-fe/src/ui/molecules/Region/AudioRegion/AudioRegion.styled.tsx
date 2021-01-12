@@ -36,23 +36,11 @@ export const BaseContainer: React.FC<BaseContainerProps> = ({
   </Box>
 );
 
-interface RegionFirstLoopProps {
-  width: number;
-  color: string;
-}
-
-export const RegionFirstLoop: React.FC<RegionFirstLoopProps> = ({ width, color, children }) => (
-  <Box h={'100%'} pos={'relative'} overflow={'hidden'} pt={'15px'} w={325} bg={color}>
-    {children}
-  </Box>
-);
-
 interface ManipulationsProps extends BoxProps {
-  isMoving: boolean;
 }
 
-export const Manipulations: React.FC<ManipulationsProps> = ({ isMoving, children, ...props }) => (
-  <Box {...props} h={'50%'} w={'100%'} pos={'absolute'} cursor={isMoving ? 'grabbing' : 'grab'} bottom={0} left={0}>
+export const Manipulations: React.FC<ManipulationsProps> = ({ children, ...props }) => (
+  <Box {...props} h={'50%'} w={'100%'} pos={'absolute'} cursor={'grab'} bottom={0} left={0}>
     {children}
   </Box>
 );

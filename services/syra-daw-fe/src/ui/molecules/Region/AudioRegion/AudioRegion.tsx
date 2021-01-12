@@ -10,7 +10,6 @@ import ClonedAudioRegion from './ClonedAudioRegion';
 import ManipulationContainer from '../Manipulations/ManipulationContainer';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
 import useAudioRegionSelfDestruct from '../../../../hooks/recoil/region/useAudioRegionSelfDestruct';
-import useQuarterToPixel from '../../../../hooks/ui/useQuarterToPixel';
 
 /**
  * The AudioRegion is built a bit complicated and unintuitive.
@@ -25,14 +24,10 @@ function AudioRegion() {
   const isMuted = useRecoilValue(regionStore.isMuted(regionId));
   const isSelected = useRecoilValue(regionStore.isSelected(regionId));
   const name = useRecoilValue(regionStore.name(regionId));
-  const trimStart = useRecoilValue(regionStore.trimStart(regionId));
-  const start = useRecoilValue(regionStore.start(regionId));
-  const quarterToPixel = useQuarterToPixel();
   const isPressed = useIsHotkeyPressed();
   const color = useRegionColor(false);
-  const [left, setLeft] = useState(quarterToPixel(trimStart + start));
   const [top, setTop] = useState(0);
-  const [isMoving, setIsMoving] = useState(false);
+  const [isMoving] = useState(false);
 
   useRegionDawRecordingSync();
   useAudioRegionScheduler();
@@ -49,12 +44,8 @@ function AudioRegion() {
   return (
     <>
       {isDuplicating && <ClonedAudioRegion/>}
-      <BaseContainer isMuted={isMuted} left={left} isMoving={isMoving} isSelected={isSelected} color={color} top={top}>
-        <ManipulationContainer onUpdateLeftOffset={left => setLeft(left)}
-                               onChangeIsMoving={isMoving => setIsMoving(isMoving)}
-                               onUpdateTopOffset={cssTop => setTop(cssTop)}
-                               onDoubleClick={() => null}
-        />
+      <BaseContainer isMuted={isMuted} left={0} isMoving={isMoving} isSelected={isSelected} color={color} top={top}>
+        <ManipulationContainer/>
         <TopBar color={color}>
           <RegionName color={color}>{name}</RegionName>
         </TopBar>

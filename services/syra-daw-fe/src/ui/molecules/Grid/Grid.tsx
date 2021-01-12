@@ -1,4 +1,4 @@
-import React, {ReactNode, useLayoutEffect, useMemo, useRef} from "react";
+import React, {useLayoutEffect, useMemo, useRef} from "react";
 import {View} from '../../../types/View';
 import {useSetRecoilState} from 'recoil';
 import {Box} from '@chakra-ui/react';

@@ -2,6 +2,7 @@ import { atom, selector, selectorFamily } from 'recoil';
 import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants';
 import { transportStore } from './transportStore';
 import { getSortedKeysOfEventMap } from '../utils/eventMap';
+import * as Tone from 'tone';
 
 const name = atom({
   key: 'project/name',
@@ -84,6 +85,11 @@ const lengthInQuarters = atom({
   default: TIME_CONVERSION_RESOLUTION * 60
 });
 
+const lengthInTicks = atom({
+  key: 'project/lengthInTicks',
+  default: Tone.Ticks(TIME_CONVERSION_RESOLUTION * 60, 'm').toTicks(),
+})
+
 const beatsPerSecond = selector({
   key: 'arrangeWindow/beatsPerSecond',
   get: ({get}) => 1 / get(currentTempo) / 60,
@@ -110,6 +116,7 @@ export const projectStore = {
   beatsPerSecond,
   secondsPerBeat,
   lengthInQuarters,
+  lengthInTicks,
   isClickMuted,
   lastAnalyzedBpmFromImport,
 };

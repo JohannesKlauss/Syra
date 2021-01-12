@@ -1,6 +1,5 @@
 import { Menu, MenuList, Portal, useDisclosure } from '@chakra-ui/react';
-import React, { ReactNode, useContext, useEffect, useRef, useState } from "react";
-import { ViewContext } from '../../../providers/ViewContext';
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import ClickAwayListener from 'react-click-away-listener';
 
 interface Props {
@@ -20,7 +19,7 @@ const ContextMenu: React.FC<Props> = ({ children }) => {
 
       onOpen();
     });
-  }, [ref, ref]);
+  }, [ref, onOpen, setOffset]);
 
   return (
     <>

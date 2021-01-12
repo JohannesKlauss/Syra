@@ -2,6 +2,7 @@ import { MenuGroup, MenuItem } from '@chakra-ui/react';
 import React, { useContext } from "react";
 import useCreateMidiRegion from "../../../../hooks/recoil/region/useCreateMidiRegion";
 import { ChannelContext } from "../../../../providers/ChannelContext";
+import * as Tone from 'tone';
 
 interface Props {
 
@@ -15,8 +16,8 @@ const MidiTrackContextMenu: React.FC<Props> = ({}) => {
     await createMidiRegion({
       channelId,
       notes: [],
-      start: 0,
-      duration: 300,
+      start: Tone.Ticks(0),
+      duration: Tone.Ticks(16, 'm'),
     });
   }
 

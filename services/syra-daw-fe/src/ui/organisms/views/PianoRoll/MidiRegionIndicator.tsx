@@ -10,7 +10,7 @@ import { RegionContext } from "../../../../providers/RegionContext";
 interface Props {
 }
 
-const MidiRegionIndicator: React.FC<Props> = ({}) => {
+const MidiRegionIndicator: React.FC<Props> = () => {
   const regionId = useContext(RegionContext);
   const name = useRecoilValue(regionStore.name(regionId));
   const color = useRegionColor(false);

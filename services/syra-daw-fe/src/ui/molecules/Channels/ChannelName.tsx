@@ -27,7 +27,7 @@ function ChannelName({ backgroundColor }: Props) {
           overflow={'hidden'}
           userSelect={'none'}
           fontSize={'sm'}
-          textAlign={'center'}
+          textAlign={'left'}
           fontWeight={'600'}
           py={2}
           onDoubleClick={() => setIsEditingName(true)}

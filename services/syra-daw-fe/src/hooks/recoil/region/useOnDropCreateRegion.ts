@@ -3,6 +3,7 @@ import useCreateAudioRegion from "./useCreateAudioRegion";
 import usePixelToQuarter from "../../ui/usePixelToQuarter";
 import useSnapCtrlPixelCalc from "../../ui/useSnapCtrlPixelCalc";
 import { ChannelContext } from "../../../providers/ChannelContext";
+import * as Tone from 'tone';
 
 export default function useOnDropCreateRegion() {
   const channelId = useContext(ChannelContext);
@@ -16,9 +17,8 @@ export default function useOnDropCreateRegion() {
     if (files.length > 0) {
       // On a existing track we only use the first file.
       // TODO: THE SUBSEQUENT files should be move to the tracks beneath this one or create complete new channels.
-      console.log('type', files[0].type);
 
-      await createRegion(channelId, files[0], pixelToQuarter(calcSnappedX(x)));
+      await createRegion(channelId, files[0], Tone.Ticks(pixelToQuarter(calcSnappedX(x)), 'm'));
     }
   }, [createRegion, pixelToQuarter, calcSnappedX, channelId]);
 }

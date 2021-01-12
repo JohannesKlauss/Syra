@@ -1,6 +1,5 @@
 import { Flex, FlexProps } from '@chakra-ui/react';
 import React from "react";
-import * as Tone from "tone";
 
 interface Props extends FlexProps {
   isActive: boolean;

@@ -11,25 +11,25 @@ export default function useStaticRegionPosition() {
   const quarterToPixel = useQuarterToPixel();
   const trimmedRegionWidth = useTrimmedRegionWidth();
   const originalWidth = useRegionWidth();
-  const trimStart = useRecoilValue(regionStore.trimStart(regionId));
+  const offset = useRecoilValue(regionStore.offset(regionId));
   const start = useRecoilValue(regionStore.start(regionId));
 
-  const positionLeft = useMemo(() => quarterToPixel(trimStart + start), [quarterToPixel, trimStart, start]);
+  const positionLeft = useMemo(() => quarterToPixel(offset + start), [quarterToPixel, offset, start]);
   const left = useMemo(() => Math.max(positionLeft, 0), [positionLeft]);
   const width = useMemo(() => Math.min(trimmedRegionWidth, originalWidth), [trimmedRegionWidth, originalWidth]);
   const paddingLeft = useMemo(() => {
-    let padding = quarterToPixel(trimStart);
+    let padding = quarterToPixel(offset);
 
     if (padding < 0) {
       padding = 0;
     }
 
     if (left === 0) {
-      padding = quarterToPixel(trimStart);
+      padding = quarterToPixel(offset);
     }
 
     return padding;
-  }, [quarterToPixel, trimStart, left]);
+  }, [quarterToPixel, offset, left]);
 
   return {left, width, paddingLeft};
 }

@@ -1,6 +1,5 @@
 import React, { useCallback, useContext } from "react";
 import {  useRecoilState } from 'recoil';
-import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { buttonInfo } from '../../../../utils/text';
 import { Flex, IconButton } from '@chakra-ui/react';

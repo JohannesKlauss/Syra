@@ -46,6 +46,11 @@ const zoomedQuarterPixelWidth = selectorFamily<number, View>({
   get: view => ({get}) => (get(totalWidth(view)) - 30) / get(projectStore.lengthInQuarters),
 });
 
+const pixelPerTick = selectorFamily<number, View>({
+  key: 'grid/pixelPerTicks',
+  get: view => ({get}) => (get(totalWidth(view)) - 30) / get(projectStore.lengthInTicks),
+})
+
 const playheadPosition = selectorFamily<number, View>({
   key: 'grid/playheadPosition',
   get: view => ({get}) => get(transportStore.currentQuarter) * get(zoomedQuarterPixelWidth(view)),
@@ -102,6 +107,7 @@ export const gridStore = {
   totalWidth,
   baseQuarterPixelWidth,
   zoomedQuarterPixelWidth,
+  pixelPerTick,
   playheadPosition,
   snapValue,
   snapValueWidthInPixels,

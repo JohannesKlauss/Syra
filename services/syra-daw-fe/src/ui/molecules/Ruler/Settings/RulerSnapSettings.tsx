@@ -2,7 +2,6 @@ import React, { useContext, useMemo } from "react";
 import { mapNumberToNote } from '../../../../utils/noteMapper';
 import DropdownButton from '../../../atoms/Buttons/DropdownButton';
 import { useRecoilState } from 'recoil';
-import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { ViewContext } from "../../../../providers/ViewContext";
 import { gridStore } from "../../../../recoil/gridStore";
 

@@ -6,11 +6,12 @@ import { regionStore } from '../../../recoil/regionStore';
 import { audioBufferStore } from '../../../recoil/audioBufferStore';
 import { analyze } from 'web-audio-beat-detector';
 import { projectStore } from '../../../recoil/projectStore';
+import * as Tone from 'tone';
 
 export default function useCreateAudioRegion() {
   const audioContext = useAudioContext();
 
-  return useRecoilCallback(({ set, snapshot }) => async (channelId: string, file: File, start: number = 0, analyzeTempo: boolean = false, regionId?: string) => {
+  return useRecoilCallback(({ set, snapshot }) => async (channelId: string, file: File, start: Tone.TimeClass = Tone.Ticks(0), analyzeTempo: boolean = false, regionId?: string) => {
     const newRegionId = regionId ?? createNewId(REGION_ID_PREFIX);
     const newBufferId = createNewId(BUFFER_ID_PREFIX);
 
@@ -25,7 +26,7 @@ export default function useCreateAudioRegion() {
 
       set(regionStore.ids(channelId), currVal => [...currVal, newRegionId]);
       set(regionStore.audioBufferPointer(newRegionId), newBufferId);
-      set(regionStore.start(newRegionId), start);
+      //set(regionStore.start(newRegionId), start);
       set(regionStore.trimEnd(newRegionId), audioBuffer.duration);
       set(regionStore.name(newRegionId), `${file.name.replace(/\.[^/.]+$/, "")}#${staticCounter}`);
 
@@ -51,5 +52,5 @@ export default function useCreateAudioRegion() {
     }
 
     return newRegionId;
-  }, []);
+  }, [audioContext]);
 }
