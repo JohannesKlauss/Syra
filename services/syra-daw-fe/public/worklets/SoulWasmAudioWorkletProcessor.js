@@ -2,6 +2,8 @@
 // This is taken from the https://soul.dev site itself. But we might have to tinker with it a bit and probably use a share audio buffer concept.
 
 class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
+  midiMessages = [];
+
   /**
    * @constructor
    */
@@ -31,6 +33,12 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
           }
         }
           break;
+        case "DELETE_PRE_SCHEDULED_MIDI_MESSAGES":
+          this.midiMessages = [];
+          break;
+        case "PRE_SCHEDULE_MIDI_MESSAGES":
+          this.midiMessages = e.data.value;
+          break;
         case "AUDIO_INPUT_CHANGE":
           this.instance.exports.setAudioInput(e.data.value ? 1 : 0);
           break;
@@ -44,6 +52,7 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
           break;
       }
     };
+
     this.setup(
       options.processorOptions.module,
       options.processorOptions.sampleRate,
@@ -104,6 +113,8 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
       });
     }
     this.ready = true;
+
+    console.log(currentTime);
   }
 
 
@@ -129,6 +140,19 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
     if (!this.ready) return false;
 
     let samplesToProcess = outputs[0][0].length;
+
+    for (let i = this.midiMessages.length - 1; i >= 0; i--) {
+      if (currentTime >= this.midiMessages[i][3]) {
+        for (let n = 0; n < 3; n++)
+          this.midiData[n] = this.midiMessages[i][n];
+
+        this.instance.exports.onMidiMessage(3);
+
+        console.log('trigger');
+
+        this.midiMessages.splice(i, 1);
+      }
+    }
 
     if ( (this.endpoints.totalInputs === 1) && (inputs[0].length >= 1) ) {
       this.channelInData[0].set(inputs[0][0]);
