@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 import useDrawMidiNote from "../../../hooks/ui/views/pianoRoll/useDrawMidiNote";
 import usePixelToTicks from "../../../hooks/tone/usePixelToTicks";
 import MidiNoteList from './MidiNoteList';
+import useSnapPixelValue from '../../../hooks/ui/useSnapPixelValue';
 
 interface Props {
   note: number;
@@ -21,6 +22,7 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
   const totalWidth = useRecoilValue(gridStore.totalWidth(view));
   const drawMidiNote = useDrawMidiNote(note);
   const pixelToTicks = usePixelToTicks();
+  const snapPixelValue = useSnapPixelValue();
   const ref = useRef<HTMLDivElement>(null);
 
   const onClickMidiTrack = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -29,7 +31,7 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
       return;
     }
 
-    drawMidiNote(Tone.Ticks(pixelToTicks(e.clientX - 50)), Tone.Ticks(pixelToTicks(e.clientX + 100 - 50)), 127);
+    drawMidiNote(Tone.Ticks(pixelToTicks(snapPixelValue(e.clientX - 50))), Tone.Ticks(1, 'm'), 127);
   }, [ref, drawMidiNote, pixelToTicks]);
 
   return (

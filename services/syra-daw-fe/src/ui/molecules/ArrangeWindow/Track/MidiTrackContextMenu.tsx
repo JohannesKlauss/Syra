@@ -17,7 +17,7 @@ const MidiTrackContextMenu: React.FC<Props> = ({}) => {
       channelId,
       notes: [],
       start: Tone.Ticks(0),
-      duration: Tone.Ticks(16, 'm'),
+      duration: Tone.Ticks(4, 'm'),
     });
   }
 

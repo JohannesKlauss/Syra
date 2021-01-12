@@ -11,10 +11,10 @@ interface PlayheadProps {
 }
 
 const PlayheadIndicator: React.FC<PlayheadProps> = ({ x, isRecording }) => (
-  <motion.div style={{x}}>
+  <motion.div style={{x, position: 'absolute', zIndex: 10}}>
     <Box
       as={'span'}
-      zIndex={12}
+      zIndex={120}
       w={'15px'}
       top={'20px'}
       pos={'absolute'}
@@ -27,10 +27,10 @@ const PlayheadIndicator: React.FC<PlayheadProps> = ({ x, isRecording }) => (
         bottom: '100%',
         color: isRecording ? 'red.500' : 'gray.50',
         fontSize: '23px',
-        left: '-16px',
+        left: '-15px',
         position: 'absolute',
         textAlign: 'center',
-        width: '32px',
+        width: '31px',
         top: '-23px',
       }}
       _after={{

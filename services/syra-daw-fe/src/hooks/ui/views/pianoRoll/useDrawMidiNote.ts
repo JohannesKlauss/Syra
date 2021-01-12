@@ -10,7 +10,7 @@ export default function useDrawMidiNote(note: number) {
   const isPressed = useIsHotkeyPressed();
   const focusedMidiRegionId = useRecoilValue(pianoRollStore.focusedMidiRegionId);
 
-  return useRecoilCallback(({set, snapshot}) => (noteOnAt: Tone.TicksClass, noteOffAt: Tone.TicksClass, velocity: number) => {
+  return useRecoilCallback(({set, snapshot}) => (noteOnAt: Tone.TicksClass, duration: Tone.TicksClass, velocity: number) => {
     const midiNotes = snapshot.getLoadable(regionStore.midiNotes(focusedMidiRegionId)).contents as MidiNote[];
 
     const header = new Header();
@@ -22,8 +22,8 @@ export default function useDrawMidiNote(note: number) {
       velocity,
       midi: note,
       noteOffVelocity: 0,
-      durationTicks: noteOffAt.toTicks() - noteOnAt.toTicks(),
-      duration: noteOffAt.toSeconds() - noteOnAt.toSeconds(),
+      durationTicks: noteOnAt.toTicks() + duration.toTicks(),
+      duration: noteOnAt.toSeconds() + duration.toSeconds(),
     };
 
     set(regionStore.midiNotes(focusedMidiRegionId), [...midiNotes, newNote]);

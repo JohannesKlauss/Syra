@@ -87,7 +87,7 @@ const lengthInQuarters = atom({
 
 const lengthInTicks = atom({
   key: 'project/lengthInTicks',
-  default: Tone.Ticks(TIME_CONVERSION_RESOLUTION * 60, 'm').toTicks(),
+  default: Tone.Ticks(`${60}:0:0`).toTicks(), // TODO: THIS DEFAULT SETTING IS A BIT WEIRD, BECAUSE THIS EVALUATION HAPPENS __BEFORE__ WE SET TONE JS TO 1/4 Time Signature. We have to figure out a better way to handle this.
 })
 
 const beatsPerSecond = selector({
