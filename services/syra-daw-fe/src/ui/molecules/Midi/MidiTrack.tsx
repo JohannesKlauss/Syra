@@ -22,7 +22,7 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
   const totalWidth = useRecoilValue(gridStore.totalWidth(view));
   const drawMidiNote = useDrawMidiNote(note);
   const pixelToTicks = usePixelToTicks();
-  const snapPixelValue = useSnapPixelValue(0.25);
+  const snapPixelValue = useSnapPixelValue(0.125);
   const ref = useRef<HTMLDivElement>(null);
 
   const onClickMidiTrack = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -32,7 +32,10 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
       return;
     }
 
-    drawMidiNote(Tone.Ticks(pixelToTicks(snapPixelValue(e.clientX - 50))), Tone.Ticks(1, 'm'), 127);
+    // @ts-ignore
+    const x = e.nativeEvent.layerX;
+
+    drawMidiNote(Tone.Ticks(pixelToTicks(Math.max(snapPixelValue(x), 0))), Tone.Ticks(1, 'm'), 127);
   }, [ref, drawMidiNote, pixelToTicks]);
 
   return (

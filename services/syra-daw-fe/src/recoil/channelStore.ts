@@ -26,7 +26,7 @@ const color = atomFamily<string, string>({
 // Whether the user clicked the record button the channel or not.
 const isArmed = atomFamily<boolean, string>({
   key: 'channel/isArmed',
-  default: false,
+  default: true,
 });
 
 const isSolo = atomFamily<boolean, string>({
