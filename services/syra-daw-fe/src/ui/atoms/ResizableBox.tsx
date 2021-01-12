@@ -2,6 +2,7 @@ import {Box, BoxProps} from '@chakra-ui/react';
 import React, {useRef} from 'react';
 import {motion, PanInfo, useMotionValue} from 'framer-motion';
 import {DragMode} from "../../types/Ui";
+import useSnapPixelValue from "../../hooks/ui/useSnapPixelValue";
 
 interface Props extends BoxProps {
   dragHandleWidth?: number;
@@ -20,6 +21,7 @@ const ResizableBox: React.FC<Props> = ({baseWidth, baseX, dragHandleWidth = 8, c
   const oldBoxOffset = useRef(0);
   const ref = useRef<HTMLDivElement>(null);
   const dragMode = useRef(DragMode.MOVE);
+  const snapPixelValue = useSnapPixelValue();
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const distance = e.clientX - (ref.current?.getBoundingClientRect().x ?? 0);
@@ -34,20 +36,22 @@ const ResizableBox: React.FC<Props> = ({baseWidth, baseX, dragHandleWidth = 8, c
   };
 
   const onDrag = (_: MouseEvent, {offset}: PanInfo) => {
+    const snappedOffset = snapPixelValue(offset.x);
+
     switch (dragMode.current) {
       case DragMode.END_HANDLE:
-        width.set(oldWidth.get() + offset.x);
+        width.set(oldWidth.get() + snappedOffset);
         x.set(oldX.get());
         break;
       case DragMode.START_HANDLE:
-        if (oldBoxOffset.current + offset.x >= 0) {
-          width.set(oldWidth.get() - offset.x);
-          x.set(oldX.get() + offset.x);
-          boxOffset.current = oldBoxOffset.current + offset.x;
+        if (oldBoxOffset.current + snappedOffset >= 0) {
+          width.set(oldWidth.get() - snappedOffset);
+          x.set(oldX.get() + snappedOffset);
+          boxOffset.current = oldBoxOffset.current + snappedOffset;
         }
         break;
       case DragMode.MOVE:
-        x.set(oldX.get() + offset.x);
+        x.set(oldX.get() + snappedOffset);
         break;
     }
   };
