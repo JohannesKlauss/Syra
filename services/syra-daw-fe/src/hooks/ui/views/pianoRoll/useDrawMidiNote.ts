@@ -1,7 +1,6 @@
 import { useIsHotkeyPressed } from "react-hotkeys-hook";
 import {useRecoilCallback, useRecoilValue} from "recoil";
 import {regionStore} from "../../../../recoil/regionStore";
-import { Header } from "@tonejs/midi";
 import {pianoRollStore} from "../../../../recoil/pianoRollStore";
 import {MidiNote} from "../../../../types/Midi";
 import * as Tone from 'tone';
@@ -14,9 +13,6 @@ export default function useDrawMidiNote(note: number) {
 
   return useRecoilCallback(({set, snapshot}) => (noteOnAt: Tone.TicksClass, duration: Tone.TicksClass, velocity: number) => {
     const midiNotes = snapshot.getLoadable(regionStore.midiNotes(focusedMidiRegionId)).contents as MidiNote[];
-
-    const header = new Header();
-    header.setTempo(120);
 
     const newNote: MidiNote = {
       id: createNewId(MIDI_ID_PREFIX),
