@@ -21107,15 +21107,6 @@ standard-as-callback@^2.0.1:
   resolved "https://registry.yarnpkg.com/standard-as-callback/-/standard-as-callback-2.0.1.tgz#ed8bb25648e15831759b6023bdb87e6b60b38126"
   integrity sha512-NQOxSeB8gOI5WjSaxjBgog2QFw55FV8TkS6Y07BiB3VJ8xNTvUYm0wl0s8ObgQ5NhdpnNfigMIKjgPESzgr4tg==
 
-standardized-audio-context@^25.0.4:
-  version "25.1.6"
-  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.1.6.tgz#c1908fe6b8fe221cc2836c9873573474f7992ad0"
-  integrity sha512-iHvPiwbDctxpmP9sufnADBeiBpYc8km6i53TFGVGkc5usBmAJ8YNhATXXrSFZYR4MGxIImZGWCCH4LrPatPFrQ==
-  dependencies:
-    "@babel/runtime" "^7.12.5"
-    automation-events "^3.0.2"
-    tslib "^2.0.3"
-
 standardized-audio-context@^25.1.8:
   version "25.1.8"
   resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.1.8.tgz#a8458abd65980780bfc3cc114c3888dd0b55d5cd"
@@ -22143,12 +22134,12 @@ token-stream@1.0.0:
   resolved "https://registry.yarnpkg.com/token-stream/-/token-stream-1.0.0.tgz#cc200eab2613f4166d27ff9afc7ca56d49df6eb4"
   integrity sha1-zCAOqyYT9BZtJ/+a/HylbUnfbrQ=
 
-tone@14.7.58:
-  version "14.7.58"
-  resolved "https://registry.yarnpkg.com/tone/-/tone-14.7.58.tgz#c1a31597184115aedf44ea6310a30efe902645e7"
-  integrity sha512-OzXsCkmaU/tLcNBc4M4dzHAjBzUGm+29DbWmAkAcCvpzWkLqo61RTcJa8tmS63F/7JHPiAJEOpuInMXw3mCvIg==
+tone@14.7.77:
+  version "14.7.77"
+  resolved "https://registry.yarnpkg.com/tone/-/tone-14.7.77.tgz#12a2a9f033952ccdb552275a6384ca5d36d4b5ed"
+  integrity sha512-tCfK73IkLHyzoKUvGq47gyDyxiKLFvKiVCOobynGgBB9Dl0NkxTM2p+eRJXyCYrjJwy9Y0XCMqD3uOYsYt2Fdg==
   dependencies:
-    standardized-audio-context "^25.0.4"
+    standardized-audio-context "^25.1.8"
     tslib "^2.0.1"
 
 tough-cookie@^2.3.3, tough-cookie@~2.5.0:
