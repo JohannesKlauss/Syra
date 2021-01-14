@@ -18,7 +18,7 @@ interface Props {
 const MidiNote: React.FC<Props> = ({note}) => {
   const {view} = useContext(ViewContext);
   const velocityColor = useVelocityColors();
-  const pixelPerSecond = useRecoilValue(gridStore.pixelPerSecond(view));
+  const pixelPerTick = useRecoilValue(gridStore.pixelPerTick(view));
   const updatePosition = useUpdateMidiPosition();
   const pixelToTicks = usePixelToTicks();
   const deleteNote = useDeleteMidiNote();
@@ -33,8 +33,8 @@ const MidiNote: React.FC<Props> = ({note}) => {
   };
 
   return (
-    <ResizableBox cursor={'default'} bg={velocityColor(note.velocity)} baseX={note.time * pixelPerSecond} onClick={onClick}
-                  baseWidth={note.duration * pixelPerSecond} h={'14px'} border={'1px solid black'} onPositionChanged={onPositionChanged}>
+    <ResizableBox cursor={'default'} bg={velocityColor(note.velocity)} baseX={note.ticks * pixelPerTick} onClick={onClick}
+                  baseWidth={note.durationTicks * pixelPerTick} h={'14px'} border={'1px solid black'} onPositionChanged={onPositionChanged}>
 
     </ResizableBox>
   );
