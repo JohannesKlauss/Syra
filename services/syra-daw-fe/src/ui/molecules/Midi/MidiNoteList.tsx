@@ -12,7 +12,7 @@ const MidiNoteList: React.FC<Props> = ({note}) => {
 
   return (
     <>
-      {midiNotesAtTrack.map((note, i) => <MidiNote note={note} key={i}/>)}
+      {midiNotesAtTrack.map(note => <MidiNote note={note} key={note.id}/>)}
     </>
   );
 };
