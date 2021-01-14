@@ -44,7 +44,7 @@
     "crypto-js": "4.0.0",
     "fastify-multipart": "3.3.1",
     "fastify-secure-session": "2.3.0",
-    "generate-password": "1.5.1",
+    "generate-password": "1.6.0",
     "graphql": "15.4.0",
     "graphql-redis-subscriptions": "2.3.1",
     "graphql-subscriptions": "1.1.0",
