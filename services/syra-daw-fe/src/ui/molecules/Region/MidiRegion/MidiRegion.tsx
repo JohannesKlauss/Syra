@@ -18,7 +18,7 @@ import usePixelToTicks from "../../../../hooks/tone/usePixelToTicks";
 const MidiRegion: React.FC = () => {
   const regionId = useContext(RegionContext);
   const name = useRecoilValue(regionStore.name(regionId));
-  const offset = useRecoilValue(regionStore.offset(regionId));
+  const start = useRecoilValue(regionStore.start(regionId));
   const color = useRegionColor(false);
   const regionWidth = useMidiRegionWidth();
   const pixelToTicks = usePixelToTicks();
@@ -32,7 +32,7 @@ const MidiRegion: React.FC = () => {
   };
 
   return (
-    <ResizableBox baseX={offset} baseWidth={regionWidth} onPositionChanged={onPositionChanged}>
+    <ResizableBox baseX={start} baseWidth={regionWidth} onPositionChanged={onPositionChanged}>
       <BaseRegion>
         <TopBar color={color}>
           <Flex justify={'flex-start'} align={'center'} ml={2}>

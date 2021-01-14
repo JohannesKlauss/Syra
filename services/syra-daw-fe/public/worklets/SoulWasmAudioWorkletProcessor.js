@@ -113,8 +113,6 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
       });
     }
     this.ready = true;
-
-    console.log(currentTime);
   }
 
 
@@ -147,8 +145,6 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
           this.midiData[n] = this.midiMessages[i][n];
 
         this.instance.exports.onMidiMessage(3);
-
-        console.log('trigger');
 
         this.midiMessages.splice(i, 1);
       }
