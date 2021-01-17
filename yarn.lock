@@ -11293,13 +11293,13 @@ fast-safe-stringify@2.0.7, fast-safe-stringify@^2.0.7:
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.0.7.tgz#124aa885899261f68aedb42a7c080de9da608743"
   integrity sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
 
-fast-unique-numbers@^5.0.21:
-  version "5.0.21"
-  resolved "https://registry.yarnpkg.com/fast-unique-numbers/-/fast-unique-numbers-5.0.21.tgz#b856e629f92d7214f8e3a0bf3171864ddc174314"
-  integrity sha512-rzJX09WSiR9xpwtegJ+i5HmkpB/JM5LPjAYbmiMQE4L//bE7+aLzyWGyYnFKAC1o/9D3sVG4ZEuVwYpTegEGEw==
+fast-unique-numbers@^5.0.22:
+  version "5.0.22"
+  resolved "https://registry.yarnpkg.com/fast-unique-numbers/-/fast-unique-numbers-5.0.22.tgz#82b1b70f233d9bf5321b491411bbb7bd6eecac7d"
+  integrity sha512-LNRD79kua4rRa/09Y7u1K1zK5nc6c9aL9zX7ArMh+hukceuQIqiMcWBfYa9UKkk46Z3PwLe2bYgztpi/86LAZA==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    tslib "^2.0.3"
+    tslib "^2.1.0"
 
 fast-write-atomic@0.2.1:
   version "0.2.1"
@@ -23186,13 +23186,13 @@ wcwidth@^1.0.1:
   dependencies:
     defaults "^1.0.3"
 
-web-audio-beat-detector-broker@^4.0.37:
-  version "4.0.37"
-  resolved "https://registry.yarnpkg.com/web-audio-beat-detector-broker/-/web-audio-beat-detector-broker-4.0.37.tgz#46b5734a2cc8da3e29143f0a0f163fd9cc481244"
-  integrity sha512-yf4rWeQUYsf1r2UE/lkXKuhEdHjiEaoJRgBtNv9QvSauWwpDkU1JjWpVKEv8yVJuJIlBbdMZvbn5P9IqkeEUtg==
+web-audio-beat-detector-broker@^4.0.38:
+  version "4.0.38"
+  resolved "https://registry.yarnpkg.com/web-audio-beat-detector-broker/-/web-audio-beat-detector-broker-4.0.38.tgz#7c58b239a4fb436e2962293510eb20d850a8e7d6"
+  integrity sha512-JBJHro+EkYl9iTT0HDq2imLrvoxqT7aC3Qd2jkw4N0TUZMDsGOpsIVqhesYzvupA+yugEhI0+R+qhBAmeVsf1g==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    fast-unique-numbers "^5.0.21"
+    fast-unique-numbers "^5.0.22"
     standardized-audio-context "^25.1.8"
     tslib "^2.1.0"
     web-audio-beat-detector-worker "^5.1.0"
@@ -23205,14 +23205,14 @@ web-audio-beat-detector-worker@^5.1.0:
     "@babel/runtime" "^7.12.5"
     tslib "^2.1.0"
 
-web-audio-beat-detector@8.0.37:
-  version "8.0.37"
-  resolved "https://registry.yarnpkg.com/web-audio-beat-detector/-/web-audio-beat-detector-8.0.37.tgz#4e5436d31c964655d32b8068b2d742e4b2b14698"
-  integrity sha512-pE856w6gTN4diQHjjTJA/loSH6mtftBrWO5ESCySEnePovIcBVY1sl3rShQew5Hvg5PrAZ4PDkwOmvHbd+ptIg==
+web-audio-beat-detector@8.0.38:
+  version "8.0.38"
+  resolved "https://registry.yarnpkg.com/web-audio-beat-detector/-/web-audio-beat-detector-8.0.38.tgz#ed4c39a74ace9e79cd436fc9df2839e1ad61a73b"
+  integrity sha512-2XVB2jYzDp+6QjLEVNtbLN0qaB8ibUjbWC9dIKdO6r4+4o9vEX6h8Edr8xYvXRpH/Dm7w21Q5m2vcHFABjymGg==
   dependencies:
     "@babel/runtime" "^7.12.5"
     tslib "^2.1.0"
-    web-audio-beat-detector-broker "^4.0.37"
+    web-audio-beat-detector-broker "^4.0.38"
     web-audio-beat-detector-worker "^5.1.0"
 
 web-namespaces@^1.0.0:
