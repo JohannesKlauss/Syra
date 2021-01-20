@@ -1,6 +1,6 @@
 import React from 'react';
 import App from 'next/app';
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider } from '@chakra-ui/react';
 import { RecoilRoot } from 'recoil';
 import { useApollo } from "../apollo/client";
 import { ApolloProvider } from '@apollo/client';

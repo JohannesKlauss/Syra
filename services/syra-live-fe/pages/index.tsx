@@ -19,6 +19,8 @@ function Home() {
 
   if (isAuthenticated) {
     push('/feed');
+
+    return null;
   }
 
   return (
