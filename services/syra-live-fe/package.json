@@ -51,7 +51,7 @@
     "@storybook/addon-links": "6.1.15",
     "@storybook/react": "6.1.15",
     "@types/mixpanel-browser": "2.35.4",
-    "@types/node": "12.19.14",
+    "@types/node": "12.19.15",
     "@types/nprogress": "0.2.0",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
