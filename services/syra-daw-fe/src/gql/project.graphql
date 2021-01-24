@@ -1,0 +1,14 @@
+query project($id: String!) {
+    project(where: {id: $id}) {
+        id
+        createdAt
+        members(where: {projectId: {equals: $id}}) {
+            user {
+                name
+                id
+                avatar
+            }
+        }
+        content
+    }
+}

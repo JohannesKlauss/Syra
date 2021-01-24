@@ -16,7 +16,7 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string): Promise<Pick<User, 'id' | 'role'> | null> {
-    const user = await this.prismaService.user.findOne({
+    const user = await this.prismaService.user.findUnique({
       where: { email: email },
       select: { id: true, role: true, password: true },
     });

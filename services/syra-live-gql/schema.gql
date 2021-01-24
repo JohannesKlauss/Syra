@@ -11,12 +11,25 @@ type Address {
   createdAt: Timestamp!
   state: String!
   updatedAt: Timestamp!
-  User(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
+  User(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
   zip: Int!
 }
 
 type AddressAvgAggregate {
   zip: Float!
+}
+
+type AddressCountAggregate {
+  _all: Int!
+  addressLine1: Int
+  addressLine2: Int
+  city: Int
+  country: Int
+  createdAt: Int
+  id: Int
+  state: Int
+  updatedAt: Int
+  zip: Int!
 }
 
 input AddressCreateInput {
@@ -55,23 +68,27 @@ input AddressCreateWithoutUserInput {
   zip: Int!
 }
 
-enum AddressDistinctFieldEnum {
-  addressLine1
-  addressLine2
-  city
-  country
-  createdAt
-  id
-  state
-  updatedAt
-  zip
-}
-
 type AddressMaxAggregate {
+  addressLine1: String
+  addressLine2: String
+  city: String
+  country: String
+  createdAt: Timestamp
+  id: String
+  state: String
+  updatedAt: Timestamp
   zip: Int!
 }
 
 type AddressMinAggregate {
+  addressLine1: String
+  addressLine2: String
+  city: String
+  country: String
+  createdAt: Timestamp
+  id: String
+  state: String
+  updatedAt: Timestamp
   zip: Int!
 }
 
@@ -90,6 +107,18 @@ input AddressOrderByInput {
 input AddressRelationFilter {
   is: AddressWhereInput
   isNot: AddressWhereInput
+}
+
+enum AddressScalarFieldEnum {
+  addressLine1
+  addressLine2
+  city
+  country
+  createdAt
+  id
+  state
+  updatedAt
+  zip
 }
 
 type AddressSumAggregate {
@@ -170,58 +199,78 @@ input AddressWhereUniqueInput {
 
 type AggregateAddress {
   avg: AddressAvgAggregate
-  count: Int!
+  count: AddressCountAggregate
   max: AddressMaxAggregate
   min: AddressMinAggregate
   sum: AddressSumAggregate
 }
 
 type AggregateBand {
-  count: Int!
+  count: BandCountAggregate
+  max: BandMaxAggregate
+  min: BandMinAggregate
 }
 
 type AggregateComment {
-  count: Int!
+  count: CommentCountAggregate
+  max: CommentMaxAggregate
+  min: CommentMinAggregate
 }
 
 type AggregateCommentLike {
-  count: Int!
+  count: CommentLikeCountAggregate
+  max: CommentLikeMaxAggregate
+  min: CommentLikeMinAggregate
 }
 
 type AggregateFeedItem {
-  count: Int!
+  count: FeedItemCountAggregate
+  max: FeedItemMaxAggregate
+  min: FeedItemMinAggregate
 }
 
 type AggregateFeedItemLike {
-  count: Int!
+  count: FeedItemLikeCountAggregate
+  max: FeedItemLikeMaxAggregate
+  min: FeedItemLikeMinAggregate
 }
 
 type AggregateFeedItemRevision {
-  count: Int!
+  count: FeedItemRevisionCountAggregate
+  max: FeedItemRevisionMaxAggregate
+  min: FeedItemRevisionMinAggregate
 }
 
 type AggregateMixdown {
   avg: MixdownAvgAggregate
-  count: Int!
+  count: MixdownCountAggregate
   max: MixdownMaxAggregate
   min: MixdownMinAggregate
   sum: MixdownSumAggregate
 }
 
 type AggregateProject {
-  count: Int!
+  count: ProjectCountAggregate
+  max: ProjectMaxAggregate
+  min: ProjectMinAggregate
 }
 
 type AggregateTag {
-  count: Int!
+  count: TagCountAggregate
+  max: TagMaxAggregate
+  min: TagMinAggregate
 }
 
 type AggregateUser {
-  count: Int!
+  count: UserCountAggregate
+  max: UserMaxAggregate
+  min: UserMinAggregate
 }
 
 type AggregateUsersOnProjects {
-  count: Int!
+  count: UsersOnProjectsCountAggregate
+  max: UsersOnProjectsMaxAggregate
+  min: UsersOnProjectsMinAggregate
 }
 
 type AudioAsset {
@@ -270,14 +319,6 @@ input AudioAssetCreateWithoutOwnerInput {
   name: String!
 }
 
-enum AudioAssetDistinctFieldEnum {
-  id
-  isPublic
-  location
-  name
-  userId
-}
-
 input AudioAssetListRelationFilter {
   every: AudioAssetWhereInput
   none: AudioAssetWhereInput
@@ -295,6 +336,14 @@ input AudioAssetOrderByInput {
 input AudioAssetRelationFilter {
   is: AudioAssetWhereInput
   isNot: AudioAssetWhereInput
+}
+
+enum AudioAssetScalarFieldEnum {
+  id
+  isPublic
+  location
+  name
+  userId
 }
 
 input AudioAssetScalarWhereInput {
@@ -395,10 +444,20 @@ type Band {
   createdBy: User!
   id: String!
   isPublic: Boolean!
-  members(cursor: UsersOnBandsWhereUniqueInput, distinct: [UsersOnBandsDistinctFieldEnum!], orderBy: [UsersOnBandsOrderByInput!], skip: Int, take: Int, where: UsersOnBandsWhereInput): [UsersOnBands!]
+  members(cursor: UsersOnBandsWhereUniqueInput, distinct: [UsersOnBandsScalarFieldEnum!], orderBy: [UsersOnBandsOrderByInput!], skip: Int, take: Int, where: UsersOnBandsWhereInput): [UsersOnBands!]
   name: String!
   updatedAt: Timestamp!
   userId: String!
+}
+
+type BandCountAggregate {
+  _all: Int!
+  createdAt: Int
+  id: Int
+  isPublic: Int
+  name: Int
+  updatedAt: Int
+  userId: Int
 }
 
 input BandCreateInput {
@@ -451,19 +510,28 @@ input BandCreateWithoutMembersInput {
   updatedAt: Timestamp
 }
 
-enum BandDistinctFieldEnum {
-  createdAt
-  id
-  isPublic
-  name
-  updatedAt
-  userId
-}
-
 input BandListRelationFilter {
   every: BandWhereInput
   none: BandWhereInput
   some: BandWhereInput
+}
+
+type BandMaxAggregate {
+  createdAt: Timestamp
+  id: String
+  isPublic: Boolean
+  name: String
+  updatedAt: Timestamp
+  userId: String
+}
+
+type BandMinAggregate {
+  createdAt: Timestamp
+  id: String
+  isPublic: Boolean
+  name: String
+  updatedAt: Timestamp
+  userId: String
 }
 
 input BandOrderByInput {
@@ -478,6 +546,15 @@ input BandOrderByInput {
 input BandRelationFilter {
   is: BandWhereInput
   isNot: BandWhereInput
+}
+
+enum BandScalarFieldEnum {
+  createdAt
+  id
+  isPublic
+  name
+  updatedAt
+  userId
 }
 
 input BandScalarWhereInput {
@@ -616,12 +693,23 @@ type Comment {
   id: String!
   isMeLiking: Boolean
   likeCount: Int
-  likes(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]
+  likes(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeScalarFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]
   parentComment: Comment
   parentCommentId: String
-  subComments(cursor: CommentWhereUniqueInput, distinct: [CommentDistinctFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]
+  subComments(cursor: CommentWhereUniqueInput, distinct: [CommentScalarFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]
   text: String!
   updatedAt: Timestamp!
+}
+
+type CommentCountAggregate {
+  _all: Int!
+  authorId: Int
+  createdAt: Int
+  feedItemId: Int
+  id: Int
+  parentCommentId: Int
+  text: Int
+  updatedAt: Int
 }
 
 input CommentCreateInput {
@@ -746,22 +834,19 @@ input CommentCreateWithoutSubCommentsInput {
   updatedAt: Timestamp
 }
 
-enum CommentDistinctFieldEnum {
-  authorId
-  createdAt
-  feedItemId
-  id
-  parentCommentId
-  text
-  updatedAt
-}
-
 type CommentLike {
   comment: Comment!
   commentId: String!
   createdAt: Timestamp!
   user: User!
   userId: String!
+}
+
+type CommentLikeCountAggregate {
+  _all: Int!
+  commentId: Int
+  createdAt: Int
+  userId: Int
 }
 
 input CommentLikeCreateInput {
@@ -802,22 +887,34 @@ input CommentLikeCreateWithoutUserInput {
   createdAt: Timestamp
 }
 
-enum CommentLikeDistinctFieldEnum {
-  commentId
-  createdAt
-  userId
-}
-
 input CommentLikeListRelationFilter {
   every: CommentLikeWhereInput
   none: CommentLikeWhereInput
   some: CommentLikeWhereInput
 }
 
+type CommentLikeMaxAggregate {
+  commentId: String
+  createdAt: Timestamp
+  userId: String
+}
+
+type CommentLikeMinAggregate {
+  commentId: String
+  createdAt: Timestamp
+  userId: String
+}
+
 input CommentLikeOrderByInput {
   commentId: SortOrder
   createdAt: SortOrder
   userId: SortOrder
+}
+
+enum CommentLikeScalarFieldEnum {
+  commentId
+  createdAt
+  userId
 }
 
 input CommentLikeScalarWhereInput {
@@ -907,6 +1004,11 @@ input CommentLikeUpsertWithWhereUniqueWithoutUserInput {
   where: CommentLikeWhereUniqueInput!
 }
 
+input CommentLikeUserIdCommentIdCompoundUniqueInput {
+  commentId: String!
+  userId: String!
+}
+
 input CommentLikeWhereInput {
   AND: [CommentLikeWhereInput!]
   comment: CommentRelationFilter
@@ -919,13 +1021,33 @@ input CommentLikeWhereInput {
 }
 
 input CommentLikeWhereUniqueInput {
-  userId_commentId: UserIdCommentIdCompoundUniqueInput
+  userId_commentId: CommentLikeUserIdCommentIdCompoundUniqueInput
 }
 
 input CommentListRelationFilter {
   every: CommentWhereInput
   none: CommentWhereInput
   some: CommentWhereInput
+}
+
+type CommentMaxAggregate {
+  authorId: String
+  createdAt: Timestamp
+  feedItemId: String
+  id: String
+  parentCommentId: String
+  text: String
+  updatedAt: Timestamp
+}
+
+type CommentMinAggregate {
+  authorId: String
+  createdAt: Timestamp
+  feedItemId: String
+  id: String
+  parentCommentId: String
+  text: String
+  updatedAt: Timestamp
 }
 
 input CommentOrderByInput {
@@ -941,6 +1063,16 @@ input CommentOrderByInput {
 input CommentRelationFilter {
   is: CommentWhereInput
   isNot: CommentWhereInput
+}
+
+enum CommentScalarFieldEnum {
+  authorId
+  createdAt
+  feedItemId
+  id
+  parentCommentId
+  text
+  updatedAt
 }
 
 input CommentScalarWhereInput {
@@ -1221,15 +1353,6 @@ input EarlyAccessCodeCreateWithoutClaimedByInput {
   updatedAt: Timestamp
 }
 
-enum EarlyAccessCodeDistinctFieldEnum {
-  code
-  createdAt
-  id
-  isValid
-  updatedAt
-  userId
-}
-
 input EarlyAccessCodeListRelationFilter {
   every: EarlyAccessCodeWhereInput
   none: EarlyAccessCodeWhereInput
@@ -1243,6 +1366,15 @@ input EarlyAccessCodeOrderByInput {
   isValid: SortOrder
   updatedAt: SortOrder
   userId: SortOrder
+}
+
+enum EarlyAccessCodeScalarFieldEnum {
+  code
+  createdAt
+  id
+  isValid
+  updatedAt
+  userId
 }
 
 input EarlyAccessCodeScalarWhereInput {
@@ -1335,19 +1467,31 @@ type FeedItem {
   author: User!
   authorId: String!
   commentCount: Int
-  comments(cursor: CommentWhereUniqueInput, distinct: [CommentDistinctFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]
+  comments(cursor: CommentWhereUniqueInput, distinct: [CommentScalarFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]
   createdAt: Timestamp!
   id: String!
   isMeLiking: Boolean
   isPublished: Boolean!
   likeCount: Int
-  likes(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeDistinctFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]
+  likes(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeScalarFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]
   mixdown: Mixdown
   mixdownId: String
   publishAt: Timestamp
-  revisions(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionDistinctFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): [FeedItemRevision!]
+  revisions(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionScalarFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): [FeedItemRevision!]
   text: String
   updatedAt: Timestamp!
+}
+
+type FeedItemCountAggregate {
+  _all: Int!
+  authorId: Int
+  createdAt: Int
+  id: Int
+  isPublished: Int
+  mixdownId: Int
+  publishAt: Int
+  text: Int
+  updatedAt: Int
 }
 
 input FeedItemCreateInput {
@@ -1484,23 +1628,19 @@ input FeedItemCreateWithoutRevisionsInput {
   updatedAt: Timestamp
 }
 
-enum FeedItemDistinctFieldEnum {
-  authorId
-  createdAt
-  id
-  isPublished
-  mixdownId
-  publishAt
-  text
-  updatedAt
-}
-
 type FeedItemLike {
   createdAt: Timestamp!
   feedItem: FeedItem!
   feedItemId: String!
   user: User!
   userId: String!
+}
+
+type FeedItemLikeCountAggregate {
+  _all: Int!
+  createdAt: Int
+  feedItemId: Int
+  userId: Int
 }
 
 input FeedItemLikeCreateInput {
@@ -1541,22 +1681,34 @@ input FeedItemLikeCreateWithoutUserInput {
   feedItem: FeedItemCreateOneWithoutLikesInput!
 }
 
-enum FeedItemLikeDistinctFieldEnum {
-  createdAt
-  feedItemId
-  userId
-}
-
 input FeedItemLikeListRelationFilter {
   every: FeedItemLikeWhereInput
   none: FeedItemLikeWhereInput
   some: FeedItemLikeWhereInput
 }
 
+type FeedItemLikeMaxAggregate {
+  createdAt: Timestamp
+  feedItemId: String
+  userId: String
+}
+
+type FeedItemLikeMinAggregate {
+  createdAt: Timestamp
+  feedItemId: String
+  userId: String
+}
+
 input FeedItemLikeOrderByInput {
   createdAt: SortOrder
   feedItemId: SortOrder
   userId: SortOrder
+}
+
+enum FeedItemLikeScalarFieldEnum {
+  createdAt
+  feedItemId
+  userId
 }
 
 input FeedItemLikeScalarWhereInput {
@@ -1646,6 +1798,11 @@ input FeedItemLikeUpsertWithWhereUniqueWithoutUserInput {
   where: FeedItemLikeWhereUniqueInput!
 }
 
+input FeedItemLikeUserIdFeedItemIdCompoundUniqueInput {
+  feedItemId: String!
+  userId: String!
+}
+
 input FeedItemLikeWhereInput {
   AND: [FeedItemLikeWhereInput!]
   createdAt: DateTimeFilter
@@ -1658,13 +1815,35 @@ input FeedItemLikeWhereInput {
 }
 
 input FeedItemLikeWhereUniqueInput {
-  userId_feedItemId: UserIdFeedItemIdCompoundUniqueInput
+  userId_feedItemId: FeedItemLikeUserIdFeedItemIdCompoundUniqueInput
 }
 
 input FeedItemListRelationFilter {
   every: FeedItemWhereInput
   none: FeedItemWhereInput
   some: FeedItemWhereInput
+}
+
+type FeedItemMaxAggregate {
+  authorId: String
+  createdAt: Timestamp
+  id: String
+  isPublished: Boolean
+  mixdownId: String
+  publishAt: Timestamp
+  text: String
+  updatedAt: Timestamp
+}
+
+type FeedItemMinAggregate {
+  authorId: String
+  createdAt: Timestamp
+  id: String
+  isPublished: Boolean
+  mixdownId: String
+  publishAt: Timestamp
+  text: String
+  updatedAt: Timestamp
 }
 
 input FeedItemOrderByInput {
@@ -1690,6 +1869,15 @@ type FeedItemRevision {
   parentItem: FeedItem!
   text: String!
   updatedAt: Timestamp!
+}
+
+type FeedItemRevisionCountAggregate {
+  _all: Int!
+  createdAt: Int
+  feedItemId: Int
+  id: Int
+  text: Int
+  updatedAt: Int
 }
 
 input FeedItemRevisionCreateInput {
@@ -1718,18 +1906,26 @@ input FeedItemRevisionCreateWithoutParentItemInput {
   updatedAt: Timestamp
 }
 
-enum FeedItemRevisionDistinctFieldEnum {
-  createdAt
-  feedItemId
-  id
-  text
-  updatedAt
-}
-
 input FeedItemRevisionListRelationFilter {
   every: FeedItemRevisionWhereInput
   none: FeedItemRevisionWhereInput
   some: FeedItemRevisionWhereInput
+}
+
+type FeedItemRevisionMaxAggregate {
+  createdAt: Timestamp
+  feedItemId: String
+  id: String
+  text: String
+  updatedAt: Timestamp
+}
+
+type FeedItemRevisionMinAggregate {
+  createdAt: Timestamp
+  feedItemId: String
+  id: String
+  text: String
+  updatedAt: Timestamp
 }
 
 input FeedItemRevisionOrderByInput {
@@ -1738,6 +1934,14 @@ input FeedItemRevisionOrderByInput {
   id: SortOrder
   text: SortOrder
   updatedAt: SortOrder
+}
+
+enum FeedItemRevisionScalarFieldEnum {
+  createdAt
+  feedItemId
+  id
+  text
+  updatedAt
 }
 
 input FeedItemRevisionScalarWhereInput {
@@ -1816,6 +2020,17 @@ input FeedItemRevisionWhereInput {
 
 input FeedItemRevisionWhereUniqueInput {
   id: String
+}
+
+enum FeedItemScalarFieldEnum {
+  authorId
+  createdAt
+  id
+  isPublished
+  mixdownId
+  publishAt
+  text
+  updatedAt
 }
 
 input FeedItemScalarWhereInput {
@@ -2061,11 +2276,21 @@ input IntFilter {
   notIn: [Int!]
 }
 
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+input JsonFilter {
+  equals: JSON
+  not: JSON
+}
+
 type Mixdown {
   audio: AudioAsset!
   audioAssetId: String!
   createdAt: Timestamp!
-  FeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemDistinctFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]
+  FeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemScalarFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]
   id: String!
   isPusblished: Boolean
   listens: Int!
@@ -2081,6 +2306,20 @@ type Mixdown {
 type MixdownAvgAggregate {
   listens: Float!
   version: Float!
+}
+
+type MixdownCountAggregate {
+  _all: Int!
+  audioAssetId: Int
+  createdAt: Int
+  id: Int
+  isPusblished: Int
+  listens: Int!
+  name: Int
+  projectId: Int
+  updatedAt: Int
+  userId: Int
+  version: Int!
 }
 
 input MixdownCreateInput {
@@ -2193,19 +2432,6 @@ input MixdownCreateWithoutTriggerdByInput {
   version: Int!
 }
 
-enum MixdownDistinctFieldEnum {
-  audioAssetId
-  createdAt
-  id
-  isPusblished
-  listens
-  name
-  projectId
-  updatedAt
-  userId
-  version
-}
-
 input MixdownListRelationFilter {
   every: MixdownWhereInput
   none: MixdownWhereInput
@@ -2213,12 +2439,28 @@ input MixdownListRelationFilter {
 }
 
 type MixdownMaxAggregate {
+  audioAssetId: String
+  createdAt: Timestamp
+  id: String
+  isPusblished: Boolean
   listens: Int!
+  name: String
+  projectId: String
+  updatedAt: Timestamp
+  userId: String
   version: Int!
 }
 
 type MixdownMinAggregate {
+  audioAssetId: String
+  createdAt: Timestamp
+  id: String
+  isPusblished: Boolean
   listens: Int!
+  name: String
+  projectId: String
+  updatedAt: Timestamp
+  userId: String
   version: Int!
 }
 
@@ -2238,6 +2480,19 @@ input MixdownOrderByInput {
 input MixdownRelationFilter {
   is: MixdownWhereInput
   isNot: MixdownWhereInput
+}
+
+enum MixdownScalarFieldEnum {
+  audioAssetId
+  createdAt
+  id
+  isPusblished
+  listens
+  name
+  projectId
+  updatedAt
+  userId
+  version
 }
 
 input MixdownScalarWhereInput {
@@ -2630,18 +2885,31 @@ input NullableStringFieldUpdateOperationsInput {
 }
 
 type Project {
+  content: JSON!
   createdAt: Timestamp!
   id: String!
   isPrivate: Boolean!
-  members(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
-  mixdowns(cursor: MixdownWhereUniqueInput, distinct: [MixdownDistinctFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]
+  members(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
+  mixdowns(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]
   name: String!
   owner: User!
   ownerId: String!
   updatedAt: Timestamp!
 }
 
+type ProjectCountAggregate {
+  _all: Int!
+  content: Int
+  createdAt: Int
+  id: Int
+  isPrivate: Int
+  name: Int
+  ownerId: Int
+  updatedAt: Int
+}
+
 input ProjectCreateInput {
+  content: JSON!
   createdAt: Timestamp
   id: String
   isPrivate: Boolean
@@ -2686,6 +2954,7 @@ input ProjectCreateOrConnectWithoutownerInput {
 }
 
 input ProjectCreateWithoutMembersInput {
+  content: JSON!
   createdAt: Timestamp
   id: String
   isPrivate: Boolean
@@ -2696,6 +2965,7 @@ input ProjectCreateWithoutMembersInput {
 }
 
 input ProjectCreateWithoutMixdownsInput {
+  content: JSON!
   createdAt: Timestamp
   id: String
   isPrivate: Boolean
@@ -2706,6 +2976,7 @@ input ProjectCreateWithoutMixdownsInput {
 }
 
 input ProjectCreateWithoutOwnerInput {
+  content: JSON!
   createdAt: Timestamp
   id: String
   isPrivate: Boolean
@@ -2715,22 +2986,34 @@ input ProjectCreateWithoutOwnerInput {
   updatedAt: Timestamp
 }
 
-enum ProjectDistinctFieldEnum {
-  createdAt
-  id
-  isPrivate
-  name
-  ownerId
-  updatedAt
-}
-
 input ProjectListRelationFilter {
   every: ProjectWhereInput
   none: ProjectWhereInput
   some: ProjectWhereInput
 }
 
+type ProjectMaxAggregate {
+  content: JSON
+  createdAt: Timestamp
+  id: String
+  isPrivate: Boolean
+  name: String
+  ownerId: String
+  updatedAt: Timestamp
+}
+
+type ProjectMinAggregate {
+  content: JSON
+  createdAt: Timestamp
+  id: String
+  isPrivate: Boolean
+  name: String
+  ownerId: String
+  updatedAt: Timestamp
+}
+
 input ProjectOrderByInput {
+  content: SortOrder
   createdAt: SortOrder
   id: SortOrder
   isPrivate: SortOrder
@@ -2744,8 +3027,19 @@ input ProjectRelationFilter {
   isNot: ProjectWhereInput
 }
 
+enum ProjectScalarFieldEnum {
+  content
+  createdAt
+  id
+  isPrivate
+  name
+  ownerId
+  updatedAt
+}
+
 input ProjectScalarWhereInput {
   AND: [ProjectScalarWhereInput!]
+  content: JsonFilter
   createdAt: DateTimeFilter
   id: StringFilter
   isPrivate: BoolFilter
@@ -2757,6 +3051,7 @@ input ProjectScalarWhereInput {
 }
 
 input ProjectUpdateInput {
+  content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   isPrivate: BoolFieldUpdateOperationsInput
@@ -2768,6 +3063,7 @@ input ProjectUpdateInput {
 }
 
 input ProjectUpdateManyMutationInput {
+  content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   isPrivate: BoolFieldUpdateOperationsInput
@@ -2810,6 +3106,7 @@ input ProjectUpdateOneRequiredWithoutMixdownsInput {
 }
 
 input ProjectUpdateWithoutMembersInput {
+  content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   isPrivate: BoolFieldUpdateOperationsInput
@@ -2820,6 +3117,7 @@ input ProjectUpdateWithoutMembersInput {
 }
 
 input ProjectUpdateWithoutMixdownsInput {
+  content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   isPrivate: BoolFieldUpdateOperationsInput
@@ -2830,6 +3128,7 @@ input ProjectUpdateWithoutMixdownsInput {
 }
 
 input ProjectUpdateWithoutOwnerInput {
+  content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   isPrivate: BoolFieldUpdateOperationsInput
@@ -2862,6 +3161,7 @@ input ProjectUpsertWithWhereUniqueWithoutOwnerInput {
 
 input ProjectWhereInput {
   AND: [ProjectWhereInput!]
+  content: JsonFilter
   createdAt: DateTimeFilter
   id: StringFilter
   isPrivate: BoolFilter
@@ -2881,55 +3181,55 @@ input ProjectWhereUniqueInput {
 
 type Query {
   address(where: AddressWhereUniqueInput!): Address
-  addresses(cursor: AddressWhereUniqueInput, distinct: [AddressDistinctFieldEnum!], orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): [Address!]!
-  aggregateAddress(cursor: AddressWhereUniqueInput, distinct: [AddressDistinctFieldEnum!], orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): AggregateAddress!
-  aggregateBand(cursor: BandWhereUniqueInput, distinct: [BandDistinctFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): AggregateBand!
-  aggregateComment(cursor: CommentWhereUniqueInput, distinct: [CommentDistinctFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): AggregateComment!
-  aggregateCommentLike(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): AggregateCommentLike!
-  aggregateFeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemDistinctFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): AggregateFeedItem!
-  aggregateFeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeDistinctFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): AggregateFeedItemLike!
-  aggregateFeedItemRevision(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionDistinctFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): AggregateFeedItemRevision!
-  aggregateMixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownDistinctFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): AggregateMixdown!
-  aggregateProject(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): AggregateProject!
-  aggregateTag(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): AggregateTag!
-  aggregateUser(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
-  aggregateUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): AggregateUsersOnProjects!
+  addresses(cursor: AddressWhereUniqueInput, distinct: [AddressScalarFieldEnum!], orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): [Address!]!
+  aggregateAddress(cursor: AddressWhereUniqueInput, orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): AggregateAddress!
+  aggregateBand(cursor: BandWhereUniqueInput, orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): AggregateBand!
+  aggregateComment(cursor: CommentWhereUniqueInput, orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): AggregateComment!
+  aggregateCommentLike(cursor: CommentLikeWhereUniqueInput, orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): AggregateCommentLike!
+  aggregateFeedItem(cursor: FeedItemWhereUniqueInput, orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): AggregateFeedItem!
+  aggregateFeedItemLike(cursor: FeedItemLikeWhereUniqueInput, orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): AggregateFeedItemLike!
+  aggregateFeedItemRevision(cursor: FeedItemRevisionWhereUniqueInput, orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): AggregateFeedItemRevision!
+  aggregateMixdown(cursor: MixdownWhereUniqueInput, orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): AggregateMixdown!
+  aggregateProject(cursor: ProjectWhereUniqueInput, orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): AggregateProject!
+  aggregateTag(cursor: TagWhereUniqueInput, orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): AggregateTag!
+  aggregateUser(cursor: UserWhereUniqueInput, orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
+  aggregateUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): AggregateUsersOnProjects!
   band(where: BandWhereUniqueInput!): Band
-  bands(cursor: BandWhereUniqueInput, distinct: [BandDistinctFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): [Band!]!
+  bands(cursor: BandWhereUniqueInput, distinct: [BandScalarFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): [Band!]!
   comment(where: CommentWhereUniqueInput!): Comment
   commentLike(where: CommentLikeWhereUniqueInput!): CommentLike
-  commentLikes(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]!
-  comments(cursor: CommentWhereUniqueInput, distinct: [CommentDistinctFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]!
+  commentLikes(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeScalarFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]!
+  comments(cursor: CommentWhereUniqueInput, distinct: [CommentScalarFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]!
   feedItem(where: FeedItemWhereUniqueInput!): FeedItem
   feedItemLike(where: FeedItemLikeWhereUniqueInput!): FeedItemLike
-  feedItemLikes(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeDistinctFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]!
+  feedItemLikes(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeScalarFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]!
   feedItemRevision(where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision
-  feedItemRevisions(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionDistinctFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): [FeedItemRevision!]!
-  feedItems(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemDistinctFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]!
-  findFirstAddress(cursor: AddressWhereUniqueInput, distinct: [AddressDistinctFieldEnum!], orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): Address
-  findFirstBand(cursor: BandWhereUniqueInput, distinct: [BandDistinctFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): Band
-  findFirstComment(cursor: CommentWhereUniqueInput, distinct: [CommentDistinctFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): Comment
-  findFirstCommentLike(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): CommentLike
-  findFirstFeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemDistinctFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): FeedItem
-  findFirstFeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeDistinctFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): FeedItemLike
-  findFirstFeedItemRevision(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionDistinctFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): FeedItemRevision
-  findFirstMixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownDistinctFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): Mixdown
-  findFirstProject(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): Project
-  findFirstTag(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): Tag
-  findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): User
-  findFirstUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): UsersOnProjects
-  findManyUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]!
-  findOneUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
+  feedItemRevisions(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionScalarFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): [FeedItemRevision!]!
+  feedItems(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemScalarFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]!
+  findFirstAddress(cursor: AddressWhereUniqueInput, distinct: [AddressScalarFieldEnum!], orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): Address
+  findFirstBand(cursor: BandWhereUniqueInput, distinct: [BandScalarFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): Band
+  findFirstComment(cursor: CommentWhereUniqueInput, distinct: [CommentScalarFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): Comment
+  findFirstCommentLike(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeScalarFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): CommentLike
+  findFirstFeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemScalarFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): FeedItem
+  findFirstFeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeScalarFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): FeedItemLike
+  findFirstFeedItemRevision(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionScalarFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): FeedItemRevision
+  findFirstMixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): Mixdown
+  findFirstProject(cursor: ProjectWhereUniqueInput, distinct: [ProjectScalarFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): Project
+  findFirstTag(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): Tag
+  findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): User
+  findFirstUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): UsersOnProjects
+  findManyUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]!
+  findUniqueUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
   followRecommendations: [User!]!
   me: User!
   mixdown(where: MixdownWhereUniqueInput!): Mixdown
-  mixdowns(cursor: MixdownWhereUniqueInput, distinct: [MixdownDistinctFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]!
+  mixdowns(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]!
   project(where: ProjectWhereUniqueInput!): Project
-  projects(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]!
+  projects(cursor: ProjectWhereUniqueInput, distinct: [ProjectScalarFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]!
   tag(where: TagWhereUniqueInput!): Tag
-  tags(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]!
+  tags(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]!
   user(where: UserWhereUniqueInput!): User
-  users(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
+  users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
 }
 
 enum QueryMode {
@@ -2993,6 +3293,13 @@ type Tag {
   value: String!
 }
 
+type TagCountAggregate {
+  _all: Int!
+  id: Int
+  userId: Int
+  value: Int
+}
+
 input TagCreateInput {
   id: String
   User: UserCreateOneWithoutInterestsInput
@@ -3015,22 +3322,34 @@ input TagCreateWithoutUserInput {
   value: String!
 }
 
-enum TagDistinctFieldEnum {
-  id
-  userId
-  value
-}
-
 input TagListRelationFilter {
   every: TagWhereInput
   none: TagWhereInput
   some: TagWhereInput
 }
 
+type TagMaxAggregate {
+  id: String
+  userId: String
+  value: String
+}
+
+type TagMinAggregate {
+  id: String
+  userId: String
+  value: String
+}
+
 input TagOrderByInput {
   id: SortOrder
   userId: SortOrder
   value: SortOrder
+}
+
+enum TagScalarFieldEnum {
+  id
+  userId
+  value
 }
 
 input TagScalarWhereInput {
@@ -3110,35 +3429,52 @@ scalar Timestamp
 type User {
   address: Address
   addressId: String
-  AudioAsset(cursor: AudioAssetWhereUniqueInput, distinct: [AudioAssetDistinctFieldEnum!], orderBy: [AudioAssetOrderByInput!], skip: Int, take: Int, where: AudioAssetWhereInput): [AudioAsset!]
+  AudioAsset(cursor: AudioAssetWhereUniqueInput, distinct: [AudioAssetScalarFieldEnum!], orderBy: [AudioAssetOrderByInput!], skip: Int, take: Int, where: AudioAssetWhereInput): [AudioAsset!]
   avatar: String
   bio: String
-  Comment(cursor: CommentWhereUniqueInput, distinct: [CommentDistinctFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]
-  CommentLike(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeDistinctFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]
+  Comment(cursor: CommentWhereUniqueInput, distinct: [CommentScalarFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]
+  CommentLike(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeScalarFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]
   createdAt: Timestamp!
-  EarlyAccessCode(cursor: EarlyAccessCodeWhereUniqueInput, distinct: [EarlyAccessCodeDistinctFieldEnum!], orderBy: [EarlyAccessCodeOrderByInput!], skip: Int, take: Int, where: EarlyAccessCodeWhereInput): [EarlyAccessCode!]
+  EarlyAccessCode(cursor: EarlyAccessCodeWhereUniqueInput, distinct: [EarlyAccessCodeScalarFieldEnum!], orderBy: [EarlyAccessCodeOrderByInput!], skip: Int, take: Int, where: EarlyAccessCodeWhereInput): [EarlyAccessCode!]
   email: String!
-  feed(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemDistinctFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]
-  FeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeDistinctFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]
-  followedBy(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
+  feed(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemScalarFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]
+  FeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeScalarFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]
+  followedBy(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
   followedByCount: Int
-  following(cursor: UserWhereUniqueInput, distinct: [UserDistinctFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
+  following(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
   followingCount: Int
   handle: String!
   id: String!
-  interests(cursor: TagWhereUniqueInput, distinct: [TagDistinctFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]
+  interests(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]
   isMeFollowing: Boolean
   isMyself: Boolean
   isOnline: Boolean!
-  memberOfBands(cursor: UsersOnBandsWhereUniqueInput, distinct: [UsersOnBandsDistinctFieldEnum!], orderBy: [UsersOnBandsOrderByInput!], skip: Int, take: Int, where: UsersOnBandsWhereInput): [UsersOnBands!]
-  memberOfProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsDistinctFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
-  Mixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownDistinctFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]
+  memberOfBands(cursor: UsersOnBandsWhereUniqueInput, distinct: [UsersOnBandsScalarFieldEnum!], orderBy: [UsersOnBandsOrderByInput!], skip: Int, take: Int, where: UsersOnBandsWhereInput): [UsersOnBands!]
+  memberOfProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
+  Mixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]
   name: String!
-  ownsBands(cursor: BandWhereUniqueInput, distinct: [BandDistinctFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): [Band!]
-  ownsProjects(cursor: ProjectWhereUniqueInput, distinct: [ProjectDistinctFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]
+  ownsBands(cursor: BandWhereUniqueInput, distinct: [BandScalarFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): [Band!]
+  ownsProjects(cursor: ProjectWhereUniqueInput, distinct: [ProjectScalarFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]
   role: Role!
   updatedAt: Timestamp!
   website: String
+}
+
+type UserCountAggregate {
+  _all: Int!
+  addressId: Int
+  avatar: Int
+  bio: Int
+  createdAt: Int
+  email: Int
+  handle: Int
+  id: Int
+  isOnline: Int
+  name: Int
+  password: Int
+  role: Int
+  updatedAt: Int
+  website: Int
 }
 
 input UserCreateInput {
@@ -3731,46 +4067,42 @@ input UserCreateWithoutOwnsProjectsInput {
   website: String
 }
 
-enum UserDistinctFieldEnum {
-  addressId
-  avatar
-  bio
-  createdAt
-  email
-  handle
-  id
-  isOnline
-  name
-  password
-  role
-  updatedAt
-  website
-}
-
-input UserIdBandIdCompoundUniqueInput {
-  bandId: String!
-  userId: String!
-}
-
-input UserIdCommentIdCompoundUniqueInput {
-  commentId: String!
-  userId: String!
-}
-
-input UserIdFeedItemIdCompoundUniqueInput {
-  feedItemId: String!
-  userId: String!
-}
-
-input UserIdProjectIdCompoundUniqueInput {
-  projectId: String!
-  userId: String!
-}
-
 input UserListRelationFilter {
   every: UserWhereInput
   none: UserWhereInput
   some: UserWhereInput
+}
+
+type UserMaxAggregate {
+  addressId: String
+  avatar: String
+  bio: String
+  createdAt: Timestamp
+  email: String
+  handle: String
+  id: String
+  isOnline: Boolean
+  name: String
+  password: String
+  role: Role
+  updatedAt: Timestamp
+  website: String
+}
+
+type UserMinAggregate {
+  addressId: String
+  avatar: String
+  bio: String
+  createdAt: Timestamp
+  email: String
+  handle: String
+  id: String
+  isOnline: Boolean
+  name: String
+  password: String
+  role: Role
+  updatedAt: Timestamp
+  website: String
 }
 
 input UserOrderByInput {
@@ -3792,6 +4124,22 @@ input UserOrderByInput {
 input UserRelationFilter {
   is: UserWhereInput
   isNot: UserWhereInput
+}
+
+enum UserScalarFieldEnum {
+  addressId
+  avatar
+  bio
+  createdAt
+  email
+  handle
+  id
+  isOnline
+  name
+  password
+  role
+  updatedAt
+  website
 }
 
 input UserScalarWhereInput {
@@ -3859,12 +4207,6 @@ input UsersOnBandsCreateWithoutUserInput {
   createdAt: Timestamp
 }
 
-enum UsersOnBandsDistinctFieldEnum {
-  bandId
-  createdAt
-  userId
-}
-
 input UsersOnBandsListRelationFilter {
   every: UsersOnBandsWhereInput
   none: UsersOnBandsWhereInput
@@ -3875,6 +4217,12 @@ input UsersOnBandsOrderByInput {
   bandId: SortOrder
   createdAt: SortOrder
   userId: SortOrder
+}
+
+enum UsersOnBandsScalarFieldEnum {
+  bandId
+  createdAt
+  userId
 }
 
 input UsersOnBandsScalarWhereInput {
@@ -3958,6 +4306,11 @@ input UsersOnBandsUpsertWithWhereUniqueWithoutUserInput {
   where: UsersOnBandsWhereUniqueInput!
 }
 
+input UsersOnBandsUserIdBandIdCompoundUniqueInput {
+  bandId: String!
+  userId: String!
+}
+
 input UsersOnBandsWhereInput {
   AND: [UsersOnBandsWhereInput!]
   band: BandRelationFilter
@@ -3970,7 +4323,7 @@ input UsersOnBandsWhereInput {
 }
 
 input UsersOnBandsWhereUniqueInput {
-  userId_bandId: UserIdBandIdCompoundUniqueInput
+  userId_bandId: UsersOnBandsUserIdBandIdCompoundUniqueInput
 }
 
 type UsersOnProjects {
@@ -3979,6 +4332,13 @@ type UsersOnProjects {
   projectId: String!
   user: User!
   userId: String!
+}
+
+type UsersOnProjectsCountAggregate {
+  _all: Int!
+  createdAt: Int
+  projectId: Int
+  userId: Int
 }
 
 input UsersOnProjectsCreateInput {
@@ -4019,22 +4379,34 @@ input UsersOnProjectsCreateWithoutUserInput {
   project: ProjectCreateOneWithoutMembersInput!
 }
 
-enum UsersOnProjectsDistinctFieldEnum {
-  createdAt
-  projectId
-  userId
-}
-
 input UsersOnProjectsListRelationFilter {
   every: UsersOnProjectsWhereInput
   none: UsersOnProjectsWhereInput
   some: UsersOnProjectsWhereInput
 }
 
+type UsersOnProjectsMaxAggregate {
+  createdAt: Timestamp
+  projectId: String
+  userId: String
+}
+
+type UsersOnProjectsMinAggregate {
+  createdAt: Timestamp
+  projectId: String
+  userId: String
+}
+
 input UsersOnProjectsOrderByInput {
   createdAt: SortOrder
   projectId: SortOrder
   userId: SortOrder
+}
+
+enum UsersOnProjectsScalarFieldEnum {
+  createdAt
+  projectId
+  userId
 }
 
 input UsersOnProjectsScalarWhereInput {
@@ -4124,6 +4496,11 @@ input UsersOnProjectsUpsertWithWhereUniqueWithoutUserInput {
   where: UsersOnProjectsWhereUniqueInput!
 }
 
+input UsersOnProjectsUserIdProjectIdCompoundUniqueInput {
+  projectId: String!
+  userId: String!
+}
+
 input UsersOnProjectsWhereInput {
   AND: [UsersOnProjectsWhereInput!]
   createdAt: DateTimeFilter
@@ -4136,7 +4513,7 @@ input UsersOnProjectsWhereInput {
 }
 
 input UsersOnProjectsWhereUniqueInput {
-  userId_projectId: UserIdProjectIdCompoundUniqueInput
+  userId_projectId: UsersOnProjectsUserIdProjectIdCompoundUniqueInput
 }
 
 input UserUpdateInput {

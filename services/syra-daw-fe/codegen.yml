@@ -4,7 +4,7 @@ hooks:
   afterOneFileWrite:
     - prettier --write
 generates:
-  gql/generated/index.ts:
+  src/gql/generated/index.ts:
     plugins:
       - "typescript"
       - "typescript-operations"

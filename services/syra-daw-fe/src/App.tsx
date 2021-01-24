@@ -15,7 +15,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
-import { useMeQuery } from "./gql/generated";
+import { useProjectQuery } from "./gql/generated";
 
 const config = {
   useSystemColorMode: false,
@@ -33,10 +33,14 @@ function App() {
   useHotkeys('shift+d', () => setShowDebugMenu((currVal) => !currVal));
   useHotkeys('shift+f', () => setShowFpsMeter((currVal) => !currVal));
 
-  const {data} = useMeQuery();
+  const {data, error} = useProjectQuery({variables: {id: "ckkbj5l5l0706lp14figy1mb1"}});
 
   if (data) {
-    console.log(data.me);
+    console.log(data.project);
+  }
+
+  if (error) {
+    console.log(error);
   }
 
   return (

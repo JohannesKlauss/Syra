@@ -49,7 +49,7 @@ export class CustomCommentResolver {
     filter: async ({ payload, args, context }: ResolverFilterData<Comment, NewCommentSubscriptionArgs, GraphQLContext>) => {
       // TODO: THIS MIGHT BECOME A PROBLEM WHEN THERE IS A LOT OF ACTIVITY. BECAUSE FOR EACH NEW COMMENT WE CHECK FOR EACH
       // SUB IF THEY ARE FOLLOWING.
-      const author = await context.prisma.user.findOne({where: {id: payload.authorId}, select: {followedBy: { select: {id: true} }}});
+      const author = await context.prisma.user.findUnique({where: {id: payload.authorId}, select: {followedBy: { select: {id: true} }}});
 
       return (
         payload.feedItemId === args.feedItemId &&

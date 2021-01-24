@@ -20,7 +20,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate save --experimental && prisma migrate up --experimental",
+    "prisma:migrate": "prisma migrate dev --preview-feature && prisma migrate deploy --preview-feature",
     "session:gen-key": "secure-session-gen-key > src/session-key && cp src/session-key dist/src/session-key",
     "docker:build": "yarn prisma:generate && yarn build && yarn session:gen-key"
   },

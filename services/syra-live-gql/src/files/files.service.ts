@@ -27,7 +27,7 @@ export class FilesService {
   }
 
   async get(assetId: string, userId: string) {
-    const asset = await this.prismaService.audioAsset.findOne({
+    const asset = await this.prismaService.audioAsset.findUnique({
       where: { id: assetId },
       select: { owner: { select: { id: true } }, location: true },
     });

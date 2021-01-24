@@ -100,6 +100,7 @@ model Project {
   isPrivate     Boolean     @default(false)
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
+  content       Json
   members       UsersOnProjects[]
   mixdowns      Mixdown[]
 }
