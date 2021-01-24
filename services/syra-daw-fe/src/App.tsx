@@ -1,4 +1,4 @@
-import React, { useState, StrictMode } from 'react';
+import React, { useState, StrictMode, useEffect } from "react";
 import AppRouter from './providers/AppRouter';
 import { useHotkeys } from 'react-hotkeys-hook';
 import Debugger from './ui/debug/Debugger';
@@ -15,6 +15,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
+import { useMeQuery } from "./gql/generated";
 
 const config = {
   useSystemColorMode: false,
@@ -31,6 +32,12 @@ function App() {
 
   useHotkeys('shift+d', () => setShowDebugMenu((currVal) => !currVal));
   useHotkeys('shift+f', () => setShowFpsMeter((currVal) => !currVal));
+
+  const {data} = useMeQuery();
+
+  if (data) {
+    console.log(data.me);
+  }
 
   return (
     <StrictMode>

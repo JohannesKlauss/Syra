@@ -1,0 +1,14 @@
+query me {
+    me {
+        id
+        name
+        email
+        avatar
+        bio
+        website
+        handle
+        followedByCount
+        followingCount
+        isMyself
+    }
+}

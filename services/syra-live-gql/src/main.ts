@@ -25,7 +25,7 @@ async function bootstrap() {
 
   app.enableCors({
     credentials: true,
-    origin: ['https://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live'],
+    origin: ['https://local.syra.live:3000', 'https://bar.local.syra.live:3006', 'https://syra.live', 'https://daw.syra.live'],
   });
 
   await app.register(SecureSessionPlugin, {

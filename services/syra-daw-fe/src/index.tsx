@@ -5,6 +5,8 @@ import * as serviceWorker from './serviceWorker';
 import { RecoilRoot } from 'recoil';
 import { audioSetup } from './audioSetup';
 import { BackboneMixerContext, instantiateMixer } from './providers/BackboneMixerContext';
+import { initializeApollo } from "./apollo/client";
+import { ApolloProvider } from "@apollo/client";
 
 if (process.env.NODE_ENV === 'development') {
   const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -21,12 +23,16 @@ audioSetup();
 
 const root = document.getElementById('app');
 
+const apolloClient = initializeApollo();
+
 ReactDOM.render(
-  <RecoilRoot>
-    <BackboneMixerContext.Provider value={instantiateMixer()}>
-      <App/>
-    </BackboneMixerContext.Provider>
-  </RecoilRoot>,
+  <ApolloProvider client={apolloClient}>
+    <RecoilRoot>
+      <BackboneMixerContext.Provider value={instantiateMixer()}>
+        <App/>
+      </BackboneMixerContext.Provider>
+    </RecoilRoot>
+  </ApolloProvider>,
   root,
 );
 

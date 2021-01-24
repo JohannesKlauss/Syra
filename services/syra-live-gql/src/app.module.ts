@@ -106,7 +106,7 @@ import { MailingService } from './mailing/mailing.service';
               : await cookieStrategy.validate(ctx.request),
           }),
           cors: {
-            origin: ['https://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live'],
+            origin: ['https://local.syra.live:3000', 'https://bar.local.syra.live:3006', 'https://syra.live', 'https://daw.syra.live'],
             credentials: true,
           },
           pubSub,
