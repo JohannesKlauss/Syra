@@ -1,4 +1,4 @@
-FROM node:15.5.1-buster as production
+FROM node:15.6.0-buster as production
 
 ARG IMAGE_NAME=syra-live-gql
 
