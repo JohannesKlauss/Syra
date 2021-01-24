@@ -5508,6 +5508,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.11.tgz#fc25a4248a5e8d0837019b1d170146d07334abe0"
   integrity sha512-BJ97wAUuU3NUiUCp44xzUFquQEvnk1wu7q4CMEUYKJWjdkr0YWYDsm4RFtAvxYsNjLsKcrFt6RvK8r+mnzMbEQ==
 
+"@types/node@12.19.14":
+  version "12.19.14"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.19.14.tgz#59e5029a3c2aea34f68b717955381692fd47cafb"
+  integrity sha512-2U9uLN46+7dv9PiS8VQJcHhuoOjiDPZOLAt0WuA1EanEknIMae+2QbMhayF7cgGqjvRVIfNpt+6jLPczJZFiRw==
+
 "@types/node@12.19.15":
   version "12.19.15"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.19.15.tgz#0de7e978fb43db62da369db18ea088a63673c182"
@@ -5861,7 +5866,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/ws@^7.0.0", "@types/ws@^7.2.7":
+"@types/ws@^7.0.0", "@types/ws@^7.4.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@types/ws/-/ws-7.4.0.tgz#499690ea08736e05a8186113dac37769ab251a0e"
   integrity sha512-Y29uQ3Uy+58bZrFLhX36hcI3Np37nqWE7ky5tjiDoy1GDZnIwVxS0CgF+s+1bXMzjKBFy+fqaRfb708iNzdinw==
@@ -7292,17 +7297,10 @@ axios@0.19.0:
     follow-redirects "1.5.10"
     is-buffer "^2.0.2"
 
-axios@0.21.1:
+axios@0.21.1, axios@^0.21.1:
   version "0.21.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
   integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
-  dependencies:
-    follow-redirects "^1.10.0"
-
-axios@^0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.0.tgz#26df088803a2350dff2c27f96fef99fe49442aca"
-  integrity sha512-fmkJBknJKoZwem3/IKSSLpkdNXZeBu5Q7GA/aRsr2btgrptmSCxi2oFjZHqGdK9DoTil9PIHlPIZw2EcRJXRvw==
   dependencies:
     follow-redirects "^1.10.0"
 
@@ -7821,7 +7819,7 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-base64-js@^1.0.2, base64-js@^1.3.1:
+base64-js@^1.0.2, base64-js@^1.3.1, base64-js@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
   integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
@@ -21442,22 +21440,22 @@ stream-chat-react@3.5.2:
     textarea-caret "^3.1.0"
     uuid "^8.3.1"
 
-stream-chat@2.11.3:
-  version "2.11.3"
-  resolved "https://registry.yarnpkg.com/stream-chat/-/stream-chat-2.11.3.tgz#ac5c045863f88eb331a61754c69eb2e34540acbd"
-  integrity sha512-T6WvY1G5SJJkVFwpzPP/AoWmJ1hxvPg9VfDgY0/04KCv5j45cfrcvnmbkSoCV+KFJspb+BkB5ynj7UopinQJ5A==
+stream-chat@2.11.5:
+  version "2.11.5"
+  resolved "https://registry.yarnpkg.com/stream-chat/-/stream-chat-2.11.5.tgz#9c9aa312cb324837d62f270e89d9102d866f19dc"
+  integrity sha512-WFFZRCGm5oeTwtWcbhlXExCJCP/VyO6UZP8nMtGvQLAsvDnzInvTzNVc96uQewYhv+/7mxGv3zDZq8GzjebGTw==
   dependencies:
-    "@babel/runtime" "^7.12.1"
+    "@babel/runtime" "^7.12.5"
     "@types/jsonwebtoken" "^8.5.0"
     "@types/seamless-immutable" "7.1.13"
-    "@types/ws" "^7.2.7"
-    axios "^0.21.0"
-    base64-js "^1.3.1"
+    "@types/ws" "^7.4.0"
+    axios "^0.21.1"
+    base64-js "^1.5.1"
     form-data "^3.0.0"
     isomorphic-ws "^4.0.1"
     jsonwebtoken "^8.5.1"
     seamless-immutable "^7.1.4"
-    ws "^7.3.1"
+    ws "^7.4.2"
 
 stream-each@^1.1.0:
   version "1.2.3"
@@ -23969,7 +23967,7 @@ write-file-atomic@^3.0.0:
     signal-exit "^3.0.2"
     typedarray-to-buffer "^3.1.5"
 
-ws@7.4.1, ws@^7.2.3, ws@^7.3.1:
+ws@7.4.1, ws@^7.2.3:
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.1.tgz#a333be02696bd0e54cea0434e21dcc8a9ac294bb"
   integrity sha512-pTsP8UAfhy3sk1lSk/O/s4tjD0CRwvMnzvwr4OKGX7ZvqZtUyx4KIJB5JWbkykPoc55tixMGgTNoh3k4FkNGFQ==
@@ -23987,6 +23985,11 @@ ws@^6.0.0, ws@^6.2.1:
   integrity sha512-GIyAXC2cB7LjvpgMt9EKS2ldqr0MTrORaleiOno6TweZ6r3TKtoFQWay/2PceJ3RuBasOHzXNn5Lrw1X0bEjqA==
   dependencies:
     async-limiter "~1.0.0"
+
+ws@^7.4.2:
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.2.tgz#782100048e54eb36fe9843363ab1c68672b261dd"
+  integrity sha512-T4tewALS3+qsrpGI/8dqNMLIVdq/g/85U98HPMa6F0m6xTbvhXU6RCQLqPH3+SlomNV/LdY6RXEbBpMH6EOJnA==
 
 xml-name-validator@^3.0.0:
   version "3.0.0"
