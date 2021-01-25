@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { ApolloClient, ApolloLink, from, InMemoryCache, Observable, split } from '@apollo/client';
 import { injectUserId } from './injectUserId';
 import { setContext } from '@apollo/client/link/context';
@@ -31,9 +30,7 @@ export const injectUserIdLink = new ApolloLink(
     }),
 );
 
-function createApolloClient(cookie?: string) {
-  const ssrMode = typeof window === 'undefined';
-
+function createApolloClient() {
   const httpLink = new BatchHttpLink({
     uri: `https://local.syra.live:4000`,
     credentials: 'include',
@@ -52,18 +49,7 @@ function createApolloClient(cookie?: string) {
     }
   });
 
-  const authLink = setContext((_, { headers }) => {
-    if (cookie == null) {
-      return headers;
-    }
-
-    return {
-      headers: {
-        ...headers,
-        Cookie: cookie,
-      },
-    };
-  });
+  const authLink = setContext((_, { headers }) => headers);
 
   const splitLink = split(
     ({ query }) => {
@@ -75,35 +61,24 @@ function createApolloClient(cookie?: string) {
   );
 
   return new ApolloClient({
-    ssrMode,
+    ssrMode: false,
     cache: new InMemoryCache(),
     link: from([authLink, injectUserIdLink, splitLink]),
     connectToDevTools: false,
-
   });
 }
 
-export function initializeApollo(initialState = null, cookie?: string) {
-  _apolloClient = createApolloClient(cookie);
-
-  // Hydrate initial Next.js data fetching state.
-  if (initialState) {
-    _apolloClient.cache.restore(initialState);
-  }
-
-  // For SSG and SSR always create a new Apollo Client
-  if (typeof window === 'undefined') {
-    return _apolloClient;
-  }
-
+export function initializeApollo() {
   // Create the Apollo Client once in the client
   if (!apolloClient) {
+    _apolloClient = createApolloClient();
+
     apolloClient = _apolloClient;
   }
 
-  return _apolloClient;
+  return apolloClient;
 }
 
-export function useApollo(initialState?: any) {
-  return useMemo(() => initializeApollo(initialState), [initialState]);
+export function getApolloClient() {
+  return initializeApollo();
 }

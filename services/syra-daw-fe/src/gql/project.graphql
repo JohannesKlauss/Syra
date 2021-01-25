@@ -12,3 +12,17 @@ query project($id: String!) {
         content
     }
 }
+
+subscription changes($projectId: String!) {
+    changes(projectId: $projectId) {
+        id
+        authorId
+        change
+    }
+}
+
+mutation publishChange($changeId: String!, $projectId: String!, $date: Timestamp!, $change: JSONObject!, $me: String) {
+    publishChange(id: $changeId, date: $date, projectId: $projectId, change: $change, authorId: $me) {
+        id
+    }
+}

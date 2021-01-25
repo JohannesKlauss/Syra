@@ -13,6 +13,8 @@ export type Scalars = {
   Float: number;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
+  /** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSONObject: any;
   /** The javascript `Date` as integer. Type represents date and time as number of milliseconds from start of UNIX epoch. */
   Timestamp: number;
 };
@@ -2888,6 +2890,7 @@ export type Mutation = {
   deleteTag?: Maybe<Tag>;
   deleteUser?: Maybe<User>;
   deleteUsersOnProjects?: Maybe<UsersOnProjects>;
+  publishChange: PublishProjectChangeArgs;
   signUpUser: User;
   updateAddress?: Maybe<Address>;
   updateBand?: Maybe<Band>;
@@ -3069,6 +3072,14 @@ export type MutationDeleteUserArgs = {
 
 export type MutationDeleteUsersOnProjectsArgs = {
   where: UsersOnProjectsWhereUniqueInput;
+};
+
+export type MutationPublishChangeArgs = {
+  authorId?: Maybe<Scalars['String']>;
+  change: Scalars['JSONObject'];
+  date: Scalars['Timestamp'];
+  id: Scalars['String'];
+  projectId: Scalars['String'];
 };
 
 export type MutationSignUpUserArgs = {
@@ -3674,6 +3685,15 @@ export type ProjectWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type PublishProjectChangeArgs = {
+  __typename?: 'PublishProjectChangeArgs';
+  authorId?: Maybe<Scalars['String']>;
+  change: Scalars['JSONObject'];
+  date: Scalars['Timestamp'];
+  id: Scalars['String'];
+  projectId: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   address?: Maybe<Address>;
@@ -4140,8 +4160,13 @@ export type StringNullableFilter = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  changes: PublishProjectChangeArgs;
   newComment: Comment;
   onlineStatus: Scalars['Boolean'];
+};
+
+export type SubscriptionChangesArgs = {
+  projectId: Scalars['String'];
 };
 
 export type SubscriptionNewCommentArgs = {
@@ -6258,6 +6283,26 @@ export type ProjectQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type ChangesSubscriptionVariables = Exact<{
+  projectId: Scalars['String'];
+}>;
+
+export type ChangesSubscription = { __typename?: 'Subscription' } & {
+  changes: { __typename?: 'PublishProjectChangeArgs' } & Pick<PublishProjectChangeArgs, 'id' | 'authorId' | 'change'>;
+};
+
+export type PublishChangeMutationVariables = Exact<{
+  changeId: Scalars['String'];
+  projectId: Scalars['String'];
+  date: Scalars['Timestamp'];
+  change: Scalars['JSONObject'];
+  me?: Maybe<Scalars['String']>;
+}>;
+
+export type PublishChangeMutation = { __typename?: 'Mutation' } & {
+  publishChange: { __typename?: 'PublishProjectChangeArgs' } & Pick<PublishProjectChangeArgs, 'id'>;
+};
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = { __typename?: 'Query' } & {
@@ -6318,6 +6363,86 @@ export function useProjectLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pr
 export type ProjectQueryHookResult = ReturnType<typeof useProjectQuery>;
 export type ProjectLazyQueryHookResult = ReturnType<typeof useProjectLazyQuery>;
 export type ProjectQueryResult = Apollo.QueryResult<ProjectQuery, ProjectQueryVariables>;
+export const ChangesDocument = gql`
+  subscription changes($projectId: String!) {
+    changes(projectId: $projectId) {
+      id
+      authorId
+      change
+    }
+  }
+`;
+
+/**
+ * __useChangesSubscription__
+ *
+ * To run a query within a React component, call `useChangesSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useChangesSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useChangesSubscription({
+ *   variables: {
+ *      projectId: // value for 'projectId'
+ *   },
+ * });
+ */
+export function useChangesSubscription(
+  baseOptions: Apollo.SubscriptionHookOptions<ChangesSubscription, ChangesSubscriptionVariables>,
+) {
+  return Apollo.useSubscription<ChangesSubscription, ChangesSubscriptionVariables>(ChangesDocument, baseOptions);
+}
+export type ChangesSubscriptionHookResult = ReturnType<typeof useChangesSubscription>;
+export type ChangesSubscriptionResult = Apollo.SubscriptionResult<ChangesSubscription>;
+export const PublishChangeDocument = gql`
+  mutation publishChange(
+    $changeId: String!
+    $projectId: String!
+    $date: Timestamp!
+    $change: JSONObject!
+    $me: String
+  ) {
+    publishChange(id: $changeId, date: $date, projectId: $projectId, change: $change, authorId: $me) {
+      id
+    }
+  }
+`;
+export type PublishChangeMutationFn = Apollo.MutationFunction<PublishChangeMutation, PublishChangeMutationVariables>;
+
+/**
+ * __usePublishChangeMutation__
+ *
+ * To run a mutation, you first call `usePublishChangeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePublishChangeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [publishChangeMutation, { data, loading, error }] = usePublishChangeMutation({
+ *   variables: {
+ *      changeId: // value for 'changeId'
+ *      projectId: // value for 'projectId'
+ *      date: // value for 'date'
+ *      change: // value for 'change'
+ *      me: // value for 'me'
+ *   },
+ * });
+ */
+export function usePublishChangeMutation(
+  baseOptions?: Apollo.MutationHookOptions<PublishChangeMutation, PublishChangeMutationVariables>,
+) {
+  return Apollo.useMutation<PublishChangeMutation, PublishChangeMutationVariables>(PublishChangeDocument, baseOptions);
+}
+export type PublishChangeMutationHookResult = ReturnType<typeof usePublishChangeMutation>;
+export type PublishChangeMutationResult = Apollo.MutationResult<PublishChangeMutation>;
+export type PublishChangeMutationOptions = Apollo.BaseMutationOptions<
+  PublishChangeMutation,
+  PublishChangeMutationVariables
+>;
 export const MeDocument = gql`
   query me {
     me {

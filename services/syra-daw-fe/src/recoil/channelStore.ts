@@ -1,68 +1,69 @@
-import { atom, atomFamily, selector, selectorFamily } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
 import { RegionState, regionStore } from './regionStore';
+import atomFamilySynced from "./proxy/atomFamilySynced";
 
 let lastChannelNum = 2;
 
-const name = atomFamily<string, string>({
+const name = atomFamilySynced<string, string>({
   key: 'channel/name',
   default: selector({
     key: 'channel/name/Default',
     get: () => `Channel ${lastChannelNum++}`,
-  }),
+  })
 });
 
-const type = atomFamily<ChannelType, string>({
+const type = atomFamilySynced<ChannelType, string>({
   key: 'channel/type',
   default: ChannelType.INSTRUMENT,
 });
 
-const color = atomFamily<string, string>({
+const color = atomFamilySynced<string, string>({
   key: 'channel/color',
   default: 'cyan.400',
 })
 
 // Whether the user clicked the record button the channel or not.
-const isArmed = atomFamily<boolean, string>({
+const isArmed = atomFamilySynced<boolean, string>({
   key: 'channel/isArmed',
   default: true,
 });
 
-const isSolo = atomFamily<boolean, string>({
+const isSolo = atomFamilySynced<boolean, string>({
   key: 'channel/isSolo',
   default: false,
 });
 
-const isMuted = atomFamily<boolean, string>({
+const isMuted = atomFamilySynced<boolean, string>({
   key: 'channel/isMuted',
   default: false,
 });
 
-const isInputMonitoringActive = atomFamily<boolean, string>({
+const isInputMonitoringActive = atomFamilySynced<boolean, string>({
   key: 'channel/isInputMonitoringActive',
   default: false,
 });
 
 // Whether an instrument or plugin is active or bypassed.
-const isPluginActive = atomFamily<boolean, string>({
+const isPluginActive = atomFamilySynced<boolean, string>({
   key: 'channel/isPluginActive',
   default: true,
 });
 
-const pluginIds = atomFamily<string[], string>({
+const pluginIds = atomFamilySynced<string[], string>({
   key: 'channel/pluginIds',
   default: [],
 });
 
 // TODO: WE HAVE TO FIND A DEFINITION FOR WHEN TO USE PATCH, PLUGIN, SOUL_INSTANCE, SOUL_PATCH, etc. RIGHT NOW THIS IS CONFUSING.
 // This represents an instrument or plugin.
-const soulInstance = atomFamily<SoulInstance | undefined, string>({
+const soulInstance = atomFamilySynced<SoulInstance | undefined, string>({
   key: 'channel/soulInstance',
   default: undefined,
 });
 
-const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
+const soulPatchParameter = atomFamilySynced<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
   key: 'channel/soulPatchParameter',
   default: selectorFamily({
     key: 'channel/soulPatchParameter/Default',
@@ -83,20 +84,6 @@ const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId: strin
   })
 });
 
-const toneJsMap = atomFamily<Map<string, any>, string>({
-  key: 'channel/toneJsMap',
-  default: selectorFamily({
-    key: 'channel/toneJsMap/Default',
-    get: channelId => () => {
-      const map = new Map<string, any>();
-
-      map.set('channelId', channelId);
-
-      return map;
-    }
-  }),
-});
-
 interface ChannelState {
   name: string;
   color: string;
@@ -108,7 +95,6 @@ interface ChannelState {
   isArmed: boolean;
   isInputMonitoringActive: boolean;
   channelType: ChannelType;
-  toneJsMap: Map<string, any>;
   regionIds: string[];
   regions: RegionState[];
 }
@@ -131,7 +117,6 @@ const state = selectorFamily<ChannelState, string>({
       isArmed: get(isArmed(id)),
       isInputMonitoringActive: get(isInputMonitoringActive(id)),
       channelType: get(type(id)),
-      toneJsMap: get(toneJsMap(id)),
       regionIds: get(regionStore.ids(id)),
       regions: get(regionStore.findByChannelId(id))
     };
@@ -188,7 +173,6 @@ export const channelStore = {
   selectedId,
   soulPatchParameter,
   soulInstance,
-  toneJsMap,
   findPluginsByIds,
   findActivePluginsByIds,
   findSelectedChannel,

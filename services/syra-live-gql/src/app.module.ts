@@ -66,6 +66,7 @@ import { Subscriptions } from '../types/Subscriptions';
 import { PrismaModule } from './prisma/prisma.module';
 import { PrismaService } from './prisma/prisma.service';
 import { MailingService } from './mailing/mailing.service';
+import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/CustomProjectChangeResolver";
 
 @Module({
   imports: [
@@ -210,6 +211,7 @@ import { MailingService } from './mailing/mailing.service';
     CustomUserResolver,
     CustomFeedItemResolver,
     CustomCommentResolver,
+    CustomProjectChangeResolver,
   ],
 })
 export class AppModule {}

@@ -48,6 +48,7 @@
     "graphql": "15.4.0",
     "graphql-redis-subscriptions": "2.3.1",
     "graphql-subscriptions": "1.1.0",
+    "graphql-type-json": "0.3.2",
     "nestjs-redis": "1.2.8",
     "nodemailer": "6.4.17",
     "passport": "0.4.1",

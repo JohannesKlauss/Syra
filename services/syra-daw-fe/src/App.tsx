@@ -16,6 +16,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import { useProjectQuery } from "./gql/generated";
+import useProjectSync from "./hooks/sync/useProjectSync";
 
 const config = {
   useSystemColorMode: false,
@@ -34,13 +35,10 @@ function App() {
   useHotkeys('shift+f', () => setShowFpsMeter((currVal) => !currVal));
 
   const {data, error} = useProjectQuery({variables: {id: "ckkbj5l5l0706lp14figy1mb1"}});
+  // useProjectSync();
 
   if (data) {
     console.log(data.project);
-  }
-
-  if (error) {
-    console.log(error);
   }
 
   return (
