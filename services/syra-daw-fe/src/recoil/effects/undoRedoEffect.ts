@@ -6,10 +6,12 @@ const history: Array<{
   undo: () => void,
 }> = [];
 
-export const undoRedoEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ setSelf, onSet, trigger }) => {
+export const undoRedoEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ setSelf, onSet }) => {
+  const labelKey = `${key}${id ? `-${id}` : null}`;
+
   onSet((newValue, oldValue) => {
     history.push({
-      label: `${key}: ${JSON.stringify(oldValue)} -> ${JSON.stringify(newValue)}`,
+      label: `${labelKey}: ${JSON.stringify(oldValue)} -> ${JSON.stringify(newValue)}`,
       undo: () => {
         setSelf(oldValue);
       },

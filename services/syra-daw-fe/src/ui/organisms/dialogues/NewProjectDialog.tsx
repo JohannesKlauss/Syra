@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { projectStore } from "../../../recoil/projectStore";
-import { useRecoilState } from "recoil";
-import { ChannelType } from "../../../types/Channel";
-import useTapTempo from "../../../hooks/audio/useTapTempo";
-import { buttonInfo } from "../../../utils/text";
-import { useHotkeys } from "react-hotkeys-hook";
-import { TIME_CONVERSION_RESOLUTION } from "../../../const/musicalConversionConstants";
+import React, { useEffect, useState } from 'react';
+import { projectStore } from '../../../recoil/projectStore';
+import { useRecoilState } from 'recoil';
+import { ChannelType } from '../../../types/Channel';
+import useTapTempo from '../../../hooks/audio/useTapTempo';
+import { buttonInfo } from '../../../utils/text';
+import { useHotkeys } from 'react-hotkeys-hook';
+import { TIME_CONVERSION_RESOLUTION } from '../../../const/musicalConversionConstants';
 import {
   Alert,
   AlertDescription,
@@ -30,10 +30,10 @@ import {
   NumberInputField,
   NumberInputStepper,
   Text,
-  useRadioGroup
-} from "@chakra-ui/react";
-import RadioCard from "../../atoms/Buttons/RadioCard";
-import { channelTypeToLabel } from "../../../utils/channelTypeToLabel";
+  useRadioGroup,
+} from '@chakra-ui/react';
+import RadioCard from '../../atoms/Buttons/RadioCard';
+import { channelTypeToLabel } from '../../../utils/channelTypeToLabel';
 
 interface Props {
   open: boolean;
@@ -59,13 +59,13 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
 
   const onClose = () => onCancel && onCancel;
 
-  const options = [ChannelType.AUDIO, ChannelType.INSTRUMENT]
+  const options = [ChannelType.AUDIO, ChannelType.INSTRUMENT];
 
   const { getRootProps, getRadioProps } = useRadioGroup({
-    name: "channel-type",
-    defaultValue: "react",
-    onChange: val => setChannelType(val as ChannelType),
-  })
+    name: 'channel-type',
+    defaultValue: ChannelType.AUDIO,
+    onChange: (val) => setChannelType(parseInt(val as string) as ChannelType),
+  });
 
   const group = getRootProps();
 
@@ -73,14 +73,9 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
     <Modal isOpen={open} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Welcome To Syra - Create a new Project</ModalHeader>
+        <ModalHeader>S Y R A - Set up your new session</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text fontSize={'lg'}>
-            Syra is a web based DAW with a professional workflow that empowers you to create top notch music with your
-            friends and colleagues.
-          </Text>
-          <Divider mt={4}/>
           <FormControl isRequired marginY={4}>
             <FormLabel>Project Name</FormLabel>
             <Input
@@ -88,27 +83,30 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
               id="name"
               name={'name'}
               aria-describedby="name-helper-text"
-              onChange={e => setName(e.target.value)}
-              value={name}/>
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
           </FormControl>
-          <Flex marginY={4}>
-            <FormControl isRequired flex={2}>
-              <FormLabel>Tempo</FormLabel>
-              <NumberInput value={tempoMap[0]} onChange={val => setTempoMap({ 0: parseFloat(val) })}>
+
+          <FormControl isRequired flex={2}>
+            <FormLabel>Tempo</FormLabel>
+            <Flex marginY={4} alignItems={'center'}>
+              <NumberInput value={tempoMap[0]} mr={4} onChange={(val) => setTempoMap({ 0: parseFloat(val) })}>
                 <NumberInputField />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>
-            </FormControl>
-            <Button flex={1} colorScheme={'teal'} onClick={tap} title={buttonInfo('Tap Tempo', 'Space')}>
-              Tap
-            </Button>
-          </Flex>
+              <Button flex={1} colorScheme={'teal'} onClick={tap} title={buttonInfo('Tap Tempo', 'Space')}>
+                Tap
+              </Button>
+            </Flex>
+          </FormControl>
+
           <FormControl isRequired flex={2}>
             <FormLabel>Project Length</FormLabel>
-            <NumberInput value={length / TIME_CONVERSION_RESOLUTION} onChange={val => setLength(parseInt(val) / TIME_CONVERSION_RESOLUTION)}>
+            <NumberInput value={length} onChange={(val) => setLength(parseInt(val))}>
               <NumberInputField />
               <NumberInputStepper>
                 <NumberIncrementStepper />
@@ -119,7 +117,7 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
 
           <FormControl isRequired flex={2}>
             <FormLabel>Create Channels</FormLabel>
-            <NumberInput value={numChannels} onChange={val => setNumChannels(parseInt(val))}>
+            <NumberInput value={numChannels} onChange={(val) => setNumChannels(parseInt(val))}>
               <NumberInputField />
               <NumberInputStepper>
                 <NumberIncrementStepper />
@@ -128,7 +126,7 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
             </NumberInput>
           </FormControl>
 
-          <HStack {...group}>
+          <HStack mt={4} {...group}>
             {options.map((value) => {
               const radio = getRadioProps({ value });
 
@@ -136,11 +134,11 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
                 <RadioCard key={value} {...radio}>
                   {channelTypeToLabel(value)}
                 </RadioCard>
-              )
+              );
             })}
           </HStack>
 
-          <Alert status="info">
+          <Alert status="info" my={4}>
             <AlertIcon />
             <AlertDescription>You can always change all the parameters later inside the editor.</AlertDescription>
           </Alert>

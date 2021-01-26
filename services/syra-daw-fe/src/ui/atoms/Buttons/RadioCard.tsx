@@ -12,7 +12,7 @@ const RadioCard: React.FC<Props> = (props) => {
   const checkbox = getCheckboxProps()
 
   return (
-    <Box as="label">
+    <Box as="label" w={'100%'}>
       <input {...input} />
       <Box
         {...checkbox}
@@ -21,15 +21,16 @@ const RadioCard: React.FC<Props> = (props) => {
         borderRadius="md"
         boxShadow="md"
         _checked={{
-          bg: "teal.500",
+          bg: "teal.600",
           color: "white",
-          borderColor: "teal.500",
+          borderColor: "teal.600",
         }}
         _focus={{
           boxShadow: "outline",
         }}
         px={1}
         py={3}
+        textAlign={'center'}
       >
         {props.children}
       </Box>

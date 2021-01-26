@@ -13,6 +13,8 @@ export type Scalars = {
   Float: number;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
+  /** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSONObject: any;
   /** The javascript `Date` as integer. Type represents date and time as number of milliseconds from start of UNIX epoch. */
   Timestamp: number;
 };
@@ -2888,6 +2890,7 @@ export type Mutation = {
   deleteTag?: Maybe<Tag>;
   deleteUser?: Maybe<User>;
   deleteUsersOnProjects?: Maybe<UsersOnProjects>;
+  publishChange: PublishProjectChangeArgs;
   signUpUser: User;
   updateAddress?: Maybe<Address>;
   updateBand?: Maybe<Band>;
@@ -3069,6 +3072,14 @@ export type MutationDeleteUserArgs = {
 
 export type MutationDeleteUsersOnProjectsArgs = {
   where: UsersOnProjectsWhereUniqueInput;
+};
+
+export type MutationPublishChangeArgs = {
+  authorId?: Maybe<Scalars['String']>;
+  change: Scalars['JSONObject'];
+  date: Scalars['Timestamp'];
+  id: Scalars['String'];
+  projectId: Scalars['String'];
 };
 
 export type MutationSignUpUserArgs = {
@@ -3362,6 +3373,7 @@ export type Project = {
   content: Scalars['JSON'];
   createdAt: Scalars['Timestamp'];
   id: Scalars['String'];
+  isInitialized: Scalars['Boolean'];
   isPrivate: Scalars['Boolean'];
   members?: Maybe<Array<UsersOnProjects>>;
   mixdowns?: Maybe<Array<Mixdown>>;
@@ -3395,6 +3407,7 @@ export type ProjectCountAggregate = {
   content?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  isInitialized?: Maybe<Scalars['Int']>;
   isPrivate?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['Int']>;
   ownerId?: Maybe<Scalars['Int']>;
@@ -3405,6 +3418,7 @@ export type ProjectCreateInput = {
   content: Scalars['JSON'];
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
+  isInitialized?: Maybe<Scalars['Boolean']>;
   isPrivate?: Maybe<Scalars['Boolean']>;
   members?: Maybe<UsersOnProjectsCreateManyWithoutProjectInput>;
   mixdowns?: Maybe<MixdownCreateManyWithoutProjectInput>;
@@ -3450,6 +3464,7 @@ export type ProjectCreateWithoutMembersInput = {
   content: Scalars['JSON'];
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
+  isInitialized?: Maybe<Scalars['Boolean']>;
   isPrivate?: Maybe<Scalars['Boolean']>;
   mixdowns?: Maybe<MixdownCreateManyWithoutProjectInput>;
   name?: Maybe<Scalars['String']>;
@@ -3461,6 +3476,7 @@ export type ProjectCreateWithoutMixdownsInput = {
   content: Scalars['JSON'];
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
+  isInitialized?: Maybe<Scalars['Boolean']>;
   isPrivate?: Maybe<Scalars['Boolean']>;
   members?: Maybe<UsersOnProjectsCreateManyWithoutProjectInput>;
   name?: Maybe<Scalars['String']>;
@@ -3472,6 +3488,7 @@ export type ProjectCreateWithoutOwnerInput = {
   content: Scalars['JSON'];
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
+  isInitialized?: Maybe<Scalars['Boolean']>;
   isPrivate?: Maybe<Scalars['Boolean']>;
   members?: Maybe<UsersOnProjectsCreateManyWithoutProjectInput>;
   mixdowns?: Maybe<MixdownCreateManyWithoutProjectInput>;
@@ -3490,6 +3507,7 @@ export type ProjectMaxAggregate = {
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
+  isInitialized?: Maybe<Scalars['Boolean']>;
   isPrivate?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   ownerId?: Maybe<Scalars['String']>;
@@ -3501,6 +3519,7 @@ export type ProjectMinAggregate = {
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
+  isInitialized?: Maybe<Scalars['Boolean']>;
   isPrivate?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   ownerId?: Maybe<Scalars['String']>;
@@ -3511,6 +3530,7 @@ export type ProjectOrderByInput = {
   content?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
+  isInitialized?: Maybe<SortOrder>;
   isPrivate?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   ownerId?: Maybe<SortOrder>;
@@ -3526,6 +3546,7 @@ export enum ProjectScalarFieldEnum {
   Content = 'content',
   CreatedAt = 'createdAt',
   Id = 'id',
+  IsInitialized = 'isInitialized',
   IsPrivate = 'isPrivate',
   Name = 'name',
   OwnerId = 'ownerId',
@@ -3537,6 +3558,7 @@ export type ProjectScalarWhereInput = {
   content?: Maybe<JsonFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
+  isInitialized?: Maybe<BoolFilter>;
   isPrivate?: Maybe<BoolFilter>;
   name?: Maybe<StringFilter>;
   NOT?: Maybe<Array<ProjectScalarWhereInput>>;
@@ -3549,6 +3571,7 @@ export type ProjectUpdateInput = {
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
+  isInitialized?: Maybe<BoolFieldUpdateOperationsInput>;
   isPrivate?: Maybe<BoolFieldUpdateOperationsInput>;
   members?: Maybe<UsersOnProjectsUpdateManyWithoutProjectInput>;
   mixdowns?: Maybe<MixdownUpdateManyWithoutProjectInput>;
@@ -3561,6 +3584,7 @@ export type ProjectUpdateManyMutationInput = {
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
+  isInitialized?: Maybe<BoolFieldUpdateOperationsInput>;
   isPrivate?: Maybe<BoolFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
@@ -3604,6 +3628,7 @@ export type ProjectUpdateWithoutMembersInput = {
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
+  isInitialized?: Maybe<BoolFieldUpdateOperationsInput>;
   isPrivate?: Maybe<BoolFieldUpdateOperationsInput>;
   mixdowns?: Maybe<MixdownUpdateManyWithoutProjectInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
@@ -3615,6 +3640,7 @@ export type ProjectUpdateWithoutMixdownsInput = {
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
+  isInitialized?: Maybe<BoolFieldUpdateOperationsInput>;
   isPrivate?: Maybe<BoolFieldUpdateOperationsInput>;
   members?: Maybe<UsersOnProjectsUpdateManyWithoutProjectInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
@@ -3626,6 +3652,7 @@ export type ProjectUpdateWithoutOwnerInput = {
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
+  isInitialized?: Maybe<BoolFieldUpdateOperationsInput>;
   isPrivate?: Maybe<BoolFieldUpdateOperationsInput>;
   members?: Maybe<UsersOnProjectsUpdateManyWithoutProjectInput>;
   mixdowns?: Maybe<MixdownUpdateManyWithoutProjectInput>;
@@ -3659,6 +3686,7 @@ export type ProjectWhereInput = {
   content?: Maybe<JsonFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
+  isInitialized?: Maybe<BoolFilter>;
   isPrivate?: Maybe<BoolFilter>;
   members?: Maybe<UsersOnProjectsListRelationFilter>;
   mixdowns?: Maybe<MixdownListRelationFilter>;
@@ -3672,6 +3700,15 @@ export type ProjectWhereInput = {
 
 export type ProjectWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
+};
+
+export type PublishProjectChangeArgs = {
+  __typename?: 'PublishProjectChangeArgs';
+  authorId?: Maybe<Scalars['String']>;
+  change: Scalars['JSONObject'];
+  date: Scalars['Timestamp'];
+  id: Scalars['String'];
+  projectId: Scalars['String'];
 };
 
 export type Query = {
@@ -4140,8 +4177,13 @@ export type StringNullableFilter = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  changes: PublishProjectChangeArgs;
   newComment: Comment;
   onlineStatus: Scalars['Boolean'];
+};
+
+export type SubscriptionChangesArgs = {
+  projectId: Scalars['String'];
 };
 
 export type SubscriptionNewCommentArgs = {

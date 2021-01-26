@@ -1,9 +1,7 @@
-import { selector, selectorFamily } from 'recoil';
+import { atom, selector, selectorFamily } from "recoil";
 import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
 import { RegionState, regionStore } from './regionStore';
-import atomFamilySynced from "./proxy/atomFamilySynced";
-import atomSynced from "./proxy/atomSynced";
 import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
 import { pubSubEffect } from "./effects/pubSubEffect";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
@@ -22,56 +20,92 @@ const name = atomFamilyWithEffects<string, string>({
   ]
 });
 
-const type = atomFamilySynced<ChannelType, string>({
+const type = atomFamilyWithEffects<ChannelType, string>({
   key: 'channel/type',
   default: ChannelType.INSTRUMENT,
+  effects: [
+    pubSubEffect,
+    undoRedoEffect,
+  ]
 });
 
-const color = atomFamilySynced<string, string>({
+const color = atomFamilyWithEffects<string, string>({
   key: 'channel/color',
   default: 'cyan.400',
+  effects: [
+    pubSubEffect,
+    undoRedoEffect,
+  ]
 })
 
 // Whether the user clicked the record button the channel or not.
-const isArmed = atomFamilySynced<boolean, string>({
+const isArmed = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isArmed',
   default: true,
+  effects: [
+    pubSubEffect,
+    undoRedoEffect,
+  ]
 });
 
-const isSolo = atomFamilySynced<boolean, string>({
+const isSolo = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isSolo',
   default: false,
+  effects: [
+    pubSubEffect,
+    undoRedoEffect,
+  ]
 });
 
-const isMuted = atomFamilySynced<boolean, string>({
+const isMuted = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isMuted',
   default: false,
+  effects: [
+    pubSubEffect,
+    undoRedoEffect,
+  ]
 });
 
-const isInputMonitoringActive = atomFamilySynced<boolean, string>({
+const isInputMonitoringActive = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isInputMonitoringActive',
   default: false,
+  effects: [
+    pubSubEffect,
+    undoRedoEffect,
+  ]
 });
 
 // Whether an instrument or plugin is active or bypassed.
-const isPluginActive = atomFamilySynced<boolean, string>({
+const isPluginActive = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isPluginActive',
   default: true,
+  effects: [
+    pubSubEffect,
+    undoRedoEffect,
+  ]
 });
 
-const pluginIds = atomFamilySynced<string[], string>({
+const pluginIds = atomFamilyWithEffects<string[], string>({
   key: 'channel/pluginIds',
   default: [],
+  effects: [
+    pubSubEffect,
+    undoRedoEffect,
+  ]
 });
 
 // TODO: WE HAVE TO FIND A DEFINITION FOR WHEN TO USE PATCH, PLUGIN, SOUL_INSTANCE, SOUL_PATCH, etc. RIGHT NOW THIS IS CONFUSING.
 // This represents an instrument or plugin.
-const soulInstance = atomFamilySynced<SoulInstance | undefined, string>({
+const soulInstance = atomFamilyWithEffects<SoulInstance | undefined, string>({
   key: 'channel/soulInstance',
   default: undefined,
+  effects: [
+    pubSubEffect,
+    undoRedoEffect,
+  ]
 });
 
-const soulPatchParameter = atomFamilySynced<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
+const soulPatchParameter = atomFamilyWithEffects<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
   key: 'channel/soulPatchParameter',
   default: selectorFamily({
     key: 'channel/soulPatchParameter/Default',
@@ -89,7 +123,11 @@ const soulPatchParameter = atomFamilySynced<SoulPatchParameter, {soulInstanceId:
         value: param.initialValue,
       };
     }
-  })
+  }),
+  effects: [
+    pubSubEffect,
+    undoRedoEffect,
+  ]
 });
 
 interface ChannelState {
@@ -131,12 +169,12 @@ const state = selectorFamily<ChannelState, string>({
   }
 });
 
-const ids = atomSynced<string[]>({
+const ids = atom<string[]>({
   key: 'channel/ids',
   default: []
 });
 
-const selectedId = atomSynced<string>({
+const selectedId = atom<string>({
   key: 'channel/selectedId',
   default: '',
 });

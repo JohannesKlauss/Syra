@@ -103,6 +103,7 @@ model Project {
   content       Json
   members       UsersOnProjects[]
   mixdowns      Mixdown[]
+  isInitialized Boolean     @default(false)
 }
 
 model Mixdown {

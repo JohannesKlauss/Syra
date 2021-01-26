@@ -31,7 +31,7 @@ function BaseChannel({ channelId, index }: Props) {
 
   return (
     <ChannelContext.Provider value={channelId}>
-      <Box maxW={'150px'} w={'150px'} mr={'1px'} bg={backgroundColor} onClick={() => setSelectedChannelId(channelId)}>
+      <Box data-id={'BaseChanel'} maxW={'150px'} w={'150px'} mr={'1px'} bg={backgroundColor} onClick={() => setSelectedChannelId(channelId)}>
         {ChannelComponent}
       </Box>
     </ChannelContext.Provider>

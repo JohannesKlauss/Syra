@@ -3,6 +3,11 @@ query project($id: String!) {
         id
         createdAt
         name
+        owner {
+            id
+            name
+        }
+        isInitialized
         members(where: {projectId: {equals: $id}}) {
             user {
                 name

@@ -11,6 +11,8 @@ interface Props {
 function HorizontalChannelList({showView}: Props) {
   const channels = useRecoilValue(channelStore.ids);
 
+  console.log('show mixer', showView);
+
   return (
     <Box overflowX={'scroll'} transform={'translateZ(0)'} display={showView ? 'block' : 'none'}>
       <Flex align={'flex-start'} zIndex={1} w={'100%'}>

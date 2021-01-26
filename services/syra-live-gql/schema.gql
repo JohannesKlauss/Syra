@@ -2894,6 +2894,7 @@ type Project {
   content: JSON!
   createdAt: Timestamp!
   id: String!
+  isInitialized: Boolean!
   isPrivate: Boolean!
   members(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
   mixdowns(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]
@@ -2908,6 +2909,7 @@ type ProjectCountAggregate {
   content: Int
   createdAt: Int
   id: Int
+  isInitialized: Int
   isPrivate: Int
   name: Int
   ownerId: Int
@@ -2918,6 +2920,7 @@ input ProjectCreateInput {
   content: JSON!
   createdAt: Timestamp
   id: String
+  isInitialized: Boolean
   isPrivate: Boolean
   members: UsersOnProjectsCreateManyWithoutProjectInput
   mixdowns: MixdownCreateManyWithoutProjectInput
@@ -2963,6 +2966,7 @@ input ProjectCreateWithoutMembersInput {
   content: JSON!
   createdAt: Timestamp
   id: String
+  isInitialized: Boolean
   isPrivate: Boolean
   mixdowns: MixdownCreateManyWithoutProjectInput
   name: String
@@ -2974,6 +2978,7 @@ input ProjectCreateWithoutMixdownsInput {
   content: JSON!
   createdAt: Timestamp
   id: String
+  isInitialized: Boolean
   isPrivate: Boolean
   members: UsersOnProjectsCreateManyWithoutProjectInput
   name: String
@@ -2985,6 +2990,7 @@ input ProjectCreateWithoutOwnerInput {
   content: JSON!
   createdAt: Timestamp
   id: String
+  isInitialized: Boolean
   isPrivate: Boolean
   members: UsersOnProjectsCreateManyWithoutProjectInput
   mixdowns: MixdownCreateManyWithoutProjectInput
@@ -3002,6 +3008,7 @@ type ProjectMaxAggregate {
   content: JSON
   createdAt: Timestamp
   id: String
+  isInitialized: Boolean
   isPrivate: Boolean
   name: String
   ownerId: String
@@ -3012,6 +3019,7 @@ type ProjectMinAggregate {
   content: JSON
   createdAt: Timestamp
   id: String
+  isInitialized: Boolean
   isPrivate: Boolean
   name: String
   ownerId: String
@@ -3022,6 +3030,7 @@ input ProjectOrderByInput {
   content: SortOrder
   createdAt: SortOrder
   id: SortOrder
+  isInitialized: SortOrder
   isPrivate: SortOrder
   name: SortOrder
   ownerId: SortOrder
@@ -3037,6 +3046,7 @@ enum ProjectScalarFieldEnum {
   content
   createdAt
   id
+  isInitialized
   isPrivate
   name
   ownerId
@@ -3048,6 +3058,7 @@ input ProjectScalarWhereInput {
   content: JsonFilter
   createdAt: DateTimeFilter
   id: StringFilter
+  isInitialized: BoolFilter
   isPrivate: BoolFilter
   name: StringFilter
   NOT: [ProjectScalarWhereInput!]
@@ -3060,6 +3071,7 @@ input ProjectUpdateInput {
   content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isInitialized: BoolFieldUpdateOperationsInput
   isPrivate: BoolFieldUpdateOperationsInput
   members: UsersOnProjectsUpdateManyWithoutProjectInput
   mixdowns: MixdownUpdateManyWithoutProjectInput
@@ -3072,6 +3084,7 @@ input ProjectUpdateManyMutationInput {
   content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isInitialized: BoolFieldUpdateOperationsInput
   isPrivate: BoolFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -3115,6 +3128,7 @@ input ProjectUpdateWithoutMembersInput {
   content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isInitialized: BoolFieldUpdateOperationsInput
   isPrivate: BoolFieldUpdateOperationsInput
   mixdowns: MixdownUpdateManyWithoutProjectInput
   name: StringFieldUpdateOperationsInput
@@ -3126,6 +3140,7 @@ input ProjectUpdateWithoutMixdownsInput {
   content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isInitialized: BoolFieldUpdateOperationsInput
   isPrivate: BoolFieldUpdateOperationsInput
   members: UsersOnProjectsUpdateManyWithoutProjectInput
   name: StringFieldUpdateOperationsInput
@@ -3137,6 +3152,7 @@ input ProjectUpdateWithoutOwnerInput {
   content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  isInitialized: BoolFieldUpdateOperationsInput
   isPrivate: BoolFieldUpdateOperationsInput
   members: UsersOnProjectsUpdateManyWithoutProjectInput
   mixdowns: MixdownUpdateManyWithoutProjectInput
@@ -3170,6 +3186,7 @@ input ProjectWhereInput {
   content: JsonFilter
   createdAt: DateTimeFilter
   id: StringFilter
+  isInitialized: BoolFilter
   isPrivate: BoolFilter
   members: UsersOnProjectsListRelationFilter
   mixdowns: MixdownListRelationFilter
