@@ -11,17 +11,27 @@ import ArrangeWindowV2 from '../organisms/views/ArrangeWindow/ArrangeWindowV2';
 import useInterval from "../../hooks/core/useInterval";
 import { projectStore } from "../../recoil/projectStore";
 import { saveToDb } from "../../recoil/effects/saveToDatabaseEffect";
+import { useMeQuery, useProjectQuery } from "../../gql/generated";
 
 function Editor() {
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
   const id = useRecoilValue(projectStore.id);
 
+  const {data: projectData} = useProjectQuery({
+    variables: {
+      id,
+    }
+  });
+  const {data: meData} = useMeQuery();
+
   useWebMidi();
 
-  useInterval(async (id) => {
-    await saveToDb(id);
-  }, 30000, id);
+  useInterval(async (id, ownerId, myId) => {
+    if (ownerId === myId) {
+      await saveToDb(id);
+    }
+  }, 30000, id, projectData?.project?.owner.id, meData?.me.id);
 
   return (
     <Box>
