@@ -5,6 +5,8 @@ import { RegionState, regionStore } from './regionStore';
 import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
 import { pubSubEffect } from "./effects/pubSubEffect";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
+import { saveToDatabaseEffect } from "./effects/saveToDatabaseEffect";
+import atomWithEffects from "./proxy/atomWithEffects";
 
 let lastChannelNum = 2;
 
@@ -17,6 +19,7 @@ const name = atomFamilyWithEffects<string, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
+    saveToDatabaseEffect,
   ]
 });
 
@@ -26,6 +29,7 @@ const type = atomFamilyWithEffects<ChannelType, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
+    saveToDatabaseEffect
   ]
 });
 
@@ -35,6 +39,7 @@ const color = atomFamilyWithEffects<string, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
+    saveToDatabaseEffect
   ]
 })
 
@@ -45,6 +50,7 @@ const isArmed = atomFamilyWithEffects<boolean, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
+    saveToDatabaseEffect
   ]
 });
 
@@ -54,6 +60,7 @@ const isSolo = atomFamilyWithEffects<boolean, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
+    saveToDatabaseEffect
   ]
 });
 
@@ -63,6 +70,7 @@ const isMuted = atomFamilyWithEffects<boolean, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
+    saveToDatabaseEffect
   ]
 });
 
@@ -72,6 +80,7 @@ const isInputMonitoringActive = atomFamilyWithEffects<boolean, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
+    saveToDatabaseEffect
   ]
 });
 
@@ -82,6 +91,7 @@ const isPluginActive = atomFamilyWithEffects<boolean, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
+    saveToDatabaseEffect
   ]
 });
 
@@ -91,6 +101,7 @@ const pluginIds = atomFamilyWithEffects<string[], string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
+    saveToDatabaseEffect
   ]
 });
 
@@ -102,6 +113,7 @@ const soulInstance = atomFamilyWithEffects<SoulInstance | undefined, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
+    saveToDatabaseEffect
   ]
 });
 
@@ -127,6 +139,7 @@ const soulPatchParameter = atomFamilyWithEffects<SoulPatchParameter, {soulInstan
   effects: [
     pubSubEffect,
     undoRedoEffect,
+    saveToDatabaseEffect
   ]
 });
 
@@ -169,9 +182,14 @@ const state = selectorFamily<ChannelState, string>({
   }
 });
 
-const ids = atom<string[]>({
+const ids = atomWithEffects<string[]>({
   key: 'channel/ids',
-  default: []
+  default: [],
+  effects: [
+    pubSubEffect,
+    undoRedoEffect,
+    saveToDatabaseEffect
+  ]
 });
 
 const selectedId = atom<string>({

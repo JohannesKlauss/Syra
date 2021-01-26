@@ -6321,6 +6321,15 @@ export type PublishChangeMutation = { __typename?: 'Mutation' } & {
   publishChange: { __typename?: 'PublishProjectChangeArgs' } & Pick<PublishProjectChangeArgs, 'id'>;
 };
 
+export type UpdateProjectContentMutationVariables = Exact<{
+  content: Scalars['JSON'];
+  id: Scalars['String'];
+}>;
+
+export type UpdateProjectContentMutation = { __typename?: 'Mutation' } & {
+  updateProject?: Maybe<{ __typename?: 'Project' } & Pick<Project, 'id'>>;
+};
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = { __typename?: 'Query' } & {
@@ -6466,6 +6475,50 @@ export type PublishChangeMutationResult = Apollo.MutationResult<PublishChangeMut
 export type PublishChangeMutationOptions = Apollo.BaseMutationOptions<
   PublishChangeMutation,
   PublishChangeMutationVariables
+>;
+export const UpdateProjectContentDocument = gql`
+  mutation updateProjectContent($content: JSON!, $id: String!) {
+    updateProject(where: { id: $id }, data: { content: $content, isInitialized: { set: true } }) {
+      id
+    }
+  }
+`;
+export type UpdateProjectContentMutationFn = Apollo.MutationFunction<
+  UpdateProjectContentMutation,
+  UpdateProjectContentMutationVariables
+>;
+
+/**
+ * __useUpdateProjectContentMutation__
+ *
+ * To run a mutation, you first call `useUpdateProjectContentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProjectContentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProjectContentMutation, { data, loading, error }] = useUpdateProjectContentMutation({
+ *   variables: {
+ *      content: // value for 'content'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUpdateProjectContentMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateProjectContentMutation, UpdateProjectContentMutationVariables>,
+) {
+  return Apollo.useMutation<UpdateProjectContentMutation, UpdateProjectContentMutationVariables>(
+    UpdateProjectContentDocument,
+    baseOptions,
+  );
+}
+export type UpdateProjectContentMutationHookResult = ReturnType<typeof useUpdateProjectContentMutation>;
+export type UpdateProjectContentMutationResult = Apollo.MutationResult<UpdateProjectContentMutation>;
+export type UpdateProjectContentMutationOptions = Apollo.BaseMutationOptions<
+  UpdateProjectContentMutation,
+  UpdateProjectContentMutationVariables
 >;
 export const MeDocument = gql`
   query me {
