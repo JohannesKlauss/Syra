@@ -71,7 +71,9 @@ function ProfileBox({}: Props) {
             <Divider/>
           </ListItem>
           <ListItem>
-            <Button variant={'link'} leftIcon={<RiFileMusicFill/>}>{t('Sessions')}</Button>
+            <Link href={`/sessions`}>
+              <Button variant={'link'} leftIcon={<RiFileMusicFill/>}>{t('Sessions')}</Button>
+            </Link>
             <Divider/>
           </ListItem>
           <ListItem>

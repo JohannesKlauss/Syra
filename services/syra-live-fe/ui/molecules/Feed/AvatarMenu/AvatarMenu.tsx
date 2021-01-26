@@ -54,7 +54,7 @@ function AvatarMenu({}: Props) {
           </Box>
         </MenuItem>
         <MenuDivider/>
-        <MenuItem>
+        <MenuItem onClick={() => push('/sessions')}>
           <Box as={RiFileMusicFill}/>
           <Box marginLeft={4}>
             <Text>{t('Sessions')}</Text>

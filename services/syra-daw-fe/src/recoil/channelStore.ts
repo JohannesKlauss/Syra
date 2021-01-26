@@ -1,17 +1,25 @@
-import { atom, selector, selectorFamily } from 'recoil';
+import { selector, selectorFamily } from 'recoil';
 import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
 import { RegionState, regionStore } from './regionStore';
 import atomFamilySynced from "./proxy/atomFamilySynced";
+import atomSynced from "./proxy/atomSynced";
+import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
+import { pubSubEffect } from "./effects/pubSubEffect";
+import { undoRedoEffect } from "./effects/undoRedoEffect";
 
 let lastChannelNum = 2;
 
-const name = atomFamilySynced<string, string>({
+const name = atomFamilyWithEffects<string, string>({
   key: 'channel/name',
   default: selector({
     key: 'channel/name/Default',
     get: () => `Channel ${lastChannelNum++}`,
-  })
+  }),
+  effects: [
+    pubSubEffect,
+    undoRedoEffect,
+  ]
 });
 
 const type = atomFamilySynced<ChannelType, string>({
@@ -123,12 +131,12 @@ const state = selectorFamily<ChannelState, string>({
   }
 });
 
-const ids = atom<string[]>({
+const ids = atomSynced<string[]>({
   key: 'channel/ids',
   default: []
 });
 
-const selectedId = atom<string>({
+const selectedId = atomSynced<string>({
   key: 'channel/selectedId',
   default: '',
 });

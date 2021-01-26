@@ -2,13 +2,12 @@ import { AtomEffect } from "recoil";
 import { getApolloClient } from "../../apollo/client";
 import { PublishChangeDocument, PublishChangeMutation, PublishChangeMutationVariables } from "../../gql/generated";
 import { createNewId } from "../../utils/createNewId";
+import { RecoilAtomEffect } from "../../types/Recoil";
 
 const client = getApolloClient();
 
-export const publishChangeEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({onSet, trigger}) => {
+export const publishChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({onSet, trigger}) => {
   onSet(newValue => {
-    console.log('trigger', trigger);
-
     if (trigger === 'get') {
       client.mutate<PublishChangeMutation, PublishChangeMutationVariables>({
         mutation: PublishChangeDocument,

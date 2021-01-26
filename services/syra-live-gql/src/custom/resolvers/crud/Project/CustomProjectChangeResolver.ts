@@ -24,7 +24,7 @@ export class CustomProjectChangeResolver {
 
   @TypeGraphQL.Subscription(_returns => PublishProjectChangeArgs, {
     topics: Subscriptions.PROJECT_CONTENT_CHANGE,
-    filter: async ({payload, args, context}: ResolverFilterData<PublishProjectChangeArgs, ProjectChangesSubscriptionArgs, GraphQLContext>) => {
+    filter: async ({payload, args}: ResolverFilterData<PublishProjectChangeArgs, ProjectChangesSubscriptionArgs, GraphQLContext>) => {
       return (
         payload.projectId === args.projectId
       );

@@ -6271,7 +6271,7 @@ export type ProjectQueryVariables = Exact<{
 
 export type ProjectQuery = { __typename?: 'Query' } & {
   project?: Maybe<
-    { __typename?: 'Project' } & Pick<Project, 'id' | 'createdAt' | 'content'> & {
+    { __typename?: 'Project' } & Pick<Project, 'id' | 'createdAt' | 'name' | 'content'> & {
         members?: Maybe<
           Array<
             { __typename?: 'UsersOnProjects' } & {
@@ -6326,6 +6326,7 @@ export const ProjectDocument = gql`
     project(where: { id: $id }) {
       id
       createdAt
+      name
       members(where: { projectId: { equals: $id } }) {
         user {
           name

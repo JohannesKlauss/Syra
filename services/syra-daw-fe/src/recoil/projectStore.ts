@@ -9,6 +9,11 @@ const name = atom({
   default: 'New Syra Project',
 });
 
+const id = atom({
+  key: 'project/id',
+  default: '',
+});
+
 // The tempo map of the project. The key is elapsed quarters and the value a tempo. It should actually be a tempo ramp
 // but we don't know how to support this yet.
 const tempoMap = atom<{[name: number]: number}>({
@@ -106,6 +111,7 @@ const isClickMuted = atom<boolean>({
 });
 
 export const projectStore = {
+  id,
   name,
   tempoMap,
   currentTempo,

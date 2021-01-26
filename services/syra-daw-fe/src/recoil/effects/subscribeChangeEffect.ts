@@ -7,6 +7,7 @@ import {
   MeQuery,
 } from '../../gql/generated';
 import { AtomEffect } from 'recoil';
+import { RecoilAtomEffect } from "../../types/Recoil";
 
 const client = getApolloClient();
 
@@ -27,7 +28,7 @@ const observable = client.subscribe<ChangesSubscription, ChangesSubscriptionVari
   },
 });
 
-export const subscribeChangeEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ setSelf, onSet, trigger }) => {
+export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ setSelf, onSet, trigger }) => {
   observable.subscribe(data => {
     // If the user does not exist yet or the incoming change is from the user itself, we don't change anything.
     // If the change key does not correspond with the atom key, we skip the effect.
@@ -35,6 +36,7 @@ export const subscribeChangeEffect = <P, T>(key: string, id?: P): AtomEffect<T> 
       return;
     }
 
+    console.log('received change', data.data);
 
     if (data.data?.changes.change.id === undefined && id === undefined) {
       console.log('received atom Change', data.data);

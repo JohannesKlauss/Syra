@@ -2,6 +2,7 @@ query project($id: String!) {
     project(where: {id: $id}) {
         id
         createdAt
+        name
         members(where: {projectId: {equals: $id}}) {
             user {
                 name
