@@ -7,6 +7,7 @@ import { pubSubEffect } from "./effects/pubSubEffect";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
 import { saveToDatabaseEffect } from "./effects/saveToDatabaseEffect";
 import atomWithEffects from "./proxy/atomWithEffects";
+import { loadInitialState } from "./effects/loadInitialState";
 
 let lastChannelNum = 2;
 
@@ -20,6 +21,7 @@ const name = atomFamilyWithEffects<string, string>({
     pubSubEffect,
     undoRedoEffect,
     saveToDatabaseEffect,
+    loadInitialState,
   ]
 });
 
@@ -29,7 +31,8 @@ const type = atomFamilyWithEffects<ChannelType, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
-    saveToDatabaseEffect
+    saveToDatabaseEffect,
+    loadInitialState
   ]
 });
 
@@ -39,7 +42,8 @@ const color = atomFamilyWithEffects<string, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
-    saveToDatabaseEffect
+    saveToDatabaseEffect,
+    loadInitialState
   ]
 })
 
@@ -50,7 +54,8 @@ const isArmed = atomFamilyWithEffects<boolean, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
-    saveToDatabaseEffect
+    saveToDatabaseEffect,
+    loadInitialState
   ]
 });
 
@@ -60,7 +65,8 @@ const isSolo = atomFamilyWithEffects<boolean, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
-    saveToDatabaseEffect
+    saveToDatabaseEffect,
+    loadInitialState
   ]
 });
 
@@ -70,7 +76,8 @@ const isMuted = atomFamilyWithEffects<boolean, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
-    saveToDatabaseEffect
+    saveToDatabaseEffect,
+    loadInitialState
   ]
 });
 
@@ -80,7 +87,8 @@ const isInputMonitoringActive = atomFamilyWithEffects<boolean, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
-    saveToDatabaseEffect
+    saveToDatabaseEffect,
+    loadInitialState
   ]
 });
 
@@ -91,7 +99,8 @@ const isPluginActive = atomFamilyWithEffects<boolean, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
-    saveToDatabaseEffect
+    saveToDatabaseEffect,
+    loadInitialState
   ]
 });
 
@@ -101,7 +110,8 @@ const pluginIds = atomFamilyWithEffects<string[], string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
-    saveToDatabaseEffect
+    saveToDatabaseEffect,
+    loadInitialState
   ]
 });
 
@@ -113,7 +123,8 @@ const soulInstance = atomFamilyWithEffects<SoulInstance | undefined, string>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
-    saveToDatabaseEffect
+    saveToDatabaseEffect,
+    loadInitialState
   ]
 });
 
@@ -139,7 +150,8 @@ const soulPatchParameter = atomFamilyWithEffects<SoulPatchParameter, {soulInstan
   effects: [
     pubSubEffect,
     undoRedoEffect,
-    saveToDatabaseEffect
+    saveToDatabaseEffect,
+    loadInitialState
   ]
 });
 
@@ -188,7 +200,8 @@ const ids = atomWithEffects<string[]>({
   effects: [
     pubSubEffect,
     undoRedoEffect,
-    saveToDatabaseEffect
+    saveToDatabaseEffect,
+    loadInitialState
   ]
 });
 

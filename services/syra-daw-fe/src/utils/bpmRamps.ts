@@ -17,9 +17,6 @@ export type BpmRamp = (sampleCount: number) => number;
 
 // Frames as argument isn't needed here
 export const bpmStaticRampFactory = (bpm: number): BpmRamp => (numOfFrame) => {
-  console.log('nu', numOfFrame);
-  console.log('return', bpm * (numOfFrame + 1));
-
   if (typeof numOfFrame === 'function') {
     throw new Error('given function instead of frame');
   }

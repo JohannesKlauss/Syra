@@ -13,8 +13,6 @@ let changesToSave: { [name: string]: any | Array<{ id: string; value: any }> } =
 const client = getApolloClient();
 
 export const saveToDb = async (projectId: string) => {
-  console.log('history to save', changesToSave);
-
   if (Object.keys(changesToSave).length > 0) {
     const { errors } = await client.mutate<UpdateProjectContentMutation, UpdateProjectContentMutationVariables>({
       mutation: UpdateProjectContentDocument,

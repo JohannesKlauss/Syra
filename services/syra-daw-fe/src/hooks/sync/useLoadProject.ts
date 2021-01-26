@@ -6,8 +6,9 @@ import useDocumentTitle from "../ui/useDocumentTitle";
 import { useToast } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { routes } from "../../const/routes";
+import { populateFromDb } from "../../recoil/effects/loadInitialState";
 
-const steps = 3;
+const steps = 4;
 
 // TODO: THIS HAS TO BE WAY CLEANER. FOR NOW IT'S OKAY, BUT AS LOADING COMPLEXITY GROWS WE HAVE TO MODULARIZE THIS.
 export default function useLoadProject(id: string) {
@@ -54,6 +55,10 @@ export default function useLoadProject(id: string) {
             });*/
           } else {
             increase();
+
+            populateFromDb(projectData.project.content);
+
+            increase();
           }
         } else {
           console.log('No access to load project.');
@@ -69,6 +74,10 @@ export default function useLoadProject(id: string) {
 
         if (!projectData.project.isInitialized) {
           history.push(routes.NewProject);
+        } else {
+          populateFromDb(projectData.project.content);
+
+          increase();
         }
       }
     } else if (projectData === undefined) {
