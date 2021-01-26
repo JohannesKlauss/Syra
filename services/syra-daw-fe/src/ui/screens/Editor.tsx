@@ -26,7 +26,7 @@ function Editor() {
   return (
     <Box>
       <ArrangeWindowV2 />
-      <Box pos={'fixed'} bottom={78} left={0} w={'100%'} h={'50%'} zIndex={1}>
+      <Box pos={'fixed'} bottom={78} left={0} w={'100%'} h={'50%'} zIndex={1} display={showMixer || showPianoRoll ? 'block' : 'none'}>
         <HorizontalChannelList showView={showMixer} />
         <PianoRoll minNote={12} maxNote={115} showView={showPianoRoll} />
       </Box>
