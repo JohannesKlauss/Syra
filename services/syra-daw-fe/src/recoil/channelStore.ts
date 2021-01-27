@@ -1,13 +1,9 @@
-import { atom, selector, selectorFamily } from "recoil";
+import { atom, atomFamily, selector, selectorFamily } from "recoil";
 import { SoulInstance, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
 import { RegionState, regionStore } from './regionStore';
 import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
-import { pubSubEffect } from "./effects/pubSubEffect";
-import { undoRedoEffect } from "./effects/undoRedoEffect";
-import { saveToDatabaseEffect } from "./effects/saveToDatabaseEffect";
 import atomWithEffects from "./proxy/atomWithEffects";
-import { loadInitialStateEffect } from "./effects/loadInitialStateEffect";
 import { syncEffectsComb } from "./effects/syncEffectsComb";
 
 let lastChannelNum = 2;
@@ -91,15 +87,12 @@ const pluginIds = atomFamilyWithEffects<string[], string>({
 
 // TODO: WE HAVE TO FIND A DEFINITION FOR WHEN TO USE PATCH, PLUGIN, SOUL_INSTANCE, SOUL_PATCH, etc. RIGHT NOW THIS IS CONFUSING.
 // This represents an instrument or plugin.
-const soulInstance = atomFamilyWithEffects<SoulInstance | undefined, string>({
+const soulInstance = atomFamily<SoulInstance | undefined, string>({
   key: 'channel/soulInstance',
   default: undefined,
-  effects: [
-    ...syncEffectsComb
-  ]
 });
 
-const soulPatchParameter = atomFamilyWithEffects<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
+const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
   key: 'channel/soulPatchParameter',
   default: selectorFamily({
     key: 'channel/soulPatchParameter/Default',
@@ -118,9 +111,6 @@ const soulPatchParameter = atomFamilyWithEffects<SoulPatchParameter, {soulInstan
       };
     }
   }),
-  effects: [
-    ...syncEffectsComb
-  ]
 });
 
 interface ChannelState {
