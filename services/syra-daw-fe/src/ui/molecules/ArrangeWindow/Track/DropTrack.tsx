@@ -1,26 +1,26 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useDropzone } from 'react-dropzone';
 import useIsDragOnDocument from '../../../../hooks/ui/useIsDragOnDocument';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
+import { useRecoilState } from 'recoil';
 import useScrollPosition from '../../../../hooks/ui/useScrollPosition';
 import useOnDropTrack from '../../../../hooks/ui/arrangeGrid/useOnDropTrack';
 import { projectStore } from '../../../../recoil/projectStore';
 import { Flex, Text, useToast } from '@chakra-ui/react';
+import { ViewContext } from "../../../../providers/ViewContext";
 
 function DropTrack() {
   const onDrop = useOnDropTrack();
   const isDragOnDocument = useIsDragOnDocument();
   const ref = useRef<HTMLDivElement>(null);
-  const arrangeWindowRef = useRecoilValue(arrangeWindowStore.ref);
+  const {viewRef} = useContext(ViewContext);
   const toast = useToast();
 
   useScrollPosition(
     (pos) => {
       ref.current && ref.current.style.setProperty('transform', `translateX(${pos}px)`);
     },
-    [ref, arrangeWindowRef],
-    arrangeWindowRef,
+    [ref, viewRef],
+    viewRef,
   );
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'audio/mpeg, audio/wav, audio/midi' });

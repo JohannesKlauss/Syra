@@ -6,6 +6,7 @@ import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { isBetween } from '../../../utils/numbers';
 import useCutAudioRegion from '../region/useCutAudioRegion';
 import usePixelToQuarter from '../../ui/usePixelToQuarter';
+import { gridStore } from "../../../recoil/gridStore";
 
 export default function useCutRegionAtMarqueeIndicator() {
   const channelId = useContext(ChannelContext);
@@ -25,9 +26,6 @@ export default function useCutRegionAtMarqueeIndicator() {
     if (regionIds.state === 'hasValue' && marqueePosition.state === 'hasValue' && marqueePosition.contents !== null) {
       regionIds.contents.forEach(id => {
         const area = snapshot.getLoadable(regionStore.occupiedArea(id)).contents as [number, number];
-
-        // TODO: THERE SEEMS TO BE A BUG IN RECOIL. The pixelPerSecond callback doesn't get updated, so we have to reimplement it here.
-        const pixPerSec = snapshot.getLoadable(arrangeWindowStore.pixelPerSecond).contents as number;
 
         if (isBetween(marqueePosition.contents!, area)) {
           cutRegion(id, pixelToQuarter(marqueePosition.contents! - area[0]));

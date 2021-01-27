@@ -1,9 +1,10 @@
-import { atom, atomFamily, selectorFamily } from 'recoil';
-import { audioBufferStore } from './audioBufferStore';
-import { arrangeWindowStore } from './arrangeWindowStore';
-import {MidiNote} from "../types/Midi";
+import { atom, atomFamily, selectorFamily } from "recoil";
+import { audioBufferStore } from "./audioBufferStore";
+import { MidiNote } from "../types/Midi";
 import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
 import { syncEffectsComb } from "./effects/syncEffectsComb";
+import { gridStore } from "./gridStore";
+import { View } from "../types/View";
 
 // Sets the amount of ticks that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamilyWithEffects<number, string>({
@@ -174,7 +175,7 @@ const occupiedArea = selectorFamily<[number, number], string>({
   get: regionId => ({get}) => {
     const trimEndVal = get(trimEnd(regionId));
     const trimStartVal = get(trimStart(regionId));
-    const secondsToPixel = (seconds: number) => get(arrangeWindowStore.pixelPerSecond) * seconds
+    const secondsToPixel = (seconds: number) => get(gridStore.pixelPerSecond(View.ARRANGE_WINDOW)) * seconds
 
     const startVal = secondsToPixel(get(start(regionId))) + secondsToPixel(trimStartVal);
     const trimmedWidth = secondsToPixel(trimEndVal) - secondsToPixel(trimStartVal);

@@ -1,4 +1,3 @@
-import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import { useRecoilValue } from 'recoil';
 import { useCallback, useContext } from "react";
 import { gridStore } from "../../recoil/gridStore";

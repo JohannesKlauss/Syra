@@ -6,7 +6,6 @@ import { useRecoilValue } from 'recoil';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 import useRegionDawRecordingSync from '../../../../hooks/ui/region/useRegionDawRecordingSync';
 import useAudioRegionScheduler from '../../../../hooks/tone/useAudioRegionScheduler';
-import ClonedAudioRegion from './ClonedAudioRegion';
 import ManipulationContainer from '../Manipulations/ManipulationContainer';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
 import useAudioRegionSelfDestruct from '../../../../hooks/recoil/region/useAudioRegionSelfDestruct';
@@ -43,7 +42,6 @@ function AudioRegion() {
 
   return (
     <>
-      {isDuplicating && <ClonedAudioRegion/>}
       <BaseContainer isMuted={isMuted} left={0} isMoving={isMoving} isSelected={isSelected} color={color} top={top}>
         <ManipulationContainer/>
         <TopBar color={color}>

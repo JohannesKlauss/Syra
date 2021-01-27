@@ -5,22 +5,24 @@ import { ChannelContext } from '../../../../providers/ChannelContext';
 import ChannelLetterButtons from '../ChannelLetterButtons';
 import useMuteChannelHotkey from '../../../../hooks/hotkeys/channel/useMuteChannelHotkey';
 import useSoloChannelHotkey from '../../../../hooks/hotkeys/channel/useSoloChannelHotkey';
-import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT } from '../../../../const/ui';
 import ChannelName from '../ChannelName';
 import BackboneAudioMixer from '../../BackboneMixer/BackboneAudioMixer';
 import { Box, Flex, useTheme } from '@chakra-ui/react';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
+import { ViewContext } from "../../../../providers/ViewContext";
+import { gridStore } from "../../../../recoil/gridStore";
 
 interface Props {
   index: number;
 }
 
 function VerticalChannel({index}: Props) {
+  const { view } = useContext(ViewContext);
   const channelId = useContext(ChannelContext);
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
   const color = useRegionColor(false);
-  const verticalZoomLevel = useRecoilValue(arrangeWindowStore.verticalZoomLevel);
+  const verticalZoomLevel = useRecoilValue(gridStore.verticalZoomLevel(view));
   const theme = useTheme();
   
   useMuteChannelHotkey();
