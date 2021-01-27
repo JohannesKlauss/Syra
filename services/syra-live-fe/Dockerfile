@@ -1,7 +1,7 @@
 ARG IMAGE_NAME=syra-live-fe
 
 # base image
-FROM node:15.6.0-alpine3.12 as production
+FROM node:15.7.0-alpine3.12 as production
 
 # set working directory
 WORKDIR /$IMAGE_NAME
