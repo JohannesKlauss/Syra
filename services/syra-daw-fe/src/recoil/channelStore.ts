@@ -7,7 +7,8 @@ import { pubSubEffect } from "./effects/pubSubEffect";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
 import { saveToDatabaseEffect } from "./effects/saveToDatabaseEffect";
 import atomWithEffects from "./proxy/atomWithEffects";
-import { loadInitialState } from "./effects/loadInitialState";
+import { loadInitialStateEffect } from "./effects/loadInitialStateEffect";
+import { syncEffectsComb } from "./effects/syncEffectsComb";
 
 let lastChannelNum = 2;
 
@@ -18,10 +19,7 @@ const name = atomFamilyWithEffects<string, string>({
     get: () => `Channel ${lastChannelNum++}`,
   }),
   effects: [
-    pubSubEffect,
-    undoRedoEffect,
-    saveToDatabaseEffect,
-    loadInitialState,
+    ...syncEffectsComb
   ]
 });
 
@@ -29,10 +27,7 @@ const type = atomFamilyWithEffects<ChannelType, string>({
   key: 'channel/type',
   default: ChannelType.INSTRUMENT,
   effects: [
-    pubSubEffect,
-    undoRedoEffect,
-    saveToDatabaseEffect,
-    loadInitialState
+    ...syncEffectsComb
   ]
 });
 
@@ -40,10 +35,7 @@ const color = atomFamilyWithEffects<string, string>({
   key: 'channel/color',
   default: 'cyan.400',
   effects: [
-    pubSubEffect,
-    undoRedoEffect,
-    saveToDatabaseEffect,
-    loadInitialState
+    ...syncEffectsComb
   ]
 })
 
@@ -52,10 +44,7 @@ const isArmed = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isArmed',
   default: true,
   effects: [
-    pubSubEffect,
-    undoRedoEffect,
-    saveToDatabaseEffect,
-    loadInitialState
+    ...syncEffectsComb
   ]
 });
 
@@ -63,10 +52,7 @@ const isSolo = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isSolo',
   default: false,
   effects: [
-    pubSubEffect,
-    undoRedoEffect,
-    saveToDatabaseEffect,
-    loadInitialState
+    ...syncEffectsComb
   ]
 });
 
@@ -74,10 +60,7 @@ const isMuted = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isMuted',
   default: false,
   effects: [
-    pubSubEffect,
-    undoRedoEffect,
-    saveToDatabaseEffect,
-    loadInitialState
+    ...syncEffectsComb
   ]
 });
 
@@ -85,10 +68,7 @@ const isInputMonitoringActive = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isInputMonitoringActive',
   default: false,
   effects: [
-    pubSubEffect,
-    undoRedoEffect,
-    saveToDatabaseEffect,
-    loadInitialState
+    ...syncEffectsComb
   ]
 });
 
@@ -97,10 +77,7 @@ const isPluginActive = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isPluginActive',
   default: true,
   effects: [
-    pubSubEffect,
-    undoRedoEffect,
-    saveToDatabaseEffect,
-    loadInitialState
+    ...syncEffectsComb
   ]
 });
 
@@ -108,10 +85,7 @@ const pluginIds = atomFamilyWithEffects<string[], string>({
   key: 'channel/pluginIds',
   default: [],
   effects: [
-    pubSubEffect,
-    undoRedoEffect,
-    saveToDatabaseEffect,
-    loadInitialState
+    ...syncEffectsComb
   ]
 });
 
@@ -121,10 +95,7 @@ const soulInstance = atomFamilyWithEffects<SoulInstance | undefined, string>({
   key: 'channel/soulInstance',
   default: undefined,
   effects: [
-    pubSubEffect,
-    undoRedoEffect,
-    saveToDatabaseEffect,
-    loadInitialState
+    ...syncEffectsComb
   ]
 });
 
@@ -148,10 +119,7 @@ const soulPatchParameter = atomFamilyWithEffects<SoulPatchParameter, {soulInstan
     }
   }),
   effects: [
-    pubSubEffect,
-    undoRedoEffect,
-    saveToDatabaseEffect,
-    loadInitialState
+    ...syncEffectsComb
   ]
 });
 
@@ -198,10 +166,7 @@ const ids = atomWithEffects<string[]>({
   key: 'channel/ids',
   default: [],
   effects: [
-    pubSubEffect,
-    undoRedoEffect,
-    saveToDatabaseEffect,
-    loadInitialState
+    ...syncEffectsComb
   ]
 });
 

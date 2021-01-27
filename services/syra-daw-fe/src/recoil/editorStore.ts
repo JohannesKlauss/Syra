@@ -1,23 +1,29 @@
-import { atom } from 'recoil';
+import atomWithEffects from "./proxy/atomWithEffects";
+import { saveToLocalStorageEffect } from "./effects/saveToLocalStorageEffect";
+import { loadInitialStateEffect } from "./effects/loadInitialStateEffect";
 
-const showMixer = atom({
+const showMixer = atomWithEffects({
   key: 'editorStore/showMixer',
-  default: false
+  default: false,
+  effects: [saveToLocalStorageEffect, loadInitialStateEffect]
 });
 
-const showPianoRoll = atom({
+const showPianoRoll = atomWithEffects({
   key: 'editorStore/showPianoRoll',
-  default: false
+  default: false,
+  effects: [saveToLocalStorageEffect, loadInitialStateEffect]
 });
 
-const showSettings = atom({
+const showSettings = atomWithEffects({
   key: 'editorStore/showSettings',
-  default: false
+  default: false,
+  effects: [saveToLocalStorageEffect, loadInitialStateEffect]
 });
 
-const showVideo = atom({
+const showVideo = atomWithEffects({
   key: 'editorStore/showVideo',
-  default: false
+  default: false,
+  effects: [saveToLocalStorageEffect, loadInitialStateEffect]
 });
 
 export const editorStore = {

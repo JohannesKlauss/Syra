@@ -1,9 +1,12 @@
-import { atom, atomFamily, selector, selectorFamily } from "recoil";
+import { atomFamily, selectorFamily } from "recoil";
 import { View } from "../types/View";
 import { projectStore } from "./projectStore";
 import { transportStore } from "./transportStore";
 import { Bar } from "../types/Ui";
 import { ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT } from "../const/ui";
+import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
+import { loadInitialStateEffect } from "./effects/loadInitialStateEffect";
+import { saveToLocalStorageEffect } from "./effects/saveToLocalStorageEffect";
 
 // This is the width of the specific window viewport (i.e. arrange view, piano roll view, etc.), not the whole browser screen.
 const viewWidth = atomFamily<number, View>({
@@ -13,16 +16,18 @@ const viewWidth = atomFamily<number, View>({
 
 // This is the zoom level. The zoom level defines how many bars are visible in a grid window.
 // This goes from 1 to 11
-const horizontalZoomLevel = atomFamily<number, View>({
+const horizontalZoomLevel = atomFamilyWithEffects<number, View>({
   key: 'grid/horizontalZoomLevel',
   default: 6,
+  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
 });
 
 // This is the zoom level. The zoom level defines how many tracks are visible in the arrange window.
 // This goes from 1 to 11
-const verticalZoomLevel = atomFamily<number, View>({
+const verticalZoomLevel = atomFamilyWithEffects<number, View>({
   key: 'grid/verticalZoomLevel',
   default: 6,
+  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
 });
 
 const trackHeight = selectorFamily<number, View>({
@@ -57,9 +62,10 @@ const playheadPosition = selectorFamily<number, View>({
 });
 
 // This is the value the grid snaps to. Default is 4 which stands for 4 quarters. A quarter note would be 1, a sixteenth 0.25 and so on.
-const snapValue = atomFamily<number, View>({
+const snapValue = atomFamilyWithEffects<number, View>({
   key: 'grid/snapValue',
   default: 4,
+  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
 });
 
 const snapValueWidthInPixels = selectorFamily<number, View>({
@@ -67,9 +73,10 @@ const snapValueWidthInPixels = selectorFamily<number, View>({
   get: view => ({get}) => get(zoomedQuarterPixelWidth(view)) * get(snapValue(view)),
 });
 
-const isSnapActive = atomFamily<boolean, View>({
+const isSnapActive = atomFamilyWithEffects<boolean, View>({
   key: 'grid/isSnapActive',
   default: true,
+  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
 });
 
 const pixelPerSecond = selectorFamily<number, View>({

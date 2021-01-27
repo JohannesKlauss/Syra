@@ -14,6 +14,7 @@ import ResizableBox from "../../../atoms/ResizableBox";
 import useMidiRegionWidth from "../../../../hooks/ui/region/useMidiRegionWidth";
 import useUpdateRegionPosition from "../../../../hooks/recoil/region/useUpdateRegionPosition";
 import usePixelToTicks from "../../../../hooks/tone/usePixelToTicks";
+import useTicksToPixel from "../../../../hooks/tone/useTicksToPixel";
 
 const MidiRegion: React.FC = () => {
   const regionId = useContext(RegionContext);
@@ -22,7 +23,10 @@ const MidiRegion: React.FC = () => {
   const color = useRegionColor(false);
   const regionWidth = useMidiRegionWidth();
   const pixelToTicks = usePixelToTicks();
+  const ticksToPixel = useTicksToPixel();
   const updatePosition = useUpdateRegionPosition();
+
+  console.log('start', start);
 
   useRegionDawRecordingSync();
   useMidiRegionScheduler();
@@ -32,7 +36,7 @@ const MidiRegion: React.FC = () => {
   };
 
   return (
-    <ResizableBox baseX={start} baseWidth={regionWidth} onPositionChanged={onPositionChanged}>
+    <ResizableBox baseX={ticksToPixel(start)} baseWidth={regionWidth} onPositionChanged={onPositionChanged}>
       <BaseRegion>
         <TopBar color={color}>
           <Flex justify={'flex-start'} align={'center'} ml={2}>

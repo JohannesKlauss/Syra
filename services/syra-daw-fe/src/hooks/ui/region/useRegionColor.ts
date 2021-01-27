@@ -20,6 +20,10 @@ export default function useRegionColor(isUnderManipulation: boolean) {
       return theme.colors.gray[800];
     }
 
+    if (channelId === '') {
+      return theme.colors.gray[800];
+    }
+
     const split = channelColor.split('.');
 
     return theme.colors[split[0]][split[1]];

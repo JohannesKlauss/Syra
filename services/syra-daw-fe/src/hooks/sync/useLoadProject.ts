@@ -6,7 +6,7 @@ import useDocumentTitle from "../ui/useDocumentTitle";
 import { useToast } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { routes } from "../../const/routes";
-import { populateFromDb } from "../../recoil/effects/loadInitialState";
+import { populateFromDb } from "../../recoil/effects/loadInitialStateEffect";
 
 const steps = 4;
 

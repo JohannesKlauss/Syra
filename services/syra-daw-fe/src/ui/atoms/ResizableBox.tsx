@@ -1,5 +1,5 @@
 import {Box, BoxProps} from '@chakra-ui/react';
-import React, {useRef} from 'react';
+import React, { useEffect, useRef } from "react";
 import {motion, PanInfo, useMotionValue} from 'framer-motion';
 import {DragMode} from "../../types/Ui";
 import useSnapPixelValue from "../../hooks/ui/useSnapPixelValue";
@@ -22,6 +22,16 @@ const ResizableBox: React.FC<Props> = ({baseWidth, baseX, dragHandleWidth = 8, c
   const ref = useRef<HTMLDivElement>(null);
   const dragMode = useRef(DragMode.MOVE);
   const snapPixelValue = useSnapPixelValue(0.25);
+
+  useEffect(() => {
+    x.set(baseX);
+    oldX.set(baseX);
+  }, [baseX]);
+
+  useEffect(() => {
+    width.set(baseWidth);
+    oldWidth.set(baseWidth);
+  }, [baseWidth]);
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const distance = e.clientX - (ref.current?.getBoundingClientRect().x ?? 0);

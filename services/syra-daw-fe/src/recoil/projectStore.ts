@@ -3,6 +3,8 @@ import { TIME_CONVERSION_RESOLUTION } from '../const/musicalConversionConstants'
 import { transportStore } from './transportStore';
 import { getSortedKeysOfEventMap } from '../utils/eventMap';
 import * as Tone from 'tone';
+import atomWithEffects from "./proxy/atomWithEffects";
+import { syncEffectsComb } from "./effects/syncEffectsComb";
 
 const name = atom({
   key: 'project/name',
@@ -16,11 +18,12 @@ const id = atom({
 
 // The tempo map of the project. The key is elapsed quarters and the value a tempo. It should actually be a tempo ramp
 // but we don't know how to support this yet.
-const tempoMap = atom<{[name: number]: number}>({
+const tempoMap = atomWithEffects<{[name: number]: number}>({
   key: 'project/tempoMap',
   default: {
     0: 240,
-  }
+  },
+  effects: [...syncEffectsComb]
 });
 
 const tempoAtQuarter = selectorFamily<number, number>({
@@ -51,11 +54,12 @@ const currentTempo = atom<number>({
 
 // The time signature map of the project. The key is quarters and the value num of beats over division (7/4, 3/4, etc.).
 // So 8: [7, 4] means after 8 elapsed quarters, change the time signature to 7/4.
-const timeSignatureMap = atom<{[name: number]: [number, number]}>({
+const timeSignatureMap = atomWithEffects<{[name: number]: [number, number]}>({
   key: 'project/timeSignatureMap',
   default: {
     0: [4, 4],
-  }
+  },
+  effects: [...syncEffectsComb]
 });
 
 const timeSignatureAtQuarter = selectorFamily<[number, number], number>({
@@ -85,15 +89,17 @@ const lastAnalyzedBpmFromImport = atom<number | null>({
 })
 
 // The project length in quarters. TODO: SETTING THE PROJECT LENGTH IN THE NEW PROJECT DIALOG HAS TO ACCOUNT TIME SIGNATURES.
-const lengthInQuarters = atom({
+const lengthInQuarters = atomWithEffects({
   key: 'project/length',
-  default: TIME_CONVERSION_RESOLUTION * 60
+  default: TIME_CONVERSION_RESOLUTION * 60,
+  effects: [...syncEffectsComb]
 });
 
-const lengthInTicks = atom({
+const lengthInTicks = atomWithEffects({
   key: 'project/lengthInTicks',
   default: Tone.Ticks(`${60}:0:0`).toTicks(), // TODO: THIS DEFAULT SETTING IS A BIT WEIRD, BECAUSE THIS EVALUATION HAPPENS __BEFORE__ WE SET TONE JS TO 1/4 Time Signature. We have to figure out a better way to handle this.
-})
+  effects: [...syncEffectsComb]
+});
 
 const beatsPerSecond = selector({
   key: 'arrangeWindow/beatsPerSecond',
@@ -105,9 +111,10 @@ const secondsPerBeat = selector({
   get: ({get}) => 60 / get(currentTempo),
 });
 
-const isClickMuted = atom<boolean>({
+const isClickMuted = atomWithEffects<boolean>({
   key: 'project/isClickMuted',
   default: true,
+  effects: [...syncEffectsComb]
 });
 
 export const projectStore = {

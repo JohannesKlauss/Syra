@@ -7,6 +7,9 @@ import { EditMode } from '../types/RegionManipulation';
 import { RefObject } from 'react';
 import { projectStore } from './projectStore';
 import { transportStore } from './transportStore';
+import atomWithEffects from "./proxy/atomWithEffects";
+import { loadInitialStateEffect } from "./effects/loadInitialStateEffect";
+import { saveToLocalStorageEffect } from "./effects/saveToLocalStorageEffect";
 
 const waveformSmoothing = atom({
   key: 'arrangeWindow/waveformSmoothing',
@@ -46,9 +49,10 @@ const marqueeChannelPosition = atom<null | string>({
   default: null,
 });
 
-const isSnapActive = atom({
+const isSnapActive = atomWithEffects({
   key: 'arrangeWindow/isSnapActive',
   default: true,
+  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
 });
 
 const playheadPosition = selector({
@@ -58,22 +62,25 @@ const playheadPosition = selector({
 
 // This is the zoom level. The zoom level defines how many bars are visible in the arrange window.
 // This goes from 1 to 11.
-const horizontalZoomLevel = atom({
+const horizontalZoomLevel = atomWithEffects({
   key: 'arrangeWindow/horizontalZoomLevel',
   default: 6,
+  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
 });
 
 // This is the zoom level. The zoom level defines how many tracks are visible in the arrange window.
 // This goes from 1 to 11
-const verticalZoomLevel = atom({
+const verticalZoomLevel = atomWithEffects({
   key: 'arrangeWindow/verticalZoomLevel',
   default: 6,
+  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
 });
 
 // This is the value the grid snaps to. Default is 4 which stands for 4 quarters. A quarter note would be 1, a sixteenth 0.25 and so on.
-const snapValue = atom({
+const snapValue = atomWithEffects({
   key: 'arrangeWindow/snapValue',
   default: 4,
+  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
 })
 
 const snapValueWidthInPixels = selector({

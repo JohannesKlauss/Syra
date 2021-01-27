@@ -2,34 +2,41 @@ import { atom, atomFamily, selectorFamily } from 'recoil';
 import { audioBufferStore } from './audioBufferStore';
 import { arrangeWindowStore } from './arrangeWindowStore';
 import {MidiNote} from "../types/Midi";
+import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
+import { syncEffectsComb } from "./effects/syncEffectsComb";
 
 // Sets the amount of ticks that region plays in relation to the transport. This now measured in quarters, not seconds!
-const start = atomFamily<number, string>({
+const start = atomFamilyWithEffects<number, string>({
   key: 'region/start',
   default: 0, // This value is referring to the transport, not the audio buffer.
+  effects: [...syncEffectsComb],
 });
 
 // This will replace trimEnd. This is measured in ticks
-const duration = atomFamily<number, string>({
+const duration = atomFamilyWithEffects<number, string>({
   key: 'region/duration',
   default: 0,
+  effects: [...syncEffectsComb],
 });
 
 // The amount of ticks that the region gets trimmed at the beginning (this is basically the offset in relation to the audio buffer or first midi note)
 // This will replace trimStart in the long run.
-const offset = atomFamily<number, string>({
+const offset = atomFamilyWithEffects<number, string>({
   key: 'region/offset',
   default: 0,
+  effects: [...syncEffectsComb],
 });
 
-const isMuted = atomFamily<boolean, string>({
+const isMuted = atomFamilyWithEffects<boolean, string>({
   key: 'region/isMuted',
   default: false,
+  effects: [...syncEffectsComb],
 });
 
-const isSolo = atomFamily<boolean, string>({
+const isSolo = atomFamilyWithEffects<boolean, string>({
   key: 'region/isSolo',
   default: false,
+  effects: [...syncEffectsComb],
 });
 
 // Determines if the region is in a recording state. If so, no player gets connected and no scheduling happens.
@@ -38,36 +45,42 @@ const isRecording = atomFamily<boolean, string>({
   default: false,
 });
 
-const isMidi = atomFamily<boolean, string>({
+const isMidi = atomFamilyWithEffects<boolean, string>({
   key: 'region/isMidi',
   default: false,
+  effects: [...syncEffectsComb],
 });
 
 // The seconds that the region gets trimmed at the beginning (this is basically the offset in relation to the audio buffer or first midi note)
-const trimStart = atomFamily<number, string>({
+const trimStart = atomFamilyWithEffects<number, string>({
   key: 'region/trimStart',
   default: 0,
+  effects: [...syncEffectsComb],
 });
 
 // The seconds that the region gets trimmed at the end (also in relation to the audio buffer duration or first midi note)
-const trimEnd = atomFamily<number, string>({
+const trimEnd = atomFamilyWithEffects<number, string>({
   key: 'region/trimEnd',
   default: 0,
+  effects: [...syncEffectsComb],
 });
 
-const name = atomFamily<string, string>({
+const name = atomFamilyWithEffects<string, string>({
   key: 'region/name',
   default: '',
+  effects: [...syncEffectsComb],
 });
 
-const audioBufferPointer = atomFamily<string | null, string>({
+const audioBufferPointer = atomFamilyWithEffects<string | null, string>({
   key: 'region/audioBufferPointer',
   default: null,
+  effects: [...syncEffectsComb],
 });
 
-const midiNotes = atomFamily<MidiNote[], string>({
+const midiNotes = atomFamilyWithEffects<MidiNote[], string>({
   key: 'region/midiNotes',
-  default: []
+  default: [],
+  effects: [...syncEffectsComb],
 });
 
 export interface RegionState {
@@ -118,9 +131,10 @@ const audioBuffer = selectorFamily<AudioBuffer | null, string>({
 });
 
 // Parameter is channelId.
-const ids = atomFamily<string[], string>({
+const ids = atomFamilyWithEffects<string[], string>({
   key: 'region/ids',
   default: [],
+  effects: [...syncEffectsComb],
 });
 
 const selectedIds = atom<string[]>({
