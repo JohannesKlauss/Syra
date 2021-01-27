@@ -41,7 +41,7 @@ function App() {
         <Modal isOpen={showDebugMenu} onClose={() => setShowDebugMenu(false)}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Modal Title</ModalHeader>
+            <ModalHeader>Debugger</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <Debugger />

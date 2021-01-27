@@ -8,7 +8,7 @@ interface Props {
 const VolumeFaderText: React.FC<Props> = ({value}) => {
   return (
     <Box w={'35%'} bg={'gray.800'} boxShadow={'inner'} p={2} rounded={'md'}>
-      <Text textAlign={'center'} fontSize={'sm'} >{value}</Text>
+      <Text textAlign={'center'} fontSize={'xs'} >{value}</Text>
     </Box>
   );
 };

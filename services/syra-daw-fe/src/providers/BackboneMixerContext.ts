@@ -64,7 +64,11 @@ export function instantiateMixer() {
 
     const retNodes = audioNodesFactory(nodes);
 
-    const disconnect = () => {
+    const disconnect = (virtualInstrumentNode?: AudioWorkletNode) => {
+      if (virtualInstrumentNode) {
+        Tone.disconnect(virtualInstrumentNode);
+      }
+
       Tone.disconnect(retNodes.audioIn);
       Tone.disconnect(retNodes.players);
     };

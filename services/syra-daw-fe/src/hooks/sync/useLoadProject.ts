@@ -80,7 +80,7 @@ export default function useLoadProject(id: string) {
           increase();
         }
       }
-    } else if (projectData === undefined) {
+    } else if (projectData === undefined && !projectLoading) {
       console.log('unable to load project.');
       /*toast({
         title: "Unable to load project.",

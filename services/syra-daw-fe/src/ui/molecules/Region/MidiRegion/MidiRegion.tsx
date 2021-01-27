@@ -26,8 +26,6 @@ const MidiRegion: React.FC = () => {
   const ticksToPixel = useTicksToPixel();
   const updatePosition = useUpdateRegionPosition();
 
-  console.log('start', start);
-
   useRegionDawRecordingSync();
   useMidiRegionScheduler();
 

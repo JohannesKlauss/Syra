@@ -37,7 +37,7 @@ function LevelMeterText() {
 
   return (
     <Box w={'35%'} bg={'gray.800'} boxShadow={'inner'} p={2} rounded={'md'}>
-      <Text textAlign={'center'}>
+      <Text textAlign={'center'} fontSize={'xs'}>
         {level <= -95 ? '-∞' : level.toFixed(1)}
       </Text>
     </Box>

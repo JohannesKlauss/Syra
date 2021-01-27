@@ -5,6 +5,7 @@ import { RegionState, regionStore } from './regionStore';
 import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
 import atomWithEffects from "./proxy/atomWithEffects";
 import { syncEffectsComb } from "./effects/syncEffectsComb";
+import { AvailableSoulPatch } from "./soulPluginStore";
 
 let lastChannelNum = 2;
 
@@ -92,7 +93,7 @@ const soulInstance = atomFamily<SoulInstance | undefined, string>({
   default: undefined,
 });
 
-const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
+const soulPatchParameter = atomFamilyWithEffects<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
   key: 'channel/soulPatchParameter',
   default: selectorFamily({
     key: 'channel/soulPatchParameter/Default',
@@ -111,6 +112,7 @@ const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId: strin
       };
     }
   }),
+  effects: [...syncEffectsComb]
 });
 
 interface ChannelState {
