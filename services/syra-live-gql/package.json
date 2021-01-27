@@ -60,7 +60,7 @@
     "tailwindcss": "2.0.2",
     "type-graphql": "1.1.1",
     "typegraphql-nestjs": "0.2.5",
-    "typegraphql-prisma": "0.10.0",
+    "typegraphql-prisma": "0.10.1",
     "uniqid": "5.2.0"
   },
   "devDependencies": {
