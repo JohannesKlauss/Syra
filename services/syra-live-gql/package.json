@@ -38,7 +38,7 @@
     "@types/busboy": "0.2.3",
     "@types/passport-local": "1.0.33",
     "apollo-server-fastify": "2.19.2",
-    "aws-sdk": "2.831.0",
+    "aws-sdk": "2.832.0",
     "bcrypt": "5.0.0",
     "class-validator": "0.13.1",
     "crypto-js": "4.0.0",
@@ -60,7 +60,7 @@
     "tailwindcss": "2.0.2",
     "type-graphql": "1.1.1",
     "typegraphql-nestjs": "0.2.5",
-    "typegraphql-prisma": "0.10.0",
+    "typegraphql-prisma": "0.10.1",
     "uniqid": "5.2.0"
   },
   "devDependencies": {
