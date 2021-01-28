@@ -60,7 +60,7 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
     setLength(Tone.Ticks(`${projectLength}:0:0`).toTicks());
   }, [projectLength, setLength]);
 
-  const onClose = () => onCancel && onCancel;
+  const onClose = () => onCancel && onCancel();
 
   const options = [ChannelType.AUDIO, ChannelType.INSTRUMENT];
 

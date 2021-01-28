@@ -86,13 +86,11 @@ const currentTimeSignature = atom<[number, number]>({
 const lastAnalyzedBpmFromImport = atom<number | null>({
   key: 'project/lastAnalyzedBpmFromImport',
   default: null,
-})
+});
 
-// The project length in quarters. TODO: SETTING THE PROJECT LENGTH IN THE NEW PROJECT DIALOG HAS TO ACCOUNT TIME SIGNATURES.
-const lengthInQuarters = atomWithEffects({
-  key: 'project/length',
-  default: TIME_CONVERSION_RESOLUTION * 60,
-  effects: [...syncEffectsComb]
+const lengthInQuarters = selector({
+  key: 'project/lengthInQuarters',
+  get: ({get}) => parseInt(Tone.Ticks(get(lengthInTicks)).toBarsBeatsSixteenths())
 });
 
 const lengthInTicks = atomWithEffects({
@@ -102,12 +100,12 @@ const lengthInTicks = atomWithEffects({
 });
 
 const beatsPerSecond = selector({
-  key: 'arrangeWindow/beatsPerSecond',
+  key: 'project/beatsPerSecond',
   get: ({get}) => 1 / get(currentTempo) / 60,
 });
 
 const secondsPerBeat = selector({
-  key: 'arrangeWindow/secondsPerBeat',
+  key: 'project/secondsPerBeat',
   get: ({get}) => 60 / get(currentTempo),
 });
 
