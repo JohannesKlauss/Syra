@@ -3,6 +3,16 @@
 
 class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
   midiMessages = [];
+  lastTriggeredMidiMessageIndex = -1;
+
+  static get parameterDescriptors() {
+    return [
+      {
+        name: 'midiTriggerIndex',
+        defaultValue: -1,
+      },
+    ];
+  }
 
   /**
    * @constructor
@@ -14,41 +24,39 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
 
     this.process = this.process.bind(this);
 
-    this.port.onmessage = e => {
+    this.port.onmessage = (e) => {
       switch (e.data.type) {
-        case "PARAMETER_UPDATE":
-          this.instance.exports.onParameterUpdate(
-            e.data.value.parameterId,
-            e.data.value.normalisedValue
-          );
+        case 'PARAMETER_UPDATE':
+          this.instance.exports.onParameterUpdate(e.data.value.parameterId, e.data.value.normalisedValue);
           break;
-        case "MIDI_MESSAGE":
-        {
-          const messageLength = e.data.value.length;
-          if (messageLength <= this.midiData.length) {
-            for (let n = 0; n < messageLength; n++)
-              this.midiData[n] = e.data.value[n];
+        case 'MIDI_MESSAGE':
+          {
+            const messageLength = e.data.value.length;
+            if (messageLength <= this.midiData.length) {
+              for (let n = 0; n < messageLength; n++) this.midiData[n] = e.data.value[n];
 
-            this.instance.exports.onMidiMessage(messageLength);
+              this.instance.exports.onMidiMessage(messageLength);
+            }
+
+            this.lastTriggeredMidiMessageIndex = -1;
           }
-        }
           break;
-        case "DELETE_PRE_SCHEDULED_MIDI_MESSAGES":
+        case 'DELETE_PRE_SCHEDULED_MIDI_MESSAGES':
           this.midiMessages = [];
           break;
-        case "PRE_SCHEDULE_MIDI_MESSAGES":
+        case 'PRE_SCHEDULE_MIDI_MESSAGES':
           this.midiMessages = e.data.value;
           break;
-        case "AUDIO_INPUT_CHANGE":
+        case 'AUDIO_INPUT_CHANGE':
           this.instance.exports.setAudioInput(e.data.value ? 1 : 0);
           break;
-        case "GET_ENDPOINTS":
+        case 'GET_ENDPOINTS':
           this.port.postMessage({
             type: 'ENDPOINTS',
-            value: this.getEndpoints()
+            value: this.getEndpoints(),
           });
           break;
-        case "KILL":
+        case 'KILL':
           this.ready = false;
           break;
       }
@@ -58,7 +66,7 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
       options.processorOptions.module,
       options.processorOptions.sampleRate,
       false,
-      options.processorOptions.bufferSize
+      options.processorOptions.bufferSize,
     );
   }
 
@@ -80,50 +88,43 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
       this.channelOutData[i] = new Float32Array(
         this.instance.exports.memory.buffer,
         this.instance.exports.getOutData(i),
-        this.bufferSize
+        this.bufferSize,
       );
     }
 
     this.channelInData = [];
     for (let i = 0; i < this.endpoints.totalInputs; i++) {
-      this.channelInData[(i)] = new Float32Array(
+      this.channelInData[i] = new Float32Array(
         this.instance.exports.memory.buffer,
         this.instance.exports.getInData(i),
-        this.bufferSize
+        this.bufferSize,
       );
     }
 
     this.midiData = new Uint8Array(
       this.instance.exports.memory.buffer,
       this.instance.exports.getMidiBuffer(),
-      this.instance.exports.getMidiBufferLength()
+      this.instance.exports.getMidiBufferLength(),
     );
 
     this.setInitialWasmValues();
     this.port.postMessage({
       type: 'ENDPOINTS',
-      value: this.endpoints
+      value: this.endpoints,
     });
 
     if (initialParamUserValues) {
-      Object.keys(initialParamUserValues).forEach(key => {
-        this.instance.exports.onParameterUpdate(
-          Number(key),
-          Number(initialParamUserValues[key]).toFixed(8)
-        );
+      Object.keys(initialParamUserValues).forEach((key) => {
+        this.instance.exports.onParameterUpdate(Number(key), Number(initialParamUserValues[key]).toFixed(8));
       });
     }
     this.ready = true;
   }
 
-
   setInitialWasmValues() {
     if (this.endpoints.parameters) {
-      this.endpoints.parameters.forEach(parameter => {
-        this.instance.exports.onParameterUpdate(
-          Number(parameter.index),
-          Number(parameter.initialValue).toFixed(8)
-        );
+      this.endpoints.parameters.forEach((parameter) => {
+        this.instance.exports.onParameterUpdate(Number(parameter.index), Number(parameter.initialValue).toFixed(8));
       });
     }
   }
@@ -140,22 +141,44 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
 
     let samplesToProcess = outputs[0][0].length;
 
-    for (let i = this.midiMessages.length - 1; i >= 0; i--) {
-      if (currentTime >= this.midiMessages[i][3]) {
-        for (let n = 0; n < 3; n++)
-          this.midiData[n] = this.midiMessages[i][n];
+    if (parameters['midiTriggerIndex'].length === 1) {
+      if (
+        parameters['midiTriggerIndex'] > -1 &&
+        parameters['midiTriggerIndex'][0] !== this.lastTriggeredMidiMessageIndex
+      ) {
+        console.log('last triggered', this.lastTriggeredMidiMessageIndex);
+        console.log('value', parameters['midiTriggerIndex'][0]);
+        console.log('message to buffer single', this.midiMessages[parameters['midiTriggerIndex'][0]]);
+
+        for (let n = 0; n < 3; n++) this.midiData[n] = this.midiMessages[parameters['midiTriggerIndex'][0]][n];
 
         this.instance.exports.onMidiMessage(3);
+        this.lastTriggeredMidiMessageIndex = parameters['midiTriggerIndex'][0];
+      }
+    } else {
+      const values = parameters['midiTriggerIndex'];
 
-        this.midiMessages.splice(i, 1);
+      for (let i = 0; i < values.length; i++) {
+        if (values[i] > -1 && values[i] !== this.lastTriggeredMidiMessageIndex) {
+          console.log('last triggered', this.lastTriggeredMidiMessageIndex);
+          console.log('value', values[i]);
+          console.log('message to buffer in loop', this.midiMessages[0]);
+
+          for (let n = 0; n < 3; n++) this.midiData[n] = this.midiMessages[values[i]][n];
+
+          this.instance.exports.onMidiMessage(3);
+          this.lastTriggeredMidiMessageIndex = values[i];
+
+          break;
+        }
       }
     }
 
-    if ( (this.endpoints.totalInputs === 1) && (inputs[0].length >= 1) ) {
+    if (this.endpoints.totalInputs === 1 && inputs[0].length >= 1) {
       this.channelInData[0].set(inputs[0][0]);
     }
 
-    if ( (this.endpoints.totalInputs > 1) && (inputs[0].length >= 2) ) {
+    if (this.endpoints.totalInputs > 1 && inputs[0].length >= 2) {
       for (let ch = 0; ch < 2; ch++) {
         this.channelInData[ch].set(inputs[0][ch]);
       }
@@ -163,13 +186,13 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
 
     this.instance.exports.processBlock(samplesToProcess);
 
-    if (outputs[0].length > 1 && (this.endpoints.totalOutputs === 1) ) {
+    if (outputs[0].length > 1 && this.endpoints.totalOutputs === 1) {
       for (let ch = 0; ch < outputs[0].length; ch++) {
         outputs[0][ch].set(this.channelOutData[0]);
       }
     }
 
-    if ((outputs[0].length > 1) && (this.endpoints.totalOutputs >= 2)) {
+    if (outputs[0].length > 1 && this.endpoints.totalOutputs >= 2) {
       for (let ch = 0; ch < 2; ch++) {
         outputs[0][ch].set(this.channelOutData[ch]);
       }
@@ -179,13 +202,17 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
   }
 
   getEndpoints() {
-    let descriptionData = new Uint8Array (this.instance.exports.memory.buffer, this.instance.exports.getDescription(), this.instance.exports.getDescriptionLength());
-    let s = "";
+    let descriptionData = new Uint8Array(
+      this.instance.exports.memory.buffer,
+      this.instance.exports.getDescription(),
+      this.instance.exports.getDescriptionLength(),
+    );
+    let s = '';
     for (let i = 0; i < descriptionData.length; i++) {
-      s += String.fromCharCode (descriptionData[i]);
+      s += String.fromCharCode(descriptionData[i]);
     }
     return JSON.parse(s);
   }
 }
 
-registerProcessor("soul-wasm-audio-worklet-processor", SoulWasmAudioWorkletProcessor);
+registerProcessor('soul-wasm-audio-worklet-processor', SoulWasmAudioWorkletProcessor);
