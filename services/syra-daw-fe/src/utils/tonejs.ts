@@ -9,3 +9,5 @@ export const convertTransportPositionStringToQuarters = (position: string) => {
 }
 
 export const getToneJsPositionInQuarter = () => convertTransportPositionStringToQuarters(Tone.getTransport().position as string);
+
+export const getToneJsTransport = () => Tone.getTransport();

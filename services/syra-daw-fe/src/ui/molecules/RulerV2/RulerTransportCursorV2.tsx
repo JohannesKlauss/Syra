@@ -23,7 +23,7 @@ const RulerTransportCursorV2: React.FC = ({children}) => {
   const isSnapActive = useRecoilValue(gridStore.isSnapActive(view));
 
   const onMouseInteraction = useCallback(e => {
-    const rawPosition = e.clientX - e.target.getBoundingClientRect().left;
+    const rawPosition = Math.max(e.clientX - e.target.getBoundingClientRect().left, 0);
     const position = snapPixelValue(rawPosition);
 
     if (playheadPosition !== position) {

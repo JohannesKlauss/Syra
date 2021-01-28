@@ -40,10 +40,10 @@ interface Props {
 }
 
 function NewProjectDialog({ onCreate, open, onCancel }: Props) {
-  const [projectLength, setProjectLength] = useState(60);
+  const [projectLength, setProjectLength] = useState(60); // This is measured in bars
   const [name, setName] = useRecoilState(projectStore.name);
   const [tempoMap, setTempoMap] = useRecoilState(projectStore.tempoMap);
-  const [length, setLength] = useRecoilState(projectStore.lengthInTicks);
+  const [, setLength] = useRecoilState(projectStore.lengthInTicks); // This is measured in ticks
 
   const [channelType, setChannelType] = useState(ChannelType.AUDIO);
   const [numChannels, setNumChannels] = useState(1);
@@ -57,7 +57,7 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
   }, [tappedTempo, setTempoMap]);
 
   useEffect(() => {
-    setLength(Tone.Ticks(`${projectLength}:0:0`).toTicks());
+    setLength(Tone.Ticks(`${projectLength * 4}:0:0`).toTicks());
   }, [projectLength, setLength]);
 
   const onClose = () => onCancel && onCancel();
@@ -109,7 +109,7 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
 
           <FormControl isRequired flex={2}>
             <FormLabel>Project Length</FormLabel>
-            <NumberInput value={length} onChange={(val) => setProjectLength(parseInt(val))}>
+            <NumberInput value={projectLength} onChange={(val) => setProjectLength(parseInt(val))}>
               <NumberInputField />
               <NumberInputStepper>
                 <NumberIncrementStepper />

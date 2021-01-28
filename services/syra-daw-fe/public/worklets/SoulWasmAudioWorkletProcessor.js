@@ -47,6 +47,7 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
             type: 'ENDPOINTS',
             value: this.getEndpoints()
           });
+          break;
         case "KILL":
           this.ready = false;
           break;

@@ -47,7 +47,7 @@ function PlayRecord() {
         setCurrentTransportQuarter(cycleStart);
       }
 
-      transport.start('+0.01');
+      transport.start();
 
       stopScheduleId.current = transport.scheduleOnce(() => {
         const pos = getToneJsPositionInQuarter();
