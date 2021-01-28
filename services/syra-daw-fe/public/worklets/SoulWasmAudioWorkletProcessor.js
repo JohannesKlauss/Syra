@@ -146,10 +146,6 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
         parameters['midiTriggerIndex'] > -1 &&
         parameters['midiTriggerIndex'][0] !== this.lastTriggeredMidiMessageIndex
       ) {
-        console.log('last triggered', this.lastTriggeredMidiMessageIndex);
-        console.log('value', parameters['midiTriggerIndex'][0]);
-        console.log('message to buffer single', this.midiMessages[parameters['midiTriggerIndex'][0]]);
-
         for (let n = 0; n < 3; n++) this.midiData[n] = this.midiMessages[parameters['midiTriggerIndex'][0]][n];
 
         this.instance.exports.onMidiMessage(3);
@@ -160,10 +156,6 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
 
       for (let i = 0; i < values.length; i++) {
         if (values[i] > -1 && values[i] !== this.lastTriggeredMidiMessageIndex) {
-          console.log('last triggered', this.lastTriggeredMidiMessageIndex);
-          console.log('value', values[i]);
-          console.log('message to buffer in loop', this.midiMessages[0]);
-
           for (let n = 0; n < 3; n++) this.midiData[n] = this.midiMessages[values[i]][n];
 
           this.instance.exports.onMidiMessage(3);
