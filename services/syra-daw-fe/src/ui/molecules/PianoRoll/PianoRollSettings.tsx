@@ -5,7 +5,7 @@ interface Props {
 
 }
 
-const PianoRollSettings: React.FC<Props> = ({}) => {
+const PianoRollSettings: React.FC<Props> = () => {
   return (
     <Flex w={'100%'} bg={'gray.800'}>
 

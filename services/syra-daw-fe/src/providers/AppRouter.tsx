@@ -3,7 +3,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Editor from '../ui/screens/Editor';
 import NewProject from '../ui/screens/NewProject';
 import { routes } from '../const/routes';
-import LandingPageDecider from '../ui/screens/LandingPageDecider';
 import LoadSession from '../ui/screens/LoadSession';
 
 function AppRouter() {

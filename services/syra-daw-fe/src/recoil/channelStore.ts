@@ -5,7 +5,6 @@ import { RegionState, regionStore } from './regionStore';
 import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
 import atomWithEffects from "./proxy/atomWithEffects";
 import { syncEffectsComb } from "./effects/syncEffectsComb";
-import { AvailableSoulPatch } from "./soulPluginStore";
 
 let lastChannelNum = 2;
 

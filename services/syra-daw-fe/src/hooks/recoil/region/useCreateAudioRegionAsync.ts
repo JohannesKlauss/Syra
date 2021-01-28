@@ -6,7 +6,6 @@ import useToneJsTransport from '../../tone/useToneJsTransport';
 import { audioBufferStore } from '../../../recoil/audioBufferStore';
 import { BUFFER_ID_PREFIX, REGION_ID_PREFIX } from '../../../const/ids';
 import { channelStore } from '../../../recoil/channelStore';
-import * as Tone from 'tone';
 
 // TODO: REFACTOR THIS TO BE COMPLIANT WITH THE NEW useChannelCreator and useRegionCreator
 export default function useCreateAudioRegionAsync() {

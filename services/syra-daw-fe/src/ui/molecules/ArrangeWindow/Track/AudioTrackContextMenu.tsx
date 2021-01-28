@@ -4,7 +4,7 @@ interface Props {
 
 }
 
-const AudioTrackContextMenu: React.FC<Props> = ({}) => {
+const AudioTrackContextMenu: React.FC<Props> = () => {
   return (
     <>
 

@@ -44,5 +44,5 @@ export default function useWebMidiListener() {
         //showToast(`Could not enable Web MIDI.`);
       }
     });
-  }, [setIsMidiEnabled, setMidiDevice]);
+  }, [setIsMidiEnabled, setMidiDevice, selectLastMidiDevice]);
 }

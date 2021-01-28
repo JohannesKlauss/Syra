@@ -89,7 +89,7 @@ export default function useLoadProject(id: string) {
         isClosable: false,
       });*/
     }
-  }, [projectData, meData, projectLoading, meLoading, increase, setDocumentTitle, toast]);
+  }, [projectData, meData, projectLoading, meLoading, increase, setDocumentTitle, toast, history, setProjectId, setProjectName]);
 
   useEffect(() => {
     if (Math.ceil(loadingProgress) >= 100) {

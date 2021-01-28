@@ -8,7 +8,7 @@ import AudioTrackContextMenu from "./AudioTrackContextMenu";
 
 interface Props {}
 
-const ChannelTrackContextMenu: React.FC<Props> = ({}) => {
+const ChannelTrackContextMenu: React.FC<Props> = () => {
   const channelId = useContext(ChannelContext);
   const channelType = useRecoilValue(channelStore.type(channelId));
   

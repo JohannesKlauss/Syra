@@ -50,7 +50,7 @@ export default function useMidiRegionScheduler() {
         type: "DELETE_PRE_SCHEDULED_MIDI_MESSAGES"
       });
     }
-  }, [notes, transport, soulInstance, offset, start]);
+  }, [notes, transport, soulInstance, offset, start, duration]);
 
   useEffect(() => {
     if (!isPlaying && !isRecording) {
@@ -60,5 +60,5 @@ export default function useMidiRegionScheduler() {
 
       panic();
     }
-  }, [isRecording, isPlaying, panic]);
+  }, [isRecording, isPlaying, panic, soulInstance]);
 }

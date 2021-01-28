@@ -36,7 +36,7 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
     const x = e.nativeEvent.layerX;
 
     drawMidiNote(Tone.Ticks(pixelToTicks(Math.max(snapPixelValue(x), 0))), Tone.Ticks(1, 'm'), 127);
-  }, [ref, drawMidiNote, pixelToTicks]);
+  }, [ref, drawMidiNote, pixelToTicks, snapPixelValue]);
 
   return (
     <Box

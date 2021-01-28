@@ -10,13 +10,9 @@ export const loadInitialStateEffect: RecoilAtomEffect = <P, T>(key: string, id?:
   setSelf,
 }) => {
   if (trigger === 'get') {
-    let val = dbContent[key] || localStorage.getItem(key);
+    let val = dbContent[key] || JSON.parse(localStorage.getItem(key) ?? 'null');
 
     if (val) {
-      if (id && typeof val === 'string') {
-        val = JSON.parse(val);
-      }
-
       if (id && val instanceof Array) {
         setSelf(val.find(v => v.id === id)?.value ?? new DefaultValue());
       } else {

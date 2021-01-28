@@ -20,7 +20,7 @@ const LoadSession: React.FC = () => {
     if (isSetupFinished) {
       history.push('/editor');
     }
-  }, [isSetupFinished]);
+  }, [isSetupFinished, history]);
 
   return (
     <Modal onClose={() => null} isOpen={true} isCentered>

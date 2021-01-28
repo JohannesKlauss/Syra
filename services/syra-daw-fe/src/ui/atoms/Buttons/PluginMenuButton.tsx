@@ -12,7 +12,7 @@ interface Props {
 }
 
 const PluginMenuButton: React.FC<Props> = ({pluginId, isInstrument}) => {
-  const [activePlugin, setActivePlugin] = useRecoilState(channelStore.soulInstance(pluginId));
+  const [, setActivePlugin] = useRecoilState(channelStore.soulInstance(pluginId));
   const [isPluginActive] = useRecoilState(channelStore.isPluginActive(pluginId));
   const patchList = useRecoilValue(
     isInstrument ? soulPluginStore.availableSoulInstruments : soulPluginStore.availableSoulPlugins,

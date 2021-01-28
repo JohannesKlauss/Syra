@@ -8,7 +8,7 @@ interface Props {
 
 }
 
-const MidiTrackContextMenu: React.FC<Props> = ({}) => {
+const MidiTrackContextMenu: React.FC<Props> = () => {
   const createMidiRegion = useCreateMidiRegion();
   const channelId = useContext(ChannelContext);
 

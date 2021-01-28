@@ -36,5 +36,5 @@ export default function useImportMidiFile() {
         duration: Tone.Ticks(midi.durationTicks),
       });
     }
-  }, [createChannel, createMidiRegion]);
+  }, [createChannel, createMidiRegion, setInstrument]);
 }

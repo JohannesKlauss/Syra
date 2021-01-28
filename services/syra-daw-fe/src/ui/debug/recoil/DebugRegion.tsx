@@ -5,12 +5,9 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { Text, SimpleGrid, Checkbox, Input } from '@chakra-ui/react';
 import {IoIosCheckmarkCircle} from "react-icons/io";
 import { MdError } from 'react-icons/md';
-import * as Tone from 'tone';
 
 function DebugRegion() {
   const regionId = useContext(RegionContext);
-
-  const [start, setStart] = useRecoilState(regionStore.start(regionId));
   const audioBuffer = useRecoilValue(regionStore.audioBuffer(regionId));
   const audioBufferPointer = useRecoilValue(regionStore.audioBufferPointer(regionId));
   const name = useRecoilValue(regionStore.name(regionId));

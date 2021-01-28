@@ -5,13 +5,11 @@ import { ChannelType } from '../../../types/Channel';
 import useTapTempo from '../../../hooks/audio/useTapTempo';
 import { buttonInfo } from '../../../utils/text';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { TIME_CONVERSION_RESOLUTION } from '../../../const/musicalConversionConstants';
 import {
   Alert,
   AlertDescription,
   AlertIcon,
   Button,
-  Divider,
   Flex,
   FormControl,
   FormLabel,
@@ -29,11 +27,11 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  Text,
   useRadioGroup,
 } from '@chakra-ui/react';
 import RadioCard from '../../atoms/Buttons/RadioCard';
 import { channelTypeToLabel } from '../../../utils/channelTypeToLabel';
+import * as Tone from 'tone';
 
 interface Props {
   open: boolean;
@@ -42,9 +40,10 @@ interface Props {
 }
 
 function NewProjectDialog({ onCreate, open, onCancel }: Props) {
+  const [projectLength, setProjectLength] = useState(60);
   const [name, setName] = useRecoilState(projectStore.name);
   const [tempoMap, setTempoMap] = useRecoilState(projectStore.tempoMap);
-  const [length, setLength] = useRecoilState(projectStore.lengthInQuarters);
+  const [length, setLength] = useRecoilState(projectStore.lengthInTicks);
 
   const [channelType, setChannelType] = useState(ChannelType.AUDIO);
   const [numChannels, setNumChannels] = useState(1);
@@ -56,6 +55,10 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
   useEffect(() => {
     setTempoMap({ 0: tappedTempo });
   }, [tappedTempo, setTempoMap]);
+
+  useEffect(() => {
+    setLength(Tone.Ticks(`${projectLength}:0:0`).toTicks());
+  }, [projectLength, setLength]);
 
   const onClose = () => onCancel && onCancel;
 
@@ -106,7 +109,7 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
 
           <FormControl isRequired flex={2}>
             <FormLabel>Project Length</FormLabel>
-            <NumberInput value={length} onChange={(val) => setLength(parseInt(val))}>
+            <NumberInput value={length} onChange={(val) => setProjectLength(parseInt(val))}>
               <NumberInputField />
               <NumberInputStepper>
                 <NumberIncrementStepper />

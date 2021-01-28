@@ -6,7 +6,6 @@ import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { isBetween } from '../../../utils/numbers';
 import useCutAudioRegion from '../region/useCutAudioRegion';
 import usePixelToQuarter from '../../ui/usePixelToQuarter';
-import { gridStore } from "../../../recoil/gridStore";
 
 export default function useCutRegionAtMarqueeIndicator() {
   const channelId = useContext(ChannelContext);
