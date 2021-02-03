@@ -4,10 +4,10 @@ export function determineTextColor(backgroundColor: string, inverse?: boolean): 
   const colorValue = red * 0.299 + green * 0.587 + blue * 0.114;
 
   if (colorValue > 150 && inverse !== true) {
-    return '#000';
+    return '#000000';
   }
 
-  return '#fff';
+  return '#ffffff';
 }
 
 function hexToComponent(hex: string, startIndex: number) {
