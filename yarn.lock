@@ -21457,10 +21457,10 @@ stream-browserify@^2.0.1:
     inherits "~2.0.1"
     readable-stream "^2.0.2"
 
-stream-chat-react@3.5.3:
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/stream-chat-react/-/stream-chat-react-3.5.3.tgz#990d7b745c64e33cabdb3b9d1b1bc0188ef5bcc8"
-  integrity sha512-hdD2BAMm3BWZkYOIvxPW0QS+xANAa1OFjNOL3E6kUAfw0jWcSs3dt6/ESpAzCVFCx2hQOkLjWk74rdQ9Yywfxg==
+stream-chat-react@3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/stream-chat-react/-/stream-chat-react-3.6.0.tgz#a091022bf073024e6ff8a60f4579a7a23b9da342"
+  integrity sha512-V4aLEb20dZKtrRp0cNzlW2FzpbT5SpTJhY8Pk0AY5X9x4yYOd3n8hhfKwjbZWIacn3uKcfzw1sEVJzWp+pCnqQ==
   dependencies:
     "@braintree/sanitize-url" "5.0.0"
     custom-event "^1.0.1"
