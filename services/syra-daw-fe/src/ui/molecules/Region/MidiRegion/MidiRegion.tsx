@@ -15,6 +15,7 @@ import useMidiRegionWidth from "../../../../hooks/ui/region/useMidiRegionWidth";
 import useUpdateRegionPosition from "../../../../hooks/recoil/region/useUpdateRegionPosition";
 import usePixelToTicks from "../../../../hooks/tone/usePixelToTicks";
 import useTicksToPixel from "../../../../hooks/tone/useTicksToPixel";
+import MidiRegionVisualization from './MidiRegionVisualization';
 
 const MidiRegion: React.FC = () => {
   const regionId = useContext(RegionContext);
@@ -43,7 +44,7 @@ const MidiRegion: React.FC = () => {
           </Flex>
         </TopBar>
         <ManipulationContainer>
-          Midi!
+          <MidiRegionVisualization/>
         </ManipulationContainer>
       </BaseRegion>
     </ResizableBox>

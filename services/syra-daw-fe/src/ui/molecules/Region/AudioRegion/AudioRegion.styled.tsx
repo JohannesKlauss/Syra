@@ -59,6 +59,7 @@ export const TopBar: React.FC<TopBarProps> = ({ color, children, ...props }) => 
     top={0}
     left={0}
     zIndex={1}
+    height={'18px'}
   >
     {children}
   </Box>

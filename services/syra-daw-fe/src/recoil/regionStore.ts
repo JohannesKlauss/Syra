@@ -184,6 +184,27 @@ const occupiedArea = selectorFamily<[number, number], string>({
   }
 });
 
+const arrangeWindowPosition = selectorFamily<{ start: number, offset: number, duration: number }, string>({
+  key: 'region/arrangeWindowPosition',
+  get: regionId => ({get}) => ({
+    start: get(start(regionId)),
+    offset: get(offset(regionId)),
+    duration: get(duration(regionId)),
+  })
+});
+
+const midiNotesInsideBoundaries = selectorFamily<MidiNote[], string>({
+  key: 'region/midiNotesInsideBoundaries',
+  get: regionId => ({get}) => {
+    const notes = get(midiNotes(regionId));
+    const position = get(arrangeWindowPosition(regionId));
+
+    return notes.filter(note => {
+      return note.ticks >= position.start + position.offset && note.ticks < position.start + position.offset + position.duration
+    });
+  }
+})
+
 export const regionStore = {
   start,
   duration,
@@ -207,4 +228,6 @@ export const regionStore = {
   occupiedArea,
   staticCounter,
   selectedIds,
+  arrangeWindowPosition,
+  midiNotesInsideBoundaries,
 };

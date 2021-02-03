@@ -4,7 +4,7 @@
 # -----------------------------------------------
 
 type Address {
-  User(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
+  User(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
   addressLine1: String!
   addressLine2: String
   city: String!
@@ -33,7 +33,7 @@ type AddressCountAggregate {
 }
 
 input AddressCreateInput {
-  User: UserCreateManyWithoutAddressInput
+  User: UserCreateNestedManyWithoutAddressInput
   addressLine1: String!
   addressLine2: String
   city: String!
@@ -45,7 +45,7 @@ input AddressCreateInput {
   zip: Int!
 }
 
-input AddressCreateOneWithoutUserInput {
+input AddressCreateNestedOneWithoutUserInput {
   connect: AddressWhereUniqueInput
   connectOrCreate: AddressCreateOrConnectWithoutUserInput
   create: AddressCreateWithoutUserInput
@@ -197,6 +197,10 @@ input AddressWhereUniqueInput {
   id: String
 }
 
+type AffectedRowsOutput {
+  count: Int!
+}
+
 type AggregateAddress {
   avg: AddressAvgAggregate
   count: AddressCountAggregate
@@ -281,13 +285,13 @@ type AudioAsset {
   userId: String
 }
 
-input AudioAssetCreateManyWithoutOwnerInput {
+input AudioAssetCreateNestedManyWithoutOwnerInput {
   connect: [AudioAssetWhereUniqueInput!]
   connectOrCreate: [AudioAssetCreateOrConnectWithoutownerInput!]
   create: [AudioAssetCreateWithoutOwnerInput!]
 }
 
-input AudioAssetCreateOneWithoutMixdownInput {
+input AudioAssetCreateNestedOneWithoutMixdownInput {
   connect: AudioAssetWhereUniqueInput
   connectOrCreate: AudioAssetCreateOrConnectWithoutMixdownInput
   create: AudioAssetCreateWithoutMixdownInput
@@ -308,11 +312,11 @@ input AudioAssetCreateWithoutMixdownInput {
   isPublic: Boolean
   location: String!
   name: String!
-  owner: UserCreateOneWithoutAudioAssetInput
+  owner: UserCreateNestedOneWithoutAudioAssetInput
 }
 
 input AudioAssetCreateWithoutOwnerInput {
-  Mixdown: MixdownCreateManyWithoutAudioInput
+  Mixdown: MixdownCreateNestedManyWithoutAudioInput
   id: String
   isPublic: Boolean
   location: String!
@@ -330,6 +334,7 @@ input AudioAssetOrderByInput {
   isPublic: SortOrder
   location: SortOrder
   name: SortOrder
+  owner: UserOrderByInput
   userId: SortOrder
 }
 
@@ -444,7 +449,7 @@ type Band {
   createdBy: User!
   id: String!
   isPublic: Boolean!
-  members(cursor: UsersOnBandsWhereUniqueInput, distinct: [UsersOnBandsScalarFieldEnum!], orderBy: [UsersOnBandsOrderByInput!], skip: Int, take: Int, where: UsersOnBandsWhereInput): [UsersOnBands!]
+  members(cursor: UsersOnBandsWhereUniqueInput, distinct: [UsersOnBandsScalarFieldEnum!], orderBy: [UsersOnBandsOrderByInput!], skip: Int, take: Int, where: UsersOnBandsWhereInput): [UsersOnBands!]!
   name: String!
   updatedAt: Timestamp!
   userId: String!
@@ -462,21 +467,21 @@ type BandCountAggregate {
 
 input BandCreateInput {
   createdAt: Timestamp
-  createdBy: UserCreateOneWithoutOwnsBandsInput!
+  createdBy: UserCreateNestedOneWithoutOwnsBandsInput!
   id: String
   isPublic: Boolean
-  members: UsersOnBandsCreateManyWithoutBandInput
+  members: UsersOnBandsCreateNestedManyWithoutBandInput
   name: String!
   updatedAt: Timestamp
 }
 
-input BandCreateManyWithoutCreatedByInput {
+input BandCreateNestedManyWithoutCreatedByInput {
   connect: [BandWhereUniqueInput!]
   connectOrCreate: [BandCreateOrConnectWithoutcreatedByInput!]
   create: [BandCreateWithoutCreatedByInput!]
 }
 
-input BandCreateOneWithoutMembersInput {
+input BandCreateNestedOneWithoutMembersInput {
   connect: BandWhereUniqueInput
   connectOrCreate: BandCreateOrConnectWithoutmembersInput
   create: BandCreateWithoutMembersInput
@@ -496,14 +501,14 @@ input BandCreateWithoutCreatedByInput {
   createdAt: Timestamp
   id: String
   isPublic: Boolean
-  members: UsersOnBandsCreateManyWithoutBandInput
+  members: UsersOnBandsCreateNestedManyWithoutBandInput
   name: String!
   updatedAt: Timestamp
 }
 
 input BandCreateWithoutMembersInput {
   createdAt: Timestamp
-  createdBy: UserCreateOneWithoutOwnsBandsInput!
+  createdBy: UserCreateNestedOneWithoutOwnsBandsInput!
   id: String
   isPublic: Boolean
   name: String!
@@ -536,6 +541,7 @@ type BandMinAggregate {
 
 input BandOrderByInput {
   createdAt: SortOrder
+  createdBy: UserOrderByInput
   id: SortOrder
   isPublic: SortOrder
   name: SortOrder
@@ -665,10 +671,6 @@ input BandWhereUniqueInput {
   id: String
 }
 
-type BatchPayload {
-  count: Int!
-}
-
 input BoolFieldUpdateOperationsInput {
   set: Boolean
 }
@@ -693,10 +695,10 @@ type Comment {
   id: String!
   isMeLiking: Boolean
   likeCount: Int
-  likes(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeScalarFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]
+  likes(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeScalarFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]!
   parentComment: Comment
   parentCommentId: String
-  subComments(cursor: CommentWhereUniqueInput, distinct: [CommentScalarFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]
+  subComments(cursor: CommentWhereUniqueInput, distinct: [CommentScalarFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]!
   text: String!
   updatedAt: Timestamp!
 }
@@ -713,42 +715,42 @@ type CommentCountAggregate {
 }
 
 input CommentCreateInput {
-  author: UserCreateOneWithoutCommentInput!
+  author: UserCreateNestedOneWithoutCommentInput!
   createdAt: Timestamp
-  feedItem: FeedItemCreateOneWithoutCommentsInput
+  feedItem: FeedItemCreateNestedOneWithoutCommentsInput
   id: String
-  likes: CommentLikeCreateManyWithoutCommentInput
-  parentComment: CommentCreateOneWithoutSubCommentsInput
-  subComments: CommentCreateManyWithoutParentCommentInput
+  likes: CommentLikeCreateNestedManyWithoutCommentInput
+  parentComment: CommentCreateNestedOneWithoutSubCommentsInput
+  subComments: CommentCreateNestedManyWithoutParentCommentInput
   text: String!
   updatedAt: Timestamp
 }
 
-input CommentCreateManyWithoutAuthorInput {
+input CommentCreateNestedManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput!]
   connectOrCreate: [CommentCreateOrConnectWithoutauthorInput!]
   create: [CommentCreateWithoutAuthorInput!]
 }
 
-input CommentCreateManyWithoutFeedItemInput {
+input CommentCreateNestedManyWithoutFeedItemInput {
   connect: [CommentWhereUniqueInput!]
   connectOrCreate: [CommentCreateOrConnectWithoutfeedItemInput!]
   create: [CommentCreateWithoutFeedItemInput!]
 }
 
-input CommentCreateManyWithoutParentCommentInput {
+input CommentCreateNestedManyWithoutParentCommentInput {
   connect: [CommentWhereUniqueInput!]
   connectOrCreate: [CommentCreateOrConnectWithoutparentCommentInput!]
   create: [CommentCreateWithoutParentCommentInput!]
 }
 
-input CommentCreateOneWithoutLikesInput {
+input CommentCreateNestedOneWithoutLikesInput {
   connect: CommentWhereUniqueInput
   connectOrCreate: CommentCreateOrConnectWithoutlikesInput
   create: CommentCreateWithoutLikesInput
 }
 
-input CommentCreateOneWithoutSubCommentsInput {
+input CommentCreateNestedOneWithoutSubCommentsInput {
   connect: CommentWhereUniqueInput
   connectOrCreate: CommentCreateOrConnectWithoutsubCommentsInput
   create: CommentCreateWithoutSubCommentsInput
@@ -781,55 +783,55 @@ input CommentCreateOrConnectWithoutsubCommentsInput {
 
 input CommentCreateWithoutAuthorInput {
   createdAt: Timestamp
-  feedItem: FeedItemCreateOneWithoutCommentsInput
+  feedItem: FeedItemCreateNestedOneWithoutCommentsInput
   id: String
-  likes: CommentLikeCreateManyWithoutCommentInput
-  parentComment: CommentCreateOneWithoutSubCommentsInput
-  subComments: CommentCreateManyWithoutParentCommentInput
+  likes: CommentLikeCreateNestedManyWithoutCommentInput
+  parentComment: CommentCreateNestedOneWithoutSubCommentsInput
+  subComments: CommentCreateNestedManyWithoutParentCommentInput
   text: String!
   updatedAt: Timestamp
 }
 
 input CommentCreateWithoutFeedItemInput {
-  author: UserCreateOneWithoutCommentInput!
+  author: UserCreateNestedOneWithoutCommentInput!
   createdAt: Timestamp
   id: String
-  likes: CommentLikeCreateManyWithoutCommentInput
-  parentComment: CommentCreateOneWithoutSubCommentsInput
-  subComments: CommentCreateManyWithoutParentCommentInput
+  likes: CommentLikeCreateNestedManyWithoutCommentInput
+  parentComment: CommentCreateNestedOneWithoutSubCommentsInput
+  subComments: CommentCreateNestedManyWithoutParentCommentInput
   text: String!
   updatedAt: Timestamp
 }
 
 input CommentCreateWithoutLikesInput {
-  author: UserCreateOneWithoutCommentInput!
+  author: UserCreateNestedOneWithoutCommentInput!
   createdAt: Timestamp
-  feedItem: FeedItemCreateOneWithoutCommentsInput
+  feedItem: FeedItemCreateNestedOneWithoutCommentsInput
   id: String
-  parentComment: CommentCreateOneWithoutSubCommentsInput
-  subComments: CommentCreateManyWithoutParentCommentInput
+  parentComment: CommentCreateNestedOneWithoutSubCommentsInput
+  subComments: CommentCreateNestedManyWithoutParentCommentInput
   text: String!
   updatedAt: Timestamp
 }
 
 input CommentCreateWithoutParentCommentInput {
-  author: UserCreateOneWithoutCommentInput!
+  author: UserCreateNestedOneWithoutCommentInput!
   createdAt: Timestamp
-  feedItem: FeedItemCreateOneWithoutCommentsInput
+  feedItem: FeedItemCreateNestedOneWithoutCommentsInput
   id: String
-  likes: CommentLikeCreateManyWithoutCommentInput
-  subComments: CommentCreateManyWithoutParentCommentInput
+  likes: CommentLikeCreateNestedManyWithoutCommentInput
+  subComments: CommentCreateNestedManyWithoutParentCommentInput
   text: String!
   updatedAt: Timestamp
 }
 
 input CommentCreateWithoutSubCommentsInput {
-  author: UserCreateOneWithoutCommentInput!
+  author: UserCreateNestedOneWithoutCommentInput!
   createdAt: Timestamp
-  feedItem: FeedItemCreateOneWithoutCommentsInput
+  feedItem: FeedItemCreateNestedOneWithoutCommentsInput
   id: String
-  likes: CommentLikeCreateManyWithoutCommentInput
-  parentComment: CommentCreateOneWithoutSubCommentsInput
+  likes: CommentLikeCreateNestedManyWithoutCommentInput
+  parentComment: CommentCreateNestedOneWithoutSubCommentsInput
   text: String!
   updatedAt: Timestamp
 }
@@ -850,18 +852,18 @@ type CommentLikeCountAggregate {
 }
 
 input CommentLikeCreateInput {
-  comment: CommentCreateOneWithoutLikesInput!
+  comment: CommentCreateNestedOneWithoutLikesInput!
   createdAt: Timestamp
-  user: UserCreateOneWithoutCommentLikeInput!
+  user: UserCreateNestedOneWithoutCommentLikeInput!
 }
 
-input CommentLikeCreateManyWithoutCommentInput {
+input CommentLikeCreateNestedManyWithoutCommentInput {
   connect: [CommentLikeWhereUniqueInput!]
   connectOrCreate: [CommentLikeCreateOrConnectWithoutcommentInput!]
   create: [CommentLikeCreateWithoutCommentInput!]
 }
 
-input CommentLikeCreateManyWithoutUserInput {
+input CommentLikeCreateNestedManyWithoutUserInput {
   connect: [CommentLikeWhereUniqueInput!]
   connectOrCreate: [CommentLikeCreateOrConnectWithoutuserInput!]
   create: [CommentLikeCreateWithoutUserInput!]
@@ -879,11 +881,11 @@ input CommentLikeCreateOrConnectWithoutuserInput {
 
 input CommentLikeCreateWithoutCommentInput {
   createdAt: Timestamp
-  user: UserCreateOneWithoutCommentLikeInput!
+  user: UserCreateNestedOneWithoutCommentLikeInput!
 }
 
 input CommentLikeCreateWithoutUserInput {
-  comment: CommentCreateOneWithoutLikesInput!
+  comment: CommentCreateNestedOneWithoutLikesInput!
   createdAt: Timestamp
 }
 
@@ -906,8 +908,10 @@ type CommentLikeMinAggregate {
 }
 
 input CommentLikeOrderByInput {
+  comment: CommentOrderByInput
   commentId: SortOrder
   createdAt: SortOrder
+  user: UserOrderByInput
   userId: SortOrder
 }
 
@@ -1051,10 +1055,13 @@ type CommentMinAggregate {
 }
 
 input CommentOrderByInput {
+  author: UserOrderByInput
   authorId: SortOrder
   createdAt: SortOrder
+  feedItem: FeedItemOrderByInput
   feedItemId: SortOrder
   id: SortOrder
+  parentComment: CommentOrderByInput
   parentCommentId: SortOrder
   text: SortOrder
   updatedAt: SortOrder
@@ -1334,7 +1341,7 @@ type EarlyAccessCode {
   userId: String
 }
 
-input EarlyAccessCodeCreateManyWithoutClaimedByInput {
+input EarlyAccessCodeCreateNestedManyWithoutClaimedByInput {
   connect: [EarlyAccessCodeWhereUniqueInput!]
   connectOrCreate: [EarlyAccessCodeCreateOrConnectWithoutclaimedByInput!]
   create: [EarlyAccessCodeCreateWithoutClaimedByInput!]
@@ -1360,6 +1367,7 @@ input EarlyAccessCodeListRelationFilter {
 }
 
 input EarlyAccessCodeOrderByInput {
+  claimedBy: UserOrderByInput
   code: SortOrder
   createdAt: SortOrder
   id: SortOrder
@@ -1467,17 +1475,17 @@ type FeedItem {
   author: User!
   authorId: String!
   commentCount: Int
-  comments(cursor: CommentWhereUniqueInput, distinct: [CommentScalarFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]
+  comments(cursor: CommentWhereUniqueInput, distinct: [CommentScalarFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]!
   createdAt: Timestamp!
   id: String!
   isMeLiking: Boolean
   isPublished: Boolean!
   likeCount: Int
-  likes(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeScalarFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]
+  likes(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeScalarFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]!
   mixdown: Mixdown
   mixdownId: String
   publishAt: Timestamp
-  revisions(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionScalarFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): [FeedItemRevision!]
+  revisions(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionScalarFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): [FeedItemRevision!]!
   text: String
   updatedAt: Timestamp!
 }
@@ -1495,44 +1503,44 @@ type FeedItemCountAggregate {
 }
 
 input FeedItemCreateInput {
-  author: UserCreateOneWithoutFeedInput!
-  comments: CommentCreateManyWithoutFeedItemInput
+  author: UserCreateNestedOneWithoutFeedInput!
+  comments: CommentCreateNestedManyWithoutFeedItemInput
   createdAt: Timestamp
   id: String
   isPublished: Boolean
-  likes: FeedItemLikeCreateManyWithoutFeedItemInput
-  mixdown: MixdownCreateOneWithoutFeedItemInput
+  likes: FeedItemLikeCreateNestedManyWithoutFeedItemInput
+  mixdown: MixdownCreateNestedOneWithoutFeedItemInput
   publishAt: Timestamp
-  revisions: FeedItemRevisionCreateManyWithoutParentItemInput
+  revisions: FeedItemRevisionCreateNestedManyWithoutParentItemInput
   text: String
   updatedAt: Timestamp
 }
 
-input FeedItemCreateManyWithoutAuthorInput {
+input FeedItemCreateNestedManyWithoutAuthorInput {
   connect: [FeedItemWhereUniqueInput!]
   connectOrCreate: [FeedItemCreateOrConnectWithoutauthorInput!]
   create: [FeedItemCreateWithoutAuthorInput!]
 }
 
-input FeedItemCreateManyWithoutMixdownInput {
+input FeedItemCreateNestedManyWithoutMixdownInput {
   connect: [FeedItemWhereUniqueInput!]
   connectOrCreate: [FeedItemCreateOrConnectWithoutmixdownInput!]
   create: [FeedItemCreateWithoutMixdownInput!]
 }
 
-input FeedItemCreateOneWithoutCommentsInput {
+input FeedItemCreateNestedOneWithoutCommentsInput {
   connect: FeedItemWhereUniqueInput
   connectOrCreate: FeedItemCreateOrConnectWithoutcommentsInput
   create: FeedItemCreateWithoutCommentsInput
 }
 
-input FeedItemCreateOneWithoutLikesInput {
+input FeedItemCreateNestedOneWithoutLikesInput {
   connect: FeedItemWhereUniqueInput
   connectOrCreate: FeedItemCreateOrConnectWithoutlikesInput
   create: FeedItemCreateWithoutLikesInput
 }
 
-input FeedItemCreateOneWithoutRevisionsInput {
+input FeedItemCreateNestedOneWithoutRevisionsInput {
   connect: FeedItemWhereUniqueInput
   connectOrCreate: FeedItemCreateOrConnectWithoutrevisionsInput
   create: FeedItemCreateWithoutRevisionsInput
@@ -1564,65 +1572,65 @@ input FeedItemCreateOrConnectWithoutrevisionsInput {
 }
 
 input FeedItemCreateWithoutAuthorInput {
-  comments: CommentCreateManyWithoutFeedItemInput
+  comments: CommentCreateNestedManyWithoutFeedItemInput
   createdAt: Timestamp
   id: String
   isPublished: Boolean
-  likes: FeedItemLikeCreateManyWithoutFeedItemInput
-  mixdown: MixdownCreateOneWithoutFeedItemInput
+  likes: FeedItemLikeCreateNestedManyWithoutFeedItemInput
+  mixdown: MixdownCreateNestedOneWithoutFeedItemInput
   publishAt: Timestamp
-  revisions: FeedItemRevisionCreateManyWithoutParentItemInput
+  revisions: FeedItemRevisionCreateNestedManyWithoutParentItemInput
   text: String
   updatedAt: Timestamp
 }
 
 input FeedItemCreateWithoutCommentsInput {
-  author: UserCreateOneWithoutFeedInput!
+  author: UserCreateNestedOneWithoutFeedInput!
   createdAt: Timestamp
   id: String
   isPublished: Boolean
-  likes: FeedItemLikeCreateManyWithoutFeedItemInput
-  mixdown: MixdownCreateOneWithoutFeedItemInput
+  likes: FeedItemLikeCreateNestedManyWithoutFeedItemInput
+  mixdown: MixdownCreateNestedOneWithoutFeedItemInput
   publishAt: Timestamp
-  revisions: FeedItemRevisionCreateManyWithoutParentItemInput
+  revisions: FeedItemRevisionCreateNestedManyWithoutParentItemInput
   text: String
   updatedAt: Timestamp
 }
 
 input FeedItemCreateWithoutLikesInput {
-  author: UserCreateOneWithoutFeedInput!
-  comments: CommentCreateManyWithoutFeedItemInput
+  author: UserCreateNestedOneWithoutFeedInput!
+  comments: CommentCreateNestedManyWithoutFeedItemInput
   createdAt: Timestamp
   id: String
   isPublished: Boolean
-  mixdown: MixdownCreateOneWithoutFeedItemInput
+  mixdown: MixdownCreateNestedOneWithoutFeedItemInput
   publishAt: Timestamp
-  revisions: FeedItemRevisionCreateManyWithoutParentItemInput
+  revisions: FeedItemRevisionCreateNestedManyWithoutParentItemInput
   text: String
   updatedAt: Timestamp
 }
 
 input FeedItemCreateWithoutMixdownInput {
-  author: UserCreateOneWithoutFeedInput!
-  comments: CommentCreateManyWithoutFeedItemInput
+  author: UserCreateNestedOneWithoutFeedInput!
+  comments: CommentCreateNestedManyWithoutFeedItemInput
   createdAt: Timestamp
   id: String
   isPublished: Boolean
-  likes: FeedItemLikeCreateManyWithoutFeedItemInput
+  likes: FeedItemLikeCreateNestedManyWithoutFeedItemInput
   publishAt: Timestamp
-  revisions: FeedItemRevisionCreateManyWithoutParentItemInput
+  revisions: FeedItemRevisionCreateNestedManyWithoutParentItemInput
   text: String
   updatedAt: Timestamp
 }
 
 input FeedItemCreateWithoutRevisionsInput {
-  author: UserCreateOneWithoutFeedInput!
-  comments: CommentCreateManyWithoutFeedItemInput
+  author: UserCreateNestedOneWithoutFeedInput!
+  comments: CommentCreateNestedManyWithoutFeedItemInput
   createdAt: Timestamp
   id: String
   isPublished: Boolean
-  likes: FeedItemLikeCreateManyWithoutFeedItemInput
-  mixdown: MixdownCreateOneWithoutFeedItemInput
+  likes: FeedItemLikeCreateNestedManyWithoutFeedItemInput
+  mixdown: MixdownCreateNestedOneWithoutFeedItemInput
   publishAt: Timestamp
   text: String
   updatedAt: Timestamp
@@ -1645,17 +1653,17 @@ type FeedItemLikeCountAggregate {
 
 input FeedItemLikeCreateInput {
   createdAt: Timestamp
-  feedItem: FeedItemCreateOneWithoutLikesInput!
-  user: UserCreateOneWithoutFeedItemLikeInput!
+  feedItem: FeedItemCreateNestedOneWithoutLikesInput!
+  user: UserCreateNestedOneWithoutFeedItemLikeInput!
 }
 
-input FeedItemLikeCreateManyWithoutFeedItemInput {
+input FeedItemLikeCreateNestedManyWithoutFeedItemInput {
   connect: [FeedItemLikeWhereUniqueInput!]
   connectOrCreate: [FeedItemLikeCreateOrConnectWithoutfeedItemInput!]
   create: [FeedItemLikeCreateWithoutFeedItemInput!]
 }
 
-input FeedItemLikeCreateManyWithoutUserInput {
+input FeedItemLikeCreateNestedManyWithoutUserInput {
   connect: [FeedItemLikeWhereUniqueInput!]
   connectOrCreate: [FeedItemLikeCreateOrConnectWithoutuserInput!]
   create: [FeedItemLikeCreateWithoutUserInput!]
@@ -1673,12 +1681,12 @@ input FeedItemLikeCreateOrConnectWithoutuserInput {
 
 input FeedItemLikeCreateWithoutFeedItemInput {
   createdAt: Timestamp
-  user: UserCreateOneWithoutFeedItemLikeInput!
+  user: UserCreateNestedOneWithoutFeedItemLikeInput!
 }
 
 input FeedItemLikeCreateWithoutUserInput {
   createdAt: Timestamp
-  feedItem: FeedItemCreateOneWithoutLikesInput!
+  feedItem: FeedItemCreateNestedOneWithoutLikesInput!
 }
 
 input FeedItemLikeListRelationFilter {
@@ -1701,7 +1709,9 @@ type FeedItemLikeMinAggregate {
 
 input FeedItemLikeOrderByInput {
   createdAt: SortOrder
+  feedItem: FeedItemOrderByInput
   feedItemId: SortOrder
+  user: UserOrderByInput
   userId: SortOrder
 }
 
@@ -1847,10 +1857,12 @@ type FeedItemMinAggregate {
 }
 
 input FeedItemOrderByInput {
+  author: UserOrderByInput
   authorId: SortOrder
   createdAt: SortOrder
   id: SortOrder
   isPublished: SortOrder
+  mixdown: MixdownOrderByInput
   mixdownId: SortOrder
   publishAt: SortOrder
   text: SortOrder
@@ -1883,12 +1895,12 @@ type FeedItemRevisionCountAggregate {
 input FeedItemRevisionCreateInput {
   createdAt: Timestamp
   id: String
-  parentItem: FeedItemCreateOneWithoutRevisionsInput!
+  parentItem: FeedItemCreateNestedOneWithoutRevisionsInput!
   text: String!
   updatedAt: Timestamp
 }
 
-input FeedItemRevisionCreateManyWithoutParentItemInput {
+input FeedItemRevisionCreateNestedManyWithoutParentItemInput {
   connect: [FeedItemRevisionWhereUniqueInput!]
   connectOrCreate: [FeedItemRevisionCreateOrConnectWithoutparentItemInput!]
   create: [FeedItemRevisionCreateWithoutParentItemInput!]
@@ -1932,6 +1944,7 @@ input FeedItemRevisionOrderByInput {
   createdAt: SortOrder
   feedItemId: SortOrder
   id: SortOrder
+  parentItem: FeedItemOrderByInput
   text: SortOrder
   updatedAt: SortOrder
 }
@@ -2292,7 +2305,7 @@ input JsonFilter {
 }
 
 type Mixdown {
-  FeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemScalarFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]
+  FeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemScalarFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]!
   audio: AudioAsset!
   audioAssetId: String!
   createdAt: Timestamp!
@@ -2328,38 +2341,38 @@ type MixdownCountAggregate {
 }
 
 input MixdownCreateInput {
-  FeedItem: FeedItemCreateManyWithoutMixdownInput
-  audio: AudioAssetCreateOneWithoutMixdownInput!
+  FeedItem: FeedItemCreateNestedManyWithoutMixdownInput
+  audio: AudioAssetCreateNestedOneWithoutMixdownInput!
   createdAt: Timestamp
   id: String
   isPusblished: Boolean
   listens: Int
   name: String
-  project: ProjectCreateOneWithoutMixdownsInput!
-  triggerdBy: UserCreateOneWithoutMixdownInput!
+  project: ProjectCreateNestedOneWithoutMixdownsInput!
+  triggerdBy: UserCreateNestedOneWithoutMixdownInput!
   updatedAt: Timestamp
   version: Int!
 }
 
-input MixdownCreateManyWithoutAudioInput {
+input MixdownCreateNestedManyWithoutAudioInput {
   connect: [MixdownWhereUniqueInput!]
   connectOrCreate: [MixdownCreateOrConnectWithoutaudioInput!]
   create: [MixdownCreateWithoutAudioInput!]
 }
 
-input MixdownCreateManyWithoutProjectInput {
+input MixdownCreateNestedManyWithoutProjectInput {
   connect: [MixdownWhereUniqueInput!]
   connectOrCreate: [MixdownCreateOrConnectWithoutprojectInput!]
   create: [MixdownCreateWithoutProjectInput!]
 }
 
-input MixdownCreateManyWithoutTriggerdByInput {
+input MixdownCreateNestedManyWithoutTriggerdByInput {
   connect: [MixdownWhereUniqueInput!]
   connectOrCreate: [MixdownCreateOrConnectWithouttriggerdByInput!]
   create: [MixdownCreateWithoutTriggerdByInput!]
 }
 
-input MixdownCreateOneWithoutFeedItemInput {
+input MixdownCreateNestedOneWithoutFeedItemInput {
   connect: MixdownWhereUniqueInput
   connectOrCreate: MixdownCreateOrConnectWithoutFeedItemInput
   create: MixdownCreateWithoutFeedItemInput
@@ -2386,53 +2399,53 @@ input MixdownCreateOrConnectWithouttriggerdByInput {
 }
 
 input MixdownCreateWithoutAudioInput {
-  FeedItem: FeedItemCreateManyWithoutMixdownInput
+  FeedItem: FeedItemCreateNestedManyWithoutMixdownInput
   createdAt: Timestamp
   id: String
   isPusblished: Boolean
   listens: Int
   name: String
-  project: ProjectCreateOneWithoutMixdownsInput!
-  triggerdBy: UserCreateOneWithoutMixdownInput!
+  project: ProjectCreateNestedOneWithoutMixdownsInput!
+  triggerdBy: UserCreateNestedOneWithoutMixdownInput!
   updatedAt: Timestamp
   version: Int!
 }
 
 input MixdownCreateWithoutFeedItemInput {
-  audio: AudioAssetCreateOneWithoutMixdownInput!
+  audio: AudioAssetCreateNestedOneWithoutMixdownInput!
   createdAt: Timestamp
   id: String
   isPusblished: Boolean
   listens: Int
   name: String
-  project: ProjectCreateOneWithoutMixdownsInput!
-  triggerdBy: UserCreateOneWithoutMixdownInput!
+  project: ProjectCreateNestedOneWithoutMixdownsInput!
+  triggerdBy: UserCreateNestedOneWithoutMixdownInput!
   updatedAt: Timestamp
   version: Int!
 }
 
 input MixdownCreateWithoutProjectInput {
-  FeedItem: FeedItemCreateManyWithoutMixdownInput
-  audio: AudioAssetCreateOneWithoutMixdownInput!
+  FeedItem: FeedItemCreateNestedManyWithoutMixdownInput
+  audio: AudioAssetCreateNestedOneWithoutMixdownInput!
   createdAt: Timestamp
   id: String
   isPusblished: Boolean
   listens: Int
   name: String
-  triggerdBy: UserCreateOneWithoutMixdownInput!
+  triggerdBy: UserCreateNestedOneWithoutMixdownInput!
   updatedAt: Timestamp
   version: Int!
 }
 
 input MixdownCreateWithoutTriggerdByInput {
-  FeedItem: FeedItemCreateManyWithoutMixdownInput
-  audio: AudioAssetCreateOneWithoutMixdownInput!
+  FeedItem: FeedItemCreateNestedManyWithoutMixdownInput
+  audio: AudioAssetCreateNestedOneWithoutMixdownInput!
   createdAt: Timestamp
   id: String
   isPusblished: Boolean
   listens: Int
   name: String
-  project: ProjectCreateOneWithoutMixdownsInput!
+  project: ProjectCreateNestedOneWithoutMixdownsInput!
   updatedAt: Timestamp
   version: Int!
 }
@@ -2470,13 +2483,16 @@ type MixdownMinAggregate {
 }
 
 input MixdownOrderByInput {
+  audio: AudioAssetOrderByInput
   audioAssetId: SortOrder
   createdAt: SortOrder
   id: SortOrder
   isPusblished: SortOrder
   listens: SortOrder
   name: SortOrder
+  project: ProjectOrderByInput
   projectId: SortOrder
+  triggerdBy: UserOrderByInput
   updatedAt: SortOrder
   userId: SortOrder
   version: SortOrder
@@ -2743,18 +2759,18 @@ type Mutation {
   deleteFeedItem(where: FeedItemWhereUniqueInput!): FeedItem
   deleteFeedItemLike(where: FeedItemLikeWhereUniqueInput!): FeedItemLike
   deleteFeedItemRevision(where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision
-  deleteManyAddress(where: AddressWhereInput): BatchPayload!
-  deleteManyBand(where: BandWhereInput): BatchPayload!
-  deleteManyComment(where: CommentWhereInput): BatchPayload!
-  deleteManyCommentLike(where: CommentLikeWhereInput): BatchPayload!
-  deleteManyFeedItem(where: FeedItemWhereInput): BatchPayload!
-  deleteManyFeedItemLike(where: FeedItemLikeWhereInput): BatchPayload!
-  deleteManyFeedItemRevision(where: FeedItemRevisionWhereInput): BatchPayload!
-  deleteManyMixdown(where: MixdownWhereInput): BatchPayload!
-  deleteManyProject(where: ProjectWhereInput): BatchPayload!
-  deleteManyTag(where: TagWhereInput): BatchPayload!
-  deleteManyUser(where: UserWhereInput): BatchPayload!
-  deleteManyUsersOnProjects(where: UsersOnProjectsWhereInput): BatchPayload!
+  deleteManyAddress(where: AddressWhereInput): AffectedRowsOutput!
+  deleteManyBand(where: BandWhereInput): AffectedRowsOutput!
+  deleteManyComment(where: CommentWhereInput): AffectedRowsOutput!
+  deleteManyCommentLike(where: CommentLikeWhereInput): AffectedRowsOutput!
+  deleteManyFeedItem(where: FeedItemWhereInput): AffectedRowsOutput!
+  deleteManyFeedItemLike(where: FeedItemLikeWhereInput): AffectedRowsOutput!
+  deleteManyFeedItemRevision(where: FeedItemRevisionWhereInput): AffectedRowsOutput!
+  deleteManyMixdown(where: MixdownWhereInput): AffectedRowsOutput!
+  deleteManyProject(where: ProjectWhereInput): AffectedRowsOutput!
+  deleteManyTag(where: TagWhereInput): AffectedRowsOutput!
+  deleteManyUser(where: UserWhereInput): AffectedRowsOutput!
+  deleteManyUsersOnProjects(where: UsersOnProjectsWhereInput): AffectedRowsOutput!
   deleteMixdown(where: MixdownWhereUniqueInput!): Mixdown
   deleteProject(where: ProjectWhereUniqueInput!): Project
   deleteTag(where: TagWhereUniqueInput!): Tag
@@ -2769,18 +2785,18 @@ type Mutation {
   updateFeedItem(data: FeedItemUpdateInput!, where: FeedItemWhereUniqueInput!): FeedItem
   updateFeedItemLike(data: FeedItemLikeUpdateInput!, where: FeedItemLikeWhereUniqueInput!): FeedItemLike
   updateFeedItemRevision(data: FeedItemRevisionUpdateInput!, where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision
-  updateManyAddress(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
-  updateManyBand(data: BandUpdateManyMutationInput!, where: BandWhereInput): BatchPayload!
-  updateManyComment(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
-  updateManyCommentLike(data: CommentLikeUpdateManyMutationInput!, where: CommentLikeWhereInput): BatchPayload!
-  updateManyFeedItem(data: FeedItemUpdateManyMutationInput!, where: FeedItemWhereInput): BatchPayload!
-  updateManyFeedItemLike(data: FeedItemLikeUpdateManyMutationInput!, where: FeedItemLikeWhereInput): BatchPayload!
-  updateManyFeedItemRevision(data: FeedItemRevisionUpdateManyMutationInput!, where: FeedItemRevisionWhereInput): BatchPayload!
-  updateManyMixdown(data: MixdownUpdateManyMutationInput!, where: MixdownWhereInput): BatchPayload!
-  updateManyProject(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
-  updateManyTag(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
-  updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  updateManyUsersOnProjects(data: UsersOnProjectsUpdateManyMutationInput!, where: UsersOnProjectsWhereInput): BatchPayload!
+  updateManyAddress(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): AffectedRowsOutput!
+  updateManyBand(data: BandUpdateManyMutationInput!, where: BandWhereInput): AffectedRowsOutput!
+  updateManyComment(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): AffectedRowsOutput!
+  updateManyCommentLike(data: CommentLikeUpdateManyMutationInput!, where: CommentLikeWhereInput): AffectedRowsOutput!
+  updateManyFeedItem(data: FeedItemUpdateManyMutationInput!, where: FeedItemWhereInput): AffectedRowsOutput!
+  updateManyFeedItemLike(data: FeedItemLikeUpdateManyMutationInput!, where: FeedItemLikeWhereInput): AffectedRowsOutput!
+  updateManyFeedItemRevision(data: FeedItemRevisionUpdateManyMutationInput!, where: FeedItemRevisionWhereInput): AffectedRowsOutput!
+  updateManyMixdown(data: MixdownUpdateManyMutationInput!, where: MixdownWhereInput): AffectedRowsOutput!
+  updateManyProject(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): AffectedRowsOutput!
+  updateManyTag(data: TagUpdateManyMutationInput!, where: TagWhereInput): AffectedRowsOutput!
+  updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
+  updateManyUsersOnProjects(data: UsersOnProjectsUpdateManyMutationInput!, where: UsersOnProjectsWhereInput): AffectedRowsOutput!
   updateMixdown(data: MixdownUpdateInput!, where: MixdownWhereUniqueInput!): Mixdown
   updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
   updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
@@ -2896,8 +2912,8 @@ type Project {
   id: String!
   isInitialized: Boolean!
   isPrivate: Boolean!
-  members(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
-  mixdowns(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]
+  members(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]!
+  mixdowns(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]!
   name: String!
   owner: User!
   ownerId: String!
@@ -2922,26 +2938,26 @@ input ProjectCreateInput {
   id: String
   isInitialized: Boolean
   isPrivate: Boolean
-  members: UsersOnProjectsCreateManyWithoutProjectInput
-  mixdowns: MixdownCreateManyWithoutProjectInput
+  members: UsersOnProjectsCreateNestedManyWithoutProjectInput
+  mixdowns: MixdownCreateNestedManyWithoutProjectInput
   name: String
-  owner: UserCreateOneWithoutOwnsProjectsInput!
+  owner: UserCreateNestedOneWithoutOwnsProjectsInput!
   updatedAt: Timestamp
 }
 
-input ProjectCreateManyWithoutOwnerInput {
+input ProjectCreateNestedManyWithoutOwnerInput {
   connect: [ProjectWhereUniqueInput!]
   connectOrCreate: [ProjectCreateOrConnectWithoutownerInput!]
   create: [ProjectCreateWithoutOwnerInput!]
 }
 
-input ProjectCreateOneWithoutMembersInput {
+input ProjectCreateNestedOneWithoutMembersInput {
   connect: ProjectWhereUniqueInput
   connectOrCreate: ProjectCreateOrConnectWithoutmembersInput
   create: ProjectCreateWithoutMembersInput
 }
 
-input ProjectCreateOneWithoutMixdownsInput {
+input ProjectCreateNestedOneWithoutMixdownsInput {
   connect: ProjectWhereUniqueInput
   connectOrCreate: ProjectCreateOrConnectWithoutmixdownsInput
   create: ProjectCreateWithoutMixdownsInput
@@ -2968,9 +2984,9 @@ input ProjectCreateWithoutMembersInput {
   id: String
   isInitialized: Boolean
   isPrivate: Boolean
-  mixdowns: MixdownCreateManyWithoutProjectInput
+  mixdowns: MixdownCreateNestedManyWithoutProjectInput
   name: String
-  owner: UserCreateOneWithoutOwnsProjectsInput!
+  owner: UserCreateNestedOneWithoutOwnsProjectsInput!
   updatedAt: Timestamp
 }
 
@@ -2980,9 +2996,9 @@ input ProjectCreateWithoutMixdownsInput {
   id: String
   isInitialized: Boolean
   isPrivate: Boolean
-  members: UsersOnProjectsCreateManyWithoutProjectInput
+  members: UsersOnProjectsCreateNestedManyWithoutProjectInput
   name: String
-  owner: UserCreateOneWithoutOwnsProjectsInput!
+  owner: UserCreateNestedOneWithoutOwnsProjectsInput!
   updatedAt: Timestamp
 }
 
@@ -2992,8 +3008,8 @@ input ProjectCreateWithoutOwnerInput {
   id: String
   isInitialized: Boolean
   isPrivate: Boolean
-  members: UsersOnProjectsCreateManyWithoutProjectInput
-  mixdowns: MixdownCreateManyWithoutProjectInput
+  members: UsersOnProjectsCreateNestedManyWithoutProjectInput
+  mixdowns: MixdownCreateNestedManyWithoutProjectInput
   name: String
   updatedAt: Timestamp
 }
@@ -3005,7 +3021,6 @@ input ProjectListRelationFilter {
 }
 
 type ProjectMaxAggregate {
-  content: JSON
   createdAt: Timestamp
   id: String
   isInitialized: Boolean
@@ -3016,7 +3031,6 @@ type ProjectMaxAggregate {
 }
 
 type ProjectMinAggregate {
-  content: JSON
   createdAt: Timestamp
   id: String
   isInitialized: Boolean
@@ -3033,6 +3047,7 @@ input ProjectOrderByInput {
   isInitialized: SortOrder
   isPrivate: SortOrder
   name: SortOrder
+  owner: UserOrderByInput
   ownerId: SortOrder
   updatedAt: SortOrder
 }
@@ -3333,12 +3348,12 @@ type TagCountAggregate {
 }
 
 input TagCreateInput {
-  User: UserCreateOneWithoutInterestsInput
+  User: UserCreateNestedOneWithoutInterestsInput
   id: String
   value: String!
 }
 
-input TagCreateManyWithoutUserInput {
+input TagCreateNestedManyWithoutUserInput {
   connect: [TagWhereUniqueInput!]
   connectOrCreate: [TagCreateOrConnectWithoutUserInput!]
   create: [TagCreateWithoutUserInput!]
@@ -3373,6 +3388,7 @@ type TagMinAggregate {
 }
 
 input TagOrderByInput {
+  User: UserOrderByInput
   id: SortOrder
   userId: SortOrder
   value: SortOrder
@@ -3459,34 +3475,34 @@ The javascript `Date` as integer. Type represents date and time as number of mil
 scalar Timestamp
 
 type User {
-  AudioAsset(cursor: AudioAssetWhereUniqueInput, distinct: [AudioAssetScalarFieldEnum!], orderBy: [AudioAssetOrderByInput!], skip: Int, take: Int, where: AudioAssetWhereInput): [AudioAsset!]
-  Comment(cursor: CommentWhereUniqueInput, distinct: [CommentScalarFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]
-  CommentLike(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeScalarFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]
-  EarlyAccessCode(cursor: EarlyAccessCodeWhereUniqueInput, distinct: [EarlyAccessCodeScalarFieldEnum!], orderBy: [EarlyAccessCodeOrderByInput!], skip: Int, take: Int, where: EarlyAccessCodeWhereInput): [EarlyAccessCode!]
-  FeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeScalarFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]
-  Mixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]
+  AudioAsset(cursor: AudioAssetWhereUniqueInput, distinct: [AudioAssetScalarFieldEnum!], orderBy: [AudioAssetOrderByInput!], skip: Int, take: Int, where: AudioAssetWhereInput): [AudioAsset!]!
+  Comment(cursor: CommentWhereUniqueInput, distinct: [CommentScalarFieldEnum!], orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]!
+  CommentLike(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeScalarFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]!
+  EarlyAccessCode(cursor: EarlyAccessCodeWhereUniqueInput, distinct: [EarlyAccessCodeScalarFieldEnum!], orderBy: [EarlyAccessCodeOrderByInput!], skip: Int, take: Int, where: EarlyAccessCodeWhereInput): [EarlyAccessCode!]!
+  FeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeScalarFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]!
+  Mixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]!
   address: Address
   addressId: String
   avatar: String
   bio: String
   createdAt: Timestamp!
   email: String!
-  feed(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemScalarFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]
-  followedBy(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
+  feed(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemScalarFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItem!]!
+  followedBy(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
   followedByCount: Int
-  following(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]
+  following(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
   followingCount: Int
   handle: String!
   id: String!
-  interests(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]
+  interests(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]!
   isMeFollowing: Boolean
   isMyself: Boolean
   isOnline: Boolean!
-  memberOfBands(cursor: UsersOnBandsWhereUniqueInput, distinct: [UsersOnBandsScalarFieldEnum!], orderBy: [UsersOnBandsOrderByInput!], skip: Int, take: Int, where: UsersOnBandsWhereInput): [UsersOnBands!]
-  memberOfProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]
+  memberOfBands(cursor: UsersOnBandsWhereUniqueInput, distinct: [UsersOnBandsScalarFieldEnum!], orderBy: [UsersOnBandsOrderByInput!], skip: Int, take: Int, where: UsersOnBandsWhereInput): [UsersOnBands!]!
+  memberOfProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]!
   name: String!
-  ownsBands(cursor: BandWhereUniqueInput, distinct: [BandScalarFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): [Band!]
-  ownsProjects(cursor: ProjectWhereUniqueInput, distinct: [ProjectScalarFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]
+  ownsBands(cursor: BandWhereUniqueInput, distinct: [BandScalarFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): [Band!]!
+  ownsProjects(cursor: ProjectWhereUniqueInput, distinct: [ProjectScalarFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]!
   role: Role!
   updatedAt: Timestamp!
   website: String
@@ -3510,114 +3526,114 @@ type UserCountAggregate {
 }
 
 input UserCreateInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
   website: String
 }
 
-input UserCreateManyWithoutAddressInput {
+input UserCreateNestedManyWithoutAddressInput {
   connect: [UserWhereUniqueInput!]
   connectOrCreate: [UserCreateOrConnectWithoutaddressInput!]
   create: [UserCreateWithoutAddressInput!]
 }
 
-input UserCreateManyWithoutFollowedByInput {
+input UserCreateNestedManyWithoutFollowedByInput {
   connect: [UserWhereUniqueInput!]
   connectOrCreate: [UserCreateOrConnectWithoutfollowedByInput!]
   create: [UserCreateWithoutFollowedByInput!]
 }
 
-input UserCreateManyWithoutFollowingInput {
+input UserCreateNestedManyWithoutFollowingInput {
   connect: [UserWhereUniqueInput!]
   connectOrCreate: [UserCreateOrConnectWithoutfollowingInput!]
   create: [UserCreateWithoutFollowingInput!]
 }
 
-input UserCreateOneWithoutAudioAssetInput {
+input UserCreateNestedOneWithoutAudioAssetInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutAudioAssetInput
   create: UserCreateWithoutAudioAssetInput
 }
 
-input UserCreateOneWithoutCommentInput {
+input UserCreateNestedOneWithoutCommentInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutCommentInput
   create: UserCreateWithoutCommentInput
 }
 
-input UserCreateOneWithoutCommentLikeInput {
+input UserCreateNestedOneWithoutCommentLikeInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutCommentLikeInput
   create: UserCreateWithoutCommentLikeInput
 }
 
-input UserCreateOneWithoutFeedInput {
+input UserCreateNestedOneWithoutFeedInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutfeedInput
   create: UserCreateWithoutFeedInput
 }
 
-input UserCreateOneWithoutFeedItemLikeInput {
+input UserCreateNestedOneWithoutFeedItemLikeInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutFeedItemLikeInput
   create: UserCreateWithoutFeedItemLikeInput
 }
 
-input UserCreateOneWithoutInterestsInput {
+input UserCreateNestedOneWithoutInterestsInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutinterestsInput
   create: UserCreateWithoutInterestsInput
 }
 
-input UserCreateOneWithoutMemberOfBandsInput {
+input UserCreateNestedOneWithoutMemberOfBandsInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutmemberOfBandsInput
   create: UserCreateWithoutMemberOfBandsInput
 }
 
-input UserCreateOneWithoutMemberOfProjectsInput {
+input UserCreateNestedOneWithoutMemberOfProjectsInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutmemberOfProjectsInput
   create: UserCreateWithoutMemberOfProjectsInput
 }
 
-input UserCreateOneWithoutMixdownInput {
+input UserCreateNestedOneWithoutMixdownInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutMixdownInput
   create: UserCreateWithoutMixdownInput
 }
 
-input UserCreateOneWithoutOwnsBandsInput {
+input UserCreateNestedOneWithoutOwnsBandsInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutownsBandsInput
   create: UserCreateWithoutOwnsBandsInput
 }
 
-input UserCreateOneWithoutOwnsProjectsInput {
+input UserCreateNestedOneWithoutOwnsProjectsInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutownsProjectsInput
   create: UserCreateWithoutOwnsProjectsInput
@@ -3694,28 +3710,28 @@ input UserCreateOrConnectWithoutownsProjectsInput {
 }
 
 input UserCreateWithoutAddressInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -3723,28 +3739,28 @@ input UserCreateWithoutAddressInput {
 }
 
 input UserCreateWithoutAudioAssetInput {
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -3752,28 +3768,28 @@ input UserCreateWithoutAudioAssetInput {
 }
 
 input UserCreateWithoutCommentInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -3781,28 +3797,28 @@ input UserCreateWithoutCommentInput {
 }
 
 input UserCreateWithoutCommentLikeInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -3810,28 +3826,28 @@ input UserCreateWithoutCommentLikeInput {
 }
 
 input UserCreateWithoutFeedInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -3839,28 +3855,28 @@ input UserCreateWithoutFeedInput {
 }
 
 input UserCreateWithoutFeedItemLikeInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -3868,28 +3884,28 @@ input UserCreateWithoutFeedItemLikeInput {
 }
 
 input UserCreateWithoutFollowedByInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -3897,28 +3913,28 @@ input UserCreateWithoutFollowedByInput {
 }
 
 input UserCreateWithoutFollowingInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -3926,28 +3942,28 @@ input UserCreateWithoutFollowingInput {
 }
 
 input UserCreateWithoutInterestsInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -3955,28 +3971,28 @@ input UserCreateWithoutInterestsInput {
 }
 
 input UserCreateWithoutMemberOfBandsInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -3984,28 +4000,28 @@ input UserCreateWithoutMemberOfBandsInput {
 }
 
 input UserCreateWithoutMemberOfProjectsInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -4013,28 +4029,28 @@ input UserCreateWithoutMemberOfProjectsInput {
 }
 
 input UserCreateWithoutMixdownInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -4042,28 +4058,28 @@ input UserCreateWithoutMixdownInput {
 }
 
 input UserCreateWithoutOwnsBandsInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsProjects: ProjectCreateManyWithoutOwnerInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -4071,28 +4087,28 @@ input UserCreateWithoutOwnsBandsInput {
 }
 
 input UserCreateWithoutOwnsProjectsInput {
-  AudioAsset: AudioAssetCreateManyWithoutOwnerInput
-  Comment: CommentCreateManyWithoutAuthorInput
-  CommentLike: CommentLikeCreateManyWithoutUserInput
-  EarlyAccessCode: EarlyAccessCodeCreateManyWithoutClaimedByInput
-  FeedItemLike: FeedItemLikeCreateManyWithoutUserInput
-  Mixdown: MixdownCreateManyWithoutTriggerdByInput
-  address: AddressCreateOneWithoutUserInput
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
   createdAt: Timestamp
   email: String!
-  feed: FeedItemCreateManyWithoutAuthorInput
-  followedBy: UserCreateManyWithoutFollowingInput
-  following: UserCreateManyWithoutFollowedByInput
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
   handle: String!
   id: String
-  interests: TagCreateManyWithoutUserInput
+  interests: TagCreateNestedManyWithoutUserInput
   isOnline: Boolean
-  memberOfBands: UsersOnBandsCreateManyWithoutUserInput
-  memberOfProjects: UsersOnProjectsCreateManyWithoutUserInput
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
   name: String!
-  ownsBands: BandCreateManyWithoutCreatedByInput
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
   password: String!
   role: Role
   updatedAt: Timestamp
@@ -4138,6 +4154,7 @@ type UserMinAggregate {
 }
 
 input UserOrderByInput {
+  address: AddressOrderByInput
   addressId: SortOrder
   avatar: SortOrder
   bio: SortOrder
@@ -4932,13 +4949,13 @@ type UsersOnBands {
   userId: String!
 }
 
-input UsersOnBandsCreateManyWithoutBandInput {
+input UsersOnBandsCreateNestedManyWithoutBandInput {
   connect: [UsersOnBandsWhereUniqueInput!]
   connectOrCreate: [UsersOnBandsCreateOrConnectWithoutbandInput!]
   create: [UsersOnBandsCreateWithoutBandInput!]
 }
 
-input UsersOnBandsCreateManyWithoutUserInput {
+input UsersOnBandsCreateNestedManyWithoutUserInput {
   connect: [UsersOnBandsWhereUniqueInput!]
   connectOrCreate: [UsersOnBandsCreateOrConnectWithoutuserInput!]
   create: [UsersOnBandsCreateWithoutUserInput!]
@@ -4956,11 +4973,11 @@ input UsersOnBandsCreateOrConnectWithoutuserInput {
 
 input UsersOnBandsCreateWithoutBandInput {
   createdAt: Timestamp
-  user: UserCreateOneWithoutMemberOfBandsInput!
+  user: UserCreateNestedOneWithoutMemberOfBandsInput!
 }
 
 input UsersOnBandsCreateWithoutUserInput {
-  band: BandCreateOneWithoutMembersInput!
+  band: BandCreateNestedOneWithoutMembersInput!
   createdAt: Timestamp
 }
 
@@ -4971,8 +4988,10 @@ input UsersOnBandsListRelationFilter {
 }
 
 input UsersOnBandsOrderByInput {
+  band: BandOrderByInput
   bandId: SortOrder
   createdAt: SortOrder
+  user: UserOrderByInput
   userId: SortOrder
 }
 
@@ -5100,17 +5119,17 @@ type UsersOnProjectsCountAggregate {
 
 input UsersOnProjectsCreateInput {
   createdAt: Timestamp
-  project: ProjectCreateOneWithoutMembersInput!
-  user: UserCreateOneWithoutMemberOfProjectsInput!
+  project: ProjectCreateNestedOneWithoutMembersInput!
+  user: UserCreateNestedOneWithoutMemberOfProjectsInput!
 }
 
-input UsersOnProjectsCreateManyWithoutProjectInput {
+input UsersOnProjectsCreateNestedManyWithoutProjectInput {
   connect: [UsersOnProjectsWhereUniqueInput!]
   connectOrCreate: [UsersOnProjectsCreateOrConnectWithoutprojectInput!]
   create: [UsersOnProjectsCreateWithoutProjectInput!]
 }
 
-input UsersOnProjectsCreateManyWithoutUserInput {
+input UsersOnProjectsCreateNestedManyWithoutUserInput {
   connect: [UsersOnProjectsWhereUniqueInput!]
   connectOrCreate: [UsersOnProjectsCreateOrConnectWithoutuserInput!]
   create: [UsersOnProjectsCreateWithoutUserInput!]
@@ -5128,12 +5147,12 @@ input UsersOnProjectsCreateOrConnectWithoutuserInput {
 
 input UsersOnProjectsCreateWithoutProjectInput {
   createdAt: Timestamp
-  user: UserCreateOneWithoutMemberOfProjectsInput!
+  user: UserCreateNestedOneWithoutMemberOfProjectsInput!
 }
 
 input UsersOnProjectsCreateWithoutUserInput {
   createdAt: Timestamp
-  project: ProjectCreateOneWithoutMembersInput!
+  project: ProjectCreateNestedOneWithoutMembersInput!
 }
 
 input UsersOnProjectsListRelationFilter {
@@ -5156,7 +5175,9 @@ type UsersOnProjectsMinAggregate {
 
 input UsersOnProjectsOrderByInput {
   createdAt: SortOrder
+  project: ProjectOrderByInput
   projectId: SortOrder
+  user: UserOrderByInput
   userId: SortOrder
 }
 

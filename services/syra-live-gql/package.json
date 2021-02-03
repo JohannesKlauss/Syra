@@ -25,6 +25,7 @@
     "docker:build": "yarn prisma:generate && yarn build && yarn session:gen-key"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "1.5.1",
     "@nestjs/common": "7.6.11",
     "@nestjs/config": "0.6.3",
     "@nestjs/core": "7.6.11",
@@ -33,7 +34,6 @@
     "@nestjs/microservices": "7.6.11",
     "@nestjs/passport": "7.1.5",
     "@nestjs/platform-fastify": "7.6.11",
-    "@nestjs-modules/mailer": "1.5.1",
     "@prisma/client": "2.16.0",
     "@types/busboy": "0.2.3",
     "@types/passport-local": "1.0.33",
@@ -85,6 +85,7 @@
     "graphql-type-json": "0.3.2",
     "jest": "26.6.3",
     "prettier": "2.2.1",
+    "prisma": "^2.16.0",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "rxjs": "6.6.3",
