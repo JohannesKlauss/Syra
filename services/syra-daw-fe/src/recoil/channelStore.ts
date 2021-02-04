@@ -1,10 +1,13 @@
 import { atom, atomFamily, selector, selectorFamily } from "recoil";
-import { SoulInstance, SoulPatchParameter } from '../types/Soul';
+import { SoulInstance, SoulPatchDescriptor, SoulPatchParameter } from "../types/Soul";
 import { ChannelType } from '../types/Channel';
 import { RegionState, regionStore } from './regionStore';
 import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
 import atomWithEffects from "./proxy/atomWithEffects";
 import { syncEffectsComb } from "./effects/syncEffectsComb";
+import { createSoulInstance } from "../soul/createSoulInstance";
+import { soulPluginStore } from "./soulPluginStore";
+import { projectStore } from "./projectStore";
 
 let lastChannelNum = 2;
 
@@ -87,9 +90,50 @@ const pluginIds = atomFamilyWithEffects<string[], string>({
 
 // TODO: WE HAVE TO FIND A DEFINITION FOR WHEN TO USE PATCH, PLUGIN, SOUL_INSTANCE, SOUL_PATCH, etc. RIGHT NOW THIS IS CONFUSING.
 // This represents an instrument or plugin.
-const soulInstance = atomFamily<SoulInstance | undefined, string>({
+const soulInstanceCache = atomFamily<SoulInstance | undefined, string>({
   key: 'channel/soulInstance',
   default: undefined,
+});
+
+const soulPatchDescriptor = atomFamilyWithEffects<SoulPatchDescriptor | undefined, string>({
+  key: 'channel/soulPatchDescriptor',
+  default: undefined,
+  effects: [
+    ...syncEffectsComb,
+  ]
+});
+
+const soulInstance = selectorFamily<SoulInstance | undefined, string>({
+  key: 'channel/soulInstanceSel',
+  get: pluginId => async ({get}) => {
+    if (!get(projectStore.isEngineRunning)) {
+      return undefined;
+    }
+
+    let instance = get(soulInstanceCache(pluginId));
+
+    if (instance === undefined) {
+      const patchDescriptor = get(soulPatchDescriptor(pluginId));
+
+      if (patchDescriptor && patchDescriptor.description) {
+        const patch = get(soulPluginStore.findPluginByUid(patchDescriptor.description.UID));
+
+        if (patch) {
+          try {
+            instance = await createSoulInstance(patch, patchDescriptor.description.isInstrument);
+          } catch (e) {
+            console.log('Audio Context is suspended. We need a queue.');
+          }
+        }
+      }
+    }
+
+    return instance;
+  },
+  set: pluginId => ({set}, instance) => {
+    set(soulInstanceCache(pluginId), instance);
+    set(soulPatchDescriptor(pluginId), (instance as SoulInstance).soulPatch.descriptor);
+  },
 });
 
 const soulPatchParameter = atomFamilyWithEffects<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({

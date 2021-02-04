@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from 'react';
 import HorizontalChannelList from '../molecules/Channels/HorizontalChannels/HorizontalChannelList';
 import { editorStore } from '../../recoil/editorStore';
 import { useRecoilValue } from 'recoil';
@@ -13,6 +13,7 @@ import { projectStore } from "../../recoil/projectStore";
 import { saveToDb } from "../../recoil/effects/saveToDatabaseEffect";
 import { useMeQuery, useProjectQuery } from "../../gql/generated";
 import Video from "../organisms/views/Video/Video";
+import LoadingIndicator from "../atoms/LoadingIndicator";
 
 function Editor() {
   const showMixer = useRecoilValue(editorStore.showMixer);
@@ -36,18 +37,20 @@ function Editor() {
 
   return (
     <Box>
-      <ArrangeWindowV2 />
-      <Box pos={'fixed'} bottom={78} left={0} w={'100%'} h={'50%'} zIndex={1} display={showMixer || showPianoRoll ? 'block' : 'none'}>
-        <HorizontalChannelList showView={showMixer} />
-        <PianoRoll minNote={12} maxNote={115} showView={showPianoRoll} />
-      </Box>
-      <Box pos={'fixed'} bottom={0} left={0} w={'100%'} zIndex={10}>
-        <TransportView />
-      </Box>
-      <>
-        <Settings />
-        <Video/>
-      </>
+      <Suspense fallback={<LoadingIndicator/>}>
+        <ArrangeWindowV2 />
+        <Box pos={'fixed'} bottom={78} left={0} w={'100%'} h={'50%'} zIndex={1} display={showMixer || showPianoRoll ? 'block' : 'none'}>
+          <HorizontalChannelList showView={showMixer} />
+          <PianoRoll minNote={12} maxNote={115} showView={showPianoRoll} />
+        </Box>
+        <Box pos={'fixed'} bottom={0} left={0} w={'100%'} zIndex={10}>
+          <TransportView />
+        </Box>
+        <>
+          <Settings />
+          <Video/>
+        </>
+      </Suspense>
     </Box>
   );
 }

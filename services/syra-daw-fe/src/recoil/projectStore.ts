@@ -6,6 +6,11 @@ import atomWithEffects from './proxy/atomWithEffects';
 import { syncEffectsComb } from './effects/syncEffectsComb';
 import { getToneJsTransport } from '../utils/tonejs';
 
+const isEngineRunning = atom({
+  key: 'project/isEngineRunning',
+  default: false,
+});
+
 const name = atom({
   key: 'project/name',
   default: 'New Syra Project',
@@ -123,6 +128,7 @@ const isClickMuted = atomWithEffects<boolean>({
 });
 
 export const projectStore = {
+  isEngineRunning,
   id,
   name,
   tempoMap,

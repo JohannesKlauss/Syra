@@ -36,15 +36,10 @@ export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: 
       return;
     }
 
-    console.log('received change', data.data);
-
+    // TODO: CHECK IF THIS IF IS EVEN NEEDED...
     if (data.data?.changes.change.id === undefined && id === undefined) {
-      console.log('received atom Change', data.data);
-
       setSelf(data.data?.changes.change.newValue);
     } else if (id !== undefined && id === data.data?.changes.change.id) {
-      console.log('received atomFamily Change', data.data);
-
       setSelf(data.data?.changes.change.newValue);
     }
   });

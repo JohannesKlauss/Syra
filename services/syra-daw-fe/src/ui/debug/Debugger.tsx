@@ -80,11 +80,10 @@ function Debugger() {
             <Select flex={1} placeholder="Select Region" value={selectedRegionId} onChange={e => {
               setSelectedRegionId(e.target.value as string);
             }}>
-              {regionIds.map(id => <option value={id} key={id}>{regionNames[id]}</option>)}
+              {regionIds.map(id => <option value={id} key={id}>{id}</option>)}
             </Select>
           </Flex>
 
-          <DebugRegion/>
           {selectedRegionId !== '' && <DebugNodes/>}
         </RegionContext.Provider>
       </ChannelContext.Provider>

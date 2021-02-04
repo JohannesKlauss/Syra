@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { Suspense, useContext, useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { channelStore } from '../../../../recoil/channelStore';
 import { ChannelContext } from '../../../../providers/ChannelContext';
@@ -48,7 +48,9 @@ function VerticalChannel({index}: Props) {
         <ChannelLetterButtons />
       </Box>
 
-      <BackboneAudioMixer channelId={channelId} />
+      <Suspense fallback={null}>
+        <BackboneAudioMixer channelId={channelId} />
+      </Suspense>
     </Flex>
   );
 }

@@ -31,9 +31,6 @@ function DebugRegion() {
       <Text>Buffer duration:</Text>
       <Text>{audioBuffer?.duration ? `${audioBuffer.duration} seconds` : '-'}</Text>
 
-      <Text>Buffer pointer:</Text>
-      <Text>{audioBufferPointer}</Text>
-
       <Text>Is Muted:</Text>
       <Checkbox isChecked={isMuted} onChange={e => setIsMuted(e.target.checked)}/>
 

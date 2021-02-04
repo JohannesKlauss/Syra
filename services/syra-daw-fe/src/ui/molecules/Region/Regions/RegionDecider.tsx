@@ -9,6 +9,8 @@ const RegionDecider: React.FC = () => {
   const regionId = useContext(RegionContext);
   const isMidi = useRecoilValue(regionStore.isMidi(regionId));
 
+  console.log('isMidi', isMidi);
+
   return isMidi ? <MidiRegion/> : <AudioRegion/>;
 };
 

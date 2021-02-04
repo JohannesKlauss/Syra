@@ -15,6 +15,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
+import useListenForEngineStart from "./hooks/tone/useListenForEngineStart";
 
 const config = {
   useSystemColorMode: false,
@@ -32,13 +33,15 @@ function App() {
   useHotkeys('shift+d', () => setShowDebugMenu((currVal) => !currVal));
   useHotkeys('shift+f', () => setShowFpsMeter((currVal) => !currVal));
 
+  useListenForEngineStart();
+
   return (
     <StrictMode>
       <ChakraProvider theme={customTheme}>
         <AppRouter />
         {showFpsMeter && <FpsView />}
 
-        <Modal isOpen={showDebugMenu} onClose={() => setShowDebugMenu(false)}>
+        <Modal isOpen={showDebugMenu} onClose={() => setShowDebugMenu(false)} size={'6xl'}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Debugger</ModalHeader>

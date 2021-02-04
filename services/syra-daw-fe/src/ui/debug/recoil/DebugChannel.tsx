@@ -24,7 +24,7 @@ function DebugChannel() {
       <Input value={name} onChange={e => setName(e.target.value)} />
 
       <Text>Type:</Text>
-      <Button leftIcon={channelTypeMap[type]!.icon} variant={'ghost'}>{channelTypeMap[type]!.name}</Button>
+      <Button variant={'ghost'}>Type</Button>
 
       <Text>Color:</Text>
       <ChannelColorPicker activeColor={color} onChangeColor={(newColor) => setColor(newColor)}/>
