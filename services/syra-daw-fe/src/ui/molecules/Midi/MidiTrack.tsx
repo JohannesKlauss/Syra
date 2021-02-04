@@ -9,6 +9,9 @@ import useDrawMidiNote from "../../../hooks/ui/views/pianoRoll/useDrawMidiNote";
 import usePixelToTicks from "../../../hooks/tone/usePixelToTicks";
 import MidiNoteList from './MidiNoteList';
 import useSnapPixelValue from '../../../hooks/ui/useSnapPixelValue';
+import { pianoRollStore } from "../../../recoil/pianoRollStore";
+import { regionStore } from "../../../recoil/regionStore";
+import useTicksToPixel from "../../../hooks/tone/useTicksToPixel";
 
 interface Props {
   note: number;
@@ -20,8 +23,11 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
   const { isAccidental } = MidiNumbers.getAttributes(note);
   const { view } = useContext(ViewContext);
   const totalWidth = useRecoilValue(gridStore.totalWidth(view));
+  const focusedMidiRegionId = useRecoilValue(pianoRollStore.focusedMidiRegionId);
+  const start = useRecoilValue(regionStore.start(focusedMidiRegionId));
   const drawMidiNote = useDrawMidiNote(note);
   const pixelToTicks = usePixelToTicks();
+  const ticksToPixel = useTicksToPixel();
   const snapPixelValue = useSnapPixelValue(0.125);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -35,8 +41,12 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
     // @ts-ignore
     const x = e.nativeEvent.layerX;
 
-    drawMidiNote(Tone.Ticks(pixelToTicks(Math.max(snapPixelValue(x), 0))), Tone.Ticks(1, 'm'), 127);
-  }, [ref, drawMidiNote, pixelToTicks, snapPixelValue]);
+    const cleanX = snapPixelValue(x - ticksToPixel(start));
+
+    if (cleanX >= 0) {
+      drawMidiNote(Tone.Ticks(pixelToTicks(cleanX)), Tone.Ticks(1, 'm'), 127);
+    }
+  }, [ref, drawMidiNote, pixelToTicks, snapPixelValue, start]);
 
   return (
     <Box

@@ -11963,10 +11963,10 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-fm.liveswitch@1.9.4-33424:
-  version "1.9.4-33424"
-  resolved "https://registry.yarnpkg.com/fm.liveswitch/-/fm.liveswitch-1.9.4-33424.tgz#98425179b8ab65789ba9d3280b8b72f3a8853026"
-  integrity sha512-+B3CXmBir93mF/KngrqV+LUbqL6F97q7gekfVvQ6NWEBfYfyBFn0n7XcHrybF+/LdrOoXqFDk1zQXqlrd29H+A==
+fm.liveswitch@1.11.3-40505:
+  version "1.11.3-40505"
+  resolved "https://registry.yarnpkg.com/fm.liveswitch/-/fm.liveswitch-1.11.3-40505.tgz#f1ef47c0f0402ea17a3427ed596a10611d56c05e"
+  integrity sha512-gZayBSYqyDcS8apbgh66j9xGkWBD+6Hwihr16R2hcVIB1Gdb3DPq5nulym+w2DcrlPI9bOFnj34UsiE3gBfkzQ==
 
 focus-lock@^0.7.0:
   version "0.7.0"

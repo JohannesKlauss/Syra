@@ -36,12 +36,10 @@ const MidiRegionVisualization: React.FC<Props> = ({}) => {
   const regionId = useContext(RegionContext);
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight) - 18; // Subtract the topBar of the region
   const midiNotesInsideBoundaries = useRecoilValue(regionStore.midiNotesInsideBoundaries(regionId));
-  const { start, offset } = useRecoilValue(regionStore.arrangeWindowPosition(regionId));
   const width = useMidiRegionWidth();
   const color = useRegionColor(false);
   const ticksToPixel = useTicksToPixel();
 
-  const baseOffset = useMemo(() => ticksToPixel(start + offset), [ticksToPixel, start, offset]);
   const {minMidiValue, maxMidiValue} = useMemo(() => {
     const midiValues = midiNotesInsideBoundaries.map(note => note.midi);
 
@@ -61,7 +59,7 @@ const MidiRegionVisualization: React.FC<Props> = ({}) => {
           backgroundColor={color}
           height={noteHeight}
           width={ticksToPixel(note.durationTicks)}
-          x={ticksToPixel(note.ticks - baseOffset)}
+          x={ticksToPixel(note.ticks)}
           y={noteHeight * (maxMidiValue - note.midi)}
         />
       ))}

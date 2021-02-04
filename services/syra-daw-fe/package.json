@@ -12,7 +12,6 @@
     "@tonejs/midi": "2.0.25",
     "array-move": "3.0.1",
     "color-interpolate": "1.0.5",
-    "fm.liveswitch": "1.9.4-33424",
     "framer-motion": "3.3.0",
     "graphql": "15.5.0",
     "hotkeys-js": "3.8.2",

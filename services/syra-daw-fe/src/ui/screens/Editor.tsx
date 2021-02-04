@@ -12,6 +12,7 @@ import useInterval from "../../hooks/core/useInterval";
 import { projectStore } from "../../recoil/projectStore";
 import { saveToDb } from "../../recoil/effects/saveToDatabaseEffect";
 import { useMeQuery, useProjectQuery } from "../../gql/generated";
+import Video from "../organisms/views/Video/Video";
 
 function Editor() {
   const showMixer = useRecoilValue(editorStore.showMixer);
@@ -45,6 +46,7 @@ function Editor() {
       </Box>
       <>
         <Settings />
+        <Video/>
       </>
     </Box>
   );

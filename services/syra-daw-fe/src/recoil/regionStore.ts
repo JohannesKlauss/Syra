@@ -200,7 +200,7 @@ const midiNotesInsideBoundaries = selectorFamily<MidiNote[], string>({
     const position = get(arrangeWindowPosition(regionId));
 
     return notes.filter(note => {
-      return note.ticks >= position.start + position.offset && note.ticks < position.start + position.offset + position.duration
+      return note.ticks >= position.offset && note.ticks < position.start + position.offset + position.duration
     });
   }
 })

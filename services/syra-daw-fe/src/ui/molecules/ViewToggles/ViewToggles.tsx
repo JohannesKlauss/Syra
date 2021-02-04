@@ -13,12 +13,14 @@ import { GoSettings } from 'react-icons/go';
 function ViewToggles() {
   const updateView = useUpdateView();
 
+  const setShowVideo = useSetRecoilState(editorStore.showVideo);
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
   const setShowSettings = useSetRecoilState(editorStore.showSettings);
 
   useHotkeys('p', () => updateView(View.PIANO_ROLL));
   useHotkeys('x', () => updateView(View.MIXER));
+  useHotkeys('v', () => setShowVideo(currVal => !currVal));
   useHotkeys('cmd+,', (e) => {
     e.preventDefault();
     e.stopPropagation();
