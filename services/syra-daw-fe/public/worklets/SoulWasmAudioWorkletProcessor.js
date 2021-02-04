@@ -11,6 +11,10 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
         name: 'midiTriggerIndex',
         defaultValue: -1,
       },
+      {
+        name: 'isPlaying',
+        defaultValue: 0,
+      }
     ];
   }
 
