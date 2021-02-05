@@ -7410,10 +7410,10 @@ avvio@^7.1.2:
     fastq "^1.6.1"
     queue-microtask "^1.1.2"
 
-aws-sdk@2.836.0:
-  version "2.836.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.836.0.tgz#69a26db1beb3c139d67833bd3adc082f9e148777"
-  integrity sha512-lVOT5/yr9ONfbn6UXYYIdFlVIFmSoX0CnjAQzXkfcYg+k7CZklbqqVIdgdLoiQYwQGLceoWghSevPGe7fjFg9Q==
+aws-sdk@2.839.0:
+  version "2.839.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.839.0.tgz#74e9697e5dcb2d116032363ad80f5b705759fafb"
+  integrity sha512-CFgiZ8IUpI1Qqs0ECheGO592lvGG6dYp7SsMJ5Xegd+aBAn6dimPTSmrnkPHPyzFhMYtBx1kE6SxVkl9MKOcWg==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -11962,11 +11962,6 @@ flush-write-stream@^1.0.0:
   dependencies:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
-
-fm.liveswitch@1.11.3-40505:
-  version "1.11.3-40505"
-  resolved "https://registry.yarnpkg.com/fm.liveswitch/-/fm.liveswitch-1.11.3-40505.tgz#f1ef47c0f0402ea17a3427ed596a10611d56c05e"
-  integrity sha512-gZayBSYqyDcS8apbgh66j9xGkWBD+6Hwihr16R2hcVIB1Gdb3DPq5nulym+w2DcrlPI9bOFnj34UsiE3gBfkzQ==
 
 focus-lock@^0.7.0:
   version "0.7.0"
