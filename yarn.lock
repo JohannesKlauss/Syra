@@ -9921,10 +9921,10 @@ dataloader@2.0.0:
   resolved "https://registry.yarnpkg.com/dataloader/-/dataloader-2.0.0.tgz#41eaf123db115987e21ca93c005cd7753c55fe6f"
   integrity sha512-YzhyDAwA4TaQIhM5go+vCLmU0UikghC/t9DTQYZR2M/UvZ1MdOhPezSDZcjj9uqQJOMqjLcpWtyW2iNINdlatQ==
 
-date-fns@2.16.1:
-  version "2.16.1"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.16.1.tgz#05775792c3f3331da812af253e1a935851d3834b"
-  integrity sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==
+date-fns@2.17.0:
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.17.0.tgz#afa55daea539239db0a64e236ce716ef3d681ba1"
+  integrity sha512-ZEhqxUtEZeGgg9eHNSOAJ8O9xqSgiJdrL0lzSSfMF54x6KXWJiOH/xntSJ9YomJPrYH/p08t6gWjGWq1SDJlSA==
 
 date-fns@^1.27.2:
   version "1.30.1"
@@ -11962,11 +11962,6 @@ flush-write-stream@^1.0.0:
   dependencies:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
-
-fm.liveswitch@1.11.3-40505:
-  version "1.11.3-40505"
-  resolved "https://registry.yarnpkg.com/fm.liveswitch/-/fm.liveswitch-1.11.3-40505.tgz#f1ef47c0f0402ea17a3427ed596a10611d56c05e"
-  integrity sha512-gZayBSYqyDcS8apbgh66j9xGkWBD+6Hwihr16R2hcVIB1Gdb3DPq5nulym+w2DcrlPI9bOFnj34UsiE3gBfkzQ==
 
 focus-lock@^0.7.0:
   version "0.7.0"
