@@ -43,8 +43,8 @@
   },
   "resolutions": {
     "@chakra-ui/react": "1.2.1",
-    "@emotion/react": "11.1.4",
-    "@emotion/styled": "11.0.0",
+    "@emotion/react": "11.1.5",
+    "@emotion/styled": "11.1.5",
     "@types/react": "17.0.1",
     "@typescript-eslint/eslint-plugin": "4.14.2",
     "@typescript-eslint/parser": "4.14.2",
