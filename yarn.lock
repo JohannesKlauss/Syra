@@ -19307,10 +19307,10 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
-react-click-away-listener@1.5.3:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/react-click-away-listener/-/react-click-away-listener-1.5.3.tgz#aa1358027a82a6441d1a208467822fd116e4c4a9"
-  integrity sha512-ssGIB3rCBABlgOUVRPm/gFyCxwW0WcqxNJzTufCJm6UrZEAGfp2m679p+3obntedXc/mBXQi88PxSIWMRbRKeA==
+react-click-away-listener@1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/react-click-away-listener/-/react-click-away-listener-1.6.3.tgz#3f0b0d04e1b0acd3bb00646aca3d553ce7a8e8d9"
+  integrity sha512-25CplL5BnRAY4IMZ97N0XWEDckgxpzUce2fhsMKMG08MH/mf3aLl0pr+nQBJONYVvVXiRp0QgfsQcUtaOYCcyQ==
 
 react-clientside-effect@^1.2.2:
   version "1.2.2"
