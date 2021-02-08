@@ -27,8 +27,8 @@
     "@graphql-codegen/typescript-react-apollo": "2.2.1",
     "@types/jest": "26.0.20",
     "@types/node": "12.19.16",
-    "@typescript-eslint/eslint-plugin": "4.14.2",
-    "@typescript-eslint/parser": "4.14.2",
+    "@typescript-eslint/eslint-plugin": "4.15.0",
+    "@typescript-eslint/parser": "4.15.0",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.2.2",
     "eslint": "7.19.0",
@@ -46,8 +46,8 @@
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
     "@types/react": "17.0.1",
-    "@typescript-eslint/eslint-plugin": "4.14.2",
-    "@typescript-eslint/parser": "4.14.2",
+    "@typescript-eslint/eslint-plugin": "4.15.0",
+    "@typescript-eslint/parser": "4.15.0",
     "eslint": "7.19.0"
   },
   "prettier": {
