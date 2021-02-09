@@ -17,7 +17,7 @@ COPY . .
 # start app
 RUN yarn run build
 
-FROM nginx:1.17 as production
+FROM nginx:1.19 as production
 
 COPY --from=build /app/build /usr/share/nginx/html
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
