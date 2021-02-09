@@ -1,5 +1,5 @@
 import { RegionContext } from "../../providers/RegionContext";
-import { useContext, useEffect, useMemo } from "react";
+import { useCallback, useContext, useEffect, useMemo } from "react";
 import { regionStore } from "../../recoil/regionStore";
 import { useRecoilValue } from "recoil";
 import useToneJsTransport from "./useToneJsTransport";
@@ -51,13 +51,17 @@ export default function useMidiRegionScheduler() {
     return messages.sort((msgA, msgB) => msgA[3] - msgB[3]);
   }, [notes, offset, duration, start]);
 
+  const triggerTransportOffset = useCallback(() => {
+    soulInstance?.audioNode.parameters.get('transportOffsetInSamples')?.setValueAtTime(
+      Math.floor(transport.seconds * Tone.getContext().sampleRate), Tone.getContext().currentTime
+    );
+  }, [soulInstance]);
+
   useEffect(() => {
     soulInstance?.audioNode.port.postMessage({
       type: "PRE_SCHEDULE_MIDI_MESSAGES",
       value: messagesToSchedule
     });
-
-    console.log('messages', messagesToSchedule);
 
     return () => {
       soulInstance?.audioNode.port.postMessage({
@@ -67,16 +71,12 @@ export default function useMidiRegionScheduler() {
   }, [soulInstance, messagesToSchedule]);
 
   useEffect(() => {
-    transport.on('start', () => {
-      soulInstance?.audioNode.parameters.get('transportOffsetInSamples')?.setValueAtTime(
-        Math.floor(transport.seconds * Tone.getContext().sampleRate), Tone.getContext().currentTime
-      );
-    });
+    transport.on('start', triggerTransportOffset);
 
     return () => {
-      transport.off('start');
+      transport.off('start', triggerTransportOffset);
     }
-  }, [transport, soulInstance]);
+  }, [transport, soulInstance, triggerTransportOffset]);
 
   useEffect(() => {
     if (!isPlaying && !isRecording) {
