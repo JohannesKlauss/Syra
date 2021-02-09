@@ -28,7 +28,6 @@ export default function useMidiRegionScheduler() {
     const filteredNotes = notes.filter((note) => note.ticks >= offset && note.ticks < offset + duration);
     const regionStartInSeconds = Tone.Ticks(start).toSeconds();
     const regionOffsetInSeconds = Tone.Ticks(offset).toSeconds();
-    const cutoff = Tone.Ticks(3).toSeconds();
 
     const messages = [
       ...filteredNotes.map((note) =>
@@ -36,7 +35,7 @@ export default function useMidiRegionScheduler() {
           MIDI_MSG.CH1_NOTE_ON,
           note.midi,
           note.velocity,
-          note.time + regionStartInSeconds - regionOffsetInSeconds
+          Math.ceil((note.time + regionStartInSeconds - regionOffsetInSeconds) * Tone.getContext().sampleRate),
         )
       ),
       ...filteredNotes.map((note) =>
@@ -44,7 +43,7 @@ export default function useMidiRegionScheduler() {
           MIDI_MSG.CH1_NOTE_OFF,
           note.midi,
           0,
-          note.time + note.duration + regionStartInSeconds - regionOffsetInSeconds - cutoff
+          Math.ceil((note.time + note.duration + regionStartInSeconds - regionOffsetInSeconds) * Tone.getContext().sampleRate),
         )
       )
     ];
@@ -58,6 +57,8 @@ export default function useMidiRegionScheduler() {
       value: messagesToSchedule
     });
 
+    console.log('messages', messagesToSchedule);
+
     return () => {
       soulInstance?.audioNode.port.postMessage({
         type: "DELETE_PRE_SCHEDULED_MIDI_MESSAGES"
@@ -66,22 +67,20 @@ export default function useMidiRegionScheduler() {
   }, [soulInstance, messagesToSchedule]);
 
   useEffect(() => {
-    const ids: number[] = [];
-
-    messagesToSchedule.forEach((msg, i) => {
-      ids.push(transport.schedule(time => {
-        soulInstance?.audioNode.parameters.get('midiTriggerIndex')?.setValueAtTime(i, time);
-      }, Math.max(msg[3], 0)));
+    transport.on('start', () => {
+      soulInstance?.audioNode.parameters.get('transportOffsetInSamples')?.setValueAtTime(
+        Math.floor(transport.seconds * Tone.getContext().sampleRate), Tone.getContext().currentTime
+      );
     });
 
     return () => {
-      ids.forEach(id => transport.clear(id));
-    };
-  }, [transport, soulInstance, messagesToSchedule]);
+      transport.off('start');
+    }
+  }, [transport, soulInstance]);
 
   useEffect(() => {
     if (!isPlaying && !isRecording) {
-      soulInstance?.audioNode.parameters.get('midiTriggerIndex')?.setValueAtTime(-1, Tone.getContext().currentTime);
+      soulInstance?.audioNode.parameters.get('transportOffsetInSamples')?.setValueAtTime(-1, Tone.getContext().currentTime);
       panic();
     }
   }, [isRecording, isPlaying, panic, soulInstance]);

@@ -4,6 +4,7 @@
 class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
   midiMessages = [];
   lastTriggeredMidiMessageIndex = -1;
+  transportOffsetInSamples = -1;
 
   static get parameterDescriptors() {
     return [
@@ -12,8 +13,8 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
         defaultValue: -1,
       },
       {
-        name: 'isPlaying',
-        defaultValue: 0,
+        name: 'transportOffsetInSamples',
+        defaultValue: -1,
       }
     ];
   }
@@ -145,31 +146,6 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
 
     let samplesToProcess = outputs[0][0].length;
 
-    if (parameters['midiTriggerIndex'].length === 1) {
-      if (
-        parameters['midiTriggerIndex'] > -1 &&
-        parameters['midiTriggerIndex'][0] !== this.lastTriggeredMidiMessageIndex
-      ) {
-        for (let n = 0; n < 3; n++) this.midiData[n] = this.midiMessages[parameters['midiTriggerIndex'][0]][n];
-
-        this.instance.exports.onMidiMessage(3);
-        this.lastTriggeredMidiMessageIndex = parameters['midiTriggerIndex'][0];
-      }
-    } else {
-      const values = parameters['midiTriggerIndex'];
-
-      for (let i = 0; i < values.length; i++) {
-        if (values[i] > -1 && values[i] !== this.lastTriggeredMidiMessageIndex) {
-          for (let n = 0; n < 3; n++) this.midiData[n] = this.midiMessages[values[i]][n];
-
-          this.instance.exports.onMidiMessage(3);
-          this.lastTriggeredMidiMessageIndex = values[i];
-
-          break;
-        }
-      }
-    }
-
     if (this.endpoints.totalInputs === 1 && inputs[0].length >= 1) {
       this.channelInData[0].set(inputs[0][0]);
     }
@@ -178,6 +154,48 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
       for (let ch = 0; ch < 2; ch++) {
         this.channelInData[ch].set(inputs[0][ch]);
       }
+    }
+
+    const transportOffsetInSamples = parameters['transportOffsetInSamples'];
+
+    let didSetOffset = false;
+
+    // This determines if the transport is playing or not and saves the sample offset of the transport relative to the
+    // transports starting point. This is clock independent.
+    for (let i = 0; i < transportOffsetInSamples.length; i++) {
+      if (this.transportOffsetInSamples === -1) {
+        if (transportOffsetInSamples[i] > -1 && !didSetOffset) {
+          didSetOffset = true;
+          this.transportOffsetInSamples = transportOffsetInSamples[i];
+        }
+      }
+      else if (transportOffsetInSamples[i] === -1 && !didSetOffset) {
+        this.transportOffsetInSamples = -1;
+      }
+    }
+
+    // This checks if there are midi messages to trigger during the block.
+    // It advances to the midi message, triggers it and advances again to the next.
+    if (this.transportOffsetInSamples > -1) {
+      const messages = this.midiMessages.filter(msg =>
+        msg[3] >= this.transportOffsetInSamples && msg[3] < this.transportOffsetInSamples + samplesToProcess
+      );
+
+      for (let j = 0; j < messages.length; j++) {
+        const msg = messages[j];
+
+        const skipSamples = msg[3] - this.transportOffsetInSamples;
+
+        this.instance.exports.processBlock(skipSamples);
+
+        samplesToProcess -= skipSamples;
+        this.transportOffsetInSamples += skipSamples;
+
+        for (let n = 0; n < 3; n++) this.midiData[n] = msg[n];
+        this.instance.exports.onMidiMessage(3);
+      }
+
+      this.transportOffsetInSamples += samplesToProcess;
     }
 
     this.instance.exports.processBlock(samplesToProcess);
