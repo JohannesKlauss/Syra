@@ -14,20 +14,28 @@ const SliderParameter = React.memo(({ soulInstanceId, parameterId }: Props) => {
 
   const { minValue, maxValue, index, value, step, name, unit, id } = parameter;
 
+  console.log('value', value);
+
   const onChange = useCallback(
     (newValue) => {
-      patch?.audioNode.port.postMessage({
-        type: 'PARAMETER_UPDATE',
-        value: {
-          parameterId: index,
-          normalisedValue: newValue,
-        },
-      });
+      setParameter((currVal) => {
+        if (newValue !== currVal.value) {
+          patch?.audioNode.port.postMessage({
+            type: 'PARAMETER_UPDATE',
+            value: {
+              parameterId: index,
+              normalisedValue: newValue,
+            },
+          });
 
-      setParameter((currVal) => ({
-        ...currVal,
-        value: newValue,
-      }));
+          return {
+            ...currVal,
+            value: newValue,
+          }
+        }
+
+        return currVal;
+      });
     },
     [patch, index, setParameter],
   );

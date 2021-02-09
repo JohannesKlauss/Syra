@@ -7,7 +7,8 @@ import {
   MeQuery,
 } from '../../gql/generated';
 import { AtomEffect } from 'recoil';
-import { RecoilAtomEffect } from "../../types/Recoil";
+import { RecoilAtomEffect } from '../../types/Recoil';
+import { isEqual } from 'lodash';
 
 const client = getApolloClient();
 
@@ -28,8 +29,12 @@ const observable = client.subscribe<ChangesSubscription, ChangesSubscriptionVari
   },
 });
 
-export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ setSelf, onSet, trigger }) => {
-  observable.subscribe(data => {
+export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({
+  setSelf,
+  onSet,
+  trigger,
+}) => {
+  observable.subscribe((data) => {
     // If the user does not exist yet or the incoming change is from the user itself, we don't change anything.
     // If the change key does not correspond with the atom key, we skip the effect.
     if (userId == null || userId === data.data?.changes.authorId || key !== data.data?.changes.change.key) {
@@ -37,9 +42,14 @@ export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: 
     }
 
     // TODO: CHECK IF THIS IF IS EVEN NEEDED...
-    if (data.data?.changes.change.id === undefined && id === undefined) {
-      setSelf(data.data?.changes.change.newValue);
-    } else if (id !== undefined && id === data.data?.changes.change.id) {
+    if (
+      (data.data?.changes.change.id === undefined && id === undefined) ||
+      (id !== undefined && typeof id === 'string' && id === data.data?.changes.change.id) ||
+      (id !== undefined && typeof id === 'object' && isEqual(id, data.data?.changes.change.id))
+    ) {
+      console.log('changeId', id);
+      console.log('data.data...', data.data?.changes);
+
       setSelf(data.data?.changes.change.newValue);
     }
   });
