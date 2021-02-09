@@ -6,6 +6,7 @@ WORKDIR /app
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 ENV REACT_APP_LIVE_GQL_URL https://api.syra.live
+ENV REACT_APP_LIVE_GQL_URL_WS wss://api.syra.live
 
 # add app
 COPY package.json .
