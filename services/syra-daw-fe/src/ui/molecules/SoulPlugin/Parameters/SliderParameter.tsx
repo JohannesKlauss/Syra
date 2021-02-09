@@ -14,8 +14,6 @@ const SliderParameter = React.memo(({ soulInstanceId, parameterId }: Props) => {
 
   const { minValue, maxValue, index, value, step, name, unit, id } = parameter;
 
-  console.log('value', value);
-
   const onChange = useCallback(
     (newValue) => {
       setParameter((currVal) => {

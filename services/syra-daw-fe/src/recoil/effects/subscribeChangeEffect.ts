@@ -47,9 +47,6 @@ export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: 
       (id !== undefined && typeof id === 'string' && id === data.data?.changes.change.id) ||
       (id !== undefined && typeof id === 'object' && isEqual(id, data.data?.changes.change.id))
     ) {
-      console.log('changeId', id);
-      console.log('data.data...', data.data?.changes);
-
       setSelf(data.data?.changes.change.newValue);
     }
   });
