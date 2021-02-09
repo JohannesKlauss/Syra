@@ -43,7 +43,7 @@ function createApolloClient() {
   });
 
   const wsLink = new WebSocketLink({
-    uri: `wss://local.syra.live:4000/subscriptions`,
+    uri: `${process.env.REACT_APP_LIVE_GQL_URL_WS}/subscriptions`,
     options: {
       reconnect: true,
     }

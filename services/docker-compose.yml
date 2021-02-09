@@ -16,6 +16,14 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+  syra-daw-fe:
+    container_name: syra-daw-fe
+    image: sha256:3f448852890d83aa0c9ff23c03ad8e4fb94b1c48f6f30e3d8aab8990f4fdd494
+    command: "nginx -g 'daemon off';"
+    ports:
+      - "8080:80"
+    networks:
+      - webnet
 
 networks:
   webnet:
