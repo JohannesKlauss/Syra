@@ -1,33 +1,20 @@
-import React from 'react';
-import { Box, BoxProps, styled, Theme, useTheme } from '@material-ui/core';
+import React, { useContext } from "react";
 import { useRecoilValue } from 'recoil';
-import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { channelStore } from '../../../recoil/channelStore';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import Track from '../Track/Track';
-import BackgroundGrid from './BackgroundGrid';
+import Track from './Track/Track';
 import { useHotkeys } from 'react-hotkeys-hook';
 import SelectionTool from '../../atoms/SelectionTool';
 import useSelectRegions from '../../../hooks/ui/arrangeGrid/useSelectRegions';
 import useMuteSelectedRegions from '../../../hooks/recoil/region/useMuteSelectedRegions';
 import useAnalyzeTempoForSelectedRegion from '../../../hooks/recoil/region/useAnalyzeTempoForSelectedRegion';
-
-interface ArrangeWindowProps {
-  windowWidth: number;
-}
-
-const BaseContainer = styled(
-  ({ windowWidth, ...other }: ArrangeWindowProps & Omit<BoxProps, keyof ArrangeWindowProps>) => <Box {...other} />,
-)<Theme, ArrangeWindowProps>(({ theme, windowWidth }) => ({
-  backgroundColor: theme.palette.background.default,
-  position: 'relative',
-  width: windowWidth,
-  zIndex: 0,
-}));
+import { Box } from '@chakra-ui/react';
+import { ViewContext } from "../../../providers/ViewContext";
+import { gridStore } from "../../../recoil/gridStore";
 
 function GridTracks() {
-  const theme = useTheme();
-  const windowWidth = useRecoilValue(arrangeWindowStore.width);
+  const { view } = useContext(ViewContext);
+  const totalWidth = useRecoilValue(gridStore.totalWidth(view));
   const channelIds = useRecoilValue(channelStore.ids);
   const onSelect = useSelectRegions();
   const analyzeTempo = useAnalyzeTempoForSelectedRegion();
@@ -38,16 +25,15 @@ function GridTracks() {
   });
 
   return (
-    <BaseContainer windowWidth={windowWidth}>
-      <BackgroundGrid ticksFullHeight={true}/>
+    <Box bg={'gray.800'} pos={'relative'} w={totalWidth} zIndex={0}>
       <SelectionTool onSelect={onSelect}>
         {channelIds.map((id, i) => (
           <ChannelContext.Provider key={id} value={id}>
-            <Track backgroundColor={i % 2 === 0 ? theme.palette.background.paper : theme.palette.background.default}/>
+            <Track bg={i % 2 === 0 ? 'gray.800' : 'gray.900'}/>
           </ChannelContext.Provider>
         ))}
       </SelectionTool>
-    </BaseContainer>
+    </Box>
   );
 }
 

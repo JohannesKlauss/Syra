@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/core';
+import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import SearchField from '../../atoms/SearchField/SearchField';
 import useFuseSearch from '../../../hooks/useFuseSearch';
 

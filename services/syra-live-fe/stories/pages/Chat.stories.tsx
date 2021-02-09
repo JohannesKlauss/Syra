@@ -6,7 +6,7 @@ import {
   MeQuery,
 } from '../../gql/generated';
 import { MeMock } from '../apolloMocks/user';
-import { withApolloClient } from 'storybook-addon-apollo-client';
+
 import { withNextRouter } from 'storybook-addon-next-router';
 
 const Template = (args) => <ChatPage {...args} />;
@@ -14,7 +14,7 @@ const Template = (args) => <ChatPage {...args} />;
 export default {
   title: 'x pages/Chat',
   component: ChatPage,
-  decorators: [withApolloClient, withNextRouter],
+  decorators: [withNextRouter],
 };
 
 // Each story then reuses that template

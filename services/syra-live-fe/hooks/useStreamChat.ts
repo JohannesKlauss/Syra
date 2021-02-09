@@ -9,7 +9,7 @@ export default function useStreamChat(): [StreamChat, boolean] {
   const [isInitialized, setIsInitialized] = useState(false);
   const [chatClient] = useState<StreamChat>(new StreamChat(publicRuntimeConfig.NEXT_PUBLIC_STREAM_CHAT_KEY));
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (data && !isInitialized) {
       (async () => {
         const {
@@ -33,7 +33,7 @@ export default function useStreamChat(): [StreamChat, boolean] {
         setIsInitialized(true);
       })();
     }
-  }, [data, chatClient, isInitialized]);
+  }, [data, chatClient, isInitialized]);*/
 
   return [chatClient, isInitialized];
 }

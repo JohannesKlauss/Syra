@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useContext } from "react";
 import { useRecoilValue } from 'recoil';
-import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { transportStore } from '../../../../recoil/transportStore';
 import { BaseContainer, CycleBar, CycleEndHandle, CycleStartHandle } from './RulerCycle.styled';
 import useMoveCycleBar from '../../../../hooks/ui/cycle/useMoveCycleBar';
 import useMoveCycleStart from '../../../../hooks/ui/cycle/useMoveCycleStart';
 import useMoveCycleEnd from '../../../../hooks/ui/cycle/useMoveCycleEnd';
 import useQuarterToPixel from '../../../../hooks/ui/useQuarterToPixel';
+import { gridStore } from "../../../../recoil/gridStore";
+import { ViewContext } from "../../../../providers/ViewContext";
 
 function RulerCycle() {
-  const windowWidth = useRecoilValue(arrangeWindowStore.width);
+  const { view } = useContext(ViewContext);
+  const windowWidth = useRecoilValue(gridStore.totalWidth(view));
   const cycleStart = useRecoilValue(transportStore.cycleStart);
   const cycleEnd = useRecoilValue(transportStore.cycleEnd);
   const isCycleActive = useRecoilValue(transportStore.isCycleActive);

@@ -1,18 +1,20 @@
 import useDeltaTracker from './useDeltaTracker';
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import { channelStore } from '../../../../recoil/channelStore';
 import { regionStore } from '../../../../recoil/regionStore';
 import { removeItemAtIndex } from '../../../../utils/recoil';
 import { RegionContext } from '../../../../providers/RegionContext';
+import { gridStore } from "../../../../recoil/gridStore";
+import { ViewContext } from "../../../../providers/ViewContext";
 
 export default function useTrackSwitch() {
+  const { view } = useContext(ViewContext);
   const channelId = useContext(ChannelContext);
   const regionId = useContext(RegionContext);
   const ids = useRecoilValue(channelStore.ids);
-  const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
+  const trackHeight = useRecoilValue(gridStore.trackHeight(view));
 
   const index = ids.findIndex(id => id === channelId);
 

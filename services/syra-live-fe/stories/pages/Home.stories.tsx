@@ -1,13 +1,13 @@
 import Home from '../../pages';
 import * as React from 'react';
-import { withApolloClient } from 'storybook-addon-apollo-client';
+
 
 const Template = (args) => <Home {...args} />;
 
 export default {
   title: 'x pages/Home',
   component: Home,
-  decorators: [withApolloClient],
+  decorators: [],
 };
 
 // Each story then reuses that template

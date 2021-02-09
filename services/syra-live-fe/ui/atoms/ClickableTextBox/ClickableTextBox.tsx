@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, PseudoBox, StatHelpText, StatLabel, StatNumber } from '@chakra-ui/core';
+import { Box, StatHelpText, StatLabel, StatNumber } from '@chakra-ui/react';
 import { RiCheckboxCircleLine } from 'react-icons/ri';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 const ClickableTextBox: React.FC<Props> = ({isSelected, title, overline, subtext, onSelect, children}) => {
   return (
-    <PseudoBox
+    <Box
       as={'button'}
       bg={'teal.200'}
       rounded="md"
@@ -30,7 +30,7 @@ const ClickableTextBox: React.FC<Props> = ({isSelected, title, overline, subtext
       <StatNumber color={'grey.800'}>{title}</StatNumber>
       <StatHelpText color={'grey.800'}>{subtext}</StatHelpText>
       {children}
-    </PseudoBox>
+    </Box>
   );
 };
 

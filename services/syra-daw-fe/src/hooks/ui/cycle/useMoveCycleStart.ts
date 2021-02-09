@@ -1,20 +1,22 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { transportStore } from '../../../recoil/transportStore';
-import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import useMovable from '../useMovable';
-import useSnapCtrlPixelCalc from '../useSnapCtrlPixelCalc';
 import useQuarterToPixel from '../useQuarterToPixel';
 import usePixelToQuarter from '../usePixelToQuarter';
+import useSnapPixelValue from "../useSnapPixelValue";
+import { ViewContext } from "../../../providers/ViewContext";
+import { gridStore } from "../../../recoil/gridStore";
 
 export default function useMoveCycleStart() {
+  const { view } = useContext(ViewContext);
   const [cycleStart, setCycleStart] = useRecoilState(transportStore.cycleStart);
   const setIsCycleActive = useSetRecoilState(transportStore.isCycleActive);
   const cycleEnd = useRecoilValue(transportStore.cycleEnd);
-  const snapWidth = useRecoilValue(arrangeWindowStore.snapValueWidthInPixels);
+  const snapWidth = useRecoilValue(gridStore.snapValueWidthInPixels(view));
   const quarterToPixel = useQuarterToPixel();
   const pixelToQuarter = usePixelToQuarter();
-  const calcSnappedX = useSnapCtrlPixelCalc();
+  const calcSnappedX = useSnapPixelValue();
 
   const [isActive, setIsActive] = useState(false);
   const [translateX, setTranslateX] = useState(quarterToPixel(cycleStart));

@@ -1,10 +1,4 @@
 import React, { useCallback, useContext, useRef } from 'react';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
-import StopIcon from '@material-ui/icons/Stop';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import { Box, IconButton, styled } from '@material-ui/core';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { transportStore } from '../../../recoil/transportStore';
@@ -14,13 +8,11 @@ import useAudioContext from '../../../hooks/audio/useAudioContext';
 import { BackboneMixerContext } from '../../../providers/BackboneMixerContext';
 import { projectStore } from '../../../recoil/projectStore';
 import { getToneJsPositionInQuarter } from '../../../utils/tonejs';
-
-const BaseContainer = styled(Box)({
-  marginLeft: 20,
-  marginRight: 20,
-  flex: 1,
-  display: 'flex',
-});
+import { Flex, IconButton } from '@chakra-ui/react';
+import { AiFillStepBackward } from 'react-icons/ai';
+import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
+import { MdFiberManualRecord } from 'react-icons/md';
+import { RiStopFill } from 'react-icons/ri';
 
 function PlayRecord() {
   const ctx = useAudioContext();
@@ -32,7 +24,9 @@ function PlayRecord() {
   const lengthInQuarters = useRecoilValue(projectStore.lengthInQuarters);
   const transport = useToneJsTransport();
   const stopScheduleId = useRef<null | number>(null);
-  const { meta: { setTransportStart, setTransportStop } } = useContext(BackboneMixerContext);
+  const {
+    meta: { setTransportStart, setTransportStop },
+  } = useContext(BackboneMixerContext);
 
   const onClickPlayPause = useCallback(() => {
     if (isRecording) {
@@ -53,7 +47,7 @@ function PlayRecord() {
         setCurrentTransportQuarter(cycleStart);
       }
 
-      transport.start('+0.01');
+      transport.start('+0.1'); // TODO: THIS VALUE WILL DIFFER FROM MACHINE TO MACHINE. WE NEED A WAY TO CALCULATE THE NEEDED OFFSET.
 
       stopScheduleId.current = transport.scheduleOnce(() => {
         const pos = getToneJsPositionInQuarter();
@@ -64,8 +58,8 @@ function PlayRecord() {
       }, `${lengthInQuarters}:0:0`);
     }
 
-    setIsPlaying(currVal => !currVal);
-  }, [setIsPlaying, transport, isPlaying, isRecording, cycleStart, isCycleActive, lengthInQuarters]);
+    setIsPlaying((currVal) => !currVal);
+  }, [setIsPlaying, transport, isPlaying, isRecording, cycleStart, isCycleActive, lengthInQuarters, setCurrentTransportQuarter]);
 
   const onClickReset = useCallback(() => setCurrentTransportQuarter(0), [setCurrentTransportQuarter]);
 
@@ -88,20 +82,29 @@ function PlayRecord() {
   useHotkeys('return', onClickReset, [onClickReset]);
 
   return (
-    <BaseContainer>
-      <IconButton color={'default'} component="span" onClick={onClickReset}
-                  title={buttonInfo('Reset to project start', 'Return')}>
-        <SkipPreviousIcon/>
-      </IconButton>
-      <IconButton color={'primary'} component="span" onClick={onClickPlayPause}
-                  title={buttonInfo('Play and Pause project', 'Space')}>
-        {isPlaying ? <PauseIcon/> : <PlayArrowIcon/>}
-      </IconButton>
-      <IconButton color={'secondary'} component="span" onClick={onClickRecord}
-                  title={buttonInfo('Start and Stop recording', 'R')}>
-        {isRecording ? <StopIcon/> : <FiberManualRecordIcon/>}
-      </IconButton>
-    </BaseContainer>
+    <Flex>
+      <IconButton
+        aria-label={'Reset to project start'}
+        icon={<AiFillStepBackward />}
+        onClick={onClickReset}
+        title={buttonInfo('Reset to project start', 'Return')}
+      />
+      <IconButton
+        aria-label={'Play and pause project'}
+        icon={isPlaying ? <BsFillPauseFill /> : <BsFillPlayFill />}
+        colorScheme={'teal'}
+        onClick={onClickPlayPause}
+        mx={1}
+        title={buttonInfo('Play and pause project', 'Return')}
+      />
+      <IconButton
+        aria-label={'Start and stop recording'}
+        icon={isRecording ? <RiStopFill /> : <MdFiberManualRecord />}
+        colorScheme={'red'}
+        onClick={onClickRecord}
+        title={buttonInfo('Start and stop recording', 'Return')}
+      />
+    </Flex>
   );
 }
 

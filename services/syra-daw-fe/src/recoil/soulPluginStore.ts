@@ -1,4 +1,4 @@
-import { atom} from 'recoil';
+import { atom, selector, selectorFamily } from "recoil";
 
 export interface AvailableSoulPatch {
   displayName: string;
@@ -7,7 +7,7 @@ export interface AvailableSoulPatch {
 }
 
 const availableSoulPlugins = atom<AvailableSoulPatch[]>({
-  key: 'availableSoulPlugins',
+  key: 'soulPlugin/availableSoulPlugins',
   default: [
     {
       displayName: 'Clipper',
@@ -43,17 +43,47 @@ const availableSoulPlugins = atom<AvailableSoulPatch[]>({
 });
 
 const availableSoulInstruments = atom<AvailableSoulPatch[]>({
-  key: 'availableSoulInstruments',
+  key: 'soulPlugin/availableSoulInstruments',
   default: [
     {
       displayName: 'Sine Synth',
       pathWasm: 'sineSynth',
       UID: 'com.yourcompany.sineSynth'
+    },
+    {
+      displayName: 'ElectroPiano',
+      pathWasm: 'electroPiano',
+      UID: 'com.yourcompany.ElectroPiano'
+    },
+    {
+      displayName: 'LatelyBass',
+      pathWasm: 'latelyBass',
+      UID: 'com.yourcompany.LatelyBass'
+    },
+    {
+      displayName: 'SY-09',
+      pathWasm: 'sy09',
+      UID: 'dev.soul.examples.SY09'
+    },
+    {
+      displayName: 'Syra 60',
+      pathWasm: 'syra60',
+      UID: 'com.syra.Syra60'
     }
   ],
 });
 
+const findPluginByUid = selectorFamily<AvailableSoulPatch | undefined, string>({
+  key: 'soulPlugin/findPluginByUid',
+  get: uid => ({get}) => {
+    const patches = [...get(availableSoulInstruments), ...get(availableSoulPlugins)];
+
+    return patches.find(patch => patch.UID === uid);
+  }
+});
+
 export const soulPluginStore = {
   availableSoulPlugins,
-  availableSoulInstruments
+  availableSoulInstruments,
+  findPluginByUid
 };

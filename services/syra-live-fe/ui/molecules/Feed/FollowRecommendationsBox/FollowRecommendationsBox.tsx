@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, IconButton, List, Text } from '@chakra-ui/core';
+import { Box, Flex, IconButton, List, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { FiRefreshCw } from 'react-icons/fi';
 import { useFollowRecommendationsQuery } from '../../../../gql/generated';
@@ -26,7 +26,7 @@ function FollowRecommendationsBox({}: Props) {
           {t('People to follow')}
         </Text>
         <IconButton
-          icon={FiRefreshCw}
+          icon={<FiRefreshCw/>}
           aria-label={t('Refresh people to follow')}
           onClick={() => refetch()}
           isLoading={networkStatus === NetworkStatus.refetch}

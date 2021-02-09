@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Box, Button, Divider, Flex, FormControl, Skeleton } from '@chakra-ui/core';
+import { Avatar, Box, Button, Divider, Flex, FormControl, Skeleton } from '@chakra-ui/react';
 import { useCreateFeedItemMutation, useCreateTextFeedItemMutation, useMeQuery } from "../../../../gql/generated";
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -77,7 +77,7 @@ function CreateFeedItem({}: Props) {
           <Divider/>
           <Flex>
             <AttachMixdown onSelectMixdown={mixdownId => setValue('mixdownId', mixdownId)}/>
-            <Button marginLeft={4} isFullWidth variantColor={'teal'} isLoading={isSending || isSendingText} type={'submit'}>{t('Post')}</Button>
+            <Button marginLeft={4} isFullWidth colorScheme={'teal'} isLoading={isSending || isSendingText} type={'submit'}>{t('Post')}</Button>
           </Flex>
         </Box>
         {getValues().mixdownId && <FeedItemAudioPreview mixdownId={getValues().mixdownId}/>}

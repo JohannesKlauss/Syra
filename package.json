@@ -14,21 +14,41 @@
     "live-fe:start": "yarn workspace syra-live-fe dev",
     "live-fe:generate": "yarn workspace syra-live-fe gql-generate",
     "live-fe:build": "yarn workspace syra-live-fe build",
-    "live-fe:storybook": "yarn workspace syra-live-fe storybook"
+    "live-fe:storybook": "yarn workspace syra-live-fe storybook",
+    "  --  DAW  - FE --  ": "",
+    "daw-fe:start": "yarn workspace syra-daw-fe start",
+    "daw-fe:generate": "yarn workspace syra-daw-fe gql-generate",
+    "daw-fe:storybook": "yarn workspace syra-daw-fe storybook"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.19.1",
-    "@graphql-codegen/typescript": "1.17.11",
-    "@graphql-codegen/typescript-operations": "1.17.9",
-    "@graphql-codegen/typescript-react-apollo": "2.1.1",
-    "babel-loader": "8.1.0",
-    "eslint": "7.13.0",
-    "eslint-config-prettier": "6.15.0",
+    "@graphql-codegen/cli": "1.20.1",
+    "@graphql-codegen/typescript": "1.20.2",
+    "@graphql-codegen/typescript-operations": "1.17.14",
+    "@graphql-codegen/typescript-react-apollo": "2.2.1",
+    "@types/jest": "26.0.20",
+    "@types/node": "12.19.16",
+    "@typescript-eslint/eslint-plugin": "4.15.0",
+    "@typescript-eslint/parser": "4.15.0",
+    "babel-eslint": "10.1.0",
+    "babel-loader": "8.2.2",
+    "eslint": "7.19.0",
+    "eslint-config-prettier": "7.2.0",
+    "eslint-config-react-app": "6.0.0",
+    "eslint-plugin-flowtype": "5.2.0",
     "eslint-plugin-import": "2.22.1",
-    "prettier": "2.1.2"
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-react": "7.22.0",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "prettier": "2.2.1"
   },
   "resolutions": {
-    "@types/react": "16.9.56"
+    "@chakra-ui/react": "1.3.2",
+    "@emotion/react": "11.1.5",
+    "@emotion/styled": "11.1.5",
+    "@types/react": "17.0.1",
+    "@typescript-eslint/eslint-plugin": "4.15.0",
+    "@typescript-eslint/parser": "4.15.0",
+    "eslint": "7.19.0"
   },
   "prettier": {
     "printWidth": 120,

@@ -1,6 +1,6 @@
 import React from "react";
 import PageBox from "../PageBox/PageBox";
-import { Box, Flex, Text } from "@chakra-ui/core";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 
 interface Props {

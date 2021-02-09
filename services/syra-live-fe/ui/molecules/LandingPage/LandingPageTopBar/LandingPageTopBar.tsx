@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Flex, Text } from "@chakra-ui/core";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useTranslation } from 'react-i18next';
 import LogInSignUp from "../LogInSignUp/LogInSignUp";
 

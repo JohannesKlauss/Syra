@@ -1,13 +1,12 @@
 import React from 'react';
-import { Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/react';
 
 interface Props {
-
 }
 
 const PageBox: React.FC<Props> = ({children}) => {
   return (
-    <Box paddingX={56} paddingY={12} marginTop={'74px'} minH={'100vh'}>
+    <Box paddingX={56} paddingY={12} marginTop={'74px'}>
       {children}
     </Box>
   );

@@ -10,7 +10,7 @@ import {
   ListItem,
   Skeleton,
   Text,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { RiFileMusicFill, RiHeartFill, RiEdit2Fill, RiMessage3Line } from 'react-icons/ri';
 import { TiGroup } from 'react-icons/ti';
@@ -44,7 +44,15 @@ function ProfileBox({}: Props) {
             <Link passHref href={`/profile/${data.me.handle}`}>
               <ChakraLink fontWeight={700} fontSize={'lg'}>{data.me.name}</ChakraLink>
             </Link>
-            <Text>{data.me.followedByCount} {t('Followers')} · {data.me.followingCount} {t('Following')}</Text>
+            <Text>
+              <Link passHref href={`/followers`}>
+                <ChakraLink>{data.me.followedByCount} {t('Followers')}</ChakraLink>
+              </Link>
+              {' · '}
+              <Link passHref href={`/following`}>
+                <ChakraLink>{data.me.followingCount} {t('Following')}</ChakraLink>
+              </Link>
+            </Text>
           </Box>
         </Flex>
       </Box>
@@ -52,27 +60,29 @@ function ProfileBox({}: Props) {
         <List spacing={3}>
           <ListItem>
             <Link href={`/account/edit`}>
-              <Button variant={'link'}  leftIcon={RiEdit2Fill}>{t('Edit your profile')}</Button>
+              <Button variant={'link'}  leftIcon={<RiEdit2Fill/>}>{t('Edit your profile')}</Button>
             </Link>
             <Divider/>
           </ListItem>
           <ListItem>
             <Link href={`/chat`}>
-              <Button variant={'link'}  leftIcon={RiMessage3Line}>{t('Messages')}</Button>
+              <Button variant={'link'}  leftIcon={<RiMessage3Line/>}>{t('Messages')}</Button>
             </Link>
             <Divider/>
           </ListItem>
           <ListItem>
-            <Button variant={'link'} leftIcon={RiFileMusicFill}>{t('Sessions')}</Button>
+            <Link href={`/sessions`}>
+              <Button variant={'link'} leftIcon={<RiFileMusicFill/>}>{t('Sessions')}</Button>
+            </Link>
             <Divider/>
           </ListItem>
           <ListItem>
-            <Button variant={'link'} leftIcon={TiGroup}>{t('Bands')}</Button>
+            <Button variant={'link'} leftIcon={<TiGroup/>}>{t('Bands')}</Button>
             <Divider/>
           </ListItem>
           <ListItem>
             <Link href={`/likes`}>
-              <Button variant={'link'} leftIcon={RiHeartFill}>{t('Likes')}</Button>
+              <Button variant={'link'} leftIcon={<RiHeartFill/>}>{t('Likes')}</Button>
             </Link>
             <Divider/>
           </ListItem>

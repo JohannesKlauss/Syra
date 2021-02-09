@@ -24,7 +24,7 @@ export class PasswordService {
       throw new BadRequestException('New password is not identical to confirmation password.');
     }
 
-    const { password } = await this.prismaService.user.findOne({
+    const { password } = await this.prismaService.user.findUnique({
       where: { id: userId },
       select: { password: true },
     });
@@ -44,7 +44,7 @@ export class PasswordService {
   }
 
   async requestResetPassword(email: string) {
-    const user = await this.prismaService.user.findOne({ where: { email }, select: { id: true, name: true } });
+    const user = await this.prismaService.user.findUnique({ where: { email }, select: { id: true, name: true } });
 
     if (!user) {
       return;

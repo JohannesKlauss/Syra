@@ -6,7 +6,7 @@ import { useSetRecoilState } from "recoil";
 import LandingClaim from "../ui/molecules/LandingPage/LandingClaim/LandingClaim";
 import Benefits from "../ui/molecules/LandingPage/Benefits/Benefits";
 import Pricing from "../ui/organisms/LandingPage/Pricing/Pricing";
-import { Box, Image } from "@chakra-ui/core";
+import { Box, Image } from "@chakra-ui/react";
 import { benefits } from '../staticText/benefits';
 import { tiers } from '../staticText/tiers';
 import { useAuth } from "../providers/auth/AuthProvider";
@@ -19,6 +19,8 @@ function Home() {
 
   if (isAuthenticated) {
     push('/feed');
+
+    return null;
   }
 
   return (

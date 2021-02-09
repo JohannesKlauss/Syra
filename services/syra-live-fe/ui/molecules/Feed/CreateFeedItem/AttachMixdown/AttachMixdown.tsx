@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Button,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { IoMdAdd } from 'react-icons/io';
 import AttachMixdownModal from '../AttachMixdownModal/AttachMixdownModal';
 
@@ -14,7 +14,7 @@ function AttachMixdown({ onSelectMixdown }: Props) {
 
   return (
     <>
-      <Button leftIcon={IoMdAdd} isFullWidth onClick={() => setIsOpen(true)}>Attach Mixdown</Button>
+      <Button leftIcon={<IoMdAdd/>} isFullWidth onClick={() => setIsOpen(true)}>Attach Mixdown</Button>
       <AttachMixdownModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

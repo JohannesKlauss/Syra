@@ -8,7 +8,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay, Skeleton,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
 import { useMyMixdownsQuery } from '../../../../../gql/generated';
 import { PartialProject } from '../../../../../types/dtos';
@@ -82,7 +82,7 @@ function AttachMixdownModal({ onClose, isOpen, onSelectMixdownId }: Props) {
             <Button marginRight={4} isFullWidth onClick={onClose}>{t('Cancel')}</Button>
             <Button marginLeft={4} isDisabled={selectedMixdownId === null} isFullWidth
                     onClick={() => onSelectMixdownId(selectedMixdownId)}
-                    variantColor={'teal'}>{t('Select Mixdown')}</Button>
+                    colorScheme={'teal'}>{t('Select Mixdown')}</Button>
           </Flex>
         </ModalBody>
       </ModalContent>

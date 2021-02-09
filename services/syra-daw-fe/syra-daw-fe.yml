@@ -1,0 +1,35 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: syra-daw-fe
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: syra-daw-fe
+  template:
+    metadata:
+      labels:
+        app: syra-daw-fe
+    spec:
+      containers:
+        - name: syra-daw-fe
+          image: registry.digitalocean.com/syra-do/services/syra-daw-fe:v0.0.8
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: registry-syra-do
+      restartPolicy: Always
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: syra-daw-fe
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: syra-daw-fe

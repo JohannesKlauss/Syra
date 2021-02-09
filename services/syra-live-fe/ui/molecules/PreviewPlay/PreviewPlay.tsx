@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { IconButton } from '@chakra-ui/core';
+import { IconButton } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { FaPause, FaPlay } from 'react-icons/fa';
 
@@ -32,7 +32,7 @@ function PreviewPlay({ audioUri, size = 'md' }: Props) {
   };
 
   return (
-    <IconButton size={size} icon={isPlaying ? FaPause : FaPlay} onClick={togglePlay} aria-label={t('Preview Mixdown')}/>
+    <IconButton size={size} icon={isPlaying ? <FaPause/> : <FaPlay/>} onClick={togglePlay} aria-label={t('Preview Mixdown')}/>
   );
 }
 

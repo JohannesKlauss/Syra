@@ -1,6 +1,6 @@
 import AttachMixdown from './AttachMixdown';
 import * as React from 'react';
-import { withApolloClient } from 'storybook-addon-apollo-client';
+
 import { mockApollo, mockApolloResult } from '../../../../../stories/mockApollo';
 import {
   MyMixdownsDocument,
@@ -13,7 +13,7 @@ const Template = (args) => <AttachMixdown {...args} />;
 export default {
   title: 'molecules/Feed/CreateFeedItem/AttachMixdown',
   component: AttachMixdown,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

@@ -1,69 +1,142 @@
-import { atom, atomFamily, selector, selectorFamily } from 'recoil';
-import { SoulInstance, SoulPatchParameter } from '../types/Soul';
+import { atom, atomFamily, selector, selectorFamily } from "recoil";
+import { SoulInstance, SoulPatchDescriptor, SoulPatchParameter } from "../types/Soul";
 import { ChannelType } from '../types/Channel';
 import { RegionState, regionStore } from './regionStore';
-import { cyan } from '@material-ui/core/colors';
+import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
+import atomWithEffects from "./proxy/atomWithEffects";
+import { syncEffectsComb } from "./effects/syncEffectsComb";
+import { createSoulInstance } from "../soul/createSoulInstance";
+import { soulPluginStore } from "./soulPluginStore";
+import { projectStore } from "./projectStore";
 
-let lastChannelNum = 1;
+let lastChannelNum = 2;
 
-const name = atomFamily<string, string>({
+const name = atomFamilyWithEffects<string, string>({
   key: 'channel/name',
   default: selector({
     key: 'channel/name/Default',
     get: () => `Channel ${lastChannelNum++}`,
   }),
+  effects: [
+    ...syncEffectsComb
+  ]
 });
 
-const type = atomFamily<ChannelType, string>({
+const type = atomFamilyWithEffects<ChannelType, string>({
   key: 'channel/type',
   default: ChannelType.INSTRUMENT,
+  effects: [
+    ...syncEffectsComb
+  ]
 });
 
-const color = atomFamily<string, string>({
+const color = atomFamilyWithEffects<string, string>({
   key: 'channel/color',
-  default: cyan[400],
+  default: 'cyan.400',
+  effects: [
+    ...syncEffectsComb
+  ]
 })
 
 // Whether the user clicked the record button the channel or not.
-const isArmed = atomFamily<boolean, string>({
+const isArmed = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isArmed',
-  default: false,
+  default: true,
+  effects: [
+    ...syncEffectsComb
+  ]
 });
 
-const isSolo = atomFamily<boolean, string>({
+const isSolo = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isSolo',
   default: false,
+  effects: [
+    ...syncEffectsComb
+  ]
 });
 
-const isMuted = atomFamily<boolean, string>({
+const isMuted = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isMuted',
   default: false,
+  effects: [
+    ...syncEffectsComb
+  ]
 });
 
-const isInputMonitoringActive = atomFamily<boolean, string>({
+const isInputMonitoringActive = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isInputMonitoringActive',
   default: false,
+  effects: [
+    ...syncEffectsComb
+  ]
 });
 
 // Whether an instrument or plugin is active or bypassed.
-const isPluginActive = atomFamily<boolean, string>({
+const isPluginActive = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isPluginActive',
   default: true,
+  effects: [
+    ...syncEffectsComb
+  ]
 });
 
-const pluginIds = atomFamily<string[], string>({
+const pluginIds = atomFamilyWithEffects<string[], string>({
   key: 'channel/pluginIds',
   default: [],
+  effects: [
+    ...syncEffectsComb
+  ]
 });
 
 // TODO: WE HAVE TO FIND A DEFINITION FOR WHEN TO USE PATCH, PLUGIN, SOUL_INSTANCE, SOUL_PATCH, etc. RIGHT NOW THIS IS CONFUSING.
 // This represents an instrument or plugin.
-const soulInstance = atomFamily<SoulInstance | undefined, string>({
+const soulInstanceCache = atomFamily<SoulInstance | undefined, string>({
   key: 'channel/soulInstance',
   default: undefined,
 });
 
-const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
+const soulPatchDescriptor = atomFamilyWithEffects<SoulPatchDescriptor | undefined, string>({
+  key: 'channel/soulPatchDescriptor',
+  default: undefined,
+  effects: [
+    ...syncEffectsComb,
+  ]
+});
+
+const soulInstance = selectorFamily<SoulInstance | undefined, string>({
+  key: 'channel/soulInstanceSel',
+  get: pluginId => async ({get}) => {
+    if (!get(projectStore.isEngineRunning)) {
+      return undefined;
+    }
+
+    let instance = get(soulInstanceCache(pluginId));
+
+    if (instance === undefined) {
+      const patchDescriptor = get(soulPatchDescriptor(pluginId));
+
+      if (patchDescriptor && patchDescriptor.description) {
+        const patch = get(soulPluginStore.findPluginByUid(patchDescriptor.description.UID));
+
+        if (patch) {
+          try {
+            instance = await createSoulInstance(patch, patchDescriptor.description.isInstrument);
+          } catch (e) {
+            console.log('Audio Context is suspended. We need a queue.');
+          }
+        }
+      }
+    }
+
+    return instance;
+  },
+  set: pluginId => ({set}, instance) => {
+    set(soulInstanceCache(pluginId), instance);
+    set(soulPatchDescriptor(pluginId), (instance as SoulInstance).soulPatch.descriptor);
+  },
+});
+
+const soulPatchParameter = atomFamilyWithEffects<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
   key: 'channel/soulPatchParameter',
   default: selectorFamily({
     key: 'channel/soulPatchParameter/Default',
@@ -81,21 +154,8 @@ const soulPatchParameter = atomFamily<SoulPatchParameter, {soulInstanceId: strin
         value: param.initialValue,
       };
     }
-  })
-});
-
-const toneJsMap = atomFamily<Map<string, any>, string>({
-  key: 'channel/toneJsMap',
-  default: selectorFamily({
-    key: 'channel/toneJsMap/Default',
-    get: channelId => () => {
-      const map = new Map<string, any>();
-
-      map.set('channelId', channelId);
-
-      return map;
-    }
   }),
+  effects: [...syncEffectsComb]
 });
 
 interface ChannelState {
@@ -109,7 +169,6 @@ interface ChannelState {
   isArmed: boolean;
   isInputMonitoringActive: boolean;
   channelType: ChannelType;
-  toneJsMap: Map<string, any>;
   regionIds: string[];
   regions: RegionState[];
 }
@@ -132,16 +191,18 @@ const state = selectorFamily<ChannelState, string>({
       isArmed: get(isArmed(id)),
       isInputMonitoringActive: get(isInputMonitoringActive(id)),
       channelType: get(type(id)),
-      toneJsMap: get(toneJsMap(id)),
       regionIds: get(regionStore.ids(id)),
       regions: get(regionStore.findByChannelId(id))
     };
   }
 });
 
-const ids = atom<string[]>({
+const ids = atomWithEffects<string[]>({
   key: 'channel/ids',
-  default: []
+  default: [],
+  effects: [
+    ...syncEffectsComb
+  ]
 });
 
 const selectedId = atom<string>({
@@ -189,7 +250,6 @@ export const channelStore = {
   selectedId,
   soulPatchParameter,
   soulInstance,
-  toneJsMap,
   findPluginsByIds,
   findActivePluginsByIds,
   findSelectedChannel,

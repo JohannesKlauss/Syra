@@ -1,5 +1,6 @@
-import { atom, atomFamily, selectorFamily } from 'recoil';
-import { arrangeWindowStore } from './arrangeWindowStore';
+import { atom, atomFamily, selectorFamily } from "recoil";
+import { gridStore } from "./gridStore";
+import { View } from "../types/View";
 
 // In this family we store all the available audio buffers. A region then can point to a buffer and reference it.
 // This way multiple regions can reference the same buffer without having to recreate it every time.
@@ -28,7 +29,7 @@ const peakBuckets = selectorFamily<[number, number][], string>({
     }
 
     const peaksView = new Float32Array(rawPeaks);
-    const quarterWidth = get(arrangeWindowStore.zoomedQuarterPixelWidth);
+    const quarterWidth = get(gridStore.zoomedQuarterPixelWidth(View.ARRANGE_WINDOW));
     const pixelPerSecond = 2 * quarterWidth;
     const indexRange = Math.ceil(peaksView.length / (rawBuffer.duration * pixelPerSecond));
     const buckets: [number, number][] = [];

@@ -11,7 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import SocialSignUp from '../../../molecules/LandingPage/SocialSignUp/SocialSignUp';
 import LogInForm, { TLogInForm } from '../../../molecules/LandingPage/LogInForm/LogInForm';
 import { useTranslation } from 'react-i18next';
@@ -67,7 +67,7 @@ function LogInModal({ onClickSwitchToSignUp, onClose, isOpen }: Props) {
           <Flex align={'center'} justify={'center'}>
             <Text fontSize={'sm'} textAlign={'center'}>
               {t("Don't have an account?")}
-              <Button variant={'link'} size={'sm'} marginLeft={2} variantColor={'teal'} onClick={onClickSwitchToSignUp}>
+              <Button variant={'link'} size={'sm'} marginLeft={2} colorScheme={'teal'} onClick={onClickSwitchToSignUp}>
                 {t('Sign Up')}.
               </Button>
             </Text>

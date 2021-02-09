@@ -24,7 +24,7 @@ import {
   FeedItemByIdMockFoo,
   FeedItemsByHandleMock
 } from "../apolloMocks/feedItem";
-import { withApolloClient } from 'storybook-addon-apollo-client';
+
 import { FirsLevelCommentsMock } from "../apolloMocks/comments";
 
 const Template = (args) => <Feed {...args} />;
@@ -32,7 +32,7 @@ const Template = (args) => <Feed {...args} />;
 export default {
   title: 'x pages/Feed',
   component: Feed,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

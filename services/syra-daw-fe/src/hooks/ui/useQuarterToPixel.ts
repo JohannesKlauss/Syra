@@ -1,9 +1,11 @@
-import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import { useRecoilValue } from 'recoil';
-import { useCallback } from 'react';
+import { useCallback, useContext } from "react";
+import { gridStore } from "../../recoil/gridStore";
+import { ViewContext } from "../../providers/ViewContext";
 
 export default function useQuarterToPixel() {
-  const zoomedQuarterPixelWidth = useRecoilValue(arrangeWindowStore.zoomedQuarterPixelWidth);
+  const { view } = useContext(ViewContext);
+  const zoomedQuarterPixelWidth = useRecoilValue(gridStore.zoomedQuarterPixelWidth(view));
 
   return useCallback((quarter: number) => quarter * zoomedQuarterPixelWidth, [zoomedQuarterPixelWidth]);
 }

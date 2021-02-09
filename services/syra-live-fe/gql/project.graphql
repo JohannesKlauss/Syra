@@ -18,7 +18,7 @@ query publicProjectsByHandle($handle: String!) {
 }
 
 mutation createProject($name: String! = "New Syra Project", $me: String) {
-    createProject(data: {name: $name, isPrivate: false, owner: {connect: {id: $me}}}) {
+    createProject(data: {name: $name, isPrivate: false, content: {}, members: {create: [{user: {connect: {id: $me}}}]}, owner: {connect: {id: $me}}}) {
         ...SessionListData
     }
 }

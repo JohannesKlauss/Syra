@@ -26,7 +26,7 @@ export default function useCreateAudioRegionAsync() {
     set(regionStore.ids(channelId), currVal => [...currVal, newRegionId]);
     set(regionStore.audioBufferPointer(newRegionId), newBufferId);
     set(regionStore.isRecording(newRegionId), true);
-    set(regionStore.start(newRegionId), transport.seconds);
+    //set(regionStore.start(newRegionId), Tone.Ticks(transport.ticks));
     set(regionStore.name(newRegionId), name);
 
     return (audioBuffer: AudioBuffer) => {

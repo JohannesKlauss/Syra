@@ -1,44 +1,42 @@
-import React, { useCallback, useEffect } from 'react';
-import { Button, ButtonGroup } from '@material-ui/core';
-import ZoomInIcon from '@material-ui/icons/ZoomIn';
-import ZoomOutIcon from '@material-ui/icons/ZoomOut';
-import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
-import { arrangeWindowStore } from '../../../../recoil/arrangeWindowStore';
+import React, { useCallback, useContext } from "react";
+import {  useRecoilState } from 'recoil';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { buttonInfo } from '../../../../utils/text';
-import useSecondsToPixel from '../../../../hooks/ui/useSecondsToPixel';
-import { transportStore } from '../../../../recoil/transportStore';
+import { Flex, IconButton } from '@chakra-ui/react';
+import { VscZoomIn, VscZoomOut } from 'react-icons/vsc';
+import { ViewContext } from "../../../../providers/ViewContext";
+import { gridStore } from "../../../../recoil/gridStore";
 
 function RulerZoomInOut() {
-  const secondsToPixel = useSecondsToPixel();
+  const { view } = useContext(ViewContext);
+  const [horizontalZoomLevel, setHorizontalZoomLevel] = useRecoilState(gridStore.horizontalZoomLevel(view));
+  const [, setVerticalZoomLevel] = useRecoilState(gridStore.verticalZoomLevel(view));
 
-  const isRecording = useRecoilValue(transportStore.isRecording);
-  const isPlaying = useRecoilValue(transportStore.isPlaying);
+  const horizontalZoomIn = useCallback(() => setHorizontalZoomLevel((currVal) => (currVal < 14 ? currVal + 1 : 14)), [
+    setHorizontalZoomLevel,
+  ]);
+  const horizontalZoomOut = useCallback(() => setHorizontalZoomLevel((currVal) => (currVal > 1 ? currVal - 1 : 1)), [
+    setHorizontalZoomLevel,
+  ]);
 
-  const [horizontalZoomLevel, setHorizontalZoomLevel] = useRecoilState(arrangeWindowStore.horizontalZoomLevel);
-  const [, setVerticalZoomLevel] = useRecoilState(arrangeWindowStore.verticalZoomLevel);
-
-  const horizontalZoomIn = useCallback(() => setHorizontalZoomLevel(currVal => currVal < 14 ? currVal + 1 : 14), [setHorizontalZoomLevel]);
-  const horizontalZoomOut = useCallback(() => setHorizontalZoomLevel(currVal => currVal > 1 ? currVal - 1 : 1), [setHorizontalZoomLevel]);
-
-  useHotkeys('command+right', e => {
+  useHotkeys('command+right', (e) => {
     e.preventDefault();
     horizontalZoomIn();
   });
 
-  useHotkeys('command+left', e => {
+  useHotkeys('command+left', (e) => {
     e.preventDefault();
     horizontalZoomOut();
   });
 
-  useHotkeys('command+up', e => {
+  useHotkeys('command+up', (e) => {
     e.preventDefault();
-    setVerticalZoomLevel(currVal => currVal > 1 ? currVal - 1 : 1);
+    setVerticalZoomLevel((currVal) => (currVal > 1 ? currVal - 1 : 1));
   });
 
-  useHotkeys('command+down', e => {
+  useHotkeys('command+down', (e) => {
     e.preventDefault();
-    setVerticalZoomLevel(currVal => currVal < 11 ? currVal + 1 : 11)
+    setVerticalZoomLevel((currVal) => (currVal < 11 ? currVal + 1 : 11));
   });
 
   /*const updatePlayhead = useRecoilCallback(({set, snapshot}) => () => {
@@ -54,14 +52,24 @@ function RulerZoomInOut() {
   }, [secondsToPixel, updatePlayhead, isRecording, isPlaying]);*/
 
   return (
-    <ButtonGroup variant={'text'} size={'small'}>
-      <Button size={'small'} onClick={horizontalZoomIn} disabled={horizontalZoomLevel === 11} title={buttonInfo('Vertical Zoom In', 'Cmd+Right')}>
-        <ZoomInIcon/>
-      </Button>
-      <Button size="small" onClick={horizontalZoomOut} disabled={horizontalZoomLevel === 1} title={buttonInfo('Vertical Zoom Out', 'Cmd+Left')}>
-        <ZoomOutIcon/>
-      </Button>
-    </ButtonGroup>
+    <Flex>
+      <IconButton
+        size={'sm'}
+        icon={<VscZoomIn/>}
+        aria-label={'Vertical Zom In'}
+        onClick={horizontalZoomIn}
+        disabled={horizontalZoomLevel === 11}
+        title={buttonInfo('Vertical Zoom In', 'Cmd+Right')}
+      />
+      <IconButton
+        size="sm"
+        icon={<VscZoomOut/>}
+        aria-label={'Vertical Zom Out'}
+        onClick={horizontalZoomOut}
+        disabled={horizontalZoomLevel === 1}
+        title={buttonInfo('Vertical Zoom Out', 'Cmd+Left')}
+      />
+    </Flex>
   );
 }
 

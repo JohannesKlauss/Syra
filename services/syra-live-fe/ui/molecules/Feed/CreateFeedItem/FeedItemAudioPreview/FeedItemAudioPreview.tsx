@@ -1,6 +1,6 @@
 import React from 'react';
 import FeedItemAudio from '../../FeedItem/FeedItemAudio/FeedItemAudio';
-import { Box, Skeleton } from '@chakra-ui/core';
+import { Box, Skeleton } from '@chakra-ui/react';
 import { useMixdownQuery } from '../../../../../gql/generated';
 
 interface Props {

@@ -1,6 +1,6 @@
 import React from "react";
 import Benefit from "../../../atoms/LandingPage/Benefit/Benefit";
-import { Flex } from "@chakra-ui/core";
+import { Flex } from "@chakra-ui/react";
 
 interface Props {
   benefits: string[];

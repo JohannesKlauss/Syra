@@ -1,44 +1,60 @@
 import React from 'react';
-import { Button, ButtonGroup, styled } from '@material-ui/core';
-import TuneIcon from '@material-ui/icons/Tune';
-import StraightenIcon from '@material-ui/icons/Straighten';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { editorStore } from '../../../recoil/editorStore';
 import useUpdateView from '../../../hooks/recoil/editor/useUpdateView';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { View } from '../../../types/View';
 import { buttonInfo } from '../../../utils/text';
-
-const CustomTuneIcon = styled(TuneIcon)({
-  transform: 'rotate(90deg)',
-});
-
-const BaseContainer = styled('div')({
-  display: 'flex',
-  flex: 1,
-});
+import { Flex, IconButton } from '@chakra-ui/react';
+import { CgPiano } from 'react-icons/cg';
+import { MdSettings } from 'react-icons/md';
+import { GoSettings } from 'react-icons/go';
 
 function ViewToggles() {
   const updateView = useUpdateView();
 
+  const setShowVideo = useSetRecoilState(editorStore.showVideo);
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
+  const setShowSettings = useSetRecoilState(editorStore.showSettings);
 
   useHotkeys('p', () => updateView(View.PIANO_ROLL));
   useHotkeys('x', () => updateView(View.MIXER));
+  useHotkeys('v', () => setShowVideo(currVal => !currVal));
+  useHotkeys('cmd+,', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setShowSettings(true);
+  });
 
   return (
-    <BaseContainer>
-      <ButtonGroup variant={'text'} size={'small'}>
-        <Button size={'small'} onClick={() => updateView(View.PIANO_ROLL)} title={buttonInfo('Toggle Piano roll', 'P')}
-                color={showPianoRoll ? 'primary' : 'default'}>
-          <StraightenIcon/>
-        </Button>
-        <Button size="small" onClick={() => updateView(View.MIXER)} color={showMixer ? 'primary' : 'default'} title={buttonInfo('Toggle Mixer', 'X')}>
-          <CustomTuneIcon/>
-        </Button>
-      </ButtonGroup>
-    </BaseContainer>
+    <Flex mr={16}>
+      <IconButton
+        icon={<CgPiano />}
+        aria-label={'Toggle Piano view'}
+        onClick={() => updateView(View.PIANO_ROLL)}
+        title={buttonInfo('Toggle Piano roll', 'P')}
+        colorScheme={showPianoRoll ? 'teal' : 'gray'}
+        variant={'ghost'}
+      />
+      <IconButton
+        icon={<GoSettings/>}
+        aria-label={'Toggle Mixer view'}
+        onClick={() => updateView(View.MIXER)}
+        colorScheme={showMixer ? 'teal' : 'gray'}
+        variant={'ghost'}
+        title={buttonInfo('Toggle Mixer', 'X')}
+      />
+      <IconButton
+        icon={<MdSettings/>}
+        aria-label={'Open Settings'}
+        onClick={() => setShowSettings(true)}
+        colorScheme={'gray'}
+        variant={'ghost'}
+        title={buttonInfo('Open Settings', 'Cmd + ,')}
+      />
+    </Flex>
   );
 }
 

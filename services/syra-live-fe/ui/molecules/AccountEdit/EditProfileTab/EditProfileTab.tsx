@@ -10,7 +10,7 @@ import {
   Input,
   Skeleton,
   Text,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import GenFormInput from '../../../atoms/Form/GenFormInput';
 import { useTranslation } from 'react-i18next';
@@ -124,7 +124,7 @@ function EditProfileTab({}: Props) {
             {t('We\'ll never share your email.')}
           </FormHelperText>
         </FormControl>
-        <Button isLoading={isMutationExecuting} marginY={4} type={'submit'} isFullWidth variantColor={'teal'}>{t('Update')}</Button>
+        <Button isLoading={isMutationExecuting} marginY={4} type={'submit'} isFullWidth colorScheme={'teal'}>{t('Update')}</Button>
       </form>
     </Box>
   );

@@ -66,6 +66,7 @@ import { Subscriptions } from '../types/Subscriptions';
 import { PrismaModule } from './prisma/prisma.module';
 import { PrismaService } from './prisma/prisma.service';
 import { MailingService } from './mailing/mailing.service';
+import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/CustomProjectChangeResolver";
 
 @Module({
   imports: [
@@ -106,7 +107,7 @@ import { MailingService } from './mailing/mailing.service';
               : await cookieStrategy.validate(ctx.request),
           }),
           cors: {
-            origin: ['https://local.syra.live:3000', 'https://syra.live', 'https://daw.syra.live'],
+            origin: ['https://local.syra.live:3000', 'https://bar.local.syra.live:3006', 'https://syra.live', 'https://daw.syra.live'],
             credentials: true,
           },
           pubSub,
@@ -210,6 +211,7 @@ import { MailingService } from './mailing/mailing.service';
     CustomUserResolver,
     CustomFeedItemResolver,
     CustomCommentResolver,
+    CustomProjectChangeResolver,
   ],
 })
 export class AppModule {}

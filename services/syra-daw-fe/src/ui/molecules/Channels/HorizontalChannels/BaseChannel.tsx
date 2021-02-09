@@ -2,39 +2,23 @@ import React, { useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { ChannelType } from '../../../../types/Channel';
 import { ChannelContext } from '../../../../providers/ChannelContext';
-import { Box, BoxProps, styled, useTheme } from '@material-ui/core';
 import { channelStore } from '../../../../recoil/channelStore';
 import AudioChannel from './AudioChannel';
 import InstrumentChannel from './InstrumentChannel';
-
-interface BaseContainerProps {
-  backgroundColor: string;
-}
-
-const BaseContainer = styled(
-  ({ backgroundColor, ...other }: BaseContainerProps & Omit<BoxProps, keyof BaseContainerProps>) => <Box {...other} />,
-)({
-  maxWidth: 150,
-  width: 150,
-  marginLeft: 1,
-  backgroundColor: ({ backgroundColor }: BaseContainerProps) => backgroundColor,
-  '&:focus': {
-    outline: 'none',
-  }
-});
+import { Box } from '@chakra-ui/react';
 
 interface Props {
   channelId: string;
+  index: number;
 }
 
-function BaseChannel({ channelId }: Props) {
-  const theme = useTheme();
+function BaseChannel({ channelId, index }: Props) {
   const type = useRecoilValue(channelStore.type(channelId));
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
 
   const backgroundColor = useMemo(() => {
-    return channelId === selectedChannelId ? '#606060' : theme.palette.background.paper;
-  }, [channelId, selectedChannelId, theme]);
+    return channelId === selectedChannelId ? 'gray.700' : 'gray.900';
+  }, [channelId, selectedChannelId]);
 
   const ChannelComponent = useMemo(() => {
     switch (type) {
@@ -47,9 +31,9 @@ function BaseChannel({ channelId }: Props) {
 
   return (
     <ChannelContext.Provider value={channelId}>
-      <BaseContainer backgroundColor={backgroundColor} onClick={() => setSelectedChannelId(channelId)}>
+      <Box data-id={'BaseChanel'} maxW={'150px'} w={'150px'} mr={'1px'} bg={backgroundColor} onClick={() => setSelectedChannelId(channelId)}>
         {ChannelComponent}
-      </BaseContainer>
+      </Box>
     </ChannelContext.Provider>
   );
 }

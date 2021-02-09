@@ -20,6 +20,10 @@ export default function useTempoMapScheduler() {
       }, `${changeAtQuarter}:0:0`));
     });
 
+    if (transport.ticks === 0) {
+      setCurrentTempo(tempoMap[0]);
+    }
+
     return () => {
       scheduleIds.current.forEach(id => transport.clear(id));
     }

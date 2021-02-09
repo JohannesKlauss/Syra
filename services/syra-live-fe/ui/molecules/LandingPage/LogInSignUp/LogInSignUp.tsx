@@ -3,7 +3,7 @@ import SignUpModal from "../../../organisms/LandingPage/SignUpModal/SignUpModal"
 import LogInModal from "../../../organisms/LandingPage/LogInModal/LogInModal";
 import { useRecoilState } from "recoil";
 import { landingPageStore } from "../../../../recoil/landingPageStore";
-import { Box, Button } from "@chakra-ui/core";
+import { Box, Button } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 
 interface Props {

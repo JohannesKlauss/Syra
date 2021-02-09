@@ -9,6 +9,7 @@ spec:
   - hosts:
       - syra.live
       - api.syra.live
+      - daw.syra.live
     secretName: echo-tls
   rules:
     - host: syra.live
@@ -22,4 +23,10 @@ spec:
         paths:
           - backend:
               serviceName: syra-live-gql
+              servicePort: 80
+    - host: daw.syra.live
+      http:
+        paths:
+          - backend:
+              serviceName: syra-daw-fe
               servicePort: 80

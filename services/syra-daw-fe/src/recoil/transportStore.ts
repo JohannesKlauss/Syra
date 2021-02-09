@@ -1,13 +1,15 @@
-import { atom, selector, selectorFamily } from 'recoil';
-import * as Tone from 'tone';
-import { PlayButtonMode } from '../types/PlayButtonMode';
-import { Bar } from '../types/Ui';
-import { projectStore } from './projectStore';
-import { getSortedKeysOfEventMap } from '../utils/eventMap';
-import { arrangeWindowStore } from './arrangeWindowStore';
-import { convertTransportPositionStringToQuarters, getToneJsPositionInQuarter } from '../utils/tonejs';
+import { atom, selector, selectorFamily } from "recoil";
+import * as Tone from "tone";
+import { PlayButtonMode } from "../types/PlayButtonMode";
+import { Bar } from "../types/Ui";
+import { projectStore } from "./projectStore";
+import { getSortedKeysOfEventMap } from "../utils/eventMap";
+import { getToneJsPositionInQuarter } from "../utils/tonejs";
+import { gridStore } from "./gridStore";
+import { View } from "../types/View";
 
 // Internal atoms are just used to sync everything with the ToneJs transport itself. Never expose them to the rest of the app.
+// TODO: WE SHOULD BE ABLE TO REFACTOR THIS TO ATOM EFFECTS INSIDE RECOIL ATOMS ONCE THEIR API IS STABLE.
 
 const internalSeconds = atom({
   key: 'transport/internalSeconds',
@@ -151,7 +153,7 @@ const filteredBars = selector<Bar[]>({
   key: 'transport/filteredRulerItems',
   get: ({get}) => {
     const allItems = get(bars);
-    const baseQuarterWidth = get(arrangeWindowStore.baseQuarterPixelWidth);
+    const baseQuarterWidth = get(gridStore.baseQuarterPixelWidth(View.ARRANGE_WINDOW));
 
     let spaceBetween = 40;
 

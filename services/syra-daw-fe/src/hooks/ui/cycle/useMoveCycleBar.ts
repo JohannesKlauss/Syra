@@ -2,9 +2,9 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { transportStore } from '../../../recoil/transportStore';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useMovable from '../useMovable';
-import useSnapCtrlPixelCalc from '../useSnapCtrlPixelCalc';
 import useQuarterToPixel from '../useQuarterToPixel';
 import usePixelToQuarter from '../usePixelToQuarter';
+import useSnapPixelValue from "../useSnapPixelValue";
 
 export default function useMoveCycleBar() {
   const [cycleStart, setCycleStart] = useRecoilState(transportStore.cycleStart);
@@ -12,7 +12,7 @@ export default function useMoveCycleBar() {
   const setIsCycleActive = useSetRecoilState(transportStore.isCycleActive);
   const quarterToPixel = useQuarterToPixel();
   const pixelToQuarter = usePixelToQuarter();
-  const calcSnappedX = useSnapCtrlPixelCalc();
+  const calcSnappedX = useSnapPixelValue();
 
   const [translateX, setTranslateX] = useState(quarterToPixel(cycleStart));
 

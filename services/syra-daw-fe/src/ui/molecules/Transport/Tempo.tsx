@@ -1,20 +1,15 @@
 import React from 'react';
 import useTempoMapScheduler from '../../../hooks/tone/useTempoMapScheduler';
-import { styled, Typography } from '@material-ui/core';
-
-const BaseContainer = styled('div')({
-  marginLeft: 20,
-  flexDirection: 'column',
-});
+import { Box, Text } from '@chakra-ui/react';
 
 function Tempo() {
   const currentTempo = useTempoMapScheduler();
 
   return (
-    <BaseContainer>
-      <Typography variant={'body2'}>{currentTempo}</Typography>
-      <Typography variant={'body2'}>BPM</Typography>
-    </BaseContainer>
+    <Box>
+      <Text fontSize={'sm'}>{currentTempo}</Text>
+      <Text fontSize={'sm'}>BPM</Text>
+    </Box>
   );
 }
 

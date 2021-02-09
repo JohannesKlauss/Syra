@@ -5,15 +5,18 @@ import { User } from '../../prisma/generated/type-graphql/models';
 import { SessionService } from '../session/session.service';
 import * as uniqid from 'uniqid';
 import { JwtPayload } from '../../types/JwtPayload';
-import { PrismaService } from "../prisma/prisma.service";
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private prismaService: PrismaService, private jwtService: JwtService, private sessionService: SessionService) {
-  }
+  constructor(
+    private prismaService: PrismaService,
+    private jwtService: JwtService,
+    private sessionService: SessionService,
+  ) {}
 
   async validateUser(email: string, password: string): Promise<Pick<User, 'id' | 'role'> | null> {
-    const user = await this.prismaService.user.findOne({
+    const user = await this.prismaService.user.findUnique({
       where: { email: email },
       select: { id: true, role: true, password: true },
     });
@@ -44,7 +47,8 @@ export class AuthService {
     return sessionId;
   }
 
-  async logout(sessionId: string) {
+  async logout(sessionId: string, userId: string) {
+    await this.prismaService.user.update({ where: { id: userId }, data: { isOnline: false } });
     await this.sessionService.removeToken(sessionId);
   }
 }

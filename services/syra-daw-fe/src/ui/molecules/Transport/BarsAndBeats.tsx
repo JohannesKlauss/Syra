@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { styled, Typography } from '@material-ui/core';
 import { useRecoilValue } from 'recoil';
 import { projectStore } from '../../../recoil/projectStore';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { transportStore } from '../../../recoil/transportStore';
-import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
-
-const InfoBox = styled('div')({
-  marginLeft: 20,
-  flexDirection: 'column',
-});
+import { Box, Text } from '@chakra-ui/react';
+import { gridStore } from "../../../recoil/gridStore";
+import { View } from "../../../types/View";
 
 function BarsAndBeats() {
   const [bars, setBars] = useState(0);
@@ -17,7 +13,7 @@ function BarsAndBeats() {
 
   const currentTimeSignature = useRecoilValue(projectStore.currentTimeSignature);
   const currentQuarterPosition = useRecoilValue(transportStore.currentQuarter);
-  const playheadPosition = useRecoilValue(arrangeWindowStore.playheadPosition);
+  const playheadPosition = useRecoilValue(gridStore.playheadPosition(View.ARRANGE_WINDOW));
   const currentBar = useRecoilValue(transportStore.currentBar);
   const transport = useToneJsTransport();
 
@@ -38,14 +34,14 @@ function BarsAndBeats() {
 
   return (
     <>
-      <InfoBox>
-        <Typography variant={'body2'} align={'right'}>{bars}</Typography>
-        <Typography variant={'body2'}>Bar</Typography>
-      </InfoBox>
-      <InfoBox>
-        <Typography variant={'body2'} align={'right'}>{beats + 1}</Typography>
-        <Typography variant={'body2'}>Beat</Typography>
-      </InfoBox>
+      <Box>
+        <Text fontSize={'sm'} textAlign={'right'}>{bars}</Text>
+        <Text fontSize={'sm'}>Bar</Text>
+      </Box>
+      <Box>
+        <Text fontSize={'sm'} textAlign={'right'}>{beats + 1}</Text>
+        <Text fontSize={'sm'}>Beat</Text>
+      </Box>
     </>
   );
 }

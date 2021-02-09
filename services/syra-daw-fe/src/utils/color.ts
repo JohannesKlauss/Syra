@@ -1,11 +1,13 @@
-export function determineTextColor(backgroundColor: string): string {
+export function determineTextColor(backgroundColor: string, inverse?: boolean): string {
   const {red, green, blue} = hexToRgb(backgroundColor);
 
-  if (red * 0.299 + green * 0.587 + blue * 0.114 > 150) {
-    return '#000';
+  const colorValue = red * 0.299 + green * 0.587 + blue * 0.114;
+
+  if (colorValue > 150 && inverse !== true) {
+    return '#000000';
   }
 
-  return '#fff';
+  return '#ffffff';
 }
 
 function hexToComponent(hex: string, startIndex: number) {
@@ -16,6 +18,10 @@ function componentToHex(c: number) {
   const hex = c.toString(16);
 
   return hex.length === 1 ? "0" + hex : hex;
+}
+
+export function colorToHexNumber(color: string) {
+  return parseInt(color.substr(1), 16);
 }
 
 export function rgbToHex(r: number, g: number, b: number) {

@@ -1,48 +1,32 @@
-import React, { HTMLAttributes, useCallback, useRef, useState } from 'react';
-import { styled, Theme } from '@material-ui/core';
+import React, { useCallback, useContext, useRef, useState } from "react";
 import useMovementTracker from '../../hooks/ui/useMovementTracker';
 import { BoxArea } from '../../types/Ui';
-import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
 import { useRecoilValue } from 'recoil';
-
-interface SelectionBoxProps {
-  x2: number;
-  y2: number;
-  x3: number;
-  y3: number;
-}
-
-const SelectionBox = styled(
-  ({ x2, x3, y2, y3, ...other }: SelectionBoxProps & Omit<HTMLAttributes<HTMLDivElement>, keyof SelectionBoxProps>) =>
-    <div {...other} />,
-)<Theme, SelectionBoxProps>(({ x2, x3, y2, y3 }) => ({
-  border: '1px solid white',
-  backgroundColor: 'rgba(255, 255, 255, 0.4)',
-  position: 'absolute',
-  zIndex: 9999999,
-  left: x2,
-  top: y2,
-  width: x3 - x2,
-  height: y3 - y2,
-}));
+import { Box } from '@chakra-ui/react';
+import { ViewContext } from "../../providers/ViewContext";
+import { gridStore } from "../../recoil/gridStore";
 
 interface Props {
   onSelect: (area: BoxArea) => void;
 }
 
 const SelectionTool: React.FC<Props> = ({ children, onSelect }) => {
+  const { view } = useContext(ViewContext);
   const [x0, setX0] = useState(-1);
   const [x1, setX1] = useState(-1);
   const [y0, setY0] = useState(-1);
   const [y1, setY1] = useState(-1);
   const [isHidden, setIsHidden] = useState(true);
   const divRef = useRef<HTMLDivElement>(null);
-  const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
+  const trackHeight = useRecoilValue(gridStore.trackHeight(view));
 
-  const onMouseMove = useCallback((pos) => {
-    setX1(pos.x);
-    setY1(pos.y);
-  }, [setX1, setY1]);
+  const onMouseMove = useCallback(
+    (pos) => {
+      setX1(pos.x);
+      setY1(pos.y);
+    },
+    [setX1, setY1],
+  );
 
   const onMouseUp = useCallback(() => {
     onSelect({
@@ -61,29 +45,32 @@ const SelectionTool: React.FC<Props> = ({ children, onSelect }) => {
 
   const trigger = useMovementTracker(onMouseMove, onMouseUp, divRef);
 
-  const onMouseDown = useCallback((e) => {
-    const x = e.clientX - (divRef.current?.getBoundingClientRect().left ?? 0);
-    const y = e.clientY - (divRef.current?.getBoundingClientRect().top ?? 0);
+  const onMouseDown = useCallback(
+    (e) => {
+      const x = e.clientX - (divRef.current?.getBoundingClientRect().left ?? 0);
+      const y = e.clientY - (divRef.current?.getBoundingClientRect().top ?? 0);
 
-    // If selection tool started dragging on bottom half of track, don't allow the box, but trigger the point selection.
-    if(Math.round((y % trackHeight) / trackHeight) === 1) {
-      onSelect({
-        x0: x,
-        x1: x,
-        y0: y,
-        y1: y,
-      });
+      // If selection tool started dragging on bottom half of track, don't allow the box, but trigger the point selection.
+      if (Math.round((y % trackHeight) / trackHeight) === 1) {
+        onSelect({
+          x0: x,
+          x1: x,
+          y0: y,
+          y1: y,
+        });
 
-      return;
-    }
+        return;
+      }
 
-    setX0(x);
-    setX1(x);
-    setY0(y);
-    setY1(y);
-    setIsHidden(false);
-    trigger(e);
-  }, [trigger, setX0, setY0, divRef, trackHeight, onSelect]);
+      setX0(x);
+      setX1(x);
+      setY0(y);
+      setY1(y);
+      setIsHidden(false);
+      trigger(e);
+    },
+    [trigger, setX0, setY0, divRef, trackHeight, onSelect],
+  );
 
   const x2 = Math.min(x0, x1);
   const x3 = Math.max(x0, x1);
@@ -95,7 +82,17 @@ const SelectionTool: React.FC<Props> = ({ children, onSelect }) => {
       <div onMouseDown={onMouseDown} ref={divRef}>
         {children}
       </div>
-      <SelectionBox x2={x2} y2={y2} x3={x3} y3={y3} hidden={isHidden}/>
+      <Box
+        border={'1px solid white'}
+        hidden={isHidden}
+        backgroundColor={'rgba(255, 255, 255, 0.4)'}
+        pos={'absolute'}
+        zIndex={99999999}
+        left={x2}
+        top={y2}
+        w={x3 - x2}
+        h={y3 - y2}
+      />
     </>
   );
 };

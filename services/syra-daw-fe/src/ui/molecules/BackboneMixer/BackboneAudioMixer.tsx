@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import useRecorder from '../../../hooks/audio/useRecorder';
 import { channelStore } from '../../../recoil/channelStore';
@@ -17,27 +17,29 @@ function BackboneAudioMixer({channelId}: Props) {
   const isSolo = useRecoilValue(channelStore.isSolo(channelId));
   const isInputMonitoringActive = useRecoilValue(channelStore.isInputMonitoringActive(channelId));
   const pluginIds = useRecoilValue(channelStore.pluginIds(channelId));
+  const soulInstance = useRecoilValue(channelStore.soulInstance(channelId));
   const plugins = useRecoilValue(channelStore.findActivePluginsByIds(pluginIds));
 
   useEffect(() => {
     // TODO: WE COULD PROBABLY JUST CREATE A INSTANCE LIKE Tone.Solo, BUT FOR MUTING. THIS WOULD SAVE US A REWIRING CALL.
-    isMuted ? mixerChannelStrip.disconnect() : mixerChannelStrip.rewireAudio(plugins.map(plugin => plugin.audioNode));
-  }, [isMuted, plugins]);
+    isMuted ? mixerChannelStrip.disconnect(soulInstance?.audioNode) : mixerChannelStrip.rewireAudio(plugins.map(plugin => plugin.audioNode), soulInstance?.audioNode);
+  }, [isMuted, plugins, soulInstance, mixerChannelStrip]);
 
   useEffect(() => {
     (async () => {
       await mixerChannelStrip.updateArming(isArmed);
     })();
-  }, [isArmed]);
+  }, [isArmed, mixerChannelStrip]);
 
   useEffect(() => {
     mixerChannelStrip.updateInputMonitoring(isInputMonitoringActive);
-  }, [isInputMonitoringActive]);
+  }, [isInputMonitoringActive, mixerChannelStrip]);
 
   useEffect(() => {
     mixerChannelStrip.solo.set({ solo: isSolo });
-  }, [isSolo]);
+  }, [isSolo, mixerChannelStrip]);
 
+  // TODO: THIS MIGHT CAUSE SOME TROUBLE BECAUSE THIS IS RUNNING FOR EVERY CHANNEL ON EVERY CHANNEL CHANGE. ALSO THIS IS NOT NEEDED FOR MIDI.
   useRecorder(channelId);
 
   return null;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Skeleton } from '@chakra-ui/core';
+import { Skeleton } from '@chakra-ui/react';
 
 interface Props {
   fallback?: JSX.Element;

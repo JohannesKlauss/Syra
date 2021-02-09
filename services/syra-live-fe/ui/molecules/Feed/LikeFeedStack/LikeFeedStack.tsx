@@ -1,6 +1,6 @@
 import React from "react";
 import Suspendable from "../../../atoms/Suspendable/Suspendable";
-import { Skeleton, Stack } from "@chakra-ui/core";
+import { Skeleton, Stack } from "@chakra-ui/react";
 import FeedItem from "../FeedItem/FeedItem";
 import EmptyFeed from "../../../atoms/EmptyFeed/EmptyFeed";
 import { useMyLikesQuery } from "../../../../gql/generated";

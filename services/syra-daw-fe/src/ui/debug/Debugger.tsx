@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Container, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 import { regionStore } from '../../recoil/regionStore';
 import { channelStore } from '../../recoil/channelStore';
@@ -8,6 +7,7 @@ import { RegionContext } from '../../providers/RegionContext';
 import DebugNodes from './DebugNodes';
 import DebugChannel from './recoil/DebugChannel';
 import DebugRegion from './recoil/DebugRegion';
+import { Box, Heading, Select, Flex, Divider } from '@chakra-ui/react';
 
 function Debugger() {
   const [selectedChannelId, setSelectedChannelId] = useState('');
@@ -52,49 +52,42 @@ function Debugger() {
   }, [selectedChannelId, regionIds, selectedRegionId]);
 
   return (
-    <Container maxWidth={'xl'}>
-      <Grid container spacing={3}>
-        <Grid item sm={12}>
-          <Typography variant="h4">Debugger</Typography>
-          <Typography variant="subtitle2">NOTE: This will alter a lot of the core functionality. Using this debugger will
-            likely create a need to reload the project before it's usable with the normal UI again.</Typography>
-        </Grid>
-        <Grid item sm={6}>
-          <FormControl>
-            <InputLabel id="channelId">Channel</InputLabel>
-            <Select autoWidth labelId={'channelId'} value={selectedChannelId}
-                    onChange={(e: React.ChangeEvent<{ value: unknown }>) => {
-                      setSelectedChannelId(e.target.value as string);
-                      setSelectedRegionId('');
-                    }}>
-              {channelIds.map(id => <MenuItem value={id} key={id}>{channelNames[id]}</MenuItem>)}
+    <Box p={4}>
+      <Heading size={'lg'}>Debugger</Heading>
+      <Heading size={'sm'} mb={8}>
+        NOTE: This will alter a lot of the core functionality. Using this debugger will
+        likely create a need to reload the project before it's usable with the normal UI again.
+      </Heading>
+
+      <ChannelContext.Provider value={selectedChannelId}>
+        <Flex align={'center'} justify={'flex-start'}>
+          <Heading size={'sm'} mr={4}>Select Channel:</Heading>
+          <Select flex={1} placeholder="Select Channel" value={selectedChannelId} onChange={e => {
+            setSelectedChannelId(e.target.value as string);
+            setSelectedRegionId('');
+          }}>
+            {channelIds.map(id => <option value={id} key={id}>{channelNames[id]}</option>)}
+          </Select>
+        </Flex>
+
+        <DebugChannel/>
+
+        <Divider my={8}/>
+
+        <RegionContext.Provider value={selectedRegionId}>
+          <Flex align={'center'} justify={'flex-start'}>
+            <Heading size={'sm'} mr={4}>Select Region:</Heading>
+            <Select flex={1} placeholder="Select Region" value={selectedRegionId} onChange={e => {
+              setSelectedRegionId(e.target.value as string);
+            }}>
+              {regionIds.map(id => <option value={id} key={id}>{id}</option>)}
             </Select>
-          </FormControl>
-        </Grid>
-        <Grid item sm={6}>
-          <FormControl>
-            <InputLabel id="regionId">Region</InputLabel>
-            <Select autoWidth labelId={'regionId'} value={selectedRegionId}
-                    onChange={(e: React.ChangeEvent<{ value: unknown }>) => setSelectedRegionId(e.target.value as string)}>
-              {regionIds.map(id => <MenuItem value={id} key={id}>{regionNames[id]}</MenuItem>)}
-            </Select>
-          </FormControl>
-        </Grid>
-        <ChannelContext.Provider value={selectedChannelId}>
-          <Grid item sm={6}>
-            <DebugChannel/>
-          </Grid>
-          <RegionContext.Provider value={selectedRegionId}>
-            <Grid item sm={6}>
-              <DebugRegion/>
-            </Grid>
-            <Grid item sm={12}>
-              {selectedRegionId !== '' && <DebugNodes/>}
-            </Grid>
-          </RegionContext.Provider>
-        </ChannelContext.Provider>
-      </Grid>
-    </Container>
+          </Flex>
+
+          {selectedRegionId !== '' && <DebugNodes/>}
+        </RegionContext.Provider>
+      </ChannelContext.Provider>
+    </Box>
   );
 }
 

@@ -4,7 +4,7 @@ import { useUserProfileByHandleQuery } from '../../gql/generated';
 import ProfileInfo from '../../ui/molecules/Profile/ProfileInfo/ProfileInfo';
 import PageBox from '../../ui/atoms/PageBox/PageBox';
 import ProfileFeed from '../../ui/molecules/Profile/ProfileFeed/ProfileFeed';
-import { Divider, Flex, Text } from '@chakra-ui/core';
+import { Divider, Flex, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import ProtectedRoute from "../../providers/auth/ProtectedRoute";
 

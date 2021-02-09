@@ -59,7 +59,7 @@ export class CustomUserResolver {
     description: undefined,
   })
   async me(@TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<User | null> {
-    return ctx.prisma.user.findOne({ where: { id: ctx.user.id } });
+    return ctx.prisma.user.findUnique({ where: { id: ctx.user.id } });
   }
 
   @TypeGraphQL.Mutation((_returns) => User, {
@@ -77,7 +77,7 @@ export class CustomUserResolver {
       throw new BadRequestException('Email or handle is already taken.');
     }
 
-    const code = await ctx.prisma.earlyAccessCode.findOne({
+    const code = await ctx.prisma.earlyAccessCode.findUnique({
       where: { code: accessCode },
       select: { id: true, isValid: true },
     });
@@ -118,7 +118,7 @@ export class CustomUserResolver {
     }: ResolverFilterData<User, UserOnlineStatusSubscriptionArgs, GraphQLContext>) => {
       // TODO: THIS MIGHT BECOME A PROBLEM WHEN THERE IS A LOT OF ACTIVITY. BECAUSE FOR EACH NEW COMMENT WE CHECK FOR EACH
       // SUB IF THEY ARE FOLLOWING.
-      const user = await context.prisma.user.findOne({
+      const user = await context.prisma.user.findUnique({
         where: { id: payload.id },
         select: { followedBy: { select: { id: true } } },
       });

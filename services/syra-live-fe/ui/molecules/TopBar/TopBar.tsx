@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, Button, Flex, Text } from '@chakra-ui/core';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { IoMdAdd } from 'react-icons/io';
 import Link from 'next/link';
 import Search from '../Search/Search';
 import AvatarMenu from '../Feed/AvatarMenu/AvatarMenu';
 import { useCreateProjectMutation } from '../../../gql/generated';
+import NewMessageNotifier from "../Notifications/NewMessageNotifier/NewMessageNotifier";
 
 interface Props {}
 
@@ -55,10 +56,11 @@ function TopBar({}: Props) {
           <Box>AvatarList of active sessions</Box>
           <Box>
             <Flex align={'center'} justify={'space-between'}>
-              <Button variant={'link'} marginX={8} leftIcon={IoMdAdd} onClick={onClickNewSession}>
+              <Button variant={'link'} marginX={8} leftIcon={<IoMdAdd/>} onClick={onClickNewSession}>
                 {t('New Session')}
               </Button>
               <Search />
+              <NewMessageNotifier/>
               <AvatarMenu />
             </Flex>
           </Box>

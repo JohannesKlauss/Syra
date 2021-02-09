@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, useDisclosure } from "@chakra-ui/core";
+import { Button, useDisclosure } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import ResetPassword from "../../../molecules/ResetPassword/ResetPassword";
 
@@ -13,7 +13,7 @@ function ForgotPasswordModal({}: Props) {
 
   return (
     <>
-      <Button variant={'link'} size={'xs'} marginLeft={2} variantColor={'teal'} onClick={onOpen}>
+      <Button variant={'link'} size={'xs'} marginLeft={2} colorScheme={'teal'} onClick={onOpen}>
         {t('Forgot Password.')}
       </Button>
       <ResetPassword isOpen={isOpen} onClose={onClose}/>

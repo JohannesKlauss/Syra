@@ -1,6 +1,6 @@
 import ProfileFeed from './ProfileFeed';
 import * as React from 'react';
-import { withApolloClient } from 'storybook-addon-apollo-client';
+
 import { mockApollo, mockApolloResult } from '../../../../stories/mockApollo';
 import {
   FeedItemsByHandleDocument,
@@ -14,7 +14,7 @@ const Template = (args) => <ProfileFeed {...args} />;
 export default {
   title: 'molecules/Profile/ProfileFeed',
   component: ProfileFeed,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

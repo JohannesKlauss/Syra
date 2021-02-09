@@ -9,7 +9,7 @@ import {
   MenuItem,
   MenuList, Skeleton,
   Text,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { RiFileMusicFill, RiHeartFill, RiSettings4Fill, RiLogoutCircleLine, RiChat4Fill } from 'react-icons/ri';
 import { FaRecordVinyl } from 'react-icons/fa';
@@ -54,7 +54,7 @@ function AvatarMenu({}: Props) {
           </Box>
         </MenuItem>
         <MenuDivider/>
-        <MenuItem>
+        <MenuItem onClick={() => push('/sessions')}>
           <Box as={RiFileMusicFill}/>
           <Box marginLeft={4}>
             <Text>{t('Sessions')}</Text>

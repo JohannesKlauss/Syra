@@ -1,0 +1,40 @@
+query project($id: String!) {
+    project(where: {id: $id}) {
+        id
+        createdAt
+        name
+        owner {
+            id
+            name
+        }
+        isInitialized
+        members(where: {projectId: {equals: $id}}) {
+            user {
+                name
+                id
+                avatar
+            }
+        }
+        content
+    }
+}
+
+subscription changes($projectId: String!) {
+    changes(projectId: $projectId) {
+        id
+        authorId
+        change
+    }
+}
+
+mutation publishChange($changeId: String!, $projectId: String!, $date: Timestamp!, $change: JSONObject!, $me: String) {
+    publishChange(id: $changeId, date: $date, projectId: $projectId, change: $change, authorId: $me) {
+        id
+    }
+}
+
+mutation updateProjectContent($content: JSON!, $id: String!) {
+    updateProject(where: {id: $id}, data: {content: $content, isInitialized: {set: true}}) {
+        id
+    }
+}

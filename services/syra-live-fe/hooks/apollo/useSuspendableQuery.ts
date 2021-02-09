@@ -6,7 +6,7 @@ export default function useSuspendableQuery<TQuery, TQueryVariables>(
   queryResult: QueryResult<TQuery, TQueryVariables>,
 ) {
   if (queryResult.loading && !isServer) {
-    suspend(new Promise(resolve => !queryResult.loading && resolve())).read();
+    suspend(new Promise<void>(resolve => !queryResult.loading && resolve())).read();
   }
 
   return queryResult;

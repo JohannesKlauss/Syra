@@ -12,7 +12,7 @@ import {
   FormLabel,
   Input,
   Text,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import useApiResToast from '../../../hooks/ui/useApiResToast';
 import { useForm } from 'react-hook-form';
@@ -91,7 +91,7 @@ function ResetPassword({ isOpen, onClose }: Props) {
             <Button ref={cancelRef} onClick={onClose}>
               Cancel
             </Button>
-            <Button isLoading={isLoading} variantColor="teal" type={'submit'} ml={4}>
+            <Button isLoading={isLoading} colorScheme="teal" type={'submit'} ml={4}>
               Reset
             </Button>
           </AlertDialogFooter>

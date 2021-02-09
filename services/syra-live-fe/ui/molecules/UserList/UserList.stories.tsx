@@ -1,13 +1,13 @@
 import UserList from "./UserList";
 import * as React from "react";
-import { withApolloClient } from "storybook-addon-apollo-client";
+
 
 const Template = (args) => <UserList {...args} />;
 
 export default {
   title: "molecules/UserList",
   component: UserList,
-  decorators: [withApolloClient]
+  decorators: []
 };
 
 // Each story then reuses that template

@@ -2,11 +2,10 @@ import { useEffect } from 'react';
 import useWorker from '../core/useWorker';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { audioBufferStore } from '../../recoil/audioBufferStore';
-import useRegionWidth from '../ui/region/useRegionWidth';
 import useSharedAudioBufferMemory from '../core/useSharedAudioBufferMemory';
 
 export default function useAsyncWaveformWorker(bufferId: string, height: number, color: string, smoothing?: number ) {
-  const completeWidth = useRegionWidth();
+  const completeWidth = 300;
 
   const pointCloudId = `${bufferId}.${completeWidth}.${height}.${smoothing}`;
 

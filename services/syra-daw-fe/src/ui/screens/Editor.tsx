@@ -1,37 +1,57 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import HorizontalChannelList from '../molecules/Channels/HorizontalChannels/HorizontalChannelList';
-import ArrangeWindow from '../molecules/ArrangeWindow/ArrangeWindow';
-import Piano from '../molecules/Piano/Piano';
-import TopBar from '../organisms/TopBar';
-import WebMidiListener from '../molecules/Midi/WebMidiListener';
 import { editorStore } from '../../recoil/editorStore';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { styled } from '@material-ui/core';
-import { useHotkeys } from 'react-hotkeys-hook';
-import Video from '../molecules/Video/Video';
-
-const EditorContainer = styled('div')({
-  marginTop: 64,
-});
+import { useRecoilValue } from 'recoil';
+import { Box } from '@chakra-ui/react';
+import useWebMidi from '../../hooks/midi/useWebMidi';
+import TransportView from '../molecules/Transport/TransportView';
+import Settings from '../organisms/dialogues/Settings/Settings';
+import PianoRoll from '../organisms/views/PianoRoll/PianoRoll';
+import ArrangeWindowV2 from '../organisms/views/ArrangeWindow/ArrangeWindowV2';
+import useInterval from "../../hooks/core/useInterval";
+import { projectStore } from "../../recoil/projectStore";
+import { saveToDb } from "../../recoil/effects/saveToDatabaseEffect";
+import { useMeQuery, useProjectQuery } from "../../gql/generated";
+import Video from "../organisms/views/Video/Video";
+import LoadingIndicator from "../atoms/LoadingIndicator";
 
 function Editor() {
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
-  const [showVideo, setShowVideo] = useRecoilState(editorStore.showVideo);
+  const id = useRecoilValue(projectStore.id);
 
-  useHotkeys('v', () => setShowVideo(currVal => !currVal));
+  const {data: projectData} = useProjectQuery({
+    variables: {
+      id,
+    }
+  });
+  const {data: meData} = useMeQuery();
+
+  useWebMidi();
+
+  useInterval(async (id, ownerId, myId) => {
+    if (ownerId === myId) {
+      await saveToDb(id);
+    }
+  }, 30000, id, projectData?.project?.owner.id, meData?.me.id);
 
   return (
-      <>
-        <TopBar/>
-        <EditorContainer>
-          <ArrangeWindow/>
-          {showMixer && <HorizontalChannelList/>}
-          {showPianoRoll && <Piano min={36} max={67}/>}
-          {showVideo && <Video/>}
-          <WebMidiListener/>
-        </EditorContainer>
-      </>
+    <Box>
+      <Suspense fallback={<LoadingIndicator/>}>
+        <ArrangeWindowV2 />
+        <Box pos={'fixed'} bottom={78} left={0} w={'100%'} h={'50%'} zIndex={1} display={showMixer || showPianoRoll ? 'block' : 'none'}>
+          <HorizontalChannelList showView={showMixer} />
+          <PianoRoll minNote={12} maxNote={115} showView={showPianoRoll} />
+        </Box>
+        <Box pos={'fixed'} bottom={0} left={0} w={'100%'} zIndex={10}>
+          <TransportView />
+        </Box>
+        <>
+          <Settings />
+          <Video/>
+        </>
+      </Suspense>
+    </Box>
   );
 }
 

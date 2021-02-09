@@ -4,13 +4,14 @@ import { useRecoilValue } from 'recoil';
 import useToneJsTransport from './useToneJsTransport';
 import * as Tone from 'tone';
 import { getBeatCountForTransportSeconds } from '../../utils/time';
-import { arrangeWindowStore } from '../../recoil/arrangeWindowStore';
+import { gridStore } from '../../recoil/gridStore';
+import { View } from '../../types/View';
 
 const oscBar = new Tone.Oscillator(1174.66).toDestination();
 const oscBeat = new Tone.Oscillator(587.33).toDestination();
 
 export default function useClick() {
-  const playheadPosition = useRecoilValue(arrangeWindowStore.playheadPosition);
+  const playheadPosition = useRecoilValue(gridStore.playheadPosition(View.ARRANGE_WINDOW));
   const isClickMuted = useRecoilValue(projectStore.isClickMuted);
   const currentTimeSignature = useRecoilValue(projectStore.currentTimeSignature);
   const timeSignatureMap = useRecoilValue(projectStore.timeSignatureMap);
@@ -19,7 +20,7 @@ export default function useClick() {
 
   useEffect(() => {
     beats.current = getBeatCountForTransportSeconds(timeSignatureMap, transport.seconds);
-  }, [playheadPosition, beats, timeSignatureMap]);
+  }, [playheadPosition, beats, timeSignatureMap, transport]);
 
   useEffect(() => {
     const id = transport.scheduleRepeat((time) => {
