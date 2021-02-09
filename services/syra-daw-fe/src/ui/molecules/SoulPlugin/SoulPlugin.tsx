@@ -17,7 +17,7 @@ function SoulPlugin({ id, isInstrument }: Props) {
   return (
     <>
       {activePlugin && (
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} size={'xl'}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>{activePlugin.soulPatch.descriptor.description.name}</ModalHeader>

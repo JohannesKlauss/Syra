@@ -19,7 +19,7 @@ import useListenForEngineStart from "./hooks/tone/useListenForEngineStart";
 
 const config = {
   useSystemColorMode: false,
-  initialColorMode: 'dark',
+  initialColorMode: 'dark' as 'dark',
 };
 
 const customTheme = extendTheme({ config });
