@@ -14,8 +14,6 @@ const client = getApolloClient();
 
 export const saveToDb = async (projectId: string) => {
   if (Object.keys(changesToSave).length > 0) {
-    console.log('saveToDatabaseEffect', changesToSave);
-
     const { errors } = await client.mutate<UpdateProjectContentMutation, UpdateProjectContentMutationVariables>({
       mutation: UpdateProjectContentDocument,
       variables: {
