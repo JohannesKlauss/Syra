@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: syra-daw-fe
-          image: registry.digitalocean.com/syra-do/services/syra-daw-fe:v0.0.8
+          image: registry.digitalocean.com/syra-do/services/syra-daw-fe:v0.0.9
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -27,9 +27,8 @@ apiVersion: v1
 metadata:
   name: syra-daw-fe
 spec:
-  type: ClusterIP
   ports:
     - port: 80
-      targetPort: 80
+      protocol: TCP
   selector:
-    app: syra-daw-fe
+    run: syra-daw-fe
