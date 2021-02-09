@@ -32,7 +32,7 @@ export const injectUserIdLink = new ApolloLink(
 
 function createApolloClient() {
   const httpLink = new BatchHttpLink({
-    uri: `https://local.syra.live:4000`,
+    uri: process.env.REACT_APP_LIVE_GQL_URL,
     credentials: 'include',
     fetchOptions: {
       agent: new https.Agent({
