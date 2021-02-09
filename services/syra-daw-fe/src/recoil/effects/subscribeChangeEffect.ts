@@ -9,6 +9,7 @@ import {
 import { AtomEffect } from 'recoil';
 import { RecoilAtomEffect } from '../../types/Recoil';
 import { isEqual } from 'lodash';
+import { FetchResult, Observable } from "@apollo/client";
 
 const client = getApolloClient();
 
@@ -22,18 +23,18 @@ client
     userId = data.me.id;
   });
 
-const observable = client.subscribe<ChangesSubscription, ChangesSubscriptionVariables>({
-  query: ChangesDocument,
-  variables: {
-    projectId: 'ckkbj5l5l0706lp14figy1mb1',
-  },
-});
+let observable: Observable<FetchResult<ChangesSubscription, Record<string, any>, Record<string, any>>>;
 
-export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({
-  setSelf,
-  onSet,
-  trigger,
-}) => {
+export const initSubscription = (projectId: string) => {
+  observable = client.subscribe<ChangesSubscription, ChangesSubscriptionVariables>({
+    query: ChangesDocument,
+    variables: {
+      projectId,
+    },
+  });
+}
+
+export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ setSelf }) => {
   observable.subscribe((data) => {
     // If the user does not exist yet or the incoming change is from the user itself, we don't change anything.
     // If the change key does not correspond with the atom key, we skip the effect.

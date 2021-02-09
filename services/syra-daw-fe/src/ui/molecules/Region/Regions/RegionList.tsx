@@ -10,8 +10,6 @@ function RegionList() {
   const channelId = useContext(ChannelContext);
   const regions = useRecoilValue(regionStore.findIdsByChannelId(channelId));
 
-  console.log('regions', regions);
-
   return (
     <Box top={0} left={0} pos={'absolute'} w={'100%'} h={'100%'}>
       {regions.map(id => (
