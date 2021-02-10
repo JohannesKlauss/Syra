@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from "react";
 import HorizontalChannelList from '../molecules/Channels/HorizontalChannels/HorizontalChannelList';
 import { editorStore } from '../../recoil/editorStore';
 import { useRecoilValue } from 'recoil';
@@ -14,11 +14,16 @@ import { saveToDb } from "../../recoil/effects/saveToDatabaseEffect";
 import { useMeQuery, useProjectQuery } from "../../gql/generated";
 import Video from "../organisms/views/Video/Video";
 import LoadingIndicator from "../atoms/LoadingIndicator";
+import Debugger from "../debug/Debugger";
+import { useHotkeys } from "react-hotkeys-hook";
 
 function Editor() {
+  const [showDebugMenu, setShowDebugMenu] = useState(false);
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
   const id = useRecoilValue(projectStore.id);
+
+  useHotkeys('shift+d', () => setShowDebugMenu((currVal) => !currVal));
 
   const {data: projectData} = useProjectQuery({
     variables: {
@@ -50,6 +55,8 @@ function Editor() {
           <Settings />
           <Video/>
         </>
+
+        {process.env.NODE_ENV === 'development' && <Debugger onClose={() => setShowDebugMenu(false)} showMenu={showDebugMenu}/>}
       </Suspense>
     </Box>
   );
