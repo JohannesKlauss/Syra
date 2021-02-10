@@ -13,10 +13,6 @@ function Pan() {
     pan.set({pan: panValue / 100});
     publishChange(ChannelNode.PAN, panValue / 100);
   }, [panValue, pan, publishChange]);
-
-  useEffect(() => {
-    console.log('changes', pan.pan.value);
-  }, [pan.pan.value]);
   
   return (
     <Box px={2} bg={'transparent'}>
