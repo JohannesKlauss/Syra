@@ -2,9 +2,9 @@ import { useRecoilState } from 'recoil';
 import { keyboardMidiStore } from '../../recoil/keyboardMidiStore';
 import { useEffect } from 'react';
 import WebMidi from 'webmidi';
-import { OnMidiEvent } from '../../types/Midi';
+import { MidiEventCallable } from '../../types/Midi';
 
-export default function useListenForExternalMidiIn(onMidiEvent: OnMidiEvent) {
+export default function useListenForExternalMidiIn(onMidiEvent: MidiEventCallable) {
   const [midiDevice] = useRecoilState(keyboardMidiStore.selectedMidiDevice);
 
   useEffect(() => {

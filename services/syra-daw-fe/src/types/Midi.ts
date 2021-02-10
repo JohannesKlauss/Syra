@@ -1,4 +1,4 @@
-export type OnMidiEvent = (firstByte: number, secondByte: number, thirdByte: number) => void;
+export type MidiEventCallable = (firstByte: number, secondByte: number, thirdByte: number) => void;
 
 export type MidiEvent = {
   msg: number;

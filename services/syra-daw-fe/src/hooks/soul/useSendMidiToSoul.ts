@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
-import { OnMidiEvent } from '../../types/Midi';
+import { MidiEventCallable } from '../../types/Midi';
 
 export default function useSendMidiToSoul(port?: MessagePort, isArmed?: boolean) {
-  return useCallback<OnMidiEvent>((msg: number, note: number, velocity: number) => {
+  return useCallback<MidiEventCallable>((msg: number, note: number, velocity: number) => {
     const value = new Uint8Array(3);
 
     value[0] = msg;

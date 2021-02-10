@@ -24,8 +24,6 @@ const ResizableBox: React.FC<Props> = ({baseWidth, baseX, dragHandleWidth = 8, c
   const snapPixelValue = useSnapPixelValue(0.25);
 
   useEffect(() => {
-    console.log('newX', baseX);
-
     x.set(baseX);
     oldX.set(baseX);
   }, [baseX, x, oldX]);
@@ -38,25 +36,17 @@ const ResizableBox: React.FC<Props> = ({baseWidth, baseX, dragHandleWidth = 8, c
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const distance = e.clientX - (ref.current?.getBoundingClientRect().x ?? 0);
 
-    console.log('distance', distance);
-
     if (distance < dragHandleWidth) {
       dragMode.current = DragMode.START_HANDLE;
     } else if (distance > oldWidth.get() - dragHandleWidth) {
       dragMode.current = DragMode.END_HANDLE;
     } else {
-      console.log('move');
-
       dragMode.current = DragMode.MOVE;
     }
   };
 
   const onDrag = (_: MouseEvent, {offset}: PanInfo) => {
     const snappedOffset = snapPixelValue(offset.x);
-
-    console.log('offet', offset.x);
-
-    console.log('snappedOffset', snappedOffset);
 
     switch (dragMode.current) {
       case DragMode.END_HANDLE:
