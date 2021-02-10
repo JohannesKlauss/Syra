@@ -9,7 +9,7 @@ interface Props {
 
 const VerticalPiano: React.FC<Props> = ({min, max}) => {
   return (
-    <Box pt={'40px'} h={'1496px'}>
+    <Box pt={'40px'} h={'1496px'} bgColor={'gray.800'}>
       <Piano min={min} max={max} baseHeight={50} renderVertical />
     </Box>
   );
