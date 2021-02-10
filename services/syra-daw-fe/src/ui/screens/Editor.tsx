@@ -36,11 +36,12 @@ function Editor() {
 
   useWebMidi();
 
+  // Auto save
   useInterval(async (id, ownerId, myId) => {
     if (ownerId === myId) {
       await saveToDb(id);
     }
-  }, 30000, id, projectData?.project?.owner.id, meData?.me.id);
+  }, 5000, id, projectData?.project?.owner.id, meData?.me.id);
 
   useEffect(() => {
     if (id !== null && id.length > 0 && meData?.me.id) {
