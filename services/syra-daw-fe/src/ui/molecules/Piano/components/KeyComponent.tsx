@@ -7,6 +7,9 @@ import KeyLabel from "./KeyLabel";
 import {getRelativeKeyPosition, Range} from "../../../../utils/keyboardMidiHelper";
 import usePianoRoll from "../../../../hooks/ui/usePianoRoll";
 import {OnMidiEvent} from "../../../../types/Midi";
+import { useSetRecoilState } from "recoil";
+import { keyboardMidiStore } from "../../../../recoil/keyboardMidiStore";
+import useUpdateMidiStore from "../../../../hooks/midi/useUpdateMidiStore";
 
 interface Props {
   note: number;
@@ -17,18 +20,18 @@ interface Props {
   i: number;
   range: Range;
   onNote: OnMidiEvent;
-  updateStore: OnMidiEvent;
 }
 
-const KeyComponent: React.FC<Props> = ({isActive, note, renderVertical, onNote, updateStore, naturalKeyWidth, baseHeight, i, range}) => {
+const KeyComponent: React.FC<Props> = ({isActive, note, renderVertical, onNote, naturalKeyWidth, baseHeight, i, range}) => {
   const { isAccidental } = MidiNumbers.getAttributes(note);
   const noteAsString = Tone.Frequency(note, 'midi').toNote();
+  const updateStore = useUpdateMidiStore();
   const Component = isAccidental ? AccidentalKey : NaturalKey;
 
   const onEvent = useCallback<OnMidiEvent>(
     (msg, note, velocity) => {
-      updateStore(msg, note, velocity);
       onNote(msg, note, velocity);
+      updateStore(msg, note, velocity);
     },
     [onNote, updateStore],
   );

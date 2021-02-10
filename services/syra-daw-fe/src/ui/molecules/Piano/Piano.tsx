@@ -5,7 +5,6 @@ import {
   getAllMidiNumbersInRange,
   getNaturalKeyWidthRatio,
 } from '../../../utils/keyboardMidiHelper';
-import useUpdateMidiStore from '../../../hooks/midi/useUpdateMidiStore';
 import {useRecoilValue} from 'recoil';
 import {keyboardMidiStore} from '../../../recoil/keyboardMidiStore';
 import useConnectPianoRollToSelectedChannel from '../../../hooks/midi/useConnectPianoRollToSelectedChannel';
@@ -21,7 +20,6 @@ interface Props {
 
 const Piano = ({renderVertical, min, max, baseHeight = 205}: Props) => {
   const activeMidis = useRecoilValue(keyboardMidiStore.activeKeyboardMidiNotes);
-  const updateStore = useUpdateMidiStore();
   const onNote = useConnectPianoRollToSelectedChannel();
   const range = useMemo(() => ({first: min, last: max}), [min, max]);
   const naturalKeyWidth = useMemo(() => getNaturalKeyWidthRatio(range) * 100, [range]);
@@ -44,7 +42,6 @@ const Piano = ({renderVertical, min, max, baseHeight = 205}: Props) => {
           i={i}
           range={range}
           onNote={onNote}
-          updateStore={updateStore}
         />
       ))
       }

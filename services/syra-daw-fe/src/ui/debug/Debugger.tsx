@@ -7,9 +7,24 @@ import { RegionContext } from '../../providers/RegionContext';
 import DebugNodes from './DebugNodes';
 import DebugChannel from './recoil/DebugChannel';
 import DebugRegion from './recoil/DebugRegion';
-import { Box, Heading, Select, Flex, Divider } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  Select,
+  Flex,
+  Divider,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton, ModalBody, ModalFooter, Button, Modal
+} from "@chakra-ui/react";
 
-function Debugger() {
+interface Props {
+  onClose: () => void;
+  showMenu: boolean;
+}
+
+function Debugger({onClose, showMenu}: Props) {
   const [selectedChannelId, setSelectedChannelId] = useState('');
   const [selectedRegionId, setSelectedRegionId] = useState('');
 
@@ -52,42 +67,57 @@ function Debugger() {
   }, [selectedChannelId, regionIds, selectedRegionId]);
 
   return (
-    <Box p={4}>
-      <Heading size={'lg'}>Debugger</Heading>
-      <Heading size={'sm'} mb={8}>
-        NOTE: This will alter a lot of the core functionality. Using this debugger will
-        likely create a need to reload the project before it's usable with the normal UI again.
-      </Heading>
+    <Modal isOpen={showMenu} onClose={onClose} size={'6xl'}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Debugger</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <Box p={4}>
+            <Heading size={'lg'}>Debugger</Heading>
+            <Heading size={'sm'} mb={8}>
+              NOTE: This will alter a lot of the core functionality. Using this debugger will
+              likely create a need to reload the project before it's usable with the normal UI again.
+            </Heading>
 
-      <ChannelContext.Provider value={selectedChannelId}>
-        <Flex align={'center'} justify={'flex-start'}>
-          <Heading size={'sm'} mr={4}>Select Channel:</Heading>
-          <Select flex={1} placeholder="Select Channel" value={selectedChannelId} onChange={e => {
-            setSelectedChannelId(e.target.value as string);
-            setSelectedRegionId('');
-          }}>
-            {channelIds.map(id => <option value={id} key={id}>{channelNames[id]}</option>)}
-          </Select>
-        </Flex>
+            <ChannelContext.Provider value={selectedChannelId}>
+              <Flex align={'center'} justify={'flex-start'}>
+                <Heading size={'sm'} mr={4}>Select Channel:</Heading>
+                <Select flex={1} placeholder="Select Channel" value={selectedChannelId} onChange={e => {
+                  setSelectedChannelId(e.target.value as string);
+                  setSelectedRegionId('');
+                }}>
+                  {channelIds.map(id => <option value={id} key={id}>{channelNames[id]}</option>)}
+                </Select>
+              </Flex>
 
-        <DebugChannel/>
+              <DebugChannel/>
 
-        <Divider my={8}/>
+              <Divider my={8}/>
 
-        <RegionContext.Provider value={selectedRegionId}>
-          <Flex align={'center'} justify={'flex-start'}>
-            <Heading size={'sm'} mr={4}>Select Region:</Heading>
-            <Select flex={1} placeholder="Select Region" value={selectedRegionId} onChange={e => {
-              setSelectedRegionId(e.target.value as string);
-            }}>
-              {regionIds.map(id => <option value={id} key={id}>{id}</option>)}
-            </Select>
-          </Flex>
+              <RegionContext.Provider value={selectedRegionId}>
+                <Flex align={'center'} justify={'flex-start'}>
+                  <Heading size={'sm'} mr={4}>Select Region:</Heading>
+                  <Select flex={1} placeholder="Select Region" value={selectedRegionId} onChange={e => {
+                    setSelectedRegionId(e.target.value as string);
+                  }}>
+                    {regionIds.map(id => <option value={id} key={id}>{id}</option>)}
+                  </Select>
+                </Flex>
 
-          {selectedRegionId !== '' && <DebugNodes/>}
-        </RegionContext.Provider>
-      </ChannelContext.Provider>
-    </Box>
+                {selectedRegionId !== '' && <DebugNodes/>}
+              </RegionContext.Provider>
+            </ChannelContext.Provider>
+          </Box>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={onClose}>
+            Close
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 }
 
