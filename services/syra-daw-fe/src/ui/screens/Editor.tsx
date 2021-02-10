@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useContext, useEffect, useState } from "react";
 import HorizontalChannelList from '../molecules/Channels/HorizontalChannels/HorizontalChannelList';
 import { editorStore } from '../../recoil/editorStore';
 import { useRecoilValue } from 'recoil';
@@ -16,8 +16,10 @@ import Video from "../organisms/views/Video/Video";
 import LoadingIndicator from "../atoms/LoadingIndicator";
 import Debugger from "../debug/Debugger";
 import { useHotkeys } from "react-hotkeys-hook";
+import { BackboneMixerContext } from "../../providers/BackboneMixerContext";
 
 function Editor() {
+  const backboneMixer = useContext(BackboneMixerContext);
   const [showDebugMenu, setShowDebugMenu] = useState(false);
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
@@ -39,6 +41,12 @@ function Editor() {
       await saveToDb(id);
     }
   }, 30000, id, projectData?.project?.owner.id, meData?.me.id);
+
+  useEffect(() => {
+    if (id !== null && id.length > 0 && meData?.me.id) {
+      backboneMixer.initPubSub(id, meData?.me.id);
+    }
+  }, [backboneMixer, id, meData]);
 
   return (
     <Box>

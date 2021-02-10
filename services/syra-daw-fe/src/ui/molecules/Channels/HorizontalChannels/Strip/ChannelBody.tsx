@@ -11,44 +11,44 @@ import ChannelName from '../../ChannelName';
 import useBackboneChannel from '../../../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import LevelMeterText from '../../../../atoms/Meter/LevelMeterText';
 import { Box, Divider, Flex } from '@chakra-ui/react';
-import VolumeFaderText from "../../../../atoms/Slider/VolumeFaderText";
+import VolumeFaderText from '../../../../atoms/Slider/VolumeFaderText';
 
 const ChannelBody: React.FC = React.memo(() => {
   const channelId = useContext(ChannelContext);
   const channelColor = useRecoilValue(channelStore.color(channelId));
   const [volumeFaderValue, setVolumeFaderValue] = useState(0);
-  const { volume, pan } = useBackboneChannel(channelId);
 
-  const onChangeVolume = useCallback(newVal => {
-    volume.set({volume: newVal});
-
-    setVolumeFaderValue(newVal < -95 ? '-∞' : newVal.toFixed(1));
-  }, [volume]);
+  const onChangeVolume = useCallback(
+    (newVal) => {
+      setVolumeFaderValue(newVal < -95 ? '-∞' : newVal.toFixed(1));
+    },
+    [setVolumeFaderValue],
+  );
 
   return (
     <Box>
-      <Divider mb={2}/>
-      <ChannelPluginList/>
-      <Divider my={2}/>
+      <Divider mb={2} />
+      <ChannelPluginList />
+      <Divider my={2} />
 
-      <Pan onChange={newVal => pan.set({pan: newVal / 100})}/>
+      <Pan/>
 
       <Flex justify={'space-around'} align={'center'}>
-        <VolumeFaderText value={volumeFaderValue}/>
-        <LevelMeterText/>
+        <VolumeFaderText value={volumeFaderValue} />
+        <LevelMeterText />
       </Flex>
       <Flex justify={'space-around'} align={'center'}>
-        <VolumeFader onChange={onChangeVolume}/>
-        <LevelMeterVertical/>
+        <VolumeFader onChange={onChangeVolume} />
+        <LevelMeterVertical />
       </Flex>
 
-      <Divider borderColor={channelColor}/>
+      <Divider borderColor={channelColor} />
 
       <Box p={4} bg={'transparent'}>
-        <ChannelLetterButtons/>
+        <ChannelLetterButtons />
       </Box>
 
-      <ChannelName backgroundColor={channelColor}/>
+      <ChannelName backgroundColor={channelColor} />
     </Box>
   );
 });
