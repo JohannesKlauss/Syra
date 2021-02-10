@@ -1,16 +1,16 @@
 /* Inspiration is taken from ritz078's piano implementation. https://github.com/ritz078/raaga/blob/master/components/Piano/Piano.tsx */
 
-import React, {useMemo} from 'react';
+import React, { useCallback, useMemo } from "react";
 import {
   getAllMidiNumbersInRange,
   getNaturalKeyWidthRatio,
 } from '../../../utils/keyboardMidiHelper';
-import useUpdateMidiStore from '../../../hooks/midi/useUpdateMidiStore';
-import {useRecoilValue} from 'recoil';
-import {keyboardMidiStore} from '../../../recoil/keyboardMidiStore';
 import useConnectPianoRollToSelectedChannel from '../../../hooks/midi/useConnectPianoRollToSelectedChannel';
 import PianoContainer from './components/PianoContainer';
 import KeyComponent from './components/KeyComponent';
+import usePianoRoll from "../../../hooks/ui/usePianoRoll";
+import { MidiEventCallable } from "../../../types/Midi";
+import useUpdateMidiStore from "../../../hooks/midi/useUpdateMidiStore";
 
 interface Props {
   min: number;
@@ -20,22 +20,35 @@ interface Props {
 }
 
 const Piano = ({renderVertical, min, max, baseHeight = 205}: Props) => {
-  const activeMidis = useRecoilValue(keyboardMidiStore.activeKeyboardMidiNotes);
-  const updateStore = useUpdateMidiStore();
   const onNote = useConnectPianoRollToSelectedChannel();
   const range = useMemo(() => ({first: min, last: max}), [min, max]);
   const naturalKeyWidth = useMemo(() => getNaturalKeyWidthRatio(range) * 100, [range]);
-  let midis = useMemo(() => getAllMidiNumbersInRange(range), [range]);
+  const updateStore = useUpdateMidiStore();
 
-  if (renderVertical) {
-    midis = midis.reverse();
-  }
+  const midis = useMemo(() => {
+    const notes = getAllMidiNumbersInRange(range);
+
+    if (renderVertical) {
+      return notes.reverse();
+    }
+
+    return notes;
+  }, [range, renderVertical]);
+
+  const triggerNoteEvent = useCallback<MidiEventCallable>(
+    (msg, note, velocity) => {
+      onNote && onNote(msg, note, velocity);
+      updateStore(msg, note, velocity);
+    },
+    [onNote, updateStore],
+  );
+
+  const { isMousePressed, onMouseUp, onMouseDown } = usePianoRoll(triggerNoteEvent);
 
   return (
     <PianoContainer renderVertical={renderVertical}>
       {midis.map((note, i) => (
         <KeyComponent
-          isActive={activeMidis.includes(note)}
           key={note}
           baseHeight={baseHeight}
           renderVertical={renderVertical}
@@ -43,8 +56,10 @@ const Piano = ({renderVertical, min, max, baseHeight = 205}: Props) => {
           naturalKeyWidth={naturalKeyWidth}
           i={i}
           range={range}
-          onNote={onNote}
-          updateStore={updateStore}
+          isMousePressed={isMousePressed}
+          onMouseDown={onMouseDown}
+          onMouseUp={onMouseUp}
+          triggerNoteEvent={triggerNoteEvent}
         />
       ))
       }

@@ -7,12 +7,13 @@ export function linearRangeMap(val: number, input: LinearRange, output: LinearRa
 export const linearRangeMapFactory = (buckets: LinearRangeBucket[]) => (val: number): number => {
   for (let i = 0; i < buckets.length; i++) {
     const {testingStrategy, inputRange, outputRange, mappingStrategy} = buckets[i];
+    const checkBucket = mappingStrategy === BucketMappingStrategy.REVERSE ? outputRange : inputRange;
     let isInBucket;
 
     switch (testingStrategy) {
-      case BucketTestingStrategy.MIN: isInBucket = val >= inputRange.min; break;
-      case BucketTestingStrategy.BETWEEN: isInBucket = val >= inputRange.min && val <= inputRange.max; break;
-      case BucketTestingStrategy.MAX: isInBucket = val <= inputRange.max; break;
+      case BucketTestingStrategy.MIN: isInBucket = val >= checkBucket.min; break;
+      case BucketTestingStrategy.BETWEEN: isInBucket = val >= checkBucket.min && val <= checkBucket.max; break;
+      case BucketTestingStrategy.MAX: isInBucket = val <= checkBucket.max; break;
     }
 
     if (isInBucket) {

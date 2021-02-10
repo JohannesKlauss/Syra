@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useContext, useEffect, useState } from "react";
 import HorizontalChannelList from '../molecules/Channels/HorizontalChannels/HorizontalChannelList';
 import { editorStore } from '../../recoil/editorStore';
 import { useRecoilValue } from 'recoil';
@@ -14,11 +14,18 @@ import { saveToDb } from "../../recoil/effects/saveToDatabaseEffect";
 import { useMeQuery, useProjectQuery } from "../../gql/generated";
 import Video from "../organisms/views/Video/Video";
 import LoadingIndicator from "../atoms/LoadingIndicator";
+import Debugger from "../debug/Debugger";
+import { useHotkeys } from "react-hotkeys-hook";
+import { BackboneMixerContext } from "../../providers/BackboneMixerContext";
 
 function Editor() {
+  const backboneMixer = useContext(BackboneMixerContext);
+  const [showDebugMenu, setShowDebugMenu] = useState(false);
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
   const id = useRecoilValue(projectStore.id);
+
+  useHotkeys('shift+d', () => setShowDebugMenu((currVal) => !currVal));
 
   const {data: projectData} = useProjectQuery({
     variables: {
@@ -29,11 +36,18 @@ function Editor() {
 
   useWebMidi();
 
+  // Auto save
   useInterval(async (id, ownerId, myId) => {
     if (ownerId === myId) {
       await saveToDb(id);
     }
-  }, 30000, id, projectData?.project?.owner.id, meData?.me.id);
+  }, 5000, id, projectData?.project?.owner.id, meData?.me.id);
+
+  useEffect(() => {
+    if (id !== null && id.length > 0 && meData?.me.id) {
+      backboneMixer.initPubSub(id, meData?.me.id);
+    }
+  }, [backboneMixer, id, meData]);
 
   return (
     <Box>
@@ -50,6 +64,8 @@ function Editor() {
           <Settings />
           <Video/>
         </>
+
+        {process.env.NODE_ENV === 'development' && <Debugger onClose={() => setShowDebugMenu(false)} showMenu={showDebugMenu}/>}
       </Suspense>
     </Box>
   );

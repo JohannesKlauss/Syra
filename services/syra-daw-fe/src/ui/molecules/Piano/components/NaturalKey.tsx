@@ -3,13 +3,10 @@ import React from 'react';
 
 interface Props extends FlexProps {
   isActive: boolean;
-  baseHeight?: number;
   renderVertical?: boolean;
 }
 
-function NaturalKey({ isActive, baseHeight = 205, renderVertical, width, ...props }: Props) {
-  const height = isActive ? `${baseHeight * 1.024}px` : `${baseHeight}px`;
-
+function NaturalKey({ isActive, height = 205, renderVertical, width, ...props }: Props) {
   return (
     <Flex
       {...props}

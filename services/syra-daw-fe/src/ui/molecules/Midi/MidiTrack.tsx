@@ -55,7 +55,7 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
       borderBottom={`1px solid ${theme.colors.gray[900]}`}
       h={'14px'}
       bg={isAccidental ? 'gray.800' : 'gray.700'}
-      w={totalWidth}
+      w={`${totalWidth}px`}
       onClick={onClickMidiTrack}
       title={Tone.Frequency(note, 'midi').toNote()}
       cursor={'url("/icons/cursor/pencil.svg") 0 24, auto'}

@@ -1,18 +1,18 @@
 import {useCallback, useState} from 'react';
-import { OnMidiEvent } from '../../types/Midi';
+import { MidiEventCallable } from '../../types/Midi';
 
-export default function usePianoRoll(onEvent: OnMidiEvent) {
+export default function usePianoRoll(triggerEvent: MidiEventCallable) {
   const [isMousePressed, setMousePressed] = useState(false);
 
   const onMouseDown = useCallback((note: number) => {
     setMousePressed(true);
-    onEvent(144, note, 120);
-  }, [setMousePressed, onEvent]);
+    triggerEvent(144, note, 120);
+  }, [setMousePressed, triggerEvent]);
 
   const onMouseUp = useCallback((note: number) => {
     setMousePressed(false);
-    onEvent(128, note, 0);
-  }, [setMousePressed, onEvent]);
+    triggerEvent(128, note, 0);
+  }, [setMousePressed, triggerEvent]);
 
   return {isMousePressed, onMouseDown, onMouseUp};
 }

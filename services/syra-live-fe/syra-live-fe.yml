@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: syra-live-fe
-          image: registry.digitalocean.com/syra-do/services/syra-live-fe:v0.0.9
+          image: registry.digitalocean.com/syra-do/services/syra-live-fe:v0.0.13
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -24,6 +24,11 @@ spec:
               secretKeyRef:
                 name: syra-live-secrets
                 key: NEXT_PUBLIC_LIVE_GQL_URL
+          - name: NEXT_PUBLIC_DAW_URL
+            valueFrom:
+              secretKeyRef:
+                name: syra-live-secrets
+                key: NEXT_PUBLIC_DAW_URL
           - name: NEXT_PUBLIC_STREAM_CHAT_KEY
             valueFrom:
               secretKeyRef:

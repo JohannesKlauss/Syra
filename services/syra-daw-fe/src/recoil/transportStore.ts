@@ -52,7 +52,7 @@ const internalCycleStart = atom<number>({
   default: selector({
     key: 'transport/internalCycleStart/Default',
     get: () => {
-      Tone.getTransport().loopStart = '0:0:0';
+      Tone.getTransport().loopStart = 0;
 
       return 0;
     }
@@ -63,7 +63,7 @@ const cycleStart = selector<number>({
   key: 'transport/cycleStart',
   get: ({get}) => get(internalCycleStart),
   set: ({set}, newValue) => {
-    Tone.getTransport().loopStart = `${newValue}:0:0`;
+    Tone.getTransport().loopStart = newValue as number;
     set(internalCycleStart, newValue);
   },
 });
@@ -73,9 +73,9 @@ const internalCycleEnd = atom<number>({
   default: selector({
     key: 'transport/internalCycleEnd/Default',
     get: () => {
-      Tone.getTransport().loopEnd = '8:0:0';
+      Tone.getTransport().loopEnd = 4;
 
-      return 8;
+      return 4;
     }
   }),
 });
@@ -84,7 +84,7 @@ const cycleEnd = selector<number>({
   key: 'transport/cycleEnd',
   get: ({get}) => get(internalCycleEnd),
   set: ({set}, newValue) => {
-    Tone.getTransport().loopEnd = `${newValue}:0:0`;
+    Tone.getTransport().loopEnd = newValue as number;
     set(internalCycleEnd, newValue);
   },
 });

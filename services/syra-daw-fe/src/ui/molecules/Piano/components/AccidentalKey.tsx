@@ -4,12 +4,9 @@ import React from "react";
 interface Props extends FlexProps {
   isActive: boolean;
   renderVertical?: boolean;
-  baseHeight?: number;
 }
 
-const AccidentalKey: React.FC<Props> = ({isActive, baseHeight = 120, renderVertical, width, left, ...props}) => {
-  const height = isActive ? `${baseHeight * 1.041}px` : `${baseHeight}px`;
-
+const AccidentalKey: React.FC<Props> = ({isActive, height = 120, renderVertical, width, left, ...props}) => {
   return (
     <Flex
       {...props}
