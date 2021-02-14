@@ -46,9 +46,11 @@ function TopBar({}: Props) {
             <Button variant={'link'} marginX={4}>
               {t('Explore')}
             </Button>
-            <Button variant={'link'} marginX={4}>
-              {t('Sessions')}
-            </Button>
+            <Link href={`/sessions`}>
+              <Button variant={'link'} marginX={4}>
+                {t('Sessions')}
+              </Button>
+            </Link>
             <Button variant={'link'} marginX={4}>
               {t('Marketplace')}
             </Button>
