@@ -6502,7 +6502,7 @@ export type MixdownQuery = { __typename?: 'Query' } & {
 export type SessionListDataFragment = { __typename?: 'Project' } & Pick<
   Project,
   'id' | 'createdAt' | 'name' | 'updatedAt'
->;
+> & { members: Array<{ __typename?: 'UsersOnProjects' } & { user: { __typename?: 'User' } & UserLinkFragment }> };
 
 export type MyProjectsQueryVariables = Exact<{
   me?: Maybe<Scalars['String']>;
@@ -6747,7 +6747,13 @@ export const SessionListDataFragmentDoc = gql`
     createdAt
     name
     updatedAt
+    members {
+      user {
+        ...UserLink
+      }
+    }
   }
+  ${UserLinkFragmentDoc}
 `;
 export const BaseProfileFragmentDoc = gql`
   fragment BaseProfile on User {

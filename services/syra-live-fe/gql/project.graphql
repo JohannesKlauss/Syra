@@ -3,6 +3,11 @@ fragment SessionListData on Project {
     createdAt
     name
     updatedAt
+    members {
+        user {
+            ...UserLink
+        }
+    }
 }
 
 query myProjects($me: String) {
