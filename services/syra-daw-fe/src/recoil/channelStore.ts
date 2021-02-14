@@ -41,7 +41,7 @@ const color = atomFamilyWithEffects<string, string>({
 // Whether the user clicked the record button the channel or not.
 const isArmed = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isArmed',
-  default: true,
+  default: false,
   effects: [
     ...syncEffectsComb
   ]
