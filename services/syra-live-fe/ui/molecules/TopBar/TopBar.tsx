@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { IoMdAdd } from 'react-icons/io';
@@ -7,15 +7,23 @@ import Search from '../Search/Search';
 import AvatarMenu from '../Feed/AvatarMenu/AvatarMenu';
 import { useCreateProjectMutation } from '../../../gql/generated';
 import NewMessageNotifier from '../Notifications/NewMessageNotifier/NewMessageNotifier';
+import publicRuntimeConfig from "../../../const/config";
 
 interface Props {}
 
 function TopBar({}: Props) {
   const { t } = useTranslation();
+  const [isCreatingSession, setIsCreatingSession] = useState(false);
   const [executeMutation] = useCreateProjectMutation();
 
   const onClickNewSession = async () => {
-    await executeMutation();
+    setIsCreatingSession(true);
+    const { data, errors } = await executeMutation();
+
+    if (errors == null) {
+      setIsCreatingSession(false);
+      window && window.open(`${publicRuntimeConfig.NEXT_PUBLIC_DAW_URL}/session/${data.createProject.id}`, '_blank');
+    }
   };
 
   return (
@@ -58,7 +66,7 @@ function TopBar({}: Props) {
           <Box>AvatarList of active sessions</Box>
           <Box>
             <Flex align={'center'} justify={'space-between'}>
-              <Button variant={'link'} marginX={8} leftIcon={<IoMdAdd/>} onClick={onClickNewSession}>
+              <Button variant={'link'} marginX={8} leftIcon={<IoMdAdd/>} isLoading={isCreatingSession} onClick={onClickNewSession}>
                 {t('New Session')}
               </Button>
               <Search />
