@@ -64,6 +64,7 @@ query user($id: String!) {
 
 query myFollowers {
     me {
+        id
         followedBy {
             ...FeedUser
         }
@@ -72,6 +73,7 @@ query myFollowers {
 
 query meFollowing {
     me {
+        id
         following {
             ...FeedUser
         }

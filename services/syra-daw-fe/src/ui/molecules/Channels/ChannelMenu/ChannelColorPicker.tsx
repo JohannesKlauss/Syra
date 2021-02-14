@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useMemo } from "react";
 import { CirclePicker } from 'react-color';
+import { useTheme } from "@chakra-ui/react";
+import { channelColors } from "../../../../utils/channelColors";
+import { chakraColorToHex } from "../../../../utils/color";
 
 interface Props {
   activeColor: string;
@@ -7,8 +10,18 @@ interface Props {
 }
 
 function ChannelColorPicker({ activeColor, onChangeColor }: Props) {
+  const theme = useTheme();
+
+  const colors = useMemo(() => {
+    return channelColors.map(color => chakraColorToHex(color, theme.colors));
+  }, [theme]);
+
   return (
-    <CirclePicker color={activeColor} onChangeComplete={(colorResult) => onChangeColor(colorResult.hex)} circleSize={18}/>
+    <CirclePicker
+      color={activeColor}
+      onChangeComplete={(colorResult) => onChangeColor(colorResult.hex)} circleSize={18}
+      colors={colors}
+    />
   );
 }
 

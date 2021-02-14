@@ -6570,13 +6570,13 @@ export type UserQuery = { __typename?: 'Query' } & {
 export type MyFollowersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MyFollowersQuery = { __typename?: 'Query' } & {
-  me: { __typename?: 'User' } & { followedBy: Array<{ __typename?: 'User' } & FeedUserFragment> };
+  me: { __typename?: 'User' } & Pick<User, 'id'> & { followedBy: Array<{ __typename?: 'User' } & FeedUserFragment> };
 };
 
 export type MeFollowingQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeFollowingQuery = { __typename?: 'Query' } & {
-  me: { __typename?: 'User' } & { following: Array<{ __typename?: 'User' } & FeedUserFragment> };
+  me: { __typename?: 'User' } & Pick<User, 'id'> & { following: Array<{ __typename?: 'User' } & FeedUserFragment> };
 };
 
 export type MyFriendsQueryVariables = Exact<{ [key: string]: never }>;
@@ -7773,6 +7773,7 @@ export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
 export const MyFollowersDocument = gql`
   query myFollowers {
     me {
+      id
       followedBy {
         ...FeedUser
       }
@@ -7812,6 +7813,7 @@ export type MyFollowersQueryResult = Apollo.QueryResult<MyFollowersQuery, MyFoll
 export const MeFollowingDocument = gql`
   query meFollowing {
     me {
+      id
       following {
         ...FeedUser
       }
