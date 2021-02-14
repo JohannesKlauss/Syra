@@ -17,6 +17,8 @@ import LoadingIndicator from "../atoms/LoadingIndicator";
 import Debugger from "../debug/Debugger";
 import { useHotkeys } from "react-hotkeys-hook";
 import { BackboneMixerContext } from "../../providers/BackboneMixerContext";
+import { Prompt, useHistory } from "react-router-dom";
+import { routes } from "../../const/routes";
 
 function Editor() {
   const backboneMixer = useContext(BackboneMixerContext);
@@ -26,6 +28,14 @@ function Editor() {
   const id = useRecoilValue(projectStore.id);
 
   useHotkeys('shift+d', () => setShowDebugMenu((currVal) => !currVal));
+
+  const {block} = useHistory();
+
+  const unblock = block((location, action) => {
+    if (location.pathname === routes.Editor && window.confirm(`Some changes might not have been saved. Are you sure you want to leave?`)) {
+      unblock();
+    }
+  });
 
   const {data: projectData} = useProjectQuery({
     variables: {
@@ -51,6 +61,10 @@ function Editor() {
 
   return (
     <Box>
+      <Prompt
+        when={true}
+        message={`Are you sure you want to leave?`}
+      />
       <Suspense fallback={<LoadingIndicator/>}>
         <ArrangeWindowV2 />
         <Box pos={'fixed'} bottom={78} left={0} w={'100%'} h={'50%'} zIndex={1} display={showMixer || showPianoRoll ? 'block' : 'none'}>
