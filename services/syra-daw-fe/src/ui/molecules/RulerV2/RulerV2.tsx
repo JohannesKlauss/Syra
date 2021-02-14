@@ -6,9 +6,13 @@ import { ViewContext } from '../../../providers/ViewContext';
 import { gridStore } from '../../../recoil/gridStore';
 import RulerTransportCursorV2 from './RulerTransportCursorV2';
 import BackgroundGridV2 from '../Grid/BackgroundGridV2';
-import RulerCycleV2 from "./CycleV2/RulerCycleV2";
+import RulerCycleV2 from './CycleV2/RulerCycleV2';
 
-const RulerV2: React.FC = ({children}) => {
+interface Props {
+  additionalRulerContent?: JSX.Element;
+}
+
+const RulerV2: React.FC<Props> = ({additionalRulerContent}) => {
   const { view } = useContext(ViewContext);
   const windowWidth = useRecoilValue(gridStore.totalWidth(view));
 
@@ -22,15 +26,19 @@ const RulerV2: React.FC = ({children}) => {
       zIndex={1}
       borderBottom={`1px solid rgba(255, 255, 255, 0.3)`}
       userSelect={'none'}
+      data-cmp-name={'RulerV2'}
     >
       <RulerCycleV2/>
       <BackgroundGridV2/>
       <RulerBarsV2 />
       <RulerTransportCursorV2>
-        {children}
+        {additionalRulerContent}
       </RulerTransportCursorV2>
     </Box>
   );
 };
 
-export default RulerV2;
+// @ts-ignore
+RulerV2.whyDidYouRender = true;
+
+export default React.memo(RulerV2);

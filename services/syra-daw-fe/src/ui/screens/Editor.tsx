@@ -31,14 +31,20 @@ function Editor() {
 
   const { block } = useHistory();
 
-  const unblock = block((location, action) => {
-    if (
-      location.pathname === routes.Editor &&
-      window.confirm(`Some changes might not have been saved. Are you sure you want to leave?`)
-    ) {
+  useEffect(() => {
+    const unblock = block((location) => {
+      if (
+        location.pathname === routes.Editor &&
+        window.confirm(`Some changes might not have been saved. Are you sure you want to leave?`)
+      ) {
+        unblock();
+      }
+    });
+
+    return () => {
       unblock();
     }
-  });
+  }, []);
 
   const { data: projectData } = useProjectQuery({
     variables: {
