@@ -13,7 +13,8 @@ module.exports = {
   },
   stories: [
     "../ui/**/*.stories.@(js|jsx|ts|tsx)",
-    "../stories/**/*.stories.@(js|jsx|ts|tsx)"
+    "../stories/**/*.stories.@(js|jsx|ts|tsx)",
+    "storybook-addon-apollo-client",
   ],
   addons: [
     "@storybook/addon-links",

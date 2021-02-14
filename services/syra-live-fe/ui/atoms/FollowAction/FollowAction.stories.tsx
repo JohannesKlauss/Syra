@@ -1,7 +1,6 @@
 import FollowAction from "./FollowAction";
 import * as React from "react";
 
-
 const Template = (args) => <FollowAction {...args} />;
 
 export default {

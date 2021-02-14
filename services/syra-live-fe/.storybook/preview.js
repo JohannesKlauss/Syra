@@ -1,10 +1,11 @@
 import React from 'react';
 import { ChakraProvider, extendTheme, Skeleton } from "@chakra-ui/react";
 import { RecoilRoot } from 'recoil';
-import { appWithTranslation } from '../i18n';
 import { addDecorator } from '@storybook/react';
 import { withNextRouter } from 'storybook-addon-next-router';
+import { MockedProvider } from '@apollo/client/testing';
 import "focus-visible/dist/focus-visible";
+import '../i18n';
 
 addDecorator(
   withNextRouter({
@@ -21,7 +22,11 @@ export const parameters = {
   layout: 'fullscreen',
   darkMode: {
     current: 'dark'
-  }
+  },
+  apolloClient: {
+    MockedProvider,
+    // any props you want to pass to MockedProvider on every story
+  },
 };
 
 const config = {
@@ -33,13 +38,11 @@ const customTheme = extendTheme({ config });
 
 export const decorators = [
   (Story) => {
-    const StoryWithTranslation = appWithTranslation(Story);
-
     return (
       <RecoilRoot>
         <ChakraProvider theme={customTheme}>
           <React.Suspense fallback={<Skeleton h={24}/>}>
-            <StoryWithTranslation/>
+            <Story/>
           </React.Suspense>
         </ChakraProvider>
       </RecoilRoot>
