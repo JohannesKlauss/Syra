@@ -30,7 +30,7 @@ function SearchResults({ userResults, searchString }: Props) {
         </Text>
       </Box>
       <Box px={4} py={2}>
-        {userResults.length > 0 && searchString.length > 2 && <UserList size={'sm'} users={userResults} />}
+        {userResults.length > 0 && searchString.length > 2 && <UserList size={'sm'} users={userResults} isMessageButtonContracted={true}/>}
         {searchString.length < 3 && <Text fontSize={'sm'} fontWeight={300}>{t('Please type in three or more characters.')}</Text>}
         {searchString.length > 2 && userResults.length === 0 && <Text fontSize={'sm'} fontWeight={300}>{t('No users found.')}</Text>}
       </Box>

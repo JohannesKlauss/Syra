@@ -6,15 +6,16 @@ import MessageAction from "../../../atoms/MessageAction/MessageAction";
 
 interface Props {
   user: FeedUserFragment;
+  isMessageButtonContracted?: boolean;
 }
 
-function UserListActions({ user }: Props) {
+function UserListActions({ user, isMessageButtonContracted }: Props) {
   return (
     <Box>
       <FollowAction
         handle={user.handle}
         isMeFollowing={user.isMeFollowing}
-        followingContent={<MessageAction userId={user.id}/>}
+        followingContent={<MessageAction userId={user.id} isContracted={isMessageButtonContracted}/>}
       />
     </Box>
   );
