@@ -78,6 +78,15 @@ query meFollowing {
     }
 }
 
+query myFriends {
+    me {
+        id
+        friends {
+            ...UserLink
+        }
+    }
+}
+
 query followRecommendations {
     followRecommendations {
         ...UserLink

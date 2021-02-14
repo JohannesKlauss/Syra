@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "node server.js",
-    "build": "next build",
+    "build": "ANALYZE=true next build",
     "start": "next start",
     "type-check": "tsc",
     "gql-generate": "graphql-codegen",
@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.12.13",
+    "@next/bundle-analyzer": "10.0.4",
     "@storybook/addon-actions": "6.1.17",
     "@storybook/addon-essentials": "6.1.17",
     "@storybook/addon-links": "6.1.17",

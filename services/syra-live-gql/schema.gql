@@ -3492,6 +3492,7 @@ type User {
   followedByCount: Int
   following(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
   followingCount: Int
+  friends: [User!]
   handle: String!
   id: String!
   interests(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]!

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { IoMdAdd } from 'react-icons/io';
@@ -7,7 +7,8 @@ import Search from '../Search/Search';
 import AvatarMenu from '../Feed/AvatarMenu/AvatarMenu';
 import { useCreateProjectMutation } from '../../../gql/generated';
 import NewMessageNotifier from '../Notifications/NewMessageNotifier/NewMessageNotifier';
-import publicRuntimeConfig from "../../../const/config";
+import publicRuntimeConfig from '../../../const/config';
+import OnlineFollowersList from '../OnlineFollowersList/OnlineFollowersList';
 
 interface Props {}
 
@@ -63,14 +64,22 @@ function TopBar({}: Props) {
               {t('Marketplace')}
             </Button>
           </Box>
-          <Box>AvatarList of active sessions</Box>
+          <Box>
+            <OnlineFollowersList />
+          </Box>
           <Box>
             <Flex align={'center'} justify={'space-between'}>
-              <Button variant={'link'} marginX={8} leftIcon={<IoMdAdd/>} isLoading={isCreatingSession} onClick={onClickNewSession}>
+              <Button
+                variant={'link'}
+                marginX={8}
+                leftIcon={<IoMdAdd />}
+                isLoading={isCreatingSession}
+                onClick={onClickNewSession}
+              >
                 {t('New Session')}
               </Button>
               <Search />
-              <NewMessageNotifier/>
+              <NewMessageNotifier />
               <AvatarMenu />
             </Flex>
           </Box>

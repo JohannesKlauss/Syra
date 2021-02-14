@@ -1,4 +1,5 @@
 import { hash } from 'bcrypt';
+import { intersectionWith, isEqual } from 'lodash';
 import * as TypeGraphQL from 'type-graphql';
 import { User } from '../../../../../prisma/generated/type-graphql/models';
 import { SignUpUserArgs } from './Args/SignUpUserArgs';
@@ -30,6 +31,21 @@ export class CustomUserResolver {
   @TypeGraphQL.FieldResolver((type) => Boolean, { nullable: true })
   async isMyself(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<boolean> {
     return user.id === ctx.user.id;
+  }
+
+  @TypeGraphQL.FieldResolver((type) => [User], {nullable: true})
+  async friends(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<User[]> {
+    const extendedUser = await ctx.prisma.user.findFirst({
+      where: {id: user.id},
+      select: {
+        followedBy: true,
+        following: true,
+      }
+    });
+
+    console.log('friends', intersectionWith(extendedUser.followedBy, extendedUser.following, isEqual));
+
+    return intersectionWith(extendedUser.followedBy, extendedUser.following, isEqual);
   }
 
   @TypeGraphQL.Authorized([Role.USER])
