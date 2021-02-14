@@ -22,7 +22,7 @@ const showSettings = atomWithEffects({
 
 const showVideo = atomWithEffects({
   key: 'editorStore/showVideo',
-  default: false,
+  default: true,
   effects: [saveToLocalStorageEffect, loadInitialStateEffect]
 });
 
