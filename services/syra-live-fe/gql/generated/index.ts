@@ -7522,7 +7522,9 @@ export type MixdownLazyQueryHookResult = ReturnType<typeof useMixdownLazyQuery>;
 export type MixdownQueryResult = Apollo.QueryResult<MixdownQuery, MixdownQueryVariables>;
 export const MyProjectsDocument = gql`
   query myProjects($me: String) {
-    projects(where: { owner: { is: { id: { equals: $me } } } }) {
+    projects(
+      where: { OR: [{ owner: { is: { id: { equals: $me } } } }, { members: { some: { userId: { equals: $me } } } }] }
+    ) {
       ...SessionListData
     }
   }
