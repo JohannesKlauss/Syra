@@ -12,7 +12,7 @@ interface Props {
 
 const SearchField: React.FC<Props> = ({placeholder, icon, onKeyup, onClick}) => {
   return (
-    <InputGroup mx={8}>
+    <InputGroup>
       <Input onClick={onClick} placeholder={placeholder} onKeyUp={e => onKeyup((e.target as HTMLInputElement).value)} />
       <InputRightElement children={<Box as={icon} color="gray.500" />} />
     </InputGroup>

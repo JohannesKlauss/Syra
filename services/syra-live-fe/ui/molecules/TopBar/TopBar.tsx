@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Search from '../Search/Search';
 import AvatarMenu from '../Feed/AvatarMenu/AvatarMenu';
 import { useCreateProjectMutation } from '../../../gql/generated';
-import NewMessageNotifier from "../Notifications/NewMessageNotifier/NewMessageNotifier";
+import NewMessageNotifier from '../Notifications/NewMessageNotifier/NewMessageNotifier';
 
 interface Props {}
 

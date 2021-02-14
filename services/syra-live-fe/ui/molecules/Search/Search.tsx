@@ -29,7 +29,7 @@ function Search({}: Props) {
   }, [data]);
 
   return (
-    <Box pos={'relative'}>
+    <Box pos={'relative'} mx={8}>
       <SearchField
         onClick={() => setShowResultsTab(true)}
         placeholder={`${t('Search')} ${' '} ${t('S Y R A')}`}
