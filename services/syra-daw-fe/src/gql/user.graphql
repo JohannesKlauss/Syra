@@ -1,3 +1,11 @@
+fragment BaseUser on User {
+    id
+    name
+    handle
+    avatar
+    isOnline
+}
+
 query me {
     me {
         id
@@ -11,4 +19,17 @@ query me {
         followingCount
         isMyself
     }
+}
+
+query friends {
+    me {
+        id
+        friends {
+            ...BaseUser
+        }
+    }
+}
+
+subscription onlineStatus($userId: String!) {
+    onlineStatus(userId: $userId)
 }

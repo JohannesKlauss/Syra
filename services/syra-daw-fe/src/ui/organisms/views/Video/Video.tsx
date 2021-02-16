@@ -18,8 +18,8 @@ const Video: React.FC<Props> = ({}) => {
     <Box
       pos={'fixed'}
       zIndex={10}
-      bottom={5}
-      right={5}
+      bottom={'91px'}
+      right={'10px'}
       w={VIDEO_WIDTH}
       h={VIDEO_HEIGHT}
       display={showVideo ? 'block' : 'none'}

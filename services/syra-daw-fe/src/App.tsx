@@ -7,6 +7,7 @@ import {
   extendTheme,
 } from '@chakra-ui/react';
 import useListenForEngineStart from "./hooks/tone/useListenForEngineStart";
+import 'focus-visible/dist/focus-visible';
 
 const config = {
   useSystemColorMode: false,

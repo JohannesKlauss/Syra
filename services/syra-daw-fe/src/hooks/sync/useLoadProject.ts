@@ -45,7 +45,7 @@ export default function useLoadProject(id: string) {
   useEffect(() => {
     if (!projectLoading && !meLoading && projectData?.project && meData?.me) {
       setProjectName(projectData.project.name);
-      setDocumentTitle(`S Y R A - ${projectData.project.name}`);
+      setDocumentTitle(`S Y R A | ${projectData.project.name}`);
       increase();
 
       if (projectData.project.owner.id !== meData.me.id) {

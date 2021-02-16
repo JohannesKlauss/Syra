@@ -6312,9 +6312,7 @@ export type ProjectQuery = { __typename?: 'Query' } & {
   project?: Maybe<
     { __typename?: 'Project' } & Pick<Project, 'id' | 'createdAt' | 'name' | 'isInitialized' | 'content'> & {
         owner: { __typename?: 'User' } & Pick<User, 'id' | 'name'>;
-        members: Array<
-          { __typename?: 'UsersOnProjects' } & { user: { __typename?: 'User' } & Pick<User, 'name' | 'id' | 'avatar'> }
-        >;
+        members: Array<{ __typename?: 'UsersOnProjects' } & { user: { __typename?: 'User' } & BaseUserFragment }>;
       }
   >;
 };
@@ -6326,6 +6324,24 @@ export type UpdateNameMutationVariables = Exact<{
 
 export type UpdateNameMutation = { __typename?: 'Mutation' } & {
   updateProject?: Maybe<{ __typename?: 'Project' } & Pick<Project, 'id'>>;
+};
+
+export type AddMemberMutationVariables = Exact<{
+  projectId: Scalars['String'];
+  userId: Scalars['String'];
+}>;
+
+export type AddMemberMutation = { __typename?: 'Mutation' } & {
+  createUsersOnProjects: { __typename?: 'UsersOnProjects' } & { user: { __typename?: 'User' } & BaseUserFragment };
+};
+
+export type RemoveMemberMutationVariables = Exact<{
+  projectId: Scalars['String'];
+  userId: Scalars['String'];
+}>;
+
+export type RemoveMemberMutation = { __typename?: 'Mutation' } & {
+  deleteUsersOnProjects?: Maybe<{ __typename?: 'UsersOnProjects' } & Pick<UsersOnProjects, 'userId'>>;
 };
 
 export type ChangesSubscriptionVariables = Exact<{
@@ -6357,6 +6373,8 @@ export type UpdateProjectContentMutation = { __typename?: 'Mutation' } & {
   updateProject?: Maybe<{ __typename?: 'Project' } & Pick<Project, 'id'>>;
 };
 
+export type BaseUserFragment = { __typename?: 'User' } & Pick<User, 'id' | 'name' | 'handle' | 'avatar' | 'isOnline'>;
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = { __typename?: 'Query' } & {
@@ -6375,6 +6393,29 @@ export type MeQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type FriendsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type FriendsQuery = { __typename?: 'Query' } & {
+  me: { __typename?: 'User' } & Pick<User, 'id'> & {
+      friends?: Maybe<Array<{ __typename?: 'User' } & BaseUserFragment>>;
+    };
+};
+
+export type OnlineStatusSubscriptionVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+export type OnlineStatusSubscription = { __typename?: 'Subscription' } & Pick<Subscription, 'onlineStatus'>;
+
+export const BaseUserFragmentDoc = gql`
+  fragment BaseUser on User {
+    id
+    name
+    handle
+    avatar
+    isOnline
+  }
+`;
 export const ProjectDocument = gql`
   query project($id: String!) {
     project(where: { id: $id }) {
@@ -6388,14 +6429,13 @@ export const ProjectDocument = gql`
       isInitialized
       members(where: { projectId: { equals: $id } }) {
         user {
-          name
-          id
-          avatar
+          ...BaseUser
         }
       }
       content
     }
   }
+  ${BaseUserFragmentDoc}
 `;
 
 /**
@@ -6458,6 +6498,82 @@ export function useUpdateNameMutation(
 export type UpdateNameMutationHookResult = ReturnType<typeof useUpdateNameMutation>;
 export type UpdateNameMutationResult = Apollo.MutationResult<UpdateNameMutation>;
 export type UpdateNameMutationOptions = Apollo.BaseMutationOptions<UpdateNameMutation, UpdateNameMutationVariables>;
+export const AddMemberDocument = gql`
+  mutation addMember($projectId: String!, $userId: String!) {
+    createUsersOnProjects(data: { user: { connect: { id: $userId } }, project: { connect: { id: $projectId } } }) {
+      user {
+        ...BaseUser
+      }
+    }
+  }
+  ${BaseUserFragmentDoc}
+`;
+export type AddMemberMutationFn = Apollo.MutationFunction<AddMemberMutation, AddMemberMutationVariables>;
+
+/**
+ * __useAddMemberMutation__
+ *
+ * To run a mutation, you first call `useAddMemberMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddMemberMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addMemberMutation, { data, loading, error }] = useAddMemberMutation({
+ *   variables: {
+ *      projectId: // value for 'projectId'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useAddMemberMutation(
+  baseOptions?: Apollo.MutationHookOptions<AddMemberMutation, AddMemberMutationVariables>,
+) {
+  return Apollo.useMutation<AddMemberMutation, AddMemberMutationVariables>(AddMemberDocument, baseOptions);
+}
+export type AddMemberMutationHookResult = ReturnType<typeof useAddMemberMutation>;
+export type AddMemberMutationResult = Apollo.MutationResult<AddMemberMutation>;
+export type AddMemberMutationOptions = Apollo.BaseMutationOptions<AddMemberMutation, AddMemberMutationVariables>;
+export const RemoveMemberDocument = gql`
+  mutation removeMember($projectId: String!, $userId: String!) {
+    deleteUsersOnProjects(where: { userId_projectId: { userId: $userId, projectId: $projectId } }) {
+      userId
+    }
+  }
+`;
+export type RemoveMemberMutationFn = Apollo.MutationFunction<RemoveMemberMutation, RemoveMemberMutationVariables>;
+
+/**
+ * __useRemoveMemberMutation__
+ *
+ * To run a mutation, you first call `useRemoveMemberMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveMemberMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeMemberMutation, { data, loading, error }] = useRemoveMemberMutation({
+ *   variables: {
+ *      projectId: // value for 'projectId'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useRemoveMemberMutation(
+  baseOptions?: Apollo.MutationHookOptions<RemoveMemberMutation, RemoveMemberMutationVariables>,
+) {
+  return Apollo.useMutation<RemoveMemberMutation, RemoveMemberMutationVariables>(RemoveMemberDocument, baseOptions);
+}
+export type RemoveMemberMutationHookResult = ReturnType<typeof useRemoveMemberMutation>;
+export type RemoveMemberMutationResult = Apollo.MutationResult<RemoveMemberMutation>;
+export type RemoveMemberMutationOptions = Apollo.BaseMutationOptions<
+  RemoveMemberMutation,
+  RemoveMemberMutationVariables
+>;
 export const ChangesDocument = gql`
   subscription changes($projectId: String!) {
     changes(projectId: $projectId) {
@@ -6623,3 +6739,71 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const FriendsDocument = gql`
+  query friends {
+    me {
+      id
+      friends {
+        ...BaseUser
+      }
+    }
+  }
+  ${BaseUserFragmentDoc}
+`;
+
+/**
+ * __useFriendsQuery__
+ *
+ * To run a query within a React component, call `useFriendsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFriendsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFriendsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFriendsQuery(baseOptions?: Apollo.QueryHookOptions<FriendsQuery, FriendsQueryVariables>) {
+  return Apollo.useQuery<FriendsQuery, FriendsQueryVariables>(FriendsDocument, baseOptions);
+}
+export function useFriendsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FriendsQuery, FriendsQueryVariables>) {
+  return Apollo.useLazyQuery<FriendsQuery, FriendsQueryVariables>(FriendsDocument, baseOptions);
+}
+export type FriendsQueryHookResult = ReturnType<typeof useFriendsQuery>;
+export type FriendsLazyQueryHookResult = ReturnType<typeof useFriendsLazyQuery>;
+export type FriendsQueryResult = Apollo.QueryResult<FriendsQuery, FriendsQueryVariables>;
+export const OnlineStatusDocument = gql`
+  subscription onlineStatus($userId: String!) {
+    onlineStatus(userId: $userId)
+  }
+`;
+
+/**
+ * __useOnlineStatusSubscription__
+ *
+ * To run a query within a React component, call `useOnlineStatusSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useOnlineStatusSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOnlineStatusSubscription({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useOnlineStatusSubscription(
+  baseOptions: Apollo.SubscriptionHookOptions<OnlineStatusSubscription, OnlineStatusSubscriptionVariables>,
+) {
+  return Apollo.useSubscription<OnlineStatusSubscription, OnlineStatusSubscriptionVariables>(
+    OnlineStatusDocument,
+    baseOptions,
+  );
+}
+export type OnlineStatusSubscriptionHookResult = ReturnType<typeof useOnlineStatusSubscription>;
+export type OnlineStatusSubscriptionResult = Apollo.SubscriptionResult<OnlineStatusSubscription>;

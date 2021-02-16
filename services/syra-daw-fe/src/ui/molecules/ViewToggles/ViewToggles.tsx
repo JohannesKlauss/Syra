@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { editorStore } from '../../../recoil/editorStore';
 import useUpdateView from '../../../hooks/recoil/editor/useUpdateView';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -9,11 +9,12 @@ import { Flex, IconButton } from '@chakra-ui/react';
 import { CgPiano } from 'react-icons/cg';
 import { MdSettings } from 'react-icons/md';
 import { GoSettings } from 'react-icons/go';
+import { RiVideoChatFill } from 'react-icons/ri';
 
 function ViewToggles() {
   const updateView = useUpdateView();
 
-  const setShowVideo = useSetRecoilState(editorStore.showVideo);
+  const [showVideo, setShowVideo] = useRecoilState(editorStore.showVideo);
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
   const setShowSettings = useSetRecoilState(editorStore.showSettings);
@@ -53,6 +54,14 @@ function ViewToggles() {
         colorScheme={'gray'}
         variant={'ghost'}
         title={buttonInfo('Open Settings', 'Cmd + ,')}
+      />
+      <IconButton
+        icon={<RiVideoChatFill/>}
+        aria-label={'Toggle Video'}
+        onClick={() => setShowVideo(currVal => !currVal)}
+        colorScheme={showVideo ? 'teal' : 'gray'}
+        variant={'ghost'}
+        title={buttonInfo('Toggle Video', 'V')}
       />
     </Flex>
   );

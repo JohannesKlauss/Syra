@@ -7,6 +7,7 @@ import TimeInformation from './TimeInformation';
 import Tempo from './Tempo';
 import BarsAndBeats from './BarsAndBeats';
 import { Box, Flex } from '@chakra-ui/react';
+import MemberSettings from "../Social/MemberSettings";
 
 function TransportView() {
   return (
@@ -23,8 +24,9 @@ function TransportView() {
         <Tempo />
         <TimeSignature />
       </Flex>
-      <Flex w={'33%'} justify={'center'}>
+      <Flex w={'33%'} justify={'center'} align={'center'}>
         <Click />
+        <MemberSettings/>
       </Flex>
     </Flex>
   );
