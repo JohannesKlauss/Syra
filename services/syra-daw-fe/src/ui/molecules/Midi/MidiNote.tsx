@@ -12,7 +12,7 @@ import { pianoRollStore } from '../../../recoil/pianoRollStore';
 import { regionStore } from '../../../recoil/regionStore';
 import useTicksToPixel from '../../../hooks/tone/useTicksToPixel';
 import { GridMouseMode } from '../../../types/GridMouseMode';
-import useUpdateMidiVelocity from "../../../hooks/midi/useUpdateMidiVelocity";
+import useUpdateMidiVelocity from '../../../hooks/midi/useUpdateMidiVelocity';
 
 interface Props {
   note: TMidiNote;
@@ -35,6 +35,10 @@ const MidiNote: React.FC<Props> = ({ note }) => {
   };
 
   const onYChanged = (offset: number) => {
+    if (mouseMode !== GridMouseMode.VELOCITY) {
+      return;
+    }
+    
     const velocity = Math.round(-(offset / 2.5));
 
     updateVelocity(velocity, note.id);
