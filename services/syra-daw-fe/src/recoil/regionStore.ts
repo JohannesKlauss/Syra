@@ -5,19 +5,20 @@ import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
 import { syncEffectsComb } from "./effects/syncEffectsComb";
 import { gridStore } from "./gridStore";
 import { View } from "../types/View";
+import { undoRedoEffect } from "./effects/undoRedoEffect";
 
 // Sets the amount of ticks that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamilyWithEffects<number, string>({
   key: 'region/start',
   default: 0, // This value is referring to the transport, not the audio buffer.
-  effects: [...syncEffectsComb],
+  effects: [...syncEffectsComb, undoRedoEffect],
 });
 
 // This will replace trimEnd. This is measured in ticks
 const duration = atomFamilyWithEffects<number, string>({
   key: 'region/duration',
   default: 0,
-  effects: [...syncEffectsComb],
+  effects: [...syncEffectsComb, undoRedoEffect],
 });
 
 // The amount of ticks that the region gets trimmed at the beginning (this is basically the offset in relation to the audio buffer or first midi note)
@@ -25,7 +26,7 @@ const duration = atomFamilyWithEffects<number, string>({
 const offset = atomFamilyWithEffects<number, string>({
   key: 'region/offset',
   default: 0,
-  effects: [...syncEffectsComb],
+  effects: [...syncEffectsComb, undoRedoEffect],
 });
 
 const isMuted = atomFamilyWithEffects<boolean, string>({
@@ -81,7 +82,7 @@ const audioBufferPointer = atomFamilyWithEffects<string | null, string>({
 const midiNotes = atomFamilyWithEffects<MidiNote[], string>({
   key: 'region/midiNotes',
   default: [],
-  effects: [...syncEffectsComb],
+  effects: [...syncEffectsComb, undoRedoEffect],
 });
 
 export interface RegionState {
@@ -135,7 +136,7 @@ const audioBuffer = selectorFamily<AudioBuffer | null, string>({
 const ids = atomFamilyWithEffects<string[], string>({
   key: 'region/ids',
   default: [],
-  effects: [...syncEffectsComb],
+  effects: [...syncEffectsComb, undoRedoEffect],
 });
 
 const selectedIds = atom<string[]>({

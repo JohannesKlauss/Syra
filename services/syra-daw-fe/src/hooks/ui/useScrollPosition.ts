@@ -1,14 +1,17 @@
 import { DependencyList, MutableRefObject, useLayoutEffect, useRef } from 'react';
 
 type UseScrollPosition = (
-  effect: (x: number) => void,
+  effect: (x: number, y: number) => void,
   deps?: DependencyList,
   element?: MutableRefObject<HTMLElement | null>,
   wait?: number
 ) => void;
 
 function getScrollPosition(element?: MutableRefObject<HTMLElement | null>) {
-  return element?.current ? element.current.scrollLeft : 0;
+  return {
+    x: element?.current?.scrollLeft ?? 0,
+    y: element?.current?.scrollTop ?? 0,
+  };
 }
 
 // TODO: THIS IS A HORRIBLE IMPLEMENTATION. WE HAVE TO IMPROVE THIS.
@@ -23,7 +26,7 @@ const useScrollPosition: UseScrollPosition = (
 
   const callBack = () => {
     const currPos = getScrollPosition(element);
-    effect(currPos);
+    effect(currPos.x, currPos.y);
     position.current = currPos;
   }
 

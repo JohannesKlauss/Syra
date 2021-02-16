@@ -8,6 +8,7 @@ import { syncEffectsComb } from "./effects/syncEffectsComb";
 import { createSoulInstance } from "../soul/createSoulInstance";
 import { soulPluginStore } from "./soulPluginStore";
 import { projectStore } from "./projectStore";
+import { undoRedoEffect } from "./effects/undoRedoEffect";
 
 let lastChannelNum = 2;
 
@@ -84,7 +85,8 @@ const pluginIds = atomFamilyWithEffects<string[], string>({
   key: 'channel/pluginIds',
   default: [],
   effects: [
-    ...syncEffectsComb
+    ...syncEffectsComb,
+    undoRedoEffect,
   ]
 });
 
@@ -201,7 +203,8 @@ const ids = atomWithEffects<string[]>({
   key: 'channel/ids',
   default: [],
   effects: [
-    ...syncEffectsComb
+    ...syncEffectsComb,
+    undoRedoEffect,
   ]
 });
 
