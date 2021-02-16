@@ -12,7 +12,7 @@ interface Props {
 function BackgroundGridV2({ticksFullHeight}: Props) {
   const { view } = useContext(ViewContext);
   const gridId = createNewId('grid-pattern');
-  const windowWidth = useRecoilValue(gridStore.viewWidth(view));
+  const windowWidth = useRecoilValue(gridStore.totalWidth(view));
   const zoomedBarPixelWidth = Math.max(useRecoilValue(gridStore.zoomedQuarterPixelWidth(view)) * 4, 0);
 
   const rectWidth = 1 / window.devicePixelRatio;
