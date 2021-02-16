@@ -44,6 +44,7 @@ const MidiNote: React.FC<Props> = ({ note }) => {
       h={'14px'}
       border={'1px solid black'}
       offset={ticksToPixel(start)}
+      allowOverExtendingStart
       onPositionChanged={onPositionChanged}
     />
   );

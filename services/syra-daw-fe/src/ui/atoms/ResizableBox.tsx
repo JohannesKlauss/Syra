@@ -9,6 +9,7 @@ interface Props extends BoxProps {
   baseWidth: number;
   baseX: number;
   offset?: number;
+  allowOverExtendingStart?: boolean;
   onPositionChanged: (x: number, width: number, offsetDelta: number) => void;
 }
 
@@ -20,6 +21,7 @@ const ResizableBox: React.FC<Props> = ({
   children,
   onPositionChanged,
   offset = 0,
+  allowOverExtendingStart,
   ...props
 }) => {
   const width = useMotionValue(baseWidth);
@@ -63,7 +65,10 @@ const ResizableBox: React.FC<Props> = ({
         x.set(oldX.get());
         break;
       case DragMode.START_HANDLE:
-        if (oldBoxOffset.current + snappedOffset >= 0) {
+        console.log('oldBoxOffset', oldBoxOffset.current);
+        console.log('snappedOffset', snappedOffset);
+
+        if (oldBoxOffset.current + snappedOffset >= 0 || allowOverExtendingStart) {
           width.set(oldWidth.get() - snappedOffset);
           x.set(oldX.get() + snappedOffset);
           boxOffset.current = oldBoxOffset.current + snappedOffset;
