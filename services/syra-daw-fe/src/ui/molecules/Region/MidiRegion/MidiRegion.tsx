@@ -35,7 +35,7 @@ const MidiRegion: React.FC = () => {
   };
 
   return (
-    <ResizableBox baseX={ticksToPixel(start)} baseWidth={regionWidth} onPositionChanged={onPositionChanged}>
+    <ResizableBox baseX={ticksToPixel(start)} baseWidth={regionWidth} onPositionChanged={onPositionChanged} allowOverExtendingStart>
       <BaseRegion>
         <TopBar color={color}>
           <Flex justify={'flex-start'} align={'center'} ml={2}>
