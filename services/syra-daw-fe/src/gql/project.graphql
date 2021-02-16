@@ -19,6 +19,12 @@ query project($id: String!) {
     }
 }
 
+mutation updateName($projectId: String!, $name: String!) {
+    updateProject(where: {id: $projectId}, data: {name: {set: $name}}) {
+        id
+    }
+}
+
 subscription changes($projectId: String!) {
     changes(projectId: $projectId) {
         id

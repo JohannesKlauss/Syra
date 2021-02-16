@@ -21,6 +21,7 @@ export type Scalars = {
 
 export type Address = {
   __typename?: 'Address';
+  User: Array<User>;
   addressLine1: Scalars['String'];
   addressLine2?: Maybe<Scalars['String']>;
   city: Scalars['String'];
@@ -28,7 +29,6 @@ export type Address = {
   createdAt: Scalars['Timestamp'];
   state: Scalars['String'];
   updatedAt: Scalars['Timestamp'];
-  User?: Maybe<Array<User>>;
   zip: Scalars['Int'];
 };
 
@@ -61,6 +61,7 @@ export type AddressCountAggregate = {
 };
 
 export type AddressCreateInput = {
+  User?: Maybe<UserCreateNestedManyWithoutAddressInput>;
   addressLine1: Scalars['String'];
   addressLine2?: Maybe<Scalars['String']>;
   city: Scalars['String'];
@@ -69,11 +70,10 @@ export type AddressCreateInput = {
   id?: Maybe<Scalars['String']>;
   state: Scalars['String'];
   updatedAt?: Maybe<Scalars['Timestamp']>;
-  User?: Maybe<UserCreateManyWithoutAddressInput>;
   zip: Scalars['Int'];
 };
 
-export type AddressCreateOneWithoutUserInput = {
+export type AddressCreateNestedOneWithoutUserInput = {
   connect?: Maybe<AddressWhereUniqueInput>;
   connectOrCreate?: Maybe<AddressCreateOrConnectWithoutUserInput>;
   create?: Maybe<AddressCreateWithoutUserInput>;
@@ -157,6 +157,7 @@ export type AddressSumAggregate = {
 };
 
 export type AddressUpdateInput = {
+  User?: Maybe<UserUpdateManyWithoutAddressInput>;
   addressLine1?: Maybe<StringFieldUpdateOperationsInput>;
   addressLine2?: Maybe<NullableStringFieldUpdateOperationsInput>;
   city?: Maybe<StringFieldUpdateOperationsInput>;
@@ -165,7 +166,6 @@ export type AddressUpdateInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   state?: Maybe<StringFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  User?: Maybe<UserUpdateManyWithoutAddressInput>;
   zip?: Maybe<IntFieldUpdateOperationsInput>;
 };
 
@@ -209,23 +209,28 @@ export type AddressUpsertWithoutUserInput = {
 };
 
 export type AddressWhereInput = {
+  AND?: Maybe<Array<AddressWhereInput>>;
+  NOT?: Maybe<Array<AddressWhereInput>>;
+  OR?: Maybe<Array<AddressWhereInput>>;
+  User?: Maybe<UserListRelationFilter>;
   addressLine1?: Maybe<StringFilter>;
   addressLine2?: Maybe<StringNullableFilter>;
-  AND?: Maybe<Array<AddressWhereInput>>;
   city?: Maybe<StringFilter>;
   country?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<AddressWhereInput>>;
-  OR?: Maybe<Array<AddressWhereInput>>;
   state?: Maybe<StringFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
-  User?: Maybe<UserListRelationFilter>;
   zip?: Maybe<IntFilter>;
 };
 
 export type AddressWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
+};
+
+export type AffectedRowsOutput = {
+  __typename?: 'AffectedRowsOutput';
+  count: Scalars['Int'];
 };
 
 export type AggregateAddress = {
@@ -325,13 +330,13 @@ export type AudioAsset = {
   userId?: Maybe<Scalars['String']>;
 };
 
-export type AudioAssetCreateManyWithoutOwnerInput = {
+export type AudioAssetCreateNestedManyWithoutOwnerInput = {
   connect?: Maybe<Array<AudioAssetWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<AudioAssetCreateOrConnectWithoutownerInput>>;
   create?: Maybe<Array<AudioAssetCreateWithoutOwnerInput>>;
 };
 
-export type AudioAssetCreateOneWithoutMixdownInput = {
+export type AudioAssetCreateNestedOneWithoutMixdownInput = {
   connect?: Maybe<AudioAssetWhereUniqueInput>;
   connectOrCreate?: Maybe<AudioAssetCreateOrConnectWithoutMixdownInput>;
   create?: Maybe<AudioAssetCreateWithoutMixdownInput>;
@@ -352,14 +357,14 @@ export type AudioAssetCreateWithoutMixdownInput = {
   isPublic?: Maybe<Scalars['Boolean']>;
   location: Scalars['String'];
   name: Scalars['String'];
-  owner?: Maybe<UserCreateOneWithoutAudioAssetInput>;
+  owner?: Maybe<UserCreateNestedOneWithoutAudioAssetInput>;
 };
 
 export type AudioAssetCreateWithoutOwnerInput = {
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutAudioInput>;
   id?: Maybe<Scalars['String']>;
   isPublic?: Maybe<Scalars['Boolean']>;
   location: Scalars['String'];
-  Mixdown?: Maybe<MixdownCreateManyWithoutAudioInput>;
   name: Scalars['String'];
 };
 
@@ -374,6 +379,7 @@ export type AudioAssetOrderByInput = {
   isPublic?: Maybe<SortOrder>;
   location?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
+  owner?: Maybe<UserOrderByInput>;
   userId?: Maybe<SortOrder>;
 };
 
@@ -392,12 +398,12 @@ export enum AudioAssetScalarFieldEnum {
 
 export type AudioAssetScalarWhereInput = {
   AND?: Maybe<Array<AudioAssetScalarWhereInput>>;
+  NOT?: Maybe<Array<AudioAssetScalarWhereInput>>;
+  OR?: Maybe<Array<AudioAssetScalarWhereInput>>;
   id?: Maybe<StringFilter>;
   isPublic?: Maybe<BoolNullableFilter>;
   location?: Maybe<StringFilter>;
   name?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<AudioAssetScalarWhereInput>>;
-  OR?: Maybe<Array<AudioAssetScalarWhereInput>>;
   userId?: Maybe<StringNullableFilter>;
 };
 
@@ -406,6 +412,11 @@ export type AudioAssetUpdateManyMutationInput = {
   isPublic?: Maybe<NullableBoolFieldUpdateOperationsInput>;
   location?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+};
+
+export type AudioAssetUpdateManyWithWhereWithoutOwnerInput = {
+  data: AudioAssetUpdateManyMutationInput;
+  where: AudioAssetScalarWhereInput;
 };
 
 export type AudioAssetUpdateManyWithoutOwnerInput = {
@@ -421,17 +432,17 @@ export type AudioAssetUpdateManyWithoutOwnerInput = {
   upsert?: Maybe<Array<AudioAssetUpsertWithWhereUniqueWithoutOwnerInput>>;
 };
 
-export type AudioAssetUpdateManyWithWhereWithoutOwnerInput = {
-  data: AudioAssetUpdateManyMutationInput;
-  where: AudioAssetScalarWhereInput;
-};
-
 export type AudioAssetUpdateOneRequiredWithoutMixdownInput = {
   connect?: Maybe<AudioAssetWhereUniqueInput>;
   connectOrCreate?: Maybe<AudioAssetCreateOrConnectWithoutMixdownInput>;
   create?: Maybe<AudioAssetCreateWithoutMixdownInput>;
   update?: Maybe<AudioAssetUpdateWithoutMixdownInput>;
   upsert?: Maybe<AudioAssetUpsertWithoutMixdownInput>;
+};
+
+export type AudioAssetUpdateWithWhereUniqueWithoutOwnerInput = {
+  data: AudioAssetUpdateWithoutOwnerInput;
+  where: AudioAssetWhereUniqueInput;
 };
 
 export type AudioAssetUpdateWithoutMixdownInput = {
@@ -443,21 +454,11 @@ export type AudioAssetUpdateWithoutMixdownInput = {
 };
 
 export type AudioAssetUpdateWithoutOwnerInput = {
+  Mixdown?: Maybe<MixdownUpdateManyWithoutAudioInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPublic?: Maybe<NullableBoolFieldUpdateOperationsInput>;
   location?: Maybe<StringFieldUpdateOperationsInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutAudioInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
-};
-
-export type AudioAssetUpdateWithWhereUniqueWithoutOwnerInput = {
-  data: AudioAssetUpdateWithoutOwnerInput;
-  where: AudioAssetWhereUniqueInput;
-};
-
-export type AudioAssetUpsertWithoutMixdownInput = {
-  create: AudioAssetCreateWithoutMixdownInput;
-  update: AudioAssetUpdateWithoutMixdownInput;
 };
 
 export type AudioAssetUpsertWithWhereUniqueWithoutOwnerInput = {
@@ -466,15 +467,20 @@ export type AudioAssetUpsertWithWhereUniqueWithoutOwnerInput = {
   where: AudioAssetWhereUniqueInput;
 };
 
+export type AudioAssetUpsertWithoutMixdownInput = {
+  create: AudioAssetCreateWithoutMixdownInput;
+  update: AudioAssetUpdateWithoutMixdownInput;
+};
+
 export type AudioAssetWhereInput = {
   AND?: Maybe<Array<AudioAssetWhereInput>>;
+  Mixdown?: Maybe<MixdownListRelationFilter>;
+  NOT?: Maybe<Array<AudioAssetWhereInput>>;
+  OR?: Maybe<Array<AudioAssetWhereInput>>;
   id?: Maybe<StringFilter>;
   isPublic?: Maybe<BoolNullableFilter>;
   location?: Maybe<StringFilter>;
-  Mixdown?: Maybe<MixdownListRelationFilter>;
   name?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<AudioAssetWhereInput>>;
-  OR?: Maybe<Array<AudioAssetWhereInput>>;
   owner?: Maybe<UserRelationFilter>;
   userId?: Maybe<StringNullableFilter>;
 };
@@ -489,7 +495,7 @@ export type Band = {
   createdBy: User;
   id: Scalars['String'];
   isPublic: Scalars['Boolean'];
-  members?: Maybe<Array<UsersOnBands>>;
+  members: Array<UsersOnBands>;
   name: Scalars['String'];
   updatedAt: Scalars['Timestamp'];
   userId: Scalars['String'];
@@ -517,21 +523,21 @@ export type BandCountAggregate = {
 
 export type BandCreateInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
-  createdBy: UserCreateOneWithoutOwnsBandsInput;
+  createdBy: UserCreateNestedOneWithoutOwnsBandsInput;
   id?: Maybe<Scalars['String']>;
   isPublic?: Maybe<Scalars['Boolean']>;
-  members?: Maybe<UsersOnBandsCreateManyWithoutBandInput>;
+  members?: Maybe<UsersOnBandsCreateNestedManyWithoutBandInput>;
   name: Scalars['String'];
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
-export type BandCreateManyWithoutCreatedByInput = {
+export type BandCreateNestedManyWithoutCreatedByInput = {
   connect?: Maybe<Array<BandWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<BandCreateOrConnectWithoutcreatedByInput>>;
   create?: Maybe<Array<BandCreateWithoutCreatedByInput>>;
 };
 
-export type BandCreateOneWithoutMembersInput = {
+export type BandCreateNestedOneWithoutMembersInput = {
   connect?: Maybe<BandWhereUniqueInput>;
   connectOrCreate?: Maybe<BandCreateOrConnectWithoutmembersInput>;
   create?: Maybe<BandCreateWithoutMembersInput>;
@@ -551,14 +557,14 @@ export type BandCreateWithoutCreatedByInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPublic?: Maybe<Scalars['Boolean']>;
-  members?: Maybe<UsersOnBandsCreateManyWithoutBandInput>;
+  members?: Maybe<UsersOnBandsCreateNestedManyWithoutBandInput>;
   name: Scalars['String'];
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
 export type BandCreateWithoutMembersInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
-  createdBy: UserCreateOneWithoutOwnsBandsInput;
+  createdBy: UserCreateNestedOneWithoutOwnsBandsInput;
   id?: Maybe<Scalars['String']>;
   isPublic?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
@@ -593,6 +599,7 @@ export type BandMinAggregate = {
 
 export type BandOrderByInput = {
   createdAt?: Maybe<SortOrder>;
+  createdBy?: Maybe<UserOrderByInput>;
   id?: Maybe<SortOrder>;
   isPublic?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
@@ -616,12 +623,12 @@ export enum BandScalarFieldEnum {
 
 export type BandScalarWhereInput = {
   AND?: Maybe<Array<BandScalarWhereInput>>;
+  NOT?: Maybe<Array<BandScalarWhereInput>>;
+  OR?: Maybe<Array<BandScalarWhereInput>>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
   isPublic?: Maybe<BoolFilter>;
   name?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<BandScalarWhereInput>>;
-  OR?: Maybe<Array<BandScalarWhereInput>>;
   updatedAt?: Maybe<DateTimeFilter>;
   userId?: Maybe<StringFilter>;
 };
@@ -644,6 +651,11 @@ export type BandUpdateManyMutationInput = {
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
 
+export type BandUpdateManyWithWhereWithoutCreatedByInput = {
+  data: BandUpdateManyMutationInput;
+  where: BandScalarWhereInput;
+};
+
 export type BandUpdateManyWithoutCreatedByInput = {
   connect?: Maybe<Array<BandWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<BandCreateOrConnectWithoutcreatedByInput>>;
@@ -657,17 +669,17 @@ export type BandUpdateManyWithoutCreatedByInput = {
   upsert?: Maybe<Array<BandUpsertWithWhereUniqueWithoutCreatedByInput>>;
 };
 
-export type BandUpdateManyWithWhereWithoutCreatedByInput = {
-  data: BandUpdateManyMutationInput;
-  where: BandScalarWhereInput;
-};
-
 export type BandUpdateOneRequiredWithoutMembersInput = {
   connect?: Maybe<BandWhereUniqueInput>;
   connectOrCreate?: Maybe<BandCreateOrConnectWithoutmembersInput>;
   create?: Maybe<BandCreateWithoutMembersInput>;
   update?: Maybe<BandUpdateWithoutMembersInput>;
   upsert?: Maybe<BandUpsertWithoutMembersInput>;
+};
+
+export type BandUpdateWithWhereUniqueWithoutCreatedByInput = {
+  data: BandUpdateWithoutCreatedByInput;
+  where: BandWhereUniqueInput;
 };
 
 export type BandUpdateWithoutCreatedByInput = {
@@ -688,8 +700,9 @@ export type BandUpdateWithoutMembersInput = {
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
 
-export type BandUpdateWithWhereUniqueWithoutCreatedByInput = {
-  data: BandUpdateWithoutCreatedByInput;
+export type BandUpsertWithWhereUniqueWithoutCreatedByInput = {
+  create: BandCreateWithoutCreatedByInput;
+  update: BandUpdateWithoutCreatedByInput;
   where: BandWhereUniqueInput;
 };
 
@@ -698,33 +711,22 @@ export type BandUpsertWithoutMembersInput = {
   update: BandUpdateWithoutMembersInput;
 };
 
-export type BandUpsertWithWhereUniqueWithoutCreatedByInput = {
-  create: BandCreateWithoutCreatedByInput;
-  update: BandUpdateWithoutCreatedByInput;
-  where: BandWhereUniqueInput;
-};
-
 export type BandWhereInput = {
   AND?: Maybe<Array<BandWhereInput>>;
+  NOT?: Maybe<Array<BandWhereInput>>;
+  OR?: Maybe<Array<BandWhereInput>>;
   createdAt?: Maybe<DateTimeFilter>;
   createdBy?: Maybe<UserRelationFilter>;
   id?: Maybe<StringFilter>;
   isPublic?: Maybe<BoolFilter>;
   members?: Maybe<UsersOnBandsListRelationFilter>;
   name?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<BandWhereInput>>;
-  OR?: Maybe<Array<BandWhereInput>>;
   updatedAt?: Maybe<DateTimeFilter>;
   userId?: Maybe<StringFilter>;
 };
 
 export type BandWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
-};
-
-export type BatchPayload = {
-  __typename?: 'BatchPayload';
-  count: Scalars['Int'];
 };
 
 export type BoolFieldUpdateOperationsInput = {
@@ -752,10 +754,10 @@ export type Comment = {
   id: Scalars['String'];
   isMeLiking?: Maybe<Scalars['Boolean']>;
   likeCount?: Maybe<Scalars['Int']>;
-  likes?: Maybe<Array<CommentLike>>;
+  likes: Array<CommentLike>;
   parentComment?: Maybe<Comment>;
   parentCommentId?: Maybe<Scalars['String']>;
-  subComments?: Maybe<Array<Comment>>;
+  subComments: Array<Comment>;
   text: Scalars['String'];
   updatedAt: Scalars['Timestamp'];
 };
@@ -791,42 +793,42 @@ export type CommentCountAggregate = {
 };
 
 export type CommentCreateInput = {
-  author: UserCreateOneWithoutCommentInput;
+  author: UserCreateNestedOneWithoutCommentInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  feedItem?: Maybe<FeedItemCreateOneWithoutCommentsInput>;
+  feedItem?: Maybe<FeedItemCreateNestedOneWithoutCommentsInput>;
   id?: Maybe<Scalars['String']>;
-  likes?: Maybe<CommentLikeCreateManyWithoutCommentInput>;
-  parentComment?: Maybe<CommentCreateOneWithoutSubCommentsInput>;
-  subComments?: Maybe<CommentCreateManyWithoutParentCommentInput>;
+  likes?: Maybe<CommentLikeCreateNestedManyWithoutCommentInput>;
+  parentComment?: Maybe<CommentCreateNestedOneWithoutSubCommentsInput>;
+  subComments?: Maybe<CommentCreateNestedManyWithoutParentCommentInput>;
   text: Scalars['String'];
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
-export type CommentCreateManyWithoutAuthorInput = {
+export type CommentCreateNestedManyWithoutAuthorInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutauthorInput>>;
   create?: Maybe<Array<CommentCreateWithoutAuthorInput>>;
 };
 
-export type CommentCreateManyWithoutFeedItemInput = {
+export type CommentCreateNestedManyWithoutFeedItemInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutfeedItemInput>>;
   create?: Maybe<Array<CommentCreateWithoutFeedItemInput>>;
 };
 
-export type CommentCreateManyWithoutParentCommentInput = {
+export type CommentCreateNestedManyWithoutParentCommentInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutparentCommentInput>>;
   create?: Maybe<Array<CommentCreateWithoutParentCommentInput>>;
 };
 
-export type CommentCreateOneWithoutLikesInput = {
+export type CommentCreateNestedOneWithoutLikesInput = {
   connect?: Maybe<CommentWhereUniqueInput>;
   connectOrCreate?: Maybe<CommentCreateOrConnectWithoutlikesInput>;
   create?: Maybe<CommentCreateWithoutLikesInput>;
 };
 
-export type CommentCreateOneWithoutSubCommentsInput = {
+export type CommentCreateNestedOneWithoutSubCommentsInput = {
   connect?: Maybe<CommentWhereUniqueInput>;
   connectOrCreate?: Maybe<CommentCreateOrConnectWithoutsubCommentsInput>;
   create?: Maybe<CommentCreateWithoutSubCommentsInput>;
@@ -859,55 +861,55 @@ export type CommentCreateOrConnectWithoutsubCommentsInput = {
 
 export type CommentCreateWithoutAuthorInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
-  feedItem?: Maybe<FeedItemCreateOneWithoutCommentsInput>;
+  feedItem?: Maybe<FeedItemCreateNestedOneWithoutCommentsInput>;
   id?: Maybe<Scalars['String']>;
-  likes?: Maybe<CommentLikeCreateManyWithoutCommentInput>;
-  parentComment?: Maybe<CommentCreateOneWithoutSubCommentsInput>;
-  subComments?: Maybe<CommentCreateManyWithoutParentCommentInput>;
+  likes?: Maybe<CommentLikeCreateNestedManyWithoutCommentInput>;
+  parentComment?: Maybe<CommentCreateNestedOneWithoutSubCommentsInput>;
+  subComments?: Maybe<CommentCreateNestedManyWithoutParentCommentInput>;
   text: Scalars['String'];
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
 export type CommentCreateWithoutFeedItemInput = {
-  author: UserCreateOneWithoutCommentInput;
+  author: UserCreateNestedOneWithoutCommentInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
-  likes?: Maybe<CommentLikeCreateManyWithoutCommentInput>;
-  parentComment?: Maybe<CommentCreateOneWithoutSubCommentsInput>;
-  subComments?: Maybe<CommentCreateManyWithoutParentCommentInput>;
+  likes?: Maybe<CommentLikeCreateNestedManyWithoutCommentInput>;
+  parentComment?: Maybe<CommentCreateNestedOneWithoutSubCommentsInput>;
+  subComments?: Maybe<CommentCreateNestedManyWithoutParentCommentInput>;
   text: Scalars['String'];
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
 export type CommentCreateWithoutLikesInput = {
-  author: UserCreateOneWithoutCommentInput;
+  author: UserCreateNestedOneWithoutCommentInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  feedItem?: Maybe<FeedItemCreateOneWithoutCommentsInput>;
+  feedItem?: Maybe<FeedItemCreateNestedOneWithoutCommentsInput>;
   id?: Maybe<Scalars['String']>;
-  parentComment?: Maybe<CommentCreateOneWithoutSubCommentsInput>;
-  subComments?: Maybe<CommentCreateManyWithoutParentCommentInput>;
+  parentComment?: Maybe<CommentCreateNestedOneWithoutSubCommentsInput>;
+  subComments?: Maybe<CommentCreateNestedManyWithoutParentCommentInput>;
   text: Scalars['String'];
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
 export type CommentCreateWithoutParentCommentInput = {
-  author: UserCreateOneWithoutCommentInput;
+  author: UserCreateNestedOneWithoutCommentInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  feedItem?: Maybe<FeedItemCreateOneWithoutCommentsInput>;
+  feedItem?: Maybe<FeedItemCreateNestedOneWithoutCommentsInput>;
   id?: Maybe<Scalars['String']>;
-  likes?: Maybe<CommentLikeCreateManyWithoutCommentInput>;
-  subComments?: Maybe<CommentCreateManyWithoutParentCommentInput>;
+  likes?: Maybe<CommentLikeCreateNestedManyWithoutCommentInput>;
+  subComments?: Maybe<CommentCreateNestedManyWithoutParentCommentInput>;
   text: Scalars['String'];
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
 export type CommentCreateWithoutSubCommentsInput = {
-  author: UserCreateOneWithoutCommentInput;
+  author: UserCreateNestedOneWithoutCommentInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  feedItem?: Maybe<FeedItemCreateOneWithoutCommentsInput>;
+  feedItem?: Maybe<FeedItemCreateNestedOneWithoutCommentsInput>;
   id?: Maybe<Scalars['String']>;
-  likes?: Maybe<CommentLikeCreateManyWithoutCommentInput>;
-  parentComment?: Maybe<CommentCreateOneWithoutSubCommentsInput>;
+  likes?: Maybe<CommentLikeCreateNestedManyWithoutCommentInput>;
+  parentComment?: Maybe<CommentCreateNestedOneWithoutSubCommentsInput>;
   text: Scalars['String'];
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
@@ -930,18 +932,18 @@ export type CommentLikeCountAggregate = {
 };
 
 export type CommentLikeCreateInput = {
-  comment: CommentCreateOneWithoutLikesInput;
+  comment: CommentCreateNestedOneWithoutLikesInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  user: UserCreateOneWithoutCommentLikeInput;
+  user: UserCreateNestedOneWithoutCommentLikeInput;
 };
 
-export type CommentLikeCreateManyWithoutCommentInput = {
+export type CommentLikeCreateNestedManyWithoutCommentInput = {
   connect?: Maybe<Array<CommentLikeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutcommentInput>>;
   create?: Maybe<Array<CommentLikeCreateWithoutCommentInput>>;
 };
 
-export type CommentLikeCreateManyWithoutUserInput = {
+export type CommentLikeCreateNestedManyWithoutUserInput = {
   connect?: Maybe<Array<CommentLikeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutuserInput>>;
   create?: Maybe<Array<CommentLikeCreateWithoutUserInput>>;
@@ -959,11 +961,11 @@ export type CommentLikeCreateOrConnectWithoutuserInput = {
 
 export type CommentLikeCreateWithoutCommentInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
-  user: UserCreateOneWithoutCommentLikeInput;
+  user: UserCreateNestedOneWithoutCommentLikeInput;
 };
 
 export type CommentLikeCreateWithoutUserInput = {
-  comment: CommentCreateOneWithoutLikesInput;
+  comment: CommentCreateNestedOneWithoutLikesInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
 };
 
@@ -988,8 +990,10 @@ export type CommentLikeMinAggregate = {
 };
 
 export type CommentLikeOrderByInput = {
+  comment?: Maybe<CommentOrderByInput>;
   commentId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
+  user?: Maybe<UserOrderByInput>;
   userId?: Maybe<SortOrder>;
 };
 
@@ -1001,10 +1005,10 @@ export enum CommentLikeScalarFieldEnum {
 
 export type CommentLikeScalarWhereInput = {
   AND?: Maybe<Array<CommentLikeScalarWhereInput>>;
-  commentId?: Maybe<StringFilter>;
-  createdAt?: Maybe<DateTimeFilter>;
   NOT?: Maybe<Array<CommentLikeScalarWhereInput>>;
   OR?: Maybe<Array<CommentLikeScalarWhereInput>>;
+  commentId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
   userId?: Maybe<StringFilter>;
 };
 
@@ -1016,6 +1020,16 @@ export type CommentLikeUpdateInput = {
 
 export type CommentLikeUpdateManyMutationInput = {
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type CommentLikeUpdateManyWithWhereWithoutCommentInput = {
+  data: CommentLikeUpdateManyMutationInput;
+  where: CommentLikeScalarWhereInput;
+};
+
+export type CommentLikeUpdateManyWithWhereWithoutUserInput = {
+  data: CommentLikeUpdateManyMutationInput;
+  where: CommentLikeScalarWhereInput;
 };
 
 export type CommentLikeUpdateManyWithoutCommentInput = {
@@ -1044,14 +1058,14 @@ export type CommentLikeUpdateManyWithoutUserInput = {
   upsert?: Maybe<Array<CommentLikeUpsertWithWhereUniqueWithoutUserInput>>;
 };
 
-export type CommentLikeUpdateManyWithWhereWithoutCommentInput = {
-  data: CommentLikeUpdateManyMutationInput;
-  where: CommentLikeScalarWhereInput;
+export type CommentLikeUpdateWithWhereUniqueWithoutCommentInput = {
+  data: CommentLikeUpdateWithoutCommentInput;
+  where: CommentLikeWhereUniqueInput;
 };
 
-export type CommentLikeUpdateManyWithWhereWithoutUserInput = {
-  data: CommentLikeUpdateManyMutationInput;
-  where: CommentLikeScalarWhereInput;
+export type CommentLikeUpdateWithWhereUniqueWithoutUserInput = {
+  data: CommentLikeUpdateWithoutUserInput;
+  where: CommentLikeWhereUniqueInput;
 };
 
 export type CommentLikeUpdateWithoutCommentInput = {
@@ -1062,16 +1076,6 @@ export type CommentLikeUpdateWithoutCommentInput = {
 export type CommentLikeUpdateWithoutUserInput = {
   comment?: Maybe<CommentUpdateOneRequiredWithoutLikesInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-};
-
-export type CommentLikeUpdateWithWhereUniqueWithoutCommentInput = {
-  data: CommentLikeUpdateWithoutCommentInput;
-  where: CommentLikeWhereUniqueInput;
-};
-
-export type CommentLikeUpdateWithWhereUniqueWithoutUserInput = {
-  data: CommentLikeUpdateWithoutUserInput;
-  where: CommentLikeWhereUniqueInput;
 };
 
 export type CommentLikeUpsertWithWhereUniqueWithoutCommentInput = {
@@ -1093,11 +1097,11 @@ export type CommentLikeUserIdCommentIdCompoundUniqueInput = {
 
 export type CommentLikeWhereInput = {
   AND?: Maybe<Array<CommentLikeWhereInput>>;
+  NOT?: Maybe<Array<CommentLikeWhereInput>>;
+  OR?: Maybe<Array<CommentLikeWhereInput>>;
   comment?: Maybe<CommentRelationFilter>;
   commentId?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
-  NOT?: Maybe<Array<CommentLikeWhereInput>>;
-  OR?: Maybe<Array<CommentLikeWhereInput>>;
   user?: Maybe<UserRelationFilter>;
   userId?: Maybe<StringFilter>;
 };
@@ -1135,10 +1139,13 @@ export type CommentMinAggregate = {
 };
 
 export type CommentOrderByInput = {
+  author?: Maybe<UserOrderByInput>;
   authorId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
+  feedItem?: Maybe<FeedItemOrderByInput>;
   feedItemId?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
+  parentComment?: Maybe<CommentOrderByInput>;
   parentCommentId?: Maybe<SortOrder>;
   text?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
@@ -1161,12 +1168,12 @@ export enum CommentScalarFieldEnum {
 
 export type CommentScalarWhereInput = {
   AND?: Maybe<Array<CommentScalarWhereInput>>;
+  NOT?: Maybe<Array<CommentScalarWhereInput>>;
+  OR?: Maybe<Array<CommentScalarWhereInput>>;
   authorId?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   feedItemId?: Maybe<StringNullableFilter>;
   id?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<CommentScalarWhereInput>>;
-  OR?: Maybe<Array<CommentScalarWhereInput>>;
   parentCommentId?: Maybe<StringNullableFilter>;
   text?: Maybe<StringFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
@@ -1189,6 +1196,21 @@ export type CommentUpdateManyMutationInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   text?: Maybe<StringFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type CommentUpdateManyWithWhereWithoutAuthorInput = {
+  data: CommentUpdateManyMutationInput;
+  where: CommentScalarWhereInput;
+};
+
+export type CommentUpdateManyWithWhereWithoutFeedItemInput = {
+  data: CommentUpdateManyMutationInput;
+  where: CommentScalarWhereInput;
+};
+
+export type CommentUpdateManyWithWhereWithoutParentCommentInput = {
+  data: CommentUpdateManyMutationInput;
+  where: CommentScalarWhereInput;
 };
 
 export type CommentUpdateManyWithoutAuthorInput = {
@@ -1230,21 +1252,6 @@ export type CommentUpdateManyWithoutParentCommentInput = {
   upsert?: Maybe<Array<CommentUpsertWithWhereUniqueWithoutParentCommentInput>>;
 };
 
-export type CommentUpdateManyWithWhereWithoutAuthorInput = {
-  data: CommentUpdateManyMutationInput;
-  where: CommentScalarWhereInput;
-};
-
-export type CommentUpdateManyWithWhereWithoutFeedItemInput = {
-  data: CommentUpdateManyMutationInput;
-  where: CommentScalarWhereInput;
-};
-
-export type CommentUpdateManyWithWhereWithoutParentCommentInput = {
-  data: CommentUpdateManyMutationInput;
-  where: CommentScalarWhereInput;
-};
-
 export type CommentUpdateOneRequiredWithoutLikesInput = {
   connect?: Maybe<CommentWhereUniqueInput>;
   connectOrCreate?: Maybe<CommentCreateOrConnectWithoutlikesInput>;
@@ -1261,6 +1268,21 @@ export type CommentUpdateOneWithoutSubCommentsInput = {
   disconnect?: Maybe<Scalars['Boolean']>;
   update?: Maybe<CommentUpdateWithoutSubCommentsInput>;
   upsert?: Maybe<CommentUpsertWithoutSubCommentsInput>;
+};
+
+export type CommentUpdateWithWhereUniqueWithoutAuthorInput = {
+  data: CommentUpdateWithoutAuthorInput;
+  where: CommentWhereUniqueInput;
+};
+
+export type CommentUpdateWithWhereUniqueWithoutFeedItemInput = {
+  data: CommentUpdateWithoutFeedItemInput;
+  where: CommentWhereUniqueInput;
+};
+
+export type CommentUpdateWithWhereUniqueWithoutParentCommentInput = {
+  data: CommentUpdateWithoutParentCommentInput;
+  where: CommentWhereUniqueInput;
 };
 
 export type CommentUpdateWithoutAuthorInput = {
@@ -1318,31 +1340,6 @@ export type CommentUpdateWithoutSubCommentsInput = {
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
 
-export type CommentUpdateWithWhereUniqueWithoutAuthorInput = {
-  data: CommentUpdateWithoutAuthorInput;
-  where: CommentWhereUniqueInput;
-};
-
-export type CommentUpdateWithWhereUniqueWithoutFeedItemInput = {
-  data: CommentUpdateWithoutFeedItemInput;
-  where: CommentWhereUniqueInput;
-};
-
-export type CommentUpdateWithWhereUniqueWithoutParentCommentInput = {
-  data: CommentUpdateWithoutParentCommentInput;
-  where: CommentWhereUniqueInput;
-};
-
-export type CommentUpsertWithoutLikesInput = {
-  create: CommentCreateWithoutLikesInput;
-  update: CommentUpdateWithoutLikesInput;
-};
-
-export type CommentUpsertWithoutSubCommentsInput = {
-  create: CommentCreateWithoutSubCommentsInput;
-  update: CommentUpdateWithoutSubCommentsInput;
-};
-
 export type CommentUpsertWithWhereUniqueWithoutAuthorInput = {
   create: CommentCreateWithoutAuthorInput;
   update: CommentUpdateWithoutAuthorInput;
@@ -1361,8 +1358,20 @@ export type CommentUpsertWithWhereUniqueWithoutParentCommentInput = {
   where: CommentWhereUniqueInput;
 };
 
+export type CommentUpsertWithoutLikesInput = {
+  create: CommentCreateWithoutLikesInput;
+  update: CommentUpdateWithoutLikesInput;
+};
+
+export type CommentUpsertWithoutSubCommentsInput = {
+  create: CommentCreateWithoutSubCommentsInput;
+  update: CommentUpdateWithoutSubCommentsInput;
+};
+
 export type CommentWhereInput = {
   AND?: Maybe<Array<CommentWhereInput>>;
+  NOT?: Maybe<Array<CommentWhereInput>>;
+  OR?: Maybe<Array<CommentWhereInput>>;
   author?: Maybe<UserRelationFilter>;
   authorId?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
@@ -1370,8 +1379,6 @@ export type CommentWhereInput = {
   feedItemId?: Maybe<StringNullableFilter>;
   id?: Maybe<StringFilter>;
   likes?: Maybe<CommentLikeListRelationFilter>;
-  NOT?: Maybe<Array<CommentWhereInput>>;
-  OR?: Maybe<Array<CommentWhereInput>>;
   parentComment?: Maybe<CommentRelationFilter>;
   parentCommentId?: Maybe<StringNullableFilter>;
   subComments?: Maybe<CommentListRelationFilter>;
@@ -1419,7 +1426,7 @@ export type EarlyAccessCode = {
   userId?: Maybe<Scalars['String']>;
 };
 
-export type EarlyAccessCodeCreateManyWithoutClaimedByInput = {
+export type EarlyAccessCodeCreateNestedManyWithoutClaimedByInput = {
   connect?: Maybe<Array<EarlyAccessCodeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<EarlyAccessCodeCreateOrConnectWithoutclaimedByInput>>;
   create?: Maybe<Array<EarlyAccessCodeCreateWithoutClaimedByInput>>;
@@ -1445,6 +1452,7 @@ export type EarlyAccessCodeListRelationFilter = {
 };
 
 export type EarlyAccessCodeOrderByInput = {
+  claimedBy?: Maybe<UserOrderByInput>;
   code?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
@@ -1464,12 +1472,12 @@ export enum EarlyAccessCodeScalarFieldEnum {
 
 export type EarlyAccessCodeScalarWhereInput = {
   AND?: Maybe<Array<EarlyAccessCodeScalarWhereInput>>;
+  NOT?: Maybe<Array<EarlyAccessCodeScalarWhereInput>>;
+  OR?: Maybe<Array<EarlyAccessCodeScalarWhereInput>>;
   code?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
   isValid?: Maybe<BoolFilter>;
-  NOT?: Maybe<Array<EarlyAccessCodeScalarWhereInput>>;
-  OR?: Maybe<Array<EarlyAccessCodeScalarWhereInput>>;
   updatedAt?: Maybe<DateTimeFilter>;
   userId?: Maybe<StringNullableFilter>;
 };
@@ -1480,6 +1488,11 @@ export type EarlyAccessCodeUpdateManyMutationInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isValid?: Maybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type EarlyAccessCodeUpdateManyWithWhereWithoutClaimedByInput = {
+  data: EarlyAccessCodeUpdateManyMutationInput;
+  where: EarlyAccessCodeScalarWhereInput;
 };
 
 export type EarlyAccessCodeUpdateManyWithoutClaimedByInput = {
@@ -1495,9 +1508,9 @@ export type EarlyAccessCodeUpdateManyWithoutClaimedByInput = {
   upsert?: Maybe<Array<EarlyAccessCodeUpsertWithWhereUniqueWithoutClaimedByInput>>;
 };
 
-export type EarlyAccessCodeUpdateManyWithWhereWithoutClaimedByInput = {
-  data: EarlyAccessCodeUpdateManyMutationInput;
-  where: EarlyAccessCodeScalarWhereInput;
+export type EarlyAccessCodeUpdateWithWhereUniqueWithoutClaimedByInput = {
+  data: EarlyAccessCodeUpdateWithoutClaimedByInput;
+  where: EarlyAccessCodeWhereUniqueInput;
 };
 
 export type EarlyAccessCodeUpdateWithoutClaimedByInput = {
@@ -1508,11 +1521,6 @@ export type EarlyAccessCodeUpdateWithoutClaimedByInput = {
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
 
-export type EarlyAccessCodeUpdateWithWhereUniqueWithoutClaimedByInput = {
-  data: EarlyAccessCodeUpdateWithoutClaimedByInput;
-  where: EarlyAccessCodeWhereUniqueInput;
-};
-
 export type EarlyAccessCodeUpsertWithWhereUniqueWithoutClaimedByInput = {
   create: EarlyAccessCodeCreateWithoutClaimedByInput;
   update: EarlyAccessCodeUpdateWithoutClaimedByInput;
@@ -1521,13 +1529,13 @@ export type EarlyAccessCodeUpsertWithWhereUniqueWithoutClaimedByInput = {
 
 export type EarlyAccessCodeWhereInput = {
   AND?: Maybe<Array<EarlyAccessCodeWhereInput>>;
+  NOT?: Maybe<Array<EarlyAccessCodeWhereInput>>;
+  OR?: Maybe<Array<EarlyAccessCodeWhereInput>>;
   claimedBy?: Maybe<UserRelationFilter>;
   code?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
   isValid?: Maybe<BoolFilter>;
-  NOT?: Maybe<Array<EarlyAccessCodeWhereInput>>;
-  OR?: Maybe<Array<EarlyAccessCodeWhereInput>>;
   updatedAt?: Maybe<DateTimeFilter>;
   userId?: Maybe<StringNullableFilter>;
 };
@@ -1553,17 +1561,17 @@ export type FeedItem = {
   author: User;
   authorId: Scalars['String'];
   commentCount?: Maybe<Scalars['Int']>;
-  comments?: Maybe<Array<Comment>>;
+  comments: Array<Comment>;
   createdAt: Scalars['Timestamp'];
   id: Scalars['String'];
   isMeLiking?: Maybe<Scalars['Boolean']>;
   isPublished: Scalars['Boolean'];
   likeCount?: Maybe<Scalars['Int']>;
-  likes?: Maybe<Array<FeedItemLike>>;
+  likes: Array<FeedItemLike>;
   mixdown?: Maybe<Mixdown>;
   mixdownId?: Maybe<Scalars['String']>;
   publishAt?: Maybe<Scalars['Timestamp']>;
-  revisions?: Maybe<Array<FeedItemRevision>>;
+  revisions: Array<FeedItemRevision>;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['Timestamp'];
 };
@@ -1609,44 +1617,44 @@ export type FeedItemCountAggregate = {
 };
 
 export type FeedItemCreateInput = {
-  author: UserCreateOneWithoutFeedInput;
-  comments?: Maybe<CommentCreateManyWithoutFeedItemInput>;
+  author: UserCreateNestedOneWithoutFeedInput;
+  comments?: Maybe<CommentCreateNestedManyWithoutFeedItemInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPublished?: Maybe<Scalars['Boolean']>;
-  likes?: Maybe<FeedItemLikeCreateManyWithoutFeedItemInput>;
-  mixdown?: Maybe<MixdownCreateOneWithoutFeedItemInput>;
+  likes?: Maybe<FeedItemLikeCreateNestedManyWithoutFeedItemInput>;
+  mixdown?: Maybe<MixdownCreateNestedOneWithoutFeedItemInput>;
   publishAt?: Maybe<Scalars['Timestamp']>;
-  revisions?: Maybe<FeedItemRevisionCreateManyWithoutParentItemInput>;
+  revisions?: Maybe<FeedItemRevisionCreateNestedManyWithoutParentItemInput>;
   text?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
-export type FeedItemCreateManyWithoutAuthorInput = {
+export type FeedItemCreateNestedManyWithoutAuthorInput = {
   connect?: Maybe<Array<FeedItemWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutauthorInput>>;
   create?: Maybe<Array<FeedItemCreateWithoutAuthorInput>>;
 };
 
-export type FeedItemCreateManyWithoutMixdownInput = {
+export type FeedItemCreateNestedManyWithoutMixdownInput = {
   connect?: Maybe<Array<FeedItemWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutmixdownInput>>;
   create?: Maybe<Array<FeedItemCreateWithoutMixdownInput>>;
 };
 
-export type FeedItemCreateOneWithoutCommentsInput = {
+export type FeedItemCreateNestedOneWithoutCommentsInput = {
   connect?: Maybe<FeedItemWhereUniqueInput>;
   connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutcommentsInput>;
   create?: Maybe<FeedItemCreateWithoutCommentsInput>;
 };
 
-export type FeedItemCreateOneWithoutLikesInput = {
+export type FeedItemCreateNestedOneWithoutLikesInput = {
   connect?: Maybe<FeedItemWhereUniqueInput>;
   connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutlikesInput>;
   create?: Maybe<FeedItemCreateWithoutLikesInput>;
 };
 
-export type FeedItemCreateOneWithoutRevisionsInput = {
+export type FeedItemCreateNestedOneWithoutRevisionsInput = {
   connect?: Maybe<FeedItemWhereUniqueInput>;
   connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutrevisionsInput>;
   create?: Maybe<FeedItemCreateWithoutRevisionsInput>;
@@ -1678,65 +1686,65 @@ export type FeedItemCreateOrConnectWithoutrevisionsInput = {
 };
 
 export type FeedItemCreateWithoutAuthorInput = {
-  comments?: Maybe<CommentCreateManyWithoutFeedItemInput>;
+  comments?: Maybe<CommentCreateNestedManyWithoutFeedItemInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPublished?: Maybe<Scalars['Boolean']>;
-  likes?: Maybe<FeedItemLikeCreateManyWithoutFeedItemInput>;
-  mixdown?: Maybe<MixdownCreateOneWithoutFeedItemInput>;
+  likes?: Maybe<FeedItemLikeCreateNestedManyWithoutFeedItemInput>;
+  mixdown?: Maybe<MixdownCreateNestedOneWithoutFeedItemInput>;
   publishAt?: Maybe<Scalars['Timestamp']>;
-  revisions?: Maybe<FeedItemRevisionCreateManyWithoutParentItemInput>;
+  revisions?: Maybe<FeedItemRevisionCreateNestedManyWithoutParentItemInput>;
   text?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
 export type FeedItemCreateWithoutCommentsInput = {
-  author: UserCreateOneWithoutFeedInput;
+  author: UserCreateNestedOneWithoutFeedInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPublished?: Maybe<Scalars['Boolean']>;
-  likes?: Maybe<FeedItemLikeCreateManyWithoutFeedItemInput>;
-  mixdown?: Maybe<MixdownCreateOneWithoutFeedItemInput>;
+  likes?: Maybe<FeedItemLikeCreateNestedManyWithoutFeedItemInput>;
+  mixdown?: Maybe<MixdownCreateNestedOneWithoutFeedItemInput>;
   publishAt?: Maybe<Scalars['Timestamp']>;
-  revisions?: Maybe<FeedItemRevisionCreateManyWithoutParentItemInput>;
+  revisions?: Maybe<FeedItemRevisionCreateNestedManyWithoutParentItemInput>;
   text?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
 export type FeedItemCreateWithoutLikesInput = {
-  author: UserCreateOneWithoutFeedInput;
-  comments?: Maybe<CommentCreateManyWithoutFeedItemInput>;
+  author: UserCreateNestedOneWithoutFeedInput;
+  comments?: Maybe<CommentCreateNestedManyWithoutFeedItemInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPublished?: Maybe<Scalars['Boolean']>;
-  mixdown?: Maybe<MixdownCreateOneWithoutFeedItemInput>;
+  mixdown?: Maybe<MixdownCreateNestedOneWithoutFeedItemInput>;
   publishAt?: Maybe<Scalars['Timestamp']>;
-  revisions?: Maybe<FeedItemRevisionCreateManyWithoutParentItemInput>;
+  revisions?: Maybe<FeedItemRevisionCreateNestedManyWithoutParentItemInput>;
   text?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
 export type FeedItemCreateWithoutMixdownInput = {
-  author: UserCreateOneWithoutFeedInput;
-  comments?: Maybe<CommentCreateManyWithoutFeedItemInput>;
+  author: UserCreateNestedOneWithoutFeedInput;
+  comments?: Maybe<CommentCreateNestedManyWithoutFeedItemInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPublished?: Maybe<Scalars['Boolean']>;
-  likes?: Maybe<FeedItemLikeCreateManyWithoutFeedItemInput>;
+  likes?: Maybe<FeedItemLikeCreateNestedManyWithoutFeedItemInput>;
   publishAt?: Maybe<Scalars['Timestamp']>;
-  revisions?: Maybe<FeedItemRevisionCreateManyWithoutParentItemInput>;
+  revisions?: Maybe<FeedItemRevisionCreateNestedManyWithoutParentItemInput>;
   text?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
 export type FeedItemCreateWithoutRevisionsInput = {
-  author: UserCreateOneWithoutFeedInput;
-  comments?: Maybe<CommentCreateManyWithoutFeedItemInput>;
+  author: UserCreateNestedOneWithoutFeedInput;
+  comments?: Maybe<CommentCreateNestedManyWithoutFeedItemInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPublished?: Maybe<Scalars['Boolean']>;
-  likes?: Maybe<FeedItemLikeCreateManyWithoutFeedItemInput>;
-  mixdown?: Maybe<MixdownCreateOneWithoutFeedItemInput>;
+  likes?: Maybe<FeedItemLikeCreateNestedManyWithoutFeedItemInput>;
+  mixdown?: Maybe<MixdownCreateNestedOneWithoutFeedItemInput>;
   publishAt?: Maybe<Scalars['Timestamp']>;
   text?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -1761,17 +1769,17 @@ export type FeedItemLikeCountAggregate = {
 
 export type FeedItemLikeCreateInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
-  feedItem: FeedItemCreateOneWithoutLikesInput;
-  user: UserCreateOneWithoutFeedItemLikeInput;
+  feedItem: FeedItemCreateNestedOneWithoutLikesInput;
+  user: UserCreateNestedOneWithoutFeedItemLikeInput;
 };
 
-export type FeedItemLikeCreateManyWithoutFeedItemInput = {
+export type FeedItemLikeCreateNestedManyWithoutFeedItemInput = {
   connect?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutfeedItemInput>>;
   create?: Maybe<Array<FeedItemLikeCreateWithoutFeedItemInput>>;
 };
 
-export type FeedItemLikeCreateManyWithoutUserInput = {
+export type FeedItemLikeCreateNestedManyWithoutUserInput = {
   connect?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutuserInput>>;
   create?: Maybe<Array<FeedItemLikeCreateWithoutUserInput>>;
@@ -1789,12 +1797,12 @@ export type FeedItemLikeCreateOrConnectWithoutuserInput = {
 
 export type FeedItemLikeCreateWithoutFeedItemInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
-  user: UserCreateOneWithoutFeedItemLikeInput;
+  user: UserCreateNestedOneWithoutFeedItemLikeInput;
 };
 
 export type FeedItemLikeCreateWithoutUserInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
-  feedItem: FeedItemCreateOneWithoutLikesInput;
+  feedItem: FeedItemCreateNestedOneWithoutLikesInput;
 };
 
 export type FeedItemLikeListRelationFilter = {
@@ -1819,7 +1827,9 @@ export type FeedItemLikeMinAggregate = {
 
 export type FeedItemLikeOrderByInput = {
   createdAt?: Maybe<SortOrder>;
+  feedItem?: Maybe<FeedItemOrderByInput>;
   feedItemId?: Maybe<SortOrder>;
+  user?: Maybe<UserOrderByInput>;
   userId?: Maybe<SortOrder>;
 };
 
@@ -1831,10 +1841,10 @@ export enum FeedItemLikeScalarFieldEnum {
 
 export type FeedItemLikeScalarWhereInput = {
   AND?: Maybe<Array<FeedItemLikeScalarWhereInput>>;
-  createdAt?: Maybe<DateTimeFilter>;
-  feedItemId?: Maybe<StringFilter>;
   NOT?: Maybe<Array<FeedItemLikeScalarWhereInput>>;
   OR?: Maybe<Array<FeedItemLikeScalarWhereInput>>;
+  createdAt?: Maybe<DateTimeFilter>;
+  feedItemId?: Maybe<StringFilter>;
   userId?: Maybe<StringFilter>;
 };
 
@@ -1846,6 +1856,16 @@ export type FeedItemLikeUpdateInput = {
 
 export type FeedItemLikeUpdateManyMutationInput = {
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type FeedItemLikeUpdateManyWithWhereWithoutFeedItemInput = {
+  data: FeedItemLikeUpdateManyMutationInput;
+  where: FeedItemLikeScalarWhereInput;
+};
+
+export type FeedItemLikeUpdateManyWithWhereWithoutUserInput = {
+  data: FeedItemLikeUpdateManyMutationInput;
+  where: FeedItemLikeScalarWhereInput;
 };
 
 export type FeedItemLikeUpdateManyWithoutFeedItemInput = {
@@ -1874,14 +1894,14 @@ export type FeedItemLikeUpdateManyWithoutUserInput = {
   upsert?: Maybe<Array<FeedItemLikeUpsertWithWhereUniqueWithoutUserInput>>;
 };
 
-export type FeedItemLikeUpdateManyWithWhereWithoutFeedItemInput = {
-  data: FeedItemLikeUpdateManyMutationInput;
-  where: FeedItemLikeScalarWhereInput;
+export type FeedItemLikeUpdateWithWhereUniqueWithoutFeedItemInput = {
+  data: FeedItemLikeUpdateWithoutFeedItemInput;
+  where: FeedItemLikeWhereUniqueInput;
 };
 
-export type FeedItemLikeUpdateManyWithWhereWithoutUserInput = {
-  data: FeedItemLikeUpdateManyMutationInput;
-  where: FeedItemLikeScalarWhereInput;
+export type FeedItemLikeUpdateWithWhereUniqueWithoutUserInput = {
+  data: FeedItemLikeUpdateWithoutUserInput;
+  where: FeedItemLikeWhereUniqueInput;
 };
 
 export type FeedItemLikeUpdateWithoutFeedItemInput = {
@@ -1892,16 +1912,6 @@ export type FeedItemLikeUpdateWithoutFeedItemInput = {
 export type FeedItemLikeUpdateWithoutUserInput = {
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   feedItem?: Maybe<FeedItemUpdateOneRequiredWithoutLikesInput>;
-};
-
-export type FeedItemLikeUpdateWithWhereUniqueWithoutFeedItemInput = {
-  data: FeedItemLikeUpdateWithoutFeedItemInput;
-  where: FeedItemLikeWhereUniqueInput;
-};
-
-export type FeedItemLikeUpdateWithWhereUniqueWithoutUserInput = {
-  data: FeedItemLikeUpdateWithoutUserInput;
-  where: FeedItemLikeWhereUniqueInput;
 };
 
 export type FeedItemLikeUpsertWithWhereUniqueWithoutFeedItemInput = {
@@ -1923,11 +1933,11 @@ export type FeedItemLikeUserIdFeedItemIdCompoundUniqueInput = {
 
 export type FeedItemLikeWhereInput = {
   AND?: Maybe<Array<FeedItemLikeWhereInput>>;
+  NOT?: Maybe<Array<FeedItemLikeWhereInput>>;
+  OR?: Maybe<Array<FeedItemLikeWhereInput>>;
   createdAt?: Maybe<DateTimeFilter>;
   feedItem?: Maybe<FeedItemRelationFilter>;
   feedItemId?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<FeedItemLikeWhereInput>>;
-  OR?: Maybe<Array<FeedItemLikeWhereInput>>;
   user?: Maybe<UserRelationFilter>;
   userId?: Maybe<StringFilter>;
 };
@@ -1967,10 +1977,12 @@ export type FeedItemMinAggregate = {
 };
 
 export type FeedItemOrderByInput = {
+  author?: Maybe<UserOrderByInput>;
   authorId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
   isPublished?: Maybe<SortOrder>;
+  mixdown?: Maybe<MixdownOrderByInput>;
   mixdownId?: Maybe<SortOrder>;
   publishAt?: Maybe<SortOrder>;
   text?: Maybe<SortOrder>;
@@ -2005,12 +2017,12 @@ export type FeedItemRevisionCountAggregate = {
 export type FeedItemRevisionCreateInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
-  parentItem: FeedItemCreateOneWithoutRevisionsInput;
+  parentItem: FeedItemCreateNestedOneWithoutRevisionsInput;
   text: Scalars['String'];
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
-export type FeedItemRevisionCreateManyWithoutParentItemInput = {
+export type FeedItemRevisionCreateNestedManyWithoutParentItemInput = {
   connect?: Maybe<Array<FeedItemRevisionWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemRevisionCreateOrConnectWithoutparentItemInput>>;
   create?: Maybe<Array<FeedItemRevisionCreateWithoutParentItemInput>>;
@@ -2056,6 +2068,7 @@ export type FeedItemRevisionOrderByInput = {
   createdAt?: Maybe<SortOrder>;
   feedItemId?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
+  parentItem?: Maybe<FeedItemOrderByInput>;
   text?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -2070,11 +2083,11 @@ export enum FeedItemRevisionScalarFieldEnum {
 
 export type FeedItemRevisionScalarWhereInput = {
   AND?: Maybe<Array<FeedItemRevisionScalarWhereInput>>;
+  NOT?: Maybe<Array<FeedItemRevisionScalarWhereInput>>;
+  OR?: Maybe<Array<FeedItemRevisionScalarWhereInput>>;
   createdAt?: Maybe<DateTimeFilter>;
   feedItemId?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<FeedItemRevisionScalarWhereInput>>;
-  OR?: Maybe<Array<FeedItemRevisionScalarWhereInput>>;
   text?: Maybe<StringFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
 };
@@ -2094,6 +2107,11 @@ export type FeedItemRevisionUpdateManyMutationInput = {
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
 
+export type FeedItemRevisionUpdateManyWithWhereWithoutParentItemInput = {
+  data: FeedItemRevisionUpdateManyMutationInput;
+  where: FeedItemRevisionScalarWhereInput;
+};
+
 export type FeedItemRevisionUpdateManyWithoutParentItemInput = {
   connect?: Maybe<Array<FeedItemRevisionWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemRevisionCreateOrConnectWithoutparentItemInput>>;
@@ -2107,9 +2125,9 @@ export type FeedItemRevisionUpdateManyWithoutParentItemInput = {
   upsert?: Maybe<Array<FeedItemRevisionUpsertWithWhereUniqueWithoutParentItemInput>>;
 };
 
-export type FeedItemRevisionUpdateManyWithWhereWithoutParentItemInput = {
-  data: FeedItemRevisionUpdateManyMutationInput;
-  where: FeedItemRevisionScalarWhereInput;
+export type FeedItemRevisionUpdateWithWhereUniqueWithoutParentItemInput = {
+  data: FeedItemRevisionUpdateWithoutParentItemInput;
+  where: FeedItemRevisionWhereUniqueInput;
 };
 
 export type FeedItemRevisionUpdateWithoutParentItemInput = {
@@ -2117,11 +2135,6 @@ export type FeedItemRevisionUpdateWithoutParentItemInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   text?: Maybe<StringFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-};
-
-export type FeedItemRevisionUpdateWithWhereUniqueWithoutParentItemInput = {
-  data: FeedItemRevisionUpdateWithoutParentItemInput;
-  where: FeedItemRevisionWhereUniqueInput;
 };
 
 export type FeedItemRevisionUpsertWithWhereUniqueWithoutParentItemInput = {
@@ -2132,11 +2145,11 @@ export type FeedItemRevisionUpsertWithWhereUniqueWithoutParentItemInput = {
 
 export type FeedItemRevisionWhereInput = {
   AND?: Maybe<Array<FeedItemRevisionWhereInput>>;
+  NOT?: Maybe<Array<FeedItemRevisionWhereInput>>;
+  OR?: Maybe<Array<FeedItemRevisionWhereInput>>;
   createdAt?: Maybe<DateTimeFilter>;
   feedItemId?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<FeedItemRevisionWhereInput>>;
-  OR?: Maybe<Array<FeedItemRevisionWhereInput>>;
   parentItem?: Maybe<FeedItemRelationFilter>;
   text?: Maybe<StringFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
@@ -2159,13 +2172,13 @@ export enum FeedItemScalarFieldEnum {
 
 export type FeedItemScalarWhereInput = {
   AND?: Maybe<Array<FeedItemScalarWhereInput>>;
+  NOT?: Maybe<Array<FeedItemScalarWhereInput>>;
+  OR?: Maybe<Array<FeedItemScalarWhereInput>>;
   authorId?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
   isPublished?: Maybe<BoolFilter>;
   mixdownId?: Maybe<StringNullableFilter>;
-  NOT?: Maybe<Array<FeedItemScalarWhereInput>>;
-  OR?: Maybe<Array<FeedItemScalarWhereInput>>;
   publishAt?: Maybe<DateTimeNullableFilter>;
   text?: Maybe<StringNullableFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
@@ -2194,6 +2207,16 @@ export type FeedItemUpdateManyMutationInput = {
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
 
+export type FeedItemUpdateManyWithWhereWithoutAuthorInput = {
+  data: FeedItemUpdateManyMutationInput;
+  where: FeedItemScalarWhereInput;
+};
+
+export type FeedItemUpdateManyWithWhereWithoutMixdownInput = {
+  data: FeedItemUpdateManyMutationInput;
+  where: FeedItemScalarWhereInput;
+};
+
 export type FeedItemUpdateManyWithoutAuthorInput = {
   connect?: Maybe<Array<FeedItemWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutauthorInput>>;
@@ -2220,16 +2243,6 @@ export type FeedItemUpdateManyWithoutMixdownInput = {
   upsert?: Maybe<Array<FeedItemUpsertWithWhereUniqueWithoutMixdownInput>>;
 };
 
-export type FeedItemUpdateManyWithWhereWithoutAuthorInput = {
-  data: FeedItemUpdateManyMutationInput;
-  where: FeedItemScalarWhereInput;
-};
-
-export type FeedItemUpdateManyWithWhereWithoutMixdownInput = {
-  data: FeedItemUpdateManyMutationInput;
-  where: FeedItemScalarWhereInput;
-};
-
 export type FeedItemUpdateOneRequiredWithoutLikesInput = {
   connect?: Maybe<FeedItemWhereUniqueInput>;
   connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutlikesInput>;
@@ -2254,6 +2267,16 @@ export type FeedItemUpdateOneWithoutCommentsInput = {
   disconnect?: Maybe<Scalars['Boolean']>;
   update?: Maybe<FeedItemUpdateWithoutCommentsInput>;
   upsert?: Maybe<FeedItemUpsertWithoutCommentsInput>;
+};
+
+export type FeedItemUpdateWithWhereUniqueWithoutAuthorInput = {
+  data: FeedItemUpdateWithoutAuthorInput;
+  where: FeedItemWhereUniqueInput;
+};
+
+export type FeedItemUpdateWithWhereUniqueWithoutMixdownInput = {
+  data: FeedItemUpdateWithoutMixdownInput;
+  where: FeedItemWhereUniqueInput;
 };
 
 export type FeedItemUpdateWithoutAuthorInput = {
@@ -2321,13 +2344,15 @@ export type FeedItemUpdateWithoutRevisionsInput = {
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
 
-export type FeedItemUpdateWithWhereUniqueWithoutAuthorInput = {
-  data: FeedItemUpdateWithoutAuthorInput;
+export type FeedItemUpsertWithWhereUniqueWithoutAuthorInput = {
+  create: FeedItemCreateWithoutAuthorInput;
+  update: FeedItemUpdateWithoutAuthorInput;
   where: FeedItemWhereUniqueInput;
 };
 
-export type FeedItemUpdateWithWhereUniqueWithoutMixdownInput = {
-  data: FeedItemUpdateWithoutMixdownInput;
+export type FeedItemUpsertWithWhereUniqueWithoutMixdownInput = {
+  create: FeedItemCreateWithoutMixdownInput;
+  update: FeedItemUpdateWithoutMixdownInput;
   where: FeedItemWhereUniqueInput;
 };
 
@@ -2346,20 +2371,10 @@ export type FeedItemUpsertWithoutRevisionsInput = {
   update: FeedItemUpdateWithoutRevisionsInput;
 };
 
-export type FeedItemUpsertWithWhereUniqueWithoutAuthorInput = {
-  create: FeedItemCreateWithoutAuthorInput;
-  update: FeedItemUpdateWithoutAuthorInput;
-  where: FeedItemWhereUniqueInput;
-};
-
-export type FeedItemUpsertWithWhereUniqueWithoutMixdownInput = {
-  create: FeedItemCreateWithoutMixdownInput;
-  update: FeedItemUpdateWithoutMixdownInput;
-  where: FeedItemWhereUniqueInput;
-};
-
 export type FeedItemWhereInput = {
   AND?: Maybe<Array<FeedItemWhereInput>>;
+  NOT?: Maybe<Array<FeedItemWhereInput>>;
+  OR?: Maybe<Array<FeedItemWhereInput>>;
   author?: Maybe<UserRelationFilter>;
   authorId?: Maybe<StringFilter>;
   comments?: Maybe<CommentListRelationFilter>;
@@ -2369,8 +2384,6 @@ export type FeedItemWhereInput = {
   likes?: Maybe<FeedItemLikeListRelationFilter>;
   mixdown?: Maybe<MixdownRelationFilter>;
   mixdownId?: Maybe<StringNullableFilter>;
-  NOT?: Maybe<Array<FeedItemWhereInput>>;
-  OR?: Maybe<Array<FeedItemWhereInput>>;
   publishAt?: Maybe<DateTimeNullableFilter>;
   revisions?: Maybe<FeedItemRevisionListRelationFilter>;
   text?: Maybe<StringNullableFilter>;
@@ -2407,10 +2420,10 @@ export type JsonFilter = {
 
 export type Mixdown = {
   __typename?: 'Mixdown';
+  FeedItem: Array<FeedItem>;
   audio: AudioAsset;
   audioAssetId: Scalars['String'];
   createdAt: Scalars['Timestamp'];
-  FeedItem?: Maybe<Array<FeedItem>>;
   id: Scalars['String'];
   isPusblished?: Maybe<Scalars['Boolean']>;
   listens: Scalars['Int'];
@@ -2454,50 +2467,50 @@ export type MixdownCountAggregate = {
 };
 
 export type MixdownCreateInput = {
-  audio: AudioAssetCreateOneWithoutMixdownInput;
+  FeedItem?: Maybe<FeedItemCreateNestedManyWithoutMixdownInput>;
+  audio: AudioAssetCreateNestedOneWithoutMixdownInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  FeedItem?: Maybe<FeedItemCreateManyWithoutMixdownInput>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
   listens?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
-  project: ProjectCreateOneWithoutMixdownsInput;
-  triggerdBy: UserCreateOneWithoutMixdownInput;
+  project: ProjectCreateNestedOneWithoutMixdownsInput;
+  triggerdBy: UserCreateNestedOneWithoutMixdownInput;
   updatedAt?: Maybe<Scalars['Timestamp']>;
   version: Scalars['Int'];
 };
 
-export type MixdownCreateManyWithoutAudioInput = {
+export type MixdownCreateNestedManyWithoutAudioInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutaudioInput>>;
   create?: Maybe<Array<MixdownCreateWithoutAudioInput>>;
 };
 
-export type MixdownCreateManyWithoutProjectInput = {
+export type MixdownCreateNestedManyWithoutProjectInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutprojectInput>>;
   create?: Maybe<Array<MixdownCreateWithoutProjectInput>>;
 };
 
-export type MixdownCreateManyWithoutTriggerdByInput = {
+export type MixdownCreateNestedManyWithoutTriggerdByInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithouttriggerdByInput>>;
   create?: Maybe<Array<MixdownCreateWithoutTriggerdByInput>>;
 };
 
-export type MixdownCreateOneWithoutFeedItemInput = {
+export type MixdownCreateNestedOneWithoutFeedItemInput = {
   connect?: Maybe<MixdownWhereUniqueInput>;
   connectOrCreate?: Maybe<MixdownCreateOrConnectWithoutFeedItemInput>;
   create?: Maybe<MixdownCreateWithoutFeedItemInput>;
 };
 
-export type MixdownCreateOrConnectWithoutaudioInput = {
-  create: MixdownCreateWithoutAudioInput;
+export type MixdownCreateOrConnectWithoutFeedItemInput = {
+  create: MixdownCreateWithoutFeedItemInput;
   where: MixdownWhereUniqueInput;
 };
 
-export type MixdownCreateOrConnectWithoutFeedItemInput = {
-  create: MixdownCreateWithoutFeedItemInput;
+export type MixdownCreateOrConnectWithoutaudioInput = {
+  create: MixdownCreateWithoutAudioInput;
   where: MixdownWhereUniqueInput;
 };
 
@@ -2512,53 +2525,53 @@ export type MixdownCreateOrConnectWithouttriggerdByInput = {
 };
 
 export type MixdownCreateWithoutAudioInput = {
+  FeedItem?: Maybe<FeedItemCreateNestedManyWithoutMixdownInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  FeedItem?: Maybe<FeedItemCreateManyWithoutMixdownInput>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
   listens?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
-  project: ProjectCreateOneWithoutMixdownsInput;
-  triggerdBy: UserCreateOneWithoutMixdownInput;
+  project: ProjectCreateNestedOneWithoutMixdownsInput;
+  triggerdBy: UserCreateNestedOneWithoutMixdownInput;
   updatedAt?: Maybe<Scalars['Timestamp']>;
   version: Scalars['Int'];
 };
 
 export type MixdownCreateWithoutFeedItemInput = {
-  audio: AudioAssetCreateOneWithoutMixdownInput;
+  audio: AudioAssetCreateNestedOneWithoutMixdownInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
   listens?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
-  project: ProjectCreateOneWithoutMixdownsInput;
-  triggerdBy: UserCreateOneWithoutMixdownInput;
+  project: ProjectCreateNestedOneWithoutMixdownsInput;
+  triggerdBy: UserCreateNestedOneWithoutMixdownInput;
   updatedAt?: Maybe<Scalars['Timestamp']>;
   version: Scalars['Int'];
 };
 
 export type MixdownCreateWithoutProjectInput = {
-  audio: AudioAssetCreateOneWithoutMixdownInput;
+  FeedItem?: Maybe<FeedItemCreateNestedManyWithoutMixdownInput>;
+  audio: AudioAssetCreateNestedOneWithoutMixdownInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  FeedItem?: Maybe<FeedItemCreateManyWithoutMixdownInput>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
   listens?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
-  triggerdBy: UserCreateOneWithoutMixdownInput;
+  triggerdBy: UserCreateNestedOneWithoutMixdownInput;
   updatedAt?: Maybe<Scalars['Timestamp']>;
   version: Scalars['Int'];
 };
 
 export type MixdownCreateWithoutTriggerdByInput = {
-  audio: AudioAssetCreateOneWithoutMixdownInput;
+  FeedItem?: Maybe<FeedItemCreateNestedManyWithoutMixdownInput>;
+  audio: AudioAssetCreateNestedOneWithoutMixdownInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  FeedItem?: Maybe<FeedItemCreateManyWithoutMixdownInput>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
   listens?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
-  project: ProjectCreateOneWithoutMixdownsInput;
+  project: ProjectCreateNestedOneWithoutMixdownsInput;
   updatedAt?: Maybe<Scalars['Timestamp']>;
   version: Scalars['Int'];
 };
@@ -2598,13 +2611,16 @@ export type MixdownMinAggregate = {
 };
 
 export type MixdownOrderByInput = {
+  audio?: Maybe<AudioAssetOrderByInput>;
   audioAssetId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
   isPusblished?: Maybe<SortOrder>;
   listens?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
+  project?: Maybe<ProjectOrderByInput>;
   projectId?: Maybe<SortOrder>;
+  triggerdBy?: Maybe<UserOrderByInput>;
   updatedAt?: Maybe<SortOrder>;
   userId?: Maybe<SortOrder>;
   version?: Maybe<SortOrder>;
@@ -2630,14 +2646,14 @@ export enum MixdownScalarFieldEnum {
 
 export type MixdownScalarWhereInput = {
   AND?: Maybe<Array<MixdownScalarWhereInput>>;
+  NOT?: Maybe<Array<MixdownScalarWhereInput>>;
+  OR?: Maybe<Array<MixdownScalarWhereInput>>;
   audioAssetId?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
   isPusblished?: Maybe<BoolNullableFilter>;
   listens?: Maybe<IntFilter>;
   name?: Maybe<StringNullableFilter>;
-  NOT?: Maybe<Array<MixdownScalarWhereInput>>;
-  OR?: Maybe<Array<MixdownScalarWhereInput>>;
   projectId?: Maybe<StringFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
   userId?: Maybe<StringFilter>;
@@ -2651,9 +2667,9 @@ export type MixdownSumAggregate = {
 };
 
 export type MixdownUpdateInput = {
+  FeedItem?: Maybe<FeedItemUpdateManyWithoutMixdownInput>;
   audio?: Maybe<AudioAssetUpdateOneRequiredWithoutMixdownInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  FeedItem?: Maybe<FeedItemUpdateManyWithoutMixdownInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPusblished?: Maybe<NullableBoolFieldUpdateOperationsInput>;
   listens?: Maybe<IntFieldUpdateOperationsInput>;
@@ -2672,6 +2688,21 @@ export type MixdownUpdateManyMutationInput = {
   name?: Maybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   version?: Maybe<IntFieldUpdateOperationsInput>;
+};
+
+export type MixdownUpdateManyWithWhereWithoutAudioInput = {
+  data: MixdownUpdateManyMutationInput;
+  where: MixdownScalarWhereInput;
+};
+
+export type MixdownUpdateManyWithWhereWithoutProjectInput = {
+  data: MixdownUpdateManyMutationInput;
+  where: MixdownScalarWhereInput;
+};
+
+export type MixdownUpdateManyWithWhereWithoutTriggerdByInput = {
+  data: MixdownUpdateManyMutationInput;
+  where: MixdownScalarWhereInput;
 };
 
 export type MixdownUpdateManyWithoutAudioInput = {
@@ -2713,21 +2744,6 @@ export type MixdownUpdateManyWithoutTriggerdByInput = {
   upsert?: Maybe<Array<MixdownUpsertWithWhereUniqueWithoutTriggerdByInput>>;
 };
 
-export type MixdownUpdateManyWithWhereWithoutAudioInput = {
-  data: MixdownUpdateManyMutationInput;
-  where: MixdownScalarWhereInput;
-};
-
-export type MixdownUpdateManyWithWhereWithoutProjectInput = {
-  data: MixdownUpdateManyMutationInput;
-  where: MixdownScalarWhereInput;
-};
-
-export type MixdownUpdateManyWithWhereWithoutTriggerdByInput = {
-  data: MixdownUpdateManyMutationInput;
-  where: MixdownScalarWhereInput;
-};
-
 export type MixdownUpdateOneWithoutFeedItemInput = {
   connect?: Maybe<MixdownWhereUniqueInput>;
   connectOrCreate?: Maybe<MixdownCreateOrConnectWithoutFeedItemInput>;
@@ -2738,9 +2754,24 @@ export type MixdownUpdateOneWithoutFeedItemInput = {
   upsert?: Maybe<MixdownUpsertWithoutFeedItemInput>;
 };
 
+export type MixdownUpdateWithWhereUniqueWithoutAudioInput = {
+  data: MixdownUpdateWithoutAudioInput;
+  where: MixdownWhereUniqueInput;
+};
+
+export type MixdownUpdateWithWhereUniqueWithoutProjectInput = {
+  data: MixdownUpdateWithoutProjectInput;
+  where: MixdownWhereUniqueInput;
+};
+
+export type MixdownUpdateWithWhereUniqueWithoutTriggerdByInput = {
+  data: MixdownUpdateWithoutTriggerdByInput;
+  where: MixdownWhereUniqueInput;
+};
+
 export type MixdownUpdateWithoutAudioInput = {
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   FeedItem?: Maybe<FeedItemUpdateManyWithoutMixdownInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPusblished?: Maybe<NullableBoolFieldUpdateOperationsInput>;
   listens?: Maybe<IntFieldUpdateOperationsInput>;
@@ -2765,9 +2796,9 @@ export type MixdownUpdateWithoutFeedItemInput = {
 };
 
 export type MixdownUpdateWithoutProjectInput = {
+  FeedItem?: Maybe<FeedItemUpdateManyWithoutMixdownInput>;
   audio?: Maybe<AudioAssetUpdateOneRequiredWithoutMixdownInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  FeedItem?: Maybe<FeedItemUpdateManyWithoutMixdownInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPusblished?: Maybe<NullableBoolFieldUpdateOperationsInput>;
   listens?: Maybe<IntFieldUpdateOperationsInput>;
@@ -2778,9 +2809,9 @@ export type MixdownUpdateWithoutProjectInput = {
 };
 
 export type MixdownUpdateWithoutTriggerdByInput = {
+  FeedItem?: Maybe<FeedItemUpdateManyWithoutMixdownInput>;
   audio?: Maybe<AudioAssetUpdateOneRequiredWithoutMixdownInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  FeedItem?: Maybe<FeedItemUpdateManyWithoutMixdownInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPusblished?: Maybe<NullableBoolFieldUpdateOperationsInput>;
   listens?: Maybe<IntFieldUpdateOperationsInput>;
@@ -2788,26 +2819,6 @@ export type MixdownUpdateWithoutTriggerdByInput = {
   project?: Maybe<ProjectUpdateOneRequiredWithoutMixdownsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   version?: Maybe<IntFieldUpdateOperationsInput>;
-};
-
-export type MixdownUpdateWithWhereUniqueWithoutAudioInput = {
-  data: MixdownUpdateWithoutAudioInput;
-  where: MixdownWhereUniqueInput;
-};
-
-export type MixdownUpdateWithWhereUniqueWithoutProjectInput = {
-  data: MixdownUpdateWithoutProjectInput;
-  where: MixdownWhereUniqueInput;
-};
-
-export type MixdownUpdateWithWhereUniqueWithoutTriggerdByInput = {
-  data: MixdownUpdateWithoutTriggerdByInput;
-  where: MixdownWhereUniqueInput;
-};
-
-export type MixdownUpsertWithoutFeedItemInput = {
-  create: MixdownCreateWithoutFeedItemInput;
-  update: MixdownUpdateWithoutFeedItemInput;
 };
 
 export type MixdownUpsertWithWhereUniqueWithoutAudioInput = {
@@ -2828,18 +2839,23 @@ export type MixdownUpsertWithWhereUniqueWithoutTriggerdByInput = {
   where: MixdownWhereUniqueInput;
 };
 
+export type MixdownUpsertWithoutFeedItemInput = {
+  create: MixdownCreateWithoutFeedItemInput;
+  update: MixdownUpdateWithoutFeedItemInput;
+};
+
 export type MixdownWhereInput = {
   AND?: Maybe<Array<MixdownWhereInput>>;
+  FeedItem?: Maybe<FeedItemListRelationFilter>;
+  NOT?: Maybe<Array<MixdownWhereInput>>;
+  OR?: Maybe<Array<MixdownWhereInput>>;
   audio?: Maybe<AudioAssetRelationFilter>;
   audioAssetId?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
-  FeedItem?: Maybe<FeedItemListRelationFilter>;
   id?: Maybe<StringFilter>;
   isPusblished?: Maybe<BoolNullableFilter>;
   listens?: Maybe<IntFilter>;
   name?: Maybe<StringNullableFilter>;
-  NOT?: Maybe<Array<MixdownWhereInput>>;
-  OR?: Maybe<Array<MixdownWhereInput>>;
   project?: Maybe<ProjectRelationFilter>;
   projectId?: Maybe<StringFilter>;
   triggerdBy?: Maybe<UserRelationFilter>;
@@ -2873,18 +2889,18 @@ export type Mutation = {
   deleteFeedItem?: Maybe<FeedItem>;
   deleteFeedItemLike?: Maybe<FeedItemLike>;
   deleteFeedItemRevision?: Maybe<FeedItemRevision>;
-  deleteManyAddress: BatchPayload;
-  deleteManyBand: BatchPayload;
-  deleteManyComment: BatchPayload;
-  deleteManyCommentLike: BatchPayload;
-  deleteManyFeedItem: BatchPayload;
-  deleteManyFeedItemLike: BatchPayload;
-  deleteManyFeedItemRevision: BatchPayload;
-  deleteManyMixdown: BatchPayload;
-  deleteManyProject: BatchPayload;
-  deleteManyTag: BatchPayload;
-  deleteManyUser: BatchPayload;
-  deleteManyUsersOnProjects: BatchPayload;
+  deleteManyAddress: AffectedRowsOutput;
+  deleteManyBand: AffectedRowsOutput;
+  deleteManyComment: AffectedRowsOutput;
+  deleteManyCommentLike: AffectedRowsOutput;
+  deleteManyFeedItem: AffectedRowsOutput;
+  deleteManyFeedItemLike: AffectedRowsOutput;
+  deleteManyFeedItemRevision: AffectedRowsOutput;
+  deleteManyMixdown: AffectedRowsOutput;
+  deleteManyProject: AffectedRowsOutput;
+  deleteManyTag: AffectedRowsOutput;
+  deleteManyUser: AffectedRowsOutput;
+  deleteManyUsersOnProjects: AffectedRowsOutput;
   deleteMixdown?: Maybe<Mixdown>;
   deleteProject?: Maybe<Project>;
   deleteTag?: Maybe<Tag>;
@@ -2899,18 +2915,18 @@ export type Mutation = {
   updateFeedItem?: Maybe<FeedItem>;
   updateFeedItemLike?: Maybe<FeedItemLike>;
   updateFeedItemRevision?: Maybe<FeedItemRevision>;
-  updateManyAddress: BatchPayload;
-  updateManyBand: BatchPayload;
-  updateManyComment: BatchPayload;
-  updateManyCommentLike: BatchPayload;
-  updateManyFeedItem: BatchPayload;
-  updateManyFeedItemLike: BatchPayload;
-  updateManyFeedItemRevision: BatchPayload;
-  updateManyMixdown: BatchPayload;
-  updateManyProject: BatchPayload;
-  updateManyTag: BatchPayload;
-  updateManyUser: BatchPayload;
-  updateManyUsersOnProjects: BatchPayload;
+  updateManyAddress: AffectedRowsOutput;
+  updateManyBand: AffectedRowsOutput;
+  updateManyComment: AffectedRowsOutput;
+  updateManyCommentLike: AffectedRowsOutput;
+  updateManyFeedItem: AffectedRowsOutput;
+  updateManyFeedItemLike: AffectedRowsOutput;
+  updateManyFeedItemRevision: AffectedRowsOutput;
+  updateManyMixdown: AffectedRowsOutput;
+  updateManyProject: AffectedRowsOutput;
+  updateManyTag: AffectedRowsOutput;
+  updateManyUser: AffectedRowsOutput;
+  updateManyUsersOnProjects: AffectedRowsOutput;
   updateMixdown?: Maybe<Mixdown>;
   updateProject?: Maybe<Project>;
   updateTag?: Maybe<Tag>;
@@ -3375,8 +3391,8 @@ export type Project = {
   id: Scalars['String'];
   isInitialized: Scalars['Boolean'];
   isPrivate: Scalars['Boolean'];
-  members?: Maybe<Array<UsersOnProjects>>;
-  mixdowns?: Maybe<Array<Mixdown>>;
+  members: Array<UsersOnProjects>;
+  mixdowns: Array<Mixdown>;
   name: Scalars['String'];
   owner: User;
   ownerId: Scalars['String'];
@@ -3420,26 +3436,26 @@ export type ProjectCreateInput = {
   id?: Maybe<Scalars['String']>;
   isInitialized?: Maybe<Scalars['Boolean']>;
   isPrivate?: Maybe<Scalars['Boolean']>;
-  members?: Maybe<UsersOnProjectsCreateManyWithoutProjectInput>;
-  mixdowns?: Maybe<MixdownCreateManyWithoutProjectInput>;
+  members?: Maybe<UsersOnProjectsCreateNestedManyWithoutProjectInput>;
+  mixdowns?: Maybe<MixdownCreateNestedManyWithoutProjectInput>;
   name?: Maybe<Scalars['String']>;
-  owner: UserCreateOneWithoutOwnsProjectsInput;
+  owner: UserCreateNestedOneWithoutOwnsProjectsInput;
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
-export type ProjectCreateManyWithoutOwnerInput = {
+export type ProjectCreateNestedManyWithoutOwnerInput = {
   connect?: Maybe<Array<ProjectWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<ProjectCreateOrConnectWithoutownerInput>>;
   create?: Maybe<Array<ProjectCreateWithoutOwnerInput>>;
 };
 
-export type ProjectCreateOneWithoutMembersInput = {
+export type ProjectCreateNestedOneWithoutMembersInput = {
   connect?: Maybe<ProjectWhereUniqueInput>;
   connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutmembersInput>;
   create?: Maybe<ProjectCreateWithoutMembersInput>;
 };
 
-export type ProjectCreateOneWithoutMixdownsInput = {
+export type ProjectCreateNestedOneWithoutMixdownsInput = {
   connect?: Maybe<ProjectWhereUniqueInput>;
   connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutmixdownsInput>;
   create?: Maybe<ProjectCreateWithoutMixdownsInput>;
@@ -3466,9 +3482,9 @@ export type ProjectCreateWithoutMembersInput = {
   id?: Maybe<Scalars['String']>;
   isInitialized?: Maybe<Scalars['Boolean']>;
   isPrivate?: Maybe<Scalars['Boolean']>;
-  mixdowns?: Maybe<MixdownCreateManyWithoutProjectInput>;
+  mixdowns?: Maybe<MixdownCreateNestedManyWithoutProjectInput>;
   name?: Maybe<Scalars['String']>;
-  owner: UserCreateOneWithoutOwnsProjectsInput;
+  owner: UserCreateNestedOneWithoutOwnsProjectsInput;
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
@@ -3478,9 +3494,9 @@ export type ProjectCreateWithoutMixdownsInput = {
   id?: Maybe<Scalars['String']>;
   isInitialized?: Maybe<Scalars['Boolean']>;
   isPrivate?: Maybe<Scalars['Boolean']>;
-  members?: Maybe<UsersOnProjectsCreateManyWithoutProjectInput>;
+  members?: Maybe<UsersOnProjectsCreateNestedManyWithoutProjectInput>;
   name?: Maybe<Scalars['String']>;
-  owner: UserCreateOneWithoutOwnsProjectsInput;
+  owner: UserCreateNestedOneWithoutOwnsProjectsInput;
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
@@ -3490,8 +3506,8 @@ export type ProjectCreateWithoutOwnerInput = {
   id?: Maybe<Scalars['String']>;
   isInitialized?: Maybe<Scalars['Boolean']>;
   isPrivate?: Maybe<Scalars['Boolean']>;
-  members?: Maybe<UsersOnProjectsCreateManyWithoutProjectInput>;
-  mixdowns?: Maybe<MixdownCreateManyWithoutProjectInput>;
+  members?: Maybe<UsersOnProjectsCreateNestedManyWithoutProjectInput>;
+  mixdowns?: Maybe<MixdownCreateNestedManyWithoutProjectInput>;
   name?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
@@ -3504,7 +3520,6 @@ export type ProjectListRelationFilter = {
 
 export type ProjectMaxAggregate = {
   __typename?: 'ProjectMaxAggregate';
-  content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isInitialized?: Maybe<Scalars['Boolean']>;
@@ -3516,7 +3531,6 @@ export type ProjectMaxAggregate = {
 
 export type ProjectMinAggregate = {
   __typename?: 'ProjectMinAggregate';
-  content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isInitialized?: Maybe<Scalars['Boolean']>;
@@ -3533,6 +3547,7 @@ export type ProjectOrderByInput = {
   isInitialized?: Maybe<SortOrder>;
   isPrivate?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
+  owner?: Maybe<UserOrderByInput>;
   ownerId?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -3555,14 +3570,14 @@ export enum ProjectScalarFieldEnum {
 
 export type ProjectScalarWhereInput = {
   AND?: Maybe<Array<ProjectScalarWhereInput>>;
+  NOT?: Maybe<Array<ProjectScalarWhereInput>>;
+  OR?: Maybe<Array<ProjectScalarWhereInput>>;
   content?: Maybe<JsonFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
   isInitialized?: Maybe<BoolFilter>;
   isPrivate?: Maybe<BoolFilter>;
   name?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<ProjectScalarWhereInput>>;
-  OR?: Maybe<Array<ProjectScalarWhereInput>>;
   ownerId?: Maybe<StringFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
 };
@@ -3590,6 +3605,11 @@ export type ProjectUpdateManyMutationInput = {
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
 
+export type ProjectUpdateManyWithWhereWithoutOwnerInput = {
+  data: ProjectUpdateManyMutationInput;
+  where: ProjectScalarWhereInput;
+};
+
 export type ProjectUpdateManyWithoutOwnerInput = {
   connect?: Maybe<Array<ProjectWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<ProjectCreateOrConnectWithoutownerInput>>;
@@ -3601,11 +3621,6 @@ export type ProjectUpdateManyWithoutOwnerInput = {
   update?: Maybe<Array<ProjectUpdateWithWhereUniqueWithoutOwnerInput>>;
   updateMany?: Maybe<Array<ProjectUpdateManyWithWhereWithoutOwnerInput>>;
   upsert?: Maybe<Array<ProjectUpsertWithWhereUniqueWithoutOwnerInput>>;
-};
-
-export type ProjectUpdateManyWithWhereWithoutOwnerInput = {
-  data: ProjectUpdateManyMutationInput;
-  where: ProjectScalarWhereInput;
 };
 
 export type ProjectUpdateOneRequiredWithoutMembersInput = {
@@ -3622,6 +3637,11 @@ export type ProjectUpdateOneRequiredWithoutMixdownsInput = {
   create?: Maybe<ProjectCreateWithoutMixdownsInput>;
   update?: Maybe<ProjectUpdateWithoutMixdownsInput>;
   upsert?: Maybe<ProjectUpsertWithoutMixdownsInput>;
+};
+
+export type ProjectUpdateWithWhereUniqueWithoutOwnerInput = {
+  data: ProjectUpdateWithoutOwnerInput;
+  where: ProjectWhereUniqueInput;
 };
 
 export type ProjectUpdateWithoutMembersInput = {
@@ -3660,8 +3680,9 @@ export type ProjectUpdateWithoutOwnerInput = {
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
 
-export type ProjectUpdateWithWhereUniqueWithoutOwnerInput = {
-  data: ProjectUpdateWithoutOwnerInput;
+export type ProjectUpsertWithWhereUniqueWithoutOwnerInput = {
+  create: ProjectCreateWithoutOwnerInput;
+  update: ProjectUpdateWithoutOwnerInput;
   where: ProjectWhereUniqueInput;
 };
 
@@ -3675,14 +3696,10 @@ export type ProjectUpsertWithoutMixdownsInput = {
   update: ProjectUpdateWithoutMixdownsInput;
 };
 
-export type ProjectUpsertWithWhereUniqueWithoutOwnerInput = {
-  create: ProjectCreateWithoutOwnerInput;
-  update: ProjectUpdateWithoutOwnerInput;
-  where: ProjectWhereUniqueInput;
-};
-
 export type ProjectWhereInput = {
   AND?: Maybe<Array<ProjectWhereInput>>;
+  NOT?: Maybe<Array<ProjectWhereInput>>;
+  OR?: Maybe<Array<ProjectWhereInput>>;
   content?: Maybe<JsonFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
@@ -3691,8 +3708,6 @@ export type ProjectWhereInput = {
   members?: Maybe<UsersOnProjectsListRelationFilter>;
   mixdowns?: Maybe<MixdownListRelationFilter>;
   name?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<ProjectWhereInput>>;
-  OR?: Maybe<Array<ProjectWhereInput>>;
   owner?: Maybe<UserRelationFilter>;
   ownerId?: Maybe<StringFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
@@ -4210,12 +4225,12 @@ export type TagCountAggregate = {
 };
 
 export type TagCreateInput = {
+  User?: Maybe<UserCreateNestedOneWithoutInterestsInput>;
   id?: Maybe<Scalars['String']>;
-  User?: Maybe<UserCreateOneWithoutInterestsInput>;
   value: Scalars['String'];
 };
 
-export type TagCreateManyWithoutUserInput = {
+export type TagCreateNestedManyWithoutUserInput = {
   connect?: Maybe<Array<TagWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<TagCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<TagCreateWithoutUserInput>>;
@@ -4252,6 +4267,7 @@ export type TagMinAggregate = {
 };
 
 export type TagOrderByInput = {
+  User?: Maybe<UserOrderByInput>;
   id?: Maybe<SortOrder>;
   userId?: Maybe<SortOrder>;
   value?: Maybe<SortOrder>;
@@ -4265,22 +4281,27 @@ export enum TagScalarFieldEnum {
 
 export type TagScalarWhereInput = {
   AND?: Maybe<Array<TagScalarWhereInput>>;
-  id?: Maybe<StringFilter>;
   NOT?: Maybe<Array<TagScalarWhereInput>>;
   OR?: Maybe<Array<TagScalarWhereInput>>;
+  id?: Maybe<StringFilter>;
   userId?: Maybe<StringNullableFilter>;
   value?: Maybe<StringFilter>;
 };
 
 export type TagUpdateInput = {
-  id?: Maybe<StringFieldUpdateOperationsInput>;
   User?: Maybe<UserUpdateOneWithoutInterestsInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
   value?: Maybe<StringFieldUpdateOperationsInput>;
 };
 
 export type TagUpdateManyMutationInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   value?: Maybe<StringFieldUpdateOperationsInput>;
+};
+
+export type TagUpdateManyWithWhereWithoutUserInput = {
+  data: TagUpdateManyMutationInput;
+  where: TagScalarWhereInput;
 };
 
 export type TagUpdateManyWithoutUserInput = {
@@ -4296,19 +4317,14 @@ export type TagUpdateManyWithoutUserInput = {
   upsert?: Maybe<Array<TagUpsertWithWhereUniqueWithoutUserInput>>;
 };
 
-export type TagUpdateManyWithWhereWithoutUserInput = {
-  data: TagUpdateManyMutationInput;
-  where: TagScalarWhereInput;
+export type TagUpdateWithWhereUniqueWithoutUserInput = {
+  data: TagUpdateWithoutUserInput;
+  where: TagWhereUniqueInput;
 };
 
 export type TagUpdateWithoutUserInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   value?: Maybe<StringFieldUpdateOperationsInput>;
-};
-
-export type TagUpdateWithWhereUniqueWithoutUserInput = {
-  data: TagUpdateWithoutUserInput;
-  where: TagWhereUniqueInput;
 };
 
 export type TagUpsertWithWhereUniqueWithoutUserInput = {
@@ -4319,10 +4335,10 @@ export type TagUpsertWithWhereUniqueWithoutUserInput = {
 
 export type TagWhereInput = {
   AND?: Maybe<Array<TagWhereInput>>;
-  id?: Maybe<StringFilter>;
   NOT?: Maybe<Array<TagWhereInput>>;
   OR?: Maybe<Array<TagWhereInput>>;
   User?: Maybe<UserRelationFilter>;
+  id?: Maybe<StringFilter>;
   userId?: Maybe<StringNullableFilter>;
   value?: Maybe<StringFilter>;
 };
@@ -4334,34 +4350,35 @@ export type TagWhereUniqueInput = {
 
 export type User = {
   __typename?: 'User';
+  AudioAsset: Array<AudioAsset>;
+  Comment: Array<Comment>;
+  CommentLike: Array<CommentLike>;
+  EarlyAccessCode: Array<EarlyAccessCode>;
+  FeedItemLike: Array<FeedItemLike>;
+  Mixdown: Array<Mixdown>;
   address?: Maybe<Address>;
   addressId?: Maybe<Scalars['String']>;
-  AudioAsset?: Maybe<Array<AudioAsset>>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<Array<Comment>>;
-  CommentLike?: Maybe<Array<CommentLike>>;
   createdAt: Scalars['Timestamp'];
-  EarlyAccessCode?: Maybe<Array<EarlyAccessCode>>;
   email: Scalars['String'];
-  feed?: Maybe<Array<FeedItem>>;
-  FeedItemLike?: Maybe<Array<FeedItemLike>>;
-  followedBy?: Maybe<Array<User>>;
+  feed: Array<FeedItem>;
+  followedBy: Array<User>;
   followedByCount?: Maybe<Scalars['Int']>;
-  following?: Maybe<Array<User>>;
+  following: Array<User>;
   followingCount?: Maybe<Scalars['Int']>;
+  friends?: Maybe<Array<User>>;
   handle: Scalars['String'];
   id: Scalars['String'];
-  interests?: Maybe<Array<Tag>>;
+  interests: Array<Tag>;
   isMeFollowing?: Maybe<Scalars['Boolean']>;
   isMyself?: Maybe<Scalars['Boolean']>;
   isOnline: Scalars['Boolean'];
-  memberOfBands?: Maybe<Array<UsersOnBands>>;
-  memberOfProjects?: Maybe<Array<UsersOnProjects>>;
-  Mixdown?: Maybe<Array<Mixdown>>;
+  memberOfBands: Array<UsersOnBands>;
+  memberOfProjects: Array<UsersOnProjects>;
   name: Scalars['String'];
-  ownsBands?: Maybe<Array<Band>>;
-  ownsProjects?: Maybe<Array<Project>>;
+  ownsBands: Array<Band>;
+  ownsProjects: Array<Project>;
   role: Role;
   updatedAt: Scalars['Timestamp'];
   website?: Maybe<Scalars['String']>;
@@ -4403,15 +4420,6 @@ export type UserEarlyAccessCodeArgs = {
   where?: Maybe<EarlyAccessCodeWhereInput>;
 };
 
-export type UserFeedArgs = {
-  cursor?: Maybe<FeedItemWhereUniqueInput>;
-  distinct?: Maybe<Array<FeedItemScalarFieldEnum>>;
-  orderBy?: Maybe<Array<FeedItemOrderByInput>>;
-  skip?: Maybe<Scalars['Int']>;
-  take?: Maybe<Scalars['Int']>;
-  where?: Maybe<FeedItemWhereInput>;
-};
-
 export type UserFeedItemLikeArgs = {
   cursor?: Maybe<FeedItemLikeWhereUniqueInput>;
   distinct?: Maybe<Array<FeedItemLikeScalarFieldEnum>>;
@@ -4419,6 +4427,24 @@ export type UserFeedItemLikeArgs = {
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<FeedItemLikeWhereInput>;
+};
+
+export type UserMixdownArgs = {
+  cursor?: Maybe<MixdownWhereUniqueInput>;
+  distinct?: Maybe<Array<MixdownScalarFieldEnum>>;
+  orderBy?: Maybe<Array<MixdownOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<MixdownWhereInput>;
+};
+
+export type UserFeedArgs = {
+  cursor?: Maybe<FeedItemWhereUniqueInput>;
+  distinct?: Maybe<Array<FeedItemScalarFieldEnum>>;
+  orderBy?: Maybe<Array<FeedItemOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<FeedItemWhereInput>;
 };
 
 export type UserFollowedByArgs = {
@@ -4466,15 +4492,6 @@ export type UserMemberOfProjectsArgs = {
   where?: Maybe<UsersOnProjectsWhereInput>;
 };
 
-export type UserMixdownArgs = {
-  cursor?: Maybe<MixdownWhereUniqueInput>;
-  distinct?: Maybe<Array<MixdownScalarFieldEnum>>;
-  orderBy?: Maybe<Array<MixdownOrderByInput>>;
-  skip?: Maybe<Scalars['Int']>;
-  take?: Maybe<Scalars['Int']>;
-  where?: Maybe<MixdownWhereInput>;
-};
-
 export type UserOwnsBandsArgs = {
   cursor?: Maybe<BandWhereUniqueInput>;
   distinct?: Maybe<Array<BandScalarFieldEnum>>;
@@ -4512,122 +4529,117 @@ export type UserCountAggregate = {
 };
 
 export type UserCreateInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
   website?: Maybe<Scalars['String']>;
 };
 
-export type UserCreateManyWithoutAddressInput = {
+export type UserCreateNestedManyWithoutAddressInput = {
   connect?: Maybe<Array<UserWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutaddressInput>>;
   create?: Maybe<Array<UserCreateWithoutAddressInput>>;
 };
 
-export type UserCreateManyWithoutFollowedByInput = {
+export type UserCreateNestedManyWithoutFollowedByInput = {
   connect?: Maybe<Array<UserWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutfollowedByInput>>;
   create?: Maybe<Array<UserCreateWithoutFollowedByInput>>;
 };
 
-export type UserCreateManyWithoutFollowingInput = {
+export type UserCreateNestedManyWithoutFollowingInput = {
   connect?: Maybe<Array<UserWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutfollowingInput>>;
   create?: Maybe<Array<UserCreateWithoutFollowingInput>>;
 };
 
-export type UserCreateOneWithoutAudioAssetInput = {
+export type UserCreateNestedOneWithoutAudioAssetInput = {
   connect?: Maybe<UserWhereUniqueInput>;
   connectOrCreate?: Maybe<UserCreateOrConnectWithoutAudioAssetInput>;
   create?: Maybe<UserCreateWithoutAudioAssetInput>;
 };
 
-export type UserCreateOneWithoutCommentInput = {
+export type UserCreateNestedOneWithoutCommentInput = {
   connect?: Maybe<UserWhereUniqueInput>;
   connectOrCreate?: Maybe<UserCreateOrConnectWithoutCommentInput>;
   create?: Maybe<UserCreateWithoutCommentInput>;
 };
 
-export type UserCreateOneWithoutCommentLikeInput = {
+export type UserCreateNestedOneWithoutCommentLikeInput = {
   connect?: Maybe<UserWhereUniqueInput>;
   connectOrCreate?: Maybe<UserCreateOrConnectWithoutCommentLikeInput>;
   create?: Maybe<UserCreateWithoutCommentLikeInput>;
 };
 
-export type UserCreateOneWithoutFeedInput = {
+export type UserCreateNestedOneWithoutFeedInput = {
   connect?: Maybe<UserWhereUniqueInput>;
   connectOrCreate?: Maybe<UserCreateOrConnectWithoutfeedInput>;
   create?: Maybe<UserCreateWithoutFeedInput>;
 };
 
-export type UserCreateOneWithoutFeedItemLikeInput = {
+export type UserCreateNestedOneWithoutFeedItemLikeInput = {
   connect?: Maybe<UserWhereUniqueInput>;
   connectOrCreate?: Maybe<UserCreateOrConnectWithoutFeedItemLikeInput>;
   create?: Maybe<UserCreateWithoutFeedItemLikeInput>;
 };
 
-export type UserCreateOneWithoutInterestsInput = {
+export type UserCreateNestedOneWithoutInterestsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
   connectOrCreate?: Maybe<UserCreateOrConnectWithoutinterestsInput>;
   create?: Maybe<UserCreateWithoutInterestsInput>;
 };
 
-export type UserCreateOneWithoutMemberOfBandsInput = {
+export type UserCreateNestedOneWithoutMemberOfBandsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
   connectOrCreate?: Maybe<UserCreateOrConnectWithoutmemberOfBandsInput>;
   create?: Maybe<UserCreateWithoutMemberOfBandsInput>;
 };
 
-export type UserCreateOneWithoutMemberOfProjectsInput = {
+export type UserCreateNestedOneWithoutMemberOfProjectsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
   connectOrCreate?: Maybe<UserCreateOrConnectWithoutmemberOfProjectsInput>;
   create?: Maybe<UserCreateWithoutMemberOfProjectsInput>;
 };
 
-export type UserCreateOneWithoutMixdownInput = {
+export type UserCreateNestedOneWithoutMixdownInput = {
   connect?: Maybe<UserWhereUniqueInput>;
   connectOrCreate?: Maybe<UserCreateOrConnectWithoutMixdownInput>;
   create?: Maybe<UserCreateWithoutMixdownInput>;
 };
 
-export type UserCreateOneWithoutOwnsBandsInput = {
+export type UserCreateNestedOneWithoutOwnsBandsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
   connectOrCreate?: Maybe<UserCreateOrConnectWithoutownsBandsInput>;
   create?: Maybe<UserCreateWithoutOwnsBandsInput>;
 };
 
-export type UserCreateOneWithoutOwnsProjectsInput = {
+export type UserCreateNestedOneWithoutOwnsProjectsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
   connectOrCreate?: Maybe<UserCreateOrConnectWithoutownsProjectsInput>;
   create?: Maybe<UserCreateWithoutOwnsProjectsInput>;
-};
-
-export type UserCreateOrConnectWithoutaddressInput = {
-  create: UserCreateWithoutAddressInput;
-  where: UserWhereUniqueInput;
 };
 
 export type UserCreateOrConnectWithoutAudioAssetInput = {
@@ -4645,13 +4657,23 @@ export type UserCreateOrConnectWithoutCommentLikeInput = {
   where: UserWhereUniqueInput;
 };
 
-export type UserCreateOrConnectWithoutfeedInput = {
-  create: UserCreateWithoutFeedInput;
+export type UserCreateOrConnectWithoutFeedItemLikeInput = {
+  create: UserCreateWithoutFeedItemLikeInput;
   where: UserWhereUniqueInput;
 };
 
-export type UserCreateOrConnectWithoutFeedItemLikeInput = {
-  create: UserCreateWithoutFeedItemLikeInput;
+export type UserCreateOrConnectWithoutMixdownInput = {
+  create: UserCreateWithoutMixdownInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateOrConnectWithoutaddressInput = {
+  create: UserCreateWithoutAddressInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateOrConnectWithoutfeedInput = {
+  create: UserCreateWithoutFeedInput;
   where: UserWhereUniqueInput;
 };
 
@@ -4680,11 +4702,6 @@ export type UserCreateOrConnectWithoutmemberOfProjectsInput = {
   where: UserWhereUniqueInput;
 };
 
-export type UserCreateOrConnectWithoutMixdownInput = {
-  create: UserCreateWithoutMixdownInput;
-  where: UserWhereUniqueInput;
-};
-
 export type UserCreateOrConnectWithoutownsBandsInput = {
   create: UserCreateWithoutOwnsBandsInput;
   where: UserWhereUniqueInput;
@@ -4696,28 +4713,28 @@ export type UserCreateOrConnectWithoutownsProjectsInput = {
 };
 
 export type UserCreateWithoutAddressInput = {
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -4725,28 +4742,28 @@ export type UserCreateWithoutAddressInput = {
 };
 
 export type UserCreateWithoutAudioAssetInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -4754,28 +4771,28 @@ export type UserCreateWithoutAudioAssetInput = {
 };
 
 export type UserCreateWithoutCommentInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -4783,28 +4800,28 @@ export type UserCreateWithoutCommentInput = {
 };
 
 export type UserCreateWithoutCommentLikeInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -4812,28 +4829,28 @@ export type UserCreateWithoutCommentLikeInput = {
 };
 
 export type UserCreateWithoutFeedInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -4841,28 +4858,28 @@ export type UserCreateWithoutFeedInput = {
 };
 
 export type UserCreateWithoutFeedItemLikeInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -4870,28 +4887,28 @@ export type UserCreateWithoutFeedItemLikeInput = {
 };
 
 export type UserCreateWithoutFollowedByInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -4899,28 +4916,28 @@ export type UserCreateWithoutFollowedByInput = {
 };
 
 export type UserCreateWithoutFollowingInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -4928,28 +4945,28 @@ export type UserCreateWithoutFollowingInput = {
 };
 
 export type UserCreateWithoutInterestsInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -4957,28 +4974,28 @@ export type UserCreateWithoutInterestsInput = {
 };
 
 export type UserCreateWithoutMemberOfBandsInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -4986,28 +5003,28 @@ export type UserCreateWithoutMemberOfBandsInput = {
 };
 
 export type UserCreateWithoutMemberOfProjectsInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -5015,28 +5032,28 @@ export type UserCreateWithoutMemberOfProjectsInput = {
 };
 
 export type UserCreateWithoutMixdownInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -5044,28 +5061,28 @@ export type UserCreateWithoutMixdownInput = {
 };
 
 export type UserCreateWithoutOwnsBandsInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsProjects?: Maybe<ProjectCreateManyWithoutOwnerInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -5073,28 +5090,28 @@ export type UserCreateWithoutOwnsBandsInput = {
 };
 
 export type UserCreateWithoutOwnsProjectsInput = {
-  address?: Maybe<AddressCreateOneWithoutUserInput>;
-  AudioAsset?: Maybe<AudioAssetCreateManyWithoutOwnerInput>;
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  Comment?: Maybe<CommentCreateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeCreateManyWithoutUserInput>;
   createdAt?: Maybe<Scalars['Timestamp']>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateManyWithoutClaimedByInput>;
   email: Scalars['String'];
-  feed?: Maybe<FeedItemCreateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeCreateManyWithoutUserInput>;
-  followedBy?: Maybe<UserCreateManyWithoutFollowingInput>;
-  following?: Maybe<UserCreateManyWithoutFollowedByInput>;
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
   handle: Scalars['String'];
   id?: Maybe<Scalars['String']>;
-  interests?: Maybe<TagCreateManyWithoutUserInput>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
   isOnline?: Maybe<Scalars['Boolean']>;
-  memberOfBands?: Maybe<UsersOnBandsCreateManyWithoutUserInput>;
-  memberOfProjects?: Maybe<UsersOnProjectsCreateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownCreateManyWithoutTriggerdByInput>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
   name: Scalars['String'];
-  ownsBands?: Maybe<BandCreateManyWithoutCreatedByInput>;
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
   password: Scalars['String'];
   role?: Maybe<Role>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
@@ -5142,6 +5159,7 @@ export type UserMinAggregate = {
 };
 
 export type UserOrderByInput = {
+  address?: Maybe<AddressOrderByInput>;
   addressId?: Maybe<SortOrder>;
   avatar?: Maybe<SortOrder>;
   bio?: Maybe<SortOrder>;
@@ -5179,8 +5197,10 @@ export enum UserScalarFieldEnum {
 }
 
 export type UserScalarWhereInput = {
-  addressId?: Maybe<StringNullableFilter>;
   AND?: Maybe<Array<UserScalarWhereInput>>;
+  NOT?: Maybe<Array<UserScalarWhereInput>>;
+  OR?: Maybe<Array<UserScalarWhereInput>>;
+  addressId?: Maybe<StringNullableFilter>;
   avatar?: Maybe<StringNullableFilter>;
   bio?: Maybe<StringNullableFilter>;
   createdAt?: Maybe<DateTimeFilter>;
@@ -5189,8 +5209,6 @@ export type UserScalarWhereInput = {
   id?: Maybe<StringFilter>;
   isOnline?: Maybe<BoolFilter>;
   name?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<UserScalarWhereInput>>;
-  OR?: Maybe<Array<UserScalarWhereInput>>;
   password?: Maybe<StringFilter>;
   role?: Maybe<EnumRoleFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
@@ -5205,370 +5223,19 @@ export type UserSignUpInput = {
   password: Scalars['String'];
 };
 
-export type UsersOnBands = {
-  __typename?: 'UsersOnBands';
-  bandId: Scalars['String'];
-  createdAt: Scalars['Timestamp'];
-  userId: Scalars['String'];
-};
-
-export type UsersOnBandsCreateManyWithoutBandInput = {
-  connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutbandInput>>;
-  create?: Maybe<Array<UsersOnBandsCreateWithoutBandInput>>;
-};
-
-export type UsersOnBandsCreateManyWithoutUserInput = {
-  connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutuserInput>>;
-  create?: Maybe<Array<UsersOnBandsCreateWithoutUserInput>>;
-};
-
-export type UsersOnBandsCreateOrConnectWithoutbandInput = {
-  create: UsersOnBandsCreateWithoutBandInput;
-  where: UsersOnBandsWhereUniqueInput;
-};
-
-export type UsersOnBandsCreateOrConnectWithoutuserInput = {
-  create: UsersOnBandsCreateWithoutUserInput;
-  where: UsersOnBandsWhereUniqueInput;
-};
-
-export type UsersOnBandsCreateWithoutBandInput = {
-  createdAt?: Maybe<Scalars['Timestamp']>;
-  user: UserCreateOneWithoutMemberOfBandsInput;
-};
-
-export type UsersOnBandsCreateWithoutUserInput = {
-  band: BandCreateOneWithoutMembersInput;
-  createdAt?: Maybe<Scalars['Timestamp']>;
-};
-
-export type UsersOnBandsListRelationFilter = {
-  every?: Maybe<UsersOnBandsWhereInput>;
-  none?: Maybe<UsersOnBandsWhereInput>;
-  some?: Maybe<UsersOnBandsWhereInput>;
-};
-
-export type UsersOnBandsOrderByInput = {
-  bandId?: Maybe<SortOrder>;
-  createdAt?: Maybe<SortOrder>;
-  userId?: Maybe<SortOrder>;
-};
-
-export enum UsersOnBandsScalarFieldEnum {
-  BandId = 'bandId',
-  CreatedAt = 'createdAt',
-  UserId = 'userId',
-}
-
-export type UsersOnBandsScalarWhereInput = {
-  AND?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
-  bandId?: Maybe<StringFilter>;
-  createdAt?: Maybe<DateTimeFilter>;
-  NOT?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
-  OR?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
-  userId?: Maybe<StringFilter>;
-};
-
-export type UsersOnBandsUpdateManyMutationInput = {
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-};
-
-export type UsersOnBandsUpdateManyWithoutBandInput = {
-  connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutbandInput>>;
-  create?: Maybe<Array<UsersOnBandsCreateWithoutBandInput>>;
-  delete?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  deleteMany?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
-  disconnect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  set?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  update?: Maybe<Array<UsersOnBandsUpdateWithWhereUniqueWithoutBandInput>>;
-  updateMany?: Maybe<Array<UsersOnBandsUpdateManyWithWhereWithoutBandInput>>;
-  upsert?: Maybe<Array<UsersOnBandsUpsertWithWhereUniqueWithoutBandInput>>;
-};
-
-export type UsersOnBandsUpdateManyWithoutUserInput = {
-  connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutuserInput>>;
-  create?: Maybe<Array<UsersOnBandsCreateWithoutUserInput>>;
-  delete?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  deleteMany?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
-  disconnect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  set?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  update?: Maybe<Array<UsersOnBandsUpdateWithWhereUniqueWithoutUserInput>>;
-  updateMany?: Maybe<Array<UsersOnBandsUpdateManyWithWhereWithoutUserInput>>;
-  upsert?: Maybe<Array<UsersOnBandsUpsertWithWhereUniqueWithoutUserInput>>;
-};
-
-export type UsersOnBandsUpdateManyWithWhereWithoutBandInput = {
-  data: UsersOnBandsUpdateManyMutationInput;
-  where: UsersOnBandsScalarWhereInput;
-};
-
-export type UsersOnBandsUpdateManyWithWhereWithoutUserInput = {
-  data: UsersOnBandsUpdateManyMutationInput;
-  where: UsersOnBandsScalarWhereInput;
-};
-
-export type UsersOnBandsUpdateWithoutBandInput = {
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  user?: Maybe<UserUpdateOneRequiredWithoutMemberOfBandsInput>;
-};
-
-export type UsersOnBandsUpdateWithoutUserInput = {
-  band?: Maybe<BandUpdateOneRequiredWithoutMembersInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-};
-
-export type UsersOnBandsUpdateWithWhereUniqueWithoutBandInput = {
-  data: UsersOnBandsUpdateWithoutBandInput;
-  where: UsersOnBandsWhereUniqueInput;
-};
-
-export type UsersOnBandsUpdateWithWhereUniqueWithoutUserInput = {
-  data: UsersOnBandsUpdateWithoutUserInput;
-  where: UsersOnBandsWhereUniqueInput;
-};
-
-export type UsersOnBandsUpsertWithWhereUniqueWithoutBandInput = {
-  create: UsersOnBandsCreateWithoutBandInput;
-  update: UsersOnBandsUpdateWithoutBandInput;
-  where: UsersOnBandsWhereUniqueInput;
-};
-
-export type UsersOnBandsUpsertWithWhereUniqueWithoutUserInput = {
-  create: UsersOnBandsCreateWithoutUserInput;
-  update: UsersOnBandsUpdateWithoutUserInput;
-  where: UsersOnBandsWhereUniqueInput;
-};
-
-export type UsersOnBandsUserIdBandIdCompoundUniqueInput = {
-  bandId: Scalars['String'];
-  userId: Scalars['String'];
-};
-
-export type UsersOnBandsWhereInput = {
-  AND?: Maybe<Array<UsersOnBandsWhereInput>>;
-  band?: Maybe<BandRelationFilter>;
-  bandId?: Maybe<StringFilter>;
-  createdAt?: Maybe<DateTimeFilter>;
-  NOT?: Maybe<Array<UsersOnBandsWhereInput>>;
-  OR?: Maybe<Array<UsersOnBandsWhereInput>>;
-  user?: Maybe<UserRelationFilter>;
-  userId?: Maybe<StringFilter>;
-};
-
-export type UsersOnBandsWhereUniqueInput = {
-  userId_bandId?: Maybe<UsersOnBandsUserIdBandIdCompoundUniqueInput>;
-};
-
-export type UsersOnProjects = {
-  __typename?: 'UsersOnProjects';
-  createdAt: Scalars['Timestamp'];
-  project: Project;
-  projectId: Scalars['String'];
-  user: User;
-  userId: Scalars['String'];
-};
-
-export type UsersOnProjectsCountAggregate = {
-  __typename?: 'UsersOnProjectsCountAggregate';
-  _all: Scalars['Int'];
-  createdAt?: Maybe<Scalars['Int']>;
-  projectId?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
-export type UsersOnProjectsCreateInput = {
-  createdAt?: Maybe<Scalars['Timestamp']>;
-  project: ProjectCreateOneWithoutMembersInput;
-  user: UserCreateOneWithoutMemberOfProjectsInput;
-};
-
-export type UsersOnProjectsCreateManyWithoutProjectInput = {
-  connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutprojectInput>>;
-  create?: Maybe<Array<UsersOnProjectsCreateWithoutProjectInput>>;
-};
-
-export type UsersOnProjectsCreateManyWithoutUserInput = {
-  connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutuserInput>>;
-  create?: Maybe<Array<UsersOnProjectsCreateWithoutUserInput>>;
-};
-
-export type UsersOnProjectsCreateOrConnectWithoutprojectInput = {
-  create: UsersOnProjectsCreateWithoutProjectInput;
-  where: UsersOnProjectsWhereUniqueInput;
-};
-
-export type UsersOnProjectsCreateOrConnectWithoutuserInput = {
-  create: UsersOnProjectsCreateWithoutUserInput;
-  where: UsersOnProjectsWhereUniqueInput;
-};
-
-export type UsersOnProjectsCreateWithoutProjectInput = {
-  createdAt?: Maybe<Scalars['Timestamp']>;
-  user: UserCreateOneWithoutMemberOfProjectsInput;
-};
-
-export type UsersOnProjectsCreateWithoutUserInput = {
-  createdAt?: Maybe<Scalars['Timestamp']>;
-  project: ProjectCreateOneWithoutMembersInput;
-};
-
-export type UsersOnProjectsListRelationFilter = {
-  every?: Maybe<UsersOnProjectsWhereInput>;
-  none?: Maybe<UsersOnProjectsWhereInput>;
-  some?: Maybe<UsersOnProjectsWhereInput>;
-};
-
-export type UsersOnProjectsMaxAggregate = {
-  __typename?: 'UsersOnProjectsMaxAggregate';
-  createdAt?: Maybe<Scalars['Timestamp']>;
-  projectId?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['String']>;
-};
-
-export type UsersOnProjectsMinAggregate = {
-  __typename?: 'UsersOnProjectsMinAggregate';
-  createdAt?: Maybe<Scalars['Timestamp']>;
-  projectId?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['String']>;
-};
-
-export type UsersOnProjectsOrderByInput = {
-  createdAt?: Maybe<SortOrder>;
-  projectId?: Maybe<SortOrder>;
-  userId?: Maybe<SortOrder>;
-};
-
-export enum UsersOnProjectsScalarFieldEnum {
-  CreatedAt = 'createdAt',
-  ProjectId = 'projectId',
-  UserId = 'userId',
-}
-
-export type UsersOnProjectsScalarWhereInput = {
-  AND?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
-  createdAt?: Maybe<DateTimeFilter>;
-  NOT?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
-  OR?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
-  projectId?: Maybe<StringFilter>;
-  userId?: Maybe<StringFilter>;
-};
-
-export type UsersOnProjectsUpdateInput = {
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  project?: Maybe<ProjectUpdateOneRequiredWithoutMembersInput>;
-  user?: Maybe<UserUpdateOneRequiredWithoutMemberOfProjectsInput>;
-};
-
-export type UsersOnProjectsUpdateManyMutationInput = {
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-};
-
-export type UsersOnProjectsUpdateManyWithoutProjectInput = {
-  connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutprojectInput>>;
-  create?: Maybe<Array<UsersOnProjectsCreateWithoutProjectInput>>;
-  delete?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  deleteMany?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
-  disconnect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  set?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  update?: Maybe<Array<UsersOnProjectsUpdateWithWhereUniqueWithoutProjectInput>>;
-  updateMany?: Maybe<Array<UsersOnProjectsUpdateManyWithWhereWithoutProjectInput>>;
-  upsert?: Maybe<Array<UsersOnProjectsUpsertWithWhereUniqueWithoutProjectInput>>;
-};
-
-export type UsersOnProjectsUpdateManyWithoutUserInput = {
-  connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutuserInput>>;
-  create?: Maybe<Array<UsersOnProjectsCreateWithoutUserInput>>;
-  delete?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  deleteMany?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
-  disconnect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  set?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  update?: Maybe<Array<UsersOnProjectsUpdateWithWhereUniqueWithoutUserInput>>;
-  updateMany?: Maybe<Array<UsersOnProjectsUpdateManyWithWhereWithoutUserInput>>;
-  upsert?: Maybe<Array<UsersOnProjectsUpsertWithWhereUniqueWithoutUserInput>>;
-};
-
-export type UsersOnProjectsUpdateManyWithWhereWithoutProjectInput = {
-  data: UsersOnProjectsUpdateManyMutationInput;
-  where: UsersOnProjectsScalarWhereInput;
-};
-
-export type UsersOnProjectsUpdateManyWithWhereWithoutUserInput = {
-  data: UsersOnProjectsUpdateManyMutationInput;
-  where: UsersOnProjectsScalarWhereInput;
-};
-
-export type UsersOnProjectsUpdateWithoutProjectInput = {
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  user?: Maybe<UserUpdateOneRequiredWithoutMemberOfProjectsInput>;
-};
-
-export type UsersOnProjectsUpdateWithoutUserInput = {
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  project?: Maybe<ProjectUpdateOneRequiredWithoutMembersInput>;
-};
-
-export type UsersOnProjectsUpdateWithWhereUniqueWithoutProjectInput = {
-  data: UsersOnProjectsUpdateWithoutProjectInput;
-  where: UsersOnProjectsWhereUniqueInput;
-};
-
-export type UsersOnProjectsUpdateWithWhereUniqueWithoutUserInput = {
-  data: UsersOnProjectsUpdateWithoutUserInput;
-  where: UsersOnProjectsWhereUniqueInput;
-};
-
-export type UsersOnProjectsUpsertWithWhereUniqueWithoutProjectInput = {
-  create: UsersOnProjectsCreateWithoutProjectInput;
-  update: UsersOnProjectsUpdateWithoutProjectInput;
-  where: UsersOnProjectsWhereUniqueInput;
-};
-
-export type UsersOnProjectsUpsertWithWhereUniqueWithoutUserInput = {
-  create: UsersOnProjectsCreateWithoutUserInput;
-  update: UsersOnProjectsUpdateWithoutUserInput;
-  where: UsersOnProjectsWhereUniqueInput;
-};
-
-export type UsersOnProjectsUserIdProjectIdCompoundUniqueInput = {
-  projectId: Scalars['String'];
-  userId: Scalars['String'];
-};
-
-export type UsersOnProjectsWhereInput = {
-  AND?: Maybe<Array<UsersOnProjectsWhereInput>>;
-  createdAt?: Maybe<DateTimeFilter>;
-  NOT?: Maybe<Array<UsersOnProjectsWhereInput>>;
-  OR?: Maybe<Array<UsersOnProjectsWhereInput>>;
-  project?: Maybe<ProjectRelationFilter>;
-  projectId?: Maybe<StringFilter>;
-  user?: Maybe<UserRelationFilter>;
-  userId?: Maybe<StringFilter>;
-};
-
-export type UsersOnProjectsWhereUniqueInput = {
-  userId_projectId?: Maybe<UsersOnProjectsUserIdProjectIdCompoundUniqueInput>;
-};
-
 export type UserUpdateInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
-  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
@@ -5577,7 +5244,6 @@ export type UserUpdateInput = {
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
@@ -5600,6 +5266,21 @@ export type UserUpdateManyMutationInput = {
   role?: Maybe<EnumRoleFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   website?: Maybe<NullableStringFieldUpdateOperationsInput>;
+};
+
+export type UserUpdateManyWithWhereWithoutAddressInput = {
+  data: UserUpdateManyMutationInput;
+  where: UserScalarWhereInput;
+};
+
+export type UserUpdateManyWithWhereWithoutFollowedByInput = {
+  data: UserUpdateManyMutationInput;
+  where: UserScalarWhereInput;
+};
+
+export type UserUpdateManyWithWhereWithoutFollowingInput = {
+  data: UserUpdateManyMutationInput;
+  where: UserScalarWhereInput;
 };
 
 export type UserUpdateManyWithoutAddressInput = {
@@ -5639,21 +5320,6 @@ export type UserUpdateManyWithoutFollowingInput = {
   update?: Maybe<Array<UserUpdateWithWhereUniqueWithoutFollowingInput>>;
   updateMany?: Maybe<Array<UserUpdateManyWithWhereWithoutFollowingInput>>;
   upsert?: Maybe<Array<UserUpsertWithWhereUniqueWithoutFollowingInput>>;
-};
-
-export type UserUpdateManyWithWhereWithoutAddressInput = {
-  data: UserUpdateManyMutationInput;
-  where: UserScalarWhereInput;
-};
-
-export type UserUpdateManyWithWhereWithoutFollowedByInput = {
-  data: UserUpdateManyMutationInput;
-  where: UserScalarWhereInput;
-};
-
-export type UserUpdateManyWithWhereWithoutFollowingInput = {
-  data: UserUpdateManyMutationInput;
-  where: UserScalarWhereInput;
 };
 
 export type UserUpdateOneRequiredWithoutCommentInput = {
@@ -5748,17 +5414,33 @@ export type UserUpdateOneWithoutInterestsInput = {
   upsert?: Maybe<UserUpsertWithoutInterestsInput>;
 };
 
+export type UserUpdateWithWhereUniqueWithoutAddressInput = {
+  data: UserUpdateWithoutAddressInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserUpdateWithWhereUniqueWithoutFollowedByInput = {
+  data: UserUpdateWithoutFollowedByInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserUpdateWithWhereUniqueWithoutFollowingInput = {
+  data: UserUpdateWithoutFollowingInput;
+  where: UserWhereUniqueInput;
+};
+
 export type UserUpdateWithoutAddressInput = {
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
-  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
@@ -5767,7 +5449,6 @@ export type UserUpdateWithoutAddressInput = {
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
@@ -5778,16 +5459,17 @@ export type UserUpdateWithoutAddressInput = {
 };
 
 export type UserUpdateWithoutAudioAssetInput = {
+  Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
   bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
-  CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
@@ -5796,7 +5478,6 @@ export type UserUpdateWithoutAudioAssetInput = {
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
@@ -5807,16 +5488,17 @@ export type UserUpdateWithoutAudioAssetInput = {
 };
 
 export type UserUpdateWithoutCommentInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
   bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
@@ -5825,7 +5507,6 @@ export type UserUpdateWithoutCommentInput = {
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
@@ -5836,16 +5517,17 @@ export type UserUpdateWithoutCommentInput = {
 };
 
 export type UserUpdateWithoutCommentLikeInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
   bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
@@ -5854,7 +5536,6 @@ export type UserUpdateWithoutCommentLikeInput = {
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
@@ -5865,16 +5546,17 @@ export type UserUpdateWithoutCommentLikeInput = {
 };
 
 export type UserUpdateWithoutFeedInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
-  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
-  email?: Maybe<StringFieldUpdateOperationsInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  email?: Maybe<StringFieldUpdateOperationsInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
@@ -5883,7 +5565,6 @@ export type UserUpdateWithoutFeedInput = {
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
@@ -5894,14 +5575,15 @@ export type UserUpdateWithoutFeedInput = {
 };
 
 export type UserUpdateWithoutFeedItemLikeInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
-  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
@@ -5912,7 +5594,6 @@ export type UserUpdateWithoutFeedItemLikeInput = {
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
@@ -5923,17 +5604,18 @@ export type UserUpdateWithoutFeedItemLikeInput = {
 };
 
 export type UserUpdateWithoutFollowedByInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
-  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
@@ -5941,7 +5623,6 @@ export type UserUpdateWithoutFollowedByInput = {
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
@@ -5952,17 +5633,18 @@ export type UserUpdateWithoutFollowedByInput = {
 };
 
 export type UserUpdateWithoutFollowingInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
-  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
@@ -5970,7 +5652,6 @@ export type UserUpdateWithoutFollowingInput = {
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
@@ -5981,17 +5662,18 @@ export type UserUpdateWithoutFollowingInput = {
 };
 
 export type UserUpdateWithoutInterestsInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
-  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
@@ -5999,7 +5681,6 @@ export type UserUpdateWithoutInterestsInput = {
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
@@ -6010,17 +5691,18 @@ export type UserUpdateWithoutInterestsInput = {
 };
 
 export type UserUpdateWithoutMemberOfBandsInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
-  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
@@ -6028,7 +5710,6 @@ export type UserUpdateWithoutMemberOfBandsInput = {
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
@@ -6039,17 +5720,18 @@ export type UserUpdateWithoutMemberOfBandsInput = {
 };
 
 export type UserUpdateWithoutMemberOfProjectsInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
-  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
@@ -6057,7 +5739,6 @@ export type UserUpdateWithoutMemberOfProjectsInput = {
   interests?: Maybe<TagUpdateManyWithoutUserInput>;
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
@@ -6068,17 +5749,17 @@ export type UserUpdateWithoutMemberOfProjectsInput = {
 };
 
 export type UserUpdateWithoutMixdownInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
-  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
@@ -6097,17 +5778,18 @@ export type UserUpdateWithoutMixdownInput = {
 };
 
 export type UserUpdateWithoutOwnsBandsInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
-  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
@@ -6116,7 +5798,6 @@ export type UserUpdateWithoutOwnsBandsInput = {
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
   password?: Maybe<StringFieldUpdateOperationsInput>;
@@ -6126,17 +5807,18 @@ export type UserUpdateWithoutOwnsBandsInput = {
 };
 
 export type UserUpdateWithoutOwnsProjectsInput = {
-  address?: Maybe<AddressUpdateOneWithoutUserInput>;
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
-  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
-  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   email?: Maybe<StringFieldUpdateOperationsInput>;
   feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
-  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
   followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
   handle?: Maybe<StringFieldUpdateOperationsInput>;
@@ -6145,7 +5827,6 @@ export type UserUpdateWithoutOwnsProjectsInput = {
   isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
   memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
   memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
-  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
   password?: Maybe<StringFieldUpdateOperationsInput>;
@@ -6154,18 +5835,21 @@ export type UserUpdateWithoutOwnsProjectsInput = {
   website?: Maybe<NullableStringFieldUpdateOperationsInput>;
 };
 
-export type UserUpdateWithWhereUniqueWithoutAddressInput = {
-  data: UserUpdateWithoutAddressInput;
+export type UserUpsertWithWhereUniqueWithoutAddressInput = {
+  create: UserCreateWithoutAddressInput;
+  update: UserUpdateWithoutAddressInput;
   where: UserWhereUniqueInput;
 };
 
-export type UserUpdateWithWhereUniqueWithoutFollowedByInput = {
-  data: UserUpdateWithoutFollowedByInput;
+export type UserUpsertWithWhereUniqueWithoutFollowedByInput = {
+  create: UserCreateWithoutFollowedByInput;
+  update: UserUpdateWithoutFollowedByInput;
   where: UserWhereUniqueInput;
 };
 
-export type UserUpdateWithWhereUniqueWithoutFollowingInput = {
-  data: UserUpdateWithoutFollowingInput;
+export type UserUpsertWithWhereUniqueWithoutFollowingInput = {
+  create: UserCreateWithoutFollowingInput;
+  update: UserUpdateWithoutFollowingInput;
   where: UserWhereUniqueInput;
 };
 
@@ -6224,38 +5908,23 @@ export type UserUpsertWithoutOwnsProjectsInput = {
   update: UserUpdateWithoutOwnsProjectsInput;
 };
 
-export type UserUpsertWithWhereUniqueWithoutAddressInput = {
-  create: UserCreateWithoutAddressInput;
-  update: UserUpdateWithoutAddressInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserUpsertWithWhereUniqueWithoutFollowedByInput = {
-  create: UserCreateWithoutFollowedByInput;
-  update: UserUpdateWithoutFollowedByInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserUpsertWithWhereUniqueWithoutFollowingInput = {
-  create: UserCreateWithoutFollowingInput;
-  update: UserUpdateWithoutFollowingInput;
-  where: UserWhereUniqueInput;
-};
-
 export type UserWhereInput = {
-  address?: Maybe<AddressRelationFilter>;
-  addressId?: Maybe<StringNullableFilter>;
   AND?: Maybe<Array<UserWhereInput>>;
   AudioAsset?: Maybe<AudioAssetListRelationFilter>;
-  avatar?: Maybe<StringNullableFilter>;
-  bio?: Maybe<StringNullableFilter>;
   Comment?: Maybe<CommentListRelationFilter>;
   CommentLike?: Maybe<CommentLikeListRelationFilter>;
-  createdAt?: Maybe<DateTimeFilter>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeListRelationFilter>;
+  FeedItemLike?: Maybe<FeedItemLikeListRelationFilter>;
+  Mixdown?: Maybe<MixdownListRelationFilter>;
+  NOT?: Maybe<Array<UserWhereInput>>;
+  OR?: Maybe<Array<UserWhereInput>>;
+  address?: Maybe<AddressRelationFilter>;
+  addressId?: Maybe<StringNullableFilter>;
+  avatar?: Maybe<StringNullableFilter>;
+  bio?: Maybe<StringNullableFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
   email?: Maybe<StringFilter>;
   feed?: Maybe<FeedItemListRelationFilter>;
-  FeedItemLike?: Maybe<FeedItemLikeListRelationFilter>;
   followedBy?: Maybe<UserListRelationFilter>;
   following?: Maybe<UserListRelationFilter>;
   handle?: Maybe<StringFilter>;
@@ -6264,10 +5933,7 @@ export type UserWhereInput = {
   isOnline?: Maybe<BoolFilter>;
   memberOfBands?: Maybe<UsersOnBandsListRelationFilter>;
   memberOfProjects?: Maybe<UsersOnProjectsListRelationFilter>;
-  Mixdown?: Maybe<MixdownListRelationFilter>;
   name?: Maybe<StringFilter>;
-  NOT?: Maybe<Array<UserWhereInput>>;
-  OR?: Maybe<Array<UserWhereInput>>;
   ownsBands?: Maybe<BandListRelationFilter>;
   ownsProjects?: Maybe<ProjectListRelationFilter>;
   password?: Maybe<StringFilter>;
@@ -6282,6 +5948,362 @@ export type UserWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type UsersOnBands = {
+  __typename?: 'UsersOnBands';
+  bandId: Scalars['String'];
+  createdAt: Scalars['Timestamp'];
+  userId: Scalars['String'];
+};
+
+export type UsersOnBandsCreateNestedManyWithoutBandInput = {
+  connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutbandInput>>;
+  create?: Maybe<Array<UsersOnBandsCreateWithoutBandInput>>;
+};
+
+export type UsersOnBandsCreateNestedManyWithoutUserInput = {
+  connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutuserInput>>;
+  create?: Maybe<Array<UsersOnBandsCreateWithoutUserInput>>;
+};
+
+export type UsersOnBandsCreateOrConnectWithoutbandInput = {
+  create: UsersOnBandsCreateWithoutBandInput;
+  where: UsersOnBandsWhereUniqueInput;
+};
+
+export type UsersOnBandsCreateOrConnectWithoutuserInput = {
+  create: UsersOnBandsCreateWithoutUserInput;
+  where: UsersOnBandsWhereUniqueInput;
+};
+
+export type UsersOnBandsCreateWithoutBandInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  user: UserCreateNestedOneWithoutMemberOfBandsInput;
+};
+
+export type UsersOnBandsCreateWithoutUserInput = {
+  band: BandCreateNestedOneWithoutMembersInput;
+  createdAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type UsersOnBandsListRelationFilter = {
+  every?: Maybe<UsersOnBandsWhereInput>;
+  none?: Maybe<UsersOnBandsWhereInput>;
+  some?: Maybe<UsersOnBandsWhereInput>;
+};
+
+export type UsersOnBandsOrderByInput = {
+  band?: Maybe<BandOrderByInput>;
+  bandId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  user?: Maybe<UserOrderByInput>;
+  userId?: Maybe<SortOrder>;
+};
+
+export enum UsersOnBandsScalarFieldEnum {
+  BandId = 'bandId',
+  CreatedAt = 'createdAt',
+  UserId = 'userId',
+}
+
+export type UsersOnBandsScalarWhereInput = {
+  AND?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
+  NOT?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
+  OR?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
+  bandId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  userId?: Maybe<StringFilter>;
+};
+
+export type UsersOnBandsUpdateManyMutationInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type UsersOnBandsUpdateManyWithWhereWithoutBandInput = {
+  data: UsersOnBandsUpdateManyMutationInput;
+  where: UsersOnBandsScalarWhereInput;
+};
+
+export type UsersOnBandsUpdateManyWithWhereWithoutUserInput = {
+  data: UsersOnBandsUpdateManyMutationInput;
+  where: UsersOnBandsScalarWhereInput;
+};
+
+export type UsersOnBandsUpdateManyWithoutBandInput = {
+  connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutbandInput>>;
+  create?: Maybe<Array<UsersOnBandsCreateWithoutBandInput>>;
+  delete?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
+  deleteMany?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
+  disconnect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
+  set?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
+  update?: Maybe<Array<UsersOnBandsUpdateWithWhereUniqueWithoutBandInput>>;
+  updateMany?: Maybe<Array<UsersOnBandsUpdateManyWithWhereWithoutBandInput>>;
+  upsert?: Maybe<Array<UsersOnBandsUpsertWithWhereUniqueWithoutBandInput>>;
+};
+
+export type UsersOnBandsUpdateManyWithoutUserInput = {
+  connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutuserInput>>;
+  create?: Maybe<Array<UsersOnBandsCreateWithoutUserInput>>;
+  delete?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
+  deleteMany?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
+  disconnect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
+  set?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
+  update?: Maybe<Array<UsersOnBandsUpdateWithWhereUniqueWithoutUserInput>>;
+  updateMany?: Maybe<Array<UsersOnBandsUpdateManyWithWhereWithoutUserInput>>;
+  upsert?: Maybe<Array<UsersOnBandsUpsertWithWhereUniqueWithoutUserInput>>;
+};
+
+export type UsersOnBandsUpdateWithWhereUniqueWithoutBandInput = {
+  data: UsersOnBandsUpdateWithoutBandInput;
+  where: UsersOnBandsWhereUniqueInput;
+};
+
+export type UsersOnBandsUpdateWithWhereUniqueWithoutUserInput = {
+  data: UsersOnBandsUpdateWithoutUserInput;
+  where: UsersOnBandsWhereUniqueInput;
+};
+
+export type UsersOnBandsUpdateWithoutBandInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  user?: Maybe<UserUpdateOneRequiredWithoutMemberOfBandsInput>;
+};
+
+export type UsersOnBandsUpdateWithoutUserInput = {
+  band?: Maybe<BandUpdateOneRequiredWithoutMembersInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type UsersOnBandsUpsertWithWhereUniqueWithoutBandInput = {
+  create: UsersOnBandsCreateWithoutBandInput;
+  update: UsersOnBandsUpdateWithoutBandInput;
+  where: UsersOnBandsWhereUniqueInput;
+};
+
+export type UsersOnBandsUpsertWithWhereUniqueWithoutUserInput = {
+  create: UsersOnBandsCreateWithoutUserInput;
+  update: UsersOnBandsUpdateWithoutUserInput;
+  where: UsersOnBandsWhereUniqueInput;
+};
+
+export type UsersOnBandsUserIdBandIdCompoundUniqueInput = {
+  bandId: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+export type UsersOnBandsWhereInput = {
+  AND?: Maybe<Array<UsersOnBandsWhereInput>>;
+  NOT?: Maybe<Array<UsersOnBandsWhereInput>>;
+  OR?: Maybe<Array<UsersOnBandsWhereInput>>;
+  band?: Maybe<BandRelationFilter>;
+  bandId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  user?: Maybe<UserRelationFilter>;
+  userId?: Maybe<StringFilter>;
+};
+
+export type UsersOnBandsWhereUniqueInput = {
+  userId_bandId?: Maybe<UsersOnBandsUserIdBandIdCompoundUniqueInput>;
+};
+
+export type UsersOnProjects = {
+  __typename?: 'UsersOnProjects';
+  createdAt: Scalars['Timestamp'];
+  project: Project;
+  projectId: Scalars['String'];
+  user: User;
+  userId: Scalars['String'];
+};
+
+export type UsersOnProjectsCountAggregate = {
+  __typename?: 'UsersOnProjectsCountAggregate';
+  _all: Scalars['Int'];
+  createdAt?: Maybe<Scalars['Int']>;
+  projectId?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+export type UsersOnProjectsCreateInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  project: ProjectCreateNestedOneWithoutMembersInput;
+  user: UserCreateNestedOneWithoutMemberOfProjectsInput;
+};
+
+export type UsersOnProjectsCreateNestedManyWithoutProjectInput = {
+  connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutprojectInput>>;
+  create?: Maybe<Array<UsersOnProjectsCreateWithoutProjectInput>>;
+};
+
+export type UsersOnProjectsCreateNestedManyWithoutUserInput = {
+  connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutuserInput>>;
+  create?: Maybe<Array<UsersOnProjectsCreateWithoutUserInput>>;
+};
+
+export type UsersOnProjectsCreateOrConnectWithoutprojectInput = {
+  create: UsersOnProjectsCreateWithoutProjectInput;
+  where: UsersOnProjectsWhereUniqueInput;
+};
+
+export type UsersOnProjectsCreateOrConnectWithoutuserInput = {
+  create: UsersOnProjectsCreateWithoutUserInput;
+  where: UsersOnProjectsWhereUniqueInput;
+};
+
+export type UsersOnProjectsCreateWithoutProjectInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  user: UserCreateNestedOneWithoutMemberOfProjectsInput;
+};
+
+export type UsersOnProjectsCreateWithoutUserInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  project: ProjectCreateNestedOneWithoutMembersInput;
+};
+
+export type UsersOnProjectsListRelationFilter = {
+  every?: Maybe<UsersOnProjectsWhereInput>;
+  none?: Maybe<UsersOnProjectsWhereInput>;
+  some?: Maybe<UsersOnProjectsWhereInput>;
+};
+
+export type UsersOnProjectsMaxAggregate = {
+  __typename?: 'UsersOnProjectsMaxAggregate';
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  projectId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type UsersOnProjectsMinAggregate = {
+  __typename?: 'UsersOnProjectsMinAggregate';
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  projectId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type UsersOnProjectsOrderByInput = {
+  createdAt?: Maybe<SortOrder>;
+  project?: Maybe<ProjectOrderByInput>;
+  projectId?: Maybe<SortOrder>;
+  user?: Maybe<UserOrderByInput>;
+  userId?: Maybe<SortOrder>;
+};
+
+export enum UsersOnProjectsScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  ProjectId = 'projectId',
+  UserId = 'userId',
+}
+
+export type UsersOnProjectsScalarWhereInput = {
+  AND?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
+  NOT?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
+  OR?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
+  createdAt?: Maybe<DateTimeFilter>;
+  projectId?: Maybe<StringFilter>;
+  userId?: Maybe<StringFilter>;
+};
+
+export type UsersOnProjectsUpdateInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  project?: Maybe<ProjectUpdateOneRequiredWithoutMembersInput>;
+  user?: Maybe<UserUpdateOneRequiredWithoutMemberOfProjectsInput>;
+};
+
+export type UsersOnProjectsUpdateManyMutationInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type UsersOnProjectsUpdateManyWithWhereWithoutProjectInput = {
+  data: UsersOnProjectsUpdateManyMutationInput;
+  where: UsersOnProjectsScalarWhereInput;
+};
+
+export type UsersOnProjectsUpdateManyWithWhereWithoutUserInput = {
+  data: UsersOnProjectsUpdateManyMutationInput;
+  where: UsersOnProjectsScalarWhereInput;
+};
+
+export type UsersOnProjectsUpdateManyWithoutProjectInput = {
+  connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutprojectInput>>;
+  create?: Maybe<Array<UsersOnProjectsCreateWithoutProjectInput>>;
+  delete?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
+  deleteMany?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
+  disconnect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
+  set?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
+  update?: Maybe<Array<UsersOnProjectsUpdateWithWhereUniqueWithoutProjectInput>>;
+  updateMany?: Maybe<Array<UsersOnProjectsUpdateManyWithWhereWithoutProjectInput>>;
+  upsert?: Maybe<Array<UsersOnProjectsUpsertWithWhereUniqueWithoutProjectInput>>;
+};
+
+export type UsersOnProjectsUpdateManyWithoutUserInput = {
+  connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutuserInput>>;
+  create?: Maybe<Array<UsersOnProjectsCreateWithoutUserInput>>;
+  delete?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
+  deleteMany?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
+  disconnect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
+  set?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
+  update?: Maybe<Array<UsersOnProjectsUpdateWithWhereUniqueWithoutUserInput>>;
+  updateMany?: Maybe<Array<UsersOnProjectsUpdateManyWithWhereWithoutUserInput>>;
+  upsert?: Maybe<Array<UsersOnProjectsUpsertWithWhereUniqueWithoutUserInput>>;
+};
+
+export type UsersOnProjectsUpdateWithWhereUniqueWithoutProjectInput = {
+  data: UsersOnProjectsUpdateWithoutProjectInput;
+  where: UsersOnProjectsWhereUniqueInput;
+};
+
+export type UsersOnProjectsUpdateWithWhereUniqueWithoutUserInput = {
+  data: UsersOnProjectsUpdateWithoutUserInput;
+  where: UsersOnProjectsWhereUniqueInput;
+};
+
+export type UsersOnProjectsUpdateWithoutProjectInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  user?: Maybe<UserUpdateOneRequiredWithoutMemberOfProjectsInput>;
+};
+
+export type UsersOnProjectsUpdateWithoutUserInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  project?: Maybe<ProjectUpdateOneRequiredWithoutMembersInput>;
+};
+
+export type UsersOnProjectsUpsertWithWhereUniqueWithoutProjectInput = {
+  create: UsersOnProjectsCreateWithoutProjectInput;
+  update: UsersOnProjectsUpdateWithoutProjectInput;
+  where: UsersOnProjectsWhereUniqueInput;
+};
+
+export type UsersOnProjectsUpsertWithWhereUniqueWithoutUserInput = {
+  create: UsersOnProjectsCreateWithoutUserInput;
+  update: UsersOnProjectsUpdateWithoutUserInput;
+  where: UsersOnProjectsWhereUniqueInput;
+};
+
+export type UsersOnProjectsUserIdProjectIdCompoundUniqueInput = {
+  projectId: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+export type UsersOnProjectsWhereInput = {
+  AND?: Maybe<Array<UsersOnProjectsWhereInput>>;
+  NOT?: Maybe<Array<UsersOnProjectsWhereInput>>;
+  OR?: Maybe<Array<UsersOnProjectsWhereInput>>;
+  createdAt?: Maybe<DateTimeFilter>;
+  project?: Maybe<ProjectRelationFilter>;
+  projectId?: Maybe<StringFilter>;
+  user?: Maybe<UserRelationFilter>;
+  userId?: Maybe<StringFilter>;
+};
+
+export type UsersOnProjectsWhereUniqueInput = {
+  userId_projectId?: Maybe<UsersOnProjectsUserIdProjectIdCompoundUniqueInput>;
+};
+
 export type ProjectQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -6290,15 +6312,20 @@ export type ProjectQuery = { __typename?: 'Query' } & {
   project?: Maybe<
     { __typename?: 'Project' } & Pick<Project, 'id' | 'createdAt' | 'name' | 'isInitialized' | 'content'> & {
         owner: { __typename?: 'User' } & Pick<User, 'id' | 'name'>;
-        members?: Maybe<
-          Array<
-            { __typename?: 'UsersOnProjects' } & {
-              user: { __typename?: 'User' } & Pick<User, 'name' | 'id' | 'avatar'>;
-            }
-          >
+        members: Array<
+          { __typename?: 'UsersOnProjects' } & { user: { __typename?: 'User' } & Pick<User, 'name' | 'id' | 'avatar'> }
         >;
       }
   >;
+};
+
+export type UpdateNameMutationVariables = Exact<{
+  projectId: Scalars['String'];
+  name: Scalars['String'];
+}>;
+
+export type UpdateNameMutation = { __typename?: 'Mutation' } & {
+  updateProject?: Maybe<{ __typename?: 'Project' } & Pick<Project, 'id'>>;
 };
 
 export type ChangesSubscriptionVariables = Exact<{
@@ -6396,6 +6423,41 @@ export function useProjectLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pr
 export type ProjectQueryHookResult = ReturnType<typeof useProjectQuery>;
 export type ProjectLazyQueryHookResult = ReturnType<typeof useProjectLazyQuery>;
 export type ProjectQueryResult = Apollo.QueryResult<ProjectQuery, ProjectQueryVariables>;
+export const UpdateNameDocument = gql`
+  mutation updateName($projectId: String!, $name: String!) {
+    updateProject(where: { id: $projectId }, data: { name: { set: $name } }) {
+      id
+    }
+  }
+`;
+export type UpdateNameMutationFn = Apollo.MutationFunction<UpdateNameMutation, UpdateNameMutationVariables>;
+
+/**
+ * __useUpdateNameMutation__
+ *
+ * To run a mutation, you first call `useUpdateNameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateNameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateNameMutation, { data, loading, error }] = useUpdateNameMutation({
+ *   variables: {
+ *      projectId: // value for 'projectId'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useUpdateNameMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateNameMutation, UpdateNameMutationVariables>,
+) {
+  return Apollo.useMutation<UpdateNameMutation, UpdateNameMutationVariables>(UpdateNameDocument, baseOptions);
+}
+export type UpdateNameMutationHookResult = ReturnType<typeof useUpdateNameMutation>;
+export type UpdateNameMutationResult = Apollo.MutationResult<UpdateNameMutation>;
+export type UpdateNameMutationOptions = Apollo.BaseMutationOptions<UpdateNameMutation, UpdateNameMutationVariables>;
 export const ChangesDocument = gql`
   subscription changes($projectId: String!) {
     changes(projectId: $projectId) {

@@ -5,6 +5,13 @@ import * as Tone from 'tone';
 import atomWithEffects from './proxy/atomWithEffects';
 import { syncEffectsComb } from './effects/syncEffectsComb';
 import { getToneJsTransport } from '../utils/tonejs';
+import { getApolloClient } from "../apollo/client";
+import { UpdateNameDocument, UpdateNameMutation, UpdateNameMutationVariables } from "../gql/generated";
+import { updateDocumentTitle } from "../utils/window";
+
+const client = getApolloClient();
+
+let projectId: string;
 
 const isEngineRunning = atom({
   key: 'project/isEngineRunning',
@@ -19,11 +26,35 @@ const isSetupFinished = atom({
 const name = atom({
   key: 'project/name',
   default: 'New Syra Project',
+  effects_UNSTABLE: [
+    ({ onSet }) => {
+      onSet((newValue) => {
+        updateDocumentTitle(newValue as string);
+
+        if (projectId != null) {
+          client.mutate<UpdateNameMutation, UpdateNameMutationVariables>({
+            mutation: UpdateNameDocument,
+            variables: {
+              name: newValue as string,
+              projectId,
+            }
+          });
+        }
+      });
+    }
+  ]
 });
 
 const id = atom({
   key: 'project/id',
   default: '',
+  effects_UNSTABLE: [
+    ({ onSet }) => {
+      onSet((newValue) => {
+        projectId = newValue as string;
+      });
+    }
+  ]
 });
 
 // The tempo map of the project. The key is elapsed quarters and the value a tempo. It should actually be a tempo ramp
