@@ -11,6 +11,11 @@ const isEngineRunning = atom({
   default: false,
 });
 
+const isSetupFinished = atom({
+  key: 'project/isSetupFinished',
+  default: false,
+})
+
 const name = atom({
   key: 'project/name',
   default: 'New Syra Project',
@@ -128,6 +133,7 @@ const isClickMuted = atomWithEffects<boolean>({
 });
 
 export const projectStore = {
+  isSetupFinished,
   isEngineRunning,
   id,
   name,

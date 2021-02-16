@@ -19,7 +19,7 @@ const SessionList: React.FC<Props> = ({ sessions, size }) => {
           <Flex justify={'flex-start'} align={'center'}>
             <Flex align={'center'}>
               <Box ml={4}>
-                <Link passHref href={`${publicRuntimeConfig.NEXT_PUBLIC_DAW_URL}/session/${session.id}`}>
+                <Link passHref href={`${publicRuntimeConfig.NEXT_PUBLIC_DAW_URL}/editor/${session.id}`}>
                   <ChakraLink fontWeight={600} fontSize={size} target={'_blank'}>
                     {session.name}
                   </ChakraLink>

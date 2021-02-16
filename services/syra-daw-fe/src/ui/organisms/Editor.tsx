@@ -13,13 +13,13 @@ import Video from '../organisms/views/Video/Video';
 import LoadingIndicator from '../atoms/LoadingIndicator';
 import Debugger from '../debug/Debugger';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { Prompt } from 'react-router-dom';
+import { Prompt } from "react-router-dom";
 import useBlockWindowLeave from "../../hooks/ui/useBlockWindowLeave";
 import useAutoSave from "../../hooks/recoil/useAutoSave";
 import useSyncMixer from "../../hooks/recoil/useSyncMixer";
 import useUndoRedo from "../../hooks/recoil/useUndoRedo";
 
-function Editor() {
+const Editor: React.FC = () => {
   const [showDebugMenu, setShowDebugMenu] = useState(false);
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
@@ -64,6 +64,6 @@ function Editor() {
       </Suspense>
     </Box>
   );
-}
+};
 
 export default Editor;

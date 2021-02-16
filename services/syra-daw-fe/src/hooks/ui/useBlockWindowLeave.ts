@@ -8,7 +8,7 @@ export default function useBlockWindowLeave() {
   useEffect(() => {
     const unblock = block((location) => {
       if (
-        location.pathname === routes.Editor &&
+        location.pathname === routes.EditorShell &&
         window.confirm(`Some changes might not have been saved. Are you sure you want to leave?`)
       ) {
         unblock();

@@ -1,5 +1,5 @@
 import React from "react";
-import Editor from '../Editor';
+import Editor from './Editor';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'
 

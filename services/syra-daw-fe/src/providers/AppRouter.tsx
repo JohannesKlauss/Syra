@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Editor from '../ui/screens/Editor';
+import EditorShell from '../ui/screens/EditorShell';
 import NewProject from '../ui/screens/NewProject';
 import { routes } from '../const/routes';
-import LoadSession from '../ui/screens/LoadSession';
 
 function AppRouter() {
   return (
@@ -12,11 +11,8 @@ function AppRouter() {
         <Route path={routes.NewProject}>
           <NewProject />
         </Route>
-        <Route path={routes.Editor}>
-          <Editor />
-        </Route>
-        <Route path={routes.LoadSession}>
-          <LoadSession />
+        <Route path={routes.EditorShell}>
+          <EditorShell />
         </Route>
       </Switch>
     </BrowserRouter>

@@ -16,7 +16,6 @@ export default function useLoadProject(id: string) {
   const toast = useToast();
   const history = useHistory();
 
-  const [isSetupFinished, setIsSetupFinished] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const {data: meData, loading: meLoading} = useMeQuery();
   const {data: projectData, loading: projectLoading} = useProjectQuery({
@@ -26,6 +25,7 @@ export default function useLoadProject(id: string) {
   });
 
   const setProjectId = useSetRecoilState(projectStore.id);
+  const setIsSetupFinished = useSetRecoilState(projectStore.isSetupFinished);
   const setProjectName = useSetRecoilState(projectStore.name);
 
   const setDocumentTitle = useDocumentTitle();
@@ -44,7 +44,6 @@ export default function useLoadProject(id: string) {
 
   useEffect(() => {
     if (!projectLoading && !meLoading && projectData?.project && meData?.me) {
-      setProjectId(projectData.project.id);
       setProjectName(projectData.project.name);
       setDocumentTitle(`S Y R A - ${projectData.project.name}`);
       increase();
@@ -79,7 +78,7 @@ export default function useLoadProject(id: string) {
         increase();
 
         if (!projectData.project.isInitialized) {
-          history.push(routes.NewProject);
+          history.push(routes.NewProject.replace(':id', id));
         } else {
           populateFromDb(projectData.project.content);
 
@@ -95,13 +94,12 @@ export default function useLoadProject(id: string) {
         isClosable: false,
       });*/
     }
-  }, [projectData, meData, projectLoading, meLoading, increase, setDocumentTitle, toast, history, setProjectId, setProjectName]);
+  }, [projectData, meData, projectLoading, meLoading, increase, setDocumentTitle, toast, history, setProjectId, setProjectName, id]);
 
   useEffect(() => {
-    if (Math.ceil(loadingProgress) >= 100) {
+    if (Math.ceil(loadingProgress) >= 100 && projectData !== undefined && projectData.project?.id !== undefined) {
+      setProjectId(projectData.project.id);
       setIsSetupFinished(true);
     }
-  }, [loadingProgress, setIsSetupFinished]);
-
-  return {loadingProgress, isSetupFinished};
+  }, [loadingProgress, projectData, setIsSetupFinished]);
 }
