@@ -8,6 +8,7 @@ interface Props extends BoxProps {
   dragHandleWidth?: number;
   baseWidth: number;
   baseX: number;
+  offset?: number;
   onPositionChanged: (x: number, width: number, offsetDelta: number) => void;
 }
 
@@ -18,6 +19,7 @@ const ResizableBox: React.FC<Props> = ({
   dragHandleWidth = 8,
   children,
   onPositionChanged,
+  offset = 0,
   ...props
 }) => {
   const width = useMotionValue(baseWidth);
@@ -89,7 +91,7 @@ const ResizableBox: React.FC<Props> = ({
       dragElastic={0}
       drag={'x'}
       dragMomentum={false}
-      style={{ width, x, position: 'absolute', zIndex: 1 }}
+      style={{ width, x, position: 'absolute', zIndex: 1, marginLeft: offset }}
       onDragEnd={onDragEnd}
       onDrag={onDrag}
       onMouseDown={onMouseDown}

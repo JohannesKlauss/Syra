@@ -43,7 +43,7 @@ const MidiNote: React.FC<Props> = ({ note }) => {
       baseWidth={ticksToPixel(note.durationTicks)}
       h={'14px'}
       border={'1px solid black'}
-      ml={`${ticksToPixel(start)}px`}
+      offset={ticksToPixel(start)}
       onPositionChanged={onPositionChanged}
     />
   );
