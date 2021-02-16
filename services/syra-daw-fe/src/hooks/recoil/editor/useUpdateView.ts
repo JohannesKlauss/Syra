@@ -1,7 +1,7 @@
 import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import { editorStore } from '../../../recoil/editorStore';
 import { View } from '../../../types/View';
-import useOpenPianoRoll from "../../ui/views/useOpenPianoRoll";
+import useOpenPianoRoll from "../../ui/views/pianoRoll/useOpenPianoRoll";
 import {channelStore} from "../../../recoil/channelStore";
 import {regionStore} from "../../../recoil/regionStore";
 
@@ -17,6 +17,7 @@ export default function useUpdateView() {
       case View.PIANO_ROLL:
         if (!showPianoRoll) {
           openPianoRoll(selectedId, ids[0] || '');
+          setShowMixer(true);
         } else {
           setShowPianoRoll(false);
         }

@@ -1,6 +1,6 @@
 import { useRecoilCallback } from "recoil";
-import { pianoRollStore } from "../../../recoil/pianoRollStore";
-import { editorStore } from "../../../recoil/editorStore";
+import { pianoRollStore } from "../../../../recoil/pianoRollStore";
+import { editorStore } from "../../../../recoil/editorStore";
 
 export default function useOpenPianoRoll() {
   return useRecoilCallback(({set}) => (channelId: string, regionId: string) => {

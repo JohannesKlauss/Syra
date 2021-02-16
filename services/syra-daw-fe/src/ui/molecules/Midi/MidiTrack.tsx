@@ -12,6 +12,7 @@ import useSnapPixelValue from '../../../hooks/ui/useSnapPixelValue';
 import { pianoRollStore } from "../../../recoil/pianoRollStore";
 import { regionStore } from "../../../recoil/regionStore";
 import useTicksToPixel from "../../../hooks/tone/useTicksToPixel";
+import usePianoRollCursor from "../../../hooks/ui/views/pianoRoll/usePianoRollCursor";
 
 interface Props {
   note: number;
@@ -30,6 +31,7 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
   const ticksToPixel = useTicksToPixel();
   const snapPixelValue = useSnapPixelValue(0.125);
   const ref = useRef<HTMLDivElement>(null);
+  const cursor = usePianoRollCursor();
 
   const onClickMidiTrack = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // TODO: THIS IS WEIRD. THE CLICK BUBBLING DOESN't STOP INSIDE RESIZABLE BOX, EVEN THOUGH WE CANCEL EVERYTHING.
@@ -58,7 +60,7 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
       w={`${totalWidth}px`}
       onClick={onClickMidiTrack}
       title={Tone.Frequency(note, 'midi').toNote()}
-      cursor={'url("/icons/cursor/pencil.svg") 0 24, auto'}
+      cursor={cursor}
     >
       <MidiNoteList note={note}/>
     </Box>

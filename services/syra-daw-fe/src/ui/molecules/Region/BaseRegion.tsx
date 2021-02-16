@@ -5,7 +5,7 @@ import { RegionContext } from "../../../providers/RegionContext";
 import { useRecoilValue } from "recoil";
 import { regionStore } from "../../../recoil/regionStore";
 import useRegionColor from "../../../hooks/ui/region/useRegionColor";
-import useOpenPianoRoll from "../../../hooks/ui/views/useOpenPianoRoll";
+import useOpenPianoRoll from "../../../hooks/ui/views/pianoRoll/useOpenPianoRoll";
 import {ChannelContext} from "../../../providers/ChannelContext";
 import {arrangeWindowStore} from "../../../recoil/arrangeWindowStore";
 

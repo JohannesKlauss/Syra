@@ -1,15 +1,21 @@
-import { atom, selector, selectorFamily } from "recoil";
-import { regionStore } from "./regionStore";
-import {MidiNote} from "../types/Midi";
+import { atom, selector, selectorFamily } from 'recoil';
+import { regionStore } from './regionStore';
+import { MidiNote } from '../types/Midi';
+import { GridMouseMode } from '../types/GridMouseMode';
 
 const selectedChannelId = atom({
   key: 'pianoRoll/selectedChannelId',
-  default: ''
+  default: '',
 });
 
 const focusedMidiRegionId = atom({
   key: 'pianoRoll/focusedMidiRegionId',
   default: '',
+});
+
+const mouseMode = atom<GridMouseMode>({
+  key: 'pianoRoll/editMode',
+  default: GridMouseMode.DEFAULT,
 });
 
 // TODO: Later on every midi region on the channel should be parsed.
@@ -24,6 +30,7 @@ const midiNotesAtTrack = selectorFamily<MidiNote[], number>({
 });
 
 export const pianoRollStore = {
+  mouseMode,
   selectedChannelId,
   focusedMidiRegionId,
   midiNotes,

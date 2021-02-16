@@ -1,15 +1,17 @@
 import { Menu, MenuList, Portal, useDisclosure } from '@chakra-ui/react';
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import ClickAwayListener from 'react-click-away-listener';
+import { useHotkeys } from "react-hotkeys-hook";
 
 interface Props {
   children: ReadonlyArray<ReactNode>;
+  hotkey?: string;
 }
 
-const ContextMenu: React.FC<Props> = ({ children }) => {
+const ContextMenu: React.FC<Props> = ({ children, hotkey }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [offset, setOffset] = useState<[number, number]>([0, 0]);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useHotkeys<HTMLDivElement>(hotkey ?? '', onOpen);
 
   useEffect(() => {
     ref.current?.addEventListener('contextmenu', (e) => {
