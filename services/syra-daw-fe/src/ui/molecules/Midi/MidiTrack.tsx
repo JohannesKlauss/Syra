@@ -1,18 +1,19 @@
 import { Box, useTheme } from '@chakra-ui/react';
-import React, { useContext, useRef, useCallback } from "react";
+import React, { useCallback, useContext, useRef } from 'react';
 import * as Tone from 'tone';
-import { MidiNumbers } from "piano-utils";
-import { ViewContext } from "../../../providers/ViewContext";
-import { gridStore } from "../../../recoil/gridStore";
-import { useRecoilValue } from "recoil";
-import useDrawMidiNote from "../../../hooks/ui/views/pianoRoll/useDrawMidiNote";
-import usePixelToTicks from "../../../hooks/tone/usePixelToTicks";
+import { MidiNumbers } from 'piano-utils';
+import { ViewContext } from '../../../providers/ViewContext';
+import { gridStore } from '../../../recoil/gridStore';
+import { useRecoilValue } from 'recoil';
+import useDrawMidiNote from '../../../hooks/ui/views/pianoRoll/useDrawMidiNote';
+import usePixelToTicks from '../../../hooks/tone/usePixelToTicks';
 import MidiNoteList from './MidiNoteList';
 import useSnapPixelValue from '../../../hooks/ui/useSnapPixelValue';
-import { pianoRollStore } from "../../../recoil/pianoRollStore";
-import { regionStore } from "../../../recoil/regionStore";
-import useTicksToPixel from "../../../hooks/tone/useTicksToPixel";
-import usePianoRollCursor from "../../../hooks/ui/views/pianoRoll/usePianoRollCursor";
+import { pianoRollStore } from '../../../recoil/pianoRollStore';
+import { regionStore } from '../../../recoil/regionStore';
+import useTicksToPixel from '../../../hooks/tone/useTicksToPixel';
+import usePianoRollCursor from '../../../hooks/ui/views/pianoRoll/usePianoRollCursor';
+import { GridMouseMode } from '../../../types/GridMouseMode';
 
 interface Props {
   note: number;
@@ -32,11 +33,12 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
   const snapPixelValue = useSnapPixelValue(0.125);
   const ref = useRef<HTMLDivElement>(null);
   const cursor = usePianoRollCursor();
+  const mouseMode = useRecoilValue(pianoRollStore.mouseMode);
 
   const onClickMidiTrack = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // TODO: THIS IS WEIRD. THE CLICK BUBBLING DOESN't STOP INSIDE RESIZABLE BOX, EVEN THOUGH WE CANCEL EVERYTHING.
     // SO WE CURRENTLY USE A REF, BUT THIS IS SUPER WONKY AND SHOULDN'T BE NECESSARY.
-    if (e.target !== ref.current) {
+    if (e.target !== ref.current || mouseMode === GridMouseMode.VELOCITY) {
       return;
     }
 
@@ -48,7 +50,7 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
     if (cleanX >= 0) {
       drawMidiNote(Tone.Ticks(pixelToTicks(cleanX)), Tone.Ticks(1, 'm'), 127);
     }
-  }, [ref, drawMidiNote, pixelToTicks, snapPixelValue, start]);
+  }, [ref, drawMidiNote, pixelToTicks, snapPixelValue, start, mouseMode]);
 
   return (
     <Box

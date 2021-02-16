@@ -9,7 +9,9 @@ interface Props extends BoxProps {
   baseWidth: number;
   baseX: number;
   offset?: number;
+  lockDrag?: boolean;
   allowOverExtendingStart?: boolean;
+  onYChanged?: (offset: number) => void;
   onPositionChanged: (x: number, width: number, offsetDelta: number) => void;
 }
 
@@ -21,7 +23,9 @@ const ResizableBox: React.FC<Props> = ({
   children,
   onPositionChanged,
   offset = 0,
+  lockDrag,
   allowOverExtendingStart,
+  onYChanged,
   ...props
 }) => {
   const width = useMotionValue(baseWidth);
@@ -57,6 +61,14 @@ const ResizableBox: React.FC<Props> = ({
   };
 
   const onDrag = (_: MouseEvent, { offset }: PanInfo) => {
+    if (lockDrag) {
+      onYChanged && onYChanged(offset.y);
+
+      x.set(oldX.get());
+
+      return;
+    }
+
     const snappedOffset = snapPixelValue(offset.x);
 
     switch (dragMode.current) {
@@ -95,6 +107,7 @@ const ResizableBox: React.FC<Props> = ({
     <motion.div
       dragElastic={0}
       drag={'x'}
+      draggable={!lockDrag}
       dragMomentum={false}
       style={{ width, x, position: 'absolute', zIndex: 1, marginLeft: offset }}
       onDragEnd={onDragEnd}
@@ -107,7 +120,7 @@ const ResizableBox: React.FC<Props> = ({
         width={`100%`}
         _before={{
           content: '""',
-          cursor: 'ew-resize',
+          cursor: `${lockDrag ? 'vertical-text' : 'ew-resize'}`,
           width: `${dragHandleWidth}px`,
           height: '100%',
           position: 'absolute',
@@ -117,7 +130,7 @@ const ResizableBox: React.FC<Props> = ({
         }}
         _after={{
           content: '""',
-          cursor: 'ew-resize',
+          cursor: `${lockDrag ? 'vertical-text' : 'ew-resize'}`,
           width: `${dragHandleWidth}px`,
           height: '100%',
           position: 'absolute',
