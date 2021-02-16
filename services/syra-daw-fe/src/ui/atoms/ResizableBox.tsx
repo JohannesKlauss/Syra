@@ -1,8 +1,8 @@
-import {Box, BoxProps} from '@chakra-ui/react';
-import React, { useEffect, useRef } from "react";
-import {motion, PanInfo, useMotionValue} from 'framer-motion';
-import {DragMode} from "../../types/Ui";
-import useSnapPixelValue from "../../hooks/ui/useSnapPixelValue";
+import { Box, BoxProps } from '@chakra-ui/react';
+import React, { useEffect, useRef } from 'react';
+import { motion, PanInfo, useMotionValue } from 'framer-motion';
+import { DragMode } from '../../types/Ui';
+import useSnapPixelValue from '../../hooks/ui/useSnapPixelValue';
 
 interface Props extends BoxProps {
   dragHandleWidth?: number;
@@ -12,7 +12,14 @@ interface Props extends BoxProps {
 }
 
 // TODO: CURRENTLY We HAVE NO MAX WIDTH (like a audio region has a max width) AND NO MECHANISM TO SNAP BACK TO AN EXACT OFFSET OF 0.
-const ResizableBox: React.FC<Props> = ({baseWidth, baseX, dragHandleWidth = 8, children, onPositionChanged, ...props}) => {
+const ResizableBox: React.FC<Props> = ({
+  baseWidth,
+  baseX,
+  dragHandleWidth = 8,
+  children,
+  onPositionChanged,
+  ...props
+}) => {
   const width = useMotionValue(baseWidth);
   const oldWidth = useMotionValue(baseWidth);
   const x = useMotionValue(baseX);
@@ -45,7 +52,7 @@ const ResizableBox: React.FC<Props> = ({baseWidth, baseX, dragHandleWidth = 8, c
     }
   };
 
-  const onDrag = (_: MouseEvent, {offset}: PanInfo) => {
+  const onDrag = (_: MouseEvent, { offset }: PanInfo) => {
     const snappedOffset = snapPixelValue(offset.x);
 
     switch (dragMode.current) {
@@ -75,12 +82,43 @@ const ResizableBox: React.FC<Props> = ({baseWidth, baseX, dragHandleWidth = 8, c
     oldWidth.set(width.get());
     oldX.set(x.get());
     oldBoxOffset.current = boxOffset.current;
-  }
+  };
 
   return (
-    <motion.div dragElastic={0} drag={'x'} dragMomentum={false} style={{width, x, position: 'absolute', zIndex: 1}}
-                onDragEnd={onDragEnd} onDrag={onDrag} onMouseDown={onMouseDown} ref={ref}>
-      <Box {...props} width={`100%`}>
+    <motion.div
+      dragElastic={0}
+      drag={'x'}
+      dragMomentum={false}
+      style={{ width, x, position: 'absolute', zIndex: 1 }}
+      onDragEnd={onDragEnd}
+      onDrag={onDrag}
+      onMouseDown={onMouseDown}
+      ref={ref}
+    >
+      <Box
+        {...props}
+        width={`100%`}
+        _before={{
+          content: '""',
+          cursor: 'ew-resize',
+          width: `${dragHandleWidth}px`,
+          height: '100%',
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          zIndex: 1,
+        }}
+        _after={{
+          content: '""',
+          cursor: 'ew-resize',
+          width: `${dragHandleWidth}px`,
+          height: '100%',
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          zIndex: 1,
+        }}
+      >
         {children}
       </Box>
     </motion.div>

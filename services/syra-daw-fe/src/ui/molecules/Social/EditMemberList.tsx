@@ -18,7 +18,7 @@ const EditMemberList: React.FC<Props> = () => {
   return (
     <List spacing={3}>
       {data && data.project?.members.map(({user}) => (
-        <EditMember onRemoveMember={() => refetch()} user={user}/>
+        <EditMember key={user.id} onRemoveMember={() => refetch()} user={user}/>
       ))}
     </List>
   );

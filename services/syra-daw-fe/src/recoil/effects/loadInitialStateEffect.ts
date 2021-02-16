@@ -21,8 +21,6 @@ export const loadInitialStateEffect: RecoilAtomEffect = <P, T>(key: string, id?:
       if (id && val instanceof Array) {
         setSelf(val.find(v => v.id === id)?.value ?? new DefaultValue());
       } else {
-        console.log('set value');
-
         setSelf(val);
       }
 

@@ -30,7 +30,13 @@ const FriendsList: React.FC<Props> = ({ users }) => {
     return users;
   }, [data, loading, users]);
 
-  return <List spacing={3}>{filteredUsers.map((user) => <AddFriend onAddFriend={() => refetch()} user={user} />)}</List>;
+  return (
+    <List spacing={3}>
+      {filteredUsers.map((user) => (
+        <AddFriend key={user.id} onAddFriend={() => refetch()} user={user} />
+      ))}
+    </List>
+  );
 };
 
 export default FriendsList;

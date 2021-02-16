@@ -18,7 +18,7 @@ const AvatarMemberList: React.FC<Props> = ({}) => {
   return (
     <AvatarGroup spacing={-2} max={6} mx={4}>
       {data && data.project?.members.map(({ user }) =>
-        <AvatarWithOnlineStatus user={user} />)}
+        <AvatarWithOnlineStatus key={user.id} user={user} />)}
     </AvatarGroup>
   );
 };
