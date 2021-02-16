@@ -13,3 +13,9 @@ export function isIntersecting(area: [number, number], boundaries: [number, numb
 export function clamp(val: number, min: number, max: number) {
   return val > max ? max : val < min ? min : val;
 }
+
+export function snap(increment: number, val: number) {
+  const inverse = 1 / (increment);
+
+  return Math.round(val * inverse) / inverse;
+}

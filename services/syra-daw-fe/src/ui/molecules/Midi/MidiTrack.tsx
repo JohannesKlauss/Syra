@@ -14,6 +14,7 @@ import { regionStore } from '../../../recoil/regionStore';
 import useTicksToPixel from '../../../hooks/tone/useTicksToPixel';
 import usePianoRollCursor from '../../../hooks/ui/views/pianoRoll/usePianoRollCursor';
 import { GridMouseMode } from '../../../types/GridMouseMode';
+import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from "../../../const/ui";
 
 interface Props {
   note: number;
@@ -57,7 +58,7 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
       ref={ref}
       pos={'relative'}
       borderBottom={`1px solid ${theme.colors.gray[900]}`}
-      h={'14px'}
+      h={`${PIANO_ROLL_MIDI_TRACK_HEIGHT}px`}
       bg={isAccidental ? 'gray.800' : 'gray.700'}
       w={`${totalWidth}px`}
       onClick={onClickMidiTrack}

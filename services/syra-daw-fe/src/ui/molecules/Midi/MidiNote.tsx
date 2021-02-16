@@ -13,6 +13,8 @@ import { regionStore } from '../../../recoil/regionStore';
 import useTicksToPixel from '../../../hooks/tone/useTicksToPixel';
 import { GridMouseMode } from '../../../types/GridMouseMode';
 import useUpdateMidiVelocity from '../../../hooks/midi/useUpdateMidiVelocity';
+import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from "../../../const/ui";
+import useUpdateMidiNoteValue from "../../../hooks/midi/useUpdateMidiNoteValue";
 
 interface Props {
   note: TMidiNote;
@@ -22,6 +24,7 @@ const MidiNote: React.FC<Props> = ({ note }) => {
   const velocityColor = useVelocityColors();
   const updatePosition = useUpdateMidiPosition();
   const updateVelocity = useUpdateMidiVelocity(true);
+  const updateMidiNoteValue = useUpdateMidiNoteValue(true);
   const pixelToTicks = usePixelToTicks();
   const ticksToPixel = useTicksToPixel();
   const deleteNote = useDeleteMidiNote();
@@ -35,7 +38,10 @@ const MidiNote: React.FC<Props> = ({ note }) => {
   };
 
   const onYChanged = (offset: number) => {
+    // If mouse mode is not velocity a changing Y value means that ne note was transposed.
     if (mouseMode !== GridMouseMode.VELOCITY) {
+      updateMidiNoteValue(-(offset / PIANO_ROLL_MIDI_TRACK_HEIGHT), note.id);
+
       return;
     }
     
@@ -55,7 +61,7 @@ const MidiNote: React.FC<Props> = ({ note }) => {
       baseX={ticksToPixel(note.ticks)}
       onClick={onClick}
       baseWidth={ticksToPixel(note.durationTicks)}
-      h={'14px'}
+      h={`${PIANO_ROLL_MIDI_TRACK_HEIGHT}px`}
       border={'1px solid black'}
       offset={ticksToPixel(start)}
       allowOverExtendingStart

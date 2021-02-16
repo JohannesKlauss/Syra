@@ -2,6 +2,8 @@ import { PanInfo, useMotionValue } from 'framer-motion';
 import React, { useEffect, useRef } from 'react';
 import { DragMode } from '../../types/Ui';
 import useSnapPixelValue from './useSnapPixelValue';
+import { snap } from "../../utils/numbers";
+import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from "../../const/ui";
 
 export default function useResizableBox(
   baseWidth: number,
@@ -16,6 +18,7 @@ export default function useResizableBox(
   const oldWidth = useMotionValue(baseWidth);
   const x = useMotionValue(baseX);
   const oldX = useMotionValue(baseX);
+  const y = useMotionValue(0);
   const boxOffset = useRef(0);
   const oldBoxOffset = useRef(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -45,12 +48,16 @@ export default function useResizableBox(
   };
 
   const onDrag = (_: MouseEvent, { offset }: PanInfo) => {
-    onYChanged && onYChanged(offset.y);
-
     if (lockDrag) {
+      onYChanged && onYChanged(offset.y);
+
       x.set(oldX.get());
 
       return;
+    }
+
+    if (Math.abs(offset.x) < 4 && Math.abs(offset.y) > 0) {
+      y.set(snap(PIANO_ROLL_MIDI_TRACK_HEIGHT, offset.y));
     }
 
     const snappedOffset = snapPixelValue(offset.x);
@@ -82,7 +89,11 @@ export default function useResizableBox(
     oldWidth.set(width.get());
     oldX.set(x.get());
     oldBoxOffset.current = boxOffset.current;
+
+    if (y.get() !== 0 && onYChanged && !lockDrag) {
+      onYChanged(y.get());
+    }
   };
 
-  return {onMouseDown, onDrag, onDragEnd, x, width, ref};
+  return {onMouseDown, onDrag, onDragEnd, x, y, width, ref};
 }

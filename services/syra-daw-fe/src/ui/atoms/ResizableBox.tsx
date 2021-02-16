@@ -27,7 +27,7 @@ const ResizableBox: React.FC<Props> = ({
   onYChanged,
   ...props
 }) => {
-  const { onDragEnd, onMouseDown, onDrag, width, x, ref } = useResizableBox(
+  const { onDragEnd, onMouseDown, onDrag, width, x, y, ref } = useResizableBox(
     baseWidth,
     baseX,
     dragHandleWidth,
@@ -43,7 +43,7 @@ const ResizableBox: React.FC<Props> = ({
       drag={'x'}
       draggable={!lockDrag}
       dragMomentum={false}
-      style={{ width, x, position: 'absolute', zIndex: 1, marginLeft: offset }}
+      style={{ width, x, y, position: 'absolute', zIndex: 1, marginLeft: offset }}
       onDragEnd={onDragEnd}
       onDrag={onDrag}
       onMouseDown={onMouseDown}
