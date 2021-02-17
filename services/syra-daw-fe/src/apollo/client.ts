@@ -5,6 +5,7 @@ import { BatchHttpLink } from '@apollo/client/link/batch-http';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import * as https from "https";
+import onErrorLink from "./onErrorLink";
 
 let apolloClient: ApolloClient<any>;
 let _apolloClient: ApolloClient<any>;
@@ -63,7 +64,7 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: false,
     cache: new InMemoryCache(),
-    link: from([authLink, injectUserIdLink, splitLink]),
+    link: from([authLink, injectUserIdLink, onErrorLink, splitLink]),
     connectToDevTools: false,
   });
 }
