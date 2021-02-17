@@ -14,6 +14,7 @@ import Head from 'next/head';
 import AuthProvider from "../providers/auth/AuthProvider";
 import "../i18n";
 import useListenForLocaleChange from "../hooks/useListenForLocaleChange";
+import useFaviconWatcher from "../hooks/ui/global/useFaviconWatcher";
 
 axios.interceptors.response.use(
   (response) => response,
@@ -28,6 +29,7 @@ Router.events.on('routeChangeError', () => NProgress.done());
 
 function SyraLive({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
+  const favicon = useFaviconWatcher();
 
   useListenForLocaleChange();
 
@@ -36,6 +38,7 @@ function SyraLive({ Component, pageProps }) {
       <Head>
         <link rel="stylesheet" type="text/css" href="/static/css/nprogress.css" />
         <title>{`S Y R A  |  Live ${pageProps.pageTitle ?? ''}`}</title>
+        <link rel="shortcut icon" href={favicon} />
       </Head>
       <ApolloProvider client={apolloClient}>
         <RecoilRoot>

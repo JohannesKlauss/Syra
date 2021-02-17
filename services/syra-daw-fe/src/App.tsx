@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import useListenForEngineStart from "./hooks/tone/useListenForEngineStart";
 import 'focus-visible/dist/focus-visible';
+import useFaviconWatcher from "./hooks/ui/global/useFaviconWatcher";
 
 const config = {
   useSystemColorMode: false,
@@ -18,10 +19,9 @@ const customTheme = extendTheme({ config });
 
 function App() {
   const [showFpsMeter, setShowFpsMeter] = useState(false);
-
   useHotkeys('shift+f', () => setShowFpsMeter((currVal) => !currVal));
-
   useListenForEngineStart();
+  useFaviconWatcher();
 
   return (
     <StrictMode>
