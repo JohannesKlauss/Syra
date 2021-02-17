@@ -7,8 +7,8 @@ export function audioSetup() {
     console.log('first click');
 
     await Tone.start();
-    await Tone.getContext().addAudioWorkletModule('worklets/SoulWasmAudioWorkletProcessor.js', 'soul-wasm-audio-worklet-processor');
-    await Tone.getContext().addAudioWorkletModule('worklets/RecorderWorkletProcessor.js', 'recorder-worklet');
+    await Tone.getContext().addAudioWorkletModule('/worklets/SoulWasmAudioWorkletProcessor.js', 'soul-wasm-audio-worklet-processor');
+    await Tone.getContext().addAudioWorkletModule('/worklets/RecorderWorkletProcessor.js', 'recorder-worklet');
 
     document.removeEventListener('click', firstClick);
   }
