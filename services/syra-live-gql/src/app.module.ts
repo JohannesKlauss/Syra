@@ -25,6 +25,8 @@ import {
   FeedItemRevision,
   FeedItemRevisionCrudResolver,
   FeedItemRevisionRelationsResolver,
+  Issue,
+  IssueCrudResolver,
   Mixdown,
   MixdownCrudResolver,
   MixdownRelationsResolver,
@@ -180,6 +182,7 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
     FeedItemLike,
     CommentLike,
     Band,
+    Issue,
     // Relations
     UserRelationsResolver,
     AddressRelationsResolver,
@@ -207,6 +210,7 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
     FeedItemLikeCrudResolver,
     CommentLikeCrudResolver,
     BandCrudResolver,
+    IssueCrudResolver,
     // Custom
     CustomUserResolver,
     CustomFeedItemResolver,

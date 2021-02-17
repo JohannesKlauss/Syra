@@ -245,6 +245,12 @@ type AggregateFeedItemRevision {
   min: FeedItemRevisionMinAggregate
 }
 
+type AggregateIssue {
+  count: IssueCountAggregate
+  max: IssueMaxAggregate
+  min: IssueMinAggregate
+}
+
 type AggregateMixdown {
   avg: MixdownAvgAggregate
   count: MixdownCountAggregate
@@ -2289,6 +2295,100 @@ input IntFilter {
   notIn: [Int!]
 }
 
+type Issue {
+  createdAt: Timestamp!
+  description: String!
+  id: String!
+  resolved: Boolean!
+  screenshotIds: [String!]!
+}
+
+type IssueCountAggregate {
+  _all: Int!
+  createdAt: Int
+  description: Int
+  id: Int
+  resolved: Int
+  screenshotIds: Int
+}
+
+input IssueCreateInput {
+  createdAt: Timestamp
+  description: String!
+  id: String
+  resolved: Boolean
+  screenshotIds: IssueCreatescreenshotIdsInput
+}
+
+input IssueCreatescreenshotIdsInput {
+  set: [String!]!
+}
+
+type IssueMaxAggregate {
+  createdAt: Timestamp
+  description: String
+  id: String
+  resolved: Boolean
+}
+
+type IssueMinAggregate {
+  createdAt: Timestamp
+  description: String
+  id: String
+  resolved: Boolean
+}
+
+input IssueOrderByInput {
+  createdAt: SortOrder
+  description: SortOrder
+  id: SortOrder
+  resolved: SortOrder
+  screenshotIds: SortOrder
+}
+
+enum IssueScalarFieldEnum {
+  createdAt
+  description
+  id
+  resolved
+  screenshotIds
+}
+
+input IssueUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  resolved: BoolFieldUpdateOperationsInput
+  screenshotIds: IssueUpdatescreenshotIdsInput
+}
+
+input IssueUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  resolved: BoolFieldUpdateOperationsInput
+  screenshotIds: IssueUpdatescreenshotIdsInput
+}
+
+input IssueUpdatescreenshotIdsInput {
+  set: [String!]!
+}
+
+input IssueWhereInput {
+  AND: [IssueWhereInput!]
+  NOT: [IssueWhereInput!]
+  OR: [IssueWhereInput!]
+  createdAt: DateTimeFilter
+  description: StringFilter
+  id: StringFilter
+  resolved: BoolFilter
+  screenshotIds: StringNullableListFilter
+}
+
+input IssueWhereUniqueInput {
+  id: String
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -2747,6 +2847,7 @@ type Mutation {
   createFeedItem(data: FeedItemCreateInput!): FeedItem!
   createFeedItemLike(data: FeedItemLikeCreateInput!): FeedItemLike!
   createFeedItemRevision(data: FeedItemRevisionCreateInput!): FeedItemRevision!
+  createIssue(data: IssueCreateInput!): Issue!
   createMixdown(data: MixdownCreateInput!): Mixdown!
   createProject(data: ProjectCreateInput!): Project!
   createTag(data: TagCreateInput!): Tag!
@@ -2759,6 +2860,7 @@ type Mutation {
   deleteFeedItem(where: FeedItemWhereUniqueInput!): FeedItem
   deleteFeedItemLike(where: FeedItemLikeWhereUniqueInput!): FeedItemLike
   deleteFeedItemRevision(where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision
+  deleteIssue(where: IssueWhereUniqueInput!): Issue
   deleteManyAddress(where: AddressWhereInput): AffectedRowsOutput!
   deleteManyBand(where: BandWhereInput): AffectedRowsOutput!
   deleteManyComment(where: CommentWhereInput): AffectedRowsOutput!
@@ -2766,6 +2868,7 @@ type Mutation {
   deleteManyFeedItem(where: FeedItemWhereInput): AffectedRowsOutput!
   deleteManyFeedItemLike(where: FeedItemLikeWhereInput): AffectedRowsOutput!
   deleteManyFeedItemRevision(where: FeedItemRevisionWhereInput): AffectedRowsOutput!
+  deleteManyIssue(where: IssueWhereInput): AffectedRowsOutput!
   deleteManyMixdown(where: MixdownWhereInput): AffectedRowsOutput!
   deleteManyProject(where: ProjectWhereInput): AffectedRowsOutput!
   deleteManyTag(where: TagWhereInput): AffectedRowsOutput!
@@ -2785,6 +2888,7 @@ type Mutation {
   updateFeedItem(data: FeedItemUpdateInput!, where: FeedItemWhereUniqueInput!): FeedItem
   updateFeedItemLike(data: FeedItemLikeUpdateInput!, where: FeedItemLikeWhereUniqueInput!): FeedItemLike
   updateFeedItemRevision(data: FeedItemRevisionUpdateInput!, where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision
+  updateIssue(data: IssueUpdateInput!, where: IssueWhereUniqueInput!): Issue
   updateManyAddress(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): AffectedRowsOutput!
   updateManyBand(data: BandUpdateManyMutationInput!, where: BandWhereInput): AffectedRowsOutput!
   updateManyComment(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): AffectedRowsOutput!
@@ -2792,6 +2896,7 @@ type Mutation {
   updateManyFeedItem(data: FeedItemUpdateManyMutationInput!, where: FeedItemWhereInput): AffectedRowsOutput!
   updateManyFeedItemLike(data: FeedItemLikeUpdateManyMutationInput!, where: FeedItemLikeWhereInput): AffectedRowsOutput!
   updateManyFeedItemRevision(data: FeedItemRevisionUpdateManyMutationInput!, where: FeedItemRevisionWhereInput): AffectedRowsOutput!
+  updateManyIssue(data: IssueUpdateManyMutationInput!, where: IssueWhereInput): AffectedRowsOutput!
   updateManyMixdown(data: MixdownUpdateManyMutationInput!, where: MixdownWhereInput): AffectedRowsOutput!
   updateManyProject(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): AffectedRowsOutput!
   updateManyTag(data: TagUpdateManyMutationInput!, where: TagWhereInput): AffectedRowsOutput!
@@ -2809,6 +2914,7 @@ type Mutation {
   upsertFeedItem(create: FeedItemCreateInput!, update: FeedItemUpdateInput!, where: FeedItemWhereUniqueInput!): FeedItem!
   upsertFeedItemLike(create: FeedItemLikeCreateInput!, update: FeedItemLikeUpdateInput!, where: FeedItemLikeWhereUniqueInput!): FeedItemLike!
   upsertFeedItemRevision(create: FeedItemRevisionCreateInput!, update: FeedItemRevisionUpdateInput!, where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision!
+  upsertIssue(create: IssueCreateInput!, update: IssueUpdateInput!, where: IssueWhereUniqueInput!): Issue!
   upsertMixdown(create: MixdownCreateInput!, update: MixdownUpdateInput!, where: MixdownWhereUniqueInput!): Mixdown!
   upsertProject(create: ProjectCreateInput!, update: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project!
   upsertTag(create: TagCreateInput!, update: TagUpdateInput!, where: TagWhereUniqueInput!): Tag!
@@ -3235,6 +3341,7 @@ type Query {
   aggregateFeedItem(cursor: FeedItemWhereUniqueInput, orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): AggregateFeedItem!
   aggregateFeedItemLike(cursor: FeedItemLikeWhereUniqueInput, orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): AggregateFeedItemLike!
   aggregateFeedItemRevision(cursor: FeedItemRevisionWhereUniqueInput, orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): AggregateFeedItemRevision!
+  aggregateIssue(cursor: IssueWhereUniqueInput, orderBy: [IssueOrderByInput!], skip: Int, take: Int, where: IssueWhereInput): AggregateIssue!
   aggregateMixdown(cursor: MixdownWhereUniqueInput, orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): AggregateMixdown!
   aggregateProject(cursor: ProjectWhereUniqueInput, orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): AggregateProject!
   aggregateTag(cursor: TagWhereUniqueInput, orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): AggregateTag!
@@ -3259,6 +3366,7 @@ type Query {
   findFirstFeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemScalarFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): FeedItem
   findFirstFeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeScalarFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): FeedItemLike
   findFirstFeedItemRevision(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionScalarFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): FeedItemRevision
+  findFirstIssue(cursor: IssueWhereUniqueInput, distinct: [IssueScalarFieldEnum!], orderBy: [IssueOrderByInput!], skip: Int, take: Int, where: IssueWhereInput): Issue
   findFirstMixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): Mixdown
   findFirstProject(cursor: ProjectWhereUniqueInput, distinct: [ProjectScalarFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): Project
   findFirstTag(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): Tag
@@ -3267,6 +3375,8 @@ type Query {
   findManyUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]!
   findUniqueUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
   followRecommendations: [User!]!
+  issue(where: IssueWhereUniqueInput!): Issue
+  issues(cursor: IssueWhereUniqueInput, distinct: [IssueScalarFieldEnum!], orderBy: [IssueOrderByInput!], skip: Int, take: Int, where: IssueWhereInput): [Issue!]!
   me: User!
   mixdown(where: MixdownWhereUniqueInput!): Mixdown
   mixdowns(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]!
@@ -3326,6 +3436,14 @@ input StringNullableFilter {
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
+}
+
+input StringNullableListFilter {
+  equals: [String!]
+  has: String
+  hasEvery: [String!]
+  hasSome: [String!]
+  isEmpty: Boolean
 }
 
 type Subscription {
