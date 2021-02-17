@@ -1,7 +1,7 @@
 import { Menu, MenuList, Portal, useDisclosure } from '@chakra-ui/react';
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from 'react';
 import ClickAwayListener from 'react-click-away-listener';
-import { useHotkeys } from "react-hotkeys-hook";
+import { useHotkeys } from 'react-hotkeys-hook';
 
 interface Props {
   children: ReadonlyArray<ReactNode>;
@@ -11,6 +11,7 @@ interface Props {
 const ContextMenu: React.FC<Props> = ({ children, hotkey }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [offset, setOffset] = useState<[number, number]>([0, 0]);
+  const [layerOffset, setLayerOffset] = useState<[number, number]>([0, 0]);
   const ref = useHotkeys<HTMLDivElement>(hotkey ?? '', onOpen);
 
   useEffect(() => {
@@ -18,10 +19,12 @@ const ContextMenu: React.FC<Props> = ({ children, hotkey }) => {
       e.preventDefault();
 
       setOffset([e.clientX, e.clientY]);
+      // @ts-ignore
+      setLayerOffset([e.layerX, e.layerY]);
 
       onOpen();
     });
-  }, [ref, onOpen, setOffset]);
+  }, [ref, onOpen, setOffset, setLayerOffset]);
 
   return (
     <>
@@ -29,7 +32,12 @@ const ContextMenu: React.FC<Props> = ({ children, hotkey }) => {
       <ClickAwayListener onClickAway={onClose}>
         <Menu isLazy isOpen={isOpen} size={'xs'}>
           <Portal>
-            <MenuList onClick={onClose} fontSize={'xs'} pos={'fixed'} left={offset[0]} top={offset[1]}>{children[1]}</MenuList>
+            <MenuList onClick={onClose} fontSize={'xs'} pos={'fixed'} left={offset[0]} top={offset[1]}>
+              {
+                // @ts-ignore TODO: For some reason the Children Types are incompatible. Check back to fix this.
+                React.cloneElement(children[1], { offset: layerOffset })
+              }
+            </MenuList>
           </Portal>
         </Menu>
       </ClickAwayListener>
