@@ -20,7 +20,7 @@ const Settings: React.FC = () => {
   const [showSettings, setShowSettings] = useRecoilState(editorStore.showSettings);
 
   return (
-    <Modal isOpen={showSettings} onClose={() => setShowSettings(false)}>
+    <Modal isOpen={showSettings} onClose={() => setShowSettings(false)} size={'2xl'}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Settings</ModalHeader>
