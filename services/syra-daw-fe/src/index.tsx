@@ -19,8 +19,6 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-audioSetup();
-
 const root = document.getElementById('app');
 
 const apolloClient = initializeApollo();
