@@ -12,12 +12,7 @@ export const loadInitialStateEffect: RecoilAtomEffect = <P, T>(key: string, id?:
   if (trigger === 'get') {
     let val = dbContent[key] || JSON.parse(localStorage.getItem(key) ?? 'null');
 
-    if (key === 'channel/ids' || key === 'channel/name') {
-      console.log('key', key);
-      console.log('val', val);
-    }
-
-    if (val) {
+    if (val != null) {
       if (id && val instanceof Array) {
         setSelf(val.find(v => v.id === id)?.value ?? new DefaultValue());
       } else {

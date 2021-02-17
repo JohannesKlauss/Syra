@@ -3,25 +3,25 @@ import { saveToLocalStorageEffect } from "./effects/saveToLocalStorageEffect";
 import { loadInitialStateEffect } from "./effects/loadInitialStateEffect";
 
 const showMixer = atomWithEffects({
-  key: 'editorStore/showMixer',
+  key: 'editor/showMixer',
   default: false,
   effects: [saveToLocalStorageEffect, loadInitialStateEffect]
 });
 
 const showPianoRoll = atomWithEffects({
-  key: 'editorStore/showPianoRoll',
+  key: 'editor/showPianoRoll',
   default: false,
   effects: [saveToLocalStorageEffect, loadInitialStateEffect]
 });
 
 const showSettings = atomWithEffects({
-  key: 'editorStore/showSettings',
+  key: 'editor/showSettings',
   default: false,
   effects: [saveToLocalStorageEffect, loadInitialStateEffect]
 });
 
 const showVideo = atomWithEffects({
-  key: 'editorStore/showVideo',
+  key: 'editor/showVideo',
   default: true,
   effects: [saveToLocalStorageEffect, loadInitialStateEffect]
 });
