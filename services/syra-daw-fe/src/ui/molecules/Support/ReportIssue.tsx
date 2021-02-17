@@ -30,15 +30,6 @@ const ReportIssue: React.FC = () => {
   const [isSending, setIsSending] = useState(false);
   const [executeMutation] = useCreateIssueMutation();
   const methods = useForm<TReportIssueForm>();
-  const toast = useToast();
-
-  useEffect(() => {
-    toast({
-      title: 'Reported issue',
-      description: 'Thank you for taking time out of your creative day to help us.',
-      status: 'success',
-    });
-  }, [toast]);
 
   const onSubmit = async (data: TReportIssueForm) => {
     setIsSending(true);

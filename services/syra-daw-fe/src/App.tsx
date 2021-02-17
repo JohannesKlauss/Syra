@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import 'focus-visible/dist/focus-visible';
 import useFaviconWatcher from "./hooks/ui/global/useFaviconWatcher";
+import useWebMidi from "./hooks/midi/useWebMidi";
 
 const config = {
   useSystemColorMode: false,
@@ -20,6 +21,7 @@ function App() {
   const [showFpsMeter, setShowFpsMeter] = useState(false);
   useHotkeys('shift+f', () => setShowFpsMeter((currVal) => !currVal));
   useFaviconWatcher();
+  useWebMidi();
 
   return (
     <StrictMode>

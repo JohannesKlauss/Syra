@@ -81,6 +81,8 @@ export function instantiateMixer() {
 
     const disconnect = (virtualInstrumentNode?: AudioWorkletNode) => {
       if (virtualInstrumentNode) {
+        console.log('disconnect node');
+
         Tone.disconnect(virtualInstrumentNode);
       }
 
@@ -93,7 +95,7 @@ export function instantiateMixer() {
         Tone.connectSeries(retNodes.audioIn, retNodes.recorder);
       }
 
-      disconnect();
+      disconnect(virtualInstrumentNode);
 
       if (virtualInstrumentNode) {
         Tone.connectSeries(

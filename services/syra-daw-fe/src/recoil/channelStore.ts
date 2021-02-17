@@ -132,7 +132,7 @@ const soulInstance = selectorFamily<SoulInstance | undefined, string>({
 
     return instance;
   },
-  set: pluginId => ({set}, instance) => {
+  set: pluginId => ({set, get}, instance) => {
     set(soulInstanceCache(pluginId), instance);
     set(soulPatchDescriptor(pluginId), (instance as SoulInstance).soulPatch.descriptor);
   },

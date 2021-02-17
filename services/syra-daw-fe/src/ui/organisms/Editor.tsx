@@ -3,7 +3,6 @@ import HorizontalChannelList from '../molecules/Channels/HorizontalChannels/Hori
 import { editorStore } from '../../recoil/editorStore';
 import { useRecoilValue } from 'recoil';
 import { Box } from '@chakra-ui/react';
-import useWebMidi from '../../hooks/midi/useWebMidi';
 import TransportView from '../molecules/Transport/TransportView';
 import Settings from '../organisms/dialogues/Settings/Settings';
 import PianoRoll from '../organisms/views/PianoRoll/PianoRoll';
@@ -15,7 +14,6 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { Prompt } from 'react-router-dom';
 import useBlockWindowLeave from '../../hooks/ui/useBlockWindowLeave';
 import useAutoSave from '../../hooks/recoil/useAutoSave';
-import useSyncMixer from '../../hooks/recoil/useSyncMixer';
 import useUndoRedo from '../../hooks/recoil/useUndoRedo';
 
 const Editor: React.FC = () => {
@@ -28,7 +26,6 @@ const Editor: React.FC = () => {
 
   useUndoRedo();
   useBlockWindowLeave();
-  useWebMidi();
   useAutoSave(id, 5000);
 
   return (

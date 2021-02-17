@@ -7,5 +7,6 @@ export default function useOpenPianoRoll() {
     set(pianoRollStore.focusedMidiRegionId, regionId);
     set(pianoRollStore.selectedChannelId, channelId);
     set(editorStore.showPianoRoll, true);
+    set(editorStore.showMixer, false);
   }, []);
 }

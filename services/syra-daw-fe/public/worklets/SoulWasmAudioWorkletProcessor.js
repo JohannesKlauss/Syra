@@ -3,7 +3,6 @@
 
 class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
   midiMessages = [];
-  lastTriggeredMidiMessageIndex = -1;
   transportOffsetInSamples = -1;
 
   static get parameterDescriptors() {
@@ -42,8 +41,6 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
 
               this.instance.exports.onMidiMessage(messageLength);
             }
-
-            this.lastTriggeredMidiMessageIndex = -1;
           }
           break;
         case 'DELETE_PRE_SCHEDULED_MIDI_MESSAGES':
@@ -143,6 +140,8 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
    */
   process(inputs, outputs, parameters) {
     if (!this.ready) return false;
+
+    const a = this.currentTime;
 
     let samplesToProcess = outputs[0][0].length;
 
