@@ -9,7 +9,6 @@ export default onError(({ graphQLErrors, networkError, operation }) => {
 
       if (process.env.NODE_ENV === 'development') {
         console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}, Name: ${operation.operationName}`);
-        console.log('locations', locations);
       }
     });
 

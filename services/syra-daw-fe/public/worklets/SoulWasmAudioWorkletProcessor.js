@@ -141,7 +141,7 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
   process(inputs, outputs, parameters) {
     if (!this.ready) return false;
 
-    const a = this.currentTime;
+    const a = currentTime;
 
     let samplesToProcess = outputs[0][0].length;
 
@@ -210,6 +210,8 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
         outputs[0][ch].set(this.channelOutData[ch]);
       }
     }
+
+//    console.log('Soul processing take ms:', (currentTime - a) * 1000);
 
     return true;
   }
