@@ -38,12 +38,10 @@ const Track = React.memo(({ bg }: Props) => {
             </Text>
           </Flex>
           <RegionList/>
-          <MarqueeContainer/>
         </Box>
       </ContextMenuTrigger>
       <ChannelTrackContextMenu/>
     </ContextMenu>
-
   );
 });
 

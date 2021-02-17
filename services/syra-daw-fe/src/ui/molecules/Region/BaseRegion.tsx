@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import tinycolor from "tinycolor2";
 import { Box } from "@chakra-ui/react";
 import { RegionContext } from "../../../providers/RegionContext";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { regionStore } from "../../../recoil/regionStore";
 import useRegionColor from "../../../hooks/ui/region/useRegionColor";
 import useOpenPianoRoll from "../../../hooks/ui/views/pianoRoll/useOpenPianoRoll";
@@ -16,6 +16,7 @@ const BaseRegion: React.FC<Props> = ({ children }) => {
   const regionId = useContext(RegionContext);
   const channelId = useContext(ChannelContext);
   const isMuted = useRecoilValue(regionStore.isMuted(regionId));
+  const setSelectedIds = useSetRecoilState(regionStore.selectedIds);
   const isSelected = useRecoilValue(regionStore.isSelected(regionId));
   const color = useRegionColor(false);
   const isMidi = useRecoilValue(regionStore.isMidi(regionId));
@@ -27,6 +28,7 @@ const BaseRegion: React.FC<Props> = ({ children }) => {
       h={`${trackHeight}px`}
       opacity={isMuted ? 0.5 : 1}
       rounded={4}
+      onClick={() => setSelectedIds([regionId])}
       onDoubleClick={() => isMidi && openPianoRoll(channelId, regionId)}
       border={isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(5).toRgbString()}`}
     >

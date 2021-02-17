@@ -18,6 +18,7 @@ const MarqueeIndicator: React.FC<MarqueeIndicatorProps> = ({ left }) => (
     h={'200%'}
     pos={'absolute'}
     left={left}
+    zIndex={2}
     animation={'marqueeBlink 1s infinite ease-in-out'}
   />
 );
