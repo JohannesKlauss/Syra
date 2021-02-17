@@ -10,21 +10,21 @@ import ChannelName from '../ChannelName';
 import BackboneAudioMixer from '../../BackboneMixer/BackboneAudioMixer';
 import { Box, Flex, useTheme } from '@chakra-ui/react';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
-import { ViewContext } from "../../../../providers/ViewContext";
-import { gridStore } from "../../../../recoil/gridStore";
+import { ViewContext } from '../../../../providers/ViewContext';
+import { gridStore } from '../../../../recoil/gridStore';
 
 interface Props {
   index: number;
 }
 
-function VerticalChannel({index}: Props) {
+function VerticalChannel({ index }: Props) {
   const { view } = useContext(ViewContext);
   const channelId = useContext(ChannelContext);
   const [selectedChannelId, setSelectedChannelId] = useRecoilState(channelStore.selectedId);
   const color = useRegionColor(false);
   const verticalZoomLevel = useRecoilValue(gridStore.verticalZoomLevel(view));
   const theme = useTheme();
-  
+
   useMuteChannelHotkey();
   useSoloChannelHotkey();
 

@@ -48,7 +48,6 @@ const MidiRegion: React.FC = () => {
         </ManipulationContainer>
       </BaseRegion>
     </ResizableBox>
-
   );
 };
 

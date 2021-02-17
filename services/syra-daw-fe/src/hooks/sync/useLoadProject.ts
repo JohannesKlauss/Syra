@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import { routes } from "../../const/routes";
 import { populateFromDb } from "../../recoil/effects/loadInitialStateEffect";
 import { initSubscription } from "../../recoil/effects/subscribeChangeEffect";
+import useSyncMixer from "../recoil/useSyncMixer";
 
 const steps = 4;
 
@@ -28,6 +29,8 @@ export default function useLoadProject(id: string) {
 
   const setDocumentTitle = useDocumentTitle();
   const increase = useCallback(() => setLoadingProgress(prevState => prevState + 100 / steps), [setLoadingProgress]);
+
+  useSyncMixer(id);
 
   useEffect(() => {
     initSubscription(id);
