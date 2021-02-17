@@ -19,8 +19,8 @@ function ViewToggles() {
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
   const setShowSettings = useSetRecoilState(editorStore.showSettings);
 
-  useHotkeys('p', () => updateView(View.PIANO_ROLL));
-  useHotkeys('x', () => updateView(View.MIXER));
+  useHotkeys('p', () => updateView(View.PIANO_ROLL), [updateView]);
+  useHotkeys('x', () => updateView(View.MIXER), [updateView]);
   useHotkeys('v', () => setShowVideo(currVal => !currVal));
   useHotkeys('cmd+,', (e) => {
     e.preventDefault();
