@@ -1,14 +1,11 @@
 import { RegionContext } from "../../providers/RegionContext";
-import { useCallback, useContext, useEffect, useMemo } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { regionStore } from "../../recoil/regionStore";
 import { useRecoilValue } from "recoil";
-import useToneJsTransport from "./useToneJsTransport";
 import { ChannelContext } from "../../providers/ChannelContext";
 import { channelStore } from "../../recoil/channelStore";
 import { createPreScheduledMidiMessage } from "../../utils/midi";
 import { MIDI_MSG } from "../../types/Midi";
-import { transportStore } from "../../recoil/transportStore";
-import usePanic from "../midi/usePanic";
 import * as Tone from "tone";
 
 export default function useMidiRegionScheduler() {
@@ -19,11 +16,6 @@ export default function useMidiRegionScheduler() {
   const offset = useRecoilValue(regionStore.offset(regionId));
   const duration = useRecoilValue(regionStore.duration(regionId));
   const soulInstance = useRecoilValue(channelStore.soulInstance(channelId));
-  const transport = useToneJsTransport();
-  const isRecording = useRecoilValue(transportStore.isRecording);
-  const isPlaying = useRecoilValue(transportStore.isPlaying);
-  const transportSeconds = useRecoilValue(transportStore.seconds);
-  const panic = usePanic(soulInstance?.audioNode.port);
 
   const messagesToSchedule = useMemo(() => {
     const filteredNotes = notes.filter((note) => note.ticks >= offset && note.ticks < offset + duration);
@@ -52,12 +44,6 @@ export default function useMidiRegionScheduler() {
     return messages.sort((msgA, msgB) => msgA[3] - msgB[3]);
   }, [notes, offset, duration, start]);
 
-  const triggerTransportOffset = useCallback(() => {
-    soulInstance?.audioNode.parameters.get('transportOffsetInSamples')?.setValueAtTime(
-      Math.floor(transportSeconds * Tone.getContext().sampleRate), Tone.getContext().currentTime
-    );
-  }, [soulInstance, transportSeconds]);
-
   useEffect(() => {
     soulInstance?.audioNode.port.postMessage({
       type: "PRE_SCHEDULE_MIDI_MESSAGES",
@@ -70,19 +56,4 @@ export default function useMidiRegionScheduler() {
       });
     };
   }, [soulInstance, messagesToSchedule]);
-
-  useEffect(() => {
-    transport.on('start', triggerTransportOffset);
-
-    return () => {
-      transport.off('start', triggerTransportOffset);
-    }
-  }, [transport, soulInstance, triggerTransportOffset]);
-
-  useEffect(() => {
-    if (!isPlaying && !isRecording) {
-      soulInstance?.audioNode.parameters.get('transportOffsetInSamples')?.setValueAtTime(-1, Tone.getContext().currentTime);
-      panic();
-    }
-  }, [isRecording, isPlaying, panic, soulInstance]);
 }
