@@ -25,7 +25,7 @@ const MidiNoteVis = PixiComponent<PixiProps, Graphics>('MidiNotesDisplay', {
 
     instance.clear();
     instance.beginFill(colorToHexNumber(determineTextColor(backgroundColor, true)));
-    instance.drawRect(x, y, width, height);
+    instance.drawRect(x, y, width - 1, height);
     instance.endFill();
   },
 });

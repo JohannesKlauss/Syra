@@ -85,8 +85,7 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
 
     // Store two Float32Array's pointing to the data in the shared memory for each channel
     this.channelOutData = [];
-    var i;
-    for (i = 0; i < this.endpoints.totalOutputs; i++) {
+    for (let i = 0; i < this.endpoints.totalOutputs; i++) {
       this.channelOutData[i] = new Float32Array(
         this.instance.exports.memory.buffer,
         this.instance.exports.getOutData(i),
@@ -110,6 +109,7 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
     );
 
     this.setInitialWasmValues();
+
     this.port.postMessage({
       type: 'ENDPOINTS',
       value: this.endpoints,
@@ -132,6 +132,33 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
   }
 
   /**
+   * set(sub(0, 10), 0); first 10 samples
+   * set(sub(0, 30), 10); next 30 samples | 40 total
+   * set(sub(0, 60), 40); next 60 samples | 100 total
+   * set(sub(0, 28), 100); last 28 samples | 128 total
+   *
+   * @param outputs         The outputs array from the process function
+   * @param samples         The number of samples to copy from the WASM buffer
+   * @param offsetSamples   The offset of sample to where to copy the samples into the outputs array.
+   */
+  processSampleBlock(outputs, samples = 128, offsetSamples = 0) {
+    this.instance.exports.processBlock(samples);
+
+    if (outputs[0].length > 1 && this.endpoints.totalOutputs === 1) {
+      // Soul Plugin is Mono
+      for (let ch = 0; ch < outputs[0].length; ch++) {
+        // Copy the mono source to all channels
+        outputs[0][ch].set(this.channelOutData[0].subarray(0, samples), offsetSamples);
+      }
+    } else if (outputs[0].length > 1 && this.endpoints.totalOutputs >= 2) {
+      // Soul Plugin is Stereo (or multichannel)
+      for (let ch = 0; ch < 2; ch++) {
+        outputs[0][ch].set(this.channelOutData[ch].subarray(0, samples), offsetSamples);
+      }
+    }
+  }
+
+  /**
    * System-invoked process callback function.
    * @param  {Array} inputs Incoming audio stream.
    * @param  {Array} outputs Outgoing audio stream.
@@ -141,9 +168,8 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
   process(inputs, outputs, parameters) {
     if (!this.ready) return false;
 
-    const a = currentTime;
-
     let samplesToProcess = outputs[0][0].length;
+    let offsetSamples = 0;
 
     if (this.endpoints.totalInputs === 1 && inputs[0].length >= 1) {
       this.channelInData[0].set(inputs[0][0]);
@@ -182,12 +208,13 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
 
       for (let j = 0; j < messages.length; j++) {
         const msg = messages[j];
-
         const skipSamples = msg[3] - this.transportOffsetInSamples;
 
-        this.instance.exports.processBlock(skipSamples);
+        this.processSampleBlock(outputs, skipSamples, offsetSamples);
 
+        offsetSamples += skipSamples;
         samplesToProcess -= skipSamples;
+
         this.transportOffsetInSamples += skipSamples;
 
         for (let n = 0; n < 3; n++) this.midiData[n] = msg[n];
@@ -197,21 +224,7 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
       this.transportOffsetInSamples += samplesToProcess;
     }
 
-    this.instance.exports.processBlock(samplesToProcess);
-
-    if (outputs[0].length > 1 && this.endpoints.totalOutputs === 1) {
-      for (let ch = 0; ch < outputs[0].length; ch++) {
-        outputs[0][ch].set(this.channelOutData[0]);
-      }
-    }
-
-    if (outputs[0].length > 1 && this.endpoints.totalOutputs >= 2) {
-      for (let ch = 0; ch < 2; ch++) {
-        outputs[0][ch].set(this.channelOutData[ch]);
-      }
-    }
-
-//    console.log('Soul processing take ms:', (currentTime - a) * 1000);
+    this.processSampleBlock(outputs, samplesToProcess, outputs[0][0].length - samplesToProcess);
 
     return true;
   }

@@ -20,7 +20,7 @@ export default function useDrawMidiNote(note: number) {
       time: noteOnAt.toSeconds(),
       velocity,
       midi: note,
-      noteOffVelocity: 0,
+      noteOffVelocity: velocity,
       durationTicks: duration.toTicks(),
       duration: duration.toSeconds(),
     };

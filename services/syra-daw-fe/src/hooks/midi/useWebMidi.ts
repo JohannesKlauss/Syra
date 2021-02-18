@@ -13,5 +13,5 @@ export default function useWebMidi() {
     return () => {
       disconnect();
     }
-  }, []);
+  }, [connect, disconnect]);
 }

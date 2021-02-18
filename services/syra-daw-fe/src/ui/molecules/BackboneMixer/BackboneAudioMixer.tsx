@@ -27,23 +27,25 @@ function BackboneAudioMixer({channelId}: Props) {
   useEffect(() => {
     // TODO: WE COULD PROBABLY JUST CREATE A INSTANCE LIKE Tone.Solo, BUT FOR MUTING. THIS WOULD SAVE US A REWIRING CALL.
     isMuted ? mixerChannelStrip.disconnect(soulInstance?.audioNode) : mixerChannelStrip.rewireAudio(plugins.map(plugin => plugin.audioNode), soulInstance?.audioNode);
-  }, [isMuted, plugins, soulInstance, mixerChannelStrip]);
+  }, [isMuted, plugins, soulInstance]);
 
   useEffect(() => {
     (async () => {
       await mixerChannelStrip.updateArming(isArmed);
     })();
-  }, [isArmed, mixerChannelStrip]);
+  }, [isArmed]);
 
   useEffect(() => {
     mixerChannelStrip.updateInputMonitoring(isInputMonitoringActive);
-  }, [isInputMonitoringActive, mixerChannelStrip]);
+  }, [isInputMonitoringActive]);
 
   useEffect(() => {
     mixerChannelStrip.solo.set({ solo: isSolo });
-  }, [isSolo, mixerChannelStrip]);
+  }, [isSolo]);
 
   useEffect(() => {
+    console.log('run effect');
+
     mixerChannelStrip.disconnect(soulInstance?.audioNode);
     mixerChannelStrip.rewireAudio(plugins.map(plugin => plugin.audioNode), soulInstance?.audioNode)
   }, [soulInstance, plugins]);

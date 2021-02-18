@@ -32,20 +32,20 @@ export default function useMidiRegionScheduler() {
     const messages = [
       ...filteredNotes.map((note) =>
         createPreScheduledMidiMessage(
+          MIDI_MSG.CH1_NOTE_OFF,
+          note.midi,
+          note.noteOffVelocity,
+          Math.ceil((note.time + note.duration + regionStartInSeconds - regionOffsetInSeconds) * Tone.getContext().sampleRate - 3),
+        )
+      ),
+      ...filteredNotes.map((note) =>
+        createPreScheduledMidiMessage(
           MIDI_MSG.CH1_NOTE_ON,
           note.midi,
           note.velocity,
           Math.ceil((note.time + regionStartInSeconds - regionOffsetInSeconds) * Tone.getContext().sampleRate),
         )
       ),
-      ...filteredNotes.map((note) =>
-        createPreScheduledMidiMessage(
-          MIDI_MSG.CH1_NOTE_OFF,
-          note.midi,
-          0,
-          Math.ceil((note.time + note.duration + regionStartInSeconds - regionOffsetInSeconds) * Tone.getContext().sampleRate),
-        )
-      )
     ];
 
     return messages.sort((msgA, msgB) => msgA[3] - msgB[3]);
