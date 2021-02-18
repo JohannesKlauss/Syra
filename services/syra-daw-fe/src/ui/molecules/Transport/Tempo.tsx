@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import useTempoMapScheduler from '../../../hooks/tone/useTempoMapScheduler';
 import { Box, Button } from '@chakra-ui/react';
 import { motion, PanInfo, useMotionValue } from "framer-motion";
@@ -8,23 +8,30 @@ import { projectStore } from "../../../recoil/projectStore";
 function Tempo() {
   const setTempoMap = useSetRecoilState(projectStore.tempoMap);
   const currentTempo = useTempoMapScheduler();
-  const y = useMotionValue(0);
+  const x = useMotionValue(0);
   const lastOffset = useMotionValue(0);
+  const [tempoCopy, setTempoCopy] = useState(currentTempo);
 
   const onYChanged = (e: MouseEvent, {offset}: PanInfo) => {
-    const roundedOffset = Math.round(-(offset.y / 5));
+    const roundedOffset = Math.round(offset.x / 5);
 
-    setTempoMap({0: Math.max(1, currentTempo + (roundedOffset - lastOffset.get()))});
+    setTempoCopy(Math.max(1, tempoCopy + (roundedOffset - lastOffset.get())));
 
     lastOffset.set(roundedOffset);
-    y.set(0);
+    x.set(0);
+  };
+
+  const onDragEnd = () => {
+    lastOffset.set(0);
+    x.set(0);
+    setTempoMap({0: tempoCopy});
   };
 
   return (
     <Box pos={'relative'}>
-      <motion.div drag={'y'} onDrag={onYChanged} onDragEnd={() => lastOffset.set(0)} dragMomentum={false} dragElastic={0} style={{y}}>
-        <Button variant={'ghost'} size={'sm'} cursor={'ns-resize'}>
-          {currentTempo} BPM
+      <motion.div drag={'x'} onDrag={onYChanged} onDragEnd={onDragEnd} dragMomentum={false} dragElastic={0} style={{x}}>
+        <Button variant={'ghost'} size={'sm'} cursor={'ew-resize'}>
+          {tempoCopy} BPM
         </Button>
       </motion.div>
     </Box>

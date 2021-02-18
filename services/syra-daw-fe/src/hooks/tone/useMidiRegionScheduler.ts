@@ -7,6 +7,7 @@ import { channelStore } from "../../recoil/channelStore";
 import { createPreScheduledMidiMessage } from "../../utils/midi";
 import { MIDI_MSG } from "../../types/Midi";
 import * as Tone from "tone";
+import { projectStore } from "../../recoil/projectStore";
 
 export default function useMidiRegionScheduler() {
   const regionId = useContext(RegionContext);
@@ -16,6 +17,7 @@ export default function useMidiRegionScheduler() {
   const offset = useRecoilValue(regionStore.offset(regionId));
   const duration = useRecoilValue(regionStore.duration(regionId));
   const soulInstance = useRecoilValue(channelStore.soulInstance(channelId));
+  const currentTempo = useRecoilValue(projectStore.currentTempo);
 
   const messagesToSchedule = useMemo(() => {
     const filteredNotes = notes.filter((note) => note.ticks >= offset && note.ticks < offset + duration);
@@ -28,7 +30,7 @@ export default function useMidiRegionScheduler() {
           MIDI_MSG.CH1_NOTE_OFF,
           note.midi,
           note.noteOffVelocity,
-          Math.ceil((note.time + note.duration + regionStartInSeconds - regionOffsetInSeconds) * Tone.getContext().sampleRate - 3),
+          Math.ceil((Tone.Ticks(note.ticks).toSeconds() + Tone.Ticks(note.durationTicks).toSeconds() + regionStartInSeconds - regionOffsetInSeconds) * Tone.getContext().sampleRate - 3),
         )
       ),
       ...filteredNotes.map((note) =>
@@ -36,13 +38,13 @@ export default function useMidiRegionScheduler() {
           MIDI_MSG.CH1_NOTE_ON,
           note.midi,
           note.velocity,
-          Math.ceil((note.time + regionStartInSeconds - regionOffsetInSeconds) * Tone.getContext().sampleRate),
+          Math.ceil((Tone.Ticks(note.ticks).toSeconds() + regionStartInSeconds - regionOffsetInSeconds) * Tone.getContext().sampleRate),
         )
       ),
     ];
 
     return messages.sort((msgA, msgB) => msgA[3] - msgB[3]);
-  }, [notes, offset, duration, start]);
+  }, [notes, offset, duration, start, currentTempo]);
 
   useEffect(() => {
     soulInstance?.audioNode.port.postMessage({
