@@ -22,6 +22,7 @@ export default function useMidiRegionScheduler() {
   const transport = useToneJsTransport();
   const isRecording = useRecoilValue(transportStore.isRecording);
   const isPlaying = useRecoilValue(transportStore.isPlaying);
+  const transportSeconds = useRecoilValue(transportStore.seconds);
   const panic = usePanic(soulInstance?.audioNode.port);
 
   const messagesToSchedule = useMemo(() => {
@@ -53,9 +54,9 @@ export default function useMidiRegionScheduler() {
 
   const triggerTransportOffset = useCallback(() => {
     soulInstance?.audioNode.parameters.get('transportOffsetInSamples')?.setValueAtTime(
-      Math.floor(transport.seconds * Tone.getContext().sampleRate), Tone.getContext().currentTime
+      Math.floor(transportSeconds * Tone.getContext().sampleRate), Tone.getContext().currentTime
     );
-  }, [soulInstance]);
+  }, [soulInstance, transportSeconds]);
 
   useEffect(() => {
     soulInstance?.audioNode.port.postMessage({
