@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 import useConnectMidiWithInstrumentChannel from '../../../hooks/audio/useConnectMidiWithInstrumentChannel';
 import { ChannelType } from '../../../types/Channel';
 import useSyncTransportToSoul from "../../../hooks/soul/useSyncTransportToSoul";
+import useRecordExternalMidi from "../../../hooks/recoil/region/useRecordExternalMidi";
 
 interface Props {
   channelId: string;
@@ -26,6 +27,7 @@ function BackboneAudioMixer({channelId}: Props) {
   const [connect, disconnect] = useConnectMidiWithInstrumentChannel(channelId);
 
   useSyncTransportToSoul();
+  useRecordExternalMidi();
 
   useEffect(() => {
     // TODO: WE COULD PROBABLY JUST CREATE A INSTANCE LIKE Tone.Solo, BUT FOR MUTING. THIS WOULD SAVE US A REWIRING CALL.

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { Suspense, useCallback, useContext, useState } from 'react';
 import ChannelPluginList from '../../../Plugins/ChannelPluginList';
 import Pan from '../../../../atoms/Slider/Pan';
 import VolumeFader from '../../../../atoms/Slider/VolumeFader';
@@ -28,7 +28,11 @@ const ChannelBody: React.FC = React.memo(() => {
   return (
     <Box>
       <Divider mb={2} />
-      <ChannelPluginList />
+
+      <Suspense fallback={<div>loading</div>}>
+        <ChannelPluginList />
+      </Suspense>
+
       <Divider my={2} />
 
       <Pan/>
