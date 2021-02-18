@@ -19,6 +19,7 @@ function PlayRecord() {
   const [isRecording, setIsRecording] = useRecoilState(transportStore.isRecording);
   const [isPlaying, setIsPlaying] = useRecoilState(transportStore.isPlaying);
   const setCurrentTransportQuarter = useSetRecoilState(transportStore.currentQuarter);
+  const setTransportSeconds = useSetRecoilState(transportStore.seconds);
   const isCycleActive = useRecoilValue(transportStore.isCycleActive);
   const cycleStart = useRecoilValue(transportStore.cycleStart);
   const lengthInQuarters = useRecoilValue(projectStore.lengthInQuarters);
@@ -44,7 +45,7 @@ function PlayRecord() {
       setCurrentTransportQuarter(pos);
     } else {
       if (isCycleActive) {
-        setCurrentTransportQuarter(cycleStart);
+        setTransportSeconds(cycleStart);
       }
 
       transport.start('+0.1'); // TODO: THIS VALUE WILL DIFFER FROM MACHINE TO MACHINE. WE NEED A WAY TO CALCULATE THE NEEDED OFFSET.
@@ -71,7 +72,7 @@ function PlayRecord() {
       setTransportStop(ctx.rawContext.currentTime);
     } else {
       setIsRecording(true);
-      transport.start('+0.05');
+      transport.start('+0.1');
 
       setTransportStart(ctx.rawContext.currentTime + 0.05);
     }

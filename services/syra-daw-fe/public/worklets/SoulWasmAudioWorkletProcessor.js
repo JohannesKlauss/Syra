@@ -4,17 +4,27 @@
 class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
   midiMessages = [];
   transportOffsetInSamples = -1;
+  isCycleActive = 0;
+  cycleEnd = 0;
 
   static get parameterDescriptors() {
     return [
       {
-        name: 'midiTriggerIndex',
+        name: 'transportOffsetInSamples',
         defaultValue: -1,
       },
       {
-        name: 'transportOffsetInSamples',
+        name: 'isCycleActive',
+        defaultValue: 0,
+      },
+      {
+        name: 'cycleStart',
         defaultValue: -1,
-      }
+      },
+      {
+        name: 'cycleEnd',
+        defaultValue: -1,
+      },
     ];
   }
 
@@ -182,6 +192,8 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
     }
 
     const transportOffsetInSamples = parameters['transportOffsetInSamples'];
+    this.isCycleActive = parameters['isCycleActive'][0];
+    this.cycleEnd = parameters['cycleEnd'][0];
 
     let didSetOffset = false;
 
@@ -206,9 +218,22 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
         msg[3] >= this.transportOffsetInSamples && msg[3] < this.transportOffsetInSamples + samplesToProcess
       );
 
+      // Check if we have to reset this.transportOffsetInSamples because we reached the end of the cycle.
+      if (this.isCycleActive === 1 && this.cycleEnd - this.transportOffsetInSamples <= 128) {
+        const samplesUntilCycleEnd = this.cycleEnd - this.transportOffsetInSamples;
+
+        // TODO: THIS IS NOT SAMPLE ACCURATE! THE CYCLE SHIFTS BY THE SAMPLES LEFT.
+        // For now this is ok.
+        this.transportOffsetInSamples = transportOffsetInSamples[0] - samplesUntilCycleEnd - 1;
+      }
+
       for (let j = 0; j < messages.length; j++) {
         const msg = messages[j];
         const skipSamples = msg[3] - this.transportOffsetInSamples;
+
+        if (skipSamples > 128) {
+          break;
+        }
 
         this.processSampleBlock(outputs, skipSamples, offsetSamples);
 
