@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "node server.js",
-    "build": "ANALYZE=true next build",
+    "build": "next build",
     "start": "next start",
     "type-check": "tsc",
     "gql-generate": "graphql-codegen",
