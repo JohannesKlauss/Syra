@@ -16,7 +16,7 @@ export type CreateMidiRegionParams = {
 
 export default function useCreateMidiRegion() {
   return useRecoilCallback(
-    ({ set, snapshot }) => async (params: CreateMidiRegionParams) => {
+    ({ set, snapshot }) => (params: CreateMidiRegionParams) => {
       const newRegionId = params.regionId ?? createNewId(REGION_ID_PREFIX);
       const staticCounter = snapshot.getLoadable(regionStore.staticCounter(params.channelId)).contents as number;
       const channelName = snapshot.getLoadable(channelStore.name(params.channelId)).contents as string;

@@ -1,22 +1,24 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Editor from '../ui/screens/Editor';
+import EditorShell from '../ui/screens/EditorShell';
 import NewProject from '../ui/screens/NewProject';
 import { routes } from '../const/routes';
-import LoadSession from '../ui/screens/LoadSession';
+import { Flex, Text } from '@chakra-ui/react';
 
 function AppRouter() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={routes.NewProject}>
+        <Route path={routes.LandingPage} exact>
+          <Flex justify={'center'} align={'center'} h={'100vh'}>
+            <Text fontSize={'6xl'}>No Project selected</Text>
+          </Flex>
+        </Route>
+        <Route path={routes.NewProject} exact>
           <NewProject />
         </Route>
-        <Route path={routes.Editor}>
-          <Editor />
-        </Route>
-        <Route path={routes.LoadSession}>
-          <LoadSession />
+        <Route path={routes.EditorShell} exact>
+          <EditorShell />
         </Route>
       </Switch>
     </BrowserRouter>

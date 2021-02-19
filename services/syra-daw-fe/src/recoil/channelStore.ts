@@ -8,6 +8,7 @@ import { syncEffectsComb } from "./effects/syncEffectsComb";
 import { createSoulInstance } from "../soul/createSoulInstance";
 import { soulPluginStore } from "./soulPluginStore";
 import { projectStore } from "./projectStore";
+import { undoRedoEffect } from "./effects/undoRedoEffect";
 
 let lastChannelNum = 2;
 
@@ -41,7 +42,7 @@ const color = atomFamilyWithEffects<string, string>({
 // Whether the user clicked the record button the channel or not.
 const isArmed = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isArmed',
-  default: true,
+  default: false,
   effects: [
     ...syncEffectsComb
   ]
@@ -84,7 +85,8 @@ const pluginIds = atomFamilyWithEffects<string[], string>({
   key: 'channel/pluginIds',
   default: [],
   effects: [
-    ...syncEffectsComb
+    ...syncEffectsComb,
+    undoRedoEffect,
   ]
 });
 
@@ -122,7 +124,6 @@ const soulInstance = selectorFamily<SoulInstance | undefined, string>({
           try {
             instance = await createSoulInstance(patch, patchDescriptor.description.isInstrument);
           } catch (e) {
-            console.log('Audio Context is suspended. We need a queue.');
           }
         }
       }
@@ -130,7 +131,7 @@ const soulInstance = selectorFamily<SoulInstance | undefined, string>({
 
     return instance;
   },
-  set: pluginId => ({set}, instance) => {
+  set: pluginId => ({set, get}, instance) => {
     set(soulInstanceCache(pluginId), instance);
     set(soulPatchDescriptor(pluginId), (instance as SoulInstance).soulPatch.descriptor);
   },
@@ -201,7 +202,8 @@ const ids = atomWithEffects<string[]>({
   key: 'channel/ids',
   default: [],
   effects: [
-    ...syncEffectsComb
+    ...syncEffectsComb,
+    undoRedoEffect,
   ]
 });
 

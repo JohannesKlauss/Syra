@@ -7,10 +7,11 @@ import UserListActions from "./UserListActions/UserListActions";
 
 interface Props {
   users: FeedUserFragment[];
+  isMessageButtonContracted?: boolean;
   size?: "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 }
 
-const UserList: React.FC<Props> = ({users, size}) => {
+const UserList: React.FC<Props> = ({users, isMessageButtonContracted, size}) => {
   const { push } = useRouter();
 
   return (
@@ -27,7 +28,7 @@ const UserList: React.FC<Props> = ({users, size}) => {
                 <Text fontSize={size}>{user.name}</Text>
               </Box>
             </Flex>
-            <UserListActions user={user}/>
+            <UserListActions user={user} isMessageButtonContracted={isMessageButtonContracted}/>
           </Flex>
         </ListItem>
       ))}

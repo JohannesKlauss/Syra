@@ -1,15 +1,25 @@
-import NextI18Next from 'next-i18next';
-import * as path from 'path';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 
-const NextI18NextInstance = new NextI18Next({
-  defaultLanguage: 'en',
-  otherLanguages: ['de'],
-  fallbackLng: 'en',
-  fallbackNS: 'default',
-  defaultNS: 'default',
-  localePath: path.resolve('./public/static/locales')
-});
+import en from "../public/static/locales/en/default.json";
+import de from "../public/static/locales/de/default.json";
 
-export default NextI18NextInstance;
+i18n
+  .use(initReactI18next)
+  .init({
+    resources: {
+      en: {
+        translation: en
+      },
+      de: {
+        translation: de
+      }
+    },
+    lng: "en",
 
-export const {appWithTranslation, Link, Trans, Router, config, withTranslation, i18n} = NextI18NextInstance;
+    interpolation: {
+      escapeValue: false
+    }
+  });
+
+export default i18n;

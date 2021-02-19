@@ -15,6 +15,20 @@ generator typegraphql {
   output   = "../prisma/generated/type-graphql"
 }
 
+model Issue {
+  id                String      @id @default(cuid())
+  createdAt         DateTime    @default(now())
+  resolved          Boolean     @default(false)
+  description       String
+  screenshotIds     String[]
+}
+
+model VersionInformation {
+  id                String      @id @default(cuid())
+  createdAt         DateTime    @default(now())
+  description       String
+}
+
 model AudioAsset {
   id                String      @id @default(cuid())
   location          String

@@ -74,7 +74,7 @@ function CreateFeedItem({}: Props) {
               </FormControl>
             </Box>
           </Flex>
-          <Divider/>
+          <Divider my={2}/>
           <Flex>
             <AttachMixdown onSelectMixdown={mixdownId => setValue('mixdownId', mixdownId)}/>
             <Button marginLeft={4} isFullWidth colorScheme={'teal'} isLoading={isSending || isSendingText} type={'submit'}>{t('Post')}</Button>

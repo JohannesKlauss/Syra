@@ -245,6 +245,12 @@ type AggregateFeedItemRevision {
   min: FeedItemRevisionMinAggregate
 }
 
+type AggregateIssue {
+  count: IssueCountAggregate
+  max: IssueMaxAggregate
+  min: IssueMinAggregate
+}
+
 type AggregateMixdown {
   avg: MixdownAvgAggregate
   count: MixdownCountAggregate
@@ -275,6 +281,12 @@ type AggregateUsersOnProjects {
   count: UsersOnProjectsCountAggregate
   max: UsersOnProjectsMaxAggregate
   min: UsersOnProjectsMinAggregate
+}
+
+type AggregateVersionInformation {
+  count: VersionInformationCountAggregate
+  max: VersionInformationMaxAggregate
+  min: VersionInformationMinAggregate
 }
 
 type AudioAsset {
@@ -2289,6 +2301,100 @@ input IntFilter {
   notIn: [Int!]
 }
 
+type Issue {
+  createdAt: Timestamp!
+  description: String!
+  id: String!
+  resolved: Boolean!
+  screenshotIds: [String!]!
+}
+
+type IssueCountAggregate {
+  _all: Int!
+  createdAt: Int
+  description: Int
+  id: Int
+  resolved: Int
+  screenshotIds: Int
+}
+
+input IssueCreateInput {
+  createdAt: Timestamp
+  description: String!
+  id: String
+  resolved: Boolean
+  screenshotIds: IssueCreatescreenshotIdsInput
+}
+
+input IssueCreatescreenshotIdsInput {
+  set: [String!]!
+}
+
+type IssueMaxAggregate {
+  createdAt: Timestamp
+  description: String
+  id: String
+  resolved: Boolean
+}
+
+type IssueMinAggregate {
+  createdAt: Timestamp
+  description: String
+  id: String
+  resolved: Boolean
+}
+
+input IssueOrderByInput {
+  createdAt: SortOrder
+  description: SortOrder
+  id: SortOrder
+  resolved: SortOrder
+  screenshotIds: SortOrder
+}
+
+enum IssueScalarFieldEnum {
+  createdAt
+  description
+  id
+  resolved
+  screenshotIds
+}
+
+input IssueUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  resolved: BoolFieldUpdateOperationsInput
+  screenshotIds: IssueUpdatescreenshotIdsInput
+}
+
+input IssueUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  resolved: BoolFieldUpdateOperationsInput
+  screenshotIds: IssueUpdatescreenshotIdsInput
+}
+
+input IssueUpdatescreenshotIdsInput {
+  set: [String!]!
+}
+
+input IssueWhereInput {
+  AND: [IssueWhereInput!]
+  NOT: [IssueWhereInput!]
+  OR: [IssueWhereInput!]
+  createdAt: DateTimeFilter
+  description: StringFilter
+  id: StringFilter
+  resolved: BoolFilter
+  screenshotIds: StringNullableListFilter
+}
+
+input IssueWhereUniqueInput {
+  id: String
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -2747,11 +2853,13 @@ type Mutation {
   createFeedItem(data: FeedItemCreateInput!): FeedItem!
   createFeedItemLike(data: FeedItemLikeCreateInput!): FeedItemLike!
   createFeedItemRevision(data: FeedItemRevisionCreateInput!): FeedItemRevision!
+  createIssue(data: IssueCreateInput!): Issue!
   createMixdown(data: MixdownCreateInput!): Mixdown!
   createProject(data: ProjectCreateInput!): Project!
   createTag(data: TagCreateInput!): Tag!
   createUser(data: UserCreateInput!): User!
   createUsersOnProjects(data: UsersOnProjectsCreateInput!): UsersOnProjects!
+  createVersionInformation(data: VersionInformationCreateInput!): VersionInformation!
   deleteAddress(where: AddressWhereUniqueInput!): Address
   deleteBand(where: BandWhereUniqueInput!): Band
   deleteComment(where: CommentWhereUniqueInput!): Comment
@@ -2759,6 +2867,7 @@ type Mutation {
   deleteFeedItem(where: FeedItemWhereUniqueInput!): FeedItem
   deleteFeedItemLike(where: FeedItemLikeWhereUniqueInput!): FeedItemLike
   deleteFeedItemRevision(where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision
+  deleteIssue(where: IssueWhereUniqueInput!): Issue
   deleteManyAddress(where: AddressWhereInput): AffectedRowsOutput!
   deleteManyBand(where: BandWhereInput): AffectedRowsOutput!
   deleteManyComment(where: CommentWhereInput): AffectedRowsOutput!
@@ -2766,16 +2875,19 @@ type Mutation {
   deleteManyFeedItem(where: FeedItemWhereInput): AffectedRowsOutput!
   deleteManyFeedItemLike(where: FeedItemLikeWhereInput): AffectedRowsOutput!
   deleteManyFeedItemRevision(where: FeedItemRevisionWhereInput): AffectedRowsOutput!
+  deleteManyIssue(where: IssueWhereInput): AffectedRowsOutput!
   deleteManyMixdown(where: MixdownWhereInput): AffectedRowsOutput!
   deleteManyProject(where: ProjectWhereInput): AffectedRowsOutput!
   deleteManyTag(where: TagWhereInput): AffectedRowsOutput!
   deleteManyUser(where: UserWhereInput): AffectedRowsOutput!
   deleteManyUsersOnProjects(where: UsersOnProjectsWhereInput): AffectedRowsOutput!
+  deleteManyVersionInformation(where: VersionInformationWhereInput): AffectedRowsOutput!
   deleteMixdown(where: MixdownWhereUniqueInput!): Mixdown
   deleteProject(where: ProjectWhereUniqueInput!): Project
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
+  deleteVersionInformation(where: VersionInformationWhereUniqueInput!): VersionInformation
   publishChange(authorId: String, change: JSONObject!, date: Timestamp!, id: String!, projectId: String!): PublishProjectChangeArgs!
   signUpUser(data: UserSignUpInput!): User!
   updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
@@ -2785,6 +2897,7 @@ type Mutation {
   updateFeedItem(data: FeedItemUpdateInput!, where: FeedItemWhereUniqueInput!): FeedItem
   updateFeedItemLike(data: FeedItemLikeUpdateInput!, where: FeedItemLikeWhereUniqueInput!): FeedItemLike
   updateFeedItemRevision(data: FeedItemRevisionUpdateInput!, where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision
+  updateIssue(data: IssueUpdateInput!, where: IssueWhereUniqueInput!): Issue
   updateManyAddress(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): AffectedRowsOutput!
   updateManyBand(data: BandUpdateManyMutationInput!, where: BandWhereInput): AffectedRowsOutput!
   updateManyComment(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): AffectedRowsOutput!
@@ -2792,16 +2905,19 @@ type Mutation {
   updateManyFeedItem(data: FeedItemUpdateManyMutationInput!, where: FeedItemWhereInput): AffectedRowsOutput!
   updateManyFeedItemLike(data: FeedItemLikeUpdateManyMutationInput!, where: FeedItemLikeWhereInput): AffectedRowsOutput!
   updateManyFeedItemRevision(data: FeedItemRevisionUpdateManyMutationInput!, where: FeedItemRevisionWhereInput): AffectedRowsOutput!
+  updateManyIssue(data: IssueUpdateManyMutationInput!, where: IssueWhereInput): AffectedRowsOutput!
   updateManyMixdown(data: MixdownUpdateManyMutationInput!, where: MixdownWhereInput): AffectedRowsOutput!
   updateManyProject(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): AffectedRowsOutput!
   updateManyTag(data: TagUpdateManyMutationInput!, where: TagWhereInput): AffectedRowsOutput!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
   updateManyUsersOnProjects(data: UsersOnProjectsUpdateManyMutationInput!, where: UsersOnProjectsWhereInput): AffectedRowsOutput!
+  updateManyVersionInformation(data: VersionInformationUpdateManyMutationInput!, where: VersionInformationWhereInput): AffectedRowsOutput!
   updateMixdown(data: MixdownUpdateInput!, where: MixdownWhereUniqueInput!): Mixdown
   updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
   updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateUsersOnProjects(data: UsersOnProjectsUpdateInput!, where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
+  updateVersionInformation(data: VersionInformationUpdateInput!, where: VersionInformationWhereUniqueInput!): VersionInformation
   upsertAddress(create: AddressCreateInput!, update: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address!
   upsertBand(create: BandCreateInput!, update: BandUpdateInput!, where: BandWhereUniqueInput!): Band!
   upsertComment(create: CommentCreateInput!, update: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment!
@@ -2809,11 +2925,13 @@ type Mutation {
   upsertFeedItem(create: FeedItemCreateInput!, update: FeedItemUpdateInput!, where: FeedItemWhereUniqueInput!): FeedItem!
   upsertFeedItemLike(create: FeedItemLikeCreateInput!, update: FeedItemLikeUpdateInput!, where: FeedItemLikeWhereUniqueInput!): FeedItemLike!
   upsertFeedItemRevision(create: FeedItemRevisionCreateInput!, update: FeedItemRevisionUpdateInput!, where: FeedItemRevisionWhereUniqueInput!): FeedItemRevision!
+  upsertIssue(create: IssueCreateInput!, update: IssueUpdateInput!, where: IssueWhereUniqueInput!): Issue!
   upsertMixdown(create: MixdownCreateInput!, update: MixdownUpdateInput!, where: MixdownWhereUniqueInput!): Mixdown!
   upsertProject(create: ProjectCreateInput!, update: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project!
   upsertTag(create: TagCreateInput!, update: TagUpdateInput!, where: TagWhereUniqueInput!): Tag!
   upsertUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   upsertUsersOnProjects(create: UsersOnProjectsCreateInput!, update: UsersOnProjectsUpdateInput!, where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects!
+  upsertVersionInformation(create: VersionInformationCreateInput!, update: VersionInformationUpdateInput!, where: VersionInformationWhereUniqueInput!): VersionInformation!
 }
 
 input NestedBoolFilter {
@@ -3235,11 +3353,13 @@ type Query {
   aggregateFeedItem(cursor: FeedItemWhereUniqueInput, orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): AggregateFeedItem!
   aggregateFeedItemLike(cursor: FeedItemLikeWhereUniqueInput, orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): AggregateFeedItemLike!
   aggregateFeedItemRevision(cursor: FeedItemRevisionWhereUniqueInput, orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): AggregateFeedItemRevision!
+  aggregateIssue(cursor: IssueWhereUniqueInput, orderBy: [IssueOrderByInput!], skip: Int, take: Int, where: IssueWhereInput): AggregateIssue!
   aggregateMixdown(cursor: MixdownWhereUniqueInput, orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): AggregateMixdown!
   aggregateProject(cursor: ProjectWhereUniqueInput, orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): AggregateProject!
   aggregateTag(cursor: TagWhereUniqueInput, orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): AggregateTag!
   aggregateUser(cursor: UserWhereUniqueInput, orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
   aggregateUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): AggregateUsersOnProjects!
+  aggregateVersionInformation(cursor: VersionInformationWhereUniqueInput, orderBy: [VersionInformationOrderByInput!], skip: Int, take: Int, where: VersionInformationWhereInput): AggregateVersionInformation!
   band(where: BandWhereUniqueInput!): Band
   bands(cursor: BandWhereUniqueInput, distinct: [BandScalarFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): [Band!]!
   comment(where: CommentWhereUniqueInput!): Comment
@@ -3259,14 +3379,18 @@ type Query {
   findFirstFeedItem(cursor: FeedItemWhereUniqueInput, distinct: [FeedItemScalarFieldEnum!], orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): FeedItem
   findFirstFeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeScalarFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): FeedItemLike
   findFirstFeedItemRevision(cursor: FeedItemRevisionWhereUniqueInput, distinct: [FeedItemRevisionScalarFieldEnum!], orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): FeedItemRevision
+  findFirstIssue(cursor: IssueWhereUniqueInput, distinct: [IssueScalarFieldEnum!], orderBy: [IssueOrderByInput!], skip: Int, take: Int, where: IssueWhereInput): Issue
   findFirstMixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): Mixdown
   findFirstProject(cursor: ProjectWhereUniqueInput, distinct: [ProjectScalarFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): Project
   findFirstTag(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): Tag
   findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): User
   findFirstUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): UsersOnProjects
+  findFirstVersionInformation(cursor: VersionInformationWhereUniqueInput, distinct: [VersionInformationScalarFieldEnum!], orderBy: [VersionInformationOrderByInput!], skip: Int, take: Int, where: VersionInformationWhereInput): VersionInformation
   findManyUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]!
   findUniqueUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
   followRecommendations: [User!]!
+  issue(where: IssueWhereUniqueInput!): Issue
+  issues(cursor: IssueWhereUniqueInput, distinct: [IssueScalarFieldEnum!], orderBy: [IssueOrderByInput!], skip: Int, take: Int, where: IssueWhereInput): [Issue!]!
   me: User!
   mixdown(where: MixdownWhereUniqueInput!): Mixdown
   mixdowns(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]!
@@ -3276,6 +3400,8 @@ type Query {
   tags(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]!
   user(where: UserWhereUniqueInput!): User
   users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
+  versionInformation(where: VersionInformationWhereUniqueInput!): VersionInformation
+  versionInformations(cursor: VersionInformationWhereUniqueInput, distinct: [VersionInformationScalarFieldEnum!], orderBy: [VersionInformationOrderByInput!], skip: Int, take: Int, where: VersionInformationWhereInput): [VersionInformation!]!
 }
 
 enum QueryMode {
@@ -3326,6 +3452,14 @@ input StringNullableFilter {
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
+}
+
+input StringNullableListFilter {
+  equals: [String!]
+  has: String
+  hasEvery: [String!]
+  hasSome: [String!]
+  isEmpty: Boolean
 }
 
 type Subscription {
@@ -3492,6 +3626,7 @@ type User {
   followedByCount: Int
   following(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
   followingCount: Int
+  friends: [User!]
   handle: String!
   id: String!
   interests(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]!
@@ -3504,6 +3639,7 @@ type User {
   ownsBands(cursor: BandWhereUniqueInput, distinct: [BandScalarFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): [Band!]!
   ownsProjects(cursor: ProjectWhereUniqueInput, distinct: [ProjectScalarFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]!
   role: Role!
+  sessionCount: Int
   updatedAt: Timestamp!
   website: String
 }
@@ -5292,4 +5428,72 @@ input UsersOnProjectsWhereInput {
 
 input UsersOnProjectsWhereUniqueInput {
   userId_projectId: UsersOnProjectsUserIdProjectIdCompoundUniqueInput
+}
+
+type VersionInformation {
+  createdAt: Timestamp!
+  description: String!
+  id: String!
+}
+
+type VersionInformationCountAggregate {
+  _all: Int!
+  createdAt: Int
+  description: Int
+  id: Int
+}
+
+input VersionInformationCreateInput {
+  createdAt: Timestamp
+  description: String!
+  id: String
+}
+
+type VersionInformationMaxAggregate {
+  createdAt: Timestamp
+  description: String
+  id: String
+}
+
+type VersionInformationMinAggregate {
+  createdAt: Timestamp
+  description: String
+  id: String
+}
+
+input VersionInformationOrderByInput {
+  createdAt: SortOrder
+  description: SortOrder
+  id: SortOrder
+}
+
+enum VersionInformationScalarFieldEnum {
+  createdAt
+  description
+  id
+}
+
+input VersionInformationUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+}
+
+input VersionInformationUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+}
+
+input VersionInformationWhereInput {
+  AND: [VersionInformationWhereInput!]
+  NOT: [VersionInformationWhereInput!]
+  OR: [VersionInformationWhereInput!]
+  createdAt: DateTimeFilter
+  description: StringFilter
+  id: StringFilter
+}
+
+input VersionInformationWhereUniqueInput {
+  id: String
 }

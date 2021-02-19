@@ -93,7 +93,7 @@ export function instantiateMixer() {
         Tone.connectSeries(retNodes.audioIn, retNodes.recorder);
       }
 
-      disconnect();
+      disconnect(virtualInstrumentNode);
 
       if (virtualInstrumentNode) {
         Tone.connectSeries(

@@ -35,3 +35,13 @@ export function hexToRgb(hex: string) {
     blue: hexToComponent(hex, 1)
   }
 }
+
+export function chakraColorToHex(themeColorString: string, colors: Record<string, Record<string, string>>) {
+  if (themeColorString.startsWith('#')) {
+    return themeColorString;
+  }
+
+  const split = themeColorString.split('.');
+
+  return colors[split[0]][split[1]];
+}

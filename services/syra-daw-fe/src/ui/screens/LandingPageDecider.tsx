@@ -6,7 +6,7 @@ function LandingPageDecider() {
   const history = useHistory();
 
   useEffect(() => {
-    history.push(process.env.NODE_ENV === 'development' ? routes.Editor : routes.NewProject);
+    history.push(process.env.NODE_ENV === 'development' ? routes.EditorShell : routes.NewProject);
   }, [history]);
 
   return null;

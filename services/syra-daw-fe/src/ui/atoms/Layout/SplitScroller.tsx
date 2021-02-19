@@ -1,13 +1,13 @@
 import { Box, Flex } from '@chakra-ui/react';
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 
 interface Props {
   children: ReadonlyArray<ReactNode>;
 }
 
-const SplitScroller: React.FC<Props> = ({children}) => {
+const SplitScroller: React.ForwardRefRenderFunction<HTMLDivElement, Props> = ({ children }, ref) => {
   return (
-    <Flex maxW={'100%'} maxH={'100%'} overflow={'auto'}>
+    <Flex maxW={'100%'} maxH={'100%'} overflow={'auto'} ref={ref}>
       <Box flexDir={'column'} h={'100%'}>
         {children[0]}
       </Box>
@@ -18,4 +18,4 @@ const SplitScroller: React.FC<Props> = ({children}) => {
   );
 };
 
-export default SplitScroller;
+export default React.forwardRef(SplitScroller);

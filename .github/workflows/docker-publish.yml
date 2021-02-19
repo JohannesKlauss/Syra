@@ -28,6 +28,9 @@ jobs:
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
 
       - name: Build and push Docker images to DO Registry
+        env:
+          NEXT_PUBLIC_LIVE_GQL_URL: ${{ secrets.LIVE_GQL_URL }}
+          NEXT_PUBLIC_DAW_URL: ${{ secrets.DAW_URL }}
         run: |
           COMPONENTS=$(find services/syra-*/Dockerfile)
 
@@ -38,7 +41,7 @@ jobs:
 
             echo build and push $IMAGE_NAME:${{ steps.get_version.outputs.VERSION }}
 
-            docker build $IMAGE_NAME --tag $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):${{ steps.get_version.outputs.VERSION }}
+            LIVE_GQL_URL=$NEXT_PUBLIC_LIVE_GQL_URL DAW_URL=$NEXT_PUBLIC_DAW_URL docker build $IMAGE_NAME --tag $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):${{ steps.get_version.outputs.VERSION }}
             docker push $(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]'):${{ steps.get_version.outputs.VERSION }}
 
             echo "$IMAGE_NAME done! \n\n"

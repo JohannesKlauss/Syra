@@ -1,5 +1,4 @@
 import React from 'react';
-import App from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { RecoilRoot } from 'recoil';
 import { useApollo } from "../apollo/client";
@@ -9,11 +8,13 @@ import mixpanel from 'mixpanel-browser';
 import Footer from '../ui/atoms/Footer/Footer';
 import Stopper from '../ui/atoms/Stopper/Stopper';
 import '../styles/global.css';
-import { Router } from 'next/router';
+import { Router } from "next/router";
 import * as NProgress from 'nprogress';
 import Head from 'next/head';
-import { appWithTranslation } from '../i18n';
 import AuthProvider from "../providers/auth/AuthProvider";
+import "../i18n";
+import useListenForLocaleChange from "../hooks/useListenForLocaleChange";
+import useFaviconWatcher from "../hooks/ui/global/useFaviconWatcher";
 
 axios.interceptors.response.use(
   (response) => response,
@@ -26,14 +27,18 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-function MyApp({ Component, pageProps }) {
+function SyraLive({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
+  const favicon = useFaviconWatcher();
+
+  useListenForLocaleChange();
 
   return (
     <>
       <Head>
         <link rel="stylesheet" type="text/css" href="/static/css/nprogress.css" />
         <title>{`S Y R A  |  Live ${pageProps.pageTitle ?? ''}`}</title>
+        <link rel="shortcut icon" href={favicon} />
       </Head>
       <ApolloProvider client={apolloClient}>
         <RecoilRoot>
@@ -50,6 +55,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-MyApp.getInitialProps = async (appContext) => ({ ...(await App.getInitialProps(appContext)) });
-
-export default appWithTranslation(MyApp);
+export default SyraLive

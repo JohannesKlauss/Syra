@@ -10,12 +10,30 @@ query project($id: String!) {
         isInitialized
         members(where: {projectId: {equals: $id}}) {
             user {
-                name
-                id
-                avatar
+                ...BaseUser
             }
         }
         content
+    }
+}
+
+mutation updateName($projectId: String!, $name: String!) {
+    updateProject(where: {id: $projectId}, data: {name: {set: $name}}) {
+        id
+    }
+}
+
+mutation addMember($projectId: String!, $userId: String!) {
+    createUsersOnProjects(data: {user: {connect: {id: $userId}}, project: {connect: {id: $projectId}}}) {
+        user {
+            ...BaseUser
+        }
+    }
+}
+
+mutation removeMember($projectId: String!, $userId: String!) {
+    deleteUsersOnProjects(where: {userId_projectId: {userId: $userId, projectId: $projectId}}) {
+        userId
     }
 }
 

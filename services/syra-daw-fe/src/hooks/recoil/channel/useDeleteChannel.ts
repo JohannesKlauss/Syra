@@ -8,7 +8,7 @@ export default function useDeleteChannel() {
     const channelIds = snapshot.getLoadable(channelStore.ids).contents as string[];
     const selectedId = snapshot.getLoadable(channelStore.selectedId).contents as string;
 
-    if (channelId === selectedId) {
+    if (channelId === selectedId && channelIds.length > 1) {
       const regions = snapshot.getLoadable(regionStore.ids(channelId)).contents as string[];
 
       regions.forEach(regionId => {

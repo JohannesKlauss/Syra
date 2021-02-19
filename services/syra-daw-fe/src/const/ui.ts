@@ -1,5 +1,7 @@
 export const ARRANGE_GRID_WAVEFORM_SAMPLE_RATE = 2000; // This is the rate the audio buffers get down sampled to for waveform vis.
 
+export const PIANO_ROLL_MIDI_TRACK_HEIGHT = 14;
+
 export const DPR = window.devicePixelRatio;
 
 // This defines the default height of a track based on the vertical zoom level.

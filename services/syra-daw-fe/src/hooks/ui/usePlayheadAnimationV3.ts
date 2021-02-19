@@ -21,7 +21,7 @@ export default function usePlayheadAnimationV3() {
 
   useEffect(() => {
     x.set(ticksToPixel(transport.ticks));
-  }, [seconds]);
+  }, [seconds, x, ticksToPixel]);
 
   const animate = () => {
     const pixelPosition = ticksToPixel(transport.ticks);

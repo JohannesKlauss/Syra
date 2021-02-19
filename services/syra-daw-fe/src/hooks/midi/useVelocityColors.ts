@@ -8,9 +8,7 @@ export default function useVelocityColors() {
   const colorMap = interpolate([
     theme.colors.blue[700],
     theme.colors.blue[300],
-    theme.colors.green[700],
     theme.colors.green[300],
-    theme.colors.red[700],
     theme.colors.red[300],
   ]);
 

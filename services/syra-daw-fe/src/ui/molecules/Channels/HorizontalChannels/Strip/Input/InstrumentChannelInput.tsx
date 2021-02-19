@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import { ChannelContext } from '../../../../../../providers/ChannelContext';
 import SoulPlugin from '../../../../SoulPlugin/SoulPlugin';
 

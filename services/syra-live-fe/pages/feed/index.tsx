@@ -7,7 +7,7 @@ import FeedStack from '../../ui/molecules/Feed/FeedStack/FeedStack';
 import CreateFeedItem from '../../ui/molecules/Feed/CreateFeedItem/CreateFeedItem';
 import ProtectedRoute from "../../providers/auth/ProtectedRoute";
 
-export default function Feed() {
+function Feed() {
   return (
     <ProtectedRoute>
       <PageBox>
@@ -30,3 +30,5 @@ export default function Feed() {
     </ProtectedRoute>
   );
 }
+
+export default Feed;

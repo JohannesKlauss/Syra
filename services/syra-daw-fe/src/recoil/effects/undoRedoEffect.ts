@@ -1,20 +1,35 @@
 import { AtomEffect } from "recoil";
 import { RecoilAtomEffect } from "../../types/Recoil";
 
-const history: Array<{
+type UndoRedoHistory = Array<{
   label: string,
-  undo: () => void,
-}> = [];
+  trigger: () => void,
+}>;
+
+export const undoHistory: UndoRedoHistory = [];
+
+export const redoHistory: UndoRedoHistory = [];
 
 export const undoRedoEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ setSelf, onSet }) => {
   const labelKey = `${key}${id ? `-${id}` : null}`;
 
   onSet((newValue, oldValue) => {
-    history.push({
+    const undoRedoPair = {
       label: `${labelKey}: ${JSON.stringify(oldValue)} -> ${JSON.stringify(newValue)}`,
-      undo: () => {
+      trigger: () => {
         setSelf(oldValue);
+
+        redoHistory.push({
+          label: `${labelKey}: ${JSON.stringify(newValue)} -> ${JSON.stringify(oldValue)}`,
+          trigger: () => {
+            setSelf(newValue);
+
+            undoHistory.push(undoRedoPair);
+          },
+        });
       },
-    });
+    };
+
+    undoHistory.push(undoRedoPair);
   });
 };

@@ -6,6 +6,7 @@ import { transportStore } from '../../recoil/transportStore';
 import useBackboneChannel from '../tone/BackboneMixer/useBackboneChannel';
 import useAudioContext from './useAudioContext';
 import { BackboneMixerContext } from '../../providers/BackboneMixerContext';
+import { ChannelType } from '../../types/Channel';
 
 const BUFFER_SIZE = 2048;
 
@@ -13,6 +14,7 @@ export default function useRecorder(channelId: string) {
   const backboneMixer = useContext(BackboneMixerContext);
   const ctx = useAudioContext();
   const isArmed = useRecoilValue(channelStore.isArmed(channelId));
+  const type = useRecoilValue(channelStore.type(channelId));
   const createAsyncRegion = useCreateAudioRegionAsync();
   const isRecording = useRecoilValue(transportStore.isRecording);
   const regionPushBuffer = useRef<(audioBuffer: AudioBuffer) => void>();
@@ -22,6 +24,10 @@ export default function useRecorder(channelId: string) {
   const { recorder: recorderNode } = useBackboneChannel(channelId);
 
   useEffect(() => {
+    if (type !== ChannelType.AUDIO) {
+      return;
+    }
+    
     if (isRecording && isArmed) {
       if (recorderNode) {
         const param = recorderNode.parameters.get('isRecording');
@@ -37,7 +43,7 @@ export default function useRecorder(channelId: string) {
         param && param.setValueAtTime(0, ctx.currentTime + 0.5);
       }
     }
-  }, [isRecording, isArmed, createAsyncRegion, channelId, recorderNode]);
+  }, [isRecording, isArmed, createAsyncRegion, channelId, recorderNode, type]);
 
   useEffect(() => {
     if (recorderNode) {

@@ -1,29 +1,44 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from "recoil";
 import { keyboardMidiStore } from '../../recoil/keyboardMidiStore';
-import { useEffect } from 'react';
-import WebMidi from 'webmidi';
+import { useCallback } from "react";
+import WebMidi, { InputEventNoteoff, InputEventNoteon } from "webmidi";
 import { MidiEventCallable } from '../../types/Midi';
 
 export default function useListenForExternalMidiIn(onMidiEvent: MidiEventCallable) {
   const [midiDevice] = useRecoilState(keyboardMidiStore.selectedMidiDevice);
+  const isMidiEnabled = useRecoilValue(keyboardMidiStore.isMidiEnabled);
 
-  useEffect(() => {
-    if (midiDevice === null) {
+  const onNoteOnEvent = useCallback((event: InputEventNoteon) => onMidiEvent(144, event.note.number, event.rawVelocity), [onMidiEvent]);
+  const onNoteOffEvent = useCallback((event: InputEventNoteoff) => onMidiEvent(128, event.note.number, event.rawVelocity), [onMidiEvent]);
+
+  const connect = useCallback(() => {
+    if (midiDevice === null || !isMidiEnabled) {
       return;
     }
 
     const input = WebMidi.getInputByName(midiDevice);
 
     if (input) {
-      input.addListener('noteon', 'all', event => onMidiEvent(144, event.note.number, event.rawVelocity));
-      input.addListener('noteoff', 'all', event => onMidiEvent(128, event.note.number, event.rawVelocity));
+      input.removeListener('noteon', 'all', onNoteOnEvent);
+      input.removeListener('noteoff', 'all', onNoteOffEvent);
+
+      input.addListener('noteon', 'all', onNoteOnEvent);
+      input.addListener('noteoff', 'all', onNoteOffEvent);
+    }
+  }, [midiDevice, onMidiEvent, onNoteOnEvent, onNoteOffEvent, isMidiEnabled]);
+
+  const disconnect = useCallback(() => {
+    if (midiDevice === null || !isMidiEnabled) {
+      return;
     }
 
-    return () => {
-      if (input) {
-        input.removeListener('noteon', 'all', event => onMidiEvent(144, event.note.number, event.rawVelocity));
-        input.removeListener('noteoff', 'all', event => onMidiEvent(128, event.note.number, event.rawVelocity));
-      }
+    const input = WebMidi.getInputByName(midiDevice);
+
+    if (input) {
+      input.removeListener('noteon', 'all', onNoteOnEvent);
+      input.removeListener('noteoff', 'all', onNoteOffEvent);
     }
-  }, [midiDevice, onMidiEvent]);
+  }, [midiDevice, isMidiEnabled, onNoteOffEvent, onNoteOnEvent]);
+
+  return [connect, disconnect];
 }

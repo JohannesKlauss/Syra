@@ -21,6 +21,7 @@ fragment BaseProfile on User {
     handle
     followedByCount
     followingCount
+    sessionCount
     isMyself
     followedBy(take: 3) {
         ...UserLink
@@ -64,6 +65,7 @@ query user($id: String!) {
 
 query myFollowers {
     me {
+        id
         followedBy {
             ...FeedUser
         }
@@ -72,8 +74,18 @@ query myFollowers {
 
 query meFollowing {
     me {
+        id
         following {
             ...FeedUser
+        }
+    }
+}
+
+query myFriends {
+    me {
+        id
+        friends {
+            ...UserLink
         }
     }
 }

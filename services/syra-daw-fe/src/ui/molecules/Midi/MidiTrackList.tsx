@@ -1,6 +1,9 @@
 import { Box } from '@chakra-ui/react';
 import React from "react";
 import MidiTrack from "./MidiTrack";
+import ContextMenu from "../ContextMenu/ContextMenu";
+import ContextMenuTrigger from '../ContextMenu/ContextMenuTrigger';
+import PianoRollContextMenu from '../PianoRoll/PianoRollContextMenu';
 
 interface Props {
   min: number;
@@ -10,9 +13,14 @@ interface Props {
 const MidiTrackList: React.FC<Props> = React.memo(({min, max}) => {
   return (
     <Box>
-      {Array.from({length: (max - min) + 1}, (_, i) => max - i).map((note, i) => (
-        <MidiTrack note={note} key={note} isEven={i % 2 === 0}/>
-      ))}
+      <ContextMenu hotkey={'t'}>
+        <ContextMenuTrigger>
+          {Array.from({length: (max - min) + 1}, (_, i) => max - i).map((note, i) => (
+            <MidiTrack note={note} key={note} isEven={i % 2 === 0}/>
+          ))}
+        </ContextMenuTrigger>
+        <PianoRollContextMenu/>
+      </ContextMenu>
     </Box>
   );
 });

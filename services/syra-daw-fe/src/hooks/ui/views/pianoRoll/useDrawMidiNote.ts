@@ -14,13 +14,15 @@ export default function useDrawMidiNote(note: number) {
   return useRecoilCallback(({set, snapshot}) => (noteOnAt: Tone.TicksClass, duration: Tone.TicksClass, velocity: number) => {
     const midiNotes = snapshot.getLoadable(regionStore.midiNotes(focusedMidiRegionId)).contents as MidiNote[];
 
+    console.log('ticks', noteOnAt.toTicks());
+
     const newNote: MidiNote = {
       id: createNewId(MIDI_ID_PREFIX),
       ticks: noteOnAt.toTicks(),
       time: noteOnAt.toSeconds(),
       velocity,
       midi: note,
-      noteOffVelocity: 0,
+      noteOffVelocity: velocity,
       durationTicks: duration.toTicks(),
       duration: duration.toSeconds(),
     };

@@ -1,0 +1,5 @@
+mutation createIssue($description: String!, $screenshotIds: [String!]!) {
+    createIssue(data: {description: $description,screenshotIds: {set: $screenshotIds} }) {
+        id
+    }
+}

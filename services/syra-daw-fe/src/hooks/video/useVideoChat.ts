@@ -52,7 +52,7 @@ export default function useVideoChat(ref: RefObject<HTMLDivElement>, width: numb
 
       setIsInitialized(true);
     }
-  }, [data, projectId, window.JitsiMeetExternalAPI, ref, width, height, isInitialized, setIsInitialized]);
+  }, [data, projectId, ref, width, height, isInitialized, setIsInitialized]);
 
   useEffect(() => {
     return () => {

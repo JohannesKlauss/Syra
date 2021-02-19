@@ -3,10 +3,15 @@ fragment SessionListData on Project {
     createdAt
     name
     updatedAt
+    members {
+        user {
+            ...UserLink
+        }
+    }
 }
 
 query myProjects($me: String) {
-    projects(where: {owner: {is: {id: {equals: $me}}}}) {
+    projects(where: {OR: [{owner: {is: {id: {equals: $me}}}}, {members: {some: {userId: {equals: $me}}}}]}, ) {
         ...SessionListData
     }
 }

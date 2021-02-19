@@ -1,9 +1,10 @@
 import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import { editorStore } from '../../../recoil/editorStore';
 import { View } from '../../../types/View';
-import useOpenPianoRoll from "../../ui/views/useOpenPianoRoll";
+import useOpenPianoRoll from "../../ui/views/pianoRoll/useOpenPianoRoll";
 import {channelStore} from "../../../recoil/channelStore";
 import {regionStore} from "../../../recoil/regionStore";
+import { useCallback } from "react";
 
 export default function useUpdateView() {
   const setShowMixer = useSetRecoilState(editorStore.showMixer);
@@ -12,11 +13,12 @@ export default function useUpdateView() {
   const selectedId = useRecoilValue(channelStore.selectedId);
   const ids = useRecoilValue(regionStore.ids(selectedId));
 
-  return (view: View) => {
+  return useCallback((view: View) => {
     switch(view) {
       case View.PIANO_ROLL:
         if (!showPianoRoll) {
           openPianoRoll(selectedId, ids[0] || '');
+          setShowPianoRoll(true);
         } else {
           setShowPianoRoll(false);
         }
@@ -28,5 +30,5 @@ export default function useUpdateView() {
         setShowMixer(val => !val);
         break;
     }
-  };
+  }, [showPianoRoll, setShowPianoRoll, setShowMixer, selectedId, ids, openPianoRoll]);
 }

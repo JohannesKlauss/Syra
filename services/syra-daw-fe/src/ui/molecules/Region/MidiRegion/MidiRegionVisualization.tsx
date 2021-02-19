@@ -25,14 +25,12 @@ const MidiNoteVis = PixiComponent<PixiProps, Graphics>('MidiNotesDisplay', {
 
     instance.clear();
     instance.beginFill(colorToHexNumber(determineTextColor(backgroundColor, true)));
-    instance.drawRect(x, y, width, height);
+    instance.drawRect(x, y, width - 1, height);
     instance.endFill();
   },
 });
 
-interface Props {}
-
-const MidiRegionVisualization: React.FC<Props> = ({}) => {
+const MidiRegionVisualization: React.FC = () => {
   const regionId = useContext(RegionContext);
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight) - 18; // Subtract the topBar of the region
   const midiNotesInsideBoundaries = useRecoilValue(regionStore.midiNotesInsideBoundaries(regionId));
@@ -50,6 +48,12 @@ const MidiRegionVisualization: React.FC<Props> = ({}) => {
   }, [midiNotesInsideBoundaries]);
 
   let noteHeight = Math.min(trackHeight / (maxMidiValue + 1 - minMidiValue), trackHeight / 10);
+
+  if (width < 0) {
+    console.log('below 0');
+
+    return null;
+  }
 
   return (
     <Stage width={width} height={trackHeight} options={{transparent: true, resolution: 1}}>

@@ -1,11 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { ChannelType } from '../../../../types/Channel';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import { channelStore } from '../../../../recoil/channelStore';
 import AudioChannel from './AudioChannel';
 import InstrumentChannel from './InstrumentChannel';
-import { Box } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
+import ChannelHeader from './Strip/ChannelHeader';
+import ChannelBody from './Strip/ChannelBody';
+import HorizontalChannelSuspenseFallback from "./HorizontalChannelSuspenseFallback";
 
 interface Props {
   channelId: string;
@@ -23,16 +26,24 @@ function BaseChannel({ channelId, index }: Props) {
   const ChannelComponent = useMemo(() => {
     switch (type) {
       case ChannelType.AUDIO:
-        return <AudioChannel/>;
+        return <AudioChannel />;
       case ChannelType.INSTRUMENT:
-        return <InstrumentChannel/>;
+        return <InstrumentChannel />;
     }
   }, [type]);
 
   return (
     <ChannelContext.Provider value={channelId}>
-      <Box data-id={'BaseChanel'} maxW={'150px'} w={'150px'} mr={'1px'} bg={backgroundColor} onClick={() => setSelectedChannelId(channelId)}>
-        {ChannelComponent}
+      <Box
+        data-id={'BaseChanel'}
+        maxW={'150px'}
+        w={'150px'}
+        bg={backgroundColor}
+        onClick={() => setSelectedChannelId(channelId)}
+      >
+        <Suspense fallback={<HorizontalChannelSuspenseFallback/>}>
+          {ChannelComponent}
+        </Suspense>
       </Box>
     </ChannelContext.Provider>
   );
