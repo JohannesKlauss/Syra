@@ -23,7 +23,7 @@ function TopBar({}: Props) {
 
     if (errors == null) {
       setIsCreatingSession(false);
-      window && window.open(`${publicRuntimeConfig.NEXT_PUBLIC_DAW_URL}/session/${data.createProject.id}`, '_blank');
+      window && window.open(`${publicRuntimeConfig.NEXT_PUBLIC_DAW_URL}/editor/${data.createProject.id}`, '_blank');
     }
   };
 
