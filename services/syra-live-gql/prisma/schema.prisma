@@ -23,6 +23,12 @@ model Issue {
   screenshotIds     String[]
 }
 
+model VersionInformation {
+  id                String      @id @default(cuid())
+  createdAt         DateTime    @default(now())
+  description       String
+}
+
 model AudioAsset {
   id                String      @id @default(cuid())
   location          String

@@ -6,6 +6,7 @@ import { syncEffectsComb } from "./effects/syncEffectsComb";
 import { gridStore } from "./gridStore";
 import { View } from "../types/View";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
+import * as Tone from 'tone';
 
 // Sets the amount of ticks that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamilyWithEffects<number, string>({
@@ -17,7 +18,7 @@ const start = atomFamilyWithEffects<number, string>({
 // This will replace trimEnd. This is measured in ticks
 const duration = atomFamilyWithEffects<number, string>({
   key: 'region/duration',
-  default: 0,
+  default: Tone.Ticks(4, 'm').toTicks(),
   effects: [...syncEffectsComb, undoRedoEffect],
 });
 

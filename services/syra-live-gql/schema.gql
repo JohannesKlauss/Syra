@@ -283,6 +283,12 @@ type AggregateUsersOnProjects {
   min: UsersOnProjectsMinAggregate
 }
 
+type AggregateVersionInformation {
+  count: VersionInformationCountAggregate
+  max: VersionInformationMaxAggregate
+  min: VersionInformationMinAggregate
+}
+
 type AudioAsset {
   id: String!
   isPublic: Boolean
@@ -2853,6 +2859,7 @@ type Mutation {
   createTag(data: TagCreateInput!): Tag!
   createUser(data: UserCreateInput!): User!
   createUsersOnProjects(data: UsersOnProjectsCreateInput!): UsersOnProjects!
+  createVersionInformation(data: VersionInformationCreateInput!): VersionInformation!
   deleteAddress(where: AddressWhereUniqueInput!): Address
   deleteBand(where: BandWhereUniqueInput!): Band
   deleteComment(where: CommentWhereUniqueInput!): Comment
@@ -2874,11 +2881,13 @@ type Mutation {
   deleteManyTag(where: TagWhereInput): AffectedRowsOutput!
   deleteManyUser(where: UserWhereInput): AffectedRowsOutput!
   deleteManyUsersOnProjects(where: UsersOnProjectsWhereInput): AffectedRowsOutput!
+  deleteManyVersionInformation(where: VersionInformationWhereInput): AffectedRowsOutput!
   deleteMixdown(where: MixdownWhereUniqueInput!): Mixdown
   deleteProject(where: ProjectWhereUniqueInput!): Project
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
+  deleteVersionInformation(where: VersionInformationWhereUniqueInput!): VersionInformation
   publishChange(authorId: String, change: JSONObject!, date: Timestamp!, id: String!, projectId: String!): PublishProjectChangeArgs!
   signUpUser(data: UserSignUpInput!): User!
   updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
@@ -2902,11 +2911,13 @@ type Mutation {
   updateManyTag(data: TagUpdateManyMutationInput!, where: TagWhereInput): AffectedRowsOutput!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
   updateManyUsersOnProjects(data: UsersOnProjectsUpdateManyMutationInput!, where: UsersOnProjectsWhereInput): AffectedRowsOutput!
+  updateManyVersionInformation(data: VersionInformationUpdateManyMutationInput!, where: VersionInformationWhereInput): AffectedRowsOutput!
   updateMixdown(data: MixdownUpdateInput!, where: MixdownWhereUniqueInput!): Mixdown
   updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
   updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateUsersOnProjects(data: UsersOnProjectsUpdateInput!, where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
+  updateVersionInformation(data: VersionInformationUpdateInput!, where: VersionInformationWhereUniqueInput!): VersionInformation
   upsertAddress(create: AddressCreateInput!, update: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address!
   upsertBand(create: BandCreateInput!, update: BandUpdateInput!, where: BandWhereUniqueInput!): Band!
   upsertComment(create: CommentCreateInput!, update: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment!
@@ -2920,6 +2931,7 @@ type Mutation {
   upsertTag(create: TagCreateInput!, update: TagUpdateInput!, where: TagWhereUniqueInput!): Tag!
   upsertUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   upsertUsersOnProjects(create: UsersOnProjectsCreateInput!, update: UsersOnProjectsUpdateInput!, where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects!
+  upsertVersionInformation(create: VersionInformationCreateInput!, update: VersionInformationUpdateInput!, where: VersionInformationWhereUniqueInput!): VersionInformation!
 }
 
 input NestedBoolFilter {
@@ -3347,6 +3359,7 @@ type Query {
   aggregateTag(cursor: TagWhereUniqueInput, orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): AggregateTag!
   aggregateUser(cursor: UserWhereUniqueInput, orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
   aggregateUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): AggregateUsersOnProjects!
+  aggregateVersionInformation(cursor: VersionInformationWhereUniqueInput, orderBy: [VersionInformationOrderByInput!], skip: Int, take: Int, where: VersionInformationWhereInput): AggregateVersionInformation!
   band(where: BandWhereUniqueInput!): Band
   bands(cursor: BandWhereUniqueInput, distinct: [BandScalarFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): [Band!]!
   comment(where: CommentWhereUniqueInput!): Comment
@@ -3372,6 +3385,7 @@ type Query {
   findFirstTag(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): Tag
   findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): User
   findFirstUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): UsersOnProjects
+  findFirstVersionInformation(cursor: VersionInformationWhereUniqueInput, distinct: [VersionInformationScalarFieldEnum!], orderBy: [VersionInformationOrderByInput!], skip: Int, take: Int, where: VersionInformationWhereInput): VersionInformation
   findManyUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]!
   findUniqueUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
   followRecommendations: [User!]!
@@ -3386,6 +3400,8 @@ type Query {
   tags(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]!
   user(where: UserWhereUniqueInput!): User
   users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
+  versionInformation(where: VersionInformationWhereUniqueInput!): VersionInformation
+  versionInformations(cursor: VersionInformationWhereUniqueInput, distinct: [VersionInformationScalarFieldEnum!], orderBy: [VersionInformationOrderByInput!], skip: Int, take: Int, where: VersionInformationWhereInput): [VersionInformation!]!
 }
 
 enum QueryMode {
@@ -5412,4 +5428,72 @@ input UsersOnProjectsWhereInput {
 
 input UsersOnProjectsWhereUniqueInput {
   userId_projectId: UsersOnProjectsUserIdProjectIdCompoundUniqueInput
+}
+
+type VersionInformation {
+  createdAt: Timestamp!
+  description: String!
+  id: String!
+}
+
+type VersionInformationCountAggregate {
+  _all: Int!
+  createdAt: Int
+  description: Int
+  id: Int
+}
+
+input VersionInformationCreateInput {
+  createdAt: Timestamp
+  description: String!
+  id: String
+}
+
+type VersionInformationMaxAggregate {
+  createdAt: Timestamp
+  description: String
+  id: String
+}
+
+type VersionInformationMinAggregate {
+  createdAt: Timestamp
+  description: String
+  id: String
+}
+
+input VersionInformationOrderByInput {
+  createdAt: SortOrder
+  description: SortOrder
+  id: SortOrder
+}
+
+enum VersionInformationScalarFieldEnum {
+  createdAt
+  description
+  id
+}
+
+input VersionInformationUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+}
+
+input VersionInformationUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+}
+
+input VersionInformationWhereInput {
+  AND: [VersionInformationWhereInput!]
+  NOT: [VersionInformationWhereInput!]
+  OR: [VersionInformationWhereInput!]
+  createdAt: DateTimeFilter
+  description: StringFilter
+  id: StringFilter
+}
+
+input VersionInformationWhereUniqueInput {
+  id: String
 }

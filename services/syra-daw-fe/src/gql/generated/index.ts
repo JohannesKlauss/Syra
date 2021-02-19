@@ -328,6 +328,13 @@ export type AggregateUsersOnProjects = {
   min?: Maybe<UsersOnProjectsMinAggregate>;
 };
 
+export type AggregateVersionInformation = {
+  __typename?: 'AggregateVersionInformation';
+  count?: Maybe<VersionInformationCountAggregate>;
+  max?: Maybe<VersionInformationMaxAggregate>;
+  min?: Maybe<VersionInformationMinAggregate>;
+};
+
 export type AudioAsset = {
   __typename?: 'AudioAsset';
   id: Scalars['String'];
@@ -2988,6 +2995,7 @@ export type Mutation = {
   createTag: Tag;
   createUser: User;
   createUsersOnProjects: UsersOnProjects;
+  createVersionInformation: VersionInformation;
   deleteAddress?: Maybe<Address>;
   deleteBand?: Maybe<Band>;
   deleteComment?: Maybe<Comment>;
@@ -3009,11 +3017,13 @@ export type Mutation = {
   deleteManyTag: AffectedRowsOutput;
   deleteManyUser: AffectedRowsOutput;
   deleteManyUsersOnProjects: AffectedRowsOutput;
+  deleteManyVersionInformation: AffectedRowsOutput;
   deleteMixdown?: Maybe<Mixdown>;
   deleteProject?: Maybe<Project>;
   deleteTag?: Maybe<Tag>;
   deleteUser?: Maybe<User>;
   deleteUsersOnProjects?: Maybe<UsersOnProjects>;
+  deleteVersionInformation?: Maybe<VersionInformation>;
   publishChange: PublishProjectChangeArgs;
   signUpUser: User;
   updateAddress?: Maybe<Address>;
@@ -3037,11 +3047,13 @@ export type Mutation = {
   updateManyTag: AffectedRowsOutput;
   updateManyUser: AffectedRowsOutput;
   updateManyUsersOnProjects: AffectedRowsOutput;
+  updateManyVersionInformation: AffectedRowsOutput;
   updateMixdown?: Maybe<Mixdown>;
   updateProject?: Maybe<Project>;
   updateTag?: Maybe<Tag>;
   updateUser?: Maybe<User>;
   updateUsersOnProjects?: Maybe<UsersOnProjects>;
+  updateVersionInformation?: Maybe<VersionInformation>;
   upsertAddress: Address;
   upsertBand: Band;
   upsertComment: Comment;
@@ -3055,6 +3067,7 @@ export type Mutation = {
   upsertTag: Tag;
   upsertUser: User;
   upsertUsersOnProjects: UsersOnProjects;
+  upsertVersionInformation: VersionInformation;
 };
 
 export type MutationCreateAddressArgs = {
@@ -3107,6 +3120,10 @@ export type MutationCreateUserArgs = {
 
 export type MutationCreateUsersOnProjectsArgs = {
   data: UsersOnProjectsCreateInput;
+};
+
+export type MutationCreateVersionInformationArgs = {
+  data: VersionInformationCreateInput;
 };
 
 export type MutationDeleteAddressArgs = {
@@ -3193,6 +3210,10 @@ export type MutationDeleteManyUsersOnProjectsArgs = {
   where?: Maybe<UsersOnProjectsWhereInput>;
 };
 
+export type MutationDeleteManyVersionInformationArgs = {
+  where?: Maybe<VersionInformationWhereInput>;
+};
+
 export type MutationDeleteMixdownArgs = {
   where: MixdownWhereUniqueInput;
 };
@@ -3211,6 +3232,10 @@ export type MutationDeleteUserArgs = {
 
 export type MutationDeleteUsersOnProjectsArgs = {
   where: UsersOnProjectsWhereUniqueInput;
+};
+
+export type MutationDeleteVersionInformationArgs = {
+  where: VersionInformationWhereUniqueInput;
 };
 
 export type MutationPublishChangeArgs = {
@@ -3330,6 +3355,11 @@ export type MutationUpdateManyUsersOnProjectsArgs = {
   where?: Maybe<UsersOnProjectsWhereInput>;
 };
 
+export type MutationUpdateManyVersionInformationArgs = {
+  data: VersionInformationUpdateManyMutationInput;
+  where?: Maybe<VersionInformationWhereInput>;
+};
+
 export type MutationUpdateMixdownArgs = {
   data: MixdownUpdateInput;
   where: MixdownWhereUniqueInput;
@@ -3353,6 +3383,11 @@ export type MutationUpdateUserArgs = {
 export type MutationUpdateUsersOnProjectsArgs = {
   data: UsersOnProjectsUpdateInput;
   where: UsersOnProjectsWhereUniqueInput;
+};
+
+export type MutationUpdateVersionInformationArgs = {
+  data: VersionInformationUpdateInput;
+  where: VersionInformationWhereUniqueInput;
 };
 
 export type MutationUpsertAddressArgs = {
@@ -3431,6 +3466,12 @@ export type MutationUpsertUsersOnProjectsArgs = {
   create: UsersOnProjectsCreateInput;
   update: UsersOnProjectsUpdateInput;
   where: UsersOnProjectsWhereUniqueInput;
+};
+
+export type MutationUpsertVersionInformationArgs = {
+  create: VersionInformationCreateInput;
+  update: VersionInformationUpdateInput;
+  where: VersionInformationWhereUniqueInput;
 };
 
 export type NestedBoolFilter = {
@@ -3882,6 +3923,7 @@ export type Query = {
   aggregateTag: AggregateTag;
   aggregateUser: AggregateUser;
   aggregateUsersOnProjects: AggregateUsersOnProjects;
+  aggregateVersionInformation: AggregateVersionInformation;
   band?: Maybe<Band>;
   bands: Array<Band>;
   comment?: Maybe<Comment>;
@@ -3907,6 +3949,7 @@ export type Query = {
   findFirstTag?: Maybe<Tag>;
   findFirstUser?: Maybe<User>;
   findFirstUsersOnProjects?: Maybe<UsersOnProjects>;
+  findFirstVersionInformation?: Maybe<VersionInformation>;
   findManyUsersOnProjects: Array<UsersOnProjects>;
   findUniqueUsersOnProjects?: Maybe<UsersOnProjects>;
   followRecommendations: Array<User>;
@@ -3921,6 +3964,8 @@ export type Query = {
   tags: Array<Tag>;
   user?: Maybe<User>;
   users: Array<User>;
+  versionInformation?: Maybe<VersionInformation>;
+  versionInformations: Array<VersionInformation>;
 };
 
 export type QueryAddressArgs = {
@@ -4038,6 +4083,14 @@ export type QueryAggregateUsersOnProjectsArgs = {
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<UsersOnProjectsWhereInput>;
+};
+
+export type QueryAggregateVersionInformationArgs = {
+  cursor?: Maybe<VersionInformationWhereUniqueInput>;
+  orderBy?: Maybe<Array<VersionInformationOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<VersionInformationWhereInput>;
 };
 
 export type QueryBandArgs = {
@@ -4235,6 +4288,15 @@ export type QueryFindFirstUsersOnProjectsArgs = {
   where?: Maybe<UsersOnProjectsWhereInput>;
 };
 
+export type QueryFindFirstVersionInformationArgs = {
+  cursor?: Maybe<VersionInformationWhereUniqueInput>;
+  distinct?: Maybe<Array<VersionInformationScalarFieldEnum>>;
+  orderBy?: Maybe<Array<VersionInformationOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<VersionInformationWhereInput>;
+};
+
 export type QueryFindManyUsersOnProjectsArgs = {
   cursor?: Maybe<UsersOnProjectsWhereUniqueInput>;
   distinct?: Maybe<Array<UsersOnProjectsScalarFieldEnum>>;
@@ -4311,6 +4373,19 @@ export type QueryUsersArgs = {
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<UserWhereInput>;
+};
+
+export type QueryVersionInformationArgs = {
+  where: VersionInformationWhereUniqueInput;
+};
+
+export type QueryVersionInformationsArgs = {
+  cursor?: Maybe<VersionInformationWhereUniqueInput>;
+  distinct?: Maybe<Array<VersionInformationScalarFieldEnum>>;
+  orderBy?: Maybe<Array<VersionInformationOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<VersionInformationWhereInput>;
 };
 
 export enum QueryMode {
@@ -4561,6 +4636,7 @@ export type User = {
   ownsBands: Array<Band>;
   ownsProjects: Array<Project>;
   role: Role;
+  sessionCount?: Maybe<Scalars['Int']>;
   updatedAt: Scalars['Timestamp'];
   website?: Maybe<Scalars['String']>;
 };
@@ -6485,6 +6561,78 @@ export type UsersOnProjectsWhereUniqueInput = {
   userId_projectId?: Maybe<UsersOnProjectsUserIdProjectIdCompoundUniqueInput>;
 };
 
+export type VersionInformation = {
+  __typename?: 'VersionInformation';
+  createdAt: Scalars['Timestamp'];
+  description: Scalars['String'];
+  id: Scalars['String'];
+};
+
+export type VersionInformationCountAggregate = {
+  __typename?: 'VersionInformationCountAggregate';
+  _all: Scalars['Int'];
+  createdAt?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type VersionInformationCreateInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  description: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+};
+
+export type VersionInformationMaxAggregate = {
+  __typename?: 'VersionInformationMaxAggregate';
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+};
+
+export type VersionInformationMinAggregate = {
+  __typename?: 'VersionInformationMinAggregate';
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+};
+
+export type VersionInformationOrderByInput = {
+  createdAt?: Maybe<SortOrder>;
+  description?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+};
+
+export enum VersionInformationScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  Description = 'description',
+  Id = 'id',
+}
+
+export type VersionInformationUpdateInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  description?: Maybe<StringFieldUpdateOperationsInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+};
+
+export type VersionInformationUpdateManyMutationInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  description?: Maybe<StringFieldUpdateOperationsInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+};
+
+export type VersionInformationWhereInput = {
+  AND?: Maybe<Array<VersionInformationWhereInput>>;
+  NOT?: Maybe<Array<VersionInformationWhereInput>>;
+  OR?: Maybe<Array<VersionInformationWhereInput>>;
+  createdAt?: Maybe<DateTimeFilter>;
+  description?: Maybe<StringFilter>;
+  id?: Maybe<StringFilter>;
+};
+
+export type VersionInformationWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
 export type CreateIssueMutationVariables = Exact<{
   description: Scalars['String'];
   screenshotIds: Array<Scalars['String']> | Scalars['String'];
@@ -6596,6 +6744,14 @@ export type OnlineStatusSubscriptionVariables = Exact<{
 }>;
 
 export type OnlineStatusSubscription = { __typename?: 'Subscription' } & Pick<Subscription, 'onlineStatus'>;
+
+export type VersionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type VersionsQuery = { __typename?: 'Query' } & {
+  versionInformations: Array<
+    { __typename?: 'VersionInformation' } & Pick<VersionInformation, 'id' | 'description' | 'createdAt'>
+  >;
+};
 
 export const BaseUserFragmentDoc = gql`
   fragment BaseUser on User {
@@ -7032,3 +7188,37 @@ export function useOnlineStatusSubscription(
 }
 export type OnlineStatusSubscriptionHookResult = ReturnType<typeof useOnlineStatusSubscription>;
 export type OnlineStatusSubscriptionResult = Apollo.SubscriptionResult<OnlineStatusSubscription>;
+export const VersionsDocument = gql`
+  query versions {
+    versionInformations(orderBy: [{ createdAt: desc }]) {
+      id
+      description
+      createdAt
+    }
+  }
+`;
+
+/**
+ * __useVersionsQuery__
+ *
+ * To run a query within a React component, call `useVersionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVersionsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useVersionsQuery(baseOptions?: Apollo.QueryHookOptions<VersionsQuery, VersionsQueryVariables>) {
+  return Apollo.useQuery<VersionsQuery, VersionsQueryVariables>(VersionsDocument, baseOptions);
+}
+export function useVersionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VersionsQuery, VersionsQueryVariables>) {
+  return Apollo.useLazyQuery<VersionsQuery, VersionsQueryVariables>(VersionsDocument, baseOptions);
+}
+export type VersionsQueryHookResult = ReturnType<typeof useVersionsQuery>;
+export type VersionsLazyQueryHookResult = ReturnType<typeof useVersionsLazyQuery>;
+export type VersionsQueryResult = Apollo.QueryResult<VersionsQuery, VersionsQueryVariables>;

@@ -41,8 +41,8 @@ import {
   UserRelationsResolver,
   UsersOnProjects,
   UsersOnProjectsCrudResolver,
-  UsersOnProjectsRelationsResolver,
-} from '../prisma/generated/type-graphql';
+  UsersOnProjectsRelationsResolver, VersionInformationCrudResolver
+} from "../prisma/generated/type-graphql";
 import { SessionModule } from './session/session.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLContext } from '../types/GraphQLContext';
@@ -211,6 +211,7 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
     CommentLikeCrudResolver,
     BandCrudResolver,
     IssueCrudResolver,
+    VersionInformationCrudResolver,
     // Custom
     CustomUserResolver,
     CustomFeedItemResolver,
