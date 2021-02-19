@@ -16,9 +16,8 @@ const MidiTrackContextMenu: React.FC<Props> = ({offset}) => {
   const pixelToTicks = usePixelToTicks();
   const snapPixel = useSnapPixelValue();
 
-  const onClickCreateMidiRegion = async () => {
-
-    await createMidiRegion({
+  const onClickCreateMidiRegion = () => {
+    createMidiRegion({
       channelId,
       notes: [],
       start: Tone.Ticks(offset ? pixelToTicks(snapPixel(offset[0])) : 0),

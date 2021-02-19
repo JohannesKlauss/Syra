@@ -78,6 +78,7 @@ export const RegionName: React.FC<RegionNameProps> = ({ color, children }) => (
     cursor={'text'}
     fontSize={'xs'}
     ml={2}
+    isTruncated
   >
     {children}
   </Text>

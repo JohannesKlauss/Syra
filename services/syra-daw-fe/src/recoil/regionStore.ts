@@ -205,7 +205,30 @@ const midiNotesInsideBoundaries = selectorFamily<MidiNote[], string>({
       return note.ticks >= position.offset && note.ticks < position.start + position.offset + position.duration
     });
   }
-})
+});
+
+const findNearbyRegionId = selectorFamily<string | null, { channelId: string, position: number }>({
+  key: 'region/findNearbyRegionId',
+  get: ({channelId, position}) => ({get}) => {
+    const regionIds = get(ids(channelId));
+
+    console.log('regionIds', regionIds);
+
+    // We only look for regions that are 2 quarters away from the current position.
+    const nearbyMargin = Tone.Ticks(2, 'm').toTicks();
+
+    for(let i = 0; i < regionIds.length; i++) {
+      const regionStart = get(start(regionIds[i]));
+      const regionEnd = regionStart + get(duration(regionIds[i]));
+
+      if (regionStart - nearbyMargin < position && regionEnd + nearbyMargin > position) {
+        return regionIds[i];
+      }
+    }
+
+    return null;
+  }
+});
 
 export const regionStore = {
   start,
@@ -232,4 +255,5 @@ export const regionStore = {
   selectedIds,
   arrangeWindowPosition,
   midiNotesInsideBoundaries,
+  findNearbyRegionId
 };

@@ -57,7 +57,16 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
   }, [tappedTempo, setTempoMap]);
 
   useEffect(() => {
-    setLength(Tone.Ticks(`${projectLength * 4}:0:0`).toTicks());
+    const timeSignature = Tone.getTransport().timeSignature;
+
+    console.log('timeSignature', timeSignature);
+
+    if (Tone.getTransport().timeSignature === 4) {
+      setLength(Tone.Ticks(`${projectLength}:0:0`).toTicks());
+    } else {
+      setLength(Tone.Ticks(`${projectLength * 4}:0:0`).toTicks());
+    }
+
   }, [projectLength, setLength]);
 
   const onClose = () => onCancel && onCancel();

@@ -29,7 +29,7 @@ export default function useImportMidiFile() {
         id: createNewId(MIDI_ID_PREFIX),
       }));
 
-      await createMidiRegion({
+      createMidiRegion({
         channelId,
         notes,
         start,

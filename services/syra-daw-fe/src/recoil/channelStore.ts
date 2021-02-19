@@ -124,7 +124,6 @@ const soulInstance = selectorFamily<SoulInstance | undefined, string>({
           try {
             instance = await createSoulInstance(patch, patchDescriptor.description.isInstrument);
           } catch (e) {
-            console.log('Audio Context is suspended.');
           }
         }
       }
