@@ -79,6 +79,7 @@ export const UserProfileByHandleMock: UserProfileByHandleQuery = {
 
 export const MeFollowingMock: MeFollowingQuery = {
   me: {
+    id: 'foo',
     __typename: 'User',
     following: [
       {
