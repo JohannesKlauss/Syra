@@ -21,6 +21,7 @@ fragment BaseProfile on User {
     handle
     followedByCount
     followingCount
+    sessionCount
     isMyself
     followedBy(take: 3) {
         ...UserLink

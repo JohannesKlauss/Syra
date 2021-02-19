@@ -32,7 +32,7 @@ function ProfileInfo({ user }: Props) {
             }
           </Flex>
           <Flex marginY={4}>
-            <Text><strong>5</strong> {t('sessions')}</Text>
+            <Text><strong>{user.sessionCount}</strong> {t('sessions')}</Text>
             <Link href={`/followers`}>
               <Text marginX={8} cursor={'pointer'}><strong>{user.followedByCount}</strong> {t('Followers')}</Text>
             </Link>

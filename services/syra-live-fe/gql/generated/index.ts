@@ -284,6 +284,13 @@ export type AggregateFeedItemRevision = {
   min?: Maybe<FeedItemRevisionMinAggregate>;
 };
 
+export type AggregateIssue = {
+  __typename?: 'AggregateIssue';
+  count?: Maybe<IssueCountAggregate>;
+  max?: Maybe<IssueMaxAggregate>;
+  min?: Maybe<IssueMinAggregate>;
+};
+
 export type AggregateMixdown = {
   __typename?: 'AggregateMixdown';
   avg?: Maybe<MixdownAvgAggregate>;
@@ -2413,6 +2420,104 @@ export type IntFilter = {
   notIn?: Maybe<Array<Scalars['Int']>>;
 };
 
+export type Issue = {
+  __typename?: 'Issue';
+  createdAt: Scalars['Timestamp'];
+  description: Scalars['String'];
+  id: Scalars['String'];
+  resolved: Scalars['Boolean'];
+  screenshotIds: Array<Scalars['String']>;
+};
+
+export type IssueCountAggregate = {
+  __typename?: 'IssueCountAggregate';
+  _all: Scalars['Int'];
+  createdAt?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']>;
+  resolved?: Maybe<Scalars['Int']>;
+  screenshotIds?: Maybe<Scalars['Int']>;
+};
+
+export type IssueCreateInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  description: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+  resolved?: Maybe<Scalars['Boolean']>;
+  screenshotIds?: Maybe<IssueCreatescreenshotIdsInput>;
+};
+
+export type IssueCreatescreenshotIdsInput = {
+  set: Array<Scalars['String']>;
+};
+
+export type IssueMaxAggregate = {
+  __typename?: 'IssueMaxAggregate';
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  resolved?: Maybe<Scalars['Boolean']>;
+};
+
+export type IssueMinAggregate = {
+  __typename?: 'IssueMinAggregate';
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  resolved?: Maybe<Scalars['Boolean']>;
+};
+
+export type IssueOrderByInput = {
+  createdAt?: Maybe<SortOrder>;
+  description?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  resolved?: Maybe<SortOrder>;
+  screenshotIds?: Maybe<SortOrder>;
+};
+
+export enum IssueScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  Description = 'description',
+  Id = 'id',
+  Resolved = 'resolved',
+  ScreenshotIds = 'screenshotIds',
+}
+
+export type IssueUpdateInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  description?: Maybe<StringFieldUpdateOperationsInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  resolved?: Maybe<BoolFieldUpdateOperationsInput>;
+  screenshotIds?: Maybe<IssueUpdatescreenshotIdsInput>;
+};
+
+export type IssueUpdateManyMutationInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  description?: Maybe<StringFieldUpdateOperationsInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  resolved?: Maybe<BoolFieldUpdateOperationsInput>;
+  screenshotIds?: Maybe<IssueUpdatescreenshotIdsInput>;
+};
+
+export type IssueUpdatescreenshotIdsInput = {
+  set: Array<Scalars['String']>;
+};
+
+export type IssueWhereInput = {
+  AND?: Maybe<Array<IssueWhereInput>>;
+  NOT?: Maybe<Array<IssueWhereInput>>;
+  OR?: Maybe<Array<IssueWhereInput>>;
+  createdAt?: Maybe<DateTimeFilter>;
+  description?: Maybe<StringFilter>;
+  id?: Maybe<StringFilter>;
+  resolved?: Maybe<BoolFilter>;
+  screenshotIds?: Maybe<StringNullableListFilter>;
+};
+
+export type IssueWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
 export type JsonFilter = {
   equals?: Maybe<Scalars['JSON']>;
   not?: Maybe<Scalars['JSON']>;
@@ -2877,6 +2982,7 @@ export type Mutation = {
   createFeedItem: FeedItem;
   createFeedItemLike: FeedItemLike;
   createFeedItemRevision: FeedItemRevision;
+  createIssue: Issue;
   createMixdown: Mixdown;
   createProject: Project;
   createTag: Tag;
@@ -2889,6 +2995,7 @@ export type Mutation = {
   deleteFeedItem?: Maybe<FeedItem>;
   deleteFeedItemLike?: Maybe<FeedItemLike>;
   deleteFeedItemRevision?: Maybe<FeedItemRevision>;
+  deleteIssue?: Maybe<Issue>;
   deleteManyAddress: AffectedRowsOutput;
   deleteManyBand: AffectedRowsOutput;
   deleteManyComment: AffectedRowsOutput;
@@ -2896,6 +3003,7 @@ export type Mutation = {
   deleteManyFeedItem: AffectedRowsOutput;
   deleteManyFeedItemLike: AffectedRowsOutput;
   deleteManyFeedItemRevision: AffectedRowsOutput;
+  deleteManyIssue: AffectedRowsOutput;
   deleteManyMixdown: AffectedRowsOutput;
   deleteManyProject: AffectedRowsOutput;
   deleteManyTag: AffectedRowsOutput;
@@ -2915,6 +3023,7 @@ export type Mutation = {
   updateFeedItem?: Maybe<FeedItem>;
   updateFeedItemLike?: Maybe<FeedItemLike>;
   updateFeedItemRevision?: Maybe<FeedItemRevision>;
+  updateIssue?: Maybe<Issue>;
   updateManyAddress: AffectedRowsOutput;
   updateManyBand: AffectedRowsOutput;
   updateManyComment: AffectedRowsOutput;
@@ -2922,6 +3031,7 @@ export type Mutation = {
   updateManyFeedItem: AffectedRowsOutput;
   updateManyFeedItemLike: AffectedRowsOutput;
   updateManyFeedItemRevision: AffectedRowsOutput;
+  updateManyIssue: AffectedRowsOutput;
   updateManyMixdown: AffectedRowsOutput;
   updateManyProject: AffectedRowsOutput;
   updateManyTag: AffectedRowsOutput;
@@ -2939,6 +3049,7 @@ export type Mutation = {
   upsertFeedItem: FeedItem;
   upsertFeedItemLike: FeedItemLike;
   upsertFeedItemRevision: FeedItemRevision;
+  upsertIssue: Issue;
   upsertMixdown: Mixdown;
   upsertProject: Project;
   upsertTag: Tag;
@@ -2972,6 +3083,10 @@ export type MutationCreateFeedItemLikeArgs = {
 
 export type MutationCreateFeedItemRevisionArgs = {
   data: FeedItemRevisionCreateInput;
+};
+
+export type MutationCreateIssueArgs = {
+  data: IssueCreateInput;
 };
 
 export type MutationCreateMixdownArgs = {
@@ -3022,6 +3137,10 @@ export type MutationDeleteFeedItemRevisionArgs = {
   where: FeedItemRevisionWhereUniqueInput;
 };
 
+export type MutationDeleteIssueArgs = {
+  where: IssueWhereUniqueInput;
+};
+
 export type MutationDeleteManyAddressArgs = {
   where?: Maybe<AddressWhereInput>;
 };
@@ -3048,6 +3167,10 @@ export type MutationDeleteManyFeedItemLikeArgs = {
 
 export type MutationDeleteManyFeedItemRevisionArgs = {
   where?: Maybe<FeedItemRevisionWhereInput>;
+};
+
+export type MutationDeleteManyIssueArgs = {
+  where?: Maybe<IssueWhereInput>;
 };
 
 export type MutationDeleteManyMixdownArgs = {
@@ -3137,6 +3260,11 @@ export type MutationUpdateFeedItemRevisionArgs = {
   where: FeedItemRevisionWhereUniqueInput;
 };
 
+export type MutationUpdateIssueArgs = {
+  data: IssueUpdateInput;
+  where: IssueWhereUniqueInput;
+};
+
 export type MutationUpdateManyAddressArgs = {
   data: AddressUpdateManyMutationInput;
   where?: Maybe<AddressWhereInput>;
@@ -3170,6 +3298,11 @@ export type MutationUpdateManyFeedItemLikeArgs = {
 export type MutationUpdateManyFeedItemRevisionArgs = {
   data: FeedItemRevisionUpdateManyMutationInput;
   where?: Maybe<FeedItemRevisionWhereInput>;
+};
+
+export type MutationUpdateManyIssueArgs = {
+  data: IssueUpdateManyMutationInput;
+  where?: Maybe<IssueWhereInput>;
 };
 
 export type MutationUpdateManyMixdownArgs = {
@@ -3262,6 +3395,12 @@ export type MutationUpsertFeedItemRevisionArgs = {
   create: FeedItemRevisionCreateInput;
   update: FeedItemRevisionUpdateInput;
   where: FeedItemRevisionWhereUniqueInput;
+};
+
+export type MutationUpsertIssueArgs = {
+  create: IssueCreateInput;
+  update: IssueUpdateInput;
+  where: IssueWhereUniqueInput;
 };
 
 export type MutationUpsertMixdownArgs = {
@@ -3737,6 +3876,7 @@ export type Query = {
   aggregateFeedItem: AggregateFeedItem;
   aggregateFeedItemLike: AggregateFeedItemLike;
   aggregateFeedItemRevision: AggregateFeedItemRevision;
+  aggregateIssue: AggregateIssue;
   aggregateMixdown: AggregateMixdown;
   aggregateProject: AggregateProject;
   aggregateTag: AggregateTag;
@@ -3761,6 +3901,7 @@ export type Query = {
   findFirstFeedItem?: Maybe<FeedItem>;
   findFirstFeedItemLike?: Maybe<FeedItemLike>;
   findFirstFeedItemRevision?: Maybe<FeedItemRevision>;
+  findFirstIssue?: Maybe<Issue>;
   findFirstMixdown?: Maybe<Mixdown>;
   findFirstProject?: Maybe<Project>;
   findFirstTag?: Maybe<Tag>;
@@ -3769,6 +3910,8 @@ export type Query = {
   findManyUsersOnProjects: Array<UsersOnProjects>;
   findUniqueUsersOnProjects?: Maybe<UsersOnProjects>;
   followRecommendations: Array<User>;
+  issue?: Maybe<Issue>;
+  issues: Array<Issue>;
   me: User;
   mixdown?: Maybe<Mixdown>;
   mixdowns: Array<Mixdown>;
@@ -3847,6 +3990,14 @@ export type QueryAggregateFeedItemRevisionArgs = {
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<FeedItemRevisionWhereInput>;
+};
+
+export type QueryAggregateIssueArgs = {
+  cursor?: Maybe<IssueWhereUniqueInput>;
+  orderBy?: Maybe<Array<IssueOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<IssueWhereInput>;
 };
 
 export type QueryAggregateMixdownArgs = {
@@ -4030,6 +4181,15 @@ export type QueryFindFirstFeedItemRevisionArgs = {
   where?: Maybe<FeedItemRevisionWhereInput>;
 };
 
+export type QueryFindFirstIssueArgs = {
+  cursor?: Maybe<IssueWhereUniqueInput>;
+  distinct?: Maybe<Array<IssueScalarFieldEnum>>;
+  orderBy?: Maybe<Array<IssueOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<IssueWhereInput>;
+};
+
 export type QueryFindFirstMixdownArgs = {
   cursor?: Maybe<MixdownWhereUniqueInput>;
   distinct?: Maybe<Array<MixdownScalarFieldEnum>>;
@@ -4086,6 +4246,19 @@ export type QueryFindManyUsersOnProjectsArgs = {
 
 export type QueryFindUniqueUsersOnProjectsArgs = {
   where: UsersOnProjectsWhereUniqueInput;
+};
+
+export type QueryIssueArgs = {
+  where: IssueWhereUniqueInput;
+};
+
+export type QueryIssuesArgs = {
+  cursor?: Maybe<IssueWhereUniqueInput>;
+  distinct?: Maybe<Array<IssueScalarFieldEnum>>;
+  orderBy?: Maybe<Array<IssueOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<IssueWhereInput>;
 };
 
 export type QueryMixdownArgs = {
@@ -4188,6 +4361,14 @@ export type StringNullableFilter = {
   not?: Maybe<NestedStringNullableFilter>;
   notIn?: Maybe<Array<Scalars['String']>>;
   startsWith?: Maybe<Scalars['String']>;
+};
+
+export type StringNullableListFilter = {
+  equals?: Maybe<Array<Scalars['String']>>;
+  has?: Maybe<Scalars['String']>;
+  hasEvery?: Maybe<Array<Scalars['String']>>;
+  hasSome?: Maybe<Array<Scalars['String']>>;
+  isEmpty?: Maybe<Scalars['Boolean']>;
 };
 
 export type Subscription = {
@@ -4380,6 +4561,7 @@ export type User = {
   ownsBands: Array<Band>;
   ownsProjects: Array<Project>;
   role: Role;
+  sessionCount?: Maybe<Scalars['Int']>;
   updatedAt: Scalars['Timestamp'];
   website?: Maybe<Scalars['String']>;
 };
@@ -6535,7 +6717,17 @@ export type FeedUserFragment = { __typename?: 'User' } & Pick<User, 'isMeFollowi
 
 export type BaseProfileFragment = { __typename?: 'User' } & Pick<
   User,
-  'id' | 'name' | 'email' | 'avatar' | 'bio' | 'website' | 'handle' | 'followedByCount' | 'followingCount' | 'isMyself'
+  | 'id'
+  | 'name'
+  | 'email'
+  | 'avatar'
+  | 'bio'
+  | 'website'
+  | 'handle'
+  | 'followedByCount'
+  | 'followingCount'
+  | 'sessionCount'
+  | 'isMyself'
 > & {
     followedBy: Array<{ __typename?: 'User' } & UserLinkFragment>;
     interests: Array<{ __typename?: 'Tag' } & Pick<Tag, 'value'>>;
@@ -6766,6 +6958,7 @@ export const BaseProfileFragmentDoc = gql`
     handle
     followedByCount
     followingCount
+    sessionCount
     isMyself
     followedBy(take: 3) {
       ...UserLink
@@ -7524,6 +7717,7 @@ export const MyProjectsDocument = gql`
   query myProjects($me: String) {
     projects(
       where: { OR: [{ owner: { is: { id: { equals: $me } } } }, { members: { some: { userId: { equals: $me } } } }] }
+      orderBy: [{ updatedAt: desc }]
     ) {
       ...SessionListData
     }

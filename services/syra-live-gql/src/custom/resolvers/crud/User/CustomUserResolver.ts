@@ -23,6 +23,11 @@ export class CustomUserResolver {
     return ctx.prisma.user.count({ where: { followedBy: { some: { id: user.id } } } });
   }
 
+  @TypeGraphQL.FieldResolver((type) => Int, { nullable: true })
+  async sessionCount(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
+    return ctx.prisma.project.count({ where: { OR: [{ownerId: user.id}, {members: {some: {userId: user.id}}}] } });
+  }
+
   @TypeGraphQL.FieldResolver((type) => Boolean, { nullable: true })
   async isMeFollowing(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: GraphQLContext): Promise<number> {
     return ctx.prisma.user.count({ where: { id: user.id, followedBy: { some: { id: ctx.user.id } } } });

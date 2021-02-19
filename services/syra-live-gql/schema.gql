@@ -3623,6 +3623,7 @@ type User {
   ownsBands(cursor: BandWhereUniqueInput, distinct: [BandScalarFieldEnum!], orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): [Band!]!
   ownsProjects(cursor: ProjectWhereUniqueInput, distinct: [ProjectScalarFieldEnum!], orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [Project!]!
   role: Role!
+  sessionCount: Int
   updatedAt: Timestamp!
   website: String
 }
