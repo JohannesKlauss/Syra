@@ -1,6 +1,4 @@
 ARG IMAGE_NAME=syra-live-fe
-ARG LIVE_GQL_URL
-ARG DAW_URL
 
 # base image
 FROM node:15.8.0-alpine3.12 as production
@@ -11,8 +9,8 @@ WORKDIR /$IMAGE_NAME
 # add `/app/node_modules/.bin` to $PATH
 
 ENV NODE_ENV production
-ENV NEXT_PUBLIC_LIVE_GQL_URL $LIVE_GQL_URL
-ENV NEXT_PUBLIC_DAW_URL $DAW_URL
+ENV NEXT_PUBLIC_LIVE_GQL_URL https://api.syra.live
+ENV NEXT_PUBLIC_DAW_URL https://daw.syra.live
 
 # add app
 COPY /package.json .
