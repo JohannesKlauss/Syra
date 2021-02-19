@@ -22,8 +22,6 @@ export default function useRecordExternalMidi() {
   const onMidiNote: MidiEventCallable = (firstByte, secondByte, thirdByte) => {
     const position = Tone.getTransport().seconds;
 
-    console.log('position', position);
-
     switch(firstByte) {
       case 144: // NoteOn
         openMidiNotes.current.push(secondByte);

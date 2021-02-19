@@ -1,7 +1,7 @@
 import React from 'react';
 import { keyboardMidiStore } from '../../../../recoil/keyboardMidiStore';
 import { useRecoilState } from 'recoil';
-import { Alert, AlertIcon, FormControl, FormHelperText, FormLabel, Select } from '@chakra-ui/react';
+import { Alert, AlertIcon, FormControl, FormLabel, Select } from '@chakra-ui/react';
 import WebMidi from 'webmidi';
 import { detect } from 'detect-browser';
 

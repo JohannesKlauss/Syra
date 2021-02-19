@@ -51,7 +51,7 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
     if (cleanX >= 0) {
       drawMidiNote(Tone.Ticks(pixelToTicks(cleanX)), Tone.Ticks(1, 'm'), 127);
     }
-  }, [ref, drawMidiNote, pixelToTicks, snapPixelValue, start, mouseMode]);
+  }, [ref, drawMidiNote, pixelToTicks, snapPixelValue, start, mouseMode, ticksToPixel]);
 
   return (
     <Box

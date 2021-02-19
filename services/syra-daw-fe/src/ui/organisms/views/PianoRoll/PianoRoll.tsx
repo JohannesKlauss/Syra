@@ -1,5 +1,5 @@
 import { Box, useTheme } from '@chakra-ui/react';
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import SplitScroller from '../../../atoms/Layout/SplitScroller';
 import Grid from '../../../molecules/Grid/Grid';
 import VerticalPiano from '../../../molecules/Piano/VerticalPiano';

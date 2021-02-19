@@ -26,5 +26,5 @@ export default function useRegionColor(isUnderManipulation: boolean) {
     }
 
     return chakraColorToHex(channelColor, theme.colors);
-  }, [isRecording, channelColor, isUnderManipulation]);
+  }, [isRecording, channelColor, isUnderManipulation, channelId, theme.colors]);
 }

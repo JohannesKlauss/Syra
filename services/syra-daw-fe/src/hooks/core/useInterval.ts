@@ -18,5 +18,5 @@ export default function useInterval(callback: (...args: any[]) => void, delay?: 
       let id = setInterval(tick, delay);
       return () => clearInterval(id);
     }
-  }, [delay]);
+  }, [delay, args]);
 }

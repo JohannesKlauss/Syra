@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { keyboardMidiStore } from '../../recoil/keyboardMidiStore';
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import WebMidi, { InputEventNoteoff, InputEventNoteon } from "webmidi";
 import { MidiEventCallable } from '../../types/Midi';
 
@@ -25,7 +25,7 @@ export default function useListenForExternalMidiIn(onMidiEvent: MidiEventCallabl
       input.addListener('noteon', 'all', onNoteOnEvent);
       input.addListener('noteoff', 'all', onNoteOffEvent);
     }
-  }, [midiDevice, onMidiEvent, onNoteOnEvent, onNoteOffEvent]);
+  }, [midiDevice, onMidiEvent, onNoteOnEvent, onNoteOffEvent, isMidiEnabled]);
 
   const disconnect = useCallback(() => {
     if (midiDevice === null || !isMidiEnabled) {

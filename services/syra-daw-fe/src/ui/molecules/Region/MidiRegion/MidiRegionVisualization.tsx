@@ -30,9 +30,7 @@ const MidiNoteVis = PixiComponent<PixiProps, Graphics>('MidiNotesDisplay', {
   },
 });
 
-interface Props {}
-
-const MidiRegionVisualization: React.FC<Props> = ({}) => {
+const MidiRegionVisualization: React.FC = () => {
   const regionId = useContext(RegionContext);
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight) - 18; // Subtract the topBar of the region
   const midiNotesInsideBoundaries = useRecoilValue(regionStore.midiNotesInsideBoundaries(regionId));

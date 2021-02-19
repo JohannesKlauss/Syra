@@ -1,5 +1,4 @@
 import {
-  Divider,
   Flex,
   IconButton,
   Text,
@@ -17,9 +16,7 @@ import { RiArrowUpSFill } from 'react-icons/ri';
 import EditMemberList from './EditMemberList';
 import AddSessionMember from './AddSessionMember';
 
-interface Props {}
-
-const MemberSettings: React.FC<Props> = ({}) => {
+const MemberSettings: React.FC = () => {
   return (
     <Popover>
       <PopoverTrigger>

@@ -8,7 +8,6 @@ import { channelStore } from '../../../../../recoil/channelStore';
 import { useRecoilValue } from 'recoil';
 import LevelMeterVertical from '../../../../atoms/Meter/LevelMeterVertical';
 import ChannelName from '../../ChannelName';
-import useBackboneChannel from '../../../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import LevelMeterText from '../../../../atoms/Meter/LevelMeterText';
 import { Box, Divider, Flex } from '@chakra-ui/react';
 import VolumeFaderText from '../../../../atoms/Slider/VolumeFaderText';

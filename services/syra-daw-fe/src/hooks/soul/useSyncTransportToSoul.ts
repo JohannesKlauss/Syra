@@ -77,5 +77,5 @@ export default function useSyncTransportToSoul() {
       transport.off('start', triggerTransportOffset);
       transport.off('stop', kill);
     };
-  }, [transport, soulInstance, triggerTransportOffset]);
+  }, [transport, soulInstance, triggerTransportOffset, kill]);
 }

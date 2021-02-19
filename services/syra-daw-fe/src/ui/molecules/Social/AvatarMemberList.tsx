@@ -5,9 +5,7 @@ import { projectStore } from '../../../recoil/projectStore';
 import { useRecoilValue } from 'recoil';
 import AvatarWithOnlineStatus from './AvatarWithOnlineStatus';
 
-interface Props {}
-
-const AvatarMemberList: React.FC<Props> = ({}) => {
+const AvatarMemberList: React.FC = () => {
   const id = useRecoilValue(projectStore.id);
   const { data } = useProjectQuery({
     variables: {

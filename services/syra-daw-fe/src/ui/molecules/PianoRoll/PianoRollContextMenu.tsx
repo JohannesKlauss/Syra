@@ -5,9 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import { pianoRollStore } from '../../../recoil/pianoRollStore';
 import { GridMouseMode } from '../../../types/GridMouseMode';
 
-interface Props {}
-
-const PianoRollContextMenu: React.FC<Props> = ({}) => {
+const PianoRollContextMenu: React.FC = () => {
   const setMouseMode = useSetRecoilState(pianoRollStore.mouseMode);
 
   return (

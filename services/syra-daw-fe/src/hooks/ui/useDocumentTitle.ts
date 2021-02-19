@@ -9,7 +9,7 @@ export default function useDocumentTitle(retainOnUnmount: boolean = true) {
         document.title = defaultTitle.current;
       }
     };
-  }, []);
+  }, [retainOnUnmount]);
 
   return useCallback((title: string) => {
     document.title = title;
