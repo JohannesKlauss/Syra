@@ -28,6 +28,12 @@ jobs:
 
       - name: Build and push Docker images to GH Registry
         if: ${{ env.GITHUB_REF_SLUG }} === "release"
+        env:
+          NEXT_PUBLIC_LIVE_GQL_URL: ${{ secrets.LIVE_GQL_URL }}
+          NEXT_PUBLIC_DAW_URL: ${{ secrets.DAW_URL }}
+          REACT_APP_LIVE_GQL_URL: ${{ secrets.LIVE_GQL_URL }}
+          REACT_APP_LIVE_GQL_URL_WS: ${{ secrets.LIVE_GQL_URL_WS }}
+          REACT_APP_LIVE_URL: ${{ secrets.LIVE_URL }}
         run: |
           REF=$(git rev-parse --short HEAD)
           COMPONENTS=$(find services/syra-*/Dockerfile)
