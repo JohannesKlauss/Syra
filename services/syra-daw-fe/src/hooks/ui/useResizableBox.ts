@@ -9,6 +9,7 @@ export default function useResizableBox(
   baseWidth: number,
   baseX: number,
   dragHandleWidth: number,
+  minWidth: number,
   onPositionChanged: (x: number, width: number, offsetDelta: number) => void,
   snapToY: number,
   onYChanged?: (y: number) => void,
@@ -65,12 +66,12 @@ export default function useResizableBox(
 
     switch (dragMode.current) {
       case DragMode.END_HANDLE:
-        width.set(oldWidth.get() + snappedOffset);
+        width.set(Math.max(minWidth, oldWidth.get() + snappedOffset));
         x.set(oldX.get());
         break;
       case DragMode.START_HANDLE:
         if (oldBoxOffset.current + snappedOffset >= 0 || allowOverExtendingStart) {
-          width.set(oldWidth.get() - snappedOffset);
+          width.set(Math.max(minWidth, oldWidth.get() - snappedOffset));
           x.set(oldX.get() + snappedOffset);
           boxOffset.current = oldBoxOffset.current + snappedOffset;
         }

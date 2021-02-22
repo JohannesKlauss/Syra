@@ -46,6 +46,7 @@ const MidiRegion: React.FC = () => {
     <ResizableBox
       baseX={ticksToPixel(start)}
       baseWidth={regionWidth}
+      minWidth={40}
       snapToY={trackHeight}
       onPositionChanged={onPositionChanged}
       onYChanged={onYChanged}
