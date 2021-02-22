@@ -11,7 +11,7 @@ function TimeSignature() {
 
   return (
     <Box>
-      <Text fontSize={'sm'}>{currentTimeSignature[0]} / {currentTimeSignature[1]}</Text>
+      <Text fontSize={'sm'} userSelect={'none'}>{currentTimeSignature[0]} / {currentTimeSignature[1]}</Text>
     </Box>
   );
 }

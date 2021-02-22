@@ -2,11 +2,13 @@ import { Box, BoxProps } from '@chakra-ui/react';
 import React from 'react';
 import { motion } from 'framer-motion';
 import useResizableBox from '../../hooks/ui/useResizableBox';
+import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from "../../const/ui";
 
 interface Props extends BoxProps {
   dragHandleWidth?: number;
   baseWidth: number;
   baseX: number;
+  snapToY?: number;
   offset?: number;
   lockDrag?: boolean;
   allowOverExtendingStart?: boolean;
@@ -22,6 +24,7 @@ const ResizableBox: React.FC<Props> = ({
   children,
   onPositionChanged,
   offset = 0,
+  snapToY = PIANO_ROLL_MIDI_TRACK_HEIGHT,
   lockDrag,
   allowOverExtendingStart,
   onYChanged,
@@ -32,6 +35,7 @@ const ResizableBox: React.FC<Props> = ({
     baseX,
     dragHandleWidth,
     onPositionChanged,
+    snapToY,
     onYChanged,
     lockDrag,
     allowOverExtendingStart,
@@ -43,7 +47,7 @@ const ResizableBox: React.FC<Props> = ({
       drag={'x'}
       draggable={!lockDrag}
       dragMomentum={false}
-      style={{ width, x, y, position: 'absolute', zIndex: 1, marginLeft: offset }}
+      style={{ width, x, y, position: 'absolute', zIndex: 10, marginLeft: offset }}
       onDragEnd={onDragEnd}
       onDrag={onDrag}
       onMouseDown={onMouseDown}

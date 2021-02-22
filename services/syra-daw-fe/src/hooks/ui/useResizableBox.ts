@@ -10,6 +10,7 @@ export default function useResizableBox(
   baseX: number,
   dragHandleWidth: number,
   onPositionChanged: (x: number, width: number, offsetDelta: number) => void,
+  snapToY: number,
   onYChanged?: (y: number) => void,
   lockDrag?: boolean,
   allowOverExtendingStart?: boolean,
@@ -57,7 +58,7 @@ export default function useResizableBox(
     }
 
     if (Math.abs(offset.x) < 4 && Math.abs(offset.y) > 0) {
-      y.set(snap(PIANO_ROLL_MIDI_TRACK_HEIGHT, offset.y));
+      y.set(snap(snapToY, offset.y));
     }
 
     const snappedOffset = snapPixelValue(offset.x);

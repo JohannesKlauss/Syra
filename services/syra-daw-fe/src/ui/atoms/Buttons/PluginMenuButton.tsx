@@ -13,7 +13,7 @@ interface Props {
 
 const PluginMenuButton: React.FC<Props> = ({pluginId, isInstrument}) => {
   const [, setActivePlugin] = useRecoilState(channelStore.soulInstance(pluginId));
-  const [isPluginActive] = useRecoilState(channelStore.isPluginActive(pluginId));
+  const [isPluginActive, setIsPluginActive] = useRecoilState(channelStore.isPluginActive(pluginId));
   const patchList = useRecoilValue(
     isInstrument ? soulPluginStore.availableSoulInstruments : soulPluginStore.availableSoulPlugins,
   );
@@ -24,9 +24,10 @@ const PluginMenuButton: React.FC<Props> = ({pluginId, isInstrument}) => {
 
       if (patch) {
         setActivePlugin(await createSoulInstance(patch, isInstrument));
+        setIsPluginActive(true);
       }
     },
-    [patchList, setActivePlugin, isInstrument],
+    [patchList, setActivePlugin, isInstrument, setIsPluginActive],
   );
   
   const menuItems = useMemo(
@@ -39,7 +40,7 @@ const PluginMenuButton: React.FC<Props> = ({pluginId, isInstrument}) => {
   );
   
   return (
-    <Menu>
+    <Menu size={'xs'}>
       <MenuButton
         size={'xs'}
         as={Button}
@@ -49,7 +50,7 @@ const PluginMenuButton: React.FC<Props> = ({pluginId, isInstrument}) => {
       >
         <VscChevronDown />
       </MenuButton>
-      <MenuList>
+      <MenuList fontSize={'xs'}>
         {menuItems.map(({ onClick, label }) => (
           <MenuItem key={label} onClick={onClick}>
             {label}

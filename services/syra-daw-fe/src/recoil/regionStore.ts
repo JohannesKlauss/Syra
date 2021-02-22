@@ -213,8 +213,6 @@ const findNearbyRegionId = selectorFamily<string | null, { channelId: string, po
   get: ({channelId, position}) => ({get}) => {
     const regionIds = get(ids(channelId));
 
-    console.log('regionIds', regionIds);
-
     // We only look for regions that are 2 quarters away from the current position.
     const nearbyMargin = Tone.Ticks(2, 'm').toTicks();
 

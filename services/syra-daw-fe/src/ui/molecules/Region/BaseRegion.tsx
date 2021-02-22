@@ -26,7 +26,7 @@ const BaseRegion: React.FC<Props> = ({ children }) => {
   return (
       <Box
         h={`${trackHeight}px`}
-        opacity={isMuted ? 0.5 : 1}
+        opacity={isMuted ? 0.35 : 1}
         rounded={4}
         onClick={() => setSelectedIds([regionId])}
         onDoubleClick={() => isMidi && openPianoRoll(channelId, regionId)}

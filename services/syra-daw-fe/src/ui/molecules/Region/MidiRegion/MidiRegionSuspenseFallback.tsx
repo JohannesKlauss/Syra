@@ -3,7 +3,7 @@ import { RegionContext } from "../../../../providers/RegionContext";
 import { useRecoilValue } from "recoil";
 import { regionStore } from "../../../../recoil/regionStore";
 import useRegionColor from "../../../../hooks/ui/region/useRegionColor";
-import useMidiRegionWidth from "../../../../hooks/ui/region/useMidiRegionWidth";
+import useRegionWidth from "../../../../hooks/ui/region/useRegionWidth";
 import useTicksToPixel from "../../../../hooks/tone/useTicksToPixel";
 import ResizableBox from "../../../atoms/ResizableBox";
 import BaseRegion from "../BaseRegion";
@@ -18,7 +18,7 @@ const MidiRegionSuspenseFallback: React.FC = () => {
   const name = useRecoilValue(regionStore.name(regionId));
   const start = useRecoilValue(regionStore.start(regionId));
   const color = useRegionColor(false);
-  const regionWidth = useMidiRegionWidth();
+  const regionWidth = useRegionWidth();
   const ticksToPixel = useTicksToPixel();
 
   return (

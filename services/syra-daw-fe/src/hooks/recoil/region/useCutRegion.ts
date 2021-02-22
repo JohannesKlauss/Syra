@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import useDuplicateAudioRegion from './useDuplicateAudioRegion';
 
-export default function useCutAudioRegion() {
+export default function useCutRegion() {
   const channelId = useContext(ChannelContext);
   const duplicateRegion = useDuplicateAudioRegion();
 

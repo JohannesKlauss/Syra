@@ -6,13 +6,13 @@ import ViewToggles from '../ViewToggles/ViewToggles';
 import TimeInformation from './TimeInformation';
 import Tempo from './Tempo';
 import BarsAndBeats from './BarsAndBeats';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from "@chakra-ui/react";
 import MemberSettings from "../Social/MemberSettings";
 import VersionInformation from '../Platform/VersionInformation';
 
 function TransportView() {
   return (
-    <Flex justify={'space-between'} align={'center'} py={4} borderTop={'1px solid #4FD1C5'} bg={'gray.800'}>
+    <Flex justify={'space-between'} align={'center'} py={4} borderTop={'1px solid #4FD1C5'} bg={'gray.800'} userSelect={'none'}>
       <Flex w={'33%'} justify={'center'}>
         <ViewToggles />
         <PlayRecord />

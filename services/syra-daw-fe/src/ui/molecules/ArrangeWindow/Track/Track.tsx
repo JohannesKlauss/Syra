@@ -30,7 +30,7 @@ const Track = React.memo(({ bg }: Props) => {
   return (
     <ContextMenu>
       <ContextMenuTrigger>
-        <Box bg={bg} id={`track-${channelId}`} h={`${trackHeight}px`} opacity={0.8} w={'100%'} pos={'relative'}>
+        <Box bg={bg} id={`track-${channelId}`} h={`${trackHeight}px`} w={'100%'} pos={'relative'}>
           {isDragOnDocument && <input {...getInputProps()} />}
           <Flex display={isDragOnDocument ? 'flex' : 'none'} opacity={0.5} pl={'150px'} top={0} left={0} h={'100%'} align={'center'} bg={'gray.800'}>
             <Text variant="overline" color={isDragActive ? 'primary' : 'initial'} display={'block'}>

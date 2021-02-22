@@ -75,7 +75,7 @@ const isInputMonitoringActive = atomFamilyWithEffects<boolean, string>({
 // Whether an instrument or plugin is active or bypassed.
 const isPluginActive = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isPluginActive',
-  default: true,
+  default: false,
   effects: [
     ...syncEffectsComb
   ]

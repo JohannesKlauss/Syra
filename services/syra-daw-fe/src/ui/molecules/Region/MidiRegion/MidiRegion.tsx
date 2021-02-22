@@ -11,21 +11,25 @@ import { Flex } from '@chakra-ui/react';
 import { SiMidi } from 'react-icons/si';
 import useMidiRegionScheduler from '../../../../hooks/tone/useMidiRegionScheduler';
 import ResizableBox from '../../../atoms/ResizableBox';
-import useMidiRegionWidth from '../../../../hooks/ui/region/useMidiRegionWidth';
+import useRegionWidth from '../../../../hooks/ui/region/useRegionWidth';
 import useUpdateRegionPosition from '../../../../hooks/recoil/region/useUpdateRegionPosition';
 import usePixelToTicks from '../../../../hooks/tone/usePixelToTicks';
 import useTicksToPixel from '../../../../hooks/tone/useTicksToPixel';
 import MidiRegionVisualization from './MidiRegionVisualization';
+import { arrangeWindowStore } from "../../../../recoil/arrangeWindowStore";
+import useChangeChannelOfRegion from "../../../../hooks/recoil/region/useChangeChannelOfRegion";
 
 const MidiRegion: React.FC = () => {
   const regionId = useContext(RegionContext);
   const name = useRecoilValue(regionStore.name(regionId));
   const start = useRecoilValue(regionStore.start(regionId));
+  const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
   const color = useRegionColor(false);
-  const regionWidth = useMidiRegionWidth();
+  const regionWidth = useRegionWidth();
   const pixelToTicks = usePixelToTicks();
   const ticksToPixel = useTicksToPixel();
   const updatePosition = useUpdateRegionPosition();
+  const updateAssignedChannel = useChangeChannelOfRegion(regionId);
 
   useRegionDawRecordingSync();
   useMidiRegionScheduler();
@@ -34,11 +38,17 @@ const MidiRegion: React.FC = () => {
     updatePosition(pixelToTicks(start), pixelToTicks(duration), pixelToTicks(offsetDelta));
   };
 
+  const onYChanged = (y: number) => {
+    updateAssignedChannel(y / trackHeight);
+  };
+
   return (
     <ResizableBox
       baseX={ticksToPixel(start)}
       baseWidth={regionWidth}
+      snapToY={trackHeight}
       onPositionChanged={onPositionChanged}
+      onYChanged={onYChanged}
       allowOverExtendingStart
     >
       <BaseRegion>

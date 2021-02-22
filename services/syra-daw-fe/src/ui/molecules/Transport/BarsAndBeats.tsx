@@ -35,12 +35,12 @@ function BarsAndBeats() {
   return (
     <>
       <Box>
-        <Text fontSize={'sm'} textAlign={'right'}>{bars}</Text>
-        <Text fontSize={'sm'}>Bar</Text>
+        <Text fontSize={'sm'} textAlign={'right'} userSelect={'none'}>{bars}</Text>
+        <Text fontSize={'sm'} userSelect={'none'}>Bar</Text>
       </Box>
       <Box>
-        <Text fontSize={'sm'} textAlign={'right'}>{beats + 1}</Text>
-        <Text fontSize={'sm'}>Beat</Text>
+        <Text fontSize={'sm'} textAlign={'right'} userSelect={'none'}>{beats + 1}</Text>
+        <Text fontSize={'sm'} userSelect={'none'}>Beat</Text>
       </Box>
     </>
   );

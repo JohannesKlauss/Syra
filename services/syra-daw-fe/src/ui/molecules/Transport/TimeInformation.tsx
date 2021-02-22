@@ -33,7 +33,7 @@ function TimeInformation() {
     updater();
   }, [isRecording, isPlaying, playheadPosition]);
 
-  return <Text fontSize={'3xl'}>{time}</Text>;
+  return <Text fontSize={'3xl'} userSelect={'none'}>{time}</Text>;
 }
 
 export default TimeInformation;
