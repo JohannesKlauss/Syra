@@ -10,7 +10,7 @@ interface Props {
 }
 
 function NewMessageNotifier({}: Props) {
-  useNewMessageNotifier();
+  //useNewMessageNotifier();
   const unreadMessages = useUnreadMessages();
   const { push } = useRouter();
 
