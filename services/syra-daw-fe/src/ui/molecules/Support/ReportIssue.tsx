@@ -93,7 +93,7 @@ const ReportIssue: React.FC = () => {
                     Please describe the issue or bug you are facing as detailed as possible.
                   </FormHelperText>
                 </FormControl>
-                <FileInput name={'files'} accept={'image/*'} maxSize={10000000} />
+                <FileInput name={'files'} accept={['image/*', 'video/*']} maxSize={30000000} />
               </ModalBody>
 
               <ModalFooter>

@@ -1,5 +1,5 @@
-mutation createIssue($description: String!, $screenshotIds: [String!]!) {
-    createIssue(data: {description: $description,screenshotIds: {set: $screenshotIds} }) {
+mutation createIssue($description: String!, $screenshotIds: [String!]!, $me: String) {
+    createIssue(data: {description: $description, screenshotIds: {set: $screenshotIds}, createdBy: {connect: {id: $me}} }) {
         id
     }
 }
