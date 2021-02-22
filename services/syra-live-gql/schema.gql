@@ -2307,6 +2307,7 @@ type Issue {
   id: String!
   resolved: Boolean!
   screenshotIds: [String!]!
+  userId: String!
 }
 
 type IssueCountAggregate {
@@ -2316,9 +2317,30 @@ type IssueCountAggregate {
   id: Int
   resolved: Int
   screenshotIds: Int
+  userId: Int
 }
 
 input IssueCreateInput {
+  createdAt: Timestamp
+  createdBy: UserCreateNestedOneWithoutIssueInput!
+  description: String!
+  id: String
+  resolved: Boolean
+  screenshotIds: IssueCreatescreenshotIdsInput
+}
+
+input IssueCreateNestedManyWithoutCreatedByInput {
+  connect: [IssueWhereUniqueInput!]
+  connectOrCreate: [IssueCreateOrConnectWithoutcreatedByInput!]
+  create: [IssueCreateWithoutCreatedByInput!]
+}
+
+input IssueCreateOrConnectWithoutcreatedByInput {
+  create: IssueCreateWithoutCreatedByInput!
+  where: IssueWhereUniqueInput!
+}
+
+input IssueCreateWithoutCreatedByInput {
   createdAt: Timestamp
   description: String!
   id: String
@@ -2330,11 +2352,18 @@ input IssueCreatescreenshotIdsInput {
   set: [String!]!
 }
 
+input IssueListRelationFilter {
+  every: IssueWhereInput
+  none: IssueWhereInput
+  some: IssueWhereInput
+}
+
 type IssueMaxAggregate {
   createdAt: Timestamp
   description: String
   id: String
   resolved: Boolean
+  userId: String
 }
 
 type IssueMinAggregate {
@@ -2342,14 +2371,17 @@ type IssueMinAggregate {
   description: String
   id: String
   resolved: Boolean
+  userId: String
 }
 
 input IssueOrderByInput {
   createdAt: SortOrder
+  createdBy: UserOrderByInput
   description: SortOrder
   id: SortOrder
   resolved: SortOrder
   screenshotIds: SortOrder
+  userId: SortOrder
 }
 
 enum IssueScalarFieldEnum {
@@ -2358,10 +2390,24 @@ enum IssueScalarFieldEnum {
   id
   resolved
   screenshotIds
+  userId
+}
+
+input IssueScalarWhereInput {
+  AND: [IssueScalarWhereInput!]
+  NOT: [IssueScalarWhereInput!]
+  OR: [IssueScalarWhereInput!]
+  createdAt: DateTimeFilter
+  description: StringFilter
+  id: StringFilter
+  resolved: BoolFilter
+  screenshotIds: StringNullableListFilter
+  userId: StringFilter
 }
 
 input IssueUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
+  createdBy: UserUpdateOneRequiredWithoutIssueInput
   description: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   resolved: BoolFieldUpdateOperationsInput
@@ -2376,8 +2422,45 @@ input IssueUpdateManyMutationInput {
   screenshotIds: IssueUpdatescreenshotIdsInput
 }
 
+input IssueUpdateManyWithWhereWithoutCreatedByInput {
+  data: IssueUpdateManyMutationInput!
+  where: IssueScalarWhereInput!
+}
+
+input IssueUpdateManyWithoutCreatedByInput {
+  connect: [IssueWhereUniqueInput!]
+  connectOrCreate: [IssueCreateOrConnectWithoutcreatedByInput!]
+  create: [IssueCreateWithoutCreatedByInput!]
+  delete: [IssueWhereUniqueInput!]
+  deleteMany: [IssueScalarWhereInput!]
+  disconnect: [IssueWhereUniqueInput!]
+  set: [IssueWhereUniqueInput!]
+  update: [IssueUpdateWithWhereUniqueWithoutCreatedByInput!]
+  updateMany: [IssueUpdateManyWithWhereWithoutCreatedByInput!]
+  upsert: [IssueUpsertWithWhereUniqueWithoutCreatedByInput!]
+}
+
+input IssueUpdateWithWhereUniqueWithoutCreatedByInput {
+  data: IssueUpdateWithoutCreatedByInput!
+  where: IssueWhereUniqueInput!
+}
+
+input IssueUpdateWithoutCreatedByInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  resolved: BoolFieldUpdateOperationsInput
+  screenshotIds: IssueUpdatescreenshotIdsInput
+}
+
 input IssueUpdatescreenshotIdsInput {
   set: [String!]!
+}
+
+input IssueUpsertWithWhereUniqueWithoutCreatedByInput {
+  create: IssueCreateWithoutCreatedByInput!
+  update: IssueUpdateWithoutCreatedByInput!
+  where: IssueWhereUniqueInput!
 }
 
 input IssueWhereInput {
@@ -2385,10 +2468,12 @@ input IssueWhereInput {
   NOT: [IssueWhereInput!]
   OR: [IssueWhereInput!]
   createdAt: DateTimeFilter
+  createdBy: UserRelationFilter
   description: StringFilter
   id: StringFilter
   resolved: BoolFilter
   screenshotIds: StringNullableListFilter
+  userId: StringFilter
 }
 
 input IssueWhereUniqueInput {
@@ -3614,6 +3699,7 @@ type User {
   CommentLike(cursor: CommentLikeWhereUniqueInput, distinct: [CommentLikeScalarFieldEnum!], orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLike!]!
   EarlyAccessCode(cursor: EarlyAccessCodeWhereUniqueInput, distinct: [EarlyAccessCodeScalarFieldEnum!], orderBy: [EarlyAccessCodeOrderByInput!], skip: Int, take: Int, where: EarlyAccessCodeWhereInput): [EarlyAccessCode!]!
   FeedItemLike(cursor: FeedItemLikeWhereUniqueInput, distinct: [FeedItemLikeScalarFieldEnum!], orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLike!]!
+  Issue(cursor: IssueWhereUniqueInput, distinct: [IssueScalarFieldEnum!], orderBy: [IssueOrderByInput!], skip: Int, take: Int, where: IssueWhereInput): [Issue!]!
   Mixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]!
   address: Address
   addressId: String
@@ -3667,6 +3753,7 @@ input UserCreateInput {
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -3745,6 +3832,12 @@ input UserCreateNestedOneWithoutInterestsInput {
   create: UserCreateWithoutInterestsInput
 }
 
+input UserCreateNestedOneWithoutIssueInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutIssueInput
+  create: UserCreateWithoutIssueInput
+}
+
 input UserCreateNestedOneWithoutMemberOfBandsInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutmemberOfBandsInput
@@ -3792,6 +3885,11 @@ input UserCreateOrConnectWithoutCommentLikeInput {
 
 input UserCreateOrConnectWithoutFeedItemLikeInput {
   create: UserCreateWithoutFeedItemLikeInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateOrConnectWithoutIssueInput {
+  create: UserCreateWithoutIssueInput!
   where: UserWhereUniqueInput!
 }
 
@@ -3851,6 +3949,7 @@ input UserCreateWithoutAddressInput {
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   avatar: String
   bio: String
@@ -3879,6 +3978,7 @@ input UserCreateWithoutAudioAssetInput {
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -3908,6 +4008,7 @@ input UserCreateWithoutCommentInput {
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -3937,6 +4038,7 @@ input UserCreateWithoutCommentLikeInput {
   Comment: CommentCreateNestedManyWithoutAuthorInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -3967,6 +4069,7 @@ input UserCreateWithoutFeedInput {
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -3995,6 +4098,7 @@ input UserCreateWithoutFeedItemLikeInput {
   Comment: CommentCreateNestedManyWithoutAuthorInput
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -4025,6 +4129,7 @@ input UserCreateWithoutFollowedByInput {
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -4054,6 +4159,7 @@ input UserCreateWithoutFollowingInput {
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -4083,6 +4189,7 @@ input UserCreateWithoutInterestsInput {
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -4106,12 +4213,43 @@ input UserCreateWithoutInterestsInput {
   website: String
 }
 
+input UserCreateWithoutIssueInput {
+  AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
+  Comment: CommentCreateNestedManyWithoutAuthorInput
+  CommentLike: CommentLikeCreateNestedManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
+  address: AddressCreateNestedOneWithoutUserInput
+  avatar: String
+  bio: String
+  createdAt: Timestamp
+  email: String!
+  feed: FeedItemCreateNestedManyWithoutAuthorInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
+  handle: String!
+  id: String
+  interests: TagCreateNestedManyWithoutUserInput
+  isOnline: Boolean
+  memberOfBands: UsersOnBandsCreateNestedManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsCreateNestedManyWithoutUserInput
+  name: String!
+  ownsBands: BandCreateNestedManyWithoutCreatedByInput
+  ownsProjects: ProjectCreateNestedManyWithoutOwnerInput
+  password: String!
+  role: Role
+  updatedAt: Timestamp
+  website: String
+}
+
 input UserCreateWithoutMemberOfBandsInput {
   AudioAsset: AudioAssetCreateNestedManyWithoutOwnerInput
   Comment: CommentCreateNestedManyWithoutAuthorInput
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -4141,6 +4279,7 @@ input UserCreateWithoutMemberOfProjectsInput {
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -4170,6 +4309,7 @@ input UserCreateWithoutMixdownInput {
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
   bio: String
@@ -4199,6 +4339,7 @@ input UserCreateWithoutOwnsBandsInput {
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -4228,6 +4369,7 @@ input UserCreateWithoutOwnsProjectsInput {
   CommentLike: CommentLikeCreateNestedManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeCreateNestedManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeCreateNestedManyWithoutUserInput
+  Issue: IssueCreateNestedManyWithoutCreatedByInput
   Mixdown: MixdownCreateNestedManyWithoutTriggerdByInput
   address: AddressCreateNestedOneWithoutUserInput
   avatar: String
@@ -4360,6 +4502,7 @@ input UserUpdateInput {
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -4485,6 +4628,14 @@ input UserUpdateOneRequiredWithoutFeedItemLikeInput {
   upsert: UserUpsertWithoutFeedItemLikeInput
 }
 
+input UserUpdateOneRequiredWithoutIssueInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutIssueInput
+  create: UserCreateWithoutIssueInput
+  update: UserUpdateWithoutIssueInput
+  upsert: UserUpsertWithoutIssueInput
+}
+
 input UserUpdateOneRequiredWithoutMemberOfBandsInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutmemberOfBandsInput
@@ -4566,6 +4717,7 @@ input UserUpdateWithoutAddressInput {
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   avatar: NullableStringFieldUpdateOperationsInput
   bio: NullableStringFieldUpdateOperationsInput
@@ -4594,6 +4746,7 @@ input UserUpdateWithoutAudioAssetInput {
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -4623,6 +4776,7 @@ input UserUpdateWithoutCommentInput {
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -4652,6 +4806,7 @@ input UserUpdateWithoutCommentLikeInput {
   Comment: CommentUpdateManyWithoutAuthorInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -4682,6 +4837,7 @@ input UserUpdateWithoutFeedInput {
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -4710,6 +4866,7 @@ input UserUpdateWithoutFeedItemLikeInput {
   Comment: CommentUpdateManyWithoutAuthorInput
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -4740,6 +4897,7 @@ input UserUpdateWithoutFollowedByInput {
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -4769,6 +4927,7 @@ input UserUpdateWithoutFollowingInput {
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -4798,6 +4957,7 @@ input UserUpdateWithoutInterestsInput {
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -4821,12 +4981,43 @@ input UserUpdateWithoutInterestsInput {
   website: NullableStringFieldUpdateOperationsInput
 }
 
+input UserUpdateWithoutIssueInput {
+  AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
+  Comment: CommentUpdateManyWithoutAuthorInput
+  CommentLike: CommentLikeUpdateManyWithoutUserInput
+  EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
+  FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Mixdown: MixdownUpdateManyWithoutTriggerdByInput
+  address: AddressUpdateOneWithoutUserInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  feed: FeedItemUpdateManyWithoutAuthorInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
+  handle: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  interests: TagUpdateManyWithoutUserInput
+  isOnline: BoolFieldUpdateOperationsInput
+  memberOfBands: UsersOnBandsUpdateManyWithoutUserInput
+  memberOfProjects: UsersOnProjectsUpdateManyWithoutUserInput
+  name: StringFieldUpdateOperationsInput
+  ownsBands: BandUpdateManyWithoutCreatedByInput
+  ownsProjects: ProjectUpdateManyWithoutOwnerInput
+  password: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  website: NullableStringFieldUpdateOperationsInput
+}
+
 input UserUpdateWithoutMemberOfBandsInput {
   AudioAsset: AudioAssetUpdateManyWithoutOwnerInput
   Comment: CommentUpdateManyWithoutAuthorInput
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -4856,6 +5047,7 @@ input UserUpdateWithoutMemberOfProjectsInput {
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -4885,6 +5077,7 @@ input UserUpdateWithoutMixdownInput {
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
   bio: NullableStringFieldUpdateOperationsInput
@@ -4914,6 +5107,7 @@ input UserUpdateWithoutOwnsBandsInput {
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -4943,6 +5137,7 @@ input UserUpdateWithoutOwnsProjectsInput {
   CommentLike: CommentLikeUpdateManyWithoutUserInput
   EarlyAccessCode: EarlyAccessCodeUpdateManyWithoutClaimedByInput
   FeedItemLike: FeedItemLikeUpdateManyWithoutUserInput
+  Issue: IssueUpdateManyWithoutCreatedByInput
   Mixdown: MixdownUpdateManyWithoutTriggerdByInput
   address: AddressUpdateOneWithoutUserInput
   avatar: NullableStringFieldUpdateOperationsInput
@@ -5014,6 +5209,11 @@ input UserUpsertWithoutInterestsInput {
   update: UserUpdateWithoutInterestsInput!
 }
 
+input UserUpsertWithoutIssueInput {
+  create: UserCreateWithoutIssueInput!
+  update: UserUpdateWithoutIssueInput!
+}
+
 input UserUpsertWithoutMemberOfBandsInput {
   create: UserCreateWithoutMemberOfBandsInput!
   update: UserUpdateWithoutMemberOfBandsInput!
@@ -5046,6 +5246,7 @@ input UserWhereInput {
   CommentLike: CommentLikeListRelationFilter
   EarlyAccessCode: EarlyAccessCodeListRelationFilter
   FeedItemLike: FeedItemLikeListRelationFilter
+  Issue: IssueListRelationFilter
   Mixdown: MixdownListRelationFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
