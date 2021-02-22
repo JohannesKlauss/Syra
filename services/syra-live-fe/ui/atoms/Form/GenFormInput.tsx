@@ -2,6 +2,7 @@ import React from 'react';
 import { FormControl, FormHelperText, FormLabel, Input } from '@chakra-ui/react';
 
 interface Props {
+  isInvalid?: boolean;
   isRequired?: boolean;
   label: string;
   helpText?: string;
@@ -11,11 +12,12 @@ interface Props {
   type?: string;
 }
 
-const GenFormInput = React.forwardRef<HTMLInputElement, Props>(({ type, defaultValue, isRequired, name, label, helpText, placeholder }, ref) => {
+const GenFormInput = React.forwardRef<HTMLInputElement, Props>(({ type, isInvalid, defaultValue, isRequired, name, label, helpText, placeholder }, ref) => {
   return (
     <FormControl isRequired={isRequired} marginY={4}>
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Input
+        isInvalid={isInvalid}
         type={type}
         id={name}
         name={name}

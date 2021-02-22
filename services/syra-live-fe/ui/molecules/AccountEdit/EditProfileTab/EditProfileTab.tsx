@@ -37,7 +37,7 @@ function EditProfileTab({}: Props) {
   const [optimisticAvatar, setOptimisticAvatar] = useState<string>(null);
   const { data: { me }, loading, error, refetch } = useMeQuery();
   const [executeUpdateUser, {loading: isMutationExecuting}] = useUpdateUserMutation();
-  const { register, handleSubmit } = useForm<TEditProfileForm>();
+  const { register, handleSubmit, errors } = useForm<TEditProfileForm>();
 
   const onSubmit = async (data: TEditProfileForm) => {
     const result = await executeUpdateUser({
@@ -75,6 +75,7 @@ function EditProfileTab({}: Props) {
           label={t('Name')}
           helpText={t('accountEditNameHelpText')}
           isRequired
+          isInvalid={errors.name != null}
           defaultValue={me.name}
           ref={register({ required: true })}
         />
@@ -84,8 +85,9 @@ function EditProfileTab({}: Props) {
           label={t('Handle')}
           helpText={t('accountEditHandleHelpText')}
           isRequired
+          isInvalid={errors.handle != null}
           defaultValue={me.handle}
-          ref={register({ required: true, minLength: 3 })}
+          ref={register({ required: true, minLength: 3, validate: val => !(/[\s/@]/g).test(val) })}
         />
         <GenFormInput
           placeholder={t('Website')}
@@ -111,8 +113,11 @@ function EditProfileTab({}: Props) {
             id="email"
             name={'email'}
             defaultValue={me.email}
+            isRequired
+            isInvalid={errors.email != null}
             ref={register({
-              required: true, pattern: {
+              required: true,
+              pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                 message: t('Invalid email address'),
               },
