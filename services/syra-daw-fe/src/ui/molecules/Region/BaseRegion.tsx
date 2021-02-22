@@ -24,16 +24,16 @@ const BaseRegion: React.FC<Props> = ({ children }) => {
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
 
   return (
-    <Box
-      h={`${trackHeight}px`}
-      opacity={isMuted ? 0.5 : 1}
-      rounded={4}
-      onClick={() => setSelectedIds([regionId])}
-      onDoubleClick={() => isMidi && openPianoRoll(channelId, regionId)}
-      border={isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(5).toRgbString()}`}
-    >
-      {children}
-    </Box>
+      <Box
+        h={`${trackHeight}px`}
+        opacity={isMuted ? 0.5 : 1}
+        rounded={4}
+        onClick={() => setSelectedIds([regionId])}
+        onDoubleClick={() => isMidi && openPianoRoll(channelId, regionId)}
+        border={isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(5).toRgbString()}`}
+      >
+        {children}
+      </Box>
   );
 };
 

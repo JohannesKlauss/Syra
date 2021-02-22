@@ -7,6 +7,7 @@ import { gridStore } from "./gridStore";
 import { View } from "../types/View";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
 import * as Tone from 'tone';
+import { channelStore } from "./channelStore";
 
 // Sets the amount of ticks that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamilyWithEffects<number, string>({
@@ -133,7 +134,7 @@ const audioBuffer = selectorFamily<AudioBuffer | null, string>({
   }
 });
 
-// Parameter is channelId.
+// Parameter is channelId. This basically stores all regionIds for a channelId.
 const ids = atomFamilyWithEffects<string[], string>({
   key: 'region/ids',
   default: [],
@@ -255,5 +256,5 @@ export const regionStore = {
   selectedIds,
   arrangeWindowPosition,
   midiNotesInsideBoundaries,
-  findNearbyRegionId
+  findNearbyRegionId,
 };

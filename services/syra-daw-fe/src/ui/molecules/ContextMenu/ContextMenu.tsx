@@ -29,7 +29,7 @@ const ContextMenu: React.FC<Props> = ({ children, hotkey }) => {
   return (
     <>
       <div ref={ref}>{children[0]}</div>
-      <ClickAwayListener onClickAway={onClose}>
+      <ClickAwayListener onClickAway={onClose} onContextMenu={onClose}>
         <Menu isLazy isOpen={isOpen} size={'xs'}>
           <Portal>
             <MenuList onClick={onClose} fontSize={'xs'} pos={'fixed'} left={offset[0]} top={offset[1]}>

@@ -106,7 +106,7 @@ const soulPatchDescriptor = atomFamilyWithEffects<SoulPatchDescriptor | undefine
 });
 
 const soulInstance = selectorFamily<SoulInstance | undefined, string>({
-  key: 'channel/soulInstanceSel',
+  key: 'channel/soulInstance',
   get: pluginId => async ({get}) => {
     if (!get(projectStore.isEngineRunning)) {
       return undefined;
@@ -237,6 +237,23 @@ const findSelectedChannel = selector({
   },
 });
 
+const findByRegionId = selectorFamily<string, string>({
+  key: 'region/assignedChannelId',
+  get: regionId => ({get}) => {
+    const channelIds = get(ids);
+
+    for (let i = 0; i < channelIds.length; i++) {
+      const regionIds = get(regionStore.ids(channelIds[i]));
+
+      if (regionIds.find(id => id === regionId) !== undefined) {
+        return channelIds[i];
+      }
+    }
+
+    return '';
+  }
+});
+
 export const channelStore = {
   name,
   type,
@@ -255,4 +272,5 @@ export const channelStore = {
   findPluginsByIds,
   findActivePluginsByIds,
   findSelectedChannel,
+  findByRegionId,
 };

@@ -9,6 +9,9 @@ import { Box, Button, Flex } from '@chakra-ui/react';
 import ChannelHeader from './Strip/ChannelHeader';
 import ChannelBody from './Strip/ChannelBody';
 import HorizontalChannelSuspenseFallback from "./HorizontalChannelSuspenseFallback";
+import ContextMenu from "../../ContextMenu/ContextMenu";
+import ContextMenuTrigger from "../../ContextMenu/ContextMenuTrigger";
+import ChannelContextMenu from "../ChannelMenu/ChannelContextMenu";
 
 interface Props {
   channelId: string;
@@ -34,17 +37,21 @@ function BaseChannel({ channelId, index }: Props) {
 
   return (
     <ChannelContext.Provider value={channelId}>
-      <Box
-        data-id={'BaseChanel'}
-        maxW={'150px'}
-        w={'150px'}
-        bg={backgroundColor}
-        onClick={() => setSelectedChannelId(channelId)}
-      >
-        <Suspense fallback={<HorizontalChannelSuspenseFallback/>}>
-          {ChannelComponent}
-        </Suspense>
-      </Box>
+      <ContextMenu>
+        <ContextMenuTrigger>
+          <Box
+            maxW={'150px'}
+            w={'150px'}
+            bg={backgroundColor}
+            onClick={() => setSelectedChannelId(channelId)}
+          >
+            <Suspense fallback={<HorizontalChannelSuspenseFallback/>}>
+              {ChannelComponent}
+            </Suspense>
+          </Box>
+        </ContextMenuTrigger>
+        <ChannelContextMenu/>
+      </ContextMenu>
     </ChannelContext.Provider>
   );
 }

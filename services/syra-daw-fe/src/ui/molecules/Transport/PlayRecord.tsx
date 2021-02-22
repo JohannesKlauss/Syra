@@ -62,7 +62,7 @@ function PlayRecord() {
     setIsPlaying((currVal) => !currVal);
   }, [setIsPlaying, transport, isPlaying, isRecording, cycleStart, isCycleActive, lengthInQuarters, setCurrentTransportQuarter, setTransportSeconds]);
 
-  const onClickReset = useCallback(() => setCurrentTransportQuarter(0), [setCurrentTransportQuarter]);
+  const onClickReset = useCallback(() => setTransportSeconds(0), [setTransportSeconds]);
 
   const onClickRecord = useCallback(() => {
     if (isRecording) {
