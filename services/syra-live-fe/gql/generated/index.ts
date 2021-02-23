@@ -7148,6 +7148,7 @@ export type FollowRecommendationsQuery = { __typename?: 'Query' } & {
 
 export type SearchQueryVariables = Exact<{
   searchString: Scalars['String'];
+  me?: Maybe<Scalars['String']>;
 }>;
 
 export type SearchQuery = { __typename?: 'Query' } & {
@@ -8492,7 +8493,7 @@ export type FollowRecommendationsQueryResult = Apollo.QueryResult<
   FollowRecommendationsQueryVariables
 >;
 export const SearchDocument = gql`
-  query search($searchString: String!) {
+  query search($searchString: String!, $me: String) {
     users(
       where: {
         OR: [
@@ -8503,7 +8504,12 @@ export const SearchDocument = gql`
     ) {
       ...FeedUser
     }
-    projects(where: { name: { contains: $searchString, mode: insensitive } }) {
+    projects(
+      where: {
+        name: { contains: $searchString, mode: insensitive }
+        OR: [{ ownerId: { equals: $me }, members: { some: { userId: { equals: $me } } } }]
+      }
+    ) {
       ...SessionListData
     }
   }
@@ -8524,6 +8530,7 @@ export const SearchDocument = gql`
  * const { data, loading, error } = useSearchQuery({
  *   variables: {
  *      searchString: // value for 'searchString'
+ *      me: // value for 'me'
  *   },
  * });
  */
