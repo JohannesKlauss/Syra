@@ -9,6 +9,7 @@ import { createSoulInstance } from "../soul/createSoulInstance";
 import { soulPluginStore } from "./soulPluginStore";
 import { projectStore } from "./projectStore";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
+import { setLoggerEffect } from "./effects/setLoggerEffect";
 
 let lastChannelNum = 2;
 
@@ -60,7 +61,7 @@ const isMuted = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isMuted',
   default: false,
   effects: [
-    ...syncEffectsComb
+    ...syncEffectsComb,
   ]
 });
 
@@ -77,7 +78,7 @@ const isPluginActive = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isPluginActive',
   default: false,
   effects: [
-    ...syncEffectsComb
+    ...syncEffectsComb,
   ]
 });
 

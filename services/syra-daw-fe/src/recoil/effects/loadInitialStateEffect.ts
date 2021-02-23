@@ -13,7 +13,9 @@ export const loadInitialStateEffect: RecoilAtomEffect = <P, T>(key: string, id?:
   if (trigger === 'get') {
     let val = dbContent[key] || JSON.parse(localStorage.getItem(key) ?? 'null');
 
-    if (key === 'channel/soulPatchParameter') {
+    if (key === 'channel/isPluginActive') {
+      console.log('Val for ' + key + ' (' + id + ')', val);
+
       if (val != null) {
         if (id && val instanceof Array) {
           console.log('set parameter to', val.find((v) => isEqual(v.id, id))?.value ?? new DefaultValue());
