@@ -2,22 +2,24 @@ import { useRecoilCallback } from 'recoil';
 import { RegionState, regionStore } from '../../../recoil/regionStore';
 import { useContext } from 'react';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import useDuplicateAudioRegion from './useDuplicateAudioRegion';
+import useDuplicateRegion from './useDuplicateRegion';
 
 export default function useCutRegion() {
   const channelId = useContext(ChannelContext);
-  const duplicateRegion = useDuplicateAudioRegion();
+  const duplicateRegion = useDuplicateRegion();
 
   // cutAt is in seconds, not pixel!
   return useRecoilCallback(({set, snapshot}) => (originalRegionId: string, cutAt: number) => {
     const originalState = snapshot.getLoadable(regionStore.regionState(originalRegionId)).contents as RegionState;
 
-    const slicePosition = originalState.trimStart + cutAt;
+    /*const slicePosition = originalState.trimStart + cutAt;
     const newRegionId = duplicateRegion(originalRegionId);
 
     set(regionStore.trimEnd(originalRegionId), slicePosition);
     set(regionStore.trimStart(newRegionId), slicePosition);
 
-    return newRegionId;
+    return newRegionId;*/
+
+    return originalRegionId;
   }, [channelId, duplicateRegion]);
 }

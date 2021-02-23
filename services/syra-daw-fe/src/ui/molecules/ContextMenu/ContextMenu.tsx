@@ -32,7 +32,7 @@ const ContextMenu: React.FC<Props> = ({ children, hotkey }) => {
       <ClickAwayListener onClickAway={onClose} mouseEvent="mousedown">
         <Menu isLazy isOpen={isOpen} size={'xs'}>
           <Portal>
-            <MenuList onClick={onClose} fontSize={'xs'} pos={'fixed'} left={offset[0]} top={offset[1]}>
+            <MenuList onClick={onClose} onMouseDown={e => e.stopPropagation()} fontSize={'xs'} pos={'fixed'} left={offset[0]} top={offset[1]}>
               {
                 // @ts-ignore TODO: For some reason the Children Types are incompatible. Check back to fix this.
                 React.cloneElement(children[1], { offset: layerOffset })

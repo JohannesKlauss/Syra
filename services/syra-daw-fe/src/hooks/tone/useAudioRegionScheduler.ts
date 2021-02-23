@@ -9,7 +9,7 @@ export default function useAudioRegionScheduler() {
   const channelId = useContext(ChannelContext);
   const { players } = useBackboneChannel(channelId);
   const regionId = useContext(RegionContext);
-  const { start, audioBuffer, isRecording, isMuted, trimEnd, trimStart } = useRecoilValue(regionStore.regionState(regionId));
+  const { start, audioBuffer, isRecording, isMuted, duration, offset } = useRecoilValue(regionStore.regionState(regionId));
 
   useEffect(() => {
     // When the region is being recorded or has an empty audio buffer we do not schedule anything.
@@ -30,5 +30,5 @@ export default function useAudioRegionScheduler() {
     return () => {
       players.player(regionId).unsync();
     }
-  }, [start, audioBuffer, players, isRecording, isMuted, regionId, trimEnd, trimStart]);
+  }, [start, audioBuffer, players, isRecording, isMuted, regionId, duration, offset]);
 }

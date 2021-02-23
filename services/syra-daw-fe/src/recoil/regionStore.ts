@@ -90,12 +90,12 @@ const midiNotes = atomFamilyWithEffects<MidiNote[], string>({
 export interface RegionState {
   audioBuffer: AudioBuffer | null;
   start: number;
+  duration: number;
+  offset: number;
   isMuted: boolean;
   isSolo: boolean;
   isRecording: boolean;
   isMidi: boolean;
-  trimStart: number;
-  trimEnd: number;
   name: string;
   midiNotes: MidiNote[];
 }
@@ -113,12 +113,12 @@ const regionState = selectorFamily<RegionState, string>({
     return {
       audioBuffer,
       start: get(start(id)),
+      duration: get(duration(id)),
+      offset: get(offset(id)),
       isSolo: get(isSolo(id)),
       isMuted: get(isMuted(id)),
       isRecording: get(isRecording(id)),
       isMidi: get(isMidi(id)),
-      trimEnd: get(trimEnd(id)),
-      trimStart: get(trimStart(id)),
       name: get(name(id)),
       midiNotes: get(midiNotes(id)),
     };

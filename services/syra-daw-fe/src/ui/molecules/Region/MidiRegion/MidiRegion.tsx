@@ -18,6 +18,8 @@ import useTicksToPixel from '../../../../hooks/tone/useTicksToPixel';
 import MidiRegionVisualization from './MidiRegionVisualization';
 import { arrangeWindowStore } from "../../../../recoil/arrangeWindowStore";
 import useChangeChannelOfRegion from "../../../../hooks/recoil/region/useChangeChannelOfRegion";
+import ClonableResizableBox from "../../../atoms/ClonableResizableBox";
+import useDuplicateRegion from "../../../../hooks/recoil/region/useDuplicateRegion";
 
 const MidiRegion: React.FC = () => {
   const regionId = useContext(RegionContext);
@@ -29,6 +31,7 @@ const MidiRegion: React.FC = () => {
   const pixelToTicks = usePixelToTicks();
   const ticksToPixel = useTicksToPixel();
   const updatePosition = useUpdateRegionPosition();
+  const duplicateRegion = useDuplicateRegion();
   const updateAssignedChannel = useChangeChannelOfRegion(regionId);
 
   useRegionDawRecordingSync();
@@ -42,14 +45,19 @@ const MidiRegion: React.FC = () => {
     updateAssignedChannel(y / trackHeight);
   };
 
+  const onClonedRegion = (x: number) => {
+    duplicateRegion(regionId, pixelToTicks(x));
+  };
+
   return (
-    <ResizableBox
+    <ClonableResizableBox
       baseX={ticksToPixel(start)}
       baseWidth={regionWidth}
       minWidth={40}
       snapToY={trackHeight}
       onPositionChanged={onPositionChanged}
       onYChanged={onYChanged}
+      onClonedBox={onClonedRegion}
       allowOverExtendingStart
     >
       <BaseRegion>
@@ -63,7 +71,7 @@ const MidiRegion: React.FC = () => {
           <MidiRegionVisualization />
         </ManipulationContainer>
       </BaseRegion>
-    </ResizableBox>
+    </ClonableResizableBox>
   );
 };
 
