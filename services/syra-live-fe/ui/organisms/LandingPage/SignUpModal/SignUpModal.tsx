@@ -56,7 +56,7 @@ function SignUpModal({ isOpen, onClose, onClickSwitchToLogin }: Props) {
   };
 
   return (
-    <Modal onClose={onClose} isOpen={isOpen} isCentered>
+    <Modal onClose={onClose} isOpen={isOpen} isCentered scrollBehavior={'inside'}>
       <ModalOverlay opacity={1} />
       <ModalContent pb={5}>
         <ModalHeader>{t('S Y R A   -   Early Access')}</ModalHeader>
