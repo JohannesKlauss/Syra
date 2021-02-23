@@ -38,6 +38,8 @@ const SliderParameter = React.memo(({ soulInstanceId, parameterId }: Props) => {
     [patch, index, setParameter],
   );
 
+  console.log('parameter', parameter);
+
   return (
     <>
       <Box>
