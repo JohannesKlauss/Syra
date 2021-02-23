@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import SearchField from '../../atoms/SearchField/SearchField';
 import { useTranslation } from 'react-i18next';
-import { SearchQuery, useSearchQuery } from '../../../gql/generated';
+import { useSearchQuery } from '../../../gql/generated';
 import SearchResults from '../SearchResults/SearchResults';
 import { Box } from '@chakra-ui/react';
 import { useHotkeys } from "react-hotkeys-hook";
@@ -30,9 +30,9 @@ function Search({}: Props) {
         placeholder={`${t('Search')} ${' '} ${t('S Y R A')}`}
         onKeyup={setSearchString}
       />
-      {!loading && data && data.users && showResultsTab && (
+      {!loading && data && showResultsTab && (
         <ClickAwayListener onClickAway={() => setShowResultsTab(false)}>
-          <SearchResults searchString={searchString} userResults={data.users} />
+          <SearchResults searchString={searchString} userResults={data.users} projectResults={data.projects} />
         </ClickAwayListener>
       )}
     </Box>

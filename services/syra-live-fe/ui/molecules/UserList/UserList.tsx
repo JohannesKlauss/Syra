@@ -18,7 +18,7 @@ const UserList: React.FC<Props> = ({ users, isMessageButtonContracted, size }) =
     <List spacing={3}>
       {users.map((user) => (
         <ListItem key={user.handle}>
-          <Flex justify={'start'} align={'center'}>
+          <Flex justify={'space-between'} align={'center'}>
             <Flex align={'center'} maxWidth={'60%'} pos={'relative'}>
               <Avatar size={size} name={user.name} src={user.avatar} onClick={() => push(`/profile/${user.handle}`)} />
               <Box ml={4} isTruncated>

@@ -102,6 +102,9 @@ query search($searchString: String!) {
     users(where: {OR: [{name: {contains: $searchString, mode: insensitive}}, {handle: {contains: $searchString, mode: insensitive}}]}) {
         ...FeedUser
     }
+    projects(where: {name: {contains: $searchString, mode: insensitive}}) {
+        ...SessionListData
+    }
 }
 
 mutation signUpUser($name: String!, $email: String!, $password: String!, $accessCode: String!, $handle: String!) {
