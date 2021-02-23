@@ -12,6 +12,7 @@ export default async function loadSoulPatchWasm(path: string, name: string): Pro
   }
 
   const descriptor: SoulPatchDescriptor = JSON.parse(bufferContent);
+  descriptor.description.isInstrument = ((descriptor.description.isInstrument as unknown) as string) === 'true';
 
   return {
     descriptor,

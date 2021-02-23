@@ -2,6 +2,7 @@ import { RecoilAtomEffect } from '../../types/Recoil';
 import { AtomEffect } from 'recoil';
 import { replaceItemAtIndex } from '../../utils/recoil';
 import { getApolloClient } from '../../apollo/client';
+import { isEqual } from 'lodash';
 import {
   UpdateProjectContentDocument,
   UpdateProjectContentMutation,
@@ -38,7 +39,7 @@ export const saveToDatabaseEffect: RecoilAtomEffect = <P, T>(key: string, id?: P
       changesToSave[key] = id ? [{ id, value }] : value;
     } else {
       if (changesToSave[key] instanceof Array && id !== undefined) {
-        const j = changesToSave[key].findIndex((val: { id: P; value: any }) => val.id === id);
+        const j = changesToSave[key].findIndex((val: { id: P; value: any }) => isEqual(val.id, id));
 
         if (j < 0) {
           changesToSave[key] = [...changesToSave[key], { id, value }];
