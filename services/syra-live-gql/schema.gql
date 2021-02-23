@@ -2307,7 +2307,7 @@ type Issue {
   id: String!
   resolved: Boolean!
   screenshotIds: [String!]!
-  userId: String!
+  userId: String
 }
 
 type IssueCountAggregate {
@@ -2322,7 +2322,7 @@ type IssueCountAggregate {
 
 input IssueCreateInput {
   createdAt: Timestamp
-  createdBy: UserCreateNestedOneWithoutIssueInput!
+  createdBy: UserCreateNestedOneWithoutIssueInput
   description: String!
   id: String
   resolved: Boolean
@@ -2402,12 +2402,12 @@ input IssueScalarWhereInput {
   id: StringFilter
   resolved: BoolFilter
   screenshotIds: StringNullableListFilter
-  userId: StringFilter
+  userId: StringNullableFilter
 }
 
 input IssueUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
-  createdBy: UserUpdateOneRequiredWithoutIssueInput
+  createdBy: UserUpdateOneWithoutIssueInput
   description: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   resolved: BoolFieldUpdateOperationsInput
@@ -2473,7 +2473,7 @@ input IssueWhereInput {
   id: StringFilter
   resolved: BoolFilter
   screenshotIds: StringNullableListFilter
-  userId: StringFilter
+  userId: StringNullableFilter
 }
 
 input IssueWhereUniqueInput {
@@ -4628,14 +4628,6 @@ input UserUpdateOneRequiredWithoutFeedItemLikeInput {
   upsert: UserUpsertWithoutFeedItemLikeInput
 }
 
-input UserUpdateOneRequiredWithoutIssueInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutIssueInput
-  create: UserCreateWithoutIssueInput
-  update: UserUpdateWithoutIssueInput
-  upsert: UserUpsertWithoutIssueInput
-}
-
 input UserUpdateOneRequiredWithoutMemberOfBandsInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutMemberOfBandsInput
@@ -4694,6 +4686,16 @@ input UserUpdateOneWithoutInterestsInput {
   disconnect: Boolean
   update: UserUpdateWithoutInterestsInput
   upsert: UserUpsertWithoutInterestsInput
+}
+
+input UserUpdateOneWithoutIssueInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutIssueInput
+  create: UserCreateWithoutIssueInput
+  delete: Boolean
+  disconnect: Boolean
+  update: UserUpdateWithoutIssueInput
+  upsert: UserUpsertWithoutIssueInput
 }
 
 input UserUpdateWithWhereUniqueWithoutAddressInput {

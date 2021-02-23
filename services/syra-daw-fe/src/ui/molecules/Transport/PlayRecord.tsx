@@ -89,6 +89,7 @@ function PlayRecord() {
         icon={<AiFillStepBackward />}
         onClick={onClickReset}
         title={buttonInfo('Reset to project start', 'Return')}
+        onMouseDown={e => e.preventDefault()}
       />
       <IconButton
         aria-label={'Play and pause project'}
@@ -97,6 +98,7 @@ function PlayRecord() {
         onClick={onClickPlayPause}
         mx={1}
         title={buttonInfo('Play and pause project', 'Return')}
+        onMouseDown={e => e.preventDefault()}
       />
       <IconButton
         aria-label={'Start and stop recording'}
@@ -104,6 +106,7 @@ function PlayRecord() {
         colorScheme={'red'}
         onClick={onClickRecord}
         title={buttonInfo('Start and stop recording', 'Return')}
+        onMouseDown={e => e.preventDefault()}
       />
     </Flex>
   );

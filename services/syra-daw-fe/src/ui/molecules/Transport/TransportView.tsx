@@ -18,7 +18,7 @@ function TransportView() {
         <PlayRecord />
       </Flex>
       <Flex px={4} w={'33%'} justify={'space-between'} align={'center'} bg={'gray.900'} rounded={'md'} boxShadow={'inner'}>
-        <Box w={'40%'}>
+        <Box w={'30%'}>
           <TimeInformation />
         </Box>
         <BarsAndBeats />
