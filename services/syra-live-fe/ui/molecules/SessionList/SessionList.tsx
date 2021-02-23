@@ -21,14 +21,14 @@ const SessionList: React.FC<Props> = ({ sessions, size }) => {
       {sessions.map((session) => (
         <ListItem key={session.id}>
           <Flex justify={'flex-start'} align={'center'}>
-            <Flex align={'center'} w={48}>
+            <Flex align={'center'} w={'30%'}>
               <Box ml={4}>
                 <Link passHref href={`${publicRuntimeConfig.NEXT_PUBLIC_DAW_URL}/editor/${session.id}`}>
                   <ChakraLink fontWeight={600} fontSize={size} target={'_blank'}>
                     {session.name}
                   </ChakraLink>
                 </Link>
-                  <Text fontSize={size}>
+                  <Text fontSize={size} color={'gray.500'}>
                     {t('Created {{date}} ago', {
                       date: formatDistanceToNow(fromUnixTime(session.createdAt / 1000))
                     })}
@@ -40,7 +40,7 @@ const SessionList: React.FC<Props> = ({ sessions, size }) => {
                 <AvatarWithOnlineStatus key={user.id} user={user} />
               ))}
             </AvatarGroup>
-            <Text fontSize={size} ml={4} w={64}>
+            <Text fontSize={size} ml={4} w={64}  color={'gray.500'}>
               {t('Updated {{date}} ago', {
                 date: formatDistanceToNow(fromUnixTime(session.updatedAt / 1000))
               })}
