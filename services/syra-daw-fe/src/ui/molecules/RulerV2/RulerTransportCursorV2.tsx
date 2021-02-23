@@ -23,7 +23,7 @@ const RulerTransportCursorV2: React.FC = ({children}) => {
   const isSnapActive = useRecoilValue(gridStore.isSnapActive(view));
 
   const onMouseInteraction = useCallback(e => {
-    const rawPosition = Math.max(e.clientX - e.target.getBoundingClientRect().left, 0);
+    const rawPosition = Math.max(e.clientX - (viewRef.current?.getBoundingClientRect().left ?? 0), 0);
     const position = snapPixelValue(rawPosition);
 
     if (playheadPosition !== position) {
@@ -33,7 +33,7 @@ const RulerTransportCursorV2: React.FC = ({children}) => {
         setTransportQuarters((isSnapActive ? position : rawPosition) / zoomedQuarterPixelWidth);
       }
     }
-  }, [snapPixelValue, setTransportQuarters, playheadPosition, zoomedQuarterPixelWidth, barAtPixel, snapValue, isSnapActive]);
+  }, [snapPixelValue, setTransportQuarters, playheadPosition, zoomedQuarterPixelWidth, barAtPixel, snapValue, isSnapActive, view]);
 
   const onMovableTrigger = useMovable(onMouseInteraction, onMouseInteraction);
 
