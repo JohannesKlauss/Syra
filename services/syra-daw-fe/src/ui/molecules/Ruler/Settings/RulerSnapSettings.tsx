@@ -1,12 +1,15 @@
-import React, { useContext, useMemo } from "react";
+import React, { useMemo } from "react";
 import { mapNumberToNote } from '../../../../utils/noteMapper';
 import DropdownButton from '../../../atoms/Buttons/DropdownButton';
 import { useRecoilState } from 'recoil';
-import { ViewContext } from "../../../../providers/ViewContext";
 import { gridStore } from "../../../../recoil/gridStore";
+import { View } from "../../../../types/View";
 
-function RulerSnapSettings() {
-  const { view } = useContext(ViewContext);
+interface Props {
+  view: View;
+}
+
+const RulerSnapSettings: React.FC<Props> = ({view}) => {
   const [isSnapActive, setIsSnapActive] = useRecoilState(gridStore.isSnapActive(view));
   const [gridSnapValue, setGridSnapValue] = useRecoilState(gridStore.snapValue(view));
 
@@ -32,6 +35,6 @@ function RulerSnapSettings() {
       {mapNumberToNote(gridSnapValue)}
     </DropdownButton>
   );
-}
+};
 
 export default RulerSnapSettings;
