@@ -5,7 +5,7 @@ import SoulPlugin from '../SoulPlugin/SoulPlugin';
 import { channelStore } from '../../../recoil/channelStore';
 import { createNewId } from '../../../utils/createNewId';
 import { List as MovableList, arrayMove } from 'react-movable';
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, Text } from '@chakra-ui/react';
 import { mixerUiStore } from "../../../recoil/mixerUiStore";
 
 function ChannelPluginList() {
@@ -25,13 +25,21 @@ function ChannelPluginList() {
     <MovableList
       values={soulPluginIds}
       onChange={({ oldIndex, newIndex }) => setSoulPluginIds(arrayMove(soulPluginIds, oldIndex, newIndex))}
-      renderItem={({ value, props }) => <SoulPlugin key={props.key} id={value} />}
-      renderList={({ children, props }) => (
-        <Box {...props} px={2}>
-          {children}
-          <Button onClick={onClick} isFullWidth colorScheme={'teal'} size={'xs'}>
-            Add Plugin
-          </Button>
+      renderList={({ children, props, isDragged }) => (
+        <>
+          <Box {...props} px={2} cursor={isDragged ? 'grabbing' : undefined}>
+            {children}
+          </Box>
+          <Box px={2}>
+            <Button onClick={onClick} isFullWidth colorScheme={'teal'} size={'xs'}>
+              Add Plugin
+            </Button>
+          </Box>
+        </>
+      )}
+      renderItem={({ value, props }) => (
+        <Box {...props}>
+          <SoulPlugin key={props.key} id={value}/>
         </Box>
       )}
     />
