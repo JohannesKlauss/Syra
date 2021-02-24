@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import HorizontalChannelList from '../molecules/Channels/HorizontalChannels/HorizontalChannelList';
 import { editorStore } from '../../recoil/editorStore';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Box, useTheme } from "@chakra-ui/react";
 import TransportView from '../molecules/Transport/TransportView';
 import Settings from '../organisms/dialogues/Settings/Settings';
@@ -15,6 +15,7 @@ import { Prompt } from 'react-router-dom';
 import useBlockWindowLeave from '../../hooks/ui/useBlockWindowLeave';
 import useAutoSave from '../../hooks/recoil/useAutoSave';
 import useUndoRedo from '../../hooks/recoil/useUndoRedo';
+import { transportStore } from "../../recoil/transportStore";
 
 const Editor: React.FC = () => {
   const theme = useTheme();
@@ -22,8 +23,11 @@ const Editor: React.FC = () => {
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
   const id = useRecoilValue(projectStore.id);
+  const setIsCycleActive = useSetRecoilState(transportStore.isCycleActive);
 
   useHotkeys('shift+d', () => setShowDebugMenu((currVal) => !currVal));
+
+  useHotkeys('c', () => setIsCycleActive(currVal => !currVal), [setIsCycleActive]);
 
   useUndoRedo();
   useBlockWindowLeave();
