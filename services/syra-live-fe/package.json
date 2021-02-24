@@ -22,7 +22,7 @@
     "framer-motion": "3.6.7",
     "fuse.js": "6.4.6",
     "graphql": "15.5.0",
-    "i18next": "19.8.9",
+    "i18next": "19.9.0",
     "js-cookie": "2.2.1",
     "mixpanel-browser": "2.41.0",
     "next": "10.0.4",
@@ -33,7 +33,7 @@
     "react-dom": "17.0.1",
     "react-easy-crop": "3.3.1",
     "react-hook-form": "6.15.4",
-    "react-i18next": "11.8.7",
+    "react-i18next": "11.8.8",
     "react-icons": "4.2.0",
     "react-textarea-autosize": "8.3.1",
     "react-hotkeys-hook": "3.1.0",
@@ -45,10 +45,10 @@
   },
   "devDependencies": {
     "@babel/core": "7.13.1",
-    "@storybook/addon-actions": "6.1.19",
-    "@storybook/addon-essentials": "6.1.19",
-    "@storybook/addon-links": "6.1.19",
-    "@storybook/react": "6.1.19",
+    "@storybook/addon-actions": "6.1.20",
+    "@storybook/addon-essentials": "6.1.20",
+    "@storybook/addon-links": "6.1.20",
+    "@storybook/react": "6.1.20",
     "@types/mixpanel-browser": "2.35.6",
     "@types/node": "14.14.31",
     "@types/nprogress": "0.2.0",
@@ -58,7 +58,7 @@
     "react-is": "17.0.1",
     "storybook-addon-apollo-client": "4.0.6",
     "storybook-addon-next-router": "2.0.4",
-    "typescript": "4.1.5"
+    "typescript": "4.2.2"
   },
   "license": "MIT"
 }
