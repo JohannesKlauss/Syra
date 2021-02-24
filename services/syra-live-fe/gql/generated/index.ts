@@ -8080,6 +8080,7 @@ export const MyProjectsDocument = gql`
   query myProjects($me: String) {
     projects(
       where: { OR: [{ owner: { is: { id: { equals: $me } } } }, { members: { some: { userId: { equals: $me } } } }] }
+      orderBy: [{ updatedAt: desc }]
     ) {
       ...SessionListData
     }

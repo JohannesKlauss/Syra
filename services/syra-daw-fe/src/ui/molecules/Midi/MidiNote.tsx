@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from "react";
 import useVelocityColors from '../../../hooks/midi/useVelocityColors';
 import { useRecoilValue } from 'recoil';
 import ResizableBox from '../../atoms/ResizableBox';
@@ -32,6 +32,7 @@ const MidiNote: React.FC<Props> = ({ note }) => {
   const focusedMidiRegionId = useRecoilValue(pianoRollStore.focusedMidiRegionId);
   const start = useRecoilValue(regionStore.start(focusedMidiRegionId));
   const mouseMode = useRecoilValue(pianoRollStore.mouseMode);
+  const lastVelocityOffset = useRef(0);
 
   const onPositionChanged = (start: number, duration: number) => {
     updatePosition(Tone.Ticks(pixelToTicks(start)), Tone.Ticks(pixelToTicks(duration)), note.id);
@@ -44,8 +45,10 @@ const MidiNote: React.FC<Props> = ({ note }) => {
 
       return;
     }
-    
-    const velocity = Math.round(-(offset / 2.5));
+
+    const velocity = Math.round(-((offset - lastVelocityOffset.current) / 2.5));
+
+    lastVelocityOffset.current = offset;
 
     updateVelocity(velocity, note.id);
   };
@@ -66,6 +69,7 @@ const MidiNote: React.FC<Props> = ({ note }) => {
       offset={ticksToPixel(start)}
       allowOverExtendingStart
       lockDrag={mouseMode === GridMouseMode.VELOCITY}
+      onMotionDragEnd={() => lastVelocityOffset.current = 0}
       onYChanged={onYChanged}
       onPositionChanged={onPositionChanged}
     >
