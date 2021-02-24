@@ -1,7 +1,9 @@
 import { Menu, MenuList, Portal, useDisclosure } from '@chakra-ui/react';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import ClickAwayListener from 'react-click-away-listener';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { useSetRecoilState } from "recoil";
+import { editorStore } from "../../../recoil/editorStore";
 
 interface Props {
   children: ReadonlyArray<ReactNode>;
@@ -9,27 +11,49 @@ interface Props {
 }
 
 const ContextMenu: React.FC<Props> = ({ children, hotkey }) => {
+  const setIsContextMenuOpen = useSetRecoilState(editorStore.isContextMenuOpen);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [offset, setOffset] = useState<[number, number]>([0, 0]);
   const [layerOffset, setLayerOffset] = useState<[number, number]>([0, 0]);
   const ref = useHotkeys<HTMLDivElement>(hotkey ?? '', onOpen);
 
+  const onContextMenu = useCallback((e) => {
+    e.preventDefault();
+
+    setOffset([e.clientX, e.clientY]);
+    // @ts-ignore
+    setLayerOffset([e.layerX, e.layerY]);
+
+    onOpen();
+  }, [onOpen, setOffset, setLayerOffset]);
+
   useEffect(() => {
-    ref.current?.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
+    ref.current?.addEventListener('contextmenu', onContextMenu);
 
-      setOffset([e.clientX, e.clientY]);
-      // @ts-ignore
-      setLayerOffset([e.layerX, e.layerY]);
+    return () => {
+      ref.current?.removeEventListener('contextmenu', onContextMenu);
+    }
+  }, [ref, onContextMenu]);
 
-      onOpen();
-    });
-  }, [ref, onOpen, setOffset, setLayerOffset]);
+  useEffect(() => {
+    if (isOpen) {
+      setIsContextMenuOpen(true);
+    } else {
+      setTimeout(() => setIsContextMenuOpen(false), 20);
+    }
+  }, [isOpen, setIsContextMenuOpen]);
+
+  const onClickAway = (e: MouseEvent | TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    onClose();
+  };
 
   return (
     <>
       <div ref={ref}>{children[0]}</div>
-      <ClickAwayListener onClickAway={onClose} mouseEvent="mousedown">
+      <ClickAwayListener onClickAway={onClickAway} mouseEvent="mousedown">
         <Menu isLazy isOpen={isOpen} size={'xs'}>
           <Portal>
             <MenuList onClick={onClose} onMouseDown={e => e.stopPropagation()} fontSize={'xs'} pos={'fixed'} left={offset[0]} top={offset[1]}>
