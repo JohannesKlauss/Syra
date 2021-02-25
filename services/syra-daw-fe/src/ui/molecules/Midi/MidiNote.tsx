@@ -1,7 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from 'react';
 import useVelocityColors from '../../../hooks/midi/useVelocityColors';
 import { useRecoilValue } from 'recoil';
-import ResizableBox from '../../atoms/ResizableBox';
 import { MidiNote as TMidiNote } from '../../../types/Midi';
 import useUpdateMidiPosition from '../../../hooks/midi/useUpdateMidiPosition';
 import * as Tone from 'tone';
@@ -13,18 +12,23 @@ import { regionStore } from '../../../recoil/regionStore';
 import useTicksToPixel from '../../../hooks/tone/useTicksToPixel';
 import { GridMouseMode } from '../../../types/GridMouseMode';
 import useUpdateMidiVelocity from '../../../hooks/midi/useUpdateMidiVelocity';
-import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from "../../../const/ui";
-import useUpdateMidiNoteValue from "../../../hooks/midi/useUpdateMidiNoteValue";
+import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from '../../../const/ui';
+import useUpdateMidiNoteValue from '../../../hooks/midi/useUpdateMidiNoteValue';
+import ClonableResizableBox from '../../atoms/ClonableResizableBox';
+import { Box } from '@chakra-ui/react';
+import useDuplicateMidiNote from "../../../hooks/recoil/region/useDuplicateMidiNote";
 
 interface Props {
   note: TMidiNote;
 }
 
 const MidiNote: React.FC<Props> = ({ note }) => {
+  const [isMoving, setIsMoving] = useState(false);
   const velocityColor = useVelocityColors();
   const updatePosition = useUpdateMidiPosition();
   const updateVelocity = useUpdateMidiVelocity(true);
   const updateMidiNoteValue = useUpdateMidiNoteValue(true);
+  const duplicateMidiNote = useDuplicateMidiNote();
   const pixelToTicks = usePixelToTicks();
   const ticksToPixel = useTicksToPixel();
   const deleteNote = useDeleteMidiNote();
@@ -35,10 +39,14 @@ const MidiNote: React.FC<Props> = ({ note }) => {
   const lastVelocityOffset = useRef(0);
 
   const onPositionChanged = (start: number, duration: number) => {
+    console.log('pos changed', start);
+
     updatePosition(Tone.Ticks(pixelToTicks(start)), Tone.Ticks(pixelToTicks(duration)), note.id);
   };
 
   const onYChanged = (offset: number) => {
+    console.log('y changed');
+
     // If mouse mode is not velocity a changing Y value means that ne note was transposed.
     if (mouseMode !== GridMouseMode.VELOCITY) {
       updateMidiNoteValue(-(offset / PIANO_ROLL_MIDI_TRACK_HEIGHT), note.id);
@@ -54,27 +62,31 @@ const MidiNote: React.FC<Props> = ({ note }) => {
   };
 
   const onClick = () => {
-    isPressed('alt') && deleteNote(note.id);
+    !isMoving && isPressed('alt') && deleteNote(note.id);
+
+    setIsMoving(false);
+  };
+
+  const onDuplicateMidiNote = (x: number) => {
+    duplicateMidiNote(focusedMidiRegionId, note.id, Tone.Ticks(pixelToTicks(x)));
   };
 
   return (
-    <ResizableBox
-      cursor={mouseMode === GridMouseMode.VELOCITY ? 'vertical-text' : 'default'}
-      bg={velocityColor(note.velocity)}
+    <ClonableResizableBox
       baseX={ticksToPixel(note.ticks)}
       onClick={onClick}
       baseWidth={ticksToPixel(note.durationTicks)}
-      h={`${PIANO_ROLL_MIDI_TRACK_HEIGHT}px`}
-      border={'1px solid black'}
       offset={ticksToPixel(start)}
       allowOverExtendingStart
       lockDrag={mouseMode === GridMouseMode.VELOCITY}
-      onMotionDragEnd={() => lastVelocityOffset.current = 0}
+      onMotionDragStart={() => setIsMoving(true)}
+      onMotionDragEnd={() => (lastVelocityOffset.current = 0)}
       onYChanged={onYChanged}
       onPositionChanged={onPositionChanged}
+      onBoxCloned={onDuplicateMidiNote}
     >
-
-    </ResizableBox>
+      <Box bg={velocityColor(note.velocity)} border={"1px solid black"} h={`${PIANO_ROLL_MIDI_TRACK_HEIGHT}px`} cursor={mouseMode === GridMouseMode.VELOCITY ? "vertical-text" : "default"}/>
+    </ClonableResizableBox>
   );
 };
 

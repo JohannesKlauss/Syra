@@ -38,10 +38,14 @@ const MidiRegion: React.FC = () => {
   useMidiRegionScheduler();
 
   const onPositionChanged = (start: number, duration: number, offsetDelta: number) => {
+    console.log('pos changed');
+
     updatePosition(pixelToTicks(start), pixelToTicks(duration), pixelToTicks(offsetDelta));
   };
 
   const onYChanged = (y: number) => {
+    console.log('y hanged');
+
     updateAssignedChannel(y / trackHeight);
   };
 
@@ -57,7 +61,7 @@ const MidiRegion: React.FC = () => {
       snapToY={trackHeight}
       onPositionChanged={onPositionChanged}
       onYChanged={onYChanged}
-      onClonedBox={onClonedRegion}
+      onBoxCloned={onClonedRegion}
       allowOverExtendingStart
     >
       <BaseRegion>

@@ -8,7 +8,9 @@ interface Props extends BoxProps {
   baseWidth: number;
   baseX: number;
   onPositionChanged: (x: number, width: number, offsetDelta: number) => void;
-  onClonedBox: (x: number) => void;
+  onBoxCloned: (x: number) => void;
+  onMotionDragStart?: (width: number, x: number, offset: number) => void;
+  onMotionDragEnd?: (width: number, x: number, offset: number) => void;
   minWidth?: number;
   snapToY?: number;
   offset?: number;
@@ -17,30 +19,30 @@ interface Props extends BoxProps {
   onYChanged?: (offset: number) => void;
 }
 
-const ClonableResizableBox: React.FC<Props> = ({ children, onClonedBox, ...props }) => {
+const ClonableResizableBox: React.FC<Props> = ({ children, onBoxCloned, onMotionDragStart, onMotionDragEnd, ...props }) => {
   const isPressed = useIsHotkeyPressed();
-  const [isMoving, setIsMoving] = useState(false);
   const [isCloning, setIsCloning] = useState(false);
   const [width, setWidth] = useState(props.baseWidth);
   const [x, setX] = useState(props.baseX);
 
-  const onMotionDragStart = (width: number, x: number) => {
+  const onInternalMotionDragStart = (width: number, x: number, offset: number) => {
+    onMotionDragStart && onMotionDragStart(width, x, offset);
+
     setIsCloning(isPressed('alt'));
-    setIsMoving(true);
     setWidth(width);
     setX(x);
   }
 
-  const onDragEnd = (_: number, x: number) => {
-    isCloning && onClonedBox(x);
+  const onInternalMotionDragEnd = (width: number, x: number, offset: number) => {
+    onMotionDragEnd && onMotionDragEnd(width, x, offset);
+    isCloning && onBoxCloned(x);
 
     setIsCloning(false);
-    setIsMoving(false);
   };
 
   return (
     <>
-      <ResizableBox {...props} opacity={isCloning ? 0.6 : undefined} onMotionDragStart={onMotionDragStart} onMotionDragEnd={onDragEnd}>
+      <ResizableBox {...props} opacity={isCloning ? 0.6 : undefined} onMotionDragStart={onInternalMotionDragStart} onMotionDragEnd={onInternalMotionDragEnd}>
         {children}
       </ResizableBox>
       

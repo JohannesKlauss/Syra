@@ -17,7 +17,7 @@ const VersionInformation: React.FC = () => {
 
   return (
     <>
-      <Button variant={'link'} colorScheme={'gray'} color={'gray.500'} size={'xs'} onClick={onOpen}>SYRA alpha - 0.0.16</Button>
+      <Button variant={'link'} colorScheme={'gray'} color={'gray.500'} size={'xs'} onClick={onOpen}>SYRA alpha - 0.0.17</Button>
 
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={'inside'} size={'6xl'}>
         <ModalOverlay />

@@ -28,6 +28,8 @@ export default function useResizableBox(
   const snapPixelValue = useSnapPixelValue(0.25);
 
   useEffect(() => {
+    console.log('set x to', baseX);
+
     x.set(baseX);
     oldX.set(baseX);
   }, [baseX, x, oldX]);
@@ -58,9 +60,9 @@ export default function useResizableBox(
       return;
     }
 
-    if (Math.abs(offset.x) < 4 && Math.abs(offset.y) > 0) {
+    //if (Math.abs(offset.x) < 4 && Math.abs(offset.y) > 0) {
       y.set(snap(snapToY, offset.y));
-    }
+    //}
 
     const snappedOffset = snapPixelValue(offset.x);
 
