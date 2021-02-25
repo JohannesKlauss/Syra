@@ -3,7 +3,6 @@ import React, { useEffect, useRef } from 'react';
 import { DragMode } from '../../types/Ui';
 import useSnapPixelValue from './useSnapPixelValue';
 import { snap } from "../../utils/numbers";
-import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from "../../const/ui";
 
 export default function useResizableBox(
   baseWidth: number,
@@ -68,18 +67,21 @@ export default function useResizableBox(
 
     switch (dragMode.current) {
       case DragMode.END_HANDLE:
-        width.set(Math.max(minWidth, oldWidth.get() + snappedOffset));
+        width.set(Math.max(minWidth, snapPixelValue(oldWidth.get() + offset.x)));
         x.set(oldX.get());
         break;
       case DragMode.START_HANDLE:
-        if (oldBoxOffset.current + snappedOffset >= 0 || allowOverExtendingStart) {
-          width.set(Math.max(minWidth, oldWidth.get() - snappedOffset));
-          x.set(oldX.get() + snappedOffset);
-          boxOffset.current = oldBoxOffset.current + snappedOffset;
+        if (snapPixelValue(oldBoxOffset.current + offset.x) >= 0 || allowOverExtendingStart) {
+          const newX = snapPixelValue(oldX.get() + offset.x)
+
+          x.set(newX);
+          width.set(Math.max(minWidth, oldWidth.get() + (oldX.get() - newX)));
+
+          boxOffset.current = oldBoxOffset.current + offset.x;
         }
         break;
       case DragMode.MOVE:
-        x.set(oldX.get() + snappedOffset);
+        x.set(snapPixelValue(oldX.get() + offset.x));
         break;
     }
   };

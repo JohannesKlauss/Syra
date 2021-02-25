@@ -27,6 +27,7 @@ const RulerV2: React.FC<Props> = ({additionalRulerContent, splitScrollerRef}) =>
       borderBottom={`1px solid rgba(255, 255, 255, 0.3)`}
       userSelect={'none'}
       data-cmp-name={'RulerV2'}
+      overflow={'auto'}
     >
       <RulerCycleV2/>
       <BackgroundGridV2/>

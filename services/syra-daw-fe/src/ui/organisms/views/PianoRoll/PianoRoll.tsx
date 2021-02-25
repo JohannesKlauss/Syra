@@ -29,10 +29,10 @@ const PianoRoll: React.FC<Props> = ({minNote, maxNote, showView}) => {
         <PianoRollSettings/>
         <SplitScroller ref={ref}>
           <VerticalPiano min={minNote} max={maxNote} />
-          <Grid view={View.PIANO_ROLL} additionalRulerContent={<MidiRegionIndicatorList/>} splitScrollerRef={ref}>
-            <MidiTrackList min={minNote} max={maxNote}/>
-            <BackgroundGridV2/>
-          </Grid>
+            <Grid view={View.PIANO_ROLL} additionalRulerContent={<MidiRegionIndicatorList/>} splitScrollerRef={ref}>
+              <MidiTrackList min={minNote} max={maxNote}/>
+              <BackgroundGridV2/>
+            </Grid>
         </SplitScroller>
       </Box>
     </ChannelContext.Provider>

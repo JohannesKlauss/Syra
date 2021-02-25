@@ -11,7 +11,7 @@ const SplitScroller: React.ForwardRefRenderFunction<HTMLDivElement, Props> = ({ 
       <Box flexDir={'column'} h={'100%'}>
         {children[0]}
       </Box>
-      <Box flexDir={'column'} h={'100%'} overflowX={'auto'} w={'fill-available'}>
+      <Box flexDir={'column'} h={'100%'} overflowX={'auto'} w={'fill-available'} pos={'relative'}>
         {children[1]}
       </Box>
     </Flex>
