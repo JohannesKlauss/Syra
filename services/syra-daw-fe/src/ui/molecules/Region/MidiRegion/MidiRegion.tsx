@@ -38,7 +38,7 @@ const MidiRegion: React.FC = () => {
   useMidiRegionScheduler();
 
   const onPositionChanged = (start: number, duration: number, offsetDelta: number) => {
-    console.log('pos changed');
+    console.log('pos changed', pixelToTicks(start), pixelToTicks(duration), pixelToTicks(offsetDelta));
 
     updatePosition(pixelToTicks(start), pixelToTicks(duration), pixelToTicks(offsetDelta));
   };

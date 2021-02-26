@@ -6,7 +6,7 @@ import {regionStore} from "../../../recoil/regionStore";
 export default function useUpdateRegionPosition() {
   const regionId = useContext(RegionContext);
 
-  return useRecoilCallback(({set}) => (start: number, duration: number, offset: number) => {
+  return useRecoilCallback(({set, snapshot}) => (start: number, duration: number, offset: number) => {
     set(regionStore.start(regionId), start);
     set(regionStore.duration(regionId), duration);
     set(regionStore.offset(regionId), offset);

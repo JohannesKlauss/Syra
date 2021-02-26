@@ -27,8 +27,6 @@ export default function useResizableBox(
   const snapPixelValue = useSnapPixelValue();
 
   useEffect(() => {
-    console.log('set x to', baseX);
-
     x.set(baseX);
     oldX.set(baseX);
   }, [baseX, x, oldX]);
@@ -59,9 +57,7 @@ export default function useResizableBox(
       return;
     }
 
-    //if (Math.abs(offset.x) < 4 && Math.abs(offset.y) > 0) {
-      y.set(snap(snapToY, offset.y));
-    //}
+    y.set(snap(snapToY, offset.y));
 
     switch (dragMode.current) {
       case DragMode.END_HANDLE:
@@ -89,10 +85,10 @@ export default function useResizableBox(
       x.set(0);
     }
 
-    onPositionChanged(x.get(), width.get(), boxOffset.current);
+    onPositionChanged(x.get(), width.get(), snapPixelValue(boxOffset.current));
     oldWidth.set(width.get());
     oldX.set(x.get());
-    oldBoxOffset.current = boxOffset.current;
+    oldBoxOffset.current = snapPixelValue(boxOffset.current);
 
     if (y.get() !== 0 && onYChanged && !lockDrag) {
       onYChanged(y.get());

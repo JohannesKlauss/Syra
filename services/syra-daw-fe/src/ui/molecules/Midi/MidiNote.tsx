@@ -35,6 +35,7 @@ const MidiNote: React.FC<Props> = ({ note }) => {
   const isPressed = useIsHotkeyPressed();
   const focusedMidiRegionId = useRecoilValue(pianoRollStore.focusedMidiRegionId);
   const start = useRecoilValue(regionStore.start(focusedMidiRegionId));
+  const offset = useRecoilValue(regionStore.offset(focusedMidiRegionId));
   const mouseMode = useRecoilValue(pianoRollStore.mouseMode);
   const lastVelocityOffset = useRef(0);
 
@@ -76,7 +77,7 @@ const MidiNote: React.FC<Props> = ({ note }) => {
       baseX={ticksToPixel(note.ticks)}
       onClick={onClick}
       baseWidth={ticksToPixel(note.durationTicks)}
-      offset={ticksToPixel(start)}
+      offset={ticksToPixel(start - offset)}
       allowOverExtendingStart
       lockDrag={mouseMode === GridMouseMode.VELOCITY}
       onMotionDragStart={() => setIsMoving(true)}
