@@ -8,7 +8,7 @@ interface Props extends BoxProps {
   dragHandleWidth?: number;
   baseWidth: number;
   baseX: number;
-  onPositionChanged: (x: number, width: number, offsetDelta: number) => void;
+  onPositionChanged: (start: number, width: number, offsetDelta: number) => void;
   onMotionDragStart?: (width: number, x: number, y: number) => void;
   onMotionDragEnd?: (width: number, x: number, y: number) => void;
   minWidth?: number;

@@ -40,14 +40,10 @@ const MidiNote: React.FC<Props> = ({ note }) => {
   const lastVelocityOffset = useRef(0);
 
   const onPositionChanged = (start: number, duration: number) => {
-    console.log('pos changed', start);
-
     updatePosition(Tone.Ticks(pixelToTicks(start)), Tone.Ticks(pixelToTicks(duration)), note.id);
   };
 
   const onYChanged = (offset: number) => {
-    console.log('y changed');
-
     // If mouse mode is not velocity a changing Y value means that ne note was transposed.
     if (mouseMode !== GridMouseMode.VELOCITY) {
       updateMidiNoteValue(-(offset / PIANO_ROLL_MIDI_TRACK_HEIGHT), note.id);
@@ -68,8 +64,10 @@ const MidiNote: React.FC<Props> = ({ note }) => {
     setIsMoving(false);
   };
 
-  const onDuplicateMidiNote = (x: number) => {
-    duplicateMidiNote(focusedMidiRegionId, note.id, Tone.Ticks(pixelToTicks(x)));
+  const onDuplicateMidiNote = (x: number, y: number) => {
+    console.log('duplicate');
+
+    duplicateMidiNote(focusedMidiRegionId, note.id, Tone.Ticks(pixelToTicks(x)), -(y / PIANO_ROLL_MIDI_TRACK_HEIGHT));
   };
 
   return (

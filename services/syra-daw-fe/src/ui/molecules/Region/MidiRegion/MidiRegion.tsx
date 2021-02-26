@@ -10,7 +10,6 @@ import { RegionName, TopBar } from '../AudioRegion/AudioRegion.styled';
 import { Flex } from '@chakra-ui/react';
 import { SiMidi } from 'react-icons/si';
 import useMidiRegionScheduler from '../../../../hooks/tone/useMidiRegionScheduler';
-import ResizableBox from '../../../atoms/ResizableBox';
 import useRegionWidth from '../../../../hooks/ui/region/useRegionWidth';
 import useUpdateRegionPosition from '../../../../hooks/recoil/region/useUpdateRegionPosition';
 import usePixelToTicks from '../../../../hooks/tone/usePixelToTicks';
@@ -32,25 +31,22 @@ const MidiRegion: React.FC = () => {
   const ticksToPixel = useTicksToPixel();
   const updatePosition = useUpdateRegionPosition();
   const duplicateRegion = useDuplicateRegion();
-  const updateAssignedChannel = useChangeChannelOfRegion(regionId);
+  const updateAssignedChannel = useChangeChannelOfRegion();
 
   useRegionDawRecordingSync();
   useMidiRegionScheduler();
 
   const onPositionChanged = (start: number, duration: number, offsetDelta: number) => {
-    console.log('pos changed', pixelToTicks(start), pixelToTicks(duration), pixelToTicks(offsetDelta));
-
     updatePosition(pixelToTicks(start), pixelToTicks(duration), pixelToTicks(offsetDelta));
   };
 
   const onYChanged = (y: number) => {
-    console.log('y hanged');
-
-    updateAssignedChannel(y / trackHeight);
+    updateAssignedChannel(regionId, y / trackHeight);
   };
 
-  const onClonedRegion = (x: number) => {
+  const onClonedRegion = (x: number, y: number) => {
     duplicateRegion(regionId, pixelToTicks(x));
+    updateAssignedChannel(regionId, y / trackHeight);
   };
 
   return (

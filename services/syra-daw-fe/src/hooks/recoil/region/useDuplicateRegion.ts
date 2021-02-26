@@ -16,7 +16,8 @@ export default function useDuplicateRegion() {
     const newRegionId = createNewId(REGION_ID_PREFIX);
 
     set(regionStore.audioBufferPointer(newRegionId), audioBufferPointer);
-    set(regionStore.start(newRegionId), newStart);
+    set(regionStore.start(newRegionId), originalState.start);
+    set(regionStore.start(originalRegionId), newStart);
     set(regionStore.duration(newRegionId), originalState.duration);
     set(regionStore.offset(newRegionId), originalState.offset);
     set(regionStore.isMidi(newRegionId), originalState.isMidi);

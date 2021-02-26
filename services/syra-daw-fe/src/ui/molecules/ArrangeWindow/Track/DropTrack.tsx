@@ -5,13 +5,11 @@ import { useRecoilState } from 'recoil';
 import useOnDropTrack from '../../../../hooks/ui/arrangeGrid/useOnDropTrack';
 import { projectStore } from '../../../../recoil/projectStore';
 import { Flex, Text, useToast } from '@chakra-ui/react';
-import { ViewContext } from "../../../../providers/ViewContext";
 
 function DropTrack() {
   const onDrop = useOnDropTrack();
   const isDragOnDocument = useIsDragOnDocument();
   const ref = useRef<HTMLDivElement>(null);
-  const {viewRef} = useContext(ViewContext);
   const toast = useToast();
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'audio/mpeg, audio/wav, audio/midi' });
