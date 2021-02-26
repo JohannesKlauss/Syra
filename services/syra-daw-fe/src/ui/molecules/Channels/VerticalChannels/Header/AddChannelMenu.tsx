@@ -14,14 +14,27 @@ function AddChannelMenu() {
     await createChannel(type);
   };
 
-  useHotkeys('alt+cmd+a', () => {(async () => await createChannel(ChannelType.AUDIO))()});
-  useHotkeys('alt+cmd+s', () => {(async () => await createChannel(ChannelType.INSTRUMENT))()});
+  useHotkeys('alt+cmd+a', () => {
+    (async () => await createChannel(ChannelType.AUDIO))();
+  });
+  useHotkeys('alt+cmd+s', () => {
+    (async () => await createChannel(ChannelType.INSTRUMENT))();
+  });
 
   return (
     <Menu>
-      <MenuButton as={IconButton} aria-label={"Add Channel"} size={'xs'} icon={<IoIosAdd/>}/>
+      <MenuButton
+        as={IconButton}
+        tabIndex={-1}
+        onKeyDown={(e) => e.preventDefault()}
+        _focus={{ outline: 'none' }}
+        aria-label={'Add Channel'}
+        size={'xs'}
+        icon={<IoIosAdd />}
+        onMouseDown={(e) => e.preventDefault()}
+      />
       <MenuList>
-        {actions.map(action => (
+        {actions.map((action) => (
           <MenuItem onClick={() => onClick(action.type)} key={action.type}>
             <Flex align={'center'}>
               {action.icon}
@@ -29,7 +42,7 @@ function AddChannelMenu() {
             </Flex>
           </MenuItem>
         ))}
-    </MenuList>
+      </MenuList>
     </Menu>
   );
 }

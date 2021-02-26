@@ -21,8 +21,6 @@ export default function useDuplicateMidiNote() {
       midiNote.ticks = time.toTicks();
       midiNote.midi += noteValue;
 
-      console.log('set new note');
-
       set(regionStore.midiNotes(regionId), [...replaceItemAtIndex(midiNotes, midiNoteIndex, midiNote), clonedNote]);
 
       return clonedNote.id;
