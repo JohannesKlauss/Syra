@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef } from "react";
 import { useDropzone } from 'react-dropzone';
 import useIsDragOnDocument from '../../../../hooks/ui/useIsDragOnDocument';
 import { useRecoilState } from 'recoil';
-import useScrollPosition from '../../../../hooks/ui/useScrollPosition';
 import useOnDropTrack from '../../../../hooks/ui/arrangeGrid/useOnDropTrack';
 import { projectStore } from '../../../../recoil/projectStore';
 import { Flex, Text, useToast } from '@chakra-ui/react';
@@ -14,14 +13,6 @@ function DropTrack() {
   const ref = useRef<HTMLDivElement>(null);
   const {viewRef} = useContext(ViewContext);
   const toast = useToast();
-
-  useScrollPosition(
-    (pos) => {
-      ref.current && ref.current.style.setProperty('transform', `translateX(${pos}px)`);
-    },
-    [ref, viewRef],
-    viewRef,
-  );
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'audio/mpeg, audio/wav, audio/midi' });
 
@@ -57,8 +48,7 @@ function DropTrack() {
         justify={'center'}
         align={'center'}
         zIndex={1}
-        pos={'relative'}
-        willChange={'transform'}
+        pos={'fixed'}
         bg={'gray.900'}
         border={'1px dashed gray.700'}
         userSelect={'none'}
