@@ -26,7 +26,7 @@ function BackboneAudioMixer({channelId}: Props) {
   const plugins = useRecoilValue(channelStore.findActivePluginsByIds(pluginIds));
   const [connect, disconnect] = useConnectMidiWithInstrumentChannel(channelId);
 
-  useSyncTransportToSoul();
+  //useSyncTransportToSoul();
   useRecordExternalMidi();
 
   useEffect(() => {

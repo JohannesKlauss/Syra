@@ -10,6 +10,10 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
   static get parameterDescriptors() {
     return [
       {
+        name: 'midiTrigger',
+        defaultValue: 0,
+      },
+      {
         name: 'transportOffsetInSamples',
         defaultValue: -1,
       },
@@ -191,6 +195,18 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
       }
     }
 
+    const midiTrigger = parameters['midiTrigger'];
+
+    if (midiTrigger.length === 1) {
+      const frameHash = parseInt(midiTrigger[0], 10);
+
+      if (frameHash === currentFrame % 999999) {
+        console.log('received trigger', midiTrigger[0]);
+      }
+    } else {
+      console.log('received trigger', midiTrigger);
+    }
+
     const transportOffsetInSamples = parameters['transportOffsetInSamples'];
     this.isCycleActive = parameters['isCycleActive'][0];
     this.cycleEnd = parameters['cycleEnd'][0];
@@ -205,8 +221,7 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
           didSetOffset = true;
           this.transportOffsetInSamples = transportOffsetInSamples[i];
         }
-      }
-      else if (transportOffsetInSamples[i] === -1 && !didSetOffset) {
+      } else if (transportOffsetInSamples[i] === -1 && !didSetOffset) {
         this.transportOffsetInSamples = -1;
       }
     }
@@ -214,8 +229,8 @@ class SoulWasmAudioWorkletProcessor extends AudioWorkletProcessor {
     // This checks if there are midi messages to trigger during the block.
     // It advances to the midi message, triggers it and advances again to the next.
     if (this.transportOffsetInSamples > -1) {
-      const messages = this.midiMessages.filter(msg =>
-        msg[3] >= this.transportOffsetInSamples && msg[3] < this.transportOffsetInSamples + samplesToProcess
+      const messages = this.midiMessages.filter(
+        (msg) => msg[3] >= this.transportOffsetInSamples && msg[3] < this.transportOffsetInSamples + samplesToProcess,
       );
 
       // Check if we have to reset this.transportOffsetInSamples because we reached the end of the cycle.
