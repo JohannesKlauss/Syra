@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { mapNumberToNote } from '../../../../utils/noteMapper';
 import DropdownButton from '../../../atoms/Buttons/DropdownButton';
 import { useRecoilState } from 'recoil';
@@ -9,11 +9,16 @@ import { Flex, IconButton } from "@chakra-ui/react";
 
 interface Props {
   view: View;
+  baseSnapValue?: number;
 }
 
-const RulerSnapSettings: React.FC<Props> = ({view}) => {
+const RulerSnapSettings: React.FC<Props> = ({view, baseSnapValue}) => {
   const [isSnapActive, setIsSnapActive] = useRecoilState(gridStore.isSnapActive(view));
   const [gridSnapValue, setGridSnapValue] = useRecoilState(gridStore.snapValue(view));
+
+  useEffect(() => {
+    baseSnapValue && setGridSnapValue(baseSnapValue);
+  }, [baseSnapValue]);
 
   const snapValueItems = useMemo(
     () =>

@@ -15,7 +15,7 @@ const PianoRollSettings: React.FC<Props> = () => {
   return (
     <Flex w={'100%'} bg={'gray.800'}>
       <RulerSettings>
-        <RulerSnapSettings view={View.PIANO_ROLL}/>
+        <RulerSnapSettings view={View.PIANO_ROLL} baseSnapValue={1}/>
         <RulerZoomInOut view={View.PIANO_ROLL}/>
         <RulerCycleSettings/>
       </RulerSettings>
