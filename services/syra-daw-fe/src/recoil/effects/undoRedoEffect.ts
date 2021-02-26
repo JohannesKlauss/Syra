@@ -6,9 +6,13 @@ type UndoRedoHistory = Array<{
   trigger: () => void,
 }>;
 
+let onFirstPushToUndoStackExternalCallback = () => {};
+
 export const undoHistory: UndoRedoHistory = [];
 
 export const redoHistory: UndoRedoHistory = [];
+
+export const onFirstPushToUndoStack = (callback: () => void) => onFirstPushToUndoStackExternalCallback = callback;
 
 export const undoRedoEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ setSelf, onSet }) => {
   const labelKey = `${key}${id ? `-${id}` : null}`;
@@ -29,6 +33,10 @@ export const undoRedoEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): Ato
         });
       },
     };
+
+    if (undoHistory.length === 0) {
+      onFirstPushToUndoStackExternalCallback();
+    }
 
     undoHistory.push(undoRedoPair);
   });

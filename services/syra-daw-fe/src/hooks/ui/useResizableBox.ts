@@ -24,7 +24,7 @@ export default function useResizableBox(
   const oldBoxOffset = useRef(0);
   const ref = useRef<HTMLDivElement>(null);
   const dragMode = useRef(DragMode.MOVE);
-  const snapPixelValue = useSnapPixelValue(0.25);
+  const snapPixelValue = useSnapPixelValue();
 
   useEffect(() => {
     console.log('set x to', baseX);
@@ -62,8 +62,6 @@ export default function useResizableBox(
     //if (Math.abs(offset.x) < 4 && Math.abs(offset.y) > 0) {
       y.set(snap(snapToY, offset.y));
     //}
-
-    const snappedOffset = snapPixelValue(offset.x);
 
     switch (dragMode.current) {
       case DragMode.END_HANDLE:

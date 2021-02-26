@@ -16,6 +16,7 @@ const PluginBypassButton: React.FC<Props> = ({pluginId}) => {
       icon={<IoIosPower />}
       size={'xs'}
       aria-label={`Bypass Plugin`}
+      title={`Bypass Plugin`}
       colorScheme={isPluginActive ? 'teal' : 'gray'}
       roundedBottomRight={0}
       roundedTopRight={0}

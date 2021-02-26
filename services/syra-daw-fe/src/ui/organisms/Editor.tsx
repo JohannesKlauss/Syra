@@ -14,7 +14,6 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { Prompt } from 'react-router-dom';
 import useBlockWindowLeave from '../../hooks/ui/useBlockWindowLeave';
 import useAutoSave from '../../hooks/recoil/useAutoSave';
-import useUndoRedo from '../../hooks/recoil/useUndoRedo';
 import { transportStore } from "../../recoil/transportStore";
 
 const Editor: React.FC = () => {
@@ -29,7 +28,6 @@ const Editor: React.FC = () => {
 
   useHotkeys('c', () => setIsCycleActive(currVal => !currVal), [setIsCycleActive]);
 
-  useUndoRedo();
   useBlockWindowLeave();
   useAutoSave(id, 5000);
 

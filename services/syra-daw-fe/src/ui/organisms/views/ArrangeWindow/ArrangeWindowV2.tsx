@@ -11,6 +11,7 @@ import ReportIssue from "../../../molecules/Support/ReportIssue";
 import RulerSnapSettings from "../../../molecules/Ruler/Settings/RulerSnapSettings";
 import RulerZoomInOut from "../../../molecules/Ruler/Settings/RulerZoomInOut";
 import RulerCycleSettings from "../../../molecules/Ruler/Settings/RulerCycleSettings";
+import UndoRedo from '../../../molecules/UndoRedo';
 
 interface Props extends BoxProps {
 }
@@ -22,6 +23,7 @@ const ArrangeWindowV2: React.FC<Props> = (props) => {
         <Image boxSize={'2rem'} src="/assets/gfx/syra-logo.png" alt="S Y R A | DAW" />
         <RulerSnapSettings view={View.ARRANGE_WINDOW}/>
         <RulerZoomInOut view={View.ARRANGE_WINDOW}/>
+        <UndoRedo/>
         <RulerCycleSettings/>
         <ReportIssue/>
       </RulerSettings>

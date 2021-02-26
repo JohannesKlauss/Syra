@@ -46,6 +46,7 @@ const RulerCycleV2: React.FC = () => {
         h={'20px'}
         bg={'yellow.500'}
         opacity={isCycleActive ? 0.7 : 0.3}
+        snapToY={100000} // This is just to prevent dragging it along the way axis.
       />
     </Box>
   );
