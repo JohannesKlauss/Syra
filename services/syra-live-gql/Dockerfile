@@ -5,7 +5,7 @@ ARG IMAGE_NAME=syra-live-gql
 WORKDIR /$IMAGE_NAME
 
 # Adding ffmpeg, since we need this for audio file conversion on the server side.
-RUN apk add --no-cache ffmpeg
+# RUN apk add --no-cache ffmpeg
 
 ENV NODE_ENV production
 
