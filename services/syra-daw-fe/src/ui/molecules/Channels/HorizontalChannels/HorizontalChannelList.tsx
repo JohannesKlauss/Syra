@@ -8,14 +8,14 @@ interface Props {
   showView?: boolean;
 }
 
-function HorizontalChannelList({showView}: Props) {
+function HorizontalChannelList({ showView }: Props) {
   const channels = useRecoilValue(channelStore.ids);
 
   return (
     <Box overflowX={'scroll'} transform={'translateZ(0)'} display={showView ? 'block' : 'none'}>
       <Flex align={'flex-start'} zIndex={1} w={'100%'}>
         {channels.map((id, i) => (
-          <BaseChannel key={id} channelId={id} index={i}/>
+          <BaseChannel key={id} channelId={id} index={i} />
         ))}
       </Flex>
     </Box>

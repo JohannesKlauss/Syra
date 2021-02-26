@@ -1,15 +1,18 @@
 import React from 'react';
-import { UserLinkFragment } from '../../../gql/generated';
+import { SessionListDataFragment, UserLinkFragment } from '../../../gql/generated';
 import { Box, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import UserList from '../UserList/UserList';
+import SessionList from '../SessionList/SessionList';
+import SessionSearchResultList from '../SessionList/SessionSearchResultList';
 
 interface Props {
   userResults: UserLinkFragment[];
+  projectResults: SessionListDataFragment[];
   searchString: string;
 }
 
-function SearchResults({ userResults, searchString }: Props) {
+function SearchResults({ userResults, searchString, projectResults }: Props, ref) {
   const { t } = useTranslation();
 
   return (
@@ -26,16 +29,47 @@ function SearchResults({ userResults, searchString }: Props) {
     >
       <Box px={4} py={2} bg={'gray.800'}>
         <Text fontSize={'sm'} color={'gray.300'}>
+          {t('Sessions')}
+        </Text>
+      </Box>
+      <Box px={4} py={2}>
+        {projectResults.length > 0 && searchString.length > 2 && (
+          <SessionSearchResultList size={'sm'} sessions={projectResults} />
+        )}
+        {searchString.length < 3 && (
+          <Text fontSize={'sm'} fontWeight={300}>
+            {t('Please type in three or more characters.')}
+          </Text>
+        )}
+        {searchString.length > 2 && projectResults.length === 0 && (
+          <Text fontSize={'sm'} fontWeight={300}>
+            {t('No projects found.')}
+          </Text>
+        )}
+      </Box>
+
+      <Box px={4} py={2} bg={'gray.800'}>
+        <Text fontSize={'sm'} color={'gray.300'}>
           {t('Users')}
         </Text>
       </Box>
       <Box px={4} py={2}>
-        {userResults.length > 0 && searchString.length > 2 && <UserList size={'sm'} users={userResults} isMessageButtonContracted={true}/>}
-        {searchString.length < 3 && <Text fontSize={'sm'} fontWeight={300}>{t('Please type in three or more characters.')}</Text>}
-        {searchString.length > 2 && userResults.length === 0 && <Text fontSize={'sm'} fontWeight={300}>{t('No users found.')}</Text>}
+        {userResults.length > 0 && searchString.length > 2 && (
+          <UserList size={'sm'} users={userResults} isMessageButtonContracted={true} />
+        )}
+        {searchString.length < 3 && (
+          <Text fontSize={'sm'} fontWeight={300}>
+            {t('Please type in three or more characters.')}
+          </Text>
+        )}
+        {searchString.length > 2 && userResults.length === 0 && (
+          <Text fontSize={'sm'} fontWeight={300}>
+            {t('No users found.')}
+          </Text>
+        )}
       </Box>
     </Box>
   );
 }
 
-export default SearchResults;
+export default React.forwardRef(SearchResults);

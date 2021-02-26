@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { RiMessage2Line } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import { useMeQuery } from "../../../gql/generated";
-import useStreamChat from "../../../hooks/useStreamChat";
 
 interface Props {
   userId: string;
@@ -14,19 +13,13 @@ interface Props {
 function MessageAction({userId, isContracted}: Props) {
   const { push } = useRouter();
   const { t } = useTranslation();
-  const [chatClient, isInitialized] = useStreamChat();
   const { data } = useMeQuery();
   
   const initChat = async () => {
-    if (!data || !isInitialized) {
+    if (!data) {
       return;
     }
 
-    const conversation = chatClient.channel('messaging', {
-      members: [data.me.id, userId],
-    });
-
-    await conversation.create();
     await push('/chat');
   };
 
@@ -36,6 +29,7 @@ function MessageAction({userId, isContracted}: Props) {
         onClick={initChat}
         icon={<RiMessage2Line/>}
         size={'sm'}
+        title={'Message'}
         aria-label={t('Message')}
       />
     )

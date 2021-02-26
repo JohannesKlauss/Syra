@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import ParameterList from './Parameters/ParameterList';
 import { channelStore } from '../../../recoil/channelStore';
-import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay } from '@chakra-ui/react';
+import {
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+} from '@chakra-ui/react';
 import PluginButton from '../../atoms/Buttons/PluginButton';
 
 interface Props {

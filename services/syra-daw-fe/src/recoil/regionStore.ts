@@ -1,4 +1,4 @@
-import { atom, atomFamily, selectorFamily } from "recoil";
+import { atom, atomFamily, selector, selectorFamily } from "recoil";
 import { audioBufferStore } from "./audioBufferStore";
 import { MidiNote } from "../types/Midi";
 import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
@@ -7,6 +7,7 @@ import { gridStore } from "./gridStore";
 import { View } from "../types/View";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
 import * as Tone from 'tone';
+import { channelStore } from "./channelStore";
 
 // Sets the amount of ticks that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamilyWithEffects<number, string>({
@@ -89,12 +90,12 @@ const midiNotes = atomFamilyWithEffects<MidiNote[], string>({
 export interface RegionState {
   audioBuffer: AudioBuffer | null;
   start: number;
+  duration: number;
+  offset: number;
   isMuted: boolean;
   isSolo: boolean;
   isRecording: boolean;
   isMidi: boolean;
-  trimStart: number;
-  trimEnd: number;
   name: string;
   midiNotes: MidiNote[];
 }
@@ -112,12 +113,12 @@ const regionState = selectorFamily<RegionState, string>({
     return {
       audioBuffer,
       start: get(start(id)),
+      duration: get(duration(id)),
+      offset: get(offset(id)),
       isSolo: get(isSolo(id)),
       isMuted: get(isMuted(id)),
       isRecording: get(isRecording(id)),
       isMidi: get(isMidi(id)),
-      trimEnd: get(trimEnd(id)),
-      trimStart: get(trimStart(id)),
       name: get(name(id)),
       midiNotes: get(midiNotes(id)),
     };
@@ -133,7 +134,7 @@ const audioBuffer = selectorFamily<AudioBuffer | null, string>({
   }
 });
 
-// Parameter is channelId.
+// Parameter is channelId. This basically stores all regionIds for a channelId.
 const ids = atomFamilyWithEffects<string[], string>({
   key: 'region/ids',
   default: [],
@@ -212,8 +213,6 @@ const findNearbyRegionId = selectorFamily<string | null, { channelId: string, po
   get: ({channelId, position}) => ({get}) => {
     const regionIds = get(ids(channelId));
 
-    console.log('regionIds', regionIds);
-
     // We only look for regions that are 2 quarters away from the current position.
     const nearbyMargin = Tone.Ticks(2, 'm').toTicks();
 
@@ -255,5 +254,5 @@ export const regionStore = {
   selectedIds,
   arrangeWindowPosition,
   midiNotesInsideBoundaries,
-  findNearbyRegionId
+  findNearbyRegionId,
 };

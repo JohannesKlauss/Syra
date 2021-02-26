@@ -5,7 +5,7 @@ import { colorToHexNumber, determineTextColor } from '../../../../utils/color';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { regionStore } from '../../../../recoil/regionStore';
 import { useRecoilValue } from 'recoil';
-import useMidiRegionWidth from '../../../../hooks/ui/region/useMidiRegionWidth';
+import useRegionWidth from '../../../../hooks/ui/region/useRegionWidth';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
 import useTicksToPixel from '../../../../hooks/tone/useTicksToPixel';
 import { arrangeWindowStore } from "../../../../recoil/arrangeWindowStore";
@@ -34,7 +34,8 @@ const MidiRegionVisualization: React.FC = () => {
   const regionId = useContext(RegionContext);
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight) - 18; // Subtract the topBar of the region
   const midiNotesInsideBoundaries = useRecoilValue(regionStore.midiNotesInsideBoundaries(regionId));
-  const width = useMidiRegionWidth();
+  const offset = useRecoilValue(regionStore.offset(regionId));
+  const width = useRegionWidth();
   const color = useRegionColor(false);
   const ticksToPixel = useTicksToPixel();
 
@@ -63,7 +64,7 @@ const MidiRegionVisualization: React.FC = () => {
           backgroundColor={color}
           height={noteHeight}
           width={ticksToPixel(note.durationTicks)}
-          x={ticksToPixel(note.ticks)}
+          x={ticksToPixel(note.ticks - offset)}
           y={noteHeight * (maxMidiValue - note.midi)}
         />
       ))}

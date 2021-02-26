@@ -11,16 +11,16 @@ function Feed() {
   return (
     <ProtectedRoute>
       <PageBox>
-        <Flex>
+        <Flex minH={'100vh'}>
           <Box flex={'none'}>
-            <Box w={'20rem'}>
-              <Box pos={'fixed'} w={'24rem'}>
+            <Box w={'24rem'} pos={'sticky'} top={'120px'}>
+              <Box>
                 <ProfileBox />
                 <FollowRecommendationsBox />
               </Box>
             </Box>
           </Box>
-          <Box marginX={12} />
+          <Box marginX={6} />
           <Box w={'100%'}>
             <CreateFeedItem />
             <FeedStack />

@@ -17,6 +17,8 @@ const MidiTrackContextMenu: React.FC<Props> = ({offset}) => {
   const snapPixel = useSnapPixelValue();
 
   const onClickCreateMidiRegion = () => {
+    console.log('create midi region');
+
     createMidiRegion({
       channelId,
       notes: [],

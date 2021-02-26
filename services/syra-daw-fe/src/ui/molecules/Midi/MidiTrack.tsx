@@ -31,7 +31,7 @@ const MidiTrack: React.FC<Props> = ({ note }) => {
   const drawMidiNote = useDrawMidiNote(note);
   const pixelToTicks = usePixelToTicks();
   const ticksToPixel = useTicksToPixel();
-  const snapPixelValue = useSnapPixelValue(0.125);
+  const snapPixelValue = useSnapPixelValue();
   const ref = useRef<HTMLDivElement>(null);
   const cursor = usePianoRollCursor();
   const mouseMode = useRecoilValue(pianoRollStore.mouseMode);

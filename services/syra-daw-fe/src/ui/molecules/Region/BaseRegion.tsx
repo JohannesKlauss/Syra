@@ -8,6 +8,8 @@ import useRegionColor from "../../../hooks/ui/region/useRegionColor";
 import useOpenPianoRoll from "../../../hooks/ui/views/pianoRoll/useOpenPianoRoll";
 import {ChannelContext} from "../../../providers/ChannelContext";
 import {arrangeWindowStore} from "../../../recoil/arrangeWindowStore";
+import useUpdateSelectedRegions from "../../../hooks/recoil/region/useUpdateSelectedRegions";
+import { useIsHotkeyPressed } from "react-hotkeys-hook";
 
 interface Props {
 }
@@ -16,24 +18,25 @@ const BaseRegion: React.FC<Props> = ({ children }) => {
   const regionId = useContext(RegionContext);
   const channelId = useContext(ChannelContext);
   const isMuted = useRecoilValue(regionStore.isMuted(regionId));
-  const setSelectedIds = useSetRecoilState(regionStore.selectedIds);
   const isSelected = useRecoilValue(regionStore.isSelected(regionId));
   const color = useRegionColor(false);
   const isMidi = useRecoilValue(regionStore.isMidi(regionId));
   const openPianoRoll = useOpenPianoRoll();
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
+  const updateSelectedRegions = useUpdateSelectedRegions();
+  const isPressed = useIsHotkeyPressed();
 
   return (
-    <Box
-      h={`${trackHeight}px`}
-      opacity={isMuted ? 0.5 : 1}
-      rounded={4}
-      onClick={() => setSelectedIds([regionId])}
-      onDoubleClick={() => isMidi && openPianoRoll(channelId, regionId)}
-      border={isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(5).toRgbString()}`}
-    >
-      {children}
-    </Box>
+      <Box
+        h={`${trackHeight}px`}
+        opacity={isMuted ? 0.35 : 1}
+        rounded={4}
+        onClick={() => updateSelectedRegions([regionId], !isPressed('shift'))}
+        onDoubleClick={() => isMidi && openPianoRoll(channelId, regionId)}
+        border={isSelected ? '2px solid white' : `2px solid ${tinycolor(color).lighten(5).toRgbString()}`}
+      >
+        {children}
+      </Box>
   );
 };
 

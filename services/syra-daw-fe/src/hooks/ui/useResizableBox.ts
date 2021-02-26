@@ -3,13 +3,14 @@ import React, { useEffect, useRef } from 'react';
 import { DragMode } from '../../types/Ui';
 import useSnapPixelValue from './useSnapPixelValue';
 import { snap } from "../../utils/numbers";
-import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from "../../const/ui";
 
 export default function useResizableBox(
   baseWidth: number,
   baseX: number,
   dragHandleWidth: number,
+  minWidth: number,
   onPositionChanged: (x: number, width: number, offsetDelta: number) => void,
+  snapToY: number,
   onYChanged?: (y: number) => void,
   lockDrag?: boolean,
   allowOverExtendingStart?: boolean,
@@ -23,7 +24,7 @@ export default function useResizableBox(
   const oldBoxOffset = useRef(0);
   const ref = useRef<HTMLDivElement>(null);
   const dragMode = useRef(DragMode.MOVE);
-  const snapPixelValue = useSnapPixelValue(0.25);
+  const snapPixelValue = useSnapPixelValue();
 
   useEffect(() => {
     x.set(baseX);
@@ -56,26 +57,25 @@ export default function useResizableBox(
       return;
     }
 
-    if (Math.abs(offset.x) < 4 && Math.abs(offset.y) > 0) {
-      y.set(snap(PIANO_ROLL_MIDI_TRACK_HEIGHT, offset.y));
-    }
-
-    const snappedOffset = snapPixelValue(offset.x);
+    y.set(snap(snapToY, offset.y));
 
     switch (dragMode.current) {
       case DragMode.END_HANDLE:
-        width.set(oldWidth.get() + snappedOffset);
+        width.set(Math.max(minWidth, snapPixelValue(oldWidth.get() + offset.x)));
         x.set(oldX.get());
         break;
       case DragMode.START_HANDLE:
-        if (oldBoxOffset.current + snappedOffset >= 0 || allowOverExtendingStart) {
-          width.set(oldWidth.get() - snappedOffset);
-          x.set(oldX.get() + snappedOffset);
-          boxOffset.current = oldBoxOffset.current + snappedOffset;
+        if (snapPixelValue(oldBoxOffset.current + offset.x) >= 0 || allowOverExtendingStart) {
+          const newX = snapPixelValue(oldX.get() + offset.x)
+
+          x.set(newX);
+          width.set(Math.max(minWidth, oldWidth.get() + (oldX.get() - newX)));
+
+          boxOffset.current = oldBoxOffset.current + offset.x;
         }
         break;
       case DragMode.MOVE:
-        x.set(oldX.get() + snappedOffset);
+        x.set(snapPixelValue(oldX.get() + offset.x));
         break;
     }
   };
@@ -85,10 +85,10 @@ export default function useResizableBox(
       x.set(0);
     }
 
-    onPositionChanged(x.get(), width.get(), boxOffset.current);
+    onPositionChanged(x.get(), width.get(), snapPixelValue(boxOffset.current));
     oldWidth.set(width.get());
     oldX.set(x.get());
-    oldBoxOffset.current = boxOffset.current;
+    oldBoxOffset.current = snapPixelValue(boxOffset.current);
 
     if (y.get() !== 0 && onYChanged && !lockDrag) {
       onYChanged(y.get());

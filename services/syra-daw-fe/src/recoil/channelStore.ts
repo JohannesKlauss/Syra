@@ -9,6 +9,7 @@ import { createSoulInstance } from "../soul/createSoulInstance";
 import { soulPluginStore } from "./soulPluginStore";
 import { projectStore } from "./projectStore";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
+import { setLoggerEffect } from "./effects/setLoggerEffect";
 
 let lastChannelNum = 2;
 
@@ -60,7 +61,7 @@ const isMuted = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isMuted',
   default: false,
   effects: [
-    ...syncEffectsComb
+    ...syncEffectsComb,
   ]
 });
 
@@ -75,9 +76,9 @@ const isInputMonitoringActive = atomFamilyWithEffects<boolean, string>({
 // Whether an instrument or plugin is active or bypassed.
 const isPluginActive = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isPluginActive',
-  default: true,
+  default: false,
   effects: [
-    ...syncEffectsComb
+    ...syncEffectsComb,
   ]
 });
 
@@ -106,7 +107,7 @@ const soulPatchDescriptor = atomFamilyWithEffects<SoulPatchDescriptor | undefine
 });
 
 const soulInstance = selectorFamily<SoulInstance | undefined, string>({
-  key: 'channel/soulInstanceSel',
+  key: 'channel/soulInstance',
   get: pluginId => async ({get}) => {
     if (!get(projectStore.isEngineRunning)) {
       return undefined;
@@ -237,6 +238,23 @@ const findSelectedChannel = selector({
   },
 });
 
+const findByRegionId = selectorFamily<string, string>({
+  key: 'region/assignedChannelId',
+  get: regionId => ({get}) => {
+    const channelIds = get(ids);
+
+    for (let i = 0; i < channelIds.length; i++) {
+      const regionIds = get(regionStore.ids(channelIds[i]));
+
+      if (regionIds.find(id => id === regionId) !== undefined) {
+        return channelIds[i];
+      }
+    }
+
+    return '';
+  }
+});
+
 export const channelStore = {
   name,
   type,
@@ -255,4 +273,5 @@ export const channelStore = {
   findPluginsByIds,
   findActivePluginsByIds,
   findSelectedChannel,
+  findByRegionId,
 };

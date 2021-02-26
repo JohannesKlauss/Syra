@@ -1,6 +1,7 @@
 import atomWithEffects from "./proxy/atomWithEffects";
 import { saveToLocalStorageEffect } from "./effects/saveToLocalStorageEffect";
 import { loadInitialStateEffect } from "./effects/loadInitialStateEffect";
+import { atom } from "recoil";
 
 const showMixer = atomWithEffects({
   key: 'editor/showMixer',
@@ -26,9 +27,15 @@ const showVideo = atomWithEffects({
   effects: [saveToLocalStorageEffect, loadInitialStateEffect]
 });
 
+const isContextMenuOpen = atom<boolean>({
+  key: 'editor/isContextMenuOpen',
+  default: false,
+});
+
 export const editorStore = {
   showMixer,
   showPianoRoll,
   showSettings,
   showVideo,
+  isContextMenuOpen,
 };

@@ -4,12 +4,12 @@ import { useRecoilCallback } from 'recoil';
 import { regionStore } from '../../../recoil/regionStore';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { isBetween } from '../../../utils/numbers';
-import useCutAudioRegion from '../region/useCutAudioRegion';
+import useCutRegion from '../region/useCutRegion';
 import usePixelToQuarter from '../../ui/usePixelToQuarter';
 
 export default function useCutRegionAtMarqueeIndicator() {
   const channelId = useContext(ChannelContext);
-  const cutRegion = useCutAudioRegion();
+  const cutRegion = useCutRegion();
   const pixelToQuarter = usePixelToQuarter();
 
   return useRecoilCallback(({snapshot}) => () => {

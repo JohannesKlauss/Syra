@@ -18,6 +18,7 @@ generator typegraphql {
 model Issue {
   id                String      @id @default(cuid())
   createdAt         DateTime    @default(now())
+  createdBy         User?
   resolved          Boolean     @default(false)
   description       String
   screenshotIds     String[]

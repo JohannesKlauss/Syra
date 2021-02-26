@@ -5,7 +5,7 @@ export default function useDimensions(ref: RefObject<HTMLElement>) {
   const resizeObserverRef = useRef<ResizeObserver>();
 
   useEffect(() => {
-    resizeObserverRef.current = new ResizeObserver((entries) => {
+    resizeObserverRef.current = new ResizeObserver((entries: any[]) => {
       entries.forEach((entry) => {
         const { width, height } = entry.contentRect;
 

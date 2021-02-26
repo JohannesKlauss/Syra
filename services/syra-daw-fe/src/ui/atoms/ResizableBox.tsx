@@ -1,27 +1,36 @@
 import { Box, BoxProps } from '@chakra-ui/react';
-import React from 'react';
+import React from "react";
 import { motion } from 'framer-motion';
 import useResizableBox from '../../hooks/ui/useResizableBox';
+import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from "../../const/ui";
 
 interface Props extends BoxProps {
   dragHandleWidth?: number;
   baseWidth: number;
   baseX: number;
+  onPositionChanged: (start: number, width: number, offsetDelta: number) => void;
+  onMotionDragStart?: (width: number, x: number, y: number) => void;
+  onMotionDragEnd?: (width: number, x: number, y: number) => void;
+  minWidth?: number;
+  snapToY?: number;
   offset?: number;
   lockDrag?: boolean;
   allowOverExtendingStart?: boolean;
   onYChanged?: (offset: number) => void;
-  onPositionChanged: (x: number, width: number, offsetDelta: number) => void;
 }
 
 // TODO: CURRENTLY We HAVE NO MAX WIDTH (like a audio region has a max width) AND NO MECHANISM TO SNAP BACK TO AN EXACT OFFSET OF 0.
 const ResizableBox: React.FC<Props> = ({
   baseWidth,
   baseX,
+  minWidth = 16,
   dragHandleWidth = 8,
   children,
   onPositionChanged,
+  onMotionDragStart,
+  onMotionDragEnd,
   offset = 0,
+  snapToY = PIANO_ROLL_MIDI_TRACK_HEIGHT,
   lockDrag,
   allowOverExtendingStart,
   onYChanged,
@@ -31,7 +40,9 @@ const ResizableBox: React.FC<Props> = ({
     baseWidth,
     baseX,
     dragHandleWidth,
+    minWidth,
     onPositionChanged,
+    snapToY,
     onYChanged,
     lockDrag,
     allowOverExtendingStart,
@@ -43,8 +54,12 @@ const ResizableBox: React.FC<Props> = ({
       drag={'x'}
       draggable={!lockDrag}
       dragMomentum={false}
-      style={{ width, x, y, position: 'absolute', zIndex: 1, marginLeft: offset }}
-      onDragEnd={onDragEnd}
+      onDragStart={() => onMotionDragStart && onMotionDragStart(width.get(), x.get(), y.get())}
+      style={{ width, x, y, position: 'absolute', zIndex: 10, marginLeft: offset }}
+      onDragEnd={() => {
+        onDragEnd();
+        onMotionDragEnd && onMotionDragEnd(width.get(), x.get(), y.get());
+      }}
       onDrag={onDrag}
       onMouseDown={onMouseDown}
       ref={ref}

@@ -29,7 +29,13 @@ function PlayRecord() {
     meta: { setTransportStart, setTransportStop },
   } = useContext(BackboneMixerContext);
 
-  const onClickPlayPause = useCallback(() => {
+  const onClickPlayPause = useCallback(e => {
+    if (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation && e.stopImmediatePropagation();
+      e.stopPropagation();
+    }
+
     if (isRecording) {
       return;
     }
@@ -62,9 +68,17 @@ function PlayRecord() {
     setIsPlaying((currVal) => !currVal);
   }, [setIsPlaying, transport, isPlaying, isRecording, cycleStart, isCycleActive, lengthInQuarters, setCurrentTransportQuarter, setTransportSeconds]);
 
-  const onClickReset = useCallback(() => setCurrentTransportQuarter(0), [setCurrentTransportQuarter]);
+  const onClickReset = useCallback(e => {
+    if (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation && e.stopImmediatePropagation();
+      e.stopPropagation();
+    }
 
-  const onClickRecord = useCallback(() => {
+    setTransportSeconds(0);
+  }, [setTransportSeconds]);
+
+  const onClickRecord = useCallback(e => {
     if (isRecording) {
       setIsRecording(false);
       transport.stop();
@@ -89,6 +103,7 @@ function PlayRecord() {
         icon={<AiFillStepBackward />}
         onClick={onClickReset}
         title={buttonInfo('Reset to project start', 'Return')}
+        onMouseDown={e => e.preventDefault()}
       />
       <IconButton
         aria-label={'Play and pause project'}
@@ -97,6 +112,7 @@ function PlayRecord() {
         onClick={onClickPlayPause}
         mx={1}
         title={buttonInfo('Play and pause project', 'Return')}
+        onMouseDown={e => e.preventDefault()}
       />
       <IconButton
         aria-label={'Start and stop recording'}
@@ -104,6 +120,7 @@ function PlayRecord() {
         colorScheme={'red'}
         onClick={onClickRecord}
         title={buttonInfo('Start and stop recording', 'Return')}
+        onMouseDown={e => e.preventDefault()}
       />
     </Flex>
   );

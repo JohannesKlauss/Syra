@@ -48,8 +48,6 @@ export class CustomUserResolver {
       }
     });
 
-    console.log('friends', intersectionWith(extendedUser.followedBy, extendedUser.following, isEqual));
-
     return intersectionWith(extendedUser.followedBy, extendedUser.following, isEqual);
   }
 

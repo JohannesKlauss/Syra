@@ -52,7 +52,7 @@ function ProfileInfo({ user }: Props) {
                 {' '}
                 {user.followedBy.map((follower, i) => (
                   <React.Fragment key={follower.handle}>
-                    <Link passHref href={`profile/${follower.handle}`}>
+                    <Link passHref href={`/profile/${follower.handle}`}>
                       <ChakraLink display={'inline'} fontWeight={600} color={'gray.300'}>{follower.name}</ChakraLink>
                     </Link>
                     {i < user.followedBy.length - 1 ? ', ' : ' '}

@@ -12,6 +12,9 @@ import { Box, Flex, useTheme } from '@chakra-ui/react';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
 import { ViewContext } from '../../../../providers/ViewContext';
 import { gridStore } from '../../../../recoil/gridStore';
+import ContextMenuTrigger from '../../ContextMenu/ContextMenuTrigger';
+import ContextMenu from '../../ContextMenu/ContextMenu';
+import ChannelContextMenu from '../ChannelMenu/ChannelContextMenu';
 
 interface Props {
   index: number;
@@ -33,25 +36,30 @@ function VerticalChannel({ index }: Props) {
   }, [channelId, selectedChannelId]);
 
   return (
-    <Flex
-      w={'100%'}
-      borderBottom={`1px solid ${theme.colors.gray[600]}`}
-      bg={backgroundColor}
-      borderLeft={`3px solid ${color}`}
-      h={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}
-      p={2}
-      flexDir={'column'}
-      onClick={() => setSelectedChannelId(channelId)}
-    >
-      <ChannelName prefix={index} />
-      <Box bg={'transparent'}>
-        <ChannelLetterButtons />
-      </Box>
+    <ContextMenu>
+      <ContextMenuTrigger>
+        <Flex
+          w={'100%'}
+          borderBottom={`1px solid ${theme.colors.gray[600]}`}
+          bg={backgroundColor}
+          borderLeft={`3px solid ${color}`}
+          h={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}
+          p={2}
+          flexDir={'column'}
+          onClick={() => setSelectedChannelId(channelId)}
+        >
+          <ChannelName prefix={index} />
+          <Box bg={'transparent'}>
+            <ChannelLetterButtons />
+          </Box>
 
-      <Suspense fallback={null}>
-        <BackboneAudioMixer channelId={channelId} />
-      </Suspense>
-    </Flex>
+          <Suspense fallback={null}>
+            <BackboneAudioMixer channelId={channelId} />
+          </Suspense>
+        </Flex>
+      </ContextMenuTrigger>
+      <ChannelContextMenu />
+    </ContextMenu>
   );
 }
 

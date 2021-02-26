@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useTempoMapScheduler from '../../../hooks/tone/useTempoMapScheduler';
 import { Box, Button } from '@chakra-ui/react';
 import { motion, PanInfo, useMotionValue } from "framer-motion";
@@ -11,6 +11,10 @@ function Tempo() {
   const x = useMotionValue(0);
   const lastOffset = useMotionValue(0);
   const [tempoCopy, setTempoCopy] = useState(currentTempo);
+
+  useEffect(() => {
+    setTempoCopy(currentTempo);
+  }, [currentTempo, setTempoCopy]);
 
   const onXChanged = (e: MouseEvent, {offset}: PanInfo) => {
     const roundedOffset = Math.round(offset.x / 5);

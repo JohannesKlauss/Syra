@@ -43,6 +43,7 @@ const FollowAction: React.FC<Props> = ({handle, isMeFollowing, followingContent}
             marginLeft={8}
             marginRight={4}
             size={'sm'}
+            title={t('Unfollow')}
             aria-label={t('Unfollow')}
           />
           {followingContent}

@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { MdCloudUpload } from 'react-icons/md';
 
 interface Props {
-  accept: string;
+  accept: string | string[];
   maxSize: number;
   name: string;
 }
@@ -50,7 +50,7 @@ const FileInput: React.FC<Props> = ({ accept, maxSize, name }) => {
       <Flex align={'center'} justify={'flex-start'}>
         <MdCloudUpload size={'2em'}/>
         <Text fontSize={'sm'} ml={4}>
-          {!isDragActive ? 'Add Screenshots for better understanding of the issue.' : 'Drop files here'}
+          {!isDragActive ? 'Add screenshots or a screencast for better understanding of the issue.' : 'Drop files here'}
         </Text>
       </Flex>
       <Text fontSize={'xs'} color={'gray.400'} ml={12} mt={2}>{files?.map(file => file.name).join(', ')}</Text>

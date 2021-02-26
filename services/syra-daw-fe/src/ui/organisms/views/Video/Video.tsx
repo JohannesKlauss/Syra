@@ -15,7 +15,7 @@ const Video: React.FC = () => {
   return (
     <Box
       pos={'fixed'}
-      zIndex={10}
+      zIndex={1}
       bottom={'91px'}
       right={'10px'}
       w={VIDEO_WIDTH}

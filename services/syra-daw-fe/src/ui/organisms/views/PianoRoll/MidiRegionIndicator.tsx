@@ -6,7 +6,7 @@ import {RegionName, TopBar} from "../../../molecules/Region/AudioRegion/AudioReg
 import {SiMidi} from 'react-icons/si';
 import useRegionColor from "../../../../hooks/ui/region/useRegionColor";
 import {RegionContext} from "../../../../providers/RegionContext";
-import useMidiRegionWidth from "../../../../hooks/ui/region/useMidiRegionWidth";
+import useRegionWidth from "../../../../hooks/ui/region/useRegionWidth";
 import useTicksToPixel from "../../../../hooks/tone/useTicksToPixel";
 
 interface Props {
@@ -18,7 +18,7 @@ const MidiRegionIndicator: React.FC<Props> = () => {
   const start = useRecoilValue(regionStore.start(regionId));
   const ticksToPixel = useTicksToPixel();
   const color = useRegionColor(false);
-  const regionWidth = useMidiRegionWidth();
+  const regionWidth = useRegionWidth();
 
   return (
     <Box

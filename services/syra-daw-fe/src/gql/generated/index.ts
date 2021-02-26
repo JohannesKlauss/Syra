@@ -346,7 +346,7 @@ export type AudioAsset = {
 
 export type AudioAssetCreateNestedManyWithoutOwnerInput = {
   connect?: Maybe<Array<AudioAssetWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<AudioAssetCreateOrConnectWithoutownerInput>>;
+  connectOrCreate?: Maybe<Array<AudioAssetCreateOrConnectWithoutOwnerInput>>;
   create?: Maybe<Array<AudioAssetCreateWithoutOwnerInput>>;
 };
 
@@ -361,7 +361,7 @@ export type AudioAssetCreateOrConnectWithoutMixdownInput = {
   where: AudioAssetWhereUniqueInput;
 };
 
-export type AudioAssetCreateOrConnectWithoutownerInput = {
+export type AudioAssetCreateOrConnectWithoutOwnerInput = {
   create: AudioAssetCreateWithoutOwnerInput;
   where: AudioAssetWhereUniqueInput;
 };
@@ -435,7 +435,7 @@ export type AudioAssetUpdateManyWithWhereWithoutOwnerInput = {
 
 export type AudioAssetUpdateManyWithoutOwnerInput = {
   connect?: Maybe<Array<AudioAssetWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<AudioAssetCreateOrConnectWithoutownerInput>>;
+  connectOrCreate?: Maybe<Array<AudioAssetCreateOrConnectWithoutOwnerInput>>;
   create?: Maybe<Array<AudioAssetCreateWithoutOwnerInput>>;
   delete?: Maybe<Array<AudioAssetWhereUniqueInput>>;
   deleteMany?: Maybe<Array<AudioAssetScalarWhereInput>>;
@@ -547,22 +547,22 @@ export type BandCreateInput = {
 
 export type BandCreateNestedManyWithoutCreatedByInput = {
   connect?: Maybe<Array<BandWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<BandCreateOrConnectWithoutcreatedByInput>>;
+  connectOrCreate?: Maybe<Array<BandCreateOrConnectWithoutCreatedByInput>>;
   create?: Maybe<Array<BandCreateWithoutCreatedByInput>>;
 };
 
 export type BandCreateNestedOneWithoutMembersInput = {
   connect?: Maybe<BandWhereUniqueInput>;
-  connectOrCreate?: Maybe<BandCreateOrConnectWithoutmembersInput>;
+  connectOrCreate?: Maybe<BandCreateOrConnectWithoutMembersInput>;
   create?: Maybe<BandCreateWithoutMembersInput>;
 };
 
-export type BandCreateOrConnectWithoutcreatedByInput = {
+export type BandCreateOrConnectWithoutCreatedByInput = {
   create: BandCreateWithoutCreatedByInput;
   where: BandWhereUniqueInput;
 };
 
-export type BandCreateOrConnectWithoutmembersInput = {
+export type BandCreateOrConnectWithoutMembersInput = {
   create: BandCreateWithoutMembersInput;
   where: BandWhereUniqueInput;
 };
@@ -672,7 +672,7 @@ export type BandUpdateManyWithWhereWithoutCreatedByInput = {
 
 export type BandUpdateManyWithoutCreatedByInput = {
   connect?: Maybe<Array<BandWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<BandCreateOrConnectWithoutcreatedByInput>>;
+  connectOrCreate?: Maybe<Array<BandCreateOrConnectWithoutCreatedByInput>>;
   create?: Maybe<Array<BandCreateWithoutCreatedByInput>>;
   delete?: Maybe<Array<BandWhereUniqueInput>>;
   deleteMany?: Maybe<Array<BandScalarWhereInput>>;
@@ -685,7 +685,7 @@ export type BandUpdateManyWithoutCreatedByInput = {
 
 export type BandUpdateOneRequiredWithoutMembersInput = {
   connect?: Maybe<BandWhereUniqueInput>;
-  connectOrCreate?: Maybe<BandCreateOrConnectWithoutmembersInput>;
+  connectOrCreate?: Maybe<BandCreateOrConnectWithoutMembersInput>;
   create?: Maybe<BandCreateWithoutMembersInput>;
   update?: Maybe<BandUpdateWithoutMembersInput>;
   upsert?: Maybe<BandUpsertWithoutMembersInput>;
@@ -820,55 +820,55 @@ export type CommentCreateInput = {
 
 export type CommentCreateNestedManyWithoutAuthorInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutauthorInput>>;
+  connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutAuthorInput>>;
   create?: Maybe<Array<CommentCreateWithoutAuthorInput>>;
 };
 
 export type CommentCreateNestedManyWithoutFeedItemInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutfeedItemInput>>;
+  connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutFeedItemInput>>;
   create?: Maybe<Array<CommentCreateWithoutFeedItemInput>>;
 };
 
 export type CommentCreateNestedManyWithoutParentCommentInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutparentCommentInput>>;
+  connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutParentCommentInput>>;
   create?: Maybe<Array<CommentCreateWithoutParentCommentInput>>;
 };
 
 export type CommentCreateNestedOneWithoutLikesInput = {
   connect?: Maybe<CommentWhereUniqueInput>;
-  connectOrCreate?: Maybe<CommentCreateOrConnectWithoutlikesInput>;
+  connectOrCreate?: Maybe<CommentCreateOrConnectWithoutLikesInput>;
   create?: Maybe<CommentCreateWithoutLikesInput>;
 };
 
 export type CommentCreateNestedOneWithoutSubCommentsInput = {
   connect?: Maybe<CommentWhereUniqueInput>;
-  connectOrCreate?: Maybe<CommentCreateOrConnectWithoutsubCommentsInput>;
+  connectOrCreate?: Maybe<CommentCreateOrConnectWithoutSubCommentsInput>;
   create?: Maybe<CommentCreateWithoutSubCommentsInput>;
 };
 
-export type CommentCreateOrConnectWithoutauthorInput = {
+export type CommentCreateOrConnectWithoutAuthorInput = {
   create: CommentCreateWithoutAuthorInput;
   where: CommentWhereUniqueInput;
 };
 
-export type CommentCreateOrConnectWithoutfeedItemInput = {
+export type CommentCreateOrConnectWithoutFeedItemInput = {
   create: CommentCreateWithoutFeedItemInput;
   where: CommentWhereUniqueInput;
 };
 
-export type CommentCreateOrConnectWithoutlikesInput = {
+export type CommentCreateOrConnectWithoutLikesInput = {
   create: CommentCreateWithoutLikesInput;
   where: CommentWhereUniqueInput;
 };
 
-export type CommentCreateOrConnectWithoutparentCommentInput = {
+export type CommentCreateOrConnectWithoutParentCommentInput = {
   create: CommentCreateWithoutParentCommentInput;
   where: CommentWhereUniqueInput;
 };
 
-export type CommentCreateOrConnectWithoutsubCommentsInput = {
+export type CommentCreateOrConnectWithoutSubCommentsInput = {
   create: CommentCreateWithoutSubCommentsInput;
   where: CommentWhereUniqueInput;
 };
@@ -953,22 +953,22 @@ export type CommentLikeCreateInput = {
 
 export type CommentLikeCreateNestedManyWithoutCommentInput = {
   connect?: Maybe<Array<CommentLikeWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutcommentInput>>;
+  connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutCommentInput>>;
   create?: Maybe<Array<CommentLikeCreateWithoutCommentInput>>;
 };
 
 export type CommentLikeCreateNestedManyWithoutUserInput = {
   connect?: Maybe<Array<CommentLikeWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutuserInput>>;
+  connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<CommentLikeCreateWithoutUserInput>>;
 };
 
-export type CommentLikeCreateOrConnectWithoutcommentInput = {
+export type CommentLikeCreateOrConnectWithoutCommentInput = {
   create: CommentLikeCreateWithoutCommentInput;
   where: CommentLikeWhereUniqueInput;
 };
 
-export type CommentLikeCreateOrConnectWithoutuserInput = {
+export type CommentLikeCreateOrConnectWithoutUserInput = {
   create: CommentLikeCreateWithoutUserInput;
   where: CommentLikeWhereUniqueInput;
 };
@@ -1048,7 +1048,7 @@ export type CommentLikeUpdateManyWithWhereWithoutUserInput = {
 
 export type CommentLikeUpdateManyWithoutCommentInput = {
   connect?: Maybe<Array<CommentLikeWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutcommentInput>>;
+  connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutCommentInput>>;
   create?: Maybe<Array<CommentLikeCreateWithoutCommentInput>>;
   delete?: Maybe<Array<CommentLikeWhereUniqueInput>>;
   deleteMany?: Maybe<Array<CommentLikeScalarWhereInput>>;
@@ -1061,7 +1061,7 @@ export type CommentLikeUpdateManyWithoutCommentInput = {
 
 export type CommentLikeUpdateManyWithoutUserInput = {
   connect?: Maybe<Array<CommentLikeWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutuserInput>>;
+  connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<CommentLikeCreateWithoutUserInput>>;
   delete?: Maybe<Array<CommentLikeWhereUniqueInput>>;
   deleteMany?: Maybe<Array<CommentLikeScalarWhereInput>>;
@@ -1229,7 +1229,7 @@ export type CommentUpdateManyWithWhereWithoutParentCommentInput = {
 
 export type CommentUpdateManyWithoutAuthorInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutauthorInput>>;
+  connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutAuthorInput>>;
   create?: Maybe<Array<CommentCreateWithoutAuthorInput>>;
   delete?: Maybe<Array<CommentWhereUniqueInput>>;
   deleteMany?: Maybe<Array<CommentScalarWhereInput>>;
@@ -1242,7 +1242,7 @@ export type CommentUpdateManyWithoutAuthorInput = {
 
 export type CommentUpdateManyWithoutFeedItemInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutfeedItemInput>>;
+  connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutFeedItemInput>>;
   create?: Maybe<Array<CommentCreateWithoutFeedItemInput>>;
   delete?: Maybe<Array<CommentWhereUniqueInput>>;
   deleteMany?: Maybe<Array<CommentScalarWhereInput>>;
@@ -1255,7 +1255,7 @@ export type CommentUpdateManyWithoutFeedItemInput = {
 
 export type CommentUpdateManyWithoutParentCommentInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutparentCommentInput>>;
+  connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutParentCommentInput>>;
   create?: Maybe<Array<CommentCreateWithoutParentCommentInput>>;
   delete?: Maybe<Array<CommentWhereUniqueInput>>;
   deleteMany?: Maybe<Array<CommentScalarWhereInput>>;
@@ -1268,7 +1268,7 @@ export type CommentUpdateManyWithoutParentCommentInput = {
 
 export type CommentUpdateOneRequiredWithoutLikesInput = {
   connect?: Maybe<CommentWhereUniqueInput>;
-  connectOrCreate?: Maybe<CommentCreateOrConnectWithoutlikesInput>;
+  connectOrCreate?: Maybe<CommentCreateOrConnectWithoutLikesInput>;
   create?: Maybe<CommentCreateWithoutLikesInput>;
   update?: Maybe<CommentUpdateWithoutLikesInput>;
   upsert?: Maybe<CommentUpsertWithoutLikesInput>;
@@ -1276,7 +1276,7 @@ export type CommentUpdateOneRequiredWithoutLikesInput = {
 
 export type CommentUpdateOneWithoutSubCommentsInput = {
   connect?: Maybe<CommentWhereUniqueInput>;
-  connectOrCreate?: Maybe<CommentCreateOrConnectWithoutsubCommentsInput>;
+  connectOrCreate?: Maybe<CommentCreateOrConnectWithoutSubCommentsInput>;
   create?: Maybe<CommentCreateWithoutSubCommentsInput>;
   delete?: Maybe<Scalars['Boolean']>;
   disconnect?: Maybe<Scalars['Boolean']>;
@@ -1442,11 +1442,11 @@ export type EarlyAccessCode = {
 
 export type EarlyAccessCodeCreateNestedManyWithoutClaimedByInput = {
   connect?: Maybe<Array<EarlyAccessCodeWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<EarlyAccessCodeCreateOrConnectWithoutclaimedByInput>>;
+  connectOrCreate?: Maybe<Array<EarlyAccessCodeCreateOrConnectWithoutClaimedByInput>>;
   create?: Maybe<Array<EarlyAccessCodeCreateWithoutClaimedByInput>>;
 };
 
-export type EarlyAccessCodeCreateOrConnectWithoutclaimedByInput = {
+export type EarlyAccessCodeCreateOrConnectWithoutClaimedByInput = {
   create: EarlyAccessCodeCreateWithoutClaimedByInput;
   where: EarlyAccessCodeWhereUniqueInput;
 };
@@ -1511,7 +1511,7 @@ export type EarlyAccessCodeUpdateManyWithWhereWithoutClaimedByInput = {
 
 export type EarlyAccessCodeUpdateManyWithoutClaimedByInput = {
   connect?: Maybe<Array<EarlyAccessCodeWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<EarlyAccessCodeCreateOrConnectWithoutclaimedByInput>>;
+  connectOrCreate?: Maybe<Array<EarlyAccessCodeCreateOrConnectWithoutClaimedByInput>>;
   create?: Maybe<Array<EarlyAccessCodeCreateWithoutClaimedByInput>>;
   delete?: Maybe<Array<EarlyAccessCodeWhereUniqueInput>>;
   deleteMany?: Maybe<Array<EarlyAccessCodeScalarWhereInput>>;
@@ -1646,55 +1646,55 @@ export type FeedItemCreateInput = {
 
 export type FeedItemCreateNestedManyWithoutAuthorInput = {
   connect?: Maybe<Array<FeedItemWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutauthorInput>>;
+  connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutAuthorInput>>;
   create?: Maybe<Array<FeedItemCreateWithoutAuthorInput>>;
 };
 
 export type FeedItemCreateNestedManyWithoutMixdownInput = {
   connect?: Maybe<Array<FeedItemWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutmixdownInput>>;
+  connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutMixdownInput>>;
   create?: Maybe<Array<FeedItemCreateWithoutMixdownInput>>;
 };
 
 export type FeedItemCreateNestedOneWithoutCommentsInput = {
   connect?: Maybe<FeedItemWhereUniqueInput>;
-  connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutcommentsInput>;
+  connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutCommentsInput>;
   create?: Maybe<FeedItemCreateWithoutCommentsInput>;
 };
 
 export type FeedItemCreateNestedOneWithoutLikesInput = {
   connect?: Maybe<FeedItemWhereUniqueInput>;
-  connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutlikesInput>;
+  connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutLikesInput>;
   create?: Maybe<FeedItemCreateWithoutLikesInput>;
 };
 
 export type FeedItemCreateNestedOneWithoutRevisionsInput = {
   connect?: Maybe<FeedItemWhereUniqueInput>;
-  connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutrevisionsInput>;
+  connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutRevisionsInput>;
   create?: Maybe<FeedItemCreateWithoutRevisionsInput>;
 };
 
-export type FeedItemCreateOrConnectWithoutauthorInput = {
+export type FeedItemCreateOrConnectWithoutAuthorInput = {
   create: FeedItemCreateWithoutAuthorInput;
   where: FeedItemWhereUniqueInput;
 };
 
-export type FeedItemCreateOrConnectWithoutcommentsInput = {
+export type FeedItemCreateOrConnectWithoutCommentsInput = {
   create: FeedItemCreateWithoutCommentsInput;
   where: FeedItemWhereUniqueInput;
 };
 
-export type FeedItemCreateOrConnectWithoutlikesInput = {
+export type FeedItemCreateOrConnectWithoutLikesInput = {
   create: FeedItemCreateWithoutLikesInput;
   where: FeedItemWhereUniqueInput;
 };
 
-export type FeedItemCreateOrConnectWithoutmixdownInput = {
+export type FeedItemCreateOrConnectWithoutMixdownInput = {
   create: FeedItemCreateWithoutMixdownInput;
   where: FeedItemWhereUniqueInput;
 };
 
-export type FeedItemCreateOrConnectWithoutrevisionsInput = {
+export type FeedItemCreateOrConnectWithoutRevisionsInput = {
   create: FeedItemCreateWithoutRevisionsInput;
   where: FeedItemWhereUniqueInput;
 };
@@ -1789,22 +1789,22 @@ export type FeedItemLikeCreateInput = {
 
 export type FeedItemLikeCreateNestedManyWithoutFeedItemInput = {
   connect?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutfeedItemInput>>;
+  connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutFeedItemInput>>;
   create?: Maybe<Array<FeedItemLikeCreateWithoutFeedItemInput>>;
 };
 
 export type FeedItemLikeCreateNestedManyWithoutUserInput = {
   connect?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutuserInput>>;
+  connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<FeedItemLikeCreateWithoutUserInput>>;
 };
 
-export type FeedItemLikeCreateOrConnectWithoutfeedItemInput = {
+export type FeedItemLikeCreateOrConnectWithoutFeedItemInput = {
   create: FeedItemLikeCreateWithoutFeedItemInput;
   where: FeedItemLikeWhereUniqueInput;
 };
 
-export type FeedItemLikeCreateOrConnectWithoutuserInput = {
+export type FeedItemLikeCreateOrConnectWithoutUserInput = {
   create: FeedItemLikeCreateWithoutUserInput;
   where: FeedItemLikeWhereUniqueInput;
 };
@@ -1884,7 +1884,7 @@ export type FeedItemLikeUpdateManyWithWhereWithoutUserInput = {
 
 export type FeedItemLikeUpdateManyWithoutFeedItemInput = {
   connect?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutfeedItemInput>>;
+  connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutFeedItemInput>>;
   create?: Maybe<Array<FeedItemLikeCreateWithoutFeedItemInput>>;
   delete?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
   deleteMany?: Maybe<Array<FeedItemLikeScalarWhereInput>>;
@@ -1897,7 +1897,7 @@ export type FeedItemLikeUpdateManyWithoutFeedItemInput = {
 
 export type FeedItemLikeUpdateManyWithoutUserInput = {
   connect?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutuserInput>>;
+  connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<FeedItemLikeCreateWithoutUserInput>>;
   delete?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
   deleteMany?: Maybe<Array<FeedItemLikeScalarWhereInput>>;
@@ -2038,11 +2038,11 @@ export type FeedItemRevisionCreateInput = {
 
 export type FeedItemRevisionCreateNestedManyWithoutParentItemInput = {
   connect?: Maybe<Array<FeedItemRevisionWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<FeedItemRevisionCreateOrConnectWithoutparentItemInput>>;
+  connectOrCreate?: Maybe<Array<FeedItemRevisionCreateOrConnectWithoutParentItemInput>>;
   create?: Maybe<Array<FeedItemRevisionCreateWithoutParentItemInput>>;
 };
 
-export type FeedItemRevisionCreateOrConnectWithoutparentItemInput = {
+export type FeedItemRevisionCreateOrConnectWithoutParentItemInput = {
   create: FeedItemRevisionCreateWithoutParentItemInput;
   where: FeedItemRevisionWhereUniqueInput;
 };
@@ -2128,7 +2128,7 @@ export type FeedItemRevisionUpdateManyWithWhereWithoutParentItemInput = {
 
 export type FeedItemRevisionUpdateManyWithoutParentItemInput = {
   connect?: Maybe<Array<FeedItemRevisionWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<FeedItemRevisionCreateOrConnectWithoutparentItemInput>>;
+  connectOrCreate?: Maybe<Array<FeedItemRevisionCreateOrConnectWithoutParentItemInput>>;
   create?: Maybe<Array<FeedItemRevisionCreateWithoutParentItemInput>>;
   delete?: Maybe<Array<FeedItemRevisionWhereUniqueInput>>;
   deleteMany?: Maybe<Array<FeedItemRevisionScalarWhereInput>>;
@@ -2233,7 +2233,7 @@ export type FeedItemUpdateManyWithWhereWithoutMixdownInput = {
 
 export type FeedItemUpdateManyWithoutAuthorInput = {
   connect?: Maybe<Array<FeedItemWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutauthorInput>>;
+  connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutAuthorInput>>;
   create?: Maybe<Array<FeedItemCreateWithoutAuthorInput>>;
   delete?: Maybe<Array<FeedItemWhereUniqueInput>>;
   deleteMany?: Maybe<Array<FeedItemScalarWhereInput>>;
@@ -2246,7 +2246,7 @@ export type FeedItemUpdateManyWithoutAuthorInput = {
 
 export type FeedItemUpdateManyWithoutMixdownInput = {
   connect?: Maybe<Array<FeedItemWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutmixdownInput>>;
+  connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutMixdownInput>>;
   create?: Maybe<Array<FeedItemCreateWithoutMixdownInput>>;
   delete?: Maybe<Array<FeedItemWhereUniqueInput>>;
   deleteMany?: Maybe<Array<FeedItemScalarWhereInput>>;
@@ -2259,7 +2259,7 @@ export type FeedItemUpdateManyWithoutMixdownInput = {
 
 export type FeedItemUpdateOneRequiredWithoutLikesInput = {
   connect?: Maybe<FeedItemWhereUniqueInput>;
-  connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutlikesInput>;
+  connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutLikesInput>;
   create?: Maybe<FeedItemCreateWithoutLikesInput>;
   update?: Maybe<FeedItemUpdateWithoutLikesInput>;
   upsert?: Maybe<FeedItemUpsertWithoutLikesInput>;
@@ -2267,7 +2267,7 @@ export type FeedItemUpdateOneRequiredWithoutLikesInput = {
 
 export type FeedItemUpdateOneRequiredWithoutRevisionsInput = {
   connect?: Maybe<FeedItemWhereUniqueInput>;
-  connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutrevisionsInput>;
+  connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutRevisionsInput>;
   create?: Maybe<FeedItemCreateWithoutRevisionsInput>;
   update?: Maybe<FeedItemUpdateWithoutRevisionsInput>;
   upsert?: Maybe<FeedItemUpsertWithoutRevisionsInput>;
@@ -2275,7 +2275,7 @@ export type FeedItemUpdateOneRequiredWithoutRevisionsInput = {
 
 export type FeedItemUpdateOneWithoutCommentsInput = {
   connect?: Maybe<FeedItemWhereUniqueInput>;
-  connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutcommentsInput>;
+  connectOrCreate?: Maybe<FeedItemCreateOrConnectWithoutCommentsInput>;
   create?: Maybe<FeedItemCreateWithoutCommentsInput>;
   delete?: Maybe<Scalars['Boolean']>;
   disconnect?: Maybe<Scalars['Boolean']>;
@@ -2434,6 +2434,7 @@ export type Issue = {
   id: Scalars['String'];
   resolved: Scalars['Boolean'];
   screenshotIds: Array<Scalars['String']>;
+  userId: Scalars['String'];
 };
 
 export type IssueCountAggregate = {
@@ -2444,9 +2445,30 @@ export type IssueCountAggregate = {
   id?: Maybe<Scalars['Int']>;
   resolved?: Maybe<Scalars['Int']>;
   screenshotIds?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['Int']>;
 };
 
 export type IssueCreateInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  createdBy: UserCreateNestedOneWithoutIssueInput;
+  description: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+  resolved?: Maybe<Scalars['Boolean']>;
+  screenshotIds?: Maybe<IssueCreatescreenshotIdsInput>;
+};
+
+export type IssueCreateNestedManyWithoutCreatedByInput = {
+  connect?: Maybe<Array<IssueWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<IssueCreateOrConnectWithoutCreatedByInput>>;
+  create?: Maybe<Array<IssueCreateWithoutCreatedByInput>>;
+};
+
+export type IssueCreateOrConnectWithoutCreatedByInput = {
+  create: IssueCreateWithoutCreatedByInput;
+  where: IssueWhereUniqueInput;
+};
+
+export type IssueCreateWithoutCreatedByInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
   description: Scalars['String'];
   id?: Maybe<Scalars['String']>;
@@ -2458,12 +2480,19 @@ export type IssueCreatescreenshotIdsInput = {
   set: Array<Scalars['String']>;
 };
 
+export type IssueListRelationFilter = {
+  every?: Maybe<IssueWhereInput>;
+  none?: Maybe<IssueWhereInput>;
+  some?: Maybe<IssueWhereInput>;
+};
+
 export type IssueMaxAggregate = {
   __typename?: 'IssueMaxAggregate';
   createdAt?: Maybe<Scalars['Timestamp']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   resolved?: Maybe<Scalars['Boolean']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type IssueMinAggregate = {
@@ -2472,14 +2501,17 @@ export type IssueMinAggregate = {
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   resolved?: Maybe<Scalars['Boolean']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type IssueOrderByInput = {
   createdAt?: Maybe<SortOrder>;
+  createdBy?: Maybe<UserOrderByInput>;
   description?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
   resolved?: Maybe<SortOrder>;
   screenshotIds?: Maybe<SortOrder>;
+  userId?: Maybe<SortOrder>;
 };
 
 export enum IssueScalarFieldEnum {
@@ -2488,10 +2520,24 @@ export enum IssueScalarFieldEnum {
   Id = 'id',
   Resolved = 'resolved',
   ScreenshotIds = 'screenshotIds',
+  UserId = 'userId',
 }
+
+export type IssueScalarWhereInput = {
+  AND?: Maybe<Array<IssueScalarWhereInput>>;
+  NOT?: Maybe<Array<IssueScalarWhereInput>>;
+  OR?: Maybe<Array<IssueScalarWhereInput>>;
+  createdAt?: Maybe<DateTimeFilter>;
+  description?: Maybe<StringFilter>;
+  id?: Maybe<StringFilter>;
+  resolved?: Maybe<BoolFilter>;
+  screenshotIds?: Maybe<StringNullableListFilter>;
+  userId?: Maybe<StringFilter>;
+};
 
 export type IssueUpdateInput = {
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutIssueInput>;
   description?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   resolved?: Maybe<BoolFieldUpdateOperationsInput>;
@@ -2506,8 +2552,45 @@ export type IssueUpdateManyMutationInput = {
   screenshotIds?: Maybe<IssueUpdatescreenshotIdsInput>;
 };
 
+export type IssueUpdateManyWithWhereWithoutCreatedByInput = {
+  data: IssueUpdateManyMutationInput;
+  where: IssueScalarWhereInput;
+};
+
+export type IssueUpdateManyWithoutCreatedByInput = {
+  connect?: Maybe<Array<IssueWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<IssueCreateOrConnectWithoutCreatedByInput>>;
+  create?: Maybe<Array<IssueCreateWithoutCreatedByInput>>;
+  delete?: Maybe<Array<IssueWhereUniqueInput>>;
+  deleteMany?: Maybe<Array<IssueScalarWhereInput>>;
+  disconnect?: Maybe<Array<IssueWhereUniqueInput>>;
+  set?: Maybe<Array<IssueWhereUniqueInput>>;
+  update?: Maybe<Array<IssueUpdateWithWhereUniqueWithoutCreatedByInput>>;
+  updateMany?: Maybe<Array<IssueUpdateManyWithWhereWithoutCreatedByInput>>;
+  upsert?: Maybe<Array<IssueUpsertWithWhereUniqueWithoutCreatedByInput>>;
+};
+
+export type IssueUpdateWithWhereUniqueWithoutCreatedByInput = {
+  data: IssueUpdateWithoutCreatedByInput;
+  where: IssueWhereUniqueInput;
+};
+
+export type IssueUpdateWithoutCreatedByInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  description?: Maybe<StringFieldUpdateOperationsInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  resolved?: Maybe<BoolFieldUpdateOperationsInput>;
+  screenshotIds?: Maybe<IssueUpdatescreenshotIdsInput>;
+};
+
 export type IssueUpdatescreenshotIdsInput = {
   set: Array<Scalars['String']>;
+};
+
+export type IssueUpsertWithWhereUniqueWithoutCreatedByInput = {
+  create: IssueCreateWithoutCreatedByInput;
+  update: IssueUpdateWithoutCreatedByInput;
+  where: IssueWhereUniqueInput;
 };
 
 export type IssueWhereInput = {
@@ -2515,10 +2598,12 @@ export type IssueWhereInput = {
   NOT?: Maybe<Array<IssueWhereInput>>;
   OR?: Maybe<Array<IssueWhereInput>>;
   createdAt?: Maybe<DateTimeFilter>;
+  createdBy?: Maybe<UserRelationFilter>;
   description?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
   resolved?: Maybe<BoolFilter>;
   screenshotIds?: Maybe<StringNullableListFilter>;
+  userId?: Maybe<StringFilter>;
 };
 
 export type IssueWhereUniqueInput = {
@@ -2594,19 +2679,19 @@ export type MixdownCreateInput = {
 
 export type MixdownCreateNestedManyWithoutAudioInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutaudioInput>>;
+  connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutAudioInput>>;
   create?: Maybe<Array<MixdownCreateWithoutAudioInput>>;
 };
 
 export type MixdownCreateNestedManyWithoutProjectInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutprojectInput>>;
+  connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutProjectInput>>;
   create?: Maybe<Array<MixdownCreateWithoutProjectInput>>;
 };
 
 export type MixdownCreateNestedManyWithoutTriggerdByInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithouttriggerdByInput>>;
+  connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutTriggerdByInput>>;
   create?: Maybe<Array<MixdownCreateWithoutTriggerdByInput>>;
 };
 
@@ -2616,22 +2701,22 @@ export type MixdownCreateNestedOneWithoutFeedItemInput = {
   create?: Maybe<MixdownCreateWithoutFeedItemInput>;
 };
 
+export type MixdownCreateOrConnectWithoutAudioInput = {
+  create: MixdownCreateWithoutAudioInput;
+  where: MixdownWhereUniqueInput;
+};
+
 export type MixdownCreateOrConnectWithoutFeedItemInput = {
   create: MixdownCreateWithoutFeedItemInput;
   where: MixdownWhereUniqueInput;
 };
 
-export type MixdownCreateOrConnectWithoutaudioInput = {
-  create: MixdownCreateWithoutAudioInput;
-  where: MixdownWhereUniqueInput;
-};
-
-export type MixdownCreateOrConnectWithoutprojectInput = {
+export type MixdownCreateOrConnectWithoutProjectInput = {
   create: MixdownCreateWithoutProjectInput;
   where: MixdownWhereUniqueInput;
 };
 
-export type MixdownCreateOrConnectWithouttriggerdByInput = {
+export type MixdownCreateOrConnectWithoutTriggerdByInput = {
   create: MixdownCreateWithoutTriggerdByInput;
   where: MixdownWhereUniqueInput;
 };
@@ -2819,7 +2904,7 @@ export type MixdownUpdateManyWithWhereWithoutTriggerdByInput = {
 
 export type MixdownUpdateManyWithoutAudioInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutaudioInput>>;
+  connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutAudioInput>>;
   create?: Maybe<Array<MixdownCreateWithoutAudioInput>>;
   delete?: Maybe<Array<MixdownWhereUniqueInput>>;
   deleteMany?: Maybe<Array<MixdownScalarWhereInput>>;
@@ -2832,7 +2917,7 @@ export type MixdownUpdateManyWithoutAudioInput = {
 
 export type MixdownUpdateManyWithoutProjectInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutprojectInput>>;
+  connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutProjectInput>>;
   create?: Maybe<Array<MixdownCreateWithoutProjectInput>>;
   delete?: Maybe<Array<MixdownWhereUniqueInput>>;
   deleteMany?: Maybe<Array<MixdownScalarWhereInput>>;
@@ -2845,7 +2930,7 @@ export type MixdownUpdateManyWithoutProjectInput = {
 
 export type MixdownUpdateManyWithoutTriggerdByInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithouttriggerdByInput>>;
+  connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutTriggerdByInput>>;
   create?: Maybe<Array<MixdownCreateWithoutTriggerdByInput>>;
   delete?: Maybe<Array<MixdownWhereUniqueInput>>;
   deleteMany?: Maybe<Array<MixdownScalarWhereInput>>;
@@ -3625,33 +3710,33 @@ export type ProjectCreateInput = {
 
 export type ProjectCreateNestedManyWithoutOwnerInput = {
   connect?: Maybe<Array<ProjectWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<ProjectCreateOrConnectWithoutownerInput>>;
+  connectOrCreate?: Maybe<Array<ProjectCreateOrConnectWithoutOwnerInput>>;
   create?: Maybe<Array<ProjectCreateWithoutOwnerInput>>;
 };
 
 export type ProjectCreateNestedOneWithoutMembersInput = {
   connect?: Maybe<ProjectWhereUniqueInput>;
-  connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutmembersInput>;
+  connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutMembersInput>;
   create?: Maybe<ProjectCreateWithoutMembersInput>;
 };
 
 export type ProjectCreateNestedOneWithoutMixdownsInput = {
   connect?: Maybe<ProjectWhereUniqueInput>;
-  connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutmixdownsInput>;
+  connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutMixdownsInput>;
   create?: Maybe<ProjectCreateWithoutMixdownsInput>;
 };
 
-export type ProjectCreateOrConnectWithoutmembersInput = {
+export type ProjectCreateOrConnectWithoutMembersInput = {
   create: ProjectCreateWithoutMembersInput;
   where: ProjectWhereUniqueInput;
 };
 
-export type ProjectCreateOrConnectWithoutmixdownsInput = {
+export type ProjectCreateOrConnectWithoutMixdownsInput = {
   create: ProjectCreateWithoutMixdownsInput;
   where: ProjectWhereUniqueInput;
 };
 
-export type ProjectCreateOrConnectWithoutownerInput = {
+export type ProjectCreateOrConnectWithoutOwnerInput = {
   create: ProjectCreateWithoutOwnerInput;
   where: ProjectWhereUniqueInput;
 };
@@ -3792,7 +3877,7 @@ export type ProjectUpdateManyWithWhereWithoutOwnerInput = {
 
 export type ProjectUpdateManyWithoutOwnerInput = {
   connect?: Maybe<Array<ProjectWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<ProjectCreateOrConnectWithoutownerInput>>;
+  connectOrCreate?: Maybe<Array<ProjectCreateOrConnectWithoutOwnerInput>>;
   create?: Maybe<Array<ProjectCreateWithoutOwnerInput>>;
   delete?: Maybe<Array<ProjectWhereUniqueInput>>;
   deleteMany?: Maybe<Array<ProjectScalarWhereInput>>;
@@ -3805,7 +3890,7 @@ export type ProjectUpdateManyWithoutOwnerInput = {
 
 export type ProjectUpdateOneRequiredWithoutMembersInput = {
   connect?: Maybe<ProjectWhereUniqueInput>;
-  connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutmembersInput>;
+  connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutMembersInput>;
   create?: Maybe<ProjectCreateWithoutMembersInput>;
   update?: Maybe<ProjectUpdateWithoutMembersInput>;
   upsert?: Maybe<ProjectUpsertWithoutMembersInput>;
@@ -3813,7 +3898,7 @@ export type ProjectUpdateOneRequiredWithoutMembersInput = {
 
 export type ProjectUpdateOneRequiredWithoutMixdownsInput = {
   connect?: Maybe<ProjectWhereUniqueInput>;
-  connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutmixdownsInput>;
+  connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutMixdownsInput>;
   create?: Maybe<ProjectCreateWithoutMixdownsInput>;
   update?: Maybe<ProjectUpdateWithoutMixdownsInput>;
   upsert?: Maybe<ProjectUpsertWithoutMixdownsInput>;
@@ -4611,6 +4696,7 @@ export type User = {
   CommentLike: Array<CommentLike>;
   EarlyAccessCode: Array<EarlyAccessCode>;
   FeedItemLike: Array<FeedItemLike>;
+  Issue: Array<Issue>;
   Mixdown: Array<Mixdown>;
   address?: Maybe<Address>;
   addressId?: Maybe<Scalars['String']>;
@@ -4684,6 +4770,15 @@ export type UserFeedItemLikeArgs = {
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
   where?: Maybe<FeedItemLikeWhereInput>;
+};
+
+export type UserIssueArgs = {
+  cursor?: Maybe<IssueWhereUniqueInput>;
+  distinct?: Maybe<Array<IssueScalarFieldEnum>>;
+  orderBy?: Maybe<Array<IssueOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<IssueWhereInput>;
 };
 
 export type UserMixdownArgs = {
@@ -4791,6 +4886,7 @@ export type UserCreateInput = {
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -4817,19 +4913,19 @@ export type UserCreateInput = {
 
 export type UserCreateNestedManyWithoutAddressInput = {
   connect?: Maybe<Array<UserWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutaddressInput>>;
+  connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutAddressInput>>;
   create?: Maybe<Array<UserCreateWithoutAddressInput>>;
 };
 
 export type UserCreateNestedManyWithoutFollowedByInput = {
   connect?: Maybe<Array<UserWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutfollowedByInput>>;
+  connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutFollowedByInput>>;
   create?: Maybe<Array<UserCreateWithoutFollowedByInput>>;
 };
 
 export type UserCreateNestedManyWithoutFollowingInput = {
   connect?: Maybe<Array<UserWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutfollowingInput>>;
+  connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutFollowingInput>>;
   create?: Maybe<Array<UserCreateWithoutFollowingInput>>;
 };
 
@@ -4853,7 +4949,7 @@ export type UserCreateNestedOneWithoutCommentLikeInput = {
 
 export type UserCreateNestedOneWithoutFeedInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutfeedInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutFeedInput>;
   create?: Maybe<UserCreateWithoutFeedInput>;
 };
 
@@ -4865,19 +4961,25 @@ export type UserCreateNestedOneWithoutFeedItemLikeInput = {
 
 export type UserCreateNestedOneWithoutInterestsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutinterestsInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutInterestsInput>;
   create?: Maybe<UserCreateWithoutInterestsInput>;
+};
+
+export type UserCreateNestedOneWithoutIssueInput = {
+  connect?: Maybe<UserWhereUniqueInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutIssueInput>;
+  create?: Maybe<UserCreateWithoutIssueInput>;
 };
 
 export type UserCreateNestedOneWithoutMemberOfBandsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutmemberOfBandsInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutMemberOfBandsInput>;
   create?: Maybe<UserCreateWithoutMemberOfBandsInput>;
 };
 
 export type UserCreateNestedOneWithoutMemberOfProjectsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutmemberOfProjectsInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutMemberOfProjectsInput>;
   create?: Maybe<UserCreateWithoutMemberOfProjectsInput>;
 };
 
@@ -4889,14 +4991,19 @@ export type UserCreateNestedOneWithoutMixdownInput = {
 
 export type UserCreateNestedOneWithoutOwnsBandsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutownsBandsInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutOwnsBandsInput>;
   create?: Maybe<UserCreateWithoutOwnsBandsInput>;
 };
 
 export type UserCreateNestedOneWithoutOwnsProjectsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutownsProjectsInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutOwnsProjectsInput>;
   create?: Maybe<UserCreateWithoutOwnsProjectsInput>;
+};
+
+export type UserCreateOrConnectWithoutAddressInput = {
+  create: UserCreateWithoutAddressInput;
+  where: UserWhereUniqueInput;
 };
 
 export type UserCreateOrConnectWithoutAudioAssetInput = {
@@ -4914,8 +5021,43 @@ export type UserCreateOrConnectWithoutCommentLikeInput = {
   where: UserWhereUniqueInput;
 };
 
+export type UserCreateOrConnectWithoutFeedInput = {
+  create: UserCreateWithoutFeedInput;
+  where: UserWhereUniqueInput;
+};
+
 export type UserCreateOrConnectWithoutFeedItemLikeInput = {
   create: UserCreateWithoutFeedItemLikeInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateOrConnectWithoutFollowedByInput = {
+  create: UserCreateWithoutFollowedByInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateOrConnectWithoutFollowingInput = {
+  create: UserCreateWithoutFollowingInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateOrConnectWithoutInterestsInput = {
+  create: UserCreateWithoutInterestsInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateOrConnectWithoutIssueInput = {
+  create: UserCreateWithoutIssueInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateOrConnectWithoutMemberOfBandsInput = {
+  create: UserCreateWithoutMemberOfBandsInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateOrConnectWithoutMemberOfProjectsInput = {
+  create: UserCreateWithoutMemberOfProjectsInput;
   where: UserWhereUniqueInput;
 };
 
@@ -4924,47 +5066,12 @@ export type UserCreateOrConnectWithoutMixdownInput = {
   where: UserWhereUniqueInput;
 };
 
-export type UserCreateOrConnectWithoutaddressInput = {
-  create: UserCreateWithoutAddressInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserCreateOrConnectWithoutfeedInput = {
-  create: UserCreateWithoutFeedInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserCreateOrConnectWithoutfollowedByInput = {
-  create: UserCreateWithoutFollowedByInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserCreateOrConnectWithoutfollowingInput = {
-  create: UserCreateWithoutFollowingInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserCreateOrConnectWithoutinterestsInput = {
-  create: UserCreateWithoutInterestsInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserCreateOrConnectWithoutmemberOfBandsInput = {
-  create: UserCreateWithoutMemberOfBandsInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserCreateOrConnectWithoutmemberOfProjectsInput = {
-  create: UserCreateWithoutMemberOfProjectsInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserCreateOrConnectWithoutownsBandsInput = {
+export type UserCreateOrConnectWithoutOwnsBandsInput = {
   create: UserCreateWithoutOwnsBandsInput;
   where: UserWhereUniqueInput;
 };
 
-export type UserCreateOrConnectWithoutownsProjectsInput = {
+export type UserCreateOrConnectWithoutOwnsProjectsInput = {
   create: UserCreateWithoutOwnsProjectsInput;
   where: UserWhereUniqueInput;
 };
@@ -4975,6 +5082,7 @@ export type UserCreateWithoutAddressInput = {
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
@@ -5003,6 +5111,7 @@ export type UserCreateWithoutAudioAssetInput = {
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -5032,6 +5141,7 @@ export type UserCreateWithoutCommentInput = {
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -5061,6 +5171,7 @@ export type UserCreateWithoutCommentLikeInput = {
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -5091,6 +5202,7 @@ export type UserCreateWithoutFeedInput = {
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -5119,6 +5231,7 @@ export type UserCreateWithoutFeedItemLikeInput = {
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -5149,6 +5262,7 @@ export type UserCreateWithoutFollowedByInput = {
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -5178,6 +5292,7 @@ export type UserCreateWithoutFollowingInput = {
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -5207,6 +5322,7 @@ export type UserCreateWithoutInterestsInput = {
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -5230,12 +5346,43 @@ export type UserCreateWithoutInterestsInput = {
   website?: Maybe<Scalars['String']>;
 };
 
+export type UserCreateWithoutIssueInput = {
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
+  avatar?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  email: Scalars['String'];
+  feed?: Maybe<FeedItemCreateNestedManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserCreateNestedManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateNestedManyWithoutFollowedByInput>;
+  handle: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+  interests?: Maybe<TagCreateNestedManyWithoutUserInput>;
+  isOnline?: Maybe<Scalars['Boolean']>;
+  memberOfBands?: Maybe<UsersOnBandsCreateNestedManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsCreateNestedManyWithoutUserInput>;
+  name: Scalars['String'];
+  ownsBands?: Maybe<BandCreateNestedManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectCreateNestedManyWithoutOwnerInput>;
+  password: Scalars['String'];
+  role?: Maybe<Role>;
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+  website?: Maybe<Scalars['String']>;
+};
+
 export type UserCreateWithoutMemberOfBandsInput = {
   AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -5265,6 +5412,7 @@ export type UserCreateWithoutMemberOfProjectsInput = {
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -5294,6 +5442,7 @@ export type UserCreateWithoutMixdownInput = {
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
@@ -5323,6 +5472,7 @@ export type UserCreateWithoutOwnsBandsInput = {
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -5352,6 +5502,7 @@ export type UserCreateWithoutOwnsProjectsInput = {
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
+  Issue?: Maybe<IssueCreateNestedManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutTriggerdByInput>;
   address?: Maybe<AddressCreateNestedOneWithoutUserInput>;
   avatar?: Maybe<Scalars['String']>;
@@ -5486,6 +5637,7 @@ export type UserUpdateInput = {
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -5542,7 +5694,7 @@ export type UserUpdateManyWithWhereWithoutFollowingInput = {
 
 export type UserUpdateManyWithoutAddressInput = {
   connect?: Maybe<Array<UserWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutaddressInput>>;
+  connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutAddressInput>>;
   create?: Maybe<Array<UserCreateWithoutAddressInput>>;
   delete?: Maybe<Array<UserWhereUniqueInput>>;
   deleteMany?: Maybe<Array<UserScalarWhereInput>>;
@@ -5555,7 +5707,7 @@ export type UserUpdateManyWithoutAddressInput = {
 
 export type UserUpdateManyWithoutFollowedByInput = {
   connect?: Maybe<Array<UserWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutfollowedByInput>>;
+  connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutFollowedByInput>>;
   create?: Maybe<Array<UserCreateWithoutFollowedByInput>>;
   delete?: Maybe<Array<UserWhereUniqueInput>>;
   deleteMany?: Maybe<Array<UserScalarWhereInput>>;
@@ -5568,7 +5720,7 @@ export type UserUpdateManyWithoutFollowedByInput = {
 
 export type UserUpdateManyWithoutFollowingInput = {
   connect?: Maybe<Array<UserWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutfollowingInput>>;
+  connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutFollowingInput>>;
   create?: Maybe<Array<UserCreateWithoutFollowingInput>>;
   delete?: Maybe<Array<UserWhereUniqueInput>>;
   deleteMany?: Maybe<Array<UserScalarWhereInput>>;
@@ -5597,7 +5749,7 @@ export type UserUpdateOneRequiredWithoutCommentLikeInput = {
 
 export type UserUpdateOneRequiredWithoutFeedInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutfeedInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutFeedInput>;
   create?: Maybe<UserCreateWithoutFeedInput>;
   update?: Maybe<UserUpdateWithoutFeedInput>;
   upsert?: Maybe<UserUpsertWithoutFeedInput>;
@@ -5611,9 +5763,17 @@ export type UserUpdateOneRequiredWithoutFeedItemLikeInput = {
   upsert?: Maybe<UserUpsertWithoutFeedItemLikeInput>;
 };
 
+export type UserUpdateOneRequiredWithoutIssueInput = {
+  connect?: Maybe<UserWhereUniqueInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutIssueInput>;
+  create?: Maybe<UserCreateWithoutIssueInput>;
+  update?: Maybe<UserUpdateWithoutIssueInput>;
+  upsert?: Maybe<UserUpsertWithoutIssueInput>;
+};
+
 export type UserUpdateOneRequiredWithoutMemberOfBandsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutmemberOfBandsInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutMemberOfBandsInput>;
   create?: Maybe<UserCreateWithoutMemberOfBandsInput>;
   update?: Maybe<UserUpdateWithoutMemberOfBandsInput>;
   upsert?: Maybe<UserUpsertWithoutMemberOfBandsInput>;
@@ -5621,7 +5781,7 @@ export type UserUpdateOneRequiredWithoutMemberOfBandsInput = {
 
 export type UserUpdateOneRequiredWithoutMemberOfProjectsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutmemberOfProjectsInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutMemberOfProjectsInput>;
   create?: Maybe<UserCreateWithoutMemberOfProjectsInput>;
   update?: Maybe<UserUpdateWithoutMemberOfProjectsInput>;
   upsert?: Maybe<UserUpsertWithoutMemberOfProjectsInput>;
@@ -5637,7 +5797,7 @@ export type UserUpdateOneRequiredWithoutMixdownInput = {
 
 export type UserUpdateOneRequiredWithoutOwnsBandsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutownsBandsInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutOwnsBandsInput>;
   create?: Maybe<UserCreateWithoutOwnsBandsInput>;
   update?: Maybe<UserUpdateWithoutOwnsBandsInput>;
   upsert?: Maybe<UserUpsertWithoutOwnsBandsInput>;
@@ -5645,7 +5805,7 @@ export type UserUpdateOneRequiredWithoutOwnsBandsInput = {
 
 export type UserUpdateOneRequiredWithoutOwnsProjectsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutownsProjectsInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutOwnsProjectsInput>;
   create?: Maybe<UserCreateWithoutOwnsProjectsInput>;
   update?: Maybe<UserUpdateWithoutOwnsProjectsInput>;
   upsert?: Maybe<UserUpsertWithoutOwnsProjectsInput>;
@@ -5663,7 +5823,7 @@ export type UserUpdateOneWithoutAudioAssetInput = {
 
 export type UserUpdateOneWithoutInterestsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutinterestsInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutInterestsInput>;
   create?: Maybe<UserCreateWithoutInterestsInput>;
   delete?: Maybe<Scalars['Boolean']>;
   disconnect?: Maybe<Scalars['Boolean']>;
@@ -5692,6 +5852,7 @@ export type UserUpdateWithoutAddressInput = {
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
   bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -5720,6 +5881,7 @@ export type UserUpdateWithoutAudioAssetInput = {
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -5749,6 +5911,7 @@ export type UserUpdateWithoutCommentInput = {
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -5778,6 +5941,7 @@ export type UserUpdateWithoutCommentLikeInput = {
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -5808,6 +5972,7 @@ export type UserUpdateWithoutFeedInput = {
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -5836,6 +6001,7 @@ export type UserUpdateWithoutFeedItemLikeInput = {
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -5866,6 +6032,7 @@ export type UserUpdateWithoutFollowedByInput = {
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -5895,6 +6062,7 @@ export type UserUpdateWithoutFollowingInput = {
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -5924,6 +6092,7 @@ export type UserUpdateWithoutInterestsInput = {
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -5947,12 +6116,43 @@ export type UserUpdateWithoutInterestsInput = {
   website?: Maybe<NullableStringFieldUpdateOperationsInput>;
 };
 
+export type UserUpdateWithoutIssueInput = {
+  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
+  EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
+  FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
+  address?: Maybe<AddressUpdateOneWithoutUserInput>;
+  avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  email?: Maybe<StringFieldUpdateOperationsInput>;
+  feed?: Maybe<FeedItemUpdateManyWithoutAuthorInput>;
+  followedBy?: Maybe<UserUpdateManyWithoutFollowingInput>;
+  following?: Maybe<UserUpdateManyWithoutFollowedByInput>;
+  handle?: Maybe<StringFieldUpdateOperationsInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  interests?: Maybe<TagUpdateManyWithoutUserInput>;
+  isOnline?: Maybe<BoolFieldUpdateOperationsInput>;
+  memberOfBands?: Maybe<UsersOnBandsUpdateManyWithoutUserInput>;
+  memberOfProjects?: Maybe<UsersOnProjectsUpdateManyWithoutUserInput>;
+  name?: Maybe<StringFieldUpdateOperationsInput>;
+  ownsBands?: Maybe<BandUpdateManyWithoutCreatedByInput>;
+  ownsProjects?: Maybe<ProjectUpdateManyWithoutOwnerInput>;
+  password?: Maybe<StringFieldUpdateOperationsInput>;
+  role?: Maybe<EnumRoleFieldUpdateOperationsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  website?: Maybe<NullableStringFieldUpdateOperationsInput>;
+};
+
 export type UserUpdateWithoutMemberOfBandsInput = {
   AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -5982,6 +6182,7 @@ export type UserUpdateWithoutMemberOfProjectsInput = {
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -6011,6 +6212,7 @@ export type UserUpdateWithoutMixdownInput = {
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
   bio?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -6040,6 +6242,7 @@ export type UserUpdateWithoutOwnsBandsInput = {
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -6069,6 +6272,7 @@ export type UserUpdateWithoutOwnsProjectsInput = {
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
+  Issue?: Maybe<IssueUpdateManyWithoutCreatedByInput>;
   Mixdown?: Maybe<MixdownUpdateManyWithoutTriggerdByInput>;
   address?: Maybe<AddressUpdateOneWithoutUserInput>;
   avatar?: Maybe<NullableStringFieldUpdateOperationsInput>;
@@ -6140,6 +6344,11 @@ export type UserUpsertWithoutInterestsInput = {
   update: UserUpdateWithoutInterestsInput;
 };
 
+export type UserUpsertWithoutIssueInput = {
+  create: UserCreateWithoutIssueInput;
+  update: UserUpdateWithoutIssueInput;
+};
+
 export type UserUpsertWithoutMemberOfBandsInput = {
   create: UserCreateWithoutMemberOfBandsInput;
   update: UserUpdateWithoutMemberOfBandsInput;
@@ -6172,6 +6381,7 @@ export type UserWhereInput = {
   CommentLike?: Maybe<CommentLikeListRelationFilter>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeListRelationFilter>;
   FeedItemLike?: Maybe<FeedItemLikeListRelationFilter>;
+  Issue?: Maybe<IssueListRelationFilter>;
   Mixdown?: Maybe<MixdownListRelationFilter>;
   NOT?: Maybe<Array<UserWhereInput>>;
   OR?: Maybe<Array<UserWhereInput>>;
@@ -6214,22 +6424,22 @@ export type UsersOnBands = {
 
 export type UsersOnBandsCreateNestedManyWithoutBandInput = {
   connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutbandInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutBandInput>>;
   create?: Maybe<Array<UsersOnBandsCreateWithoutBandInput>>;
 };
 
 export type UsersOnBandsCreateNestedManyWithoutUserInput = {
   connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutuserInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<UsersOnBandsCreateWithoutUserInput>>;
 };
 
-export type UsersOnBandsCreateOrConnectWithoutbandInput = {
+export type UsersOnBandsCreateOrConnectWithoutBandInput = {
   create: UsersOnBandsCreateWithoutBandInput;
   where: UsersOnBandsWhereUniqueInput;
 };
 
-export type UsersOnBandsCreateOrConnectWithoutuserInput = {
+export type UsersOnBandsCreateOrConnectWithoutUserInput = {
   create: UsersOnBandsCreateWithoutUserInput;
   where: UsersOnBandsWhereUniqueInput;
 };
@@ -6289,7 +6499,7 @@ export type UsersOnBandsUpdateManyWithWhereWithoutUserInput = {
 
 export type UsersOnBandsUpdateManyWithoutBandInput = {
   connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutbandInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutBandInput>>;
   create?: Maybe<Array<UsersOnBandsCreateWithoutBandInput>>;
   delete?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
   deleteMany?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
@@ -6302,7 +6512,7 @@ export type UsersOnBandsUpdateManyWithoutBandInput = {
 
 export type UsersOnBandsUpdateManyWithoutUserInput = {
   connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutuserInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<UsersOnBandsCreateWithoutUserInput>>;
   delete?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
   deleteMany?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
@@ -6390,22 +6600,22 @@ export type UsersOnProjectsCreateInput = {
 
 export type UsersOnProjectsCreateNestedManyWithoutProjectInput = {
   connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutprojectInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutProjectInput>>;
   create?: Maybe<Array<UsersOnProjectsCreateWithoutProjectInput>>;
 };
 
 export type UsersOnProjectsCreateNestedManyWithoutUserInput = {
   connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutuserInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<UsersOnProjectsCreateWithoutUserInput>>;
 };
 
-export type UsersOnProjectsCreateOrConnectWithoutprojectInput = {
+export type UsersOnProjectsCreateOrConnectWithoutProjectInput = {
   create: UsersOnProjectsCreateWithoutProjectInput;
   where: UsersOnProjectsWhereUniqueInput;
 };
 
-export type UsersOnProjectsCreateOrConnectWithoutuserInput = {
+export type UsersOnProjectsCreateOrConnectWithoutUserInput = {
   create: UsersOnProjectsCreateWithoutUserInput;
   where: UsersOnProjectsWhereUniqueInput;
 };
@@ -6485,7 +6695,7 @@ export type UsersOnProjectsUpdateManyWithWhereWithoutUserInput = {
 
 export type UsersOnProjectsUpdateManyWithoutProjectInput = {
   connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutprojectInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutProjectInput>>;
   create?: Maybe<Array<UsersOnProjectsCreateWithoutProjectInput>>;
   delete?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
   deleteMany?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
@@ -6498,7 +6708,7 @@ export type UsersOnProjectsUpdateManyWithoutProjectInput = {
 
 export type UsersOnProjectsUpdateManyWithoutUserInput = {
   connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutuserInput>>;
+  connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<UsersOnProjectsCreateWithoutUserInput>>;
   delete?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
   deleteMany?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
@@ -6636,6 +6846,7 @@ export type VersionInformationWhereUniqueInput = {
 export type CreateIssueMutationVariables = Exact<{
   description: Scalars['String'];
   screenshotIds: Array<Scalars['String']> | Scalars['String'];
+  me?: Maybe<Scalars['String']>;
 }>;
 
 export type CreateIssueMutation = { __typename?: 'Mutation' } & {
@@ -6763,8 +6974,10 @@ export const BaseUserFragmentDoc = gql`
   }
 `;
 export const CreateIssueDocument = gql`
-  mutation createIssue($description: String!, $screenshotIds: [String!]!) {
-    createIssue(data: { description: $description, screenshotIds: { set: $screenshotIds } }) {
+  mutation createIssue($description: String!, $screenshotIds: [String!]!, $me: String) {
+    createIssue(
+      data: { description: $description, screenshotIds: { set: $screenshotIds }, createdBy: { connect: { id: $me } } }
+    ) {
       id
     }
   }
@@ -6786,6 +6999,7 @@ export type CreateIssueMutationFn = Apollo.MutationFunction<CreateIssueMutation,
  *   variables: {
  *      description: // value for 'description'
  *      screenshotIds: // value for 'screenshotIds'
+ *      me: // value for 'me'
  *   },
  * });
  */
