@@ -22,7 +22,7 @@ const VersionInformation: React.FC = () => {
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={'inside'} size={'6xl'}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>S Y R A alpha - 0.0.16</ModalHeader>
+          <ModalHeader>S Y R A alpha - 0.0.17</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {data && data.versionInformations.map(info => (
