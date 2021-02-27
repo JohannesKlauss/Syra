@@ -9,7 +9,6 @@ import { createSoulInstance } from "../soul/createSoulInstance";
 import { soulPluginStore } from "./soulPluginStore";
 import { projectStore } from "./projectStore";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
-import { setLoggerEffect } from "./effects/setLoggerEffect";
 
 let lastChannelNum = 2;
 
@@ -81,6 +80,15 @@ const isPluginActive = atomFamilyWithEffects<boolean, string>({
     ...syncEffectsComb,
   ]
 });
+
+const isRecorderActive = atomFamilyWithEffects<boolean, string>({
+  key: 'channel/isRecorderActive',
+  default: true,
+  effects: [
+    ...syncEffectsComb,
+    undoRedoEffect,
+  ]
+})
 
 const pluginIds = atomFamilyWithEffects<string[], string>({
   key: 'channel/pluginIds',
@@ -264,6 +272,7 @@ export const channelStore = {
   isMuted,
   isInputMonitoringActive,
   isPluginActive,
+  isRecorderActive,
   pluginIds,
   state,
   ids,

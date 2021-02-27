@@ -1,5 +1,13 @@
 import React from 'react';
-import { Button, ButtonProps, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import {
+  Button,
+  ButtonProps,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  MenuListProps,
+} from '@chakra-ui/react';
 import { VscChevronDown } from 'react-icons/vsc';
 
 type TMenuItem = {
@@ -10,9 +18,10 @@ type TMenuItem = {
 interface Props extends ButtonProps {
   menuItems: ReadonlyArray<TMenuItem>;
   label: string;
+  menuFontSize?: string;
 }
 
-const DropdownButton: React.FC<Props> = ({ menuItems, label, ...props }) => {
+const DropdownButton: React.FC<Props> = ({ menuItems, label, menuFontSize = 'md', ...props }) => {
   return (
     <>
       <Menu>
@@ -24,7 +33,7 @@ const DropdownButton: React.FC<Props> = ({ menuItems, label, ...props }) => {
         >
           {label}
         </MenuButton>
-        <MenuList>
+        <MenuList fontSize={menuFontSize}>
           {menuItems.map(({ onClick, label }) => (
             <MenuItem key={label} onClick={onClick}>
               {label}
