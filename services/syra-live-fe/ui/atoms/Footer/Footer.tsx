@@ -16,6 +16,7 @@ function Footer({}: Props) {
         <Link color={'gray.500'} href={'#'} display={'block'}>{t('First Steps')}</Link>
         <Link color={'gray.500'} href={'#'} display={'block'}>{t('Video Tutorials')}</Link>
         <Link color={'gray.500'} href={'#'} display={'block'}>{t('Documentation')}</Link>
+        <Link color={'gray.500'} href={'#'} display={'block'}>{t('Marketplace')}</Link>
       </Box>
       <Box flex={2}>
         <Flex justify={'space-between'}>
@@ -41,7 +42,6 @@ function Footer({}: Props) {
             <Text fontWeight={700} marginBottom={4}>{t('Company')}</Text>
             <Link color={'gray.500'} href={'#'} display={'block'}>{t('About Us')}</Link>
             <Link color={'gray.500'} href={'#'} display={'block'}>{t('Store')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Marketplace')}</Link>
             <Link color={'gray.500'} href={'#'} display={'block'}>{t('Career')}</Link>
             <Link color={'gray.500'} href={'#'} display={'block'}>{t('Press')}</Link>
             <Link color={'gray.500'} href={'#'} display={'block'}>{t('Terms of Use')}</Link>

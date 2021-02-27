@@ -16,7 +16,7 @@ function Stopper({}: Props) {
         <Link color={'gray.400'} href={'#'} fontSize={'sm'}>{t('Cookies')}</Link>
       </Box>
       <Box flex={1}>
-        <Text color={'gray.400'} fontSize={'sm'} textAlign={'end'}>&copy; 2020 {t('S Y R A   Technologies')}</Text>
+        <Text color={'gray.400'} fontSize={'sm'} textAlign={'end'}>&copy; 2021 {t('S Y R A   Audio')}</Text>
       </Box>
     </Flex>
   );

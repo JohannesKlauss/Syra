@@ -25,6 +25,7 @@
     "docker:build": "yarn prisma:generate && yarn build && yarn session:gen-key"
   },
   "dependencies": {
+    "@discordjs/opus": "0.4.0",
     "@nestjs-modules/mailer": "1.5.1",
     "@nestjs/common": "7.6.13",
     "@nestjs/config": "0.6.3",
@@ -44,6 +45,7 @@
     "crypto-js": "4.0.0",
     "fastify-multipart": "4.0.0",
     "fastify-secure-session": "2.3.1",
+    "ffmpeg-static": "4.2.7",
     "generate-password": "1.6.0",
     "graphql": "15.5.0",
     "graphql-redis-subscriptions": "2.3.1",

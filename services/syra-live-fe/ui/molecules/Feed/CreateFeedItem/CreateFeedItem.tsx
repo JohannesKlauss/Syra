@@ -49,6 +49,7 @@ function CreateFeedItem({}: Props) {
 
     if (result.data.createFeedItem.id) {
       setRefetchFeed(true);
+      setValue('text', '');
     }
   };
 
