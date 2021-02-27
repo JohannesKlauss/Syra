@@ -15,7 +15,7 @@ import useMidiRegionScheduler from '../../../hooks/tone/useMidiRegionScheduler';
 import ClonableResizableBox from '../../atoms/ClonableResizableBox';
 import BaseRegion from './BaseRegion';
 import { RegionName, TopBar } from './AudioRegion/AudioRegion.styled';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Icon } from '@chakra-ui/react';
 import ManipulationContainer from './Manipulations/ManipulationContainer';
 import MidiRegionVisualization from './MidiRegion/MidiRegionVisualization';
 import { channelStore } from '../../../recoil/channelStore';
@@ -23,6 +23,8 @@ import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelTypeMap } from '../../../const/channels';
 import { ChannelType } from '../../../types/Channel';
 import useAudioRegionScheduler from '../../../hooks/tone/useAudioRegionScheduler';
+import { MdCloudDone, MdCloudUpload } from 'react-icons/md';
+import { determineTextColor } from '../../../utils/color';
 
 interface Props {}
 
@@ -31,6 +33,7 @@ const Region: React.FC<Props> = ({}) => {
   const regionId = useContext(RegionContext);
   const name = useRecoilValue(regionStore.name(regionId));
   const start = useRecoilValue(regionStore.start(regionId));
+  const isInSync = useRecoilValue(regionStore.isInSync(regionId));
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
   const color = useRegionColor(false);
   const regionWidth = useRegionWidth();
@@ -77,6 +80,13 @@ const Region: React.FC<Props> = ({}) => {
           <Flex justify={'flex-start'} align={'center'} ml={2}>
             {channelTypeMap[type]?.icon}
             <RegionName color={color}>{name}</RegionName>
+            <Icon
+              ml={'auto'}
+              mr={2}
+              as={isInSync ? MdCloudDone : MdCloudUpload}
+              color={determineTextColor(color)}
+              title={isInSync ? 'File is synchronized' : 'File is uploading'}
+            />
           </Flex>
         </TopBar>
         <ManipulationContainer>

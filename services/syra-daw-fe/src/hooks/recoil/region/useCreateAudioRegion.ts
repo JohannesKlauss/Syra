@@ -7,9 +7,11 @@ import { audioBufferStore } from '../../../recoil/audioBufferStore';
 import { analyze } from 'web-audio-beat-detector';
 import { projectStore } from '../../../recoil/projectStore';
 import * as Tone from 'tone';
+import useUploadAudioFile from "../../audio/useUploadAudioFile";
 
 export default function useCreateAudioRegion() {
   const audioContext = useAudioContext();
+  const uploadFile = useUploadAudioFile();
 
   return useRecoilCallback(({ set, snapshot }) => async (channelId: string, file: File, start: Tone.TimeClass = Tone.Ticks(0), analyzeTempo: boolean = false, regionId?: string) => {
     const newRegionId = regionId ?? createNewId(REGION_ID_PREFIX);
@@ -20,7 +22,8 @@ export default function useCreateAudioRegion() {
     const staticCounter = snapshot.getLoadable(regionStore.staticCounter(channelId)).contents as number;
 
     if (audioBuffer.duration > 0) {
-      console.log('has buffer', audioBuffer);
+      // Promise is intentionally ignored to not stop the execution of the rest of the code.
+      uploadFile(newBufferId, file);
 
       set(audioBufferStore.ids,currVal => [...currVal, newBufferId]);
       set(audioBufferStore.buffer(newBufferId), audioBuffer);
@@ -56,5 +59,5 @@ export default function useCreateAudioRegion() {
     }
 
     return newRegionId;
-  }, [audioContext]);
+  }, [audioContext, uploadFile]);
 }

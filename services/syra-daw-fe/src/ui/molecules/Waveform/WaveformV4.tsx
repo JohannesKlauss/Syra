@@ -3,7 +3,6 @@ import { PixiComponent, Stage } from '@inlet/react-pixi';
 import { Graphics } from 'pixi.js';
 import { audioBufferStore } from '../../../recoil/audioBufferStore';
 import { useRecoilValue } from 'recoil';
-import useDownsampleAudioBuffer from '../../../hooks/audio/useDownsampleAudioBuffer';
 import { arrangeWindowStore } from '../../../recoil/arrangeWindowStore';
 import { DPR } from '../../../const/ui';
 import { Box } from '@chakra-ui/react';
@@ -38,20 +37,13 @@ interface Props {
 }
 
 function WaveformV4({ bufferId }: Props) {
-  useDownsampleAudioBuffer(bufferId);
-
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
-  const pixelPeaks = useRecoilValue(audioBufferStore.pixelPeaks(bufferId));
-
-  if (pixelPeaks.length === 0) {
-    return null;
-  }
 
   return (
     <Box h={`${trackHeight}px`} w={'100%'} pos={'absolute'} top={0} left={0}>
-      <Stage width={pixelPeaks.length / DPR} height={trackHeight / DPR}
+      <Stage width={0} height={trackHeight / DPR}
              options={{ transparent: true, antialias: true, resolution: DPR }}>
-        <WaveformHalf color={0xffffff} peaks={pixelPeaks} smoothing={3} trackHeight={trackHeight / DPR}/>
+        <WaveformHalf color={0xffffff} peaks={[]} smoothing={3} trackHeight={trackHeight / DPR}/>
       </Stage>
     </Box>
   );

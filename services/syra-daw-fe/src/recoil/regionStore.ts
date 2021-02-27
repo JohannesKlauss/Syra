@@ -116,6 +116,15 @@ const audioBuffer = selectorFamily<AudioBuffer | null, string>({
   }
 });
 
+const isInSync = selectorFamily<boolean, string>({
+  key: 'region/isInSync',
+  get: regionId => ({get}) => {
+    const pointer = get(audioBufferPointer(regionId));
+
+    return pointer !== null ? get(audioBufferStore.isInSyncWithDb(pointer)): true;
+  }
+})
+
 // Parameter is channelId. This basically stores all regionIds for a channelId.
 const ids = atomFamilyWithEffects<string[], string>({
   key: 'region/ids',
@@ -217,6 +226,7 @@ export const regionStore = {
   isRecording,
   isSelected,
   isMidi,
+  isInSync,
   regionState,
   ids,
   findByIds,

@@ -3,7 +3,6 @@ import { SessionListDataFragment, UserLinkFragment } from '../../../gql/generate
 import { Box, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import UserList from '../UserList/UserList';
-import SessionList from '../SessionList/SessionList';
 import SessionSearchResultList from '../SessionList/SessionSearchResultList';
 
 interface Props {

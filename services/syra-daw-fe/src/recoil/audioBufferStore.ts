@@ -1,114 +1,68 @@
-import { atom, atomFamily, selectorFamily } from "recoil";
-import { gridStore } from "./gridStore";
-import { View } from "../types/View";
+import { atomFamily, selectorFamily } from "recoil";
+import atomWithEffects from "./proxy/atomWithEffects";
+import { syncEffectsComb } from "./effects/syncEffectsComb";
+import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
+
+const internalBuffer = atomFamily<AudioBuffer | null, string>({
+  key: 'audioBuffer/internalBuffer',
+  default: null,
+});
 
 // In this family we store all the available audio buffers. A region then can point to a buffer and reference it.
 // This way multiple regions can reference the same buffer without having to recreate it every time.
-const buffer = atomFamily<AudioBuffer | null, string>({
+const buffer = selectorFamily<AudioBuffer | null, string>({
   key: 'audioBuffer/buffer',
-  default: null,
-});
+  get: bufferId => async ({get}) => {
+    let audioBuffer = get(internalBuffer(bufferId));
 
-// Peaks holds a down sampled variant converted to Uint8 values of the raw buffer (0 - 255). Used for quick peak analyzing and
-// waveform creation.
-const peaks = atomFamily<SharedArrayBuffer | null, string>({
-  key: 'audioBuffer/analyzedPeaks',
-  default: null,
-});
-
-// This is creating buckets on the fly depending on position and tempo of the region.
-// Those buckets represent the index boundaries to calculate the value of on pixel for the waveform.
-const peakBuckets = selectorFamily<[number, number][], string>({
-  key: 'audioBuffer/peakBuckets',
-  get: bufferId => ({get}) => {
-    const rawBuffer = get(buffer(bufferId));
-    const rawPeaks = get(peaks(bufferId));
-
-    if (rawPeaks === null || rawBuffer === null) {
-      return [];
+    if (audioBuffer) {
+      return audioBuffer;
     }
 
-    const peaksView = new Float32Array(rawPeaks);
-    const quarterWidth = get(gridStore.zoomedQuarterPixelWidth(View.ARRANGE_WINDOW));
-    const pixelPerSecond = 2 * quarterWidth;
-    const indexRange = Math.ceil(peaksView.length / (rawBuffer.duration * pixelPerSecond));
-    const buckets: [number, number][] = [];
+    const storedId = get(storedBufferId(bufferId));
 
-    for (let i = 0, j = 0; j < rawBuffer.duration * pixelPerSecond; i += indexRange, j++) {
-      buckets[j] = [i, i + indexRange - 1];
-    }
+    // Load from local storage or from server.
 
-    buckets[buckets.length - 1][1] = rawPeaks.byteLength - 1;
-
-    return buckets;
-  }
+    return null;
+  },
+  set: bufferId => async ({set}, buffer) => set(internalBuffer(bufferId), buffer)
 });
 
-const pixelPeaks = selectorFamily<number[], string | null>({
-  key: 'audioBuffer/peaks',
-  get: bufferId => ({get}) => {
-    if (bufferId === null) {
-      return [];
-    }
-
-    const buckets = get(peakBuckets(bufferId));
-    const rawPeaks = get(peaks(bufferId));
-
-    if (rawPeaks === null) {
-      return [];
-    }
-
-    const peaksView = new Float32Array(rawPeaks);
-
-    const SMOOTHING = 1;
-
-    const peaksPerPixel = new Array(buckets.length);
-
-    for (let i = 0; i < buckets.length; i += SMOOTHING) {
-      let max = 0;
-
-      for(let j = buckets[i][0]; j <= buckets[i][1]; j++) {
-        if (peaksView[j] > max) {
-          max = peaksView[j];
-        }
-      }
-
-      peaksPerPixel[i] = max;
-    }
-
-    return peaksPerPixel;
-  }
-});
-
-// String here does not refer to the buffer id alone, but a combined format of all parameters that define the shape
-// of a waveform. Buffer Id, width, height and smoothing. Format will be like: BUFFER_ID.WIDTH.HEIGHT.SMOOTHING
-const waveform = atomFamily<number[], string>({
-  key: 'audioBuffer/waveform',
-  default: [],
-});
-
-const waveformImage = atomFamily<string, string>({
-  key: 'audioBuffer/waveformImage',
-  default: '',
-});
-
-const name = atomFamily<string, string>({
+const name = atomFamilyWithEffects<string, string>({
   key: 'audioBuffer/name',
   default: '',
-})
+  effects: [
+    ...syncEffectsComb
+  ]
+});
 
-const ids = atom<string[]>({
+const isInSyncWithDb = atomFamily<boolean, string>({
+  key: 'audioBuffer/isInSyncWithDb',
+  default: false,
+});
+
+// This id is used to reference the file on local storage and on the server.
+// Use this to load the wanted file.
+const storedBufferId = atomFamilyWithEffects<string, string>({
+  key: 'audioBuffer/storedBufferId',
+  default: '',
+  effects: [
+    ...syncEffectsComb,
+  ]
+});
+
+const ids = atomWithEffects<string[]>({
   key: 'audioBuffer/ids',
   default: [],
+  effects: [
+    ...syncEffectsComb,
+  ]
 });
 
 export const audioBufferStore = {
   buffer,
-  peaks,
-  peakBuckets,
-  pixelPeaks,
-  waveform,
-  waveformImage,
   name,
   ids,
+  storedBufferId,
+  isInSyncWithDb,
 };

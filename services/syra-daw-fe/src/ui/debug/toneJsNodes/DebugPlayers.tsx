@@ -16,7 +16,7 @@ import {
   Text,
   Flex,
 } from '@chakra-ui/react';
-import { IoIosCheckmarkCircle } from "react-icons/io/index";
+import { IoIosCheckmarkCircle } from "react-icons/io";
 
 function DebugPlayers() {
   const regionId = useContext(RegionContext);
