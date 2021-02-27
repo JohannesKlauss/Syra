@@ -7,7 +7,6 @@ interface Props {
 const ContextMenuTrigger: React.FC<Props> = ({onOpen, children}) => {
   const onContextMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
-    e.stopPropagation();
 
     onOpen && onOpen(e);
   }

@@ -18,7 +18,7 @@ import AddSessionMember from './AddSessionMember';
 
 const MemberSettings: React.FC = () => {
   return (
-    <Popover>
+    <Popover isLazy>
       <PopoverTrigger>
         <Flex align={'center'} ml={32}>
           <AvatarMemberList />

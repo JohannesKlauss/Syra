@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
 import { transportStore } from '../../../recoil/transportStore';
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 
 function ChannelLetterButtons() {
   const id = useContext(ChannelContext);
@@ -28,10 +28,10 @@ function ChannelLetterButtons() {
 
   return (
     <Flex w={'100%'} justify={'space-between'}>
-      <LetterButton onClick={onClickSolo} isActive={isSolo} color={'yellow'}>S</LetterButton>
-      <LetterButton onClick={onClickMute} isActive={isMuted} color={'gray'}>M</LetterButton>
-      <LetterButton onClick={onClickRecord} isActive={isArmed} color={'red'}>R</LetterButton>
-      <LetterButton onClick={onClickInputMonitoring} isActive={isInputMonitoringActive} color={'orange'}>I</LetterButton>
+        <LetterButton onClick={onClickSolo} isActive={isSolo} color={'yellow'}>S</LetterButton>
+        <LetterButton onClick={onClickMute} isActive={isMuted} color={'gray'}>M</LetterButton>
+        <LetterButton onClick={onClickRecord} isActive={isArmed} color={'red'}>R</LetterButton>
+        <LetterButton onClick={onClickInputMonitoring} isActive={isInputMonitoringActive} color={'orange'}>I</LetterButton>
     </Flex>
   );
 }

@@ -5,13 +5,8 @@ import { ChannelContext } from '../../../../providers/ChannelContext';
 import { channelStore } from '../../../../recoil/channelStore';
 import AudioChannel from './AudioChannel';
 import InstrumentChannel from './InstrumentChannel';
-import { Box, Button, Flex } from '@chakra-ui/react';
-import ChannelHeader from './Strip/ChannelHeader';
-import ChannelBody from './Strip/ChannelBody';
+import { Box } from '@chakra-ui/react';
 import HorizontalChannelSuspenseFallback from "./HorizontalChannelSuspenseFallback";
-import ContextMenu from "../../ContextMenu/ContextMenu";
-import ContextMenuTrigger from "../../ContextMenu/ContextMenuTrigger";
-import ChannelContextMenu from "../ChannelMenu/ChannelContextMenu";
 
 interface Props {
   channelId: string;
@@ -37,8 +32,6 @@ function BaseChannel({ channelId, index }: Props) {
 
   return (
     <ChannelContext.Provider value={channelId}>
-      <ContextMenu>
-        <ContextMenuTrigger>
           <Box
             maxW={'150px'}
             w={'150px'}
@@ -49,9 +42,6 @@ function BaseChannel({ channelId, index }: Props) {
               {ChannelComponent}
             </Suspense>
           </Box>
-        </ContextMenuTrigger>
-        <ChannelContextMenu/>
-      </ContextMenu>
     </ChannelContext.Provider>
   );
 }

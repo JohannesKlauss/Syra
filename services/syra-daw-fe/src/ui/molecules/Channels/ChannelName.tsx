@@ -1,43 +1,39 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { determineTextColor } from '../../../utils/color';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
 import { useRecoilState } from 'recoil';
-import ClickAwayListener from 'react-click-away-listener';
-import { Box, Input, Text } from '@chakra-ui/react';
+import { Flex, Text, TextProps } from '@chakra-ui/react';
+import ChannelSettings from './ChannelSettings';
 
-interface Props {
+interface Props extends TextProps {
   backgroundColor?: string;
-  prefix?: number;
+  channelPrefix?: number;
 }
 
-function ChannelName({ backgroundColor, prefix }: Props) {
+function ChannelName({ backgroundColor, channelPrefix, px, ...props }: Props) {
   const channelId = useContext(ChannelContext);
-  const [name, setName] = useRecoilState(channelStore.name(channelId));
-  const [isEditingName, setIsEditingName] = useState(false);
+  const [name] = useRecoilState(channelStore.name(channelId));
 
   return (
-    <Box whiteSpace={'nowrap'} bg={backgroundColor} px={2}>
-      {isEditingName ? (
-        <ClickAwayListener onClickAway={() => setIsEditingName(false)}>
-          <Input size={'sm'} py={2} defaultValue={name} onChange={(e) => setName(e.target.value)} />
-        </ClickAwayListener>
-      ) : (
-        <Text
-          textOverflow={'ellipsis'}
-          overflow={'hidden'}
-          userSelect={'none'}
-          fontSize={'sm'}
-          textAlign={'left'}
-          fontWeight={'600'}
-          py={2}
-          onDoubleClick={() => setIsEditingName(true)}
-          color={backgroundColor ? determineTextColor(backgroundColor) : 'gray.50'}
-        >
-          {prefix}{prefix && ' - '}{name}
-        </Text>
-      )}
-    </Box>
+    <Flex bg={backgroundColor} justify={'space-between'} align={'center'} px={px}>
+      <Text
+        {...props}
+        textOverflow={'ellipsis'}
+        overflow={'hidden'}
+        userSelect={'none'}
+        fontSize={'sm'}
+        textAlign={'left'}
+        fontWeight={'600'}
+        py={2}
+        color={backgroundColor ? determineTextColor(backgroundColor) : 'gray.50'}
+      >
+        {channelPrefix}
+        {channelPrefix && ' - '}
+        {name}
+      </Text>
+      <ChannelSettings/>
+    </Flex>
   );
 }
 

@@ -29,13 +29,7 @@ function PlayRecord() {
     meta: { setTransportStart, setTransportStop },
   } = useContext(BackboneMixerContext);
 
-  const onClickPlayPause = useCallback(e => {
-    if (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation && e.stopImmediatePropagation();
-      e.stopPropagation();
-    }
-
+  const onClickPlayPause = useCallback(() => {
     if (isRecording) {
       return;
     }
@@ -68,13 +62,7 @@ function PlayRecord() {
     setIsPlaying((currVal) => !currVal);
   }, [setIsPlaying, transport, isPlaying, isRecording, cycleStart, isCycleActive, lengthInQuarters, setCurrentTransportQuarter, setTransportSeconds]);
 
-  const onClickReset = useCallback(e => {
-    if (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation && e.stopImmediatePropagation();
-      e.stopPropagation();
-    }
-
+  const onClickReset = useCallback(() => {
     setTransportSeconds(0);
   }, [setTransportSeconds]);
 

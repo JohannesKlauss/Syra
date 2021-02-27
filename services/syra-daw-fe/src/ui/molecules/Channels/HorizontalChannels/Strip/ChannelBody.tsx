@@ -49,7 +49,7 @@ const ChannelBody: React.FC = React.memo(() => {
         <ChannelLetterButtons />
       </Box>
 
-      <ChannelName backgroundColor={channelColor} />
+      <ChannelName backgroundColor={channelColor} px={2} />
     </Box>
   );
 });
