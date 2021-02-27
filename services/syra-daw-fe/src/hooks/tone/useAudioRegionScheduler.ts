@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { regionStore } from '../../recoil/regionStore';
 import useBackboneChannel from './BackboneMixer/useBackboneChannel';
 import { ChannelContext } from '../../providers/ChannelContext';
+import * as Tone from 'tone';
 
 export default function useAudioRegionScheduler() {
   const channelId = useContext(ChannelContext);
@@ -24,8 +25,7 @@ export default function useAudioRegionScheduler() {
     players.player(regionId)
       .set({mute: isMuted})
       .unsync().sync()
-      // TODO: THIS IS RIGHT NOW COMPLETELY WRONG, BUT WE HAVE TO REFACTOR THE AUDIO REGION STUFF ANYWAY.
-      //.start(start.toSeconds() + trimStart, `${trimStart}:0:0`, `${trimEnd - trimStart}:0:0`);
+      .start(Tone.Ticks(start).toSeconds(), Tone.Ticks(offset).toSeconds(), Tone.Ticks(duration).toSeconds());
 
     return () => {
       players.player(regionId).unsync();

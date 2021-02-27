@@ -26,6 +26,7 @@ function ChannelName({ backgroundColor, channelPrefix, px, ...props }: Props) {
         textAlign={'left'}
         fontWeight={'600'}
         py={2}
+        isTruncated
         color={backgroundColor ? determineTextColor(backgroundColor) : 'gray.50'}
       >
         {channelPrefix}

@@ -1,19 +1,19 @@
 import React, { useContext } from "react";
-import { RegionContext } from "../../../../providers/RegionContext";
+import { RegionContext } from "../../../providers/RegionContext";
 import { useRecoilValue } from "recoil";
-import { regionStore } from "../../../../recoil/regionStore";
-import useRegionColor from "../../../../hooks/ui/region/useRegionColor";
-import useRegionWidth from "../../../../hooks/ui/region/useRegionWidth";
-import useTicksToPixel from "../../../../hooks/tone/useTicksToPixel";
-import ResizableBox from "../../../atoms/ResizableBox";
-import BaseRegion from "../BaseRegion";
-import { RegionName, TopBar } from "../AudioRegion/AudioRegion.styled";
+import { regionStore } from "../../../recoil/regionStore";
+import useRegionColor from "../../../hooks/ui/region/useRegionColor";
+import useRegionWidth from "../../../hooks/ui/region/useRegionWidth";
+import useTicksToPixel from "../../../hooks/tone/useTicksToPixel";
+import ResizableBox from "../../atoms/ResizableBox";
+import BaseRegion from "./BaseRegion";
+import { RegionName, TopBar } from "./AudioRegion/AudioRegion.styled";
 import { Flex } from "@chakra-ui/react";
-import { SiMidi } from "react-icons/si";
-import ManipulationContainer from "../Manipulations/ManipulationContainer";
-import MidiRegionVisualization from "./MidiRegionVisualization";
+import { BsThreeDots } from "react-icons/bs";
+import ManipulationContainer from "./Manipulations/ManipulationContainer";
+import MidiRegionVisualization from "./MidiRegion/MidiRegionVisualization";
 
-const MidiRegionSuspenseFallback: React.FC = () => {
+const RegionSuspenseFallback: React.FC = () => {
   const regionId = useContext(RegionContext);
   const name = useRecoilValue(regionStore.name(regionId));
   const start = useRecoilValue(regionStore.start(regionId));
@@ -26,7 +26,7 @@ const MidiRegionSuspenseFallback: React.FC = () => {
       <BaseRegion>
         <TopBar color={color}>
           <Flex justify={'flex-start'} align={'center'} ml={2}>
-            <SiMidi/>
+            <BsThreeDots/>
             <RegionName color={color}>{name}</RegionName>
           </Flex>
         </TopBar>
@@ -38,4 +38,4 @@ const MidiRegionSuspenseFallback: React.FC = () => {
   );
 };
 
-export default MidiRegionSuspenseFallback;
+export default RegionSuspenseFallback;

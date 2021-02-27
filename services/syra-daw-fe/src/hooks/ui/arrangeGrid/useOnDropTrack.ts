@@ -7,7 +7,7 @@ import * as Tone from 'tone';
 
 export default function useOnDropTrack() {
   const createChannel = useCreateChannel();
-  const createRegion = useCreateAudioRegion();
+  const createAudioRegion = useCreateAudioRegion();
   const importMidiFile = useImportMidiFile();
 
   return useCallback(async (files: File[]) => {
@@ -17,9 +17,9 @@ export default function useOnDropTrack() {
           await importMidiFile(file, i);
         } else {
           const channelId = await createChannel(ChannelType.AUDIO, i, file.name.split('.')[0]);
-          await createRegion(channelId, file, Tone.Ticks(0), i === 0);
+          await createAudioRegion(channelId, file, Tone.Ticks(0), i === 0);
         }
       })();
     });
-  }, [createChannel, createRegion, importMidiFile]);
+  }, [createChannel, createAudioRegion, importMidiFile]);
 }

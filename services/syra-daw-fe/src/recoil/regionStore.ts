@@ -1,13 +1,10 @@
-import { atom, atomFamily, selector, selectorFamily } from "recoil";
+import { atom, atomFamily, selectorFamily } from "recoil";
 import { audioBufferStore } from "./audioBufferStore";
 import { MidiNote } from "../types/Midi";
 import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
 import { syncEffectsComb } from "./effects/syncEffectsComb";
-import { gridStore } from "./gridStore";
-import { View } from "../types/View";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
 import * as Tone from 'tone';
-import { channelStore } from "./channelStore";
 
 // Sets the amount of ticks that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamilyWithEffects<number, string>({
@@ -24,7 +21,6 @@ const duration = atomFamilyWithEffects<number, string>({
 });
 
 // The amount of ticks that the region gets trimmed at the beginning (this is basically the offset in relation to the audio buffer or first midi note)
-// This will replace trimStart in the long run.
 const offset = atomFamilyWithEffects<number, string>({
   key: 'region/offset',
   default: 0,
@@ -52,20 +48,6 @@ const isRecording = atomFamily<boolean, string>({
 const isMidi = atomFamilyWithEffects<boolean, string>({
   key: 'region/isMidi',
   default: false,
-  effects: [...syncEffectsComb],
-});
-
-// The seconds that the region gets trimmed at the beginning (this is basically the offset in relation to the audio buffer or first midi note)
-const trimStart = atomFamilyWithEffects<number, string>({
-  key: 'region/trimStart',
-  default: 0,
-  effects: [...syncEffectsComb],
-});
-
-// The seconds that the region gets trimmed at the end (also in relation to the audio buffer duration or first midi note)
-const trimEnd = atomFamilyWithEffects<number, string>({
-  key: 'region/trimEnd',
-  default: 0,
   effects: [...syncEffectsComb],
 });
 
@@ -176,14 +158,7 @@ const findByChannelId = selectorFamily<RegionState[], string>({
 const occupiedArea = selectorFamily<[number, number], string>({
   key: 'region/occupiedArea',
   get: regionId => ({get}) => {
-    const trimEndVal = get(trimEnd(regionId));
-    const trimStartVal = get(trimStart(regionId));
-    const secondsToPixel = (seconds: number) => get(gridStore.pixelPerSecond(View.ARRANGE_WINDOW)) * seconds
-
-    const startVal = secondsToPixel(get(start(regionId))) + secondsToPixel(trimStartVal);
-    const trimmedWidth = secondsToPixel(trimEndVal) - secondsToPixel(trimStartVal);
-
-    return [startVal, startVal + trimmedWidth];
+    return [0, 0]; // TODO: We have to reimplement this, when adding back the selection tool
   }
 });
 
@@ -242,8 +217,6 @@ export const regionStore = {
   isRecording,
   isSelected,
   isMidi,
-  trimStart,
-  trimEnd,
   regionState,
   ids,
   findByIds,

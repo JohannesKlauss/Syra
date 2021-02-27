@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
-import { ChannelContext } from '../../../../providers/ChannelContext';
+import React, { Suspense, useContext } from "react";
+import { ChannelContext } from '../../../providers/ChannelContext';
 import { useRecoilValue } from 'recoil';
-import { regionStore } from '../../../../recoil/regionStore';
-import { RegionContext } from '../../../../providers/RegionContext';
+import { regionStore } from '../../../recoil/regionStore';
+import { RegionContext } from '../../../providers/RegionContext';
 import { Box } from '@chakra-ui/react';
-import RegionDecider from "./RegionDecider";
+import RegionSuspenseFallback from "./RegionSuspenseFallback";
+import Region from "./Region";
 
 function RegionList() {
   const channelId = useContext(ChannelContext);
@@ -14,7 +15,9 @@ function RegionList() {
     <Box top={0} left={0} pos={'absolute'} w={'100%'} h={'100%'}>
       {regions.map(id => (
         <RegionContext.Provider key={id} value={id}>
-          <RegionDecider/>
+          <Suspense fallback={<RegionSuspenseFallback/>}>
+            {<Region/>}
+          </Suspense>
         </RegionContext.Provider>
       ))}
     </Box>
