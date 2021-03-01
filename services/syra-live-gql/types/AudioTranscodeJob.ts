@@ -5,4 +5,5 @@ export type AudioTranscodeJob = {
     name: string;
   };
   targetFormat: string;
+  projectId: string;
 };

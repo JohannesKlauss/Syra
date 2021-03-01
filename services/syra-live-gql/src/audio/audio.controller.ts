@@ -32,6 +32,7 @@ export class AudioController {
     await this.audioQueue.add('transcode', {
       spacesObject: spacesObject,
       targetFormat: 'm4a',
+      projectId,
     });
 
     return spacesObject;

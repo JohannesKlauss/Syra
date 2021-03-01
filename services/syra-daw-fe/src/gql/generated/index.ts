@@ -341,6 +341,7 @@ export type AudioAsset = {
   isPublic?: Maybe<Scalars['Boolean']>;
   location: Scalars['String'];
   name: Scalars['String'];
+  parentAssetId?: Maybe<Scalars['String']>;
   userId?: Maybe<Scalars['String']>;
 };
 
@@ -350,10 +351,27 @@ export type AudioAssetCreateNestedManyWithoutOwnerInput = {
   create?: Maybe<Array<AudioAssetCreateWithoutOwnerInput>>;
 };
 
+export type AudioAssetCreateNestedManyWithoutParentAssetInput = {
+  connect?: Maybe<Array<AudioAssetWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<AudioAssetCreateOrConnectWithoutParentAssetInput>>;
+  create?: Maybe<Array<AudioAssetCreateWithoutParentAssetInput>>;
+};
+
+export type AudioAssetCreateNestedOneWithoutAudioAssetInput = {
+  connect?: Maybe<AudioAssetWhereUniqueInput>;
+  connectOrCreate?: Maybe<AudioAssetCreateOrConnectWithoutAudioAssetInput>;
+  create?: Maybe<AudioAssetCreateWithoutAudioAssetInput>;
+};
+
 export type AudioAssetCreateNestedOneWithoutMixdownInput = {
   connect?: Maybe<AudioAssetWhereUniqueInput>;
   connectOrCreate?: Maybe<AudioAssetCreateOrConnectWithoutMixdownInput>;
   create?: Maybe<AudioAssetCreateWithoutMixdownInput>;
+};
+
+export type AudioAssetCreateOrConnectWithoutAudioAssetInput = {
+  create: AudioAssetCreateWithoutAudioAssetInput;
+  where: AudioAssetWhereUniqueInput;
 };
 
 export type AudioAssetCreateOrConnectWithoutMixdownInput = {
@@ -366,20 +384,49 @@ export type AudioAssetCreateOrConnectWithoutOwnerInput = {
   where: AudioAssetWhereUniqueInput;
 };
 
-export type AudioAssetCreateWithoutMixdownInput = {
-  id?: Maybe<Scalars['String']>;
-  isPublic?: Maybe<Scalars['Boolean']>;
-  location: Scalars['String'];
-  name: Scalars['String'];
-  owner?: Maybe<UserCreateNestedOneWithoutAudioAssetInput>;
+export type AudioAssetCreateOrConnectWithoutParentAssetInput = {
+  create: AudioAssetCreateWithoutParentAssetInput;
+  where: AudioAssetWhereUniqueInput;
 };
 
-export type AudioAssetCreateWithoutOwnerInput = {
+export type AudioAssetCreateWithoutAudioAssetInput = {
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutAudioInput>;
   id?: Maybe<Scalars['String']>;
   isPublic?: Maybe<Scalars['Boolean']>;
   location: Scalars['String'];
   name: Scalars['String'];
+  owner?: Maybe<UserCreateNestedOneWithoutAudioAssetInput>;
+  parentAsset?: Maybe<AudioAssetCreateNestedOneWithoutAudioAssetInput>;
+};
+
+export type AudioAssetCreateWithoutMixdownInput = {
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutParentAssetInput>;
+  id?: Maybe<Scalars['String']>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+  location: Scalars['String'];
+  name: Scalars['String'];
+  owner?: Maybe<UserCreateNestedOneWithoutAudioAssetInput>;
+  parentAsset?: Maybe<AudioAssetCreateNestedOneWithoutAudioAssetInput>;
+};
+
+export type AudioAssetCreateWithoutOwnerInput = {
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutParentAssetInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutAudioInput>;
+  id?: Maybe<Scalars['String']>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+  location: Scalars['String'];
+  name: Scalars['String'];
+  parentAsset?: Maybe<AudioAssetCreateNestedOneWithoutAudioAssetInput>;
+};
+
+export type AudioAssetCreateWithoutParentAssetInput = {
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutParentAssetInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutAudioInput>;
+  id?: Maybe<Scalars['String']>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+  location: Scalars['String'];
+  name: Scalars['String'];
+  owner?: Maybe<UserCreateNestedOneWithoutAudioAssetInput>;
 };
 
 export type AudioAssetListRelationFilter = {
@@ -394,6 +441,8 @@ export type AudioAssetOrderByInput = {
   location?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   owner?: Maybe<UserOrderByInput>;
+  parentAsset?: Maybe<AudioAssetOrderByInput>;
+  parentAssetId?: Maybe<SortOrder>;
   userId?: Maybe<SortOrder>;
 };
 
@@ -407,6 +456,7 @@ export enum AudioAssetScalarFieldEnum {
   IsPublic = 'isPublic',
   Location = 'location',
   Name = 'name',
+  ParentAssetId = 'parentAssetId',
   UserId = 'userId',
 }
 
@@ -418,6 +468,7 @@ export type AudioAssetScalarWhereInput = {
   isPublic?: Maybe<BoolNullableFilter>;
   location?: Maybe<StringFilter>;
   name?: Maybe<StringFilter>;
+  parentAssetId?: Maybe<StringNullableFilter>;
   userId?: Maybe<StringNullableFilter>;
 };
 
@@ -429,6 +480,11 @@ export type AudioAssetUpdateManyMutationInput = {
 };
 
 export type AudioAssetUpdateManyWithWhereWithoutOwnerInput = {
+  data: AudioAssetUpdateManyMutationInput;
+  where: AudioAssetScalarWhereInput;
+};
+
+export type AudioAssetUpdateManyWithWhereWithoutParentAssetInput = {
   data: AudioAssetUpdateManyMutationInput;
   where: AudioAssetScalarWhereInput;
 };
@@ -446,6 +502,19 @@ export type AudioAssetUpdateManyWithoutOwnerInput = {
   upsert?: Maybe<Array<AudioAssetUpsertWithWhereUniqueWithoutOwnerInput>>;
 };
 
+export type AudioAssetUpdateManyWithoutParentAssetInput = {
+  connect?: Maybe<Array<AudioAssetWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<AudioAssetCreateOrConnectWithoutParentAssetInput>>;
+  create?: Maybe<Array<AudioAssetCreateWithoutParentAssetInput>>;
+  delete?: Maybe<Array<AudioAssetWhereUniqueInput>>;
+  deleteMany?: Maybe<Array<AudioAssetScalarWhereInput>>;
+  disconnect?: Maybe<Array<AudioAssetWhereUniqueInput>>;
+  set?: Maybe<Array<AudioAssetWhereUniqueInput>>;
+  update?: Maybe<Array<AudioAssetUpdateWithWhereUniqueWithoutParentAssetInput>>;
+  updateMany?: Maybe<Array<AudioAssetUpdateManyWithWhereWithoutParentAssetInput>>;
+  upsert?: Maybe<Array<AudioAssetUpsertWithWhereUniqueWithoutParentAssetInput>>;
+};
+
 export type AudioAssetUpdateOneRequiredWithoutMixdownInput = {
   connect?: Maybe<AudioAssetWhereUniqueInput>;
   connectOrCreate?: Maybe<AudioAssetCreateOrConnectWithoutMixdownInput>;
@@ -454,12 +523,59 @@ export type AudioAssetUpdateOneRequiredWithoutMixdownInput = {
   upsert?: Maybe<AudioAssetUpsertWithoutMixdownInput>;
 };
 
+export type AudioAssetUpdateOneWithoutAudioAssetInput = {
+  connect?: Maybe<AudioAssetWhereUniqueInput>;
+  connectOrCreate?: Maybe<AudioAssetCreateOrConnectWithoutAudioAssetInput>;
+  create?: Maybe<AudioAssetCreateWithoutAudioAssetInput>;
+  delete?: Maybe<Scalars['Boolean']>;
+  disconnect?: Maybe<Scalars['Boolean']>;
+  update?: Maybe<AudioAssetUpdateWithoutAudioAssetInput>;
+  upsert?: Maybe<AudioAssetUpsertWithoutAudioAssetInput>;
+};
+
 export type AudioAssetUpdateWithWhereUniqueWithoutOwnerInput = {
   data: AudioAssetUpdateWithoutOwnerInput;
   where: AudioAssetWhereUniqueInput;
 };
 
+export type AudioAssetUpdateWithWhereUniqueWithoutParentAssetInput = {
+  data: AudioAssetUpdateWithoutParentAssetInput;
+  where: AudioAssetWhereUniqueInput;
+};
+
+export type AudioAssetUpdateWithoutAudioAssetInput = {
+  Mixdown?: Maybe<MixdownUpdateManyWithoutAudioInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  isPublic?: Maybe<NullableBoolFieldUpdateOperationsInput>;
+  location?: Maybe<StringFieldUpdateOperationsInput>;
+  name?: Maybe<StringFieldUpdateOperationsInput>;
+  owner?: Maybe<UserUpdateOneWithoutAudioAssetInput>;
+  parentAsset?: Maybe<AudioAssetUpdateOneWithoutAudioAssetInput>;
+};
+
 export type AudioAssetUpdateWithoutMixdownInput = {
+  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutParentAssetInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  isPublic?: Maybe<NullableBoolFieldUpdateOperationsInput>;
+  location?: Maybe<StringFieldUpdateOperationsInput>;
+  name?: Maybe<StringFieldUpdateOperationsInput>;
+  owner?: Maybe<UserUpdateOneWithoutAudioAssetInput>;
+  parentAsset?: Maybe<AudioAssetUpdateOneWithoutAudioAssetInput>;
+};
+
+export type AudioAssetUpdateWithoutOwnerInput = {
+  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutParentAssetInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutAudioInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  isPublic?: Maybe<NullableBoolFieldUpdateOperationsInput>;
+  location?: Maybe<StringFieldUpdateOperationsInput>;
+  name?: Maybe<StringFieldUpdateOperationsInput>;
+  parentAsset?: Maybe<AudioAssetUpdateOneWithoutAudioAssetInput>;
+};
+
+export type AudioAssetUpdateWithoutParentAssetInput = {
+  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutParentAssetInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutAudioInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPublic?: Maybe<NullableBoolFieldUpdateOperationsInput>;
   location?: Maybe<StringFieldUpdateOperationsInput>;
@@ -467,18 +583,21 @@ export type AudioAssetUpdateWithoutMixdownInput = {
   owner?: Maybe<UserUpdateOneWithoutAudioAssetInput>;
 };
 
-export type AudioAssetUpdateWithoutOwnerInput = {
-  Mixdown?: Maybe<MixdownUpdateManyWithoutAudioInput>;
-  id?: Maybe<StringFieldUpdateOperationsInput>;
-  isPublic?: Maybe<NullableBoolFieldUpdateOperationsInput>;
-  location?: Maybe<StringFieldUpdateOperationsInput>;
-  name?: Maybe<StringFieldUpdateOperationsInput>;
-};
-
 export type AudioAssetUpsertWithWhereUniqueWithoutOwnerInput = {
   create: AudioAssetCreateWithoutOwnerInput;
   update: AudioAssetUpdateWithoutOwnerInput;
   where: AudioAssetWhereUniqueInput;
+};
+
+export type AudioAssetUpsertWithWhereUniqueWithoutParentAssetInput = {
+  create: AudioAssetCreateWithoutParentAssetInput;
+  update: AudioAssetUpdateWithoutParentAssetInput;
+  where: AudioAssetWhereUniqueInput;
+};
+
+export type AudioAssetUpsertWithoutAudioAssetInput = {
+  create: AudioAssetCreateWithoutAudioAssetInput;
+  update: AudioAssetUpdateWithoutAudioAssetInput;
 };
 
 export type AudioAssetUpsertWithoutMixdownInput = {
@@ -488,6 +607,7 @@ export type AudioAssetUpsertWithoutMixdownInput = {
 
 export type AudioAssetWhereInput = {
   AND?: Maybe<Array<AudioAssetWhereInput>>;
+  AudioAsset?: Maybe<AudioAssetListRelationFilter>;
   Mixdown?: Maybe<MixdownListRelationFilter>;
   NOT?: Maybe<Array<AudioAssetWhereInput>>;
   OR?: Maybe<Array<AudioAssetWhereInput>>;
@@ -496,6 +616,8 @@ export type AudioAssetWhereInput = {
   location?: Maybe<StringFilter>;
   name?: Maybe<StringFilter>;
   owner?: Maybe<UserRelationFilter>;
+  parentAsset?: Maybe<AudioAssetRelationFilter>;
+  parentAssetId?: Maybe<StringNullableFilter>;
   userId?: Maybe<StringNullableFilter>;
 };
 
@@ -2434,7 +2556,7 @@ export type Issue = {
   id: Scalars['String'];
   resolved: Scalars['Boolean'];
   screenshotIds: Array<Scalars['String']>;
-  userId: Scalars['String'];
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type IssueCountAggregate = {
@@ -2450,7 +2572,7 @@ export type IssueCountAggregate = {
 
 export type IssueCreateInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
-  createdBy: UserCreateNestedOneWithoutIssueInput;
+  createdBy?: Maybe<UserCreateNestedOneWithoutIssueInput>;
   description: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   resolved?: Maybe<Scalars['Boolean']>;
@@ -2532,12 +2654,12 @@ export type IssueScalarWhereInput = {
   id?: Maybe<StringFilter>;
   resolved?: Maybe<BoolFilter>;
   screenshotIds?: Maybe<StringNullableListFilter>;
-  userId?: Maybe<StringFilter>;
+  userId?: Maybe<StringNullableFilter>;
 };
 
 export type IssueUpdateInput = {
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  createdBy?: Maybe<UserUpdateOneRequiredWithoutIssueInput>;
+  createdBy?: Maybe<UserUpdateOneWithoutIssueInput>;
   description?: Maybe<StringFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   resolved?: Maybe<BoolFieldUpdateOperationsInput>;
@@ -2603,7 +2725,7 @@ export type IssueWhereInput = {
   id?: Maybe<StringFilter>;
   resolved?: Maybe<BoolFilter>;
   screenshotIds?: Maybe<StringNullableListFilter>;
-  userId?: Maybe<StringFilter>;
+  userId?: Maybe<StringNullableFilter>;
 };
 
 export type IssueWhereUniqueInput = {
@@ -3991,6 +4113,13 @@ export type PublishProjectChangeArgs = {
   projectId: Scalars['String'];
 };
 
+export type PublishTranscodedAssetArgs = {
+  __typename?: 'PublishTranscodedAssetArgs';
+  id: Scalars['String'];
+  parentAssetId: Scalars['String'];
+  projectId: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   address?: Maybe<Address>;
@@ -4533,9 +4662,15 @@ export type StringNullableListFilter = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  assetTranscoded: PublishTranscodedAssetArgs;
   changes: PublishProjectChangeArgs;
   newComment: Comment;
   onlineStatus: Scalars['Boolean'];
+};
+
+export type SubscriptionAssetTranscodedArgs = {
+  assetId: Scalars['String'];
+  projectId: Scalars['String'];
 };
 
 export type SubscriptionChangesArgs = {
@@ -5763,14 +5898,6 @@ export type UserUpdateOneRequiredWithoutFeedItemLikeInput = {
   upsert?: Maybe<UserUpsertWithoutFeedItemLikeInput>;
 };
 
-export type UserUpdateOneRequiredWithoutIssueInput = {
-  connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutIssueInput>;
-  create?: Maybe<UserCreateWithoutIssueInput>;
-  update?: Maybe<UserUpdateWithoutIssueInput>;
-  upsert?: Maybe<UserUpsertWithoutIssueInput>;
-};
-
 export type UserUpdateOneRequiredWithoutMemberOfBandsInput = {
   connect?: Maybe<UserWhereUniqueInput>;
   connectOrCreate?: Maybe<UserCreateOrConnectWithoutMemberOfBandsInput>;
@@ -5829,6 +5956,16 @@ export type UserUpdateOneWithoutInterestsInput = {
   disconnect?: Maybe<Scalars['Boolean']>;
   update?: Maybe<UserUpdateWithoutInterestsInput>;
   upsert?: Maybe<UserUpsertWithoutInterestsInput>;
+};
+
+export type UserUpdateOneWithoutIssueInput = {
+  connect?: Maybe<UserWhereUniqueInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutIssueInput>;
+  create?: Maybe<UserCreateWithoutIssueInput>;
+  delete?: Maybe<Scalars['Boolean']>;
+  disconnect?: Maybe<Scalars['Boolean']>;
+  update?: Maybe<UserUpdateWithoutIssueInput>;
+  upsert?: Maybe<UserUpsertWithoutIssueInput>;
 };
 
 export type UserUpdateWithWhereUniqueWithoutAddressInput = {
@@ -6901,6 +7038,15 @@ export type ChangesSubscription = { __typename?: 'Subscription' } & {
   changes: { __typename?: 'PublishProjectChangeArgs' } & Pick<PublishProjectChangeArgs, 'id' | 'authorId' | 'change'>;
 };
 
+export type AssetTranscodedSubscriptionVariables = Exact<{
+  projectId: Scalars['String'];
+  assetId: Scalars['String'];
+}>;
+
+export type AssetTranscodedSubscription = { __typename?: 'Subscription' } & {
+  assetTranscoded: { __typename?: 'PublishTranscodedAssetArgs' } & Pick<PublishTranscodedAssetArgs, 'id'>;
+};
+
 export type PublishChangeMutationVariables = Exact<{
   changeId: Scalars['String'];
   projectId: Scalars['String'];
@@ -7202,6 +7348,41 @@ export function useChangesSubscription(
 }
 export type ChangesSubscriptionHookResult = ReturnType<typeof useChangesSubscription>;
 export type ChangesSubscriptionResult = Apollo.SubscriptionResult<ChangesSubscription>;
+export const AssetTranscodedDocument = gql`
+  subscription assetTranscoded($projectId: String!, $assetId: String!) {
+    assetTranscoded(projectId: $projectId, assetId: $assetId) {
+      id
+    }
+  }
+`;
+
+/**
+ * __useAssetTranscodedSubscription__
+ *
+ * To run a query within a React component, call `useAssetTranscodedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useAssetTranscodedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAssetTranscodedSubscription({
+ *   variables: {
+ *      projectId: // value for 'projectId'
+ *      assetId: // value for 'assetId'
+ *   },
+ * });
+ */
+export function useAssetTranscodedSubscription(
+  baseOptions: Apollo.SubscriptionHookOptions<AssetTranscodedSubscription, AssetTranscodedSubscriptionVariables>,
+) {
+  return Apollo.useSubscription<AssetTranscodedSubscription, AssetTranscodedSubscriptionVariables>(
+    AssetTranscodedDocument,
+    baseOptions,
+  );
+}
+export type AssetTranscodedSubscriptionHookResult = ReturnType<typeof useAssetTranscodedSubscription>;
+export type AssetTranscodedSubscriptionResult = Apollo.SubscriptionResult<AssetTranscodedSubscription>;
 export const PublishChangeDocument = gql`
   mutation publishChange(
     $changeId: String!

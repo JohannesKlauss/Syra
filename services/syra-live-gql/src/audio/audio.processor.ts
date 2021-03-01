@@ -9,12 +9,14 @@ import { pipeline } from 'stream';
 import * as uniqid from 'uniqid';
 import { PrismaService } from '../prisma/prisma.service';
 import { MD5 } from 'crypto-js';
+import { PubSubService } from "../pub-sub/pub-sub.service";
+import { Subscriptions } from "../../types/Subscriptions";
 
 // TODO: THIS IS UGLY AS HELL AND ERROR PRONE. CLEAN THIS UP!
 
 @Processor('audio')
 export class AudioProcessor {
-  constructor(private readonly spacesService: SpacesService, private readonly prismaService: PrismaService) {}
+  constructor(private readonly spacesService: SpacesService, private readonly prismaService: PrismaService, private readonly pubSubService: PubSubService) {}
 
   private readonly logger = new Logger(AudioProcessor.name);
 
@@ -23,7 +25,7 @@ export class AudioProcessor {
     this.logger.debug('Start transcoding...');
     this.logger.debug(job.data);
 
-    const { spacesObject, targetFormat } = job.data;
+    const { spacesObject, targetFormat, projectId } = job.data;
 
     this.logger.debug('Pull info from DB');
 
@@ -79,13 +81,16 @@ export class AudioProcessor {
 
               this.logger.debug(`S3 Space location: ${location}`);
 
-              await this.prismaService.audioAsset.create({
+              const createdAsset = await this.prismaService.audioAsset.create({
                 data: {
                   isPublic: originalAsset.isPublic,
                   location,
                   parentAssetId: spacesObject.id,
                   userId: originalAsset.owner.id,
                   name: spacesObject.name.replace('.wav', targetFormat === 'm4a' ? '.m4a' : '.mp3'),
+                },
+                select: {
+                  id: true,
                 }
               });
 
@@ -93,6 +98,14 @@ export class AudioProcessor {
               fs.unlinkSync(transcodedFilePath);
 
               this.logger.debug('Cleaned up tmp folder.');
+
+              await this.pubSubService.getPubSub().publish(Subscriptions.UPLOADED_FILE_PROCESSED, {
+                assetId: createdAsset.id,
+                parentAssetId: originalAsset.id,
+                projectId,
+              });
+
+              this.logger.debug('Published sub.');
             }
           })
           .run();

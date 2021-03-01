@@ -6,6 +6,8 @@ import { FilesModule } from "../files/files.module";
 import { FilesService } from "../files/files.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { SpacesService } from "../files/spaces.service";
+import { PubSubModule } from "../pub-sub/pub-sub.module";
+import { PubSubService } from "../pub-sub/pub-sub.service";
 
 @Module({
   imports: [
@@ -13,8 +15,9 @@ import { SpacesService } from "../files/spaces.service";
       name: 'audio',
     }),
     FilesModule,
+    PubSubModule,
   ],
   controllers: [AudioController],
-  providers: [AudioProcessor, FilesService, PrismaService, SpacesService],
+  providers: [AudioProcessor, FilesService, PrismaService, SpacesService, PubSubService],
 })
 export class AudioModule {}

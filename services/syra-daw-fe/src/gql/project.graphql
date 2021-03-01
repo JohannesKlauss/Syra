@@ -45,6 +45,12 @@ subscription changes($projectId: String!) {
     }
 }
 
+subscription assetTranscoded($projectId: String!, $assetId: String!) {
+    assetTranscoded(projectId: $projectId, assetId: $assetId) {
+        id
+    }
+}
+
 mutation publishChange($changeId: String!, $projectId: String!, $date: Timestamp!, $change: JSONObject!, $me: String) {
     publishChange(id: $changeId, date: $date, projectId: $projectId, change: $change, authorId: $me) {
         id

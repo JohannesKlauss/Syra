@@ -3550,6 +3550,12 @@ type PublishProjectChangeArgs {
   projectId: String!
 }
 
+type PublishTranscodedAssetArgs {
+  id: String!
+  parentAssetId: String!
+  projectId: String!
+}
+
 type Query {
   address(where: AddressWhereUniqueInput!): Address
   addresses(cursor: AddressWhereUniqueInput, distinct: [AddressScalarFieldEnum!], orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): [Address!]!
@@ -3670,6 +3676,7 @@ input StringNullableListFilter {
 }
 
 type Subscription {
+  assetTranscoded(assetId: String!, projectId: String!): PublishTranscodedAssetArgs!
   changes(projectId: String!): PublishProjectChangeArgs!
   newComment(feedItemId: String!): Comment!
   onlineStatus(userId: String!): Boolean!

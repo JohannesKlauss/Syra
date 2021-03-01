@@ -72,6 +72,8 @@ import { MailingService } from './mailing/mailing.service';
 import { CustomProjectChangeResolver } from './custom/resolvers/crud/Project/CustomProjectChangeResolver';
 import { BullModule } from '@nestjs/bull';
 import { AudioModule } from './audio/audio.module';
+import { PubSubModule } from './pub-sub/pub-sub.module';
+import { PubSubService } from "./pub-sub/pub-sub.service";
 
 @Module({
   imports: [
@@ -81,21 +83,18 @@ import { AudioModule } from './audio/audio.module';
     AuthModule,
     SessionModule,
     PrismaModule,
+    PubSubModule,
     TypeGraphQLModule.forRootAsync({
-      imports: [AuthModule, DynamicRedisModule, PrismaModule, MailingModule],
-      inject: [CookieStrategy, RedisService, PrismaService, MailingService],
+      imports: [AuthModule, DynamicRedisModule, PrismaModule, MailingModule, PubSubModule],
+      inject: [CookieStrategy, RedisService, PrismaService, MailingService, PubSubService],
       useFactory: async (
         cookieStrategy: CookieStrategy,
         redisService: RedisService,
         prismaService: PrismaService,
         mailingService: MailingService,
+        pubSubService: PubSubService,
       ) => {
-        const pubSub = new RedisPubSub({
-          // @ts-ignore
-          publisher: redisService.getClient('syra-publisher'),
-          // @ts-ignore
-          subscriber: redisService.getClient('syra-subscriber'),
-        });
+        const pubSub = pubSubService.getPubSub();
 
         return {
           validate: true,
