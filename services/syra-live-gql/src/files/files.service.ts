@@ -33,7 +33,7 @@ export class FilesService {
     });
 
     if (asset.owner.id === userId) {
-      return await this.spacesService.getFile(asset.location.replace(/(.+).com\/([a-zA-Z0-9\/]+)$/, '$2'));
+      return await this.spacesService.getFile(asset.location);
     } else {
       throw new UnauthorizedException('You are not allowed to view this file.');
     }

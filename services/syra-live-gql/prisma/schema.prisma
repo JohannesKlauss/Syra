@@ -37,6 +37,8 @@ model AudioAsset {
   isPublic          Boolean?    @default(false)
   /// @TypeGraphQL.omit(output: true)
   owner             User?
+  parentAssetId     String?
+  parentAsset       AudioAsset? @relation("ParentChildrenAssets", fields: [parentAssetId], references: [id])
 }
 
 model User {

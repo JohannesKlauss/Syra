@@ -28,26 +28,6 @@ export class FilesController {
     return ids;
   }
 
-  @Post('convert')
-  @UseGuards(CookieAuthGuard)
-  async convert(@Req() req, @Query() query) {
-    const parts: Multipart[] = await req.parts();
-    let id: {id: string, location: string, name: string};
-
-    for await (const part of parts) {
-      if (part.file) {
-        const res = await this.filesServices.upload(part, req.user.id, Boolean(query.isPublic));
-
-        id = {
-          ...res,
-          name: part.filename,
-        };
-      }
-    }
-
-    return id;
-  }
-
   @Get(':id')
   @UseGuards(CookieAuthGuard)
   async getFile(@Req() req, @Param('id') id, @Res() res) {

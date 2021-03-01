@@ -294,6 +294,7 @@ type AudioAsset {
   isPublic: Boolean
   location: String!
   name: String!
+  parentAssetId: String
   userId: String
 }
 
@@ -303,10 +304,27 @@ input AudioAssetCreateNestedManyWithoutOwnerInput {
   create: [AudioAssetCreateWithoutOwnerInput!]
 }
 
+input AudioAssetCreateNestedManyWithoutParentAssetInput {
+  connect: [AudioAssetWhereUniqueInput!]
+  connectOrCreate: [AudioAssetCreateOrConnectWithoutParentAssetInput!]
+  create: [AudioAssetCreateWithoutParentAssetInput!]
+}
+
+input AudioAssetCreateNestedOneWithoutAudioAssetInput {
+  connect: AudioAssetWhereUniqueInput
+  connectOrCreate: AudioAssetCreateOrConnectWithoutAudioAssetInput
+  create: AudioAssetCreateWithoutAudioAssetInput
+}
+
 input AudioAssetCreateNestedOneWithoutMixdownInput {
   connect: AudioAssetWhereUniqueInput
   connectOrCreate: AudioAssetCreateOrConnectWithoutMixdownInput
   create: AudioAssetCreateWithoutMixdownInput
+}
+
+input AudioAssetCreateOrConnectWithoutAudioAssetInput {
+  create: AudioAssetCreateWithoutAudioAssetInput!
+  where: AudioAssetWhereUniqueInput!
 }
 
 input AudioAssetCreateOrConnectWithoutMixdownInput {
@@ -319,20 +337,49 @@ input AudioAssetCreateOrConnectWithoutOwnerInput {
   where: AudioAssetWhereUniqueInput!
 }
 
-input AudioAssetCreateWithoutMixdownInput {
-  id: String
-  isPublic: Boolean
-  location: String!
-  name: String!
-  owner: UserCreateNestedOneWithoutAudioAssetInput
+input AudioAssetCreateOrConnectWithoutParentAssetInput {
+  create: AudioAssetCreateWithoutParentAssetInput!
+  where: AudioAssetWhereUniqueInput!
 }
 
-input AudioAssetCreateWithoutOwnerInput {
+input AudioAssetCreateWithoutAudioAssetInput {
   Mixdown: MixdownCreateNestedManyWithoutAudioInput
   id: String
   isPublic: Boolean
   location: String!
   name: String!
+  owner: UserCreateNestedOneWithoutAudioAssetInput
+  parentAsset: AudioAssetCreateNestedOneWithoutAudioAssetInput
+}
+
+input AudioAssetCreateWithoutMixdownInput {
+  AudioAsset: AudioAssetCreateNestedManyWithoutParentAssetInput
+  id: String
+  isPublic: Boolean
+  location: String!
+  name: String!
+  owner: UserCreateNestedOneWithoutAudioAssetInput
+  parentAsset: AudioAssetCreateNestedOneWithoutAudioAssetInput
+}
+
+input AudioAssetCreateWithoutOwnerInput {
+  AudioAsset: AudioAssetCreateNestedManyWithoutParentAssetInput
+  Mixdown: MixdownCreateNestedManyWithoutAudioInput
+  id: String
+  isPublic: Boolean
+  location: String!
+  name: String!
+  parentAsset: AudioAssetCreateNestedOneWithoutAudioAssetInput
+}
+
+input AudioAssetCreateWithoutParentAssetInput {
+  AudioAsset: AudioAssetCreateNestedManyWithoutParentAssetInput
+  Mixdown: MixdownCreateNestedManyWithoutAudioInput
+  id: String
+  isPublic: Boolean
+  location: String!
+  name: String!
+  owner: UserCreateNestedOneWithoutAudioAssetInput
 }
 
 input AudioAssetListRelationFilter {
@@ -347,6 +394,8 @@ input AudioAssetOrderByInput {
   location: SortOrder
   name: SortOrder
   owner: UserOrderByInput
+  parentAsset: AudioAssetOrderByInput
+  parentAssetId: SortOrder
   userId: SortOrder
 }
 
@@ -360,6 +409,7 @@ enum AudioAssetScalarFieldEnum {
   isPublic
   location
   name
+  parentAssetId
   userId
 }
 
@@ -371,6 +421,7 @@ input AudioAssetScalarWhereInput {
   isPublic: BoolNullableFilter
   location: StringFilter
   name: StringFilter
+  parentAssetId: StringNullableFilter
   userId: StringNullableFilter
 }
 
@@ -382,6 +433,11 @@ input AudioAssetUpdateManyMutationInput {
 }
 
 input AudioAssetUpdateManyWithWhereWithoutOwnerInput {
+  data: AudioAssetUpdateManyMutationInput!
+  where: AudioAssetScalarWhereInput!
+}
+
+input AudioAssetUpdateManyWithWhereWithoutParentAssetInput {
   data: AudioAssetUpdateManyMutationInput!
   where: AudioAssetScalarWhereInput!
 }
@@ -399,6 +455,19 @@ input AudioAssetUpdateManyWithoutOwnerInput {
   upsert: [AudioAssetUpsertWithWhereUniqueWithoutOwnerInput!]
 }
 
+input AudioAssetUpdateManyWithoutParentAssetInput {
+  connect: [AudioAssetWhereUniqueInput!]
+  connectOrCreate: [AudioAssetCreateOrConnectWithoutParentAssetInput!]
+  create: [AudioAssetCreateWithoutParentAssetInput!]
+  delete: [AudioAssetWhereUniqueInput!]
+  deleteMany: [AudioAssetScalarWhereInput!]
+  disconnect: [AudioAssetWhereUniqueInput!]
+  set: [AudioAssetWhereUniqueInput!]
+  update: [AudioAssetUpdateWithWhereUniqueWithoutParentAssetInput!]
+  updateMany: [AudioAssetUpdateManyWithWhereWithoutParentAssetInput!]
+  upsert: [AudioAssetUpsertWithWhereUniqueWithoutParentAssetInput!]
+}
+
 input AudioAssetUpdateOneRequiredWithoutMixdownInput {
   connect: AudioAssetWhereUniqueInput
   connectOrCreate: AudioAssetCreateOrConnectWithoutMixdownInput
@@ -407,12 +476,59 @@ input AudioAssetUpdateOneRequiredWithoutMixdownInput {
   upsert: AudioAssetUpsertWithoutMixdownInput
 }
 
+input AudioAssetUpdateOneWithoutAudioAssetInput {
+  connect: AudioAssetWhereUniqueInput
+  connectOrCreate: AudioAssetCreateOrConnectWithoutAudioAssetInput
+  create: AudioAssetCreateWithoutAudioAssetInput
+  delete: Boolean
+  disconnect: Boolean
+  update: AudioAssetUpdateWithoutAudioAssetInput
+  upsert: AudioAssetUpsertWithoutAudioAssetInput
+}
+
 input AudioAssetUpdateWithWhereUniqueWithoutOwnerInput {
   data: AudioAssetUpdateWithoutOwnerInput!
   where: AudioAssetWhereUniqueInput!
 }
 
+input AudioAssetUpdateWithWhereUniqueWithoutParentAssetInput {
+  data: AudioAssetUpdateWithoutParentAssetInput!
+  where: AudioAssetWhereUniqueInput!
+}
+
+input AudioAssetUpdateWithoutAudioAssetInput {
+  Mixdown: MixdownUpdateManyWithoutAudioInput
+  id: StringFieldUpdateOperationsInput
+  isPublic: NullableBoolFieldUpdateOperationsInput
+  location: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  owner: UserUpdateOneWithoutAudioAssetInput
+  parentAsset: AudioAssetUpdateOneWithoutAudioAssetInput
+}
+
 input AudioAssetUpdateWithoutMixdownInput {
+  AudioAsset: AudioAssetUpdateManyWithoutParentAssetInput
+  id: StringFieldUpdateOperationsInput
+  isPublic: NullableBoolFieldUpdateOperationsInput
+  location: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  owner: UserUpdateOneWithoutAudioAssetInput
+  parentAsset: AudioAssetUpdateOneWithoutAudioAssetInput
+}
+
+input AudioAssetUpdateWithoutOwnerInput {
+  AudioAsset: AudioAssetUpdateManyWithoutParentAssetInput
+  Mixdown: MixdownUpdateManyWithoutAudioInput
+  id: StringFieldUpdateOperationsInput
+  isPublic: NullableBoolFieldUpdateOperationsInput
+  location: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  parentAsset: AudioAssetUpdateOneWithoutAudioAssetInput
+}
+
+input AudioAssetUpdateWithoutParentAssetInput {
+  AudioAsset: AudioAssetUpdateManyWithoutParentAssetInput
+  Mixdown: MixdownUpdateManyWithoutAudioInput
   id: StringFieldUpdateOperationsInput
   isPublic: NullableBoolFieldUpdateOperationsInput
   location: StringFieldUpdateOperationsInput
@@ -420,18 +536,21 @@ input AudioAssetUpdateWithoutMixdownInput {
   owner: UserUpdateOneWithoutAudioAssetInput
 }
 
-input AudioAssetUpdateWithoutOwnerInput {
-  Mixdown: MixdownUpdateManyWithoutAudioInput
-  id: StringFieldUpdateOperationsInput
-  isPublic: NullableBoolFieldUpdateOperationsInput
-  location: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-}
-
 input AudioAssetUpsertWithWhereUniqueWithoutOwnerInput {
   create: AudioAssetCreateWithoutOwnerInput!
   update: AudioAssetUpdateWithoutOwnerInput!
   where: AudioAssetWhereUniqueInput!
+}
+
+input AudioAssetUpsertWithWhereUniqueWithoutParentAssetInput {
+  create: AudioAssetCreateWithoutParentAssetInput!
+  update: AudioAssetUpdateWithoutParentAssetInput!
+  where: AudioAssetWhereUniqueInput!
+}
+
+input AudioAssetUpsertWithoutAudioAssetInput {
+  create: AudioAssetCreateWithoutAudioAssetInput!
+  update: AudioAssetUpdateWithoutAudioAssetInput!
 }
 
 input AudioAssetUpsertWithoutMixdownInput {
@@ -441,6 +560,7 @@ input AudioAssetUpsertWithoutMixdownInput {
 
 input AudioAssetWhereInput {
   AND: [AudioAssetWhereInput!]
+  AudioAsset: AudioAssetListRelationFilter
   Mixdown: MixdownListRelationFilter
   NOT: [AudioAssetWhereInput!]
   OR: [AudioAssetWhereInput!]
@@ -449,6 +569,8 @@ input AudioAssetWhereInput {
   location: StringFilter
   name: StringFilter
   owner: UserRelationFilter
+  parentAsset: AudioAssetRelationFilter
+  parentAssetId: StringNullableFilter
   userId: StringNullableFilter
 }
 

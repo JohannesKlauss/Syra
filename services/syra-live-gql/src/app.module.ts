@@ -41,8 +41,9 @@ import {
   UserRelationsResolver,
   UsersOnProjects,
   UsersOnProjectsCrudResolver,
-  UsersOnProjectsRelationsResolver, VersionInformationCrudResolver
-} from "../prisma/generated/type-graphql";
+  UsersOnProjectsRelationsResolver,
+  VersionInformationCrudResolver,
+} from '../prisma/generated/type-graphql';
 import { SessionModule } from './session/session.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLContext } from '../types/GraphQLContext';
@@ -68,7 +69,9 @@ import { Subscriptions } from '../types/Subscriptions';
 import { PrismaModule } from './prisma/prisma.module';
 import { PrismaService } from './prisma/prisma.service';
 import { MailingService } from './mailing/mailing.service';
-import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/CustomProjectChangeResolver";
+import { CustomProjectChangeResolver } from './custom/resolvers/crud/Project/CustomProjectChangeResolver';
+import { BullModule } from '@nestjs/bull';
+import { AudioModule } from './audio/audio.module';
 
 @Module({
   imports: [
@@ -88,7 +91,9 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
         mailingService: MailingService,
       ) => {
         const pubSub = new RedisPubSub({
+          // @ts-ignore
           publisher: redisService.getClient('syra-publisher'),
+          // @ts-ignore
           subscriber: redisService.getClient('syra-subscriber'),
         });
 
@@ -109,7 +114,12 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
               : await cookieStrategy.validate(ctx.request),
           }),
           cors: {
-            origin: ['https://local.syra.live:3000', 'https://bar.local.syra.live:3006', 'https://syra.live', 'https://daw.syra.live'],
+            origin: [
+              'https://local.syra.live:3000',
+              'https://bar.local.syra.live:3006',
+              'https://syra.live',
+              'https://daw.syra.live',
+            ],
             credentials: true,
           },
           pubSub,
@@ -133,11 +143,16 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
               const user = await cookieStrategy.validateSubscription(parseCookie(ctx.request.headers.cookie).session);
 
               if (user) {
-                const updatedUser = await prismaService.user.update({
-                  where: { id: user.id },
-                  data: { isOnline: false },
-                });
-                await pubSub.publish(Subscriptions.ONLINE_STATUS, updatedUser);
+                try {
+                  const updatedUser = await prismaService.user.update({
+                    where: { id: user.id },
+                    data: { isOnline: false },
+                  });
+
+                  await pubSub.publish(Subscriptions.ONLINE_STATUS, updatedUser);
+                } catch(e) {
+                  console.log('e', e);
+                }
               }
             },
           },
@@ -164,6 +179,16 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
     FilesModule,
     PasswordModule,
     ChatModule,
+    BullModule.forRootAsync({
+      imports: [DynamicRedisModule],
+      inject: [RedisService],
+      useFactory: async (redisService: RedisService) => {
+        return {
+          redis: redisService.getClient('syra-bull-queue').options,
+        };
+      },
+    }),
+    AudioModule,
   ],
   controllers: [AppController],
   providers: [

@@ -26,13 +26,13 @@ export class SpacesService {
     });
   }
 
-  async getFile(name: string) {
+  async getFile(location: string) {
     let result;
 
     try {
       result = await this.s3.getObject({
         Bucket: this.configService.get('DO_SPACES_NAME'),
-        Key: name,
+        Key: location.replace(/(.+).com\/([a-zA-Z0-9\/]+)$/, '$2'),
       }).promise();
     } catch (e) {
       throw new BadGatewayException('Could not download file.');
