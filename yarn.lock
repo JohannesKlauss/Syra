@@ -5999,6 +5999,11 @@
   resolved "https://registry.yarnpkg.com/@types/ungap__global-this/-/ungap__global-this-0.3.1.tgz#18ce9f657da556037a29d50604335614ce703f4c"
   integrity sha512-+/DsiV4CxXl6ZWefwHZDXSe1Slitz21tom38qPCaG0DYCS1NnDPIQDTKcmQ/tvK/edJUKkmuIDBJbmKDiB0r/g==
 
+"@types/uniqid@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@types/uniqid/-/uniqid-5.2.0.tgz#040674219cffe16ca035c820c2581012e6eb11e5"
+  integrity sha512-ZBIIQJj0y49rgMfWDEr3miyNhOxyfhvf5/1VVbLObJpfkdGl0Vj2J8qENWwfT2W9OBq5FhwtnJ3nTs2dnY3w2A==
+
 "@types/uniqid@5.3.0":
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/@types/uniqid/-/uniqid-5.3.0.tgz#085e406b2fe01eca81bf5c6e009aa641d6f069fe"
@@ -12137,10 +12142,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-framer-motion@3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-3.8.0.tgz#41df1990fd6f8ffa049791db1ce4cf192f0ce040"
-  integrity sha512-/8R59BSIN122grm6w4yE4eLYNIOEls8+cineZNsSlDiU4YDDG8DEFhEUcn8wnprSvf92RHbAqTp0Yug0aW0pmg==
+framer-motion@3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-3.8.1.tgz#dbe1a0f61f0941f9cd18092ec8a69645f0a7acaa"
+  integrity sha512-SYbN6Xhff3Y6irXyNwveR1ES44CwXypaMjM79xC/3LEn0loFBlQ7vbNYt58as7EoaAvITXrgO4bdMRv1kro03Q==
   dependencies:
     framesync "5.2.0"
     hey-listen "^1.0.8"
