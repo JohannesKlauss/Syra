@@ -19,7 +19,7 @@
     "axios": "0.21.1",
     "date-fns": "2.18.0",
     "focus-visible": "5.2.0",
-    "framer-motion": "3.8.1",
+    "framer-motion": "3.9.0",
     "fuse.js": "6.4.6",
     "graphql": "15.5.0",
     "i18next": "19.9.1",
