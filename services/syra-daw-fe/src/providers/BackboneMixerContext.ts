@@ -50,7 +50,7 @@ function audioNodesFactory(nodes: Map<string, any>) {
     merge: mixerNodeFactory(nodes, ChannelNode.MERGE, Tone.Merge) as Tone.Merge,
     players: mixerNodeFactory(nodes, ChannelNode.PLAYERS, Tone.Players) as Tone.Players,
     volume: mixerNodeFactory(nodes, ChannelNode.VOLUME, Tone.Volume) as Tone.Volume,
-    pan: mixerNodeFactory(nodes, ChannelNode.PAN, Tone.Panner) as Tone.Panner,
+    pan: mixerNodeFactory(nodes, ChannelNode.PAN, Tone.Panner, {channelCount: 2}) as Tone.Panner,
     solo: mixerNodeFactory(nodes, ChannelNode.SOLO, Tone.Solo) as Tone.Solo,
     rmsMeter: mixerNodeFactory(nodes, ChannelNode.METER, Tone.Meter, { smoothing: 0.9 }) as Tone.Meter,
     recorder: recorderFactory(nodes),
@@ -101,7 +101,7 @@ export function instantiateMixer() {
           ...plugins,
           retNodes.volume,
           retNodes.rmsMeter,
-          retNodes.pan,
+          //retNodes.pan,
           retNodes.solo,
           Tone.Destination,
         );
@@ -111,7 +111,7 @@ export function instantiateMixer() {
           ...plugins,
           retNodes.volume,
           retNodes.rmsMeter,
-          retNodes.pan,
+          //retNodes.pan,
           retNodes.solo,
           Tone.Destination,
         );

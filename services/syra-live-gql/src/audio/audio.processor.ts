@@ -60,8 +60,7 @@ export class AudioProcessor {
         let uploadedFile = false;
 
         transcoder
-          .toFormat('audio/x-m4a')
-          .withAudioCodec(targetFormat === 'm4a' ? 'alac' : 'libmp3lame')
+          .withAudioCodec(targetFormat === 'm4a' ? 'aac' : 'libmp3lame')
           .saveToFile(transcodedFilePath)
           .on('end', async () => {
             this.logger.debug(`Transcoder finished`);
