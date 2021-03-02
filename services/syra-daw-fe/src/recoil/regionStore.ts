@@ -57,9 +57,9 @@ const name = atomFamilyWithEffects<string, string>({
   effects: [...syncEffectsComb],
 });
 
-const audioBufferPointer = atomFamilyWithEffects<string | null, string>({
+const audioBufferPointer = atomFamilyWithEffects<string, string>({
   key: 'region/audioBufferPointer',
-  default: null,
+  default: '',
   effects: [...syncEffectsComb],
 });
 

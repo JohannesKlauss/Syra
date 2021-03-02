@@ -22,9 +22,6 @@ export default function useCreateAudioRegion() {
     const staticCounter = snapshot.getLoadable(regionStore.staticCounter(channelId)).contents as number;
 
     if (audioBuffer.duration > 0) {
-      // Promise is intentionally ignored to not stop the execution of the rest of the code.
-      uploadFile(newBufferId, file);
-
       set(audioBufferStore.ids,currVal => [...currVal, newBufferId]);
       set(audioBufferStore.buffer(newBufferId), audioBuffer);
       set(audioBufferStore.name(newBufferId), file.name);
@@ -38,6 +35,8 @@ export default function useCreateAudioRegion() {
       set(regionStore.name(newRegionId), `${file.name.replace(/\.[^/.]+$/, "")}#${staticCounter}`);
 
       set(regionStore.staticCounter(channelId), staticCounter + 1);
+
+      uploadFile(newBufferId, file);
 
       if (analyzeTempo) {
         let analyzedTempo: number | null = null;
@@ -59,5 +58,5 @@ export default function useCreateAudioRegion() {
     }
 
     return newRegionId;
-  }, [audioContext, uploadFile]);
+  }, [audioContext]);
 }

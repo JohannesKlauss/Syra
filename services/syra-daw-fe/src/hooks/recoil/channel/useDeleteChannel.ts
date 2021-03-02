@@ -15,7 +15,7 @@ export default function useDeleteChannel() {
 
       if (type === ChannelType.AUDIO) {
         regions.forEach((regionId) => {
-          set(regionStore.audioBufferPointer(regionId), null);
+          set(regionStore.audioBufferPointer(regionId), '');
         });
       }
 

@@ -25,6 +25,7 @@ import { ChannelType } from '../../../types/Channel';
 import useAudioRegionScheduler from '../../../hooks/tone/useAudioRegionScheduler';
 import { MdCloudDone, MdCloudUpload } from 'react-icons/md';
 import { determineTextColor } from '../../../utils/color';
+import AudioRegion from "./AudioRegion/AudioRegion";
 
 interface Props {}
 
@@ -46,7 +47,7 @@ const Region: React.FC<Props> = ({}) => {
 
   useRegionDawRecordingSync();
 
-  // You should never call hooks conditionally, but type will always remain the same.
+  // You should never call hooks conditionally, but the variable type will always remain the same for a region (an audio region cannot be converted to a midi region).
   // So we are always calling either midi scheduling or audio scheduling for the life time of a region.
   // eslint-disable-next-line react-hooks/rules-of-hooks
   type === ChannelType.INSTRUMENT ? useMidiRegionScheduler() : useAudioRegionScheduler();
@@ -90,7 +91,7 @@ const Region: React.FC<Props> = ({}) => {
           </Flex>
         </TopBar>
         <ManipulationContainer>
-          <MidiRegionVisualization />
+          {type === ChannelType.INSTRUMENT ? <MidiRegionVisualization /> : <AudioRegion/>}
         </ManipulationContainer>
       </BaseRegion>
     </ClonableResizableBox>

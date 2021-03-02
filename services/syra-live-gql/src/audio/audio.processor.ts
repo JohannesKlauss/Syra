@@ -100,7 +100,7 @@ export class AudioProcessor {
               this.logger.debug('Cleaned up tmp folder.');
 
               await this.pubSubService.getPubSub().publish(Subscriptions.UPLOADED_FILE_PROCESSED, {
-                assetId: createdAsset.id,
+                id: createdAsset.id,
                 parentAssetId: originalAsset.id,
                 projectId,
               });

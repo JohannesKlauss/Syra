@@ -10,6 +10,8 @@ export default function useUploadAudioFile() {
     const images = new FormData();
     images.append('file', file);
 
+    console.log('UPLOAD FILE');
+
     const res = await axios.post(`${process.env.REACT_APP_LIVE_GQL_URL}/audio/transcode/${projectId}`, images, {
       headers: {
         'Content-Type': `multipart/form-data`,

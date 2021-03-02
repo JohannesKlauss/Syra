@@ -1,4 +1,4 @@
-import { Controller, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query, Req, Res, UseGuards } from "@nestjs/common";
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { CookieAuthGuard } from '../auth/cookie-auth.guard';
@@ -12,6 +12,17 @@ export class AudioController {
     @InjectQueue('audio') private readonly audioQueue: Queue<AudioTranscodeJob>,
     private readonly filesService: FilesService,
   ) {}
+
+  @Get(':assetId')
+  @UseGuards(CookieAuthGuard)
+  async get(@Req() req, @Res() res, @Query() query, @Param('assetId') assetId) {
+
+
+    const result = await this.filesService.get(assetId, req.user.id);
+
+    res.type(result.mimeType);
+    res.send(result.stream);
+  }
 
   @Post('transcode/:projectId')
   @UseGuards(CookieAuthGuard)

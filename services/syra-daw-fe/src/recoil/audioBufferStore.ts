@@ -51,6 +51,14 @@ const storedBufferId = atomFamilyWithEffects<string, string>({
   ]
 });
 
+const hasTranscodedFile = atomFamilyWithEffects<boolean, string>({
+  key: 'audioBuffer/hasTranscodedFile',
+  default: false,
+  effects: [
+    ...syncEffectsComb,
+  ]
+});
+
 const ids = atomWithEffects<string[]>({
   key: 'audioBuffer/ids',
   default: [],
@@ -65,4 +73,5 @@ export const audioBufferStore = {
   ids,
   storedBufferId,
   isInSyncWithDb,
+  hasTranscodedFile,
 };
