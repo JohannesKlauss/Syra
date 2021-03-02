@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useContext } from "react";
 import { useRecoilValue } from 'recoil';
 import { transportStore } from '../../../recoil/transportStore';
 import { Box } from '@chakra-ui/react';
 import usePlayheadAnimationV3 from "../../../hooks/ui/usePlayheadAnimationV3";
 import {motion, MotionValue} from "framer-motion";
+import { ViewContext } from "../../../providers/ViewContext";
 
 interface PlayheadProps {
   x: MotionValue<number>;
+  height: string;
   isRecording: boolean;
 }
 
-const PlayheadIndicator: React.FC<PlayheadProps> = ({ x, isRecording }) => (
+const PlayheadIndicator: React.FC<PlayheadProps> = ({ x, height, isRecording }) => (
   <motion.div style={{x, position: 'absolute', zIndex: 10}}>
     <Box
       as={'span'}
@@ -18,7 +20,7 @@ const PlayheadIndicator: React.FC<PlayheadProps> = ({ x, isRecording }) => (
       w={'15px'}
       top={'20px'}
       pos={'absolute'}
-      h={'36000px'}
+      h={height}
       display={'inline-block'}
       cursor={'col-resize'}
       pointerEvents={'none'}
@@ -50,8 +52,9 @@ const PlayheadIndicator: React.FC<PlayheadProps> = ({ x, isRecording }) => (
 function RulerPlayheadV2() {
   const isRecording = useRecoilValue(transportStore.isRecording);
   const x = usePlayheadAnimationV3();
+  const { viewRef } = useContext(ViewContext);
 
-  return <PlayheadIndicator x={x} isRecording={isRecording} />;
+  return <PlayheadIndicator x={x} height={`${viewRef.current?.clientHeight ? viewRef.current?.clientHeight - 40 : 0}px`} isRecording={isRecording} />;
 }
 
 export default RulerPlayheadV2;

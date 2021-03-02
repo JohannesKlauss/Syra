@@ -32,11 +32,7 @@ const Grid: React.FC<Props> = ({ view, additionalRulerContent, splitScrollerRef,
 
   return (
     <Box
-      overflowX={'scroll'}
-      overflowY={'hidden'}
-      pos={'relative'}
       bg={'gray.800'}
-      w={'100%'}
       ref={viewRef}
       userSelect={'none'}
     >

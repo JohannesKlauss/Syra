@@ -5,7 +5,7 @@ import VerticalChannel from './VerticalChannel';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import VerticalChannelListHeader from './VerticalChannelListHeader';
 import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 
 function VerticalChannelList() {
   const channels = useRecoilValue(channelStore.ids);
@@ -14,11 +14,11 @@ function VerticalChannelList() {
   return (
       <Flex w={'250px'} h={'100%'} flexDirection={'column'}>
         <VerticalChannelListHeader/>
-        {channels.map((id, i) => (
-          <ChannelContext.Provider key={id} value={id}>
-            <VerticalChannel index={i + 1}/>
-          </ChannelContext.Provider>
-        ))}
+          {channels.map((id, i) => (
+            <ChannelContext.Provider key={id} value={id}>
+              <VerticalChannel index={i + 1}/>
+            </ChannelContext.Provider>
+          ))}
       </Flex>
   );
 }

@@ -52,7 +52,9 @@ function VerticalChannel({ index }: Props) {
       borderBottom={`1px solid ${theme.colors.gray[600]}`}
       bg={backgroundColor}
       borderLeft={`3px solid ${color}`}
+      minH={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}
       h={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}
+      maxH={ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT[verticalZoomLevel]}
       p={2}
       px={4}
       flexDir={'column'}
