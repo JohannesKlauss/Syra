@@ -17,6 +17,8 @@ export default function useCreateAudioRegion() {
     const newRegionId = regionId ?? createNewId(REGION_ID_PREFIX);
     const newBufferId = createNewId(BUFFER_ID_PREFIX);
 
+    console.log('DECODE FILE', file);
+
     const audioBuffer = await audioContext.decodeAudioData(await file.arrayBuffer());
 
     const staticCounter = snapshot.getLoadable(regionStore.staticCounter(channelId)).contents as number;

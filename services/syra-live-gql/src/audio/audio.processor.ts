@@ -60,7 +60,7 @@ export class AudioProcessor {
         let uploadedFile = false;
 
         transcoder
-          .toFormat('ipod')
+          .toFormat('audio/x-m4a')
           .withAudioCodec(targetFormat === 'm4a' ? 'alac' : 'libmp3lame')
           .saveToFile(transcodedFilePath)
           .on('end', async () => {
@@ -74,7 +74,7 @@ export class AudioProcessor {
               const location = await this.spacesService.putFile(
                 MD5(originalAsset.owner.id).toString(),
                 spacesObject.name.replace('.wav', targetFormat === 'm4a' ? '.m4a' : '.mp3'),
-                'audio/m4a',
+                'audio/x-m4a',
                 fs.createReadStream(transcodedFilePath),
                 true,
               );

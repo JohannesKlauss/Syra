@@ -2,6 +2,9 @@ import { atomFamily, selectorFamily } from "recoil";
 import atomWithEffects from "./proxy/atomWithEffects";
 import { syncEffectsComb } from "./effects/syncEffectsComb";
 import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
+import { fileSystem } from "../utils/fileSystem";
+import * as Tone from 'tone';
+import axios from "axios";
 
 const internalBuffer = atomFamily<AudioBuffer | null, string>({
   key: 'audioBuffer/internalBuffer',
@@ -13,15 +16,64 @@ const internalBuffer = atomFamily<AudioBuffer | null, string>({
 const buffer = selectorFamily<AudioBuffer | null, string>({
   key: 'audioBuffer/buffer',
   get: bufferId => async ({get}) => {
+    if (bufferId.length === 0) {
+      return null;
+    }
+
     let audioBuffer = get(internalBuffer(bufferId));
 
+    console.log('reading buffer', bufferId);
+
+    // Buffer is in memory.
     if (audioBuffer) {
+      console.log('return from memory');
+
       return audioBuffer;
     }
 
     const storedId = get(storedBufferId(bufferId));
+    const extension = get(hasTranscodedFile(bufferId)) ? 'm4a' : 'wav';
 
-    // Load from local storage or from server.
+    // Try to read the file from local file system
+    const arrayBuffer = await fileSystem.readArrayBufferFromFile(`${storedId}.${extension}`);
+
+    console.log('arrayBuffer', arrayBuffer);
+
+    if (arrayBuffer) {
+      console.log('return from system', `${storedId}.${extension}`);
+
+      try {
+
+        console.log('before decode', arrayBuffer);
+        return await Tone.getContext().decodeAudioData(arrayBuffer.slice(0));
+      } catch (e) {
+        console.log('could not decode arrayBuffer', arrayBuffer);
+        console.log('storedBufferId', storedId);
+      }
+    }
+
+    // Load file from server
+    const res = await axios.get(`${process.env.REACT_APP_LIVE_GQL_URL}/audio/${storedId}`, {
+      withCredentials: true,
+      responseType: 'blob',
+    });
+
+    console.log('load from server');
+
+    if (res.status === 200) {
+      try {
+        console.log('got from server, write to system', storedId);
+
+        await fileSystem.writeAudioFile(storedId, res.data);
+
+        console.log('serve from server', res.data.type);
+
+        return await Tone.getContext().decodeAudioData(await res.data.arrayBuffer());
+      } catch (e) {
+        // TODO: Show error to user.
+        console.log('could not write transcoded file', e);
+      }
+    }
 
     return null;
   },

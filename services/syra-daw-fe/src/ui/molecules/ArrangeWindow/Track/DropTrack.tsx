@@ -12,7 +12,7 @@ function DropTrack() {
   const ref = useRef<HTMLDivElement>(null);
   const toast = useToast();
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'audio/mpeg, audio/wav, audio/midi' });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'audio/*' });
 
   const [lastAnalyzedBpmFromImport, setLastAnalyzedBpmFromImport] = useRecoilState(
     projectStore.lastAnalyzedBpmFromImport,
