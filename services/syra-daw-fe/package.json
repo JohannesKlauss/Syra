@@ -24,7 +24,7 @@
     "lodash": "4.17.21",
     "marked": "2.0.1",
     "piano-utils": "0.1.0",
-    "pixi.js": "5.3.8",
+    "pixi.js": "6.0.0",
     "react": "17.0.1",
     "react-click-away-listener": "2.0.0",
     "react-color": "2.19.3",
