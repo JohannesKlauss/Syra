@@ -17,7 +17,7 @@
     "@emotion/styled": "11.1.5",
     "@next/bundle-analyzer": "10.0.7",
     "axios": "0.21.1",
-    "date-fns": "2.18.0",
+    "date-fns": "2.19.0",
     "focus-visible": "5.2.0",
     "framer-motion": "3.9.2",
     "fuse.js": "6.4.6",
