@@ -41,7 +41,7 @@
     "sass": "1.32.8",
     "subscriptions-transport-ws": "0.9.18",
     "typewriter-effect": "2.17.0",
-    "wavesurfer.js": "4.5.0"
+    "wavesurfer.js": "4.6.0"
   },
   "devDependencies": {
     "@babel/core": "7.13.8",
