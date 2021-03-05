@@ -7,7 +7,7 @@ import { BackboneMixerContext, instantiateMixer } from './providers/BackboneMixe
 import { initializeApollo } from "./apollo/client";
 import { ApolloProvider } from "@apollo/client";
 
-if (process.env.NODE_ENV === 'development') {
+/*if (process.env.NODE_ENV === 'development') {
   const whyDidYouRender = require('@welldone-software/why-did-you-render');
 
   whyDidYouRender(React, {
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'development') {
     diffNameColor: 'aqua',
     trackAllPureComponents: false,
   });
-}
+}*/
 
 const root = document.getElementById('app');
 

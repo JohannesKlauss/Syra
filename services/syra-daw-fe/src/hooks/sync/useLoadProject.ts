@@ -55,12 +55,12 @@ export default function useLoadProject(id: string) {
         if (projectData.project.members?.find(member => member.user.id === meData.me.id) !== undefined) {
           if (!projectData.project.isInitialized) {
             console.log('project not initialized');
-            /*toast({
+            toast({
               title: "Session not initialized.",
               description: `Seems like ${projectData.project.owner.name} has not yet initialized the session. You cannot open the session until then.`,
               status: "warning",
               isClosable: false,
-            });*/
+            });
           } else {
             increase();
 
@@ -70,12 +70,12 @@ export default function useLoadProject(id: string) {
           }
         } else {
           console.log('No access to load project.');
-          /*toast({
+          toast({
             title: "Access not granted.",
             description: `You don't have access to this session. If this is an error please contact the owner of the session.`,
             status: "error",
             isClosable: false,
-          });*/
+          });
         }
       } else {
         increase();
@@ -90,12 +90,12 @@ export default function useLoadProject(id: string) {
       }
     } else if (projectData === undefined && !projectLoading) {
       console.log('unable to load project.');
-      /*toast({
+      toast({
         title: "Unable to load project.",
         description: `There was an error loading the project. Please try again later.`,
         status: "error",
         isClosable: false,
-      });*/
+      });
     }
   }, [projectData, meData, projectLoading, meLoading, increase, setDocumentTitle, toast, history, setProjectName, id]);
 

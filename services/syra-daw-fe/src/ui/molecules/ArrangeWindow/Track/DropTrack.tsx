@@ -20,13 +20,13 @@ function DropTrack() {
 
   useEffect(() => {
     if (lastAnalyzedBpmFromImport !== null) {
-      /*toast({
+      toast({
         description: `Your imported track has a tempo of ${lastAnalyzedBpmFromImport}bpm. Would you like to update your project?`,
         status: "info",
         duration: 9000,
         isClosable: true,
         position: 'bottom-right'
-      });*/
+      });
 
       // TODO: THIS WILL CURRENTLY NOT WORK. WE HAVE TO ADJUST THE TEMPO MAP, BUT WE DON'T KNOW WHAT THE LOGIC SHOULD BE YET.
       // TODO: THIS HAS TO LIVE INSIDE A onConfirm callback of the toast, but there is no such button yet.

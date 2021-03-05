@@ -1,15 +1,17 @@
 import { useSetRecoilState } from "recoil";
 import { keyboardMidiStore } from "../../recoil/keyboardMidiStore";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import WebMidi from "webmidi";
 import useSelectLastMidiDevice from "./useSelectLastMidiDevice";
+import { useToast } from "@chakra-ui/react";
 
 export default function useWebMidiListener() {
   const setMidiDevice = useSetRecoilState(keyboardMidiStore.selectedMidiDevice);
   const setIsMidiEnabled = useSetRecoilState(keyboardMidiStore.isMidiEnabled);
   const selectLastMidiDevice = useSelectLastMidiDevice();
+  const toast = useToast();
 
-  /*const showToast = useCallback((description: string) => {
+  const showToast = useCallback((description: string) => {
     toast({
       title: "Updated MIDI I/O.",
       description,
@@ -17,7 +19,7 @@ export default function useWebMidiListener() {
       duration: 9000,
       isClosable: true,
     });
-  }, [toast]) ;*/
+  }, [toast]) ;
 
   useEffect(() => {
     WebMidi.enable(function(error) {
@@ -26,22 +28,22 @@ export default function useWebMidiListener() {
         selectLastMidiDevice();
 
         console.log(`Detected ${WebMidi.inputs.length} MIDI inputs and ${WebMidi.outputs.length} outputs.`);
-        //showToast(`Detected ${WebMidi.inputs.length} MIDI inputs and ${WebMidi.outputs.length} outputs.`);
+        showToast(`Detected ${WebMidi.inputs.length} MIDI inputs and ${WebMidi.outputs.length} outputs.`);
 
         WebMidi.addListener("connected", function(e) {
           console.log(`Detected ${WebMidi.inputs.length} MIDI inputs and ${WebMidi.outputs.length} outputs.`);
-          //showToast(`Detected ${WebMidi.inputs.length} MIDI inputs and ${WebMidi.outputs.length} outputs.`);
+          showToast(`Detected ${WebMidi.inputs.length} MIDI inputs and ${WebMidi.outputs.length} outputs.`);
         });
 
         WebMidi.addListener("disconnected", function(e) {
           console.log(`Detected ${WebMidi.inputs.length} MIDI inputs and ${WebMidi.outputs.length} outputs.`);
-          //showToast(`Detected ${WebMidi.inputs.length} MIDI inputs and ${WebMidi.outputs.length} outputs.`);
+          showToast(`Detected ${WebMidi.inputs.length} MIDI inputs and ${WebMidi.outputs.length} outputs.`);
         });
       } else {
         setIsMidiEnabled(false);
 
         console.log(`Could not enable Web MIDI.`);
-        //showToast(`Could not enable Web MIDI.`);
+        showToast(`Could not enable Web MIDI.`);
       }
     });
   }, [setIsMidiEnabled, setMidiDevice, selectLastMidiDevice]);

@@ -37,7 +37,31 @@ const color = atomFamilyWithEffects<string, string>({
   effects: [
     ...syncEffectsComb
   ]
-})
+});
+
+const volume = atomFamilyWithEffects<number, string>({
+  key: 'channel/volume',
+  default: 0,
+  effects: [
+    ...syncEffectsComb
+  ]
+});
+
+const pan = atomFamilyWithEffects<number, string>({
+  key: 'channel/pan',
+  default: 0,
+  effects: [
+    ...syncEffectsComb
+  ]
+});
+
+const isStereo = atomFamilyWithEffects<boolean, string>({
+  key: 'channel/isStereo',
+  default: false,
+  effects: [
+    ...syncEffectsComb,
+  ]
+});
 
 // Whether the user clicked the record button the channel or not.
 const isArmed = atomFamilyWithEffects<boolean, string>({
@@ -267,6 +291,9 @@ export const channelStore = {
   name,
   type,
   color,
+  volume,
+  pan,
+  isStereo,
   isArmed,
   isSolo,
   isMuted,
