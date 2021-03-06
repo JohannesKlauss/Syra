@@ -30,13 +30,13 @@ function Footer({}: Props) {
           </Box>
           <Box>
             <Text fontWeight={700} marginBottom={4}>{t('Community')}</Text>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Blog')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Instagram')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Facebook')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Twitter')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Discord')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Help')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Music Rights')}</Link>
+            <Link color={'gray.500'} isExternal href={'#'} display={'block'}>{t('Blog')}</Link>
+            <Link color={'gray.500'} isExternal href={'https://www.instagram.com/syra.audio/'} display={'block'}>{t('Instagram')}</Link>
+            <Link color={'gray.500'} isExternal href={'#'} display={'block'}>{t('Facebook')}</Link>
+            <Link color={'gray.500'} isExternal href={'#'} display={'block'}>{t('Twitter')}</Link>
+            <Link color={'gray.500'} isExternal href={'https://discord.gg/P465rC6m'} display={'block'}>{t('Discord')}</Link>
+            <Link color={'gray.500'} isExternal href={'#'} display={'block'}>{t('Help')}</Link>
+            <Link color={'gray.500'} isExternal href={'#'} display={'block'}>{t('Music Rights')}</Link>
           </Box>
           <Box>
             <Text fontWeight={700} marginBottom={4}>{t('Company')}</Text>
