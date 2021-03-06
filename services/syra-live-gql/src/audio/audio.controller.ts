@@ -49,8 +49,6 @@ export class AudioController {
       }
     }
 
-    console.log('MIME TYPE', mimeType);
-
     if (mimeType !== 'audio/flac') {
       await this.audioQueue.add(
         'transcode',

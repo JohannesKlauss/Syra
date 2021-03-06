@@ -20,6 +20,8 @@ const buffer = selectorFamily<AudioBuffer | null, string>({
       return null;
     }
 
+    console.log('load buffer', bufferId);
+
     let audioBuffer = get(internalBuffer(bufferId));
 
     // Buffer is in memory.
@@ -29,6 +31,9 @@ const buffer = selectorFamily<AudioBuffer | null, string>({
 
     const storedId = get(storedBufferId(bufferId));
     const extension = get(hasTranscodedFile(bufferId)) ? 'flac' : 'wav';
+
+    console.log('stored ID', storedId);
+    console.log('extension', extension);
 
     // Try to read the file from local file system
     const arrayBuffer = await fileSystem.readArrayBufferFromFile(`${storedId}.${extension}`);
