@@ -1,7 +1,6 @@
 import React from 'react';
-import { Avatar, Box, Divider, Flex, Link as ChakraLink, Skeleton, Text } from '@chakra-ui/react';
+import { Box, Divider, Flex, Link as ChakraLink, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import FeedItemAudio from './FeedItemAudio/FeedItemAudio';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
 import FeedItemActions from './FeedItemActions/FeedItemActions';
 import { useFeedItemByIdQuery } from '../../../../gql/generated';

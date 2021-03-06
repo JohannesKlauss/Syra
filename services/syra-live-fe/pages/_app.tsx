@@ -15,6 +15,7 @@ import AuthProvider from "../providers/auth/AuthProvider";
 import "../i18n";
 import useListenForLocaleChange from "../hooks/useListenForLocaleChange";
 import useFaviconWatcher from "../hooks/ui/global/useFaviconWatcher";
+import { CookiesProvider } from "react-cookie";
 
 axios.interceptors.response.use(
   (response) => response,
@@ -44,9 +45,11 @@ function SyraLive({ Component, pageProps }) {
         <RecoilRoot>
           <ChakraProvider>
             <AuthProvider>
-              <Component {...pageProps} />
-              <Footer />
-              <Stopper />
+              <CookiesProvider>
+                <Component {...pageProps} />
+                <Footer />
+                <Stopper />
+              </CookiesProvider>
             </AuthProvider>
           </ChakraProvider>
         </RecoilRoot>
@@ -55,4 +58,4 @@ function SyraLive({ Component, pageProps }) {
   );
 }
 
-export default SyraLive
+export default SyraLive;

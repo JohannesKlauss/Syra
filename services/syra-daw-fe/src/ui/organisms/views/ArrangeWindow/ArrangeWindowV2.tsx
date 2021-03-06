@@ -20,7 +20,7 @@ const ArrangeWindowV2: React.FC<Props> = (props) => {
   return (
     <Box {...props} w={'100%'} pos={'fixed'}>
       <RulerSettings>
-        <Image boxSize={'2rem'} src="/assets/gfx/syra-logo.png" alt="S Y R A | DAW" />
+        <Image boxSize={'2rem'} src="/assets/gfx/syra-logo.png" alt="Syra DAW" />
         <RulerSnapSettings view={View.ARRANGE_WINDOW}/>
         <RulerZoomInOut view={View.ARRANGE_WINDOW}/>
         <UndoRedo/>
