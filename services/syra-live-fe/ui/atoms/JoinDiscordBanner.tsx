@@ -31,7 +31,9 @@ const JoinDiscordBanner: React.FC<Props> = ({}) => {
       </Flex>
       <Box justify={'flex-start'} flex={0.7}>
         <Text fontSize={'md'} fontWeight={'semibold'}>
-          {t("S Y R A  is now on Discord!")}
+          S Y R A
+          &nbsp;&nbsp;
+          {t("is now on Discord!")}
         </Text>
         <Text fontSize={'md'} color={'gray.400'}>
           {t("Join our community to stay updated on upcoming features, tutorials, Q&A, released songs and much more.")}
