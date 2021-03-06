@@ -51,12 +51,12 @@ export class AudioController {
 
     console.log('MIME TYPE', mimeType);
 
-    if (mimeType !== 'audio/x-m4a') {
+    if (mimeType !== 'audio/flac') {
       await this.audioQueue.add(
         'transcode',
         {
           spacesObject: spacesObject,
-          targetFormat: 'm4a',
+          targetFormat: 'flac',
           projectId,
         },
         {

@@ -3,7 +3,6 @@ import { SessionListDataFragment } from '../../../gql/generated';
 import { useTranslation } from 'react-i18next';
 import { AvatarGroup, Box, Flex, IconButton, List, ListItem, Text, Link as ChakraLink } from '@chakra-ui/react';
 import Link from 'next/link';
-import publicRuntimeConfig from '../../../const/config';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
 import AvatarWithOnlineStatus from '../Avatar/AvatarWithOnlineStatus';
 import { RiExternalLinkLine } from 'react-icons/ri';
@@ -22,7 +21,7 @@ const SessionSearchResultList: React.FC<Props> = ({ sessions, size }) => {
         <ListItem key={session.id}>
           <Flex justify={'space-between'} align={'center'}>
             <Box isTruncated maxW={'50%'} w={'50%'}>
-              <Link passHref href={`${publicRuntimeConfig.NEXT_PUBLIC_DAW_URL}/editor/${session.id}`}>
+              <Link passHref href={`${process.env.NEXT_PUBLIC_DAW_URL}/editor/${session.id}`}>
                 <ChakraLink fontWeight={600} fontSize={size} target={'_blank'}>
                   {session.name}
                 </ChakraLink>
@@ -38,7 +37,7 @@ const SessionSearchResultList: React.FC<Props> = ({ sessions, size }) => {
                 <AvatarWithOnlineStatus key={user.id} user={user} />
               ))}
             </AvatarGroup>
-            <Link passHref href={`${publicRuntimeConfig.NEXT_PUBLIC_DAW_URL}/editor/${session.id}`}>
+            <Link passHref href={`${process.env.NEXT_PUBLIC_DAW_URL}/editor/${session.id}`}>
               <ChakraLink fontWeight={600} fontSize={size} target={'_blank'}>
                 <IconButton
                   icon={<RiExternalLinkLine />}

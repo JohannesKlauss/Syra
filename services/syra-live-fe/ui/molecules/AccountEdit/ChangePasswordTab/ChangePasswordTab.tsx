@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 import GenFormInput from "../../../atoms/Form/GenFormInput";
 import useApiResToast from "../../../../hooks/ui/useApiResToast";
 import axios from "axios";
-import publicRuntimeConfig from "../../../../const/config";
 
 interface Props {
 
@@ -35,7 +34,7 @@ function ChangePasswordTab({}: Props) {
   const onSubmit = async (data: TChangePasswordForm) => {
     setIsSending(true);
 
-    const res = await axios.post(`${publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL}/password/update`, data, {
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_LIVE_GQL_URL}/password/update`, data, {
       withCredentials: true
     });
 

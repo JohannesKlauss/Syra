@@ -53,14 +53,14 @@ export class AudioProcessor {
 
       if (error == null) {
         const transcoder = ffmpeg(tmpDest);
-        const transcodedFilePath = tmpDest.replace('.wav', targetFormat === 'm4a' ? '.m4a' : '.mp3');
+        const transcodedFilePath = tmpDest.replace('.wav', targetFormat === 'flac' ? '.flac' : '.mp3');
 
         this.logger.debug(`Run transcoder`);
 
         let uploadedFile = false;
 
         transcoder
-          .withAudioCodec(targetFormat === 'm4a' ? 'aac' : 'libmp3lame')
+          .withAudioCodec(targetFormat === 'flac' ? 'flac' : 'libmp3lame')
           .saveToFile(transcodedFilePath)
           .on('end', async () => {
             this.logger.debug(`Transcoder finished`);
@@ -72,8 +72,8 @@ export class AudioProcessor {
 
               const location = await this.spacesService.putFile(
                 MD5(originalAsset.owner.id).toString(),
-                spacesObject.name.replace('.wav', targetFormat === 'm4a' ? '.m4a' : '.mp3'),
-                'audio/x-m4a',
+                spacesObject.name.replace('.wav', targetFormat === 'flac' ? '.flac' : '.mp3'),
+                'audio/flac',
                 fs.createReadStream(transcodedFilePath),
                 true,
               );
@@ -86,7 +86,7 @@ export class AudioProcessor {
                   location,
                   parentAssetId: spacesObject.id,
                   userId: originalAsset.owner.id,
-                  name: spacesObject.name.replace('.wav', targetFormat === 'm4a' ? '.m4a' : '.mp3'),
+                  name: spacesObject.name.replace('.wav', targetFormat === 'flac' ? '.flac' : '.mp3'),
                 },
                 select: {
                   id: true,

@@ -7,7 +7,6 @@ import Search from '../Search/Search';
 import AvatarMenu from '../Feed/AvatarMenu/AvatarMenu';
 import { useCreateProjectMutation } from '../../../gql/generated';
 import NewMessageNotifier from '../Notifications/NewMessageNotifier/NewMessageNotifier';
-import publicRuntimeConfig from '../../../const/config';
 import OnlineFollowersList from '../OnlineFollowersList/OnlineFollowersList';
 
 interface Props {}
@@ -23,7 +22,7 @@ function TopBar({}: Props) {
 
     if (errors == null) {
       setIsCreatingSession(false);
-      window && window.open(`${publicRuntimeConfig.NEXT_PUBLIC_DAW_URL}/editor/${data.createProject.id}`, '_blank');
+      window && window.open(`${process.env.NEXT_PUBLIC_DAW_URL}/editor/${data.createProject.id}`, '_blank');
     }
   };
 
