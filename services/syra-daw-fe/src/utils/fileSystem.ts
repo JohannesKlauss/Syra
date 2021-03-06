@@ -9,7 +9,7 @@ const init = async (projectId: string) => {
     const root = await navigator.storage.getDirectory();
     rootHandle = await root.getDirectoryHandle(projectId, { create: true });
   } catch (e) {
-    console.info('private file storage not available');
+    console.info('private file storage not available.');
   }
 }
 

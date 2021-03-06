@@ -80,7 +80,7 @@
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true HOST=bar.local.syra.live HTTPS=true SSL_CRT_FILE=../../local.syra.live.crt SSL_KEY_FILE=../../local.syra.live.key react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s ./public",
     "build-storybook": "build-storybook",

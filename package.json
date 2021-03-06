@@ -18,6 +18,7 @@
     "  --  DAW  - FE --  ": "",
     "daw-fe:start": "yarn workspace syra-daw-fe start",
     "daw-fe:generate": "yarn workspace syra-daw-fe gql-generate",
+    "daw-fe:test": "yarn workspace syra-daw-fe test",
     "daw-fe:storybook": "yarn workspace syra-daw-fe storybook"
   },
   "devDependencies": {
