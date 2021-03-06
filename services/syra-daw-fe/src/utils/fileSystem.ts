@@ -18,11 +18,11 @@ const clearDirectory = async () => {
     let i = 0;
 
     for await (let [name, handle] of rootHandle.entries()) {
-      handle.isFile && await rootHandle.removeEntry(name);
+      if (handle.kind === 'file') {
+        await rootHandle.removeEntry(name);
+      }
       i++;
     }
-
-    console.log(`Removed ${i} files from directory.`);
   }
 };
 
@@ -43,15 +43,11 @@ const writeAudioFile = async (assetId: string, file: File | Blob) => {
     const fileHandle = await rootHandle.getFileHandle(`${assetId}.${fileExtension}`, {create: true});
 
     await file.stream().pipeTo(await fileHandle.createWritable({keepExistingData: false}));
-
-    console.log('WROTE FILE TO SYSTEM', `${assetId}.${fileExtension}`);
   }
 };
 
 const readArrayBufferFromFile = async (assetId: string) => {
   if (rootHandle) {
-    console.log('READING FROM SYSTEM', assetId);
-
     let fileHandle;
 
     try {
@@ -70,14 +66,9 @@ const readArrayBufferFromFile = async (assetId: string) => {
       }
 
       if (file && file.size > 0) {
-        console.log('FILE', file);
-
         const arrayBuffer = await file.arrayBuffer();
 
         if (arrayBuffer.byteLength > 0) {
-          console.log('return arrayBuffer', arrayBuffer);
-          console.log('assetId', assetId);
-
           return arrayBuffer.slice(0);
         }
       }

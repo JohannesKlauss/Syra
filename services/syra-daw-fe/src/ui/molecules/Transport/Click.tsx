@@ -13,6 +13,7 @@ function Click() {
   return (
     <IconButton
       aria-label={'Toggle metronome'}
+      title={'Toggle metronome'}
       icon={<RiPulseFill />}
       colorScheme={isClickMuted ? 'gray' : 'teal'}
       component="span"

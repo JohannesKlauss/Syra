@@ -53,7 +53,7 @@ export class AudioProcessor {
 
       if (error == null) {
         const transcoder = ffmpeg(tmpDest);
-        const transcodedFilePath = tmpDest.replace('.wav', targetFormat === 'flac' ? '.flac' : '.mp3');
+        const transcodedFilePath = tmpDest.replace(/\.[0-9a-z]+$/i, `.${targetFormat}`);
 
         this.logger.debug(`Run transcoder`);
 
@@ -72,7 +72,7 @@ export class AudioProcessor {
 
               const location = await this.spacesService.putFile(
                 MD5(originalAsset.owner.id).toString(),
-                spacesObject.name.replace('.wav', targetFormat === 'flac' ? '.flac' : '.mp3'),
+                spacesObject.name.replace(/\.[0-9a-z]+$/i, `.${targetFormat}`),
                 'audio/flac',
                 fs.createReadStream(transcodedFilePath),
                 true,
@@ -86,7 +86,7 @@ export class AudioProcessor {
                   location,
                   parentAssetId: spacesObject.id,
                   userId: originalAsset.owner.id,
-                  name: spacesObject.name.replace('.wav', targetFormat === 'flac' ? '.flac' : '.mp3'),
+                  name: spacesObject.name.replace(/\.[0-9a-z]+$/i, `.${targetFormat}`),
                 },
                 select: {
                   id: true,

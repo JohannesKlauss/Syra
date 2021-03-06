@@ -25,7 +25,7 @@ import { ChannelType } from '../../../types/Channel';
 import useAudioRegionScheduler from '../../../hooks/tone/useAudioRegionScheduler';
 import { MdCloudDone, MdCloudUpload } from 'react-icons/md';
 import { determineTextColor } from '../../../utils/color';
-import AudioRegion from "./AudioRegion/AudioRegion";
+import AudioRegion from './AudioRegion/AudioRegion';
 
 interface Props {}
 
@@ -84,9 +84,8 @@ const Region: React.FC<Props> = ({}) => {
             <Icon
               ml={'auto'}
               mr={2}
-              as={isInSync ? MdCloudDone : MdCloudUpload}
-              color={determineTextColor(color)}
-              title={isInSync ? 'File is synchronized' : 'File is uploading'}
+              as={isInSync || type === ChannelType.INSTRUMENT ? MdCloudDone : MdCloudUpload}
+              title={isInSync || type === ChannelType.INSTRUMENT ? 'File is synchronized' : 'File is uploading'}
             />
           </Flex>
         </TopBar>

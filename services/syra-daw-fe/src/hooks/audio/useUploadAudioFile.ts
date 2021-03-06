@@ -11,8 +11,6 @@ export default function useUploadAudioFile() {
     const files = new FormData();
     files.append('file', file);
 
-    console.log('FILE TO UPLOAD', file);
-
     const res = await axios.post(`${process.env.REACT_APP_LIVE_GQL_URL}/audio/transcode/${projectId}`, files, {
       headers: {
         'Content-Type': `multipart/form-data`,
@@ -22,7 +20,6 @@ export default function useUploadAudioFile() {
 
     if (res.status === 201) {
       set(audioBufferStore.storedBufferId(bufferId), res.data.id);
-      set(audioBufferStore.isInSyncWithDb(bufferId), true);
 
       await fileSystem.writeAudioFile(res.data.id, file);
     }

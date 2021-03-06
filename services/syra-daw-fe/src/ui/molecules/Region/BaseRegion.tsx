@@ -12,9 +12,10 @@ import useUpdateSelectedRegions from "../../../hooks/recoil/region/useUpdateSele
 import { useIsHotkeyPressed } from "react-hotkeys-hook";
 
 interface Props {
+  isSuspending?: boolean;
 }
 
-const BaseRegion: React.FC<Props> = ({ children }) => {
+const BaseRegion: React.FC<Props> = ({ isSuspending = false, children }) => {
   const regionId = useContext(RegionContext);
   const channelId = useContext(ChannelContext);
   const isMuted = useRecoilValue(regionStore.isMuted(regionId));
@@ -28,6 +29,7 @@ const BaseRegion: React.FC<Props> = ({ children }) => {
 
   return (
       <Box
+        filter={isSuspending ? 'opacity(60%) grayscale(80%)' : 'none'}
         h={`${trackHeight}px`}
         opacity={isMuted ? 0.35 : 1}
         rounded={4}

@@ -22,33 +22,21 @@ const buffer = selectorFamily<AudioBuffer | null, string>({
 
     let audioBuffer = get(internalBuffer(bufferId));
 
-    console.log('reading buffer', bufferId);
-
     // Buffer is in memory.
     if (audioBuffer) {
-      console.log('return from memory');
-
       return audioBuffer;
     }
 
     const storedId = get(storedBufferId(bufferId));
-    const extension = get(hasTranscodedFile(bufferId)) ? 'm4a' : 'wav';
+    const extension = get(hasTranscodedFile(bufferId)) ? 'flac' : 'wav';
 
     // Try to read the file from local file system
     const arrayBuffer = await fileSystem.readArrayBufferFromFile(`${storedId}.${extension}`);
 
-    console.log('arrayBuffer', arrayBuffer);
-
     if (arrayBuffer) {
-      console.log('return from system', `${storedId}.${extension}`);
-
       try {
-
-        console.log('before decode', arrayBuffer);
         return await Tone.getContext().decodeAudioData(arrayBuffer.slice(0));
       } catch (e) {
-        console.log('could not decode arrayBuffer', arrayBuffer);
-        console.log('storedBufferId', storedId);
       }
     }
 
@@ -58,15 +46,9 @@ const buffer = selectorFamily<AudioBuffer | null, string>({
       responseType: 'blob',
     });
 
-    console.log('load from server');
-
     if (res.status === 200) {
       try {
-        console.log('got from server, write to system', storedId);
-
         await fileSystem.writeAudioFile(storedId, res.data);
-
-        console.log('serve from server', res.data.type);
 
         return await Tone.getContext().decodeAudioData(await res.data.arrayBuffer());
       } catch (e) {
@@ -86,11 +68,6 @@ const name = atomFamilyWithEffects<string, string>({
   effects: [
     ...syncEffectsComb
   ]
-});
-
-const isInSyncWithDb = atomFamily<boolean, string>({
-  key: 'audioBuffer/isInSyncWithDb',
-  default: false,
 });
 
 // This id is used to reference the file on local storage and on the server.
@@ -117,6 +94,13 @@ const ids = atomWithEffects<string[]>({
   effects: [
     ...syncEffectsComb,
   ]
+});
+
+const isInSyncWithDb = selectorFamily<boolean, string>({
+  key: 'audioBuffer/isInSyncWithDb',
+  get: bufferId => ({get}) => {
+    return get(hasTranscodedFile(bufferId)) && get(storedBufferId(bufferId)).length > 0 && get(buffer(bufferId)) !== null
+  },
 });
 
 export const audioBufferStore = {

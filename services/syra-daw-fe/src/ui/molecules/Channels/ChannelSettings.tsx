@@ -36,7 +36,7 @@ const ChannelSettings: React.FC<Props> = ({}) => {
   return (
     <Popover placement={'right-start'} isLazy>
       <PopoverTrigger>
-        <IconButton icon={<MdSettings />} size={'xs'} aria-label={'Channel Settings'} title={'Channel Settings'}/>
+        <IconButton icon={<MdSettings />} variant={'ghost'} size={'xs'} aria-label={'Channel Settings'} title={'Channel Settings'}/>
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />
