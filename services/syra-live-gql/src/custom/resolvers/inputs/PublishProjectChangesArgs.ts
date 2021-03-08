@@ -3,7 +3,7 @@ import { GraphQLJSONObject } from 'graphql-type-json';
 
 @TypeGraphQL.ArgsType()
 @TypeGraphQL.ObjectType()
-export class PublishProjectChangeArgs {
+export class PublishProjectChangesArgs {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
@@ -27,5 +27,5 @@ export class PublishProjectChangeArgs {
   @TypeGraphQL.Field(_type => GraphQLJSONObject, {
     nullable: false
   })
-  change!: typeof GraphQLJSONObject;
+  changes!: typeof GraphQLJSONObject;
 }

@@ -13,8 +13,9 @@ import Debugger from '../debug/Debugger';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { Prompt } from 'react-router-dom';
 import useBlockWindowLeave from '../../hooks/ui/useBlockWindowLeave';
-import useAutoSave from '../../hooks/recoil/useAutoSave';
+import useAutoSave from '../../hooks/sync/useAutoSave';
 import { transportStore } from "../../recoil/transportStore";
+import usePublishChangesToClients from "../../hooks/sync/usePublishChangesToClients";
 
 const Editor: React.FC = () => {
   const theme = useTheme();
@@ -30,6 +31,7 @@ const Editor: React.FC = () => {
 
   useBlockWindowLeave();
   useAutoSave(id, 5000);
+  usePublishChangesToClients();
 
   return (
     <Box>

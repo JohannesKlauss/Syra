@@ -10,6 +10,15 @@ import { soulPluginStore } from "./soulPluginStore";
 import { projectStore } from "./projectStore";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
 
+const ids = atomWithEffects<string[]>({
+  key: 'channel/ids',
+  default: [],
+  effects: [
+    ...syncEffectsComb,
+    undoRedoEffect,
+  ]
+});
+
 const name = atomFamilyWithEffects<string, string>({
   key: 'channel/name',
   default: 'New Channel',
@@ -224,15 +233,6 @@ const state = selectorFamily<ChannelState, string>({
       regions: get(regionStore.findByChannelId(id))
     };
   }
-});
-
-const ids = atomWithEffects<string[]>({
-  key: 'channel/ids',
-  default: [],
-  effects: [
-    ...syncEffectsComb,
-    undoRedoEffect,
-  ]
 });
 
 const selectedId = atom<string>({

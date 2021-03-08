@@ -13,14 +13,13 @@ const reverseValueMapper = mapDbToVolumeFaderVal();
 
 function VolumeFader({ onChange }: Props) {
   const channelId = useContext(ChannelContext);
-  const { volume, publishChange } = useBackboneChannel(channelId);
+  const { volume } = useBackboneChannel(channelId);
   const [volumeValue, setVolumeValue] = useState(volume.get().volume);
   
   useEffect(() => {
     volume.set({ volume: volumeValue });
-    publishChange(ChannelNode.VOLUME, volumeValue);
     onChange(volumeValue);
-  }, [volume, volumeValue, publishChange, onChange]);
+  }, [volume, volumeValue, onChange]);
 
   return (
     <Flex h={200} p={8} justify={'center'}>

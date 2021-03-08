@@ -6,13 +6,12 @@ import { ChannelNode } from '../../../types/Channel';
 
 function Pan() {
   const channelId = useContext(ChannelContext);
-  const { pan, publishChange } = useBackboneChannel(channelId);
+  const { pan } = useBackboneChannel(channelId);
   const [panValue, setPanValue] = useState(pan.get().pan * 100);
   
   useEffect(() => {
     pan.set({pan: panValue / 100});
-    publishChange(ChannelNode.PAN, panValue / 100);
-  }, [panValue, pan, publishChange]);
+  }, [panValue, pan]);
   
   return (
     <Box px={2} bg={'transparent'}>
