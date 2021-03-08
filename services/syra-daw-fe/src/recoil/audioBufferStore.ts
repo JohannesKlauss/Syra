@@ -6,6 +6,14 @@ import { fileSystem } from "../utils/fileSystem";
 import * as Tone from 'tone';
 import axios from "axios";
 
+const ids = atomWithEffects<string[]>({
+  key: 'audioBuffer/ids',
+  default: [],
+  effects: [
+    ...syncEffectsComb,
+  ]
+});
+
 const internalBuffer = atomFamily<AudioBuffer | null, string>({
   key: 'audioBuffer/internalBuffer',
   default: null,
@@ -31,6 +39,10 @@ const buffer = selectorFamily<AudioBuffer | null, string>({
 
     const storedId = get(storedBufferId(bufferId));
     const extension = get(hasTranscodedFile(bufferId)) ? 'flac' : 'wav';
+
+    if (storedId.length === 0 || !get(hasTranscodedFile(bufferId))) {
+      return null;
+    }
 
     console.log('stored ID', storedId);
     console.log('extension', extension);
@@ -88,14 +100,6 @@ const storedBufferId = atomFamilyWithEffects<string, string>({
 const hasTranscodedFile = atomFamilyWithEffects<boolean, string>({
   key: 'audioBuffer/hasTranscodedFile',
   default: false,
-  effects: [
-    ...syncEffectsComb,
-  ]
-});
-
-const ids = atomWithEffects<string[]>({
-  key: 'audioBuffer/ids',
-  default: [],
   effects: [
     ...syncEffectsComb,
   ]

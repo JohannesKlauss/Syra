@@ -4,6 +4,7 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions = {};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -369,6 +370,12 @@ export type AudioAssetCreateNestedOneWithoutMixdownInput = {
   create?: Maybe<AudioAssetCreateWithoutMixdownInput>;
 };
 
+export type AudioAssetCreateNestedOneWithoutUsedInProjectsInput = {
+  connect?: Maybe<AudioAssetWhereUniqueInput>;
+  connectOrCreate?: Maybe<AudioAssetCreateOrConnectWithoutUsedInProjectsInput>;
+  create?: Maybe<AudioAssetCreateWithoutUsedInProjectsInput>;
+};
+
 export type AudioAssetCreateOrConnectWithoutAudioAssetInput = {
   create: AudioAssetCreateWithoutAudioAssetInput;
   where: AudioAssetWhereUniqueInput;
@@ -389,6 +396,11 @@ export type AudioAssetCreateOrConnectWithoutParentAssetInput = {
   where: AudioAssetWhereUniqueInput;
 };
 
+export type AudioAssetCreateOrConnectWithoutUsedInProjectsInput = {
+  create: AudioAssetCreateWithoutUsedInProjectsInput;
+  where: AudioAssetWhereUniqueInput;
+};
+
 export type AudioAssetCreateWithoutAudioAssetInput = {
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutAudioInput>;
   id?: Maybe<Scalars['String']>;
@@ -397,6 +409,7 @@ export type AudioAssetCreateWithoutAudioAssetInput = {
   name: Scalars['String'];
   owner?: Maybe<UserCreateNestedOneWithoutAudioAssetInput>;
   parentAsset?: Maybe<AudioAssetCreateNestedOneWithoutAudioAssetInput>;
+  usedInProjects?: Maybe<AudioAssetsOnProjectsCreateNestedManyWithoutAudioAssetInput>;
 };
 
 export type AudioAssetCreateWithoutMixdownInput = {
@@ -407,6 +420,7 @@ export type AudioAssetCreateWithoutMixdownInput = {
   name: Scalars['String'];
   owner?: Maybe<UserCreateNestedOneWithoutAudioAssetInput>;
   parentAsset?: Maybe<AudioAssetCreateNestedOneWithoutAudioAssetInput>;
+  usedInProjects?: Maybe<AudioAssetsOnProjectsCreateNestedManyWithoutAudioAssetInput>;
 };
 
 export type AudioAssetCreateWithoutOwnerInput = {
@@ -417,6 +431,7 @@ export type AudioAssetCreateWithoutOwnerInput = {
   location: Scalars['String'];
   name: Scalars['String'];
   parentAsset?: Maybe<AudioAssetCreateNestedOneWithoutAudioAssetInput>;
+  usedInProjects?: Maybe<AudioAssetsOnProjectsCreateNestedManyWithoutAudioAssetInput>;
 };
 
 export type AudioAssetCreateWithoutParentAssetInput = {
@@ -427,6 +442,18 @@ export type AudioAssetCreateWithoutParentAssetInput = {
   location: Scalars['String'];
   name: Scalars['String'];
   owner?: Maybe<UserCreateNestedOneWithoutAudioAssetInput>;
+  usedInProjects?: Maybe<AudioAssetsOnProjectsCreateNestedManyWithoutAudioAssetInput>;
+};
+
+export type AudioAssetCreateWithoutUsedInProjectsInput = {
+  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutParentAssetInput>;
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutAudioInput>;
+  id?: Maybe<Scalars['String']>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+  location: Scalars['String'];
+  name: Scalars['String'];
+  owner?: Maybe<UserCreateNestedOneWithoutAudioAssetInput>;
+  parentAsset?: Maybe<AudioAssetCreateNestedOneWithoutAudioAssetInput>;
 };
 
 export type AudioAssetListRelationFilter = {
@@ -523,6 +550,14 @@ export type AudioAssetUpdateOneRequiredWithoutMixdownInput = {
   upsert?: Maybe<AudioAssetUpsertWithoutMixdownInput>;
 };
 
+export type AudioAssetUpdateOneRequiredWithoutUsedInProjectsInput = {
+  connect?: Maybe<AudioAssetWhereUniqueInput>;
+  connectOrCreate?: Maybe<AudioAssetCreateOrConnectWithoutUsedInProjectsInput>;
+  create?: Maybe<AudioAssetCreateWithoutUsedInProjectsInput>;
+  update?: Maybe<AudioAssetUpdateWithoutUsedInProjectsInput>;
+  upsert?: Maybe<AudioAssetUpsertWithoutUsedInProjectsInput>;
+};
+
 export type AudioAssetUpdateOneWithoutAudioAssetInput = {
   connect?: Maybe<AudioAssetWhereUniqueInput>;
   connectOrCreate?: Maybe<AudioAssetCreateOrConnectWithoutAudioAssetInput>;
@@ -551,6 +586,7 @@ export type AudioAssetUpdateWithoutAudioAssetInput = {
   name?: Maybe<StringFieldUpdateOperationsInput>;
   owner?: Maybe<UserUpdateOneWithoutAudioAssetInput>;
   parentAsset?: Maybe<AudioAssetUpdateOneWithoutAudioAssetInput>;
+  usedInProjects?: Maybe<AudioAssetsOnProjectsUpdateManyWithoutAudioAssetInput>;
 };
 
 export type AudioAssetUpdateWithoutMixdownInput = {
@@ -561,6 +597,7 @@ export type AudioAssetUpdateWithoutMixdownInput = {
   name?: Maybe<StringFieldUpdateOperationsInput>;
   owner?: Maybe<UserUpdateOneWithoutAudioAssetInput>;
   parentAsset?: Maybe<AudioAssetUpdateOneWithoutAudioAssetInput>;
+  usedInProjects?: Maybe<AudioAssetsOnProjectsUpdateManyWithoutAudioAssetInput>;
 };
 
 export type AudioAssetUpdateWithoutOwnerInput = {
@@ -571,6 +608,7 @@ export type AudioAssetUpdateWithoutOwnerInput = {
   location?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   parentAsset?: Maybe<AudioAssetUpdateOneWithoutAudioAssetInput>;
+  usedInProjects?: Maybe<AudioAssetsOnProjectsUpdateManyWithoutAudioAssetInput>;
 };
 
 export type AudioAssetUpdateWithoutParentAssetInput = {
@@ -581,6 +619,18 @@ export type AudioAssetUpdateWithoutParentAssetInput = {
   location?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
   owner?: Maybe<UserUpdateOneWithoutAudioAssetInput>;
+  usedInProjects?: Maybe<AudioAssetsOnProjectsUpdateManyWithoutAudioAssetInput>;
+};
+
+export type AudioAssetUpdateWithoutUsedInProjectsInput = {
+  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutParentAssetInput>;
+  Mixdown?: Maybe<MixdownUpdateManyWithoutAudioInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  isPublic?: Maybe<NullableBoolFieldUpdateOperationsInput>;
+  location?: Maybe<StringFieldUpdateOperationsInput>;
+  name?: Maybe<StringFieldUpdateOperationsInput>;
+  owner?: Maybe<UserUpdateOneWithoutAudioAssetInput>;
+  parentAsset?: Maybe<AudioAssetUpdateOneWithoutAudioAssetInput>;
 };
 
 export type AudioAssetUpsertWithWhereUniqueWithoutOwnerInput = {
@@ -605,6 +655,11 @@ export type AudioAssetUpsertWithoutMixdownInput = {
   update: AudioAssetUpdateWithoutMixdownInput;
 };
 
+export type AudioAssetUpsertWithoutUsedInProjectsInput = {
+  create: AudioAssetCreateWithoutUsedInProjectsInput;
+  update: AudioAssetUpdateWithoutUsedInProjectsInput;
+};
+
 export type AudioAssetWhereInput = {
   AND?: Maybe<Array<AudioAssetWhereInput>>;
   AudioAsset?: Maybe<AudioAssetListRelationFilter>;
@@ -618,11 +673,172 @@ export type AudioAssetWhereInput = {
   owner?: Maybe<UserRelationFilter>;
   parentAsset?: Maybe<AudioAssetRelationFilter>;
   parentAssetId?: Maybe<StringNullableFilter>;
+  usedInProjects?: Maybe<AudioAssetsOnProjectsListRelationFilter>;
   userId?: Maybe<StringNullableFilter>;
 };
 
 export type AudioAssetWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
+};
+
+export type AudioAssetsOnProjects = {
+  __typename?: 'AudioAssetsOnProjects';
+  audioAssetId: Scalars['String'];
+  createdAt: Scalars['Timestamp'];
+  projectId: Scalars['String'];
+};
+
+export type AudioAssetsOnProjectsAudioAssetIdProjectIdCompoundUniqueInput = {
+  audioAssetId: Scalars['String'];
+  projectId: Scalars['String'];
+};
+
+export type AudioAssetsOnProjectsCreateNestedManyWithoutAudioAssetInput = {
+  connect?: Maybe<Array<AudioAssetsOnProjectsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<AudioAssetsOnProjectsCreateOrConnectWithoutAudioAssetInput>>;
+  create?: Maybe<Array<AudioAssetsOnProjectsCreateWithoutAudioAssetInput>>;
+};
+
+export type AudioAssetsOnProjectsCreateNestedManyWithoutProjectInput = {
+  connect?: Maybe<Array<AudioAssetsOnProjectsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<AudioAssetsOnProjectsCreateOrConnectWithoutProjectInput>>;
+  create?: Maybe<Array<AudioAssetsOnProjectsCreateWithoutProjectInput>>;
+};
+
+export type AudioAssetsOnProjectsCreateOrConnectWithoutAudioAssetInput = {
+  create: AudioAssetsOnProjectsCreateWithoutAudioAssetInput;
+  where: AudioAssetsOnProjectsWhereUniqueInput;
+};
+
+export type AudioAssetsOnProjectsCreateOrConnectWithoutProjectInput = {
+  create: AudioAssetsOnProjectsCreateWithoutProjectInput;
+  where: AudioAssetsOnProjectsWhereUniqueInput;
+};
+
+export type AudioAssetsOnProjectsCreateWithoutAudioAssetInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  project: ProjectCreateNestedOneWithoutAudioAssetsInput;
+};
+
+export type AudioAssetsOnProjectsCreateWithoutProjectInput = {
+  audioAsset: AudioAssetCreateNestedOneWithoutUsedInProjectsInput;
+  createdAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type AudioAssetsOnProjectsListRelationFilter = {
+  every?: Maybe<AudioAssetsOnProjectsWhereInput>;
+  none?: Maybe<AudioAssetsOnProjectsWhereInput>;
+  some?: Maybe<AudioAssetsOnProjectsWhereInput>;
+};
+
+export type AudioAssetsOnProjectsOrderByInput = {
+  audioAsset?: Maybe<AudioAssetOrderByInput>;
+  audioAssetId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  project?: Maybe<ProjectOrderByInput>;
+  projectId?: Maybe<SortOrder>;
+};
+
+export enum AudioAssetsOnProjectsScalarFieldEnum {
+  AudioAssetId = 'audioAssetId',
+  CreatedAt = 'createdAt',
+  ProjectId = 'projectId',
+}
+
+export type AudioAssetsOnProjectsScalarWhereInput = {
+  AND?: Maybe<Array<AudioAssetsOnProjectsScalarWhereInput>>;
+  NOT?: Maybe<Array<AudioAssetsOnProjectsScalarWhereInput>>;
+  OR?: Maybe<Array<AudioAssetsOnProjectsScalarWhereInput>>;
+  audioAssetId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  projectId?: Maybe<StringFilter>;
+};
+
+export type AudioAssetsOnProjectsUpdateManyMutationInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type AudioAssetsOnProjectsUpdateManyWithWhereWithoutAudioAssetInput = {
+  data: AudioAssetsOnProjectsUpdateManyMutationInput;
+  where: AudioAssetsOnProjectsScalarWhereInput;
+};
+
+export type AudioAssetsOnProjectsUpdateManyWithWhereWithoutProjectInput = {
+  data: AudioAssetsOnProjectsUpdateManyMutationInput;
+  where: AudioAssetsOnProjectsScalarWhereInput;
+};
+
+export type AudioAssetsOnProjectsUpdateManyWithoutAudioAssetInput = {
+  connect?: Maybe<Array<AudioAssetsOnProjectsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<AudioAssetsOnProjectsCreateOrConnectWithoutAudioAssetInput>>;
+  create?: Maybe<Array<AudioAssetsOnProjectsCreateWithoutAudioAssetInput>>;
+  delete?: Maybe<Array<AudioAssetsOnProjectsWhereUniqueInput>>;
+  deleteMany?: Maybe<Array<AudioAssetsOnProjectsScalarWhereInput>>;
+  disconnect?: Maybe<Array<AudioAssetsOnProjectsWhereUniqueInput>>;
+  set?: Maybe<Array<AudioAssetsOnProjectsWhereUniqueInput>>;
+  update?: Maybe<Array<AudioAssetsOnProjectsUpdateWithWhereUniqueWithoutAudioAssetInput>>;
+  updateMany?: Maybe<Array<AudioAssetsOnProjectsUpdateManyWithWhereWithoutAudioAssetInput>>;
+  upsert?: Maybe<Array<AudioAssetsOnProjectsUpsertWithWhereUniqueWithoutAudioAssetInput>>;
+};
+
+export type AudioAssetsOnProjectsUpdateManyWithoutProjectInput = {
+  connect?: Maybe<Array<AudioAssetsOnProjectsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<AudioAssetsOnProjectsCreateOrConnectWithoutProjectInput>>;
+  create?: Maybe<Array<AudioAssetsOnProjectsCreateWithoutProjectInput>>;
+  delete?: Maybe<Array<AudioAssetsOnProjectsWhereUniqueInput>>;
+  deleteMany?: Maybe<Array<AudioAssetsOnProjectsScalarWhereInput>>;
+  disconnect?: Maybe<Array<AudioAssetsOnProjectsWhereUniqueInput>>;
+  set?: Maybe<Array<AudioAssetsOnProjectsWhereUniqueInput>>;
+  update?: Maybe<Array<AudioAssetsOnProjectsUpdateWithWhereUniqueWithoutProjectInput>>;
+  updateMany?: Maybe<Array<AudioAssetsOnProjectsUpdateManyWithWhereWithoutProjectInput>>;
+  upsert?: Maybe<Array<AudioAssetsOnProjectsUpsertWithWhereUniqueWithoutProjectInput>>;
+};
+
+export type AudioAssetsOnProjectsUpdateWithWhereUniqueWithoutAudioAssetInput = {
+  data: AudioAssetsOnProjectsUpdateWithoutAudioAssetInput;
+  where: AudioAssetsOnProjectsWhereUniqueInput;
+};
+
+export type AudioAssetsOnProjectsUpdateWithWhereUniqueWithoutProjectInput = {
+  data: AudioAssetsOnProjectsUpdateWithoutProjectInput;
+  where: AudioAssetsOnProjectsWhereUniqueInput;
+};
+
+export type AudioAssetsOnProjectsUpdateWithoutAudioAssetInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  project?: Maybe<ProjectUpdateOneRequiredWithoutAudioAssetsInput>;
+};
+
+export type AudioAssetsOnProjectsUpdateWithoutProjectInput = {
+  audioAsset?: Maybe<AudioAssetUpdateOneRequiredWithoutUsedInProjectsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type AudioAssetsOnProjectsUpsertWithWhereUniqueWithoutAudioAssetInput = {
+  create: AudioAssetsOnProjectsCreateWithoutAudioAssetInput;
+  update: AudioAssetsOnProjectsUpdateWithoutAudioAssetInput;
+  where: AudioAssetsOnProjectsWhereUniqueInput;
+};
+
+export type AudioAssetsOnProjectsUpsertWithWhereUniqueWithoutProjectInput = {
+  create: AudioAssetsOnProjectsCreateWithoutProjectInput;
+  update: AudioAssetsOnProjectsUpdateWithoutProjectInput;
+  where: AudioAssetsOnProjectsWhereUniqueInput;
+};
+
+export type AudioAssetsOnProjectsWhereInput = {
+  AND?: Maybe<Array<AudioAssetsOnProjectsWhereInput>>;
+  NOT?: Maybe<Array<AudioAssetsOnProjectsWhereInput>>;
+  OR?: Maybe<Array<AudioAssetsOnProjectsWhereInput>>;
+  audioAsset?: Maybe<AudioAssetRelationFilter>;
+  audioAssetId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  project?: Maybe<ProjectRelationFilter>;
+  projectId?: Maybe<StringFilter>;
+};
+
+export type AudioAssetsOnProjectsWhereUniqueInput = {
+  audioAssetId_projectId?: Maybe<AudioAssetsOnProjectsAudioAssetIdProjectIdCompoundUniqueInput>;
 };
 
 export type Band = {
@@ -3231,7 +3447,7 @@ export type Mutation = {
   deleteUser?: Maybe<User>;
   deleteUsersOnProjects?: Maybe<UsersOnProjects>;
   deleteVersionInformation?: Maybe<VersionInformation>;
-  publishChange: PublishProjectChangeArgs;
+  publishChange: PublishProjectChangesArgs;
   signUpUser: User;
   updateAddress?: Maybe<Address>;
   updateBand?: Maybe<Band>;
@@ -3447,7 +3663,7 @@ export type MutationDeleteVersionInformationArgs = {
 
 export type MutationPublishChangeArgs = {
   authorId?: Maybe<Scalars['String']>;
-  change: Scalars['JSONObject'];
+  changes: Scalars['JSONObject'];
   date: Scalars['Timestamp'];
   id: Scalars['String'];
   projectId: Scalars['String'];
@@ -3773,6 +3989,7 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type Project = {
   __typename?: 'Project';
+  audioAssets: Array<AudioAssetsOnProjects>;
   content: Scalars['JSON'];
   createdAt: Scalars['Timestamp'];
   id: Scalars['String'];
@@ -3784,6 +4001,15 @@ export type Project = {
   owner: User;
   ownerId: Scalars['String'];
   updatedAt: Scalars['Timestamp'];
+};
+
+export type ProjectAudioAssetsArgs = {
+  cursor?: Maybe<AudioAssetsOnProjectsWhereUniqueInput>;
+  distinct?: Maybe<Array<AudioAssetsOnProjectsScalarFieldEnum>>;
+  orderBy?: Maybe<Array<AudioAssetsOnProjectsOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<AudioAssetsOnProjectsWhereInput>;
 };
 
 export type ProjectMembersArgs = {
@@ -3818,6 +4044,7 @@ export type ProjectCountAggregate = {
 };
 
 export type ProjectCreateInput = {
+  audioAssets?: Maybe<AudioAssetsOnProjectsCreateNestedManyWithoutProjectInput>;
   content: Scalars['JSON'];
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
@@ -3836,6 +4063,12 @@ export type ProjectCreateNestedManyWithoutOwnerInput = {
   create?: Maybe<Array<ProjectCreateWithoutOwnerInput>>;
 };
 
+export type ProjectCreateNestedOneWithoutAudioAssetsInput = {
+  connect?: Maybe<ProjectWhereUniqueInput>;
+  connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutAudioAssetsInput>;
+  create?: Maybe<ProjectCreateWithoutAudioAssetsInput>;
+};
+
 export type ProjectCreateNestedOneWithoutMembersInput = {
   connect?: Maybe<ProjectWhereUniqueInput>;
   connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutMembersInput>;
@@ -3846,6 +4079,11 @@ export type ProjectCreateNestedOneWithoutMixdownsInput = {
   connect?: Maybe<ProjectWhereUniqueInput>;
   connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutMixdownsInput>;
   create?: Maybe<ProjectCreateWithoutMixdownsInput>;
+};
+
+export type ProjectCreateOrConnectWithoutAudioAssetsInput = {
+  create: ProjectCreateWithoutAudioAssetsInput;
+  where: ProjectWhereUniqueInput;
 };
 
 export type ProjectCreateOrConnectWithoutMembersInput = {
@@ -3863,7 +4101,21 @@ export type ProjectCreateOrConnectWithoutOwnerInput = {
   where: ProjectWhereUniqueInput;
 };
 
+export type ProjectCreateWithoutAudioAssetsInput = {
+  content: Scalars['JSON'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isInitialized?: Maybe<Scalars['Boolean']>;
+  isPrivate?: Maybe<Scalars['Boolean']>;
+  members?: Maybe<UsersOnProjectsCreateNestedManyWithoutProjectInput>;
+  mixdowns?: Maybe<MixdownCreateNestedManyWithoutProjectInput>;
+  name?: Maybe<Scalars['String']>;
+  owner: UserCreateNestedOneWithoutOwnsProjectsInput;
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
 export type ProjectCreateWithoutMembersInput = {
+  audioAssets?: Maybe<AudioAssetsOnProjectsCreateNestedManyWithoutProjectInput>;
   content: Scalars['JSON'];
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
@@ -3876,6 +4128,7 @@ export type ProjectCreateWithoutMembersInput = {
 };
 
 export type ProjectCreateWithoutMixdownsInput = {
+  audioAssets?: Maybe<AudioAssetsOnProjectsCreateNestedManyWithoutProjectInput>;
   content: Scalars['JSON'];
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
@@ -3888,6 +4141,7 @@ export type ProjectCreateWithoutMixdownsInput = {
 };
 
 export type ProjectCreateWithoutOwnerInput = {
+  audioAssets?: Maybe<AudioAssetsOnProjectsCreateNestedManyWithoutProjectInput>;
   content: Scalars['JSON'];
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
@@ -3970,6 +4224,7 @@ export type ProjectScalarWhereInput = {
 };
 
 export type ProjectUpdateInput = {
+  audioAssets?: Maybe<AudioAssetsOnProjectsUpdateManyWithoutProjectInput>;
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
@@ -4010,6 +4265,14 @@ export type ProjectUpdateManyWithoutOwnerInput = {
   upsert?: Maybe<Array<ProjectUpsertWithWhereUniqueWithoutOwnerInput>>;
 };
 
+export type ProjectUpdateOneRequiredWithoutAudioAssetsInput = {
+  connect?: Maybe<ProjectWhereUniqueInput>;
+  connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutAudioAssetsInput>;
+  create?: Maybe<ProjectCreateWithoutAudioAssetsInput>;
+  update?: Maybe<ProjectUpdateWithoutAudioAssetsInput>;
+  upsert?: Maybe<ProjectUpsertWithoutAudioAssetsInput>;
+};
+
 export type ProjectUpdateOneRequiredWithoutMembersInput = {
   connect?: Maybe<ProjectWhereUniqueInput>;
   connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutMembersInput>;
@@ -4031,7 +4294,21 @@ export type ProjectUpdateWithWhereUniqueWithoutOwnerInput = {
   where: ProjectWhereUniqueInput;
 };
 
+export type ProjectUpdateWithoutAudioAssetsInput = {
+  content?: Maybe<Scalars['JSON']>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  isInitialized?: Maybe<BoolFieldUpdateOperationsInput>;
+  isPrivate?: Maybe<BoolFieldUpdateOperationsInput>;
+  members?: Maybe<UsersOnProjectsUpdateManyWithoutProjectInput>;
+  mixdowns?: Maybe<MixdownUpdateManyWithoutProjectInput>;
+  name?: Maybe<StringFieldUpdateOperationsInput>;
+  owner?: Maybe<UserUpdateOneRequiredWithoutOwnsProjectsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
 export type ProjectUpdateWithoutMembersInput = {
+  audioAssets?: Maybe<AudioAssetsOnProjectsUpdateManyWithoutProjectInput>;
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
@@ -4044,6 +4321,7 @@ export type ProjectUpdateWithoutMembersInput = {
 };
 
 export type ProjectUpdateWithoutMixdownsInput = {
+  audioAssets?: Maybe<AudioAssetsOnProjectsUpdateManyWithoutProjectInput>;
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
@@ -4056,6 +4334,7 @@ export type ProjectUpdateWithoutMixdownsInput = {
 };
 
 export type ProjectUpdateWithoutOwnerInput = {
+  audioAssets?: Maybe<AudioAssetsOnProjectsUpdateManyWithoutProjectInput>;
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
@@ -4073,6 +4352,11 @@ export type ProjectUpsertWithWhereUniqueWithoutOwnerInput = {
   where: ProjectWhereUniqueInput;
 };
 
+export type ProjectUpsertWithoutAudioAssetsInput = {
+  create: ProjectCreateWithoutAudioAssetsInput;
+  update: ProjectUpdateWithoutAudioAssetsInput;
+};
+
 export type ProjectUpsertWithoutMembersInput = {
   create: ProjectCreateWithoutMembersInput;
   update: ProjectUpdateWithoutMembersInput;
@@ -4087,6 +4371,7 @@ export type ProjectWhereInput = {
   AND?: Maybe<Array<ProjectWhereInput>>;
   NOT?: Maybe<Array<ProjectWhereInput>>;
   OR?: Maybe<Array<ProjectWhereInput>>;
+  audioAssets?: Maybe<AudioAssetsOnProjectsListRelationFilter>;
   content?: Maybe<JsonFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
@@ -4104,10 +4389,10 @@ export type ProjectWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
-export type PublishProjectChangeArgs = {
-  __typename?: 'PublishProjectChangeArgs';
+export type PublishProjectChangesArgs = {
+  __typename?: 'PublishProjectChangesArgs';
   authorId?: Maybe<Scalars['String']>;
-  change: Scalars['JSONObject'];
+  changes: Scalars['JSONObject'];
   date: Scalars['Timestamp'];
   id: Scalars['String'];
   projectId: Scalars['String'];
@@ -4663,7 +4948,7 @@ export type StringNullableListFilter = {
 export type Subscription = {
   __typename?: 'Subscription';
   assetTranscoded: PublishTranscodedAssetArgs;
-  changes: PublishProjectChangeArgs;
+  changes: PublishProjectChangesArgs;
   newComment: Comment;
   onlineStatus: Scalars['Boolean'];
 };
@@ -7035,7 +7320,10 @@ export type ChangesSubscriptionVariables = Exact<{
 }>;
 
 export type ChangesSubscription = { __typename?: 'Subscription' } & {
-  changes: { __typename?: 'PublishProjectChangeArgs' } & Pick<PublishProjectChangeArgs, 'id' | 'authorId' | 'change'>;
+  changes: { __typename?: 'PublishProjectChangesArgs' } & Pick<
+    PublishProjectChangesArgs,
+    'id' | 'authorId' | 'changes'
+  >;
 };
 
 export type AssetTranscodedSubscriptionVariables = Exact<{
@@ -7051,12 +7339,12 @@ export type PublishChangeMutationVariables = Exact<{
   changeId: Scalars['String'];
   projectId: Scalars['String'];
   date: Scalars['Timestamp'];
-  change: Scalars['JSONObject'];
+  changes: Scalars['JSONObject'];
   me?: Maybe<Scalars['String']>;
 }>;
 
 export type PublishChangeMutation = { __typename?: 'Mutation' } & {
-  publishChange: { __typename?: 'PublishProjectChangeArgs' } & Pick<PublishProjectChangeArgs, 'id'>;
+  publishChange: { __typename?: 'PublishProjectChangesArgs' } & Pick<PublishProjectChangesArgs, 'id'>;
 };
 
 export type UpdateProjectContentMutationVariables = Exact<{
@@ -7152,7 +7440,8 @@ export type CreateIssueMutationFn = Apollo.MutationFunction<CreateIssueMutation,
 export function useCreateIssueMutation(
   baseOptions?: Apollo.MutationHookOptions<CreateIssueMutation, CreateIssueMutationVariables>,
 ) {
-  return Apollo.useMutation<CreateIssueMutation, CreateIssueMutationVariables>(CreateIssueDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateIssueMutation, CreateIssueMutationVariables>(CreateIssueDocument, options);
 }
 export type CreateIssueMutationHookResult = ReturnType<typeof useCreateIssueMutation>;
 export type CreateIssueMutationResult = Apollo.MutationResult<CreateIssueMutation>;
@@ -7196,10 +7485,12 @@ export const ProjectDocument = gql`
  * });
  */
 export function useProjectQuery(baseOptions: Apollo.QueryHookOptions<ProjectQuery, ProjectQueryVariables>) {
-  return Apollo.useQuery<ProjectQuery, ProjectQueryVariables>(ProjectDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ProjectQuery, ProjectQueryVariables>(ProjectDocument, options);
 }
 export function useProjectLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProjectQuery, ProjectQueryVariables>) {
-  return Apollo.useLazyQuery<ProjectQuery, ProjectQueryVariables>(ProjectDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<ProjectQuery, ProjectQueryVariables>(ProjectDocument, options);
 }
 export type ProjectQueryHookResult = ReturnType<typeof useProjectQuery>;
 export type ProjectLazyQueryHookResult = ReturnType<typeof useProjectLazyQuery>;
@@ -7234,7 +7525,8 @@ export type UpdateNameMutationFn = Apollo.MutationFunction<UpdateNameMutation, U
 export function useUpdateNameMutation(
   baseOptions?: Apollo.MutationHookOptions<UpdateNameMutation, UpdateNameMutationVariables>,
 ) {
-  return Apollo.useMutation<UpdateNameMutation, UpdateNameMutationVariables>(UpdateNameDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UpdateNameMutation, UpdateNameMutationVariables>(UpdateNameDocument, options);
 }
 export type UpdateNameMutationHookResult = ReturnType<typeof useUpdateNameMutation>;
 export type UpdateNameMutationResult = Apollo.MutationResult<UpdateNameMutation>;
@@ -7272,7 +7564,8 @@ export type AddMemberMutationFn = Apollo.MutationFunction<AddMemberMutation, Add
 export function useAddMemberMutation(
   baseOptions?: Apollo.MutationHookOptions<AddMemberMutation, AddMemberMutationVariables>,
 ) {
-  return Apollo.useMutation<AddMemberMutation, AddMemberMutationVariables>(AddMemberDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<AddMemberMutation, AddMemberMutationVariables>(AddMemberDocument, options);
 }
 export type AddMemberMutationHookResult = ReturnType<typeof useAddMemberMutation>;
 export type AddMemberMutationResult = Apollo.MutationResult<AddMemberMutation>;
@@ -7307,7 +7600,8 @@ export type RemoveMemberMutationFn = Apollo.MutationFunction<RemoveMemberMutatio
 export function useRemoveMemberMutation(
   baseOptions?: Apollo.MutationHookOptions<RemoveMemberMutation, RemoveMemberMutationVariables>,
 ) {
-  return Apollo.useMutation<RemoveMemberMutation, RemoveMemberMutationVariables>(RemoveMemberDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<RemoveMemberMutation, RemoveMemberMutationVariables>(RemoveMemberDocument, options);
 }
 export type RemoveMemberMutationHookResult = ReturnType<typeof useRemoveMemberMutation>;
 export type RemoveMemberMutationResult = Apollo.MutationResult<RemoveMemberMutation>;
@@ -7320,7 +7614,7 @@ export const ChangesDocument = gql`
     changes(projectId: $projectId) {
       id
       authorId
-      change
+      changes
     }
   }
 `;
@@ -7344,7 +7638,8 @@ export const ChangesDocument = gql`
 export function useChangesSubscription(
   baseOptions: Apollo.SubscriptionHookOptions<ChangesSubscription, ChangesSubscriptionVariables>,
 ) {
-  return Apollo.useSubscription<ChangesSubscription, ChangesSubscriptionVariables>(ChangesDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSubscription<ChangesSubscription, ChangesSubscriptionVariables>(ChangesDocument, options);
 }
 export type ChangesSubscriptionHookResult = ReturnType<typeof useChangesSubscription>;
 export type ChangesSubscriptionResult = Apollo.SubscriptionResult<ChangesSubscription>;
@@ -7376,9 +7671,10 @@ export const AssetTranscodedDocument = gql`
 export function useAssetTranscodedSubscription(
   baseOptions: Apollo.SubscriptionHookOptions<AssetTranscodedSubscription, AssetTranscodedSubscriptionVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSubscription<AssetTranscodedSubscription, AssetTranscodedSubscriptionVariables>(
     AssetTranscodedDocument,
-    baseOptions,
+    options,
   );
 }
 export type AssetTranscodedSubscriptionHookResult = ReturnType<typeof useAssetTranscodedSubscription>;
@@ -7388,10 +7684,10 @@ export const PublishChangeDocument = gql`
     $changeId: String!
     $projectId: String!
     $date: Timestamp!
-    $change: JSONObject!
+    $changes: JSONObject!
     $me: String
   ) {
-    publishChange(id: $changeId, date: $date, projectId: $projectId, change: $change, authorId: $me) {
+    publishChange(id: $changeId, date: $date, projectId: $projectId, changes: $changes, authorId: $me) {
       id
     }
   }
@@ -7414,7 +7710,7 @@ export type PublishChangeMutationFn = Apollo.MutationFunction<PublishChangeMutat
  *      changeId: // value for 'changeId'
  *      projectId: // value for 'projectId'
  *      date: // value for 'date'
- *      change: // value for 'change'
+ *      changes: // value for 'changes'
  *      me: // value for 'me'
  *   },
  * });
@@ -7422,7 +7718,8 @@ export type PublishChangeMutationFn = Apollo.MutationFunction<PublishChangeMutat
 export function usePublishChangeMutation(
   baseOptions?: Apollo.MutationHookOptions<PublishChangeMutation, PublishChangeMutationVariables>,
 ) {
-  return Apollo.useMutation<PublishChangeMutation, PublishChangeMutationVariables>(PublishChangeDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<PublishChangeMutation, PublishChangeMutationVariables>(PublishChangeDocument, options);
 }
 export type PublishChangeMutationHookResult = ReturnType<typeof usePublishChangeMutation>;
 export type PublishChangeMutationResult = Apollo.MutationResult<PublishChangeMutation>;
@@ -7463,9 +7760,10 @@ export type UpdateProjectContentMutationFn = Apollo.MutationFunction<
 export function useUpdateProjectContentMutation(
   baseOptions?: Apollo.MutationHookOptions<UpdateProjectContentMutation, UpdateProjectContentMutationVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<UpdateProjectContentMutation, UpdateProjectContentMutationVariables>(
     UpdateProjectContentDocument,
-    baseOptions,
+    options,
   );
 }
 export type UpdateProjectContentMutationHookResult = ReturnType<typeof useUpdateProjectContentMutation>;
@@ -7507,10 +7805,12 @@ export const MeDocument = gql`
  * });
  */
 export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
-  return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, options);
 }
 export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
-  return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options);
 }
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
@@ -7543,10 +7843,12 @@ export const FriendsDocument = gql`
  * });
  */
 export function useFriendsQuery(baseOptions?: Apollo.QueryHookOptions<FriendsQuery, FriendsQueryVariables>) {
-  return Apollo.useQuery<FriendsQuery, FriendsQueryVariables>(FriendsDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<FriendsQuery, FriendsQueryVariables>(FriendsDocument, options);
 }
 export function useFriendsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FriendsQuery, FriendsQueryVariables>) {
-  return Apollo.useLazyQuery<FriendsQuery, FriendsQueryVariables>(FriendsDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<FriendsQuery, FriendsQueryVariables>(FriendsDocument, options);
 }
 export type FriendsQueryHookResult = ReturnType<typeof useFriendsQuery>;
 export type FriendsLazyQueryHookResult = ReturnType<typeof useFriendsLazyQuery>;
@@ -7576,9 +7878,10 @@ export const OnlineStatusDocument = gql`
 export function useOnlineStatusSubscription(
   baseOptions: Apollo.SubscriptionHookOptions<OnlineStatusSubscription, OnlineStatusSubscriptionVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSubscription<OnlineStatusSubscription, OnlineStatusSubscriptionVariables>(
     OnlineStatusDocument,
-    baseOptions,
+    options,
   );
 }
 export type OnlineStatusSubscriptionHookResult = ReturnType<typeof useOnlineStatusSubscription>;
@@ -7609,10 +7912,12 @@ export const VersionsDocument = gql`
  * });
  */
 export function useVersionsQuery(baseOptions?: Apollo.QueryHookOptions<VersionsQuery, VersionsQueryVariables>) {
-  return Apollo.useQuery<VersionsQuery, VersionsQueryVariables>(VersionsDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<VersionsQuery, VersionsQueryVariables>(VersionsDocument, options);
 }
 export function useVersionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VersionsQuery, VersionsQueryVariables>) {
-  return Apollo.useLazyQuery<VersionsQuery, VersionsQueryVariables>(VersionsDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<VersionsQuery, VersionsQueryVariables>(VersionsDocument, options);
 }
 export type VersionsQueryHookResult = ReturnType<typeof useVersionsQuery>;
 export type VersionsLazyQueryHookResult = ReturnType<typeof useVersionsLazyQuery>;

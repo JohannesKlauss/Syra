@@ -2,15 +2,6 @@ import React from "react";
 import * as Tone from "tone";
 import { ChannelNode } from "../types/Channel";
 import { createNewId } from "../utils/createNewId";
-import { getApolloClient } from "../apollo/client";
-import {
-  ChangesDocument,
-  ChangesSubscription,
-  ChangesSubscriptionVariables,
-  PublishChangeDocument,
-  PublishChangeMutation,
-  PublishChangeMutationVariables
-} from "../gql/generated";
 
 // TODO: this is all very prototypal. refactor this as soon as we have a working version.
 function mixerNodeFactory<T extends Tone.ToneAudioNode>(
@@ -58,7 +49,6 @@ function audioNodesFactory(nodes: Map<string, any>) {
 }
 
 export function instantiateMixer() {
-  let _projectId: string;
   const channels = new Map<string, Map<string, any>>();
   const recorderMetaInfo: RecorderMetaInfo = {
     transportStartedAt: -1,
@@ -146,24 +136,6 @@ export function instantiateMixer() {
       disconnect,
       updateArming,
       updateInputMonitoring,
-      publishChange: (node: ChannelNode, newValue: number) => {
-        const client = getApolloClient();
-
-        client.mutate<PublishChangeMutation, PublishChangeMutationVariables>({
-          mutation: PublishChangeDocument,
-          variables: {
-            projectId: _projectId,
-            changeId: createNewId('change-backbone-mixer'),
-            date: 1,
-            change: {
-              key: 'backboneMixer',
-              id: channelId,
-              node,
-              newValue,
-            },
-          },
-        });
-      },
     };
   };
 
@@ -172,38 +144,6 @@ export function instantiateMixer() {
   const values: Readonly<RecorderMetaInfo> = recorderMetaInfo;
   const setTransportStart = (contextTime: number) => (recorderMetaInfo.transportStartedAt = contextTime);
   const setTransportStop = (contextTime: number) => (recorderMetaInfo.transportStoppedAt = contextTime);
-
-  const initPubSub = (projectId: string, userId: string) => {
-    const client = getApolloClient();
-
-    const observable = client.subscribe<ChangesSubscription, ChangesSubscriptionVariables>({
-      query: ChangesDocument,
-      variables: {
-        projectId,
-      },
-    });
-
-    observable.subscribe((data) => {
-      if (userId == null || userId === data.data?.changes.authorId || data.data?.changes.change.key !== 'backboneMixer') {
-        return;
-      }
-
-      if (data.data) {
-        const {node, id, newValue} = data.data?.changes.change;
-        const {pan, volume} = channel(id);
-
-        switch (node as ChannelNode) {
-          case ChannelNode.PAN:
-            pan.set({pan: newValue});
-            break;
-          case ChannelNode.VOLUME:
-            volume.set({volume: newValue});
-        }
-      }
-    });
-
-    _projectId = projectId;
-  };
 
   return {
     channelIds: () => channels.keys(),
@@ -214,7 +154,6 @@ export function instantiateMixer() {
       setTransportStart,
       setTransportStop,
     },
-    initPubSub,
   };
 }
 

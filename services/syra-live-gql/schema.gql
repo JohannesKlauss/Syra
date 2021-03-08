@@ -3309,7 +3309,7 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
   deleteVersionInformation(where: VersionInformationWhereUniqueInput!): VersionInformation
-  publishChange(authorId: String, change: JSONObject!, date: Timestamp!, id: String!, projectId: String!): PublishProjectChangeArgs!
+  publishChange(authorId: String, changes: JSONObject!, date: Timestamp!, id: String!, projectId: String!): PublishProjectChangesArgs!
   signUpUser(data: UserSignUpInput!): User!
   updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
   updateBand(data: BandUpdateInput!, where: BandWhereUniqueInput!): Band
@@ -3816,9 +3816,9 @@ input ProjectWhereUniqueInput {
   id: String
 }
 
-type PublishProjectChangeArgs {
+type PublishProjectChangesArgs {
   authorId: String
-  change: JSONObject!
+  changes: JSONObject!
   date: Timestamp!
   id: String!
   projectId: String!
@@ -3951,7 +3951,7 @@ input StringNullableListFilter {
 
 type Subscription {
   assetTranscoded(assetId: String!, projectId: String!): PublishTranscodedAssetArgs!
-  changes(projectId: String!): PublishProjectChangeArgs!
+  changes(projectId: String!): PublishProjectChangesArgs!
   newComment(feedItemId: String!): Comment!
   onlineStatus(userId: String!): Boolean!
 }

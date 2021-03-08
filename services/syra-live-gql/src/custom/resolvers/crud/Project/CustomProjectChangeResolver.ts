@@ -4,7 +4,7 @@ import { GraphQLContext } from '../../../../../types/GraphQLContext';
 import { ProjectChangesSubscriptionArgs } from '../../inputs/ProjectChangesSubscriptionArgs';
 import { Subscriptions } from '../../../../../types/Subscriptions';
 import { Publisher, ResolverFilterData } from 'type-graphql';
-import { PublishProjectChangeArgs } from '../../inputs/PublishProjectChangeArgs';
+import { PublishProjectChangesArgs } from '../../inputs/PublishProjectChangesArgs';
 import { Prisma } from '@prisma/client';
 import { isEqual } from 'lodash';
 import { PublishTranscodedAssetArgs } from '../../inputs/PublishTranscodedAssetArgs';
@@ -12,32 +12,32 @@ import { TranscodedAssetSubscriptionArgs } from '../../inputs/TranscodedAssetSub
 
 @TypeGraphQL.Resolver((_of) => Project)
 export class CustomProjectChangeResolver {
-  @TypeGraphQL.Mutation((_returns) => PublishProjectChangeArgs, {
+  @TypeGraphQL.Mutation((_returns) => PublishProjectChangesArgs, {
     nullable: false,
     description: undefined,
   })
   async publishChange(
     @TypeGraphQL.Ctx() ctx: GraphQLContext,
-    @TypeGraphQL.Args() args: PublishProjectChangeArgs,
-    @TypeGraphQL.PubSub(Subscriptions.PROJECT_CONTENT_CHANGE) publish: Publisher<PublishProjectChangeArgs>,
-  ): Promise<PublishProjectChangeArgs> {
+    @TypeGraphQL.Args() args: PublishProjectChangesArgs,
+    @TypeGraphQL.PubSub(Subscriptions.PROJECT_CONTENT_CHANGE) publish: Publisher<PublishProjectChangesArgs>,
+  ): Promise<PublishProjectChangesArgs> {
     await publish(args);
 
     return args;
   }
 
-  @TypeGraphQL.Subscription((_returns) => PublishProjectChangeArgs, {
+  @TypeGraphQL.Subscription((_returns) => PublishProjectChangesArgs, {
     topics: Subscriptions.PROJECT_CONTENT_CHANGE,
     filter: async ({
       payload,
       args,
       context,
-    }: ResolverFilterData<PublishProjectChangeArgs, ProjectChangesSubscriptionArgs, GraphQLContext>) => {
+    }: ResolverFilterData<PublishProjectChangesArgs, ProjectChangesSubscriptionArgs, GraphQLContext>) => {
       return payload.projectId === args.projectId && payload.authorId !== context.user.id;
     },
   })
   changes(
-    @TypeGraphQL.Root() projectChanges: PublishProjectChangeArgs,
+    @TypeGraphQL.Root() projectChanges: PublishProjectChangesArgs,
     @TypeGraphQL.Ctx() ctx: GraphQLContext,
     @TypeGraphQL.Args() args: ProjectChangesSubscriptionArgs,
   ) {

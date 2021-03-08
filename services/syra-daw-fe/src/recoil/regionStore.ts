@@ -6,6 +6,13 @@ import { syncEffectsComb } from "./effects/syncEffectsComb";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
 import * as Tone from 'tone';
 
+// Parameter is channelId. This basically stores all regionIds for a channelId.
+const ids = atomFamilyWithEffects<string[], string>({
+  key: 'region/ids',
+  default: [],
+  effects: [...syncEffectsComb, undoRedoEffect],
+});
+
 // Sets the amount of ticks that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamilyWithEffects<number, string>({
   key: 'region/start',
@@ -123,13 +130,6 @@ const isInSync = selectorFamily<boolean, string>({
 
     return pointer !== null ? get(audioBufferStore.isInSyncWithDb(pointer)): true;
   }
-})
-
-// Parameter is channelId. This basically stores all regionIds for a channelId.
-const ids = atomFamilyWithEffects<string[], string>({
-  key: 'region/ids',
-  default: [],
-  effects: [...syncEffectsComb, undoRedoEffect],
 });
 
 const selectedIds = atom<string[]>({

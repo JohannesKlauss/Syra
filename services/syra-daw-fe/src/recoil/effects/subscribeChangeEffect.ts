@@ -9,7 +9,7 @@ import {
 import { AtomEffect } from 'recoil';
 import { RecoilAtomEffect } from '../../types/Recoil';
 import { isEqual } from 'lodash';
-import { FetchResult, Observable } from "@apollo/client";
+import { FetchResult, Observable } from '@apollo/client';
 
 const client = getApolloClient();
 
@@ -32,44 +32,36 @@ export const initSubscription = (projectId: string) => {
       projectId,
     },
   });
-}
+};
+
+const filterChangesList = <T>(
+  changes: Array<{ key: string; id?: unknown; newValue: T }>,
+  key: string,
+  id?: unknown,
+) => {
+  return changes.filter((change) => {
+    return (
+      key === change.key &&
+      ((change.id === undefined && id === undefined) ||
+        (id !== undefined && typeof id === 'string' && id === change.id) ||
+        (id !== undefined && typeof id === 'object' && isEqual(id, change.id)))
+    );
+  });
+};
 
 export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ setSelf }) => {
   if (observable) {
     observable.subscribe((data) => {
-      // If the user does not exist yet or the incoming change is from the user itself, we don't change anything.
-      // If the change key does not correspond with the atom key, we skip the effect.
-      if (userId == null || userId === data.data?.changes.authorId || key !== data.data?.changes.change.key) {
-        return;
-      }
-
-      console.log('incoming change', data.data?.changes.change);
+      const changesToApply = filterChangesList<T>(data.data?.changes.changes.list ?? [], key, id);
 
       if (key === 'channel/type') {
-        console.log('got change for type');
+        console.log('check for channel/type changes', id);
       }
 
-      if (key === 'channel/ids') {
-        console.log('got change for ids');
-      }
+      if (changesToApply.length > 0) {
+        console.log('apply change', changesToApply[changesToApply.length - 1]);
 
-      // TODO: CHECK IF THIS IF IS EVEN NEEDED...
-      if (
-        (data.data?.changes.change.id === undefined && id === undefined) ||
-        (id !== undefined && typeof id === 'string' && id === data.data?.changes.change.id) ||
-        (id !== undefined && typeof id === 'object' && isEqual(id, data.data?.changes.change.id))
-      ) {
-        if (key === 'channel/type') {
-          console.log('apply change for type');
-        }
-
-        if (key === 'channel/ids') {
-          console.log('apply change for ids');
-        }
-
-        setSelf(data.data?.changes.change.newValue);
-      } else if (key === 'channel/type') {
-        console.log('dont apply change for type', data, id, key);
+        setSelf(changesToApply[changesToApply.length - 1].newValue);
       }
     });
   }

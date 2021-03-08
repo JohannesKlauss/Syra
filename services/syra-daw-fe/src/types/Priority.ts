@@ -1,0 +1,6 @@
+export enum Priority {
+  CHANNEL_ID_LIST,
+  REGION_ID_LIST,
+  AUDIO_BUFFER_ID_LIST,
+  DEFAULT
+}
