@@ -86,6 +86,7 @@ export class AudioProcessor {
                   location,
                   parentAssetId: spacesObject.id,
                   userId: originalAsset.owner.id,
+                  usedInProjects: {create: {projectId}},
                   name: spacesObject.name.replace(/\.[0-9a-z]+$/i, `.${targetFormat}`),
                 },
                 select: {

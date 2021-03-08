@@ -31,8 +31,9 @@ export class CustomProjectChangeResolver {
     filter: async ({
       payload,
       args,
+      context,
     }: ResolverFilterData<PublishProjectChangeArgs, ProjectChangesSubscriptionArgs, GraphQLContext>) => {
-      return payload.projectId === args.projectId;
+      return payload.projectId === args.projectId && payload.authorId !== context.user.id;
     },
   })
   changes(

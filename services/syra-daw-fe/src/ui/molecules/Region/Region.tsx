@@ -47,6 +47,9 @@ const Region: React.FC<Props> = ({}) => {
 
   useRegionDawRecordingSync();
 
+  console.log('channelId', channelId);
+  console.log('type', type);
+
   // You should never call hooks conditionally, but the variable type will always remain the same for a region (an audio region cannot be converted to a midi region).
   // So we are always calling either midi scheduling or audio scheduling for the life time of a region.
   // eslint-disable-next-line react-hooks/rules-of-hooks

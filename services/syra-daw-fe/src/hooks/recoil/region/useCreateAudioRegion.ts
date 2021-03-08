@@ -24,7 +24,7 @@ export default function useCreateAudioRegion() {
     const staticCounter = snapshot.getLoadable(regionStore.staticCounter(channelId)).contents as number;
 
     if (audioBuffer.duration > 0) {
-      set(audioBufferStore.ids,currVal => [...currVal, newBufferId]);
+      set(audioBufferStore.ids, currVal => [...currVal, newBufferId]);
       set(audioBufferStore.buffer(newBufferId), audioBuffer);
       set(audioBufferStore.name(newBufferId), file.name);
 

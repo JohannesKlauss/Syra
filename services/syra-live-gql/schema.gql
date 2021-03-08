@@ -322,6 +322,12 @@ input AudioAssetCreateNestedOneWithoutMixdownInput {
   create: AudioAssetCreateWithoutMixdownInput
 }
 
+input AudioAssetCreateNestedOneWithoutUsedInProjectsInput {
+  connect: AudioAssetWhereUniqueInput
+  connectOrCreate: AudioAssetCreateOrConnectWithoutUsedInProjectsInput
+  create: AudioAssetCreateWithoutUsedInProjectsInput
+}
+
 input AudioAssetCreateOrConnectWithoutAudioAssetInput {
   create: AudioAssetCreateWithoutAudioAssetInput!
   where: AudioAssetWhereUniqueInput!
@@ -342,6 +348,11 @@ input AudioAssetCreateOrConnectWithoutParentAssetInput {
   where: AudioAssetWhereUniqueInput!
 }
 
+input AudioAssetCreateOrConnectWithoutUsedInProjectsInput {
+  create: AudioAssetCreateWithoutUsedInProjectsInput!
+  where: AudioAssetWhereUniqueInput!
+}
+
 input AudioAssetCreateWithoutAudioAssetInput {
   Mixdown: MixdownCreateNestedManyWithoutAudioInput
   id: String
@@ -350,6 +361,7 @@ input AudioAssetCreateWithoutAudioAssetInput {
   name: String!
   owner: UserCreateNestedOneWithoutAudioAssetInput
   parentAsset: AudioAssetCreateNestedOneWithoutAudioAssetInput
+  usedInProjects: AudioAssetsOnProjectsCreateNestedManyWithoutAudioAssetInput
 }
 
 input AudioAssetCreateWithoutMixdownInput {
@@ -360,6 +372,7 @@ input AudioAssetCreateWithoutMixdownInput {
   name: String!
   owner: UserCreateNestedOneWithoutAudioAssetInput
   parentAsset: AudioAssetCreateNestedOneWithoutAudioAssetInput
+  usedInProjects: AudioAssetsOnProjectsCreateNestedManyWithoutAudioAssetInput
 }
 
 input AudioAssetCreateWithoutOwnerInput {
@@ -370,6 +383,7 @@ input AudioAssetCreateWithoutOwnerInput {
   location: String!
   name: String!
   parentAsset: AudioAssetCreateNestedOneWithoutAudioAssetInput
+  usedInProjects: AudioAssetsOnProjectsCreateNestedManyWithoutAudioAssetInput
 }
 
 input AudioAssetCreateWithoutParentAssetInput {
@@ -380,6 +394,18 @@ input AudioAssetCreateWithoutParentAssetInput {
   location: String!
   name: String!
   owner: UserCreateNestedOneWithoutAudioAssetInput
+  usedInProjects: AudioAssetsOnProjectsCreateNestedManyWithoutAudioAssetInput
+}
+
+input AudioAssetCreateWithoutUsedInProjectsInput {
+  AudioAsset: AudioAssetCreateNestedManyWithoutParentAssetInput
+  Mixdown: MixdownCreateNestedManyWithoutAudioInput
+  id: String
+  isPublic: Boolean
+  location: String!
+  name: String!
+  owner: UserCreateNestedOneWithoutAudioAssetInput
+  parentAsset: AudioAssetCreateNestedOneWithoutAudioAssetInput
 }
 
 input AudioAssetListRelationFilter {
@@ -476,6 +502,14 @@ input AudioAssetUpdateOneRequiredWithoutMixdownInput {
   upsert: AudioAssetUpsertWithoutMixdownInput
 }
 
+input AudioAssetUpdateOneRequiredWithoutUsedInProjectsInput {
+  connect: AudioAssetWhereUniqueInput
+  connectOrCreate: AudioAssetCreateOrConnectWithoutUsedInProjectsInput
+  create: AudioAssetCreateWithoutUsedInProjectsInput
+  update: AudioAssetUpdateWithoutUsedInProjectsInput
+  upsert: AudioAssetUpsertWithoutUsedInProjectsInput
+}
+
 input AudioAssetUpdateOneWithoutAudioAssetInput {
   connect: AudioAssetWhereUniqueInput
   connectOrCreate: AudioAssetCreateOrConnectWithoutAudioAssetInput
@@ -504,6 +538,7 @@ input AudioAssetUpdateWithoutAudioAssetInput {
   name: StringFieldUpdateOperationsInput
   owner: UserUpdateOneWithoutAudioAssetInput
   parentAsset: AudioAssetUpdateOneWithoutAudioAssetInput
+  usedInProjects: AudioAssetsOnProjectsUpdateManyWithoutAudioAssetInput
 }
 
 input AudioAssetUpdateWithoutMixdownInput {
@@ -514,6 +549,7 @@ input AudioAssetUpdateWithoutMixdownInput {
   name: StringFieldUpdateOperationsInput
   owner: UserUpdateOneWithoutAudioAssetInput
   parentAsset: AudioAssetUpdateOneWithoutAudioAssetInput
+  usedInProjects: AudioAssetsOnProjectsUpdateManyWithoutAudioAssetInput
 }
 
 input AudioAssetUpdateWithoutOwnerInput {
@@ -524,6 +560,7 @@ input AudioAssetUpdateWithoutOwnerInput {
   location: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   parentAsset: AudioAssetUpdateOneWithoutAudioAssetInput
+  usedInProjects: AudioAssetsOnProjectsUpdateManyWithoutAudioAssetInput
 }
 
 input AudioAssetUpdateWithoutParentAssetInput {
@@ -534,6 +571,18 @@ input AudioAssetUpdateWithoutParentAssetInput {
   location: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   owner: UserUpdateOneWithoutAudioAssetInput
+  usedInProjects: AudioAssetsOnProjectsUpdateManyWithoutAudioAssetInput
+}
+
+input AudioAssetUpdateWithoutUsedInProjectsInput {
+  AudioAsset: AudioAssetUpdateManyWithoutParentAssetInput
+  Mixdown: MixdownUpdateManyWithoutAudioInput
+  id: StringFieldUpdateOperationsInput
+  isPublic: NullableBoolFieldUpdateOperationsInput
+  location: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  owner: UserUpdateOneWithoutAudioAssetInput
+  parentAsset: AudioAssetUpdateOneWithoutAudioAssetInput
 }
 
 input AudioAssetUpsertWithWhereUniqueWithoutOwnerInput {
@@ -558,6 +607,11 @@ input AudioAssetUpsertWithoutMixdownInput {
   update: AudioAssetUpdateWithoutMixdownInput!
 }
 
+input AudioAssetUpsertWithoutUsedInProjectsInput {
+  create: AudioAssetCreateWithoutUsedInProjectsInput!
+  update: AudioAssetUpdateWithoutUsedInProjectsInput!
+}
+
 input AudioAssetWhereInput {
   AND: [AudioAssetWhereInput!]
   AudioAsset: AudioAssetListRelationFilter
@@ -571,11 +625,171 @@ input AudioAssetWhereInput {
   owner: UserRelationFilter
   parentAsset: AudioAssetRelationFilter
   parentAssetId: StringNullableFilter
+  usedInProjects: AudioAssetsOnProjectsListRelationFilter
   userId: StringNullableFilter
 }
 
 input AudioAssetWhereUniqueInput {
   id: String
+}
+
+type AudioAssetsOnProjects {
+  audioAssetId: String!
+  createdAt: Timestamp!
+  projectId: String!
+}
+
+input AudioAssetsOnProjectsAudioAssetIdProjectIdCompoundUniqueInput {
+  audioAssetId: String!
+  projectId: String!
+}
+
+input AudioAssetsOnProjectsCreateNestedManyWithoutAudioAssetInput {
+  connect: [AudioAssetsOnProjectsWhereUniqueInput!]
+  connectOrCreate: [AudioAssetsOnProjectsCreateOrConnectWithoutAudioAssetInput!]
+  create: [AudioAssetsOnProjectsCreateWithoutAudioAssetInput!]
+}
+
+input AudioAssetsOnProjectsCreateNestedManyWithoutProjectInput {
+  connect: [AudioAssetsOnProjectsWhereUniqueInput!]
+  connectOrCreate: [AudioAssetsOnProjectsCreateOrConnectWithoutProjectInput!]
+  create: [AudioAssetsOnProjectsCreateWithoutProjectInput!]
+}
+
+input AudioAssetsOnProjectsCreateOrConnectWithoutAudioAssetInput {
+  create: AudioAssetsOnProjectsCreateWithoutAudioAssetInput!
+  where: AudioAssetsOnProjectsWhereUniqueInput!
+}
+
+input AudioAssetsOnProjectsCreateOrConnectWithoutProjectInput {
+  create: AudioAssetsOnProjectsCreateWithoutProjectInput!
+  where: AudioAssetsOnProjectsWhereUniqueInput!
+}
+
+input AudioAssetsOnProjectsCreateWithoutAudioAssetInput {
+  createdAt: Timestamp
+  project: ProjectCreateNestedOneWithoutAudioAssetsInput!
+}
+
+input AudioAssetsOnProjectsCreateWithoutProjectInput {
+  audioAsset: AudioAssetCreateNestedOneWithoutUsedInProjectsInput!
+  createdAt: Timestamp
+}
+
+input AudioAssetsOnProjectsListRelationFilter {
+  every: AudioAssetsOnProjectsWhereInput
+  none: AudioAssetsOnProjectsWhereInput
+  some: AudioAssetsOnProjectsWhereInput
+}
+
+input AudioAssetsOnProjectsOrderByInput {
+  audioAsset: AudioAssetOrderByInput
+  audioAssetId: SortOrder
+  createdAt: SortOrder
+  project: ProjectOrderByInput
+  projectId: SortOrder
+}
+
+enum AudioAssetsOnProjectsScalarFieldEnum {
+  audioAssetId
+  createdAt
+  projectId
+}
+
+input AudioAssetsOnProjectsScalarWhereInput {
+  AND: [AudioAssetsOnProjectsScalarWhereInput!]
+  NOT: [AudioAssetsOnProjectsScalarWhereInput!]
+  OR: [AudioAssetsOnProjectsScalarWhereInput!]
+  audioAssetId: StringFilter
+  createdAt: DateTimeFilter
+  projectId: StringFilter
+}
+
+input AudioAssetsOnProjectsUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+}
+
+input AudioAssetsOnProjectsUpdateManyWithWhereWithoutAudioAssetInput {
+  data: AudioAssetsOnProjectsUpdateManyMutationInput!
+  where: AudioAssetsOnProjectsScalarWhereInput!
+}
+
+input AudioAssetsOnProjectsUpdateManyWithWhereWithoutProjectInput {
+  data: AudioAssetsOnProjectsUpdateManyMutationInput!
+  where: AudioAssetsOnProjectsScalarWhereInput!
+}
+
+input AudioAssetsOnProjectsUpdateManyWithoutAudioAssetInput {
+  connect: [AudioAssetsOnProjectsWhereUniqueInput!]
+  connectOrCreate: [AudioAssetsOnProjectsCreateOrConnectWithoutAudioAssetInput!]
+  create: [AudioAssetsOnProjectsCreateWithoutAudioAssetInput!]
+  delete: [AudioAssetsOnProjectsWhereUniqueInput!]
+  deleteMany: [AudioAssetsOnProjectsScalarWhereInput!]
+  disconnect: [AudioAssetsOnProjectsWhereUniqueInput!]
+  set: [AudioAssetsOnProjectsWhereUniqueInput!]
+  update: [AudioAssetsOnProjectsUpdateWithWhereUniqueWithoutAudioAssetInput!]
+  updateMany: [AudioAssetsOnProjectsUpdateManyWithWhereWithoutAudioAssetInput!]
+  upsert: [AudioAssetsOnProjectsUpsertWithWhereUniqueWithoutAudioAssetInput!]
+}
+
+input AudioAssetsOnProjectsUpdateManyWithoutProjectInput {
+  connect: [AudioAssetsOnProjectsWhereUniqueInput!]
+  connectOrCreate: [AudioAssetsOnProjectsCreateOrConnectWithoutProjectInput!]
+  create: [AudioAssetsOnProjectsCreateWithoutProjectInput!]
+  delete: [AudioAssetsOnProjectsWhereUniqueInput!]
+  deleteMany: [AudioAssetsOnProjectsScalarWhereInput!]
+  disconnect: [AudioAssetsOnProjectsWhereUniqueInput!]
+  set: [AudioAssetsOnProjectsWhereUniqueInput!]
+  update: [AudioAssetsOnProjectsUpdateWithWhereUniqueWithoutProjectInput!]
+  updateMany: [AudioAssetsOnProjectsUpdateManyWithWhereWithoutProjectInput!]
+  upsert: [AudioAssetsOnProjectsUpsertWithWhereUniqueWithoutProjectInput!]
+}
+
+input AudioAssetsOnProjectsUpdateWithWhereUniqueWithoutAudioAssetInput {
+  data: AudioAssetsOnProjectsUpdateWithoutAudioAssetInput!
+  where: AudioAssetsOnProjectsWhereUniqueInput!
+}
+
+input AudioAssetsOnProjectsUpdateWithWhereUniqueWithoutProjectInput {
+  data: AudioAssetsOnProjectsUpdateWithoutProjectInput!
+  where: AudioAssetsOnProjectsWhereUniqueInput!
+}
+
+input AudioAssetsOnProjectsUpdateWithoutAudioAssetInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  project: ProjectUpdateOneRequiredWithoutAudioAssetsInput
+}
+
+input AudioAssetsOnProjectsUpdateWithoutProjectInput {
+  audioAsset: AudioAssetUpdateOneRequiredWithoutUsedInProjectsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+}
+
+input AudioAssetsOnProjectsUpsertWithWhereUniqueWithoutAudioAssetInput {
+  create: AudioAssetsOnProjectsCreateWithoutAudioAssetInput!
+  update: AudioAssetsOnProjectsUpdateWithoutAudioAssetInput!
+  where: AudioAssetsOnProjectsWhereUniqueInput!
+}
+
+input AudioAssetsOnProjectsUpsertWithWhereUniqueWithoutProjectInput {
+  create: AudioAssetsOnProjectsCreateWithoutProjectInput!
+  update: AudioAssetsOnProjectsUpdateWithoutProjectInput!
+  where: AudioAssetsOnProjectsWhereUniqueInput!
+}
+
+input AudioAssetsOnProjectsWhereInput {
+  AND: [AudioAssetsOnProjectsWhereInput!]
+  NOT: [AudioAssetsOnProjectsWhereInput!]
+  OR: [AudioAssetsOnProjectsWhereInput!]
+  audioAsset: AudioAssetRelationFilter
+  audioAssetId: StringFilter
+  createdAt: DateTimeFilter
+  project: ProjectRelationFilter
+  projectId: StringFilter
+}
+
+input AudioAssetsOnProjectsWhereUniqueInput {
+  audioAssetId_projectId: AudioAssetsOnProjectsAudioAssetIdProjectIdCompoundUniqueInput
 }
 
 type Band {
@@ -3232,6 +3446,7 @@ input NullableStringFieldUpdateOperationsInput {
 }
 
 type Project {
+  audioAssets(cursor: AudioAssetsOnProjectsWhereUniqueInput, distinct: [AudioAssetsOnProjectsScalarFieldEnum!], orderBy: [AudioAssetsOnProjectsOrderByInput!], skip: Int, take: Int, where: AudioAssetsOnProjectsWhereInput): [AudioAssetsOnProjects!]!
   content: JSON!
   createdAt: Timestamp!
   id: String!
@@ -3258,6 +3473,7 @@ type ProjectCountAggregate {
 }
 
 input ProjectCreateInput {
+  audioAssets: AudioAssetsOnProjectsCreateNestedManyWithoutProjectInput
   content: JSON!
   createdAt: Timestamp
   id: String
@@ -3276,6 +3492,12 @@ input ProjectCreateNestedManyWithoutOwnerInput {
   create: [ProjectCreateWithoutOwnerInput!]
 }
 
+input ProjectCreateNestedOneWithoutAudioAssetsInput {
+  connect: ProjectWhereUniqueInput
+  connectOrCreate: ProjectCreateOrConnectWithoutAudioAssetsInput
+  create: ProjectCreateWithoutAudioAssetsInput
+}
+
 input ProjectCreateNestedOneWithoutMembersInput {
   connect: ProjectWhereUniqueInput
   connectOrCreate: ProjectCreateOrConnectWithoutMembersInput
@@ -3286,6 +3508,11 @@ input ProjectCreateNestedOneWithoutMixdownsInput {
   connect: ProjectWhereUniqueInput
   connectOrCreate: ProjectCreateOrConnectWithoutMixdownsInput
   create: ProjectCreateWithoutMixdownsInput
+}
+
+input ProjectCreateOrConnectWithoutAudioAssetsInput {
+  create: ProjectCreateWithoutAudioAssetsInput!
+  where: ProjectWhereUniqueInput!
 }
 
 input ProjectCreateOrConnectWithoutMembersInput {
@@ -3303,7 +3530,21 @@ input ProjectCreateOrConnectWithoutOwnerInput {
   where: ProjectWhereUniqueInput!
 }
 
+input ProjectCreateWithoutAudioAssetsInput {
+  content: JSON!
+  createdAt: Timestamp
+  id: String
+  isInitialized: Boolean
+  isPrivate: Boolean
+  members: UsersOnProjectsCreateNestedManyWithoutProjectInput
+  mixdowns: MixdownCreateNestedManyWithoutProjectInput
+  name: String
+  owner: UserCreateNestedOneWithoutOwnsProjectsInput!
+  updatedAt: Timestamp
+}
+
 input ProjectCreateWithoutMembersInput {
+  audioAssets: AudioAssetsOnProjectsCreateNestedManyWithoutProjectInput
   content: JSON!
   createdAt: Timestamp
   id: String
@@ -3316,6 +3557,7 @@ input ProjectCreateWithoutMembersInput {
 }
 
 input ProjectCreateWithoutMixdownsInput {
+  audioAssets: AudioAssetsOnProjectsCreateNestedManyWithoutProjectInput
   content: JSON!
   createdAt: Timestamp
   id: String
@@ -3328,6 +3570,7 @@ input ProjectCreateWithoutMixdownsInput {
 }
 
 input ProjectCreateWithoutOwnerInput {
+  audioAssets: AudioAssetsOnProjectsCreateNestedManyWithoutProjectInput
   content: JSON!
   createdAt: Timestamp
   id: String
@@ -3408,6 +3651,7 @@ input ProjectScalarWhereInput {
 }
 
 input ProjectUpdateInput {
+  audioAssets: AudioAssetsOnProjectsUpdateManyWithoutProjectInput
   content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
@@ -3448,6 +3692,14 @@ input ProjectUpdateManyWithoutOwnerInput {
   upsert: [ProjectUpsertWithWhereUniqueWithoutOwnerInput!]
 }
 
+input ProjectUpdateOneRequiredWithoutAudioAssetsInput {
+  connect: ProjectWhereUniqueInput
+  connectOrCreate: ProjectCreateOrConnectWithoutAudioAssetsInput
+  create: ProjectCreateWithoutAudioAssetsInput
+  update: ProjectUpdateWithoutAudioAssetsInput
+  upsert: ProjectUpsertWithoutAudioAssetsInput
+}
+
 input ProjectUpdateOneRequiredWithoutMembersInput {
   connect: ProjectWhereUniqueInput
   connectOrCreate: ProjectCreateOrConnectWithoutMembersInput
@@ -3469,7 +3721,21 @@ input ProjectUpdateWithWhereUniqueWithoutOwnerInput {
   where: ProjectWhereUniqueInput!
 }
 
+input ProjectUpdateWithoutAudioAssetsInput {
+  content: JSON
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  isInitialized: BoolFieldUpdateOperationsInput
+  isPrivate: BoolFieldUpdateOperationsInput
+  members: UsersOnProjectsUpdateManyWithoutProjectInput
+  mixdowns: MixdownUpdateManyWithoutProjectInput
+  name: StringFieldUpdateOperationsInput
+  owner: UserUpdateOneRequiredWithoutOwnsProjectsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
 input ProjectUpdateWithoutMembersInput {
+  audioAssets: AudioAssetsOnProjectsUpdateManyWithoutProjectInput
   content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
@@ -3482,6 +3748,7 @@ input ProjectUpdateWithoutMembersInput {
 }
 
 input ProjectUpdateWithoutMixdownsInput {
+  audioAssets: AudioAssetsOnProjectsUpdateManyWithoutProjectInput
   content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
@@ -3494,6 +3761,7 @@ input ProjectUpdateWithoutMixdownsInput {
 }
 
 input ProjectUpdateWithoutOwnerInput {
+  audioAssets: AudioAssetsOnProjectsUpdateManyWithoutProjectInput
   content: JSON
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
@@ -3511,6 +3779,11 @@ input ProjectUpsertWithWhereUniqueWithoutOwnerInput {
   where: ProjectWhereUniqueInput!
 }
 
+input ProjectUpsertWithoutAudioAssetsInput {
+  create: ProjectCreateWithoutAudioAssetsInput!
+  update: ProjectUpdateWithoutAudioAssetsInput!
+}
+
 input ProjectUpsertWithoutMembersInput {
   create: ProjectCreateWithoutMembersInput!
   update: ProjectUpdateWithoutMembersInput!
@@ -3525,6 +3798,7 @@ input ProjectWhereInput {
   AND: [ProjectWhereInput!]
   NOT: [ProjectWhereInput!]
   OR: [ProjectWhereInput!]
+  audioAssets: AudioAssetsOnProjectsListRelationFilter
   content: JsonFilter
   createdAt: DateTimeFilter
   id: StringFilter

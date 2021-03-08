@@ -43,13 +43,33 @@ export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: 
         return;
       }
 
+      console.log('incoming change', data.data?.changes.change);
+
+      if (key === 'channel/type') {
+        console.log('got change for type');
+      }
+
+      if (key === 'channel/ids') {
+        console.log('got change for ids');
+      }
+
       // TODO: CHECK IF THIS IF IS EVEN NEEDED...
       if (
         (data.data?.changes.change.id === undefined && id === undefined) ||
         (id !== undefined && typeof id === 'string' && id === data.data?.changes.change.id) ||
         (id !== undefined && typeof id === 'object' && isEqual(id, data.data?.changes.change.id))
       ) {
+        if (key === 'channel/type') {
+          console.log('apply change for type');
+        }
+
+        if (key === 'channel/ids') {
+          console.log('apply change for ids');
+        }
+
         setSelf(data.data?.changes.change.newValue);
+      } else if (key === 'channel/type') {
+        console.log('dont apply change for type', data, id, key);
       }
     });
   }

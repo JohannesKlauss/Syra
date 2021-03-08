@@ -28,14 +28,17 @@ export class FilesService {
   async get(assetId: string, userId: string) {
     const asset = await this.prismaService.audioAsset.findUnique({
       where: { id: assetId },
-      select: { owner: { select: { id: true } }, location: true },
+      select: { owner: { select: { id: true } }, location: true, usedInProjects: {select: {projectId: true}} },
     });
 
     let canAccessFile = asset.owner.id === userId;
 
     if (!canAccessFile) {
+      const projectIds = asset.usedInProjects.map(project => project.projectId);
+
       const projects = await this.prismaService.project.findMany({
         where: {
+          id: {in: projectIds},
           OR: [{ owner: { id: userId } }, { members: { some: { userId } } }],
         },
         select: {
@@ -44,15 +47,9 @@ export class FilesService {
         }
       });
 
-      projects.forEach(project => {
-        const bufferIds: ReadonlyArray<{id: string, value: string}> | undefined = project.content['audioBuffer/storedBufferId'];
-
-        if (bufferIds instanceof Array && bufferIds.find(item => item.value === assetId) !== undefined) {
-          canAccessFile = true;
-
-          return false;
-        }
-      });
+      if (projects.length > 0) {
+        canAccessFile = true;
+      }
     }
 
     if (canAccessFile) {

@@ -10,14 +10,9 @@ import { soulPluginStore } from "./soulPluginStore";
 import { projectStore } from "./projectStore";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
 
-let lastChannelNum = 2;
-
 const name = atomFamilyWithEffects<string, string>({
   key: 'channel/name',
-  default: selector({
-    key: 'channel/name/Default',
-    get: () => `Channel ${lastChannelNum++}`,
-  }),
+  default: 'New Channel',
   effects: [
     ...syncEffectsComb
   ]

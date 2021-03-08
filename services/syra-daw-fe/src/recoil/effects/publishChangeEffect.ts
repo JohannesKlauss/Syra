@@ -8,8 +8,10 @@ const client = getApolloClient();
 
 let projectId: string | null;
 
+let changes: Array<PublishChangeMutationVariables> = [];
+
 export const publishChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ onSet }) => {
-  onSet((newValue) => {
+  onSet(async (newValue) => {
     if (projectId == null) {
       projectId = window.localStorage.getItem('projectId');
     }
@@ -18,12 +20,16 @@ export const publishChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P)
       return;
     }
 
-    client.mutate<PublishChangeMutation, PublishChangeMutationVariables>({
+    if (key === 'channel/type') {
+      console.log('send change', newValue);
+    }
+
+    await client.mutate<PublishChangeMutation, PublishChangeMutationVariables>({
       mutation: PublishChangeDocument,
       variables: {
         projectId,
         changeId: createNewId('change-'),
-        date: 1,
+        date: Date.now().valueOf(),
         change: {
           key,
           id,

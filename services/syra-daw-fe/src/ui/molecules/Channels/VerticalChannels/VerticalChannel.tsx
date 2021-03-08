@@ -8,11 +8,10 @@ import useSoloChannelHotkey from "../../../../hooks/hotkeys/channel/useSoloChann
 import { ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT } from "../../../../const/ui";
 import ChannelName from "../ChannelName";
 import BackboneAudioMixer from "../../BackboneMixer/BackboneAudioMixer";
-import { As, Flex, Icon, useTheme } from "@chakra-ui/react";
+import { Flex, Icon, useTheme } from "@chakra-ui/react";
 import useRegionColor from "../../../../hooks/ui/region/useRegionColor";
 import { ViewContext } from "../../../../providers/ViewContext";
 import { gridStore } from "../../../../recoil/gridStore";
-import { channelTypeMap } from "../../../../const/channels";
 import { ChannelType } from "../../../../types/Channel";
 import { GiSoundWaves } from "react-icons/gi";
 import { SiMidi } from "react-icons/si";
