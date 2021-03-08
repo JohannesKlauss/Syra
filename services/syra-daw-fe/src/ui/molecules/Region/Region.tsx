@@ -23,8 +23,7 @@ import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelTypeMap } from '../../../const/channels';
 import { ChannelType } from '../../../types/Channel';
 import useAudioRegionScheduler from '../../../hooks/tone/useAudioRegionScheduler';
-import { MdCloudDone, MdCloudUpload } from 'react-icons/md';
-import { determineTextColor } from '../../../utils/color';
+import { MdCloudDone, MdCloudUpload, MdCloudDownload } from 'react-icons/md';
 import AudioRegion from './AudioRegion/AudioRegion';
 
 interface Props {}
@@ -35,6 +34,7 @@ const Region: React.FC<Props> = ({}) => {
   const name = useRecoilValue(regionStore.name(regionId));
   const start = useRecoilValue(regionStore.start(regionId));
   const isInSync = useRecoilValue(regionStore.isInSync(regionId));
+  const audioBuffer = useRecoilValue(regionStore.audioBuffer(regionId));
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
   const color = useRegionColor(false);
   const regionWidth = useRegionWidth();
@@ -46,9 +46,6 @@ const Region: React.FC<Props> = ({}) => {
   const type = useRecoilValue(channelStore.type(channelId));
 
   useRegionDawRecordingSync();
-
-  console.log('channelId', channelId);
-  console.log('type', type);
 
   // You should never call hooks conditionally, but the variable type will always remain the same for a region (an audio region cannot be converted to a midi region).
   // So we are always calling either midi scheduling or audio scheduling for the life time of a region.
@@ -67,6 +64,16 @@ const Region: React.FC<Props> = ({}) => {
     duplicateRegion(regionId, pixelToTicks(x));
     updateAssignedChannel(regionId, y / trackHeight);
   };
+  
+  let cloudIcon = MdCloudDone;
+  
+  if (type === ChannelType.AUDIO) {
+    if (!isInSync) {
+      cloudIcon = MdCloudUpload;
+    } else if (audioBuffer === null || audioBuffer.duration === 0) {
+      cloudIcon = MdCloudDownload;
+    }
+  }
 
   return (
     <ClonableResizableBox
@@ -87,7 +94,7 @@ const Region: React.FC<Props> = ({}) => {
             <Icon
               ml={'auto'}
               mr={2}
-              as={isInSync || type === ChannelType.INSTRUMENT ? MdCloudDone : MdCloudUpload}
+              as={cloudIcon}
               title={isInSync || type === ChannelType.INSTRUMENT ? 'File is synchronized' : 'File is uploading'}
             />
           </Flex>

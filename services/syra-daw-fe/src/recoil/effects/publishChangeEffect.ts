@@ -1,9 +1,9 @@
 import { AtomEffect } from 'recoil';
 import { getApolloClient } from '../../apollo/client';
 import { PublishChangeDocument, PublishChangeMutation, PublishChangeMutationVariables } from '../../gql/generated';
-import { createNewId } from '../../utils/createNewId';
 import { RecoilAtomEffect } from '../../types/Recoil';
 import { getPriorityForAtomKey } from "../../utils/pubSubSync";
+import { createNewId } from "../../utils/createNewId";
 
 const client = getApolloClient();
 
@@ -14,6 +14,18 @@ export const publishChangesToClients = async (projectId: string) => {
     return;
   }
 
+  const copy = changes.slice();
+
+  // An entry was added while we copied the changes array. Retry later.
+  // TODO: WE NEED A BETTER HANDLING FOR THIS. CONCURRENT READ/WRITE ON ONE OBJECT THAT IS THAT IMPORTANT ISN'T VERY GOOD.
+  if (copy.length !== changes.length) {
+    return;
+  }
+
+  changes = [];
+
+  const list = copy.sort((a, b) => a.priority - b.priority);
+
   await client.mutate<PublishChangeMutation, PublishChangeMutationVariables>({
     mutation: PublishChangeDocument,
     variables: {
@@ -21,18 +33,15 @@ export const publishChangesToClients = async (projectId: string) => {
       changeId: createNewId('change-'),
       date: Date.now().valueOf(),
       changes: {
-        list: changes.sort((a, b) => a.priority - b.priority), // We have to sort the changes by a priority
+        // We have to sort the changes by a priority to ensure that changes of id lists (which everything else depends upon) are applied first.
+        list,
       }
     },
   });
-
-  changes = [];
 };
 
 export const publishChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ onSet }) => {
   onSet(async (newValue) => {
-    console.log('push changes for', key);
-
     changes.push({
       key,
       id,

@@ -54,10 +54,6 @@ export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: 
     observable.subscribe((data) => {
       const changesToApply = filterChangesList<T>(data.data?.changes.changes.list ?? [], key, id);
 
-      if (key === 'channel/type') {
-        console.log('check for channel/type changes', id);
-      }
-
       if (changesToApply.length > 0) {
         console.log('apply change', changesToApply[changesToApply.length - 1]);
 
