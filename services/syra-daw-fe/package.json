@@ -9,7 +9,7 @@
     "@emotion/styled": "11.1.5",
     "@inlet/react-pixi": "6.2.1",
     "@tonaljs/tonal": "4.6.0",
-    "@tonejs/midi": "2.0.26",
+    "@tonejs/midi": "2.0.27",
     "axios": "0.21.1",
     "array-move": "3.0.1",
     "color-interpolate": "1.0.5",

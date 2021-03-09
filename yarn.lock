@@ -5160,10 +5160,10 @@
     "@tonaljs/scale-type" "^4.5.1"
     "@tonaljs/time-signature" "^4.5.1"
 
-"@tonejs/midi@2.0.26":
-  version "2.0.26"
-  resolved "https://registry.yarnpkg.com/@tonejs/midi/-/midi-2.0.26.tgz#cb2386744b0a6432119d883f560b56fab1cfbeb2"
-  integrity sha512-Bmyp79hleRShG6TYwUtMm3ls+Eb2ReXTQL6nhNKIi3eC19M7ckyxASrI1G/uzzR6VPtLo8Cp6iyQPv/hYU/jVg==
+"@tonejs/midi@2.0.27":
+  version "2.0.27"
+  resolved "https://registry.yarnpkg.com/@tonejs/midi/-/midi-2.0.27.tgz#15ebedf570ce9e3c6f5e0d25e4f4c4d47398a222"
+  integrity sha512-JYiGA8k37rTWKPoiPhbJfWLotnZFCKw0G0rqijHD+u+LdjewTgt/Ubhn2JnD2yR+6+eLXTqHLJRS2a+tNLla3w==
   dependencies:
     array-flatten "^2.1.2"
     midi-file "^1.1.2"
