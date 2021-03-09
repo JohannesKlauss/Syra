@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from "react";
 import { determineTextColor } from '../../../utils/color';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
@@ -14,6 +14,7 @@ interface Props extends TextProps {
 function ChannelName({ backgroundColor, channelPrefix, px, ...props }: Props) {
   const channelId = useContext(ChannelContext);
   const [name] = useRecoilState(channelStore.name(channelId));
+  const ref = useRef<HTMLButtonElement>(null);
 
   return (
     <Flex bg={backgroundColor} justify={'space-between'} align={'center'} px={px}>
@@ -27,13 +28,14 @@ function ChannelName({ backgroundColor, channelPrefix, px, ...props }: Props) {
         fontWeight={'600'}
         py={2}
         isTruncated
+        onDblClick={() => ref.current?.click()}
         color={backgroundColor ? determineTextColor(backgroundColor) : 'gray.50'}
       >
         {channelPrefix}
         {channelPrefix && ' - '}
         {name}
       </Text>
-      <ChannelSettings/>
+      <ChannelSettings ref={ref}/>
     </Flex>
   );
 }

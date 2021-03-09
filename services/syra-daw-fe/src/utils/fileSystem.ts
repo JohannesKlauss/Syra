@@ -15,16 +15,27 @@ const init = async (projectId: string) => {
 
 const clearDirectory = async () => {
   if (rootHandle) {
-    let i = 0;
-
     for await (let [name, handle] of rootHandle.entries()) {
       if (handle.kind === 'file') {
         await rootHandle.removeEntry(name);
       }
-      i++;
     }
   }
 };
+
+const getFiles = async () => {
+  const files: File[] = [];
+
+  if (rootHandle) {
+    for await (let [name, handle] of rootHandle.entries()) {
+      if (handle.kind === 'file') {
+        files.push(await handle.getFile());
+      }
+    }
+  }
+
+  return files;
+}
 
 const writeAudioFile = async (assetId: string, file: File | Blob) => {
   if (rootHandle) {
@@ -80,5 +91,6 @@ export const fileSystem = {
   init,
   writeAudioFile,
   readArrayBufferFromFile,
-  clearDirectory
+  clearDirectory,
+  getFiles
 };

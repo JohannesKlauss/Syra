@@ -12,6 +12,7 @@ interface Props extends BoxProps {
   onMotionDragStart?: (width: number, x: number, y: number) => void;
   onMotionDragEnd?: (width: number, x: number, y: number) => void;
   minWidth?: number;
+  maxWidth?: number;
   snapToY?: number;
   offset?: number;
   lockDrag?: boolean;
@@ -24,6 +25,7 @@ const ResizableBox: React.FC<Props> = ({
   baseWidth,
   baseX,
   minWidth = 16,
+  maxWidth,
   dragHandleWidth = 8,
   children,
   onPositionChanged,
@@ -46,6 +48,7 @@ const ResizableBox: React.FC<Props> = ({
     onYChanged,
     lockDrag,
     allowOverExtendingStart,
+    maxWidth,
   );
 
   return (

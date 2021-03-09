@@ -16,6 +16,7 @@ import useBlockWindowLeave from '../../hooks/ui/useBlockWindowLeave';
 import useAutoSave from '../../hooks/sync/useAutoSave';
 import { transportStore } from "../../recoil/transportStore";
 import usePublishChangesToClients from "../../hooks/sync/usePublishChangesToClients";
+import DrawerContainer from './views/Drawers/DrawerContainer';
 
 const Editor: React.FC = () => {
   const theme = useTheme();
@@ -58,6 +59,7 @@ const Editor: React.FC = () => {
       <>
         <Settings />
         <Video />
+        <DrawerContainer/>
       </>
 
       {process.env.NODE_ENV === 'development' && (

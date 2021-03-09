@@ -112,6 +112,19 @@ const isInSyncWithDb = selectorFamily<boolean, string>({
   },
 });
 
+const durationInTicks = selectorFamily<number, string>({
+  key: 'audioBuffer/durationInTicks',
+  get: bufferId => ({get}) => {
+    const audioBuffer = get(buffer(bufferId));
+
+    if (audioBuffer === null) {
+      return 0;
+    }
+
+    return Tone.Ticks(audioBuffer.duration, 's').toTicks();
+  }
+});
+
 export const audioBufferStore = {
   buffer,
   name,
@@ -119,4 +132,5 @@ export const audioBufferStore = {
   storedBufferId,
   isInSyncWithDb,
   hasTranscodedFile,
+  durationInTicks
 };

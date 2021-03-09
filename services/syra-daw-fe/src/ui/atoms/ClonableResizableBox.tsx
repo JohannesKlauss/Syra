@@ -12,6 +12,7 @@ interface Props extends BoxProps {
   onMotionDragStart?: (width: number, x: number, offset: number) => void;
   onMotionDragEnd?: (width: number, x: number, offset: number) => void;
   minWidth?: number;
+  maxWidth?: number;
   snapToY?: number;
   offset?: number;
   lockDrag?: boolean;

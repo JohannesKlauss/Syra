@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { ForwardRefExoticComponent, useContext, useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -26,24 +26,25 @@ interface Props {
 
 }
 
-const ChannelSettings: React.FC<Props> = ({}) => {
+const ChannelSettings = React.forwardRef<HTMLButtonElement, Props>(({}, ref) => {
   const channelId = useContext(ChannelContext);
   const [name, setName] = useRecoilState(channelStore.name(channelId));
   const [oldName] = useState(name);
   const [color, setColor] = useRecoilState(channelStore.color(channelId));
   const deleteChannel = useDeleteChannel();
+  const initialFocusRef = useRef<HTMLInputElement>(null);
 
   return (
-    <Popover placement={'right-start'} isLazy>
+    <Popover placement={'right-start'} isLazy initialFocusRef={initialFocusRef}>
       <PopoverTrigger>
-        <IconButton icon={<MdSettings />} variant={'ghost'} size={'xs'} aria-label={'Channel Settings'} title={'Channel Settings'}/>
+        <IconButton icon={<MdSettings />} variant={'ghost'} size={'xs'} aria-label={'Channel Settings'} ref={ref} title={'Channel Settings'}/>
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverHeader fontSize={'sm'}>Channel Settings</PopoverHeader>
         <PopoverBody>
-          <Input isFullWidth size={'sm'} placeholder={'Channel name'} defaultValue={name} onChange={e => setName(e.target.value.length > 0 ? e.target.value : oldName)}/>
+          <Input ref={initialFocusRef} isFullWidth size={'sm'} placeholder={'Channel name'} defaultValue={name} onChange={e => setName(e.target.value.length > 0 ? e.target.value : oldName)}/>
 
           <Box my={4}>
             <ChannelColorPicker activeColor={color} onChangeColor={setColor}/>
@@ -54,6 +55,6 @@ const ChannelSettings: React.FC<Props> = ({}) => {
       </PopoverContent>
     </Popover>
   );
-};
+});
 
 export default ChannelSettings;

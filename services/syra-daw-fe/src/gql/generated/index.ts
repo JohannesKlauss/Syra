@@ -7288,6 +7288,20 @@ export type ProjectQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type ProjectFilesQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+export type ProjectFilesQuery = { __typename?: 'Query' } & {
+  project?: Maybe<
+    { __typename?: 'Project' } & Pick<Project, 'id'> & {
+        audioAssets: Array<
+          { __typename?: 'AudioAssetsOnProjects' } & Pick<AudioAssetsOnProjects, 'audioAssetId' | 'createdAt'>
+        >;
+      }
+  >;
+};
+
 export type UpdateNameMutationVariables = Exact<{
   projectId: Scalars['String'];
   name: Scalars['String'];
@@ -7495,6 +7509,49 @@ export function useProjectLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pr
 export type ProjectQueryHookResult = ReturnType<typeof useProjectQuery>;
 export type ProjectLazyQueryHookResult = ReturnType<typeof useProjectLazyQuery>;
 export type ProjectQueryResult = Apollo.QueryResult<ProjectQuery, ProjectQueryVariables>;
+export const ProjectFilesDocument = gql`
+  query projectFiles($id: String!) {
+    project(where: { id: $id }) {
+      id
+      audioAssets {
+        audioAssetId
+        createdAt
+      }
+    }
+  }
+`;
+
+/**
+ * __useProjectFilesQuery__
+ *
+ * To run a query within a React component, call `useProjectFilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProjectFilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProjectFilesQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useProjectFilesQuery(
+  baseOptions: Apollo.QueryHookOptions<ProjectFilesQuery, ProjectFilesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ProjectFilesQuery, ProjectFilesQueryVariables>(ProjectFilesDocument, options);
+}
+export function useProjectFilesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<ProjectFilesQuery, ProjectFilesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<ProjectFilesQuery, ProjectFilesQueryVariables>(ProjectFilesDocument, options);
+}
+export type ProjectFilesQueryHookResult = ReturnType<typeof useProjectFilesQuery>;
+export type ProjectFilesLazyQueryHookResult = ReturnType<typeof useProjectFilesLazyQuery>;
+export type ProjectFilesQueryResult = Apollo.QueryResult<ProjectFilesQuery, ProjectFilesQueryVariables>;
 export const UpdateNameDocument = gql`
   mutation updateName($projectId: String!, $name: String!) {
     updateProject(where: { id: $projectId }, data: { name: { set: $name } }) {

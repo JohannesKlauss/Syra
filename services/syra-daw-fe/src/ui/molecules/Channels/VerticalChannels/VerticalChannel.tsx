@@ -60,7 +60,7 @@ function VerticalChannel({ index }: Props) {
       justify={'space-between'}
       onClick={() => setSelectedChannelId(channelId)}
     >
-      <ChannelName channelPrefix={index} />
+      <ChannelName channelPrefix={index}/>
       <Flex bg={'transparent'} align={'center'} justify={'space-between'}>
         <Icon as={icon} mr={4} aria-label={'Channel Symbol'} w={'32px'} h={'32px'} color={color} />
         <ChannelLetterButtons />

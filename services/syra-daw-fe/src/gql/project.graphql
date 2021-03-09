@@ -17,6 +17,16 @@ query project($id: String!) {
     }
 }
 
+query projectFiles($id: String!) {
+    project(where: {id: $id}) {
+        id
+        audioAssets {
+            audioAssetId
+            createdAt
+        }
+    }
+}
+
 mutation updateName($projectId: String!, $name: String!) {
     updateProject(where: {id: $projectId}, data: {name: {set: $name}}) {
         id

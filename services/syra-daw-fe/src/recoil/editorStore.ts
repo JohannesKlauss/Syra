@@ -27,6 +27,12 @@ const showVideo = atomWithEffects({
   effects: [saveToLocalStorageEffect, loadInitialStateEffect]
 });
 
+const showFileExplorer = atomWithEffects({
+  key: 'editor/showFileExplorer',
+  default: false,
+  effects: [saveToLocalStorageEffect, loadInitialStateEffect]
+});
+
 const isContextMenuOpen = atom<boolean>({
   key: 'editor/isContextMenuOpen',
   default: false,
@@ -38,4 +44,5 @@ export const editorStore = {
   showSettings,
   showVideo,
   isContextMenuOpen,
+  showFileExplorer,
 };

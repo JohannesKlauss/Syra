@@ -14,6 +14,7 @@ export default function useResizableBox(
   onYChanged?: (y: number) => void,
   lockDrag?: boolean,
   allowOverExtendingStart?: boolean,
+  maxWidth?: number,
 ) {
   const width = useMotionValue(baseWidth);
   const oldWidth = useMotionValue(baseWidth);
@@ -61,7 +62,9 @@ export default function useResizableBox(
 
     switch (dragMode.current) {
       case DragMode.END_HANDLE:
-        width.set(Math.max(minWidth, snapPixelValue(oldWidth.get() + offset.x)));
+        const w = Math.max(minWidth, snapPixelValue(oldWidth.get() + offset.x));
+
+        width.set(Math.min(maxWidth ? maxWidth - boxOffset.current : w, w));
         x.set(oldX.get());
         break;
       case DragMode.START_HANDLE:
@@ -81,9 +84,15 @@ export default function useResizableBox(
   };
 
   const onDragEnd = () => {
+    console.log('x', x.get());
+
     if (x.get() < 0) {
+
+      console.log('set x to 0');
       x.set(0);
     }
+
+    console.log('x', x.get());
 
     onPositionChanged(x.get(), width.get(), snapPixelValue(boxOffset.current));
     oldWidth.set(width.get());

@@ -29,6 +29,7 @@ function AddChannelMenu() {
         onKeyDown={(e) => e.preventDefault()}
         _focus={{ outline: 'none' }}
         aria-label={'Add Channel'}
+        title={'Add Channel'}
         size={'xs'}
         icon={<IoIosAdd />}
         onMouseDown={(e) => e.preventDefault()}
@@ -38,7 +39,7 @@ function AddChannelMenu() {
           <MenuItem onClick={() => onClick(action.type)} key={action.type}>
             <Flex align={'center'}>
               {action.icon}
-              <Text ml={2}>{action.name}</Text>
+              <Text ml={2} fontSize={'xs'}>{action.name}</Text>
             </Flex>
           </MenuItem>
         ))}

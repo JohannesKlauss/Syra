@@ -8,13 +8,14 @@ import { buttonInfo } from '../../../utils/text';
 import { Flex, IconButton } from '@chakra-ui/react';
 import { CgPiano } from 'react-icons/cg';
 import { MdSettings } from 'react-icons/md';
-import { GoSettings } from 'react-icons/go';
+import { GoFileDirectory, GoSettings } from "react-icons/go";
 import { RiVideoChatFill } from 'react-icons/ri';
 
 function ViewToggles() {
   const updateView = useUpdateView();
 
   const [showVideo, setShowVideo] = useRecoilState(editorStore.showVideo);
+  const [showFileExplorer, setShowFileExplorer] = useRecoilState(editorStore.showFileExplorer);
   const showMixer = useRecoilValue(editorStore.showMixer);
   const showPianoRoll = useRecoilValue(editorStore.showPianoRoll);
   const setShowSettings = useSetRecoilState(editorStore.showSettings);
@@ -22,6 +23,7 @@ function ViewToggles() {
   useHotkeys('p', () => updateView(View.PIANO_ROLL), [updateView]);
   useHotkeys('x', () => updateView(View.MIXER), [updateView]);
   useHotkeys('v', () => setShowVideo(currVal => !currVal));
+  useHotkeys('f', () => setShowFileExplorer(currVal => !currVal));
   useHotkeys('cmd+,', (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -62,6 +64,14 @@ function ViewToggles() {
         colorScheme={showVideo ? 'teal' : 'gray'}
         variant={'ghost'}
         title={buttonInfo('Toggle Video', 'V')}
+      />
+      <IconButton
+        icon={<GoFileDirectory/>}
+        aria-label={'Toggle File Explorer'}
+        onClick={() => setShowFileExplorer(currVal => !currVal)}
+        colorScheme={showFileExplorer ? 'teal' : 'gray'}
+        variant={'ghost'}
+        title={buttonInfo('Toggle File Explorer', 'F')}
       />
     </Flex>
   );

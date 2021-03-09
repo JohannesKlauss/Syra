@@ -1,4 +1,4 @@
-import { amplitudeTodB, dBToAmplitude } from "../audio";
+import { amplitudeTodB, dBToAmplitude } from "../audio/audio";
 
 describe('amplitudeTodB', function() {
   it("should return correct dB values for a given amplitude", function() {
