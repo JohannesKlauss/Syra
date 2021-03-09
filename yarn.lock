@@ -24,6 +24,17 @@
     rxjs "6.6.3"
     source-map "0.7.3"
 
+"@angular-devkit/core@11.2.3":
+  version "11.2.3"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-11.2.3.tgz#322fb08f4e2683a37bd08edecb04ddafa42865d9"
+  integrity sha512-2JEGXzFqjTqVls2uIZEE0sk4VY9a/alxBAq8BFYIVbvzKsL9gAY71Ztf21zrhQrZop9qeuLJtOAbp00QyYUaQA==
+  dependencies:
+    ajv "6.12.6"
+    fast-json-stable-stringify "2.1.0"
+    magic-string "0.25.7"
+    rxjs "6.6.3"
+    source-map "0.7.3"
+
 "@angular-devkit/schematics-cli@0.1102.0":
   version "0.1102.0"
   resolved "https://registry.yarnpkg.com/@angular-devkit/schematics-cli/-/schematics-cli-0.1102.0.tgz#cd06ece7b410ef209a69ca7afb61f3a2e96a2c72"
@@ -52,6 +63,15 @@
   integrity sha512-sMDacACJbA4pykiqgJf/RdW0damcf4mDqErGgEqs/bGG+SBUb8+wgt4cQnUwwVX5V2nMdvv7f0A84rgR6I3G2w==
   dependencies:
     "@angular-devkit/core" "11.2.0"
+    ora "5.3.0"
+    rxjs "6.6.3"
+
+"@angular-devkit/schematics@11.2.3":
+  version "11.2.3"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-11.2.3.tgz#4f156ff2f723ad5b24a709bf97fe676c9753a544"
+  integrity sha512-x/IKgZDn6z/MzQ28WF2GTP2N+n78iySQhLu6n6bpmdrFp9noi9QASzN+mAFiqSNO8XpO9oyIB5y2ERl8KBrU1g==
+  dependencies:
+    "@angular-devkit/core" "11.2.3"
     ora "5.3.0"
     rxjs "6.6.3"
 
@@ -3326,13 +3346,13 @@
     path-to-regexp "3.2.0"
     tslib "2.1.0"
 
-"@nestjs/schematics@7.2.8":
-  version "7.2.8"
-  resolved "https://registry.yarnpkg.com/@nestjs/schematics/-/schematics-7.2.8.tgz#58f195afb9446fb83874c286b4640d6632b63fdc"
-  integrity sha512-cxs76Ia1SHTp18jXTusZtUucNjAmorlTzSaeKUH+71fri2pA0JOS4RJlfta5znDuA26gboolanPE6U0ZzaLM3A==
+"@nestjs/schematics@7.2.9":
+  version "7.2.9"
+  resolved "https://registry.yarnpkg.com/@nestjs/schematics/-/schematics-7.2.9.tgz#646f21d8d5139dd7a67c9948290820f1d3dacbe6"
+  integrity sha512-C4S4qp6v4JeKYEPNdJVTB1oP+afVdS6JziI8WFa+rMaqXbmU5YzPp/HhckQEvKSKJIWAVB24eNcryE9gttFw4Q==
   dependencies:
-    "@angular-devkit/core" "11.2.0"
-    "@angular-devkit/schematics" "11.2.0"
+    "@angular-devkit/core" "11.2.3"
+    "@angular-devkit/schematics" "11.2.3"
     fs-extra "9.1.0"
     pluralize "8.0.0"
 
@@ -3793,7 +3813,7 @@
     eventemitter3 "^3.1.0"
     url "^0.11.0"
 
-"@pmmmwh/react-refresh-webpack-plugin@0.4.3", "@pmmmwh/react-refresh-webpack-plugin@^0.4.2":
+"@pmmmwh/react-refresh-webpack-plugin@0.4.3", "@pmmmwh/react-refresh-webpack-plugin@^0.4.2", "@pmmmwh/react-refresh-webpack-plugin@^0.4.3":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@pmmmwh/react-refresh-webpack-plugin/-/react-refresh-webpack-plugin-0.4.3.tgz#1eec460596d200c0236bf195b078a5d1df89b766"
   integrity sha512-br5Qwvh8D2OQqSXpd1g/xqXKnK0r+Jz6qVKBbWmpUcrbGOxUrf39V5oZ1876084CGn18uMdR5uvPqBv9UqtBjQ==
@@ -4617,11 +4637,12 @@
   dependencies:
     core-js "^3.0.1"
 
-"@storybook/preset-create-react-app@3.1.6":
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/@storybook/preset-create-react-app/-/preset-create-react-app-3.1.6.tgz#fdcc332343085d26fe50891be484c830921f2688"
-  integrity sha512-hH8g5bBqNVU1zl2K19fXazncaWX2eiOX+ZHN3RtfQioAgHtXH/S1TS92xJj7uxoU40GYjldRmv7+fhzJCyRxNg==
+"@storybook/preset-create-react-app@3.1.7":
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/@storybook/preset-create-react-app/-/preset-create-react-app-3.1.7.tgz#e48df77768bdcc4863e3918c11965c45e4110ac8"
+  integrity sha512-SR+HGSWCrhHA5sszuIHJYdh2tWNi/zu858WB5RM74OBW4ogo8Bv4/7td4p53eWbdm0zBDbnKcrBmwRrAYqwL9Q==
   dependencies:
+    "@pmmmwh/react-refresh-webpack-plugin" "^0.4.3"
     "@types/babel__core" "^7.1.7"
     "@types/webpack" "^4.41.13"
     babel-plugin-react-docgen "^4.1.0"
@@ -4943,10 +4964,10 @@
     "@babel/runtime" "^7.12.5"
     "@testing-library/dom" "^7.28.1"
 
-"@testing-library/user-event@12.8.1":
-  version "12.8.1"
-  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-12.8.1.tgz#aa897d6e7f0cf2208385abc2da2ac3f5844bbd00"
-  integrity sha512-u521YhkCKip0DQNDpfj9V97PU7UlCTkW5jURUD4JipuVe/xDJ32dJSIHlT2pqAs/I91OFB8p6LtqaLZpOu8BWQ==
+"@testing-library/user-event@12.8.3":
+  version "12.8.3"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-12.8.3.tgz#1aa3ed4b9f79340a1e1836bc7f57c501e838704a"
+  integrity sha512-IR0iWbFkgd56Bu5ZI/ej8yQwrkCv8Qydx6RzwbKz9faXazR/+5tvYKsZQgyXJiwgpcva127YO6JcWy7YlCfofQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
 
@@ -5146,10 +5167,10 @@
     "@tonaljs/scale-type" "^4.5.1"
     "@tonaljs/time-signature" "^4.5.1"
 
-"@tonejs/midi@2.0.26":
-  version "2.0.26"
-  resolved "https://registry.yarnpkg.com/@tonejs/midi/-/midi-2.0.26.tgz#cb2386744b0a6432119d883f560b56fab1cfbeb2"
-  integrity sha512-Bmyp79hleRShG6TYwUtMm3ls+Eb2ReXTQL6nhNKIi3eC19M7ckyxASrI1G/uzzR6VPtLo8Cp6iyQPv/hYU/jVg==
+"@tonejs/midi@2.0.27":
+  version "2.0.27"
+  resolved "https://registry.yarnpkg.com/@tonejs/midi/-/midi-2.0.27.tgz#15ebedf570ce9e3c6f5e0d25e4f4c4d47398a222"
+  integrity sha512-JYiGA8k37rTWKPoiPhbJfWLotnZFCKw0G0rqijHD+u+LdjewTgt/Ubhn2JnD2yR+6+eLXTqHLJRS2a+tNLla3w==
   dependencies:
     array-flatten "^2.1.2"
     midi-file "^1.1.2"
@@ -12140,10 +12161,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-framer-motion@3.10.0:
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-3.10.0.tgz#3840612b754aaab6b7857096d7473521b7e3436e"
-  integrity sha512-i+Pp3bwMGHFZw3OnsMJGWeAxlAg6ye6Hbek3xRuoCmGjpOQrGKG7Ra249YFAk32wMSwmAbGUzxTE1fgP3ZOmnQ==
+framer-motion@3.10.2:
+  version "3.10.2"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-3.10.2.tgz#757bfc2633aa2c1453a8bb857d4753cd0d7cb737"
+  integrity sha512-qJX8y8OfsU9ZMZJyRLGOfo3IT4fiR7JNcshMyIno6A2z5NYP/ELPVPvD7D70neJJEYFzsjNXp1/nHjvOaM95ww==
   dependencies:
     framesync "5.2.0"
     hey-listen "^1.0.8"
@@ -13337,10 +13358,10 @@ humanize-ms@^1.2.1:
   dependencies:
     ms "^2.0.0"
 
-i18next@19.9.1:
-  version "19.9.1"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.9.1.tgz#7a072b75daf677aa51fd4ce55214f21702af3ffd"
-  integrity sha512-9Azzyb3DvMJUMd7sPhwVEs6PQcogvdHmLQTjMQ+P+h3XwW4O66/8lgZTmYShgkjPOCqTw4Fwl5LOp/VhZgPo5A==
+i18next@19.9.2:
+  version "19.9.2"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.9.2.tgz#ea5a124416e3c5ab85fddca2c8e3c3669a8da397"
+  integrity sha512-0i6cuo6ER6usEOtKajUUDj92zlG+KArFia0857xxiEHAQcUwh/RtOQocui1LPJwunSYT574Pk64aNva1kwtxZg==
   dependencies:
     "@babel/runtime" "^7.12.0"
 
