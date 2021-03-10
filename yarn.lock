@@ -5694,15 +5694,15 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.11.tgz#fc25a4248a5e8d0837019b1d170146d07334abe0"
   integrity sha512-BJ97wAUuU3NUiUCp44xzUFquQEvnk1wu7q4CMEUYKJWjdkr0YWYDsm4RFtAvxYsNjLsKcrFt6RvK8r+mnzMbEQ==
 
-"@types/node@12.20.4", "@types/node@^12.0.0":
-  version "12.20.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.4.tgz#73687043dd00fcb6962c60fbf499553a24d6bdf2"
-  integrity sha512-xRCgeE0Q4pT5UZ189TJ3SpYuX/QGl6QIAOAIeDSbAVAd2gX1NxSZup4jNVK7cxIeP8KDSbJgcckun495isP1jQ==
+"@types/node@12.20.5":
+  version "12.20.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.5.tgz#4ca82a766f05c359fd6c77505007e5a272f4bb9b"
+  integrity sha512-5Oy7tYZnu3a4pnJ//d4yVvOImExl4Vtwf0D40iKUlU+XlUsyV9iyFWyCFlwy489b72FMAik/EFwRkNLjjOdSPg==
 
-"@types/node@14.14.32":
-  version "14.14.32"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.32.tgz#90c5c4a8d72bbbfe53033f122341343249183448"
-  integrity sha512-/Ctrftx/zp4m8JOujM5ZhwzlWLx22nbQJiVqz8/zE15gOeEW+uly3FSX4fGFpcfEvFzXcMCJwq9lGVWgyARXhg==
+"@types/node@14.14.33":
+  version "14.14.33"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.33.tgz#9e4f8c64345522e4e8ce77b334a8aaa64e2b6c78"
+  integrity sha512-oJqcTrgPUF29oUP8AsUqbXGJNuPutsetaa9kTQAQce5Lx5dTYWV02ScBiT/k1BX/Z7pKeqedmvp39Wu4zR7N7g==
 
 "@types/node@^10.0.3":
   version "10.17.54"
@@ -5713,6 +5713,11 @@
   version "10.17.48"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.48.tgz#726e7f25d00bf58d79c8f00dd586dd9a10d06a4f"
   integrity sha512-Agl6xbYP6FOMDeAsr3QVZ+g7Yzg0uhPHWx0j5g4LFdUBHVtqtU+gH660k/lCEe506jJLOGbEzsnqPDTZGJQLag==
+
+"@types/node@^12.0.0":
+  version "12.20.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.4.tgz#73687043dd00fcb6962c60fbf499553a24d6bdf2"
+  integrity sha512-xRCgeE0Q4pT5UZ189TJ3SpYuX/QGl6QIAOAIeDSbAVAd2gX1NxSZup4jNVK7cxIeP8KDSbJgcckun495isP1jQ==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -7583,10 +7588,10 @@ avvio@^7.1.2:
     fastq "^1.6.1"
     queue-microtask "^1.1.2"
 
-aws-sdk@2.859.0:
-  version "2.859.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.859.0.tgz#9cd73484e5535d678b664ac9a2b585f4e09aa691"
-  integrity sha512-1OnEpmJ72n6Y1NR+2wMPV2JFovDwM0ARwkjVKq5K1rcs7lkUuCG8N4A7Zy8hz5qwkpvig0FJFDtNmsziM+pwAA==
+aws-sdk@2.860.0:
+  version "2.860.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.860.0.tgz#cc1abc37576c5b8cdcb3ca4117d69eb4e8656627"
+  integrity sha512-BUBWw28PNDhRDnPEnXiPEvgTWD8Iyq5pl9lk/WhXC/vkACJ3aUVe+sicezI1/JQRjLrO3R6w7X20YknVWfAibA==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
