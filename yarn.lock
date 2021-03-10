@@ -12029,10 +12029,10 @@ flatten@^1.0.2:
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
 
-fluent-audiowaveform@1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/fluent-audiowaveform/-/fluent-audiowaveform-1.0.6.tgz#befa7c62239789aa251315cb34fe4555f759f6c7"
-  integrity sha512-zAoKBJa4ZhxGQpFLG6POor1WTjOk1UXSQ6WUYj1UdSgwjcQBunkaSU4MdM4SlNQ+6P2NgGbkhEK5stzmozItkQ==
+fluent-audiowaveform@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/fluent-audiowaveform/-/fluent-audiowaveform-1.0.7.tgz#3ef08f4a98b65a651f35a136bbec850141c896f8"
+  integrity sha512-rJAmkRtnsluc+g37jZYuIuMXB62a11oFtFgk8e+o1nw9EoUOTfl+v2Q67JRe5UCfGME+d3rTwcO/ZwT1HFyUIw==
 
 fluent-ffmpeg@2.1.2:
   version "2.1.2"
