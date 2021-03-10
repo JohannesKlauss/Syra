@@ -12024,6 +12024,11 @@ flatten@^1.0.2:
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
 
+fluent-audiowaveform@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/fluent-audiowaveform/-/fluent-audiowaveform-1.0.6.tgz#befa7c62239789aa251315cb34fe4555f759f6c7"
+  integrity sha512-zAoKBJa4ZhxGQpFLG6POor1WTjOk1UXSQ6WUYj1UdSgwjcQBunkaSU4MdM4SlNQ+6P2NgGbkhEK5stzmozItkQ==
+
 fluent-ffmpeg@2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/fluent-ffmpeg/-/fluent-ffmpeg-2.1.2.tgz#c952de2240f812ebda0aa8006d7776ee2acf7d74"
@@ -13563,6 +13568,11 @@ inline-style-parser@0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/inline-style-parser/-/inline-style-parser-0.1.1.tgz#ec8a3b429274e9c0a1f1c4ffa9453a7fef72cea1"
   integrity sha512-7NXolsK4CAS5+xvdj5OMMbI962hU/wvwoxk+LWR9Ek9bVtyuuYScDN6eS0rUm6TxApFpw7CX1o4uJzcd4AyD3Q==
+
+inline-worker@~1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/inline-worker/-/inline-worker-1.1.0.tgz#55e96f54915a642b00872a2daa6fe832b424c98d"
+  integrity sha1-VelvVJFaZCsAhyotqm/oMrQkyY0=
 
 inquirer@7.3.3, inquirer@^7.0.0, inquirer@^7.3.3:
   version "7.3.3"
@@ -22856,6 +22866,13 @@ watchpack@^2.0.0:
   dependencies:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
+
+waveform-data@3.3.4:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/waveform-data/-/waveform-data-3.3.4.tgz#613fb81bf8974a9e2a328f70d2e954a08096f958"
+  integrity sha512-mE7455avSygHPXt3QJ0+fmpkWxWAxYVaXrInhIEksLd98NvDpxSoKDCFFM/xcSR+f7fr2OzJ5xUBZiT8ZbdBRA==
+  dependencies:
+    inline-worker "~1.1.0"
 
 wavesurfer.js@4.6.0:
   version "4.6.0"
