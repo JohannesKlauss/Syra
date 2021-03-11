@@ -1,0 +1,23 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: https://faas.syra.live
+functions:
+  ffmpeg:
+    lang: bash-streaming
+    handler: ./ffmpeg
+    image: registry.digitalocean.com/syra-do/ffmpeg:1.8
+    environment:
+      write_timeout: 30s
+      read_timeout: 30s
+      exec_timeout: 30s
+      RAW_BODY: true
+  audiowaveform:
+    lang: bash-streaming
+    handler: ./audiowaveform
+    image: registry.digitalocean.com/syra-do/audiowaveform:2.0
+    environment:
+      write_timeout: 30s
+      read_timeout: 30s
+      exec_timeout: 30s
+      RAW_BODY: true
