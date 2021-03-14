@@ -49,7 +49,7 @@
     "uniqid": "5.3.0",
     "waveform-data": "3.3.4",
     "web-audio-beat-detector": "8.1.2",
-    "web-vitals": "1.1.0",
+    "web-vitals": "1.1.1",
     "webmidi": "2.5.2"
   },
   "devDependencies": {
