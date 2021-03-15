@@ -1,13 +1,11 @@
-FROM ghcr.io/openfaas/classic-watchdog:0.1.5 as watchdog
-FROM healthsoft/audiowaveform-alpine:latest as audiowaveform-build
-FROM alpine:3.10 as build
+FROM openfaas/of-watchdog:0.7.1 as watchdog
+FROM healthsoft/audiowaveform-alpine:latest as build
 
 ARG ADDITIONAL_PKG=""
 
 RUN apk add --no-cache ${ADDITIONAL_PKG}
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
-COPY --from=audiowaveform-build /bin/audiowaveform /usr/local/bin
 RUN chmod +x /usr/bin/fwatchdog
 
 RUN addgroup -S app && adduser app -S -G app

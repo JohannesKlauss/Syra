@@ -1,22 +1,26 @@
 import { Process, Processor } from '@nestjs/bull';
-import { Logger } from '@nestjs/common';
+import { HttpService, Logger } from '@nestjs/common';
 import { Job } from 'bull';
 import { SpacesService } from '../files/spaces.service';
 import { AudioTranscodeJob } from '../../types/AudioTranscodeJob';
 import * as fs from 'fs';
 import * as ffmpeg from 'fluent-ffmpeg';
 import { pipeline } from 'stream';
-import * as uniqid from 'uniqid';
 import { PrismaService } from '../prisma/prisma.service';
 import { MD5 } from 'crypto-js';
-import { PubSubService } from "../pub-sub/pub-sub.service";
-import { Subscriptions } from "../../types/Subscriptions";
+import { PubSubService } from '../pub-sub/pub-sub.service';
+import { Subscriptions } from '../../types/Subscriptions';
 
 // TODO: THIS IS UGLY AS HELL AND ERROR PRONE. CLEAN THIS UP!
 
 @Processor('audio')
 export class AudioProcessor {
-  constructor(private readonly spacesService: SpacesService, private readonly prismaService: PrismaService, private readonly pubSubService: PubSubService) {}
+  constructor(
+    private readonly spacesService: SpacesService,
+    private readonly prismaService: PrismaService,
+    private readonly pubSubService: PubSubService,
+    private readonly httpService: HttpService,
+  ) {}
 
   private readonly logger = new Logger(AudioProcessor.name);
 
@@ -38,81 +42,47 @@ export class AudioProcessor {
 
     const fileStream = await this.spacesService.getFile(spacesObject.location);
 
-    if (!fs.existsSync(`${__dirname}/tmp`)) {
-      fs.mkdirSync(`${__dirname}/tmp`);
-    }
+    this.logger.debug(`Run transcoder`);
 
-    const uniqTranscodeId = uniqid();
+    const response = await this.httpService.post('https://faas.syra.live/function/ffmpeg', fileStream.stream, {
+      headers: { 'Content-Type': 'text/plain' },
+      responseType: 'stream',
+    }).toPromise();
 
-    const tmpDest = `${__dirname}/tmp/${uniqTranscodeId}${spacesObject.name}`;
+    this.logger.debug(`Transcoder finished`);
 
-    this.logger.debug(`Write file to ${tmpDest}`);
+    this.logger.debug(`Upload transcoded file`);
 
-    pipeline(fileStream.stream, fs.createWriteStream(tmpDest), (error) => {
-      this.logger.debug(`Finished writing`);
+    const location = await this.spacesService.putFile(
+      MD5(originalAsset.owner.id).toString(),
+      spacesObject.name.replace(/\.[0-9a-z]+$/i, `.${targetFormat}`),
+      'audio/flac',
+      response.data,
+      true,
+    );
 
-      if (error == null) {
-        const transcoder = ffmpeg(tmpDest);
-        const transcodedFilePath = tmpDest.replace(/\.[0-9a-z]+$/i, `.${targetFormat}`);
+    this.logger.debug(`S3 Space location: ${location}`);
 
-        this.logger.debug(`Run transcoder`);
-
-        let uploadedFile = false;
-
-        transcoder
-          .withAudioCodec(targetFormat === 'flac' ? 'flac' : 'libmp3lame')
-          .saveToFile(transcodedFilePath)
-          .on('end', async () => {
-            this.logger.debug(`Transcoder finished`);
-
-            if (!uploadedFile) {
-              this.logger.debug(`Upload ${transcodedFilePath} to S3 space`);
-
-              uploadedFile = true;
-
-              const location = await this.spacesService.putFile(
-                MD5(originalAsset.owner.id).toString(),
-                spacesObject.name.replace(/\.[0-9a-z]+$/i, `.${targetFormat}`),
-                'audio/flac',
-                fs.createReadStream(transcodedFilePath),
-                true,
-              );
-
-              this.logger.debug(`S3 Space location: ${location}`);
-
-              const createdAsset = await this.prismaService.audioAsset.create({
-                data: {
-                  isPublic: originalAsset.isPublic,
-                  location,
-                  parentAssetId: spacesObject.id,
-                  userId: originalAsset.owner.id,
-                  usedInProjects: {create: {projectId}},
-                  name: spacesObject.name.replace(/\.[0-9a-z]+$/i, `.${targetFormat}`),
-                },
-                select: {
-                  id: true,
-                }
-              });
-
-              fs.unlinkSync(tmpDest);
-              fs.unlinkSync(transcodedFilePath);
-
-              this.logger.debug('Cleaned up tmp folder.');
-
-              await this.pubSubService.getPubSub().publish(Subscriptions.UPLOADED_FILE_PROCESSED, {
-                id: createdAsset.id,
-                parentAssetId: originalAsset.id,
-                projectId,
-              });
-
-              this.logger.debug('Published sub.');
-            }
-          })
-          .run();
-      } else {
-        this.logger.debug('Error while writing file');
-        console.log(error);
-      }
+    const createdAsset = await this.prismaService.audioAsset.create({
+      data: {
+        isPublic: originalAsset.isPublic,
+        location,
+        parentAssetId: spacesObject.id,
+        userId: originalAsset.owner.id,
+        usedInProjects: { create: { projectId } },
+        name: spacesObject.name.replace(/\.[0-9a-z]+$/i, `.${targetFormat}`),
+      },
+      select: {
+        id: true,
+      },
     });
+
+    await this.pubSubService.getPubSub().publish(Subscriptions.UPLOADED_FILE_PROCESSED, {
+      id: createdAsset.id,
+      parentAssetId: originalAsset.id,
+      projectId,
+    });
+
+    this.logger.debug('Published sub.');
   }
 }

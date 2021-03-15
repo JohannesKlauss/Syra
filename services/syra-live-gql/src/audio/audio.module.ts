@@ -1,5 +1,5 @@
 import { BullModule } from '@nestjs/bull';
-import { Module } from '@nestjs/common';
+import { HttpModule, Module } from "@nestjs/common";
 import { AudioController } from './audio.controller';
 import { AudioProcessor } from './audio.processor';
 import { FilesModule } from "../files/files.module";
@@ -15,6 +15,7 @@ import { PubSubModule } from "../pub-sub/pub-sub.module";
     }),
     FilesModule,
     PubSubModule,
+    HttpModule,
   ],
   controllers: [AudioController],
   providers: [AudioProcessor, FilesService, PrismaService, SpacesService],
