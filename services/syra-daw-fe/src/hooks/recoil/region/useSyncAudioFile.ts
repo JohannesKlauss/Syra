@@ -16,6 +16,8 @@ export default function useSyncAudioFile() {
   const isInSyncWithDb = useRecoilValue(audioBufferStore.isInSyncWithDb(audioBufferPointer));
   const [storedBufferId, setStoredBufferId] = useRecoilState(audioBufferStore.storedBufferId(audioBufferPointer));
 
+  console.log('bufferId', storedBufferId);
+
   const {data} = useAssetTranscodedSubscription({
     variables: {
       assetId: storedBufferId,

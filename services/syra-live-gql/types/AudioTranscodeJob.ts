@@ -1,10 +1,8 @@
 export type AudioTranscodeJob = {
-  spacesObject: {
-    id: string;
-    location: string;
-    name: string;
-  };
-  targetFormat: string;
+  tmpFileName: string;
+  originalName: string;
+  originalMimeType: string;
+  userId: string;
   projectId: string;
 };
 

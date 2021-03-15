@@ -11,7 +11,7 @@ export class FilesService {
   async upload(file: Multipart, userId: string, isPublic: boolean = false) {
     const location = await this.uploadFile(file, MD5(userId).toString(), isPublic);
 
-    return await this.prismaService.audioAsset.create({
+    return await this.prismaService.asset.create({
       select: {
         id: true,
         location: true,
@@ -19,6 +19,7 @@ export class FilesService {
       data: {
         location,
         isPublic,
+        mimeType: file.mimetype,
         name: file.filename,
         owner: { connect: { id: userId } },
       },
@@ -26,7 +27,7 @@ export class FilesService {
   }
 
   async get(assetId: string, userId: string) {
-    const asset = await this.prismaService.audioAsset.findUnique({
+    const asset = await this.prismaService.asset.findUnique({
       where: { id: assetId },
       select: { owner: { select: { id: true } }, location: true, usedInProjects: {select: {projectId: true}} },
     });

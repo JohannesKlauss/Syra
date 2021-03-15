@@ -32,6 +32,6 @@ export default function useAggregateProjectFiles() {
   return {
     isReady,
     localFiles,
-    serverFiles: data?.project?.audioAssets
+    serverFiles: data?.project?.assets
   }
 }

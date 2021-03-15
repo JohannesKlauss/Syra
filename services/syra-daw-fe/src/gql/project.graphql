@@ -20,8 +20,8 @@ query project($id: String!) {
 query projectFiles($id: String!) {
     project(where: {id: $id}) {
         id
-        audioAssets {
-            audioAssetId
+        assets {
+            assetId
             createdAt
         }
     }

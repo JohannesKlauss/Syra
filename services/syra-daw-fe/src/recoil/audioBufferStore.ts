@@ -89,6 +89,7 @@ const name = atomFamilyWithEffects<string, string>({
 
 // This id is used to reference the file on local storage and on the server.
 // Use this to load the wanted file.
+// This is identical to the database ID of the transcoded asset.
 const storedBufferId = atomFamilyWithEffects<string, string>({
   key: 'audioBuffer/storedBufferId',
   default: '',

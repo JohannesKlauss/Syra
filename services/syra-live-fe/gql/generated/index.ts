@@ -4,6 +4,7 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions = {};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -335,172 +336,391 @@ export type AggregateVersionInformation = {
   min?: Maybe<VersionInformationMinAggregate>;
 };
 
-export type AudioAsset = {
-  __typename?: 'AudioAsset';
+export type Asset = {
+  __typename?: 'Asset';
   id: Scalars['String'];
   isPublic?: Maybe<Scalars['Boolean']>;
   location: Scalars['String'];
+  mimeType: Scalars['String'];
   name: Scalars['String'];
   userId?: Maybe<Scalars['String']>;
 };
 
-export type AudioAssetCreateNestedManyWithoutOwnerInput = {
-  connect?: Maybe<Array<AudioAssetWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<AudioAssetCreateOrConnectWithoutOwnerInput>>;
-  create?: Maybe<Array<AudioAssetCreateWithoutOwnerInput>>;
+export type AssetCreateNestedManyWithoutOwnerInput = {
+  connect?: Maybe<Array<AssetWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<AssetCreateOrConnectWithoutOwnerInput>>;
+  create?: Maybe<Array<AssetCreateWithoutOwnerInput>>;
 };
 
-export type AudioAssetCreateNestedOneWithoutMixdownInput = {
-  connect?: Maybe<AudioAssetWhereUniqueInput>;
-  connectOrCreate?: Maybe<AudioAssetCreateOrConnectWithoutMixdownInput>;
-  create?: Maybe<AudioAssetCreateWithoutMixdownInput>;
+export type AssetCreateNestedOneWithoutMixdownInput = {
+  connect?: Maybe<AssetWhereUniqueInput>;
+  connectOrCreate?: Maybe<AssetCreateOrConnectWithoutMixdownInput>;
+  create?: Maybe<AssetCreateWithoutMixdownInput>;
 };
 
-export type AudioAssetCreateOrConnectWithoutMixdownInput = {
-  create: AudioAssetCreateWithoutMixdownInput;
-  where: AudioAssetWhereUniqueInput;
+export type AssetCreateNestedOneWithoutUsedInProjectsInput = {
+  connect?: Maybe<AssetWhereUniqueInput>;
+  connectOrCreate?: Maybe<AssetCreateOrConnectWithoutUsedInProjectsInput>;
+  create?: Maybe<AssetCreateWithoutUsedInProjectsInput>;
 };
 
-export type AudioAssetCreateOrConnectWithoutOwnerInput = {
-  create: AudioAssetCreateWithoutOwnerInput;
-  where: AudioAssetWhereUniqueInput;
+export type AssetCreateOrConnectWithoutMixdownInput = {
+  create: AssetCreateWithoutMixdownInput;
+  where: AssetWhereUniqueInput;
 };
 
-export type AudioAssetCreateWithoutMixdownInput = {
+export type AssetCreateOrConnectWithoutOwnerInput = {
+  create: AssetCreateWithoutOwnerInput;
+  where: AssetWhereUniqueInput;
+};
+
+export type AssetCreateOrConnectWithoutUsedInProjectsInput = {
+  create: AssetCreateWithoutUsedInProjectsInput;
+  where: AssetWhereUniqueInput;
+};
+
+export type AssetCreateWithoutMixdownInput = {
   id?: Maybe<Scalars['String']>;
   isPublic?: Maybe<Scalars['Boolean']>;
   location: Scalars['String'];
+  mimeType: Scalars['String'];
   name: Scalars['String'];
-  owner?: Maybe<UserCreateNestedOneWithoutAudioAssetInput>;
+  owner?: Maybe<UserCreateNestedOneWithoutAssetInput>;
+  usedInProjects?: Maybe<AssetsOnProjectsCreateNestedManyWithoutAssetInput>;
 };
 
-export type AudioAssetCreateWithoutOwnerInput = {
+export type AssetCreateWithoutOwnerInput = {
   Mixdown?: Maybe<MixdownCreateNestedManyWithoutAudioInput>;
   id?: Maybe<Scalars['String']>;
   isPublic?: Maybe<Scalars['Boolean']>;
   location: Scalars['String'];
+  mimeType: Scalars['String'];
   name: Scalars['String'];
+  usedInProjects?: Maybe<AssetsOnProjectsCreateNestedManyWithoutAssetInput>;
 };
 
-export type AudioAssetListRelationFilter = {
-  every?: Maybe<AudioAssetWhereInput>;
-  none?: Maybe<AudioAssetWhereInput>;
-  some?: Maybe<AudioAssetWhereInput>;
+export type AssetCreateWithoutUsedInProjectsInput = {
+  Mixdown?: Maybe<MixdownCreateNestedManyWithoutAudioInput>;
+  id?: Maybe<Scalars['String']>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+  location: Scalars['String'];
+  mimeType: Scalars['String'];
+  name: Scalars['String'];
+  owner?: Maybe<UserCreateNestedOneWithoutAssetInput>;
 };
 
-export type AudioAssetOrderByInput = {
+export type AssetListRelationFilter = {
+  every?: Maybe<AssetWhereInput>;
+  none?: Maybe<AssetWhereInput>;
+  some?: Maybe<AssetWhereInput>;
+};
+
+export type AssetOrderByInput = {
   id?: Maybe<SortOrder>;
   isPublic?: Maybe<SortOrder>;
   location?: Maybe<SortOrder>;
+  mimeType?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   owner?: Maybe<UserOrderByInput>;
   userId?: Maybe<SortOrder>;
 };
 
-export type AudioAssetRelationFilter = {
-  is?: Maybe<AudioAssetWhereInput>;
-  isNot?: Maybe<AudioAssetWhereInput>;
+export type AssetRelationFilter = {
+  is?: Maybe<AssetWhereInput>;
+  isNot?: Maybe<AssetWhereInput>;
 };
 
-export enum AudioAssetScalarFieldEnum {
+export enum AssetScalarFieldEnum {
   Id = 'id',
   IsPublic = 'isPublic',
   Location = 'location',
+  MimeType = 'mimeType',
   Name = 'name',
   UserId = 'userId',
 }
 
-export type AudioAssetScalarWhereInput = {
-  AND?: Maybe<Array<AudioAssetScalarWhereInput>>;
-  NOT?: Maybe<Array<AudioAssetScalarWhereInput>>;
-  OR?: Maybe<Array<AudioAssetScalarWhereInput>>;
+export type AssetScalarWhereInput = {
+  AND?: Maybe<Array<AssetScalarWhereInput>>;
+  NOT?: Maybe<Array<AssetScalarWhereInput>>;
+  OR?: Maybe<Array<AssetScalarWhereInput>>;
   id?: Maybe<StringFilter>;
   isPublic?: Maybe<BoolNullableFilter>;
   location?: Maybe<StringFilter>;
+  mimeType?: Maybe<StringFilter>;
   name?: Maybe<StringFilter>;
   userId?: Maybe<StringNullableFilter>;
 };
 
-export type AudioAssetUpdateManyMutationInput = {
+export type AssetUpdateManyMutationInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPublic?: Maybe<NullableBoolFieldUpdateOperationsInput>;
   location?: Maybe<StringFieldUpdateOperationsInput>;
+  mimeType?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
 };
 
-export type AudioAssetUpdateManyWithWhereWithoutOwnerInput = {
-  data: AudioAssetUpdateManyMutationInput;
-  where: AudioAssetScalarWhereInput;
+export type AssetUpdateManyWithWhereWithoutOwnerInput = {
+  data: AssetUpdateManyMutationInput;
+  where: AssetScalarWhereInput;
 };
 
-export type AudioAssetUpdateManyWithoutOwnerInput = {
-  connect?: Maybe<Array<AudioAssetWhereUniqueInput>>;
-  connectOrCreate?: Maybe<Array<AudioAssetCreateOrConnectWithoutOwnerInput>>;
-  create?: Maybe<Array<AudioAssetCreateWithoutOwnerInput>>;
-  delete?: Maybe<Array<AudioAssetWhereUniqueInput>>;
-  deleteMany?: Maybe<Array<AudioAssetScalarWhereInput>>;
-  disconnect?: Maybe<Array<AudioAssetWhereUniqueInput>>;
-  set?: Maybe<Array<AudioAssetWhereUniqueInput>>;
-  update?: Maybe<Array<AudioAssetUpdateWithWhereUniqueWithoutOwnerInput>>;
-  updateMany?: Maybe<Array<AudioAssetUpdateManyWithWhereWithoutOwnerInput>>;
-  upsert?: Maybe<Array<AudioAssetUpsertWithWhereUniqueWithoutOwnerInput>>;
+export type AssetUpdateManyWithoutOwnerInput = {
+  connect?: Maybe<Array<AssetWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<AssetCreateOrConnectWithoutOwnerInput>>;
+  create?: Maybe<Array<AssetCreateWithoutOwnerInput>>;
+  delete?: Maybe<Array<AssetWhereUniqueInput>>;
+  deleteMany?: Maybe<Array<AssetScalarWhereInput>>;
+  disconnect?: Maybe<Array<AssetWhereUniqueInput>>;
+  set?: Maybe<Array<AssetWhereUniqueInput>>;
+  update?: Maybe<Array<AssetUpdateWithWhereUniqueWithoutOwnerInput>>;
+  updateMany?: Maybe<Array<AssetUpdateManyWithWhereWithoutOwnerInput>>;
+  upsert?: Maybe<Array<AssetUpsertWithWhereUniqueWithoutOwnerInput>>;
 };
 
-export type AudioAssetUpdateOneRequiredWithoutMixdownInput = {
-  connect?: Maybe<AudioAssetWhereUniqueInput>;
-  connectOrCreate?: Maybe<AudioAssetCreateOrConnectWithoutMixdownInput>;
-  create?: Maybe<AudioAssetCreateWithoutMixdownInput>;
-  update?: Maybe<AudioAssetUpdateWithoutMixdownInput>;
-  upsert?: Maybe<AudioAssetUpsertWithoutMixdownInput>;
+export type AssetUpdateOneRequiredWithoutMixdownInput = {
+  connect?: Maybe<AssetWhereUniqueInput>;
+  connectOrCreate?: Maybe<AssetCreateOrConnectWithoutMixdownInput>;
+  create?: Maybe<AssetCreateWithoutMixdownInput>;
+  update?: Maybe<AssetUpdateWithoutMixdownInput>;
+  upsert?: Maybe<AssetUpsertWithoutMixdownInput>;
 };
 
-export type AudioAssetUpdateWithWhereUniqueWithoutOwnerInput = {
-  data: AudioAssetUpdateWithoutOwnerInput;
-  where: AudioAssetWhereUniqueInput;
+export type AssetUpdateOneRequiredWithoutUsedInProjectsInput = {
+  connect?: Maybe<AssetWhereUniqueInput>;
+  connectOrCreate?: Maybe<AssetCreateOrConnectWithoutUsedInProjectsInput>;
+  create?: Maybe<AssetCreateWithoutUsedInProjectsInput>;
+  update?: Maybe<AssetUpdateWithoutUsedInProjectsInput>;
+  upsert?: Maybe<AssetUpsertWithoutUsedInProjectsInput>;
 };
 
-export type AudioAssetUpdateWithoutMixdownInput = {
+export type AssetUpdateWithWhereUniqueWithoutOwnerInput = {
+  data: AssetUpdateWithoutOwnerInput;
+  where: AssetWhereUniqueInput;
+};
+
+export type AssetUpdateWithoutMixdownInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPublic?: Maybe<NullableBoolFieldUpdateOperationsInput>;
   location?: Maybe<StringFieldUpdateOperationsInput>;
+  mimeType?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
-  owner?: Maybe<UserUpdateOneWithoutAudioAssetInput>;
+  owner?: Maybe<UserUpdateOneWithoutAssetInput>;
+  usedInProjects?: Maybe<AssetsOnProjectsUpdateManyWithoutAssetInput>;
 };
 
-export type AudioAssetUpdateWithoutOwnerInput = {
+export type AssetUpdateWithoutOwnerInput = {
   Mixdown?: Maybe<MixdownUpdateManyWithoutAudioInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPublic?: Maybe<NullableBoolFieldUpdateOperationsInput>;
   location?: Maybe<StringFieldUpdateOperationsInput>;
+  mimeType?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+  usedInProjects?: Maybe<AssetsOnProjectsUpdateManyWithoutAssetInput>;
 };
 
-export type AudioAssetUpsertWithWhereUniqueWithoutOwnerInput = {
-  create: AudioAssetCreateWithoutOwnerInput;
-  update: AudioAssetUpdateWithoutOwnerInput;
-  where: AudioAssetWhereUniqueInput;
+export type AssetUpdateWithoutUsedInProjectsInput = {
+  Mixdown?: Maybe<MixdownUpdateManyWithoutAudioInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  isPublic?: Maybe<NullableBoolFieldUpdateOperationsInput>;
+  location?: Maybe<StringFieldUpdateOperationsInput>;
+  mimeType?: Maybe<StringFieldUpdateOperationsInput>;
+  name?: Maybe<StringFieldUpdateOperationsInput>;
+  owner?: Maybe<UserUpdateOneWithoutAssetInput>;
 };
 
-export type AudioAssetUpsertWithoutMixdownInput = {
-  create: AudioAssetCreateWithoutMixdownInput;
-  update: AudioAssetUpdateWithoutMixdownInput;
+export type AssetUpsertWithWhereUniqueWithoutOwnerInput = {
+  create: AssetCreateWithoutOwnerInput;
+  update: AssetUpdateWithoutOwnerInput;
+  where: AssetWhereUniqueInput;
 };
 
-export type AudioAssetWhereInput = {
-  AND?: Maybe<Array<AudioAssetWhereInput>>;
+export type AssetUpsertWithoutMixdownInput = {
+  create: AssetCreateWithoutMixdownInput;
+  update: AssetUpdateWithoutMixdownInput;
+};
+
+export type AssetUpsertWithoutUsedInProjectsInput = {
+  create: AssetCreateWithoutUsedInProjectsInput;
+  update: AssetUpdateWithoutUsedInProjectsInput;
+};
+
+export type AssetWhereInput = {
+  AND?: Maybe<Array<AssetWhereInput>>;
   Mixdown?: Maybe<MixdownListRelationFilter>;
-  NOT?: Maybe<Array<AudioAssetWhereInput>>;
-  OR?: Maybe<Array<AudioAssetWhereInput>>;
+  NOT?: Maybe<Array<AssetWhereInput>>;
+  OR?: Maybe<Array<AssetWhereInput>>;
   id?: Maybe<StringFilter>;
   isPublic?: Maybe<BoolNullableFilter>;
   location?: Maybe<StringFilter>;
+  mimeType?: Maybe<StringFilter>;
   name?: Maybe<StringFilter>;
   owner?: Maybe<UserRelationFilter>;
+  usedInProjects?: Maybe<AssetsOnProjectsListRelationFilter>;
   userId?: Maybe<StringNullableFilter>;
 };
 
-export type AudioAssetWhereUniqueInput = {
+export type AssetWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
+};
+
+export type AssetsOnProjects = {
+  __typename?: 'AssetsOnProjects';
+  assetId: Scalars['String'];
+  createdAt: Scalars['Timestamp'];
+  projectId: Scalars['String'];
+};
+
+export type AssetsOnProjectsAssetIdProjectIdCompoundUniqueInput = {
+  assetId: Scalars['String'];
+  projectId: Scalars['String'];
+};
+
+export type AssetsOnProjectsCreateNestedManyWithoutAssetInput = {
+  connect?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<AssetsOnProjectsCreateOrConnectWithoutAssetInput>>;
+  create?: Maybe<Array<AssetsOnProjectsCreateWithoutAssetInput>>;
+};
+
+export type AssetsOnProjectsCreateNestedManyWithoutProjectInput = {
+  connect?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<AssetsOnProjectsCreateOrConnectWithoutProjectInput>>;
+  create?: Maybe<Array<AssetsOnProjectsCreateWithoutProjectInput>>;
+};
+
+export type AssetsOnProjectsCreateOrConnectWithoutAssetInput = {
+  create: AssetsOnProjectsCreateWithoutAssetInput;
+  where: AssetsOnProjectsWhereUniqueInput;
+};
+
+export type AssetsOnProjectsCreateOrConnectWithoutProjectInput = {
+  create: AssetsOnProjectsCreateWithoutProjectInput;
+  where: AssetsOnProjectsWhereUniqueInput;
+};
+
+export type AssetsOnProjectsCreateWithoutAssetInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  project: ProjectCreateNestedOneWithoutAssetsInput;
+};
+
+export type AssetsOnProjectsCreateWithoutProjectInput = {
+  asset: AssetCreateNestedOneWithoutUsedInProjectsInput;
+  createdAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type AssetsOnProjectsListRelationFilter = {
+  every?: Maybe<AssetsOnProjectsWhereInput>;
+  none?: Maybe<AssetsOnProjectsWhereInput>;
+  some?: Maybe<AssetsOnProjectsWhereInput>;
+};
+
+export type AssetsOnProjectsOrderByInput = {
+  asset?: Maybe<AssetOrderByInput>;
+  assetId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  project?: Maybe<ProjectOrderByInput>;
+  projectId?: Maybe<SortOrder>;
+};
+
+export enum AssetsOnProjectsScalarFieldEnum {
+  AssetId = 'assetId',
+  CreatedAt = 'createdAt',
+  ProjectId = 'projectId',
+}
+
+export type AssetsOnProjectsScalarWhereInput = {
+  AND?: Maybe<Array<AssetsOnProjectsScalarWhereInput>>;
+  NOT?: Maybe<Array<AssetsOnProjectsScalarWhereInput>>;
+  OR?: Maybe<Array<AssetsOnProjectsScalarWhereInput>>;
+  assetId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  projectId?: Maybe<StringFilter>;
+};
+
+export type AssetsOnProjectsUpdateManyMutationInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type AssetsOnProjectsUpdateManyWithWhereWithoutAssetInput = {
+  data: AssetsOnProjectsUpdateManyMutationInput;
+  where: AssetsOnProjectsScalarWhereInput;
+};
+
+export type AssetsOnProjectsUpdateManyWithWhereWithoutProjectInput = {
+  data: AssetsOnProjectsUpdateManyMutationInput;
+  where: AssetsOnProjectsScalarWhereInput;
+};
+
+export type AssetsOnProjectsUpdateManyWithoutAssetInput = {
+  connect?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<AssetsOnProjectsCreateOrConnectWithoutAssetInput>>;
+  create?: Maybe<Array<AssetsOnProjectsCreateWithoutAssetInput>>;
+  delete?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
+  deleteMany?: Maybe<Array<AssetsOnProjectsScalarWhereInput>>;
+  disconnect?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
+  set?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
+  update?: Maybe<Array<AssetsOnProjectsUpdateWithWhereUniqueWithoutAssetInput>>;
+  updateMany?: Maybe<Array<AssetsOnProjectsUpdateManyWithWhereWithoutAssetInput>>;
+  upsert?: Maybe<Array<AssetsOnProjectsUpsertWithWhereUniqueWithoutAssetInput>>;
+};
+
+export type AssetsOnProjectsUpdateManyWithoutProjectInput = {
+  connect?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
+  connectOrCreate?: Maybe<Array<AssetsOnProjectsCreateOrConnectWithoutProjectInput>>;
+  create?: Maybe<Array<AssetsOnProjectsCreateWithoutProjectInput>>;
+  delete?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
+  deleteMany?: Maybe<Array<AssetsOnProjectsScalarWhereInput>>;
+  disconnect?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
+  set?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
+  update?: Maybe<Array<AssetsOnProjectsUpdateWithWhereUniqueWithoutProjectInput>>;
+  updateMany?: Maybe<Array<AssetsOnProjectsUpdateManyWithWhereWithoutProjectInput>>;
+  upsert?: Maybe<Array<AssetsOnProjectsUpsertWithWhereUniqueWithoutProjectInput>>;
+};
+
+export type AssetsOnProjectsUpdateWithWhereUniqueWithoutAssetInput = {
+  data: AssetsOnProjectsUpdateWithoutAssetInput;
+  where: AssetsOnProjectsWhereUniqueInput;
+};
+
+export type AssetsOnProjectsUpdateWithWhereUniqueWithoutProjectInput = {
+  data: AssetsOnProjectsUpdateWithoutProjectInput;
+  where: AssetsOnProjectsWhereUniqueInput;
+};
+
+export type AssetsOnProjectsUpdateWithoutAssetInput = {
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  project?: Maybe<ProjectUpdateOneRequiredWithoutAssetsInput>;
+};
+
+export type AssetsOnProjectsUpdateWithoutProjectInput = {
+  asset?: Maybe<AssetUpdateOneRequiredWithoutUsedInProjectsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type AssetsOnProjectsUpsertWithWhereUniqueWithoutAssetInput = {
+  create: AssetsOnProjectsCreateWithoutAssetInput;
+  update: AssetsOnProjectsUpdateWithoutAssetInput;
+  where: AssetsOnProjectsWhereUniqueInput;
+};
+
+export type AssetsOnProjectsUpsertWithWhereUniqueWithoutProjectInput = {
+  create: AssetsOnProjectsCreateWithoutProjectInput;
+  update: AssetsOnProjectsUpdateWithoutProjectInput;
+  where: AssetsOnProjectsWhereUniqueInput;
+};
+
+export type AssetsOnProjectsWhereInput = {
+  AND?: Maybe<Array<AssetsOnProjectsWhereInput>>;
+  NOT?: Maybe<Array<AssetsOnProjectsWhereInput>>;
+  OR?: Maybe<Array<AssetsOnProjectsWhereInput>>;
+  asset?: Maybe<AssetRelationFilter>;
+  assetId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  project?: Maybe<ProjectRelationFilter>;
+  projectId?: Maybe<StringFilter>;
+};
+
+export type AssetsOnProjectsWhereUniqueInput = {
+  assetId_projectId?: Maybe<AssetsOnProjectsAssetIdProjectIdCompoundUniqueInput>;
 };
 
 export type Band = {
@@ -2618,8 +2838,8 @@ export type JsonFilter = {
 export type Mixdown = {
   __typename?: 'Mixdown';
   FeedItem: Array<FeedItem>;
-  audio: AudioAsset;
-  audioAssetId: Scalars['String'];
+  assetId: Scalars['String'];
+  audio: Asset;
   createdAt: Scalars['Timestamp'];
   id: Scalars['String'];
   isPusblished?: Maybe<Scalars['Boolean']>;
@@ -2651,7 +2871,7 @@ export type MixdownAvgAggregate = {
 export type MixdownCountAggregate = {
   __typename?: 'MixdownCountAggregate';
   _all: Scalars['Int'];
-  audioAssetId?: Maybe<Scalars['Int']>;
+  assetId?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   isPusblished?: Maybe<Scalars['Int']>;
@@ -2665,7 +2885,7 @@ export type MixdownCountAggregate = {
 
 export type MixdownCreateInput = {
   FeedItem?: Maybe<FeedItemCreateNestedManyWithoutMixdownInput>;
-  audio: AudioAssetCreateNestedOneWithoutMixdownInput;
+  audio: AssetCreateNestedOneWithoutMixdownInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
@@ -2735,7 +2955,7 @@ export type MixdownCreateWithoutAudioInput = {
 };
 
 export type MixdownCreateWithoutFeedItemInput = {
-  audio: AudioAssetCreateNestedOneWithoutMixdownInput;
+  audio: AssetCreateNestedOneWithoutMixdownInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
@@ -2749,7 +2969,7 @@ export type MixdownCreateWithoutFeedItemInput = {
 
 export type MixdownCreateWithoutProjectInput = {
   FeedItem?: Maybe<FeedItemCreateNestedManyWithoutMixdownInput>;
-  audio: AudioAssetCreateNestedOneWithoutMixdownInput;
+  audio: AssetCreateNestedOneWithoutMixdownInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
@@ -2762,7 +2982,7 @@ export type MixdownCreateWithoutProjectInput = {
 
 export type MixdownCreateWithoutTriggerdByInput = {
   FeedItem?: Maybe<FeedItemCreateNestedManyWithoutMixdownInput>;
-  audio: AudioAssetCreateNestedOneWithoutMixdownInput;
+  audio: AssetCreateNestedOneWithoutMixdownInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
@@ -2781,7 +3001,7 @@ export type MixdownListRelationFilter = {
 
 export type MixdownMaxAggregate = {
   __typename?: 'MixdownMaxAggregate';
-  audioAssetId?: Maybe<Scalars['String']>;
+  assetId?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
@@ -2795,7 +3015,7 @@ export type MixdownMaxAggregate = {
 
 export type MixdownMinAggregate = {
   __typename?: 'MixdownMinAggregate';
-  audioAssetId?: Maybe<Scalars['String']>;
+  assetId?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
@@ -2808,8 +3028,8 @@ export type MixdownMinAggregate = {
 };
 
 export type MixdownOrderByInput = {
-  audio?: Maybe<AudioAssetOrderByInput>;
-  audioAssetId?: Maybe<SortOrder>;
+  assetId?: Maybe<SortOrder>;
+  audio?: Maybe<AssetOrderByInput>;
   createdAt?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
   isPusblished?: Maybe<SortOrder>;
@@ -2829,7 +3049,7 @@ export type MixdownRelationFilter = {
 };
 
 export enum MixdownScalarFieldEnum {
-  AudioAssetId = 'audioAssetId',
+  AssetId = 'assetId',
   CreatedAt = 'createdAt',
   Id = 'id',
   IsPusblished = 'isPusblished',
@@ -2845,7 +3065,7 @@ export type MixdownScalarWhereInput = {
   AND?: Maybe<Array<MixdownScalarWhereInput>>;
   NOT?: Maybe<Array<MixdownScalarWhereInput>>;
   OR?: Maybe<Array<MixdownScalarWhereInput>>;
-  audioAssetId?: Maybe<StringFilter>;
+  assetId?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
   isPusblished?: Maybe<BoolNullableFilter>;
@@ -2865,7 +3085,7 @@ export type MixdownSumAggregate = {
 
 export type MixdownUpdateInput = {
   FeedItem?: Maybe<FeedItemUpdateManyWithoutMixdownInput>;
-  audio?: Maybe<AudioAssetUpdateOneRequiredWithoutMixdownInput>;
+  audio?: Maybe<AssetUpdateOneRequiredWithoutMixdownInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPusblished?: Maybe<NullableBoolFieldUpdateOperationsInput>;
@@ -2980,7 +3200,7 @@ export type MixdownUpdateWithoutAudioInput = {
 };
 
 export type MixdownUpdateWithoutFeedItemInput = {
-  audio?: Maybe<AudioAssetUpdateOneRequiredWithoutMixdownInput>;
+  audio?: Maybe<AssetUpdateOneRequiredWithoutMixdownInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPusblished?: Maybe<NullableBoolFieldUpdateOperationsInput>;
@@ -2994,7 +3214,7 @@ export type MixdownUpdateWithoutFeedItemInput = {
 
 export type MixdownUpdateWithoutProjectInput = {
   FeedItem?: Maybe<FeedItemUpdateManyWithoutMixdownInput>;
-  audio?: Maybe<AudioAssetUpdateOneRequiredWithoutMixdownInput>;
+  audio?: Maybe<AssetUpdateOneRequiredWithoutMixdownInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPusblished?: Maybe<NullableBoolFieldUpdateOperationsInput>;
@@ -3007,7 +3227,7 @@ export type MixdownUpdateWithoutProjectInput = {
 
 export type MixdownUpdateWithoutTriggerdByInput = {
   FeedItem?: Maybe<FeedItemUpdateManyWithoutMixdownInput>;
-  audio?: Maybe<AudioAssetUpdateOneRequiredWithoutMixdownInput>;
+  audio?: Maybe<AssetUpdateOneRequiredWithoutMixdownInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
   isPusblished?: Maybe<NullableBoolFieldUpdateOperationsInput>;
@@ -3046,8 +3266,8 @@ export type MixdownWhereInput = {
   FeedItem?: Maybe<FeedItemListRelationFilter>;
   NOT?: Maybe<Array<MixdownWhereInput>>;
   OR?: Maybe<Array<MixdownWhereInput>>;
-  audio?: Maybe<AudioAssetRelationFilter>;
-  audioAssetId?: Maybe<StringFilter>;
+  assetId?: Maybe<StringFilter>;
+  audio?: Maybe<AssetRelationFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
   isPusblished?: Maybe<BoolNullableFilter>;
@@ -3109,7 +3329,7 @@ export type Mutation = {
   deleteUser?: Maybe<User>;
   deleteUsersOnProjects?: Maybe<UsersOnProjects>;
   deleteVersionInformation?: Maybe<VersionInformation>;
-  publishChange: PublishProjectChangeArgs;
+  publishChange: PublishProjectChangesArgs;
   signUpUser: User;
   updateAddress?: Maybe<Address>;
   updateBand?: Maybe<Band>;
@@ -3325,7 +3545,7 @@ export type MutationDeleteVersionInformationArgs = {
 
 export type MutationPublishChangeArgs = {
   authorId?: Maybe<Scalars['String']>;
-  change: Scalars['JSONObject'];
+  changes: Scalars['JSONObject'];
   date: Scalars['Timestamp'];
   id: Scalars['String'];
   projectId: Scalars['String'];
@@ -3651,6 +3871,7 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type Project = {
   __typename?: 'Project';
+  assets: Array<AssetsOnProjects>;
   content: Scalars['JSON'];
   createdAt: Scalars['Timestamp'];
   id: Scalars['String'];
@@ -3662,6 +3883,15 @@ export type Project = {
   owner: User;
   ownerId: Scalars['String'];
   updatedAt: Scalars['Timestamp'];
+};
+
+export type ProjectAssetsArgs = {
+  cursor?: Maybe<AssetsOnProjectsWhereUniqueInput>;
+  distinct?: Maybe<Array<AssetsOnProjectsScalarFieldEnum>>;
+  orderBy?: Maybe<Array<AssetsOnProjectsOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<AssetsOnProjectsWhereInput>;
 };
 
 export type ProjectMembersArgs = {
@@ -3696,6 +3926,7 @@ export type ProjectCountAggregate = {
 };
 
 export type ProjectCreateInput = {
+  assets?: Maybe<AssetsOnProjectsCreateNestedManyWithoutProjectInput>;
   content: Scalars['JSON'];
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
@@ -3714,6 +3945,12 @@ export type ProjectCreateNestedManyWithoutOwnerInput = {
   create?: Maybe<Array<ProjectCreateWithoutOwnerInput>>;
 };
 
+export type ProjectCreateNestedOneWithoutAssetsInput = {
+  connect?: Maybe<ProjectWhereUniqueInput>;
+  connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutAssetsInput>;
+  create?: Maybe<ProjectCreateWithoutAssetsInput>;
+};
+
 export type ProjectCreateNestedOneWithoutMembersInput = {
   connect?: Maybe<ProjectWhereUniqueInput>;
   connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutMembersInput>;
@@ -3724,6 +3961,11 @@ export type ProjectCreateNestedOneWithoutMixdownsInput = {
   connect?: Maybe<ProjectWhereUniqueInput>;
   connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutMixdownsInput>;
   create?: Maybe<ProjectCreateWithoutMixdownsInput>;
+};
+
+export type ProjectCreateOrConnectWithoutAssetsInput = {
+  create: ProjectCreateWithoutAssetsInput;
+  where: ProjectWhereUniqueInput;
 };
 
 export type ProjectCreateOrConnectWithoutMembersInput = {
@@ -3741,7 +3983,21 @@ export type ProjectCreateOrConnectWithoutOwnerInput = {
   where: ProjectWhereUniqueInput;
 };
 
+export type ProjectCreateWithoutAssetsInput = {
+  content: Scalars['JSON'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isInitialized?: Maybe<Scalars['Boolean']>;
+  isPrivate?: Maybe<Scalars['Boolean']>;
+  members?: Maybe<UsersOnProjectsCreateNestedManyWithoutProjectInput>;
+  mixdowns?: Maybe<MixdownCreateNestedManyWithoutProjectInput>;
+  name?: Maybe<Scalars['String']>;
+  owner: UserCreateNestedOneWithoutOwnsProjectsInput;
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
 export type ProjectCreateWithoutMembersInput = {
+  assets?: Maybe<AssetsOnProjectsCreateNestedManyWithoutProjectInput>;
   content: Scalars['JSON'];
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
@@ -3754,6 +4010,7 @@ export type ProjectCreateWithoutMembersInput = {
 };
 
 export type ProjectCreateWithoutMixdownsInput = {
+  assets?: Maybe<AssetsOnProjectsCreateNestedManyWithoutProjectInput>;
   content: Scalars['JSON'];
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
@@ -3766,6 +4023,7 @@ export type ProjectCreateWithoutMixdownsInput = {
 };
 
 export type ProjectCreateWithoutOwnerInput = {
+  assets?: Maybe<AssetsOnProjectsCreateNestedManyWithoutProjectInput>;
   content: Scalars['JSON'];
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
@@ -3848,6 +4106,7 @@ export type ProjectScalarWhereInput = {
 };
 
 export type ProjectUpdateInput = {
+  assets?: Maybe<AssetsOnProjectsUpdateManyWithoutProjectInput>;
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
@@ -3888,6 +4147,14 @@ export type ProjectUpdateManyWithoutOwnerInput = {
   upsert?: Maybe<Array<ProjectUpsertWithWhereUniqueWithoutOwnerInput>>;
 };
 
+export type ProjectUpdateOneRequiredWithoutAssetsInput = {
+  connect?: Maybe<ProjectWhereUniqueInput>;
+  connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutAssetsInput>;
+  create?: Maybe<ProjectCreateWithoutAssetsInput>;
+  update?: Maybe<ProjectUpdateWithoutAssetsInput>;
+  upsert?: Maybe<ProjectUpsertWithoutAssetsInput>;
+};
+
 export type ProjectUpdateOneRequiredWithoutMembersInput = {
   connect?: Maybe<ProjectWhereUniqueInput>;
   connectOrCreate?: Maybe<ProjectCreateOrConnectWithoutMembersInput>;
@@ -3909,7 +4176,21 @@ export type ProjectUpdateWithWhereUniqueWithoutOwnerInput = {
   where: ProjectWhereUniqueInput;
 };
 
+export type ProjectUpdateWithoutAssetsInput = {
+  content?: Maybe<Scalars['JSON']>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  isInitialized?: Maybe<BoolFieldUpdateOperationsInput>;
+  isPrivate?: Maybe<BoolFieldUpdateOperationsInput>;
+  members?: Maybe<UsersOnProjectsUpdateManyWithoutProjectInput>;
+  mixdowns?: Maybe<MixdownUpdateManyWithoutProjectInput>;
+  name?: Maybe<StringFieldUpdateOperationsInput>;
+  owner?: Maybe<UserUpdateOneRequiredWithoutOwnsProjectsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+};
+
 export type ProjectUpdateWithoutMembersInput = {
+  assets?: Maybe<AssetsOnProjectsUpdateManyWithoutProjectInput>;
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
@@ -3922,6 +4203,7 @@ export type ProjectUpdateWithoutMembersInput = {
 };
 
 export type ProjectUpdateWithoutMixdownsInput = {
+  assets?: Maybe<AssetsOnProjectsUpdateManyWithoutProjectInput>;
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
@@ -3934,6 +4216,7 @@ export type ProjectUpdateWithoutMixdownsInput = {
 };
 
 export type ProjectUpdateWithoutOwnerInput = {
+  assets?: Maybe<AssetsOnProjectsUpdateManyWithoutProjectInput>;
   content?: Maybe<Scalars['JSON']>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   id?: Maybe<StringFieldUpdateOperationsInput>;
@@ -3951,6 +4234,11 @@ export type ProjectUpsertWithWhereUniqueWithoutOwnerInput = {
   where: ProjectWhereUniqueInput;
 };
 
+export type ProjectUpsertWithoutAssetsInput = {
+  create: ProjectCreateWithoutAssetsInput;
+  update: ProjectUpdateWithoutAssetsInput;
+};
+
 export type ProjectUpsertWithoutMembersInput = {
   create: ProjectCreateWithoutMembersInput;
   update: ProjectUpdateWithoutMembersInput;
@@ -3965,6 +4253,7 @@ export type ProjectWhereInput = {
   AND?: Maybe<Array<ProjectWhereInput>>;
   NOT?: Maybe<Array<ProjectWhereInput>>;
   OR?: Maybe<Array<ProjectWhereInput>>;
+  assets?: Maybe<AssetsOnProjectsListRelationFilter>;
   content?: Maybe<JsonFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   id?: Maybe<StringFilter>;
@@ -3982,12 +4271,19 @@ export type ProjectWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
-export type PublishProjectChangeArgs = {
-  __typename?: 'PublishProjectChangeArgs';
+export type PublishProjectChangesArgs = {
+  __typename?: 'PublishProjectChangesArgs';
   authorId?: Maybe<Scalars['String']>;
-  change: Scalars['JSONObject'];
+  changes: Scalars['JSONObject'];
   date: Scalars['Timestamp'];
   id: Scalars['String'];
+  projectId: Scalars['String'];
+};
+
+export type PublishTranscodedAssetArgs = {
+  __typename?: 'PublishTranscodedAssetArgs';
+  id: Scalars['String'];
+  parentAssetId: Scalars['String'];
   projectId: Scalars['String'];
 };
 
@@ -4533,9 +4829,15 @@ export type StringNullableListFilter = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  changes: PublishProjectChangeArgs;
+  assetTranscoded: PublishTranscodedAssetArgs;
+  changes: PublishProjectChangesArgs;
   newComment: Comment;
   onlineStatus: Scalars['Boolean'];
+};
+
+export type SubscriptionAssetTranscodedArgs = {
+  assetId: Scalars['String'];
+  projectId: Scalars['String'];
 };
 
 export type SubscriptionChangesArgs = {
@@ -4691,7 +4993,7 @@ export type TagWhereUniqueInput = {
 
 export type User = {
   __typename?: 'User';
-  AudioAsset: Array<AudioAsset>;
+  Asset: Array<Asset>;
   Comment: Array<Comment>;
   CommentLike: Array<CommentLike>;
   EarlyAccessCode: Array<EarlyAccessCode>;
@@ -4727,13 +5029,13 @@ export type User = {
   website?: Maybe<Scalars['String']>;
 };
 
-export type UserAudioAssetArgs = {
-  cursor?: Maybe<AudioAssetWhereUniqueInput>;
-  distinct?: Maybe<Array<AudioAssetScalarFieldEnum>>;
-  orderBy?: Maybe<Array<AudioAssetOrderByInput>>;
+export type UserAssetArgs = {
+  cursor?: Maybe<AssetWhereUniqueInput>;
+  distinct?: Maybe<Array<AssetScalarFieldEnum>>;
+  orderBy?: Maybe<Array<AssetOrderByInput>>;
   skip?: Maybe<Scalars['Int']>;
   take?: Maybe<Scalars['Int']>;
-  where?: Maybe<AudioAssetWhereInput>;
+  where?: Maybe<AssetWhereInput>;
 };
 
 export type UserCommentArgs = {
@@ -4881,7 +5183,7 @@ export type UserCountAggregate = {
 };
 
 export type UserCreateInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -4929,10 +5231,10 @@ export type UserCreateNestedManyWithoutFollowingInput = {
   create?: Maybe<Array<UserCreateWithoutFollowingInput>>;
 };
 
-export type UserCreateNestedOneWithoutAudioAssetInput = {
+export type UserCreateNestedOneWithoutAssetInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutAudioAssetInput>;
-  create?: Maybe<UserCreateWithoutAudioAssetInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutAssetInput>;
+  create?: Maybe<UserCreateWithoutAssetInput>;
 };
 
 export type UserCreateNestedOneWithoutCommentInput = {
@@ -5006,8 +5308,8 @@ export type UserCreateOrConnectWithoutAddressInput = {
   where: UserWhereUniqueInput;
 };
 
-export type UserCreateOrConnectWithoutAudioAssetInput = {
-  create: UserCreateWithoutAudioAssetInput;
+export type UserCreateOrConnectWithoutAssetInput = {
+  create: UserCreateWithoutAssetInput;
   where: UserWhereUniqueInput;
 };
 
@@ -5077,7 +5379,7 @@ export type UserCreateOrConnectWithoutOwnsProjectsInput = {
 };
 
 export type UserCreateWithoutAddressInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5106,7 +5408,7 @@ export type UserCreateWithoutAddressInput = {
   website?: Maybe<Scalars['String']>;
 };
 
-export type UserCreateWithoutAudioAssetInput = {
+export type UserCreateWithoutAssetInput = {
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5137,7 +5439,7 @@ export type UserCreateWithoutAudioAssetInput = {
 };
 
 export type UserCreateWithoutCommentInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
@@ -5167,7 +5469,7 @@ export type UserCreateWithoutCommentInput = {
 };
 
 export type UserCreateWithoutCommentLikeInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeCreateNestedManyWithoutUserInput>;
@@ -5197,7 +5499,7 @@ export type UserCreateWithoutCommentLikeInput = {
 };
 
 export type UserCreateWithoutFeedInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5227,7 +5529,7 @@ export type UserCreateWithoutFeedInput = {
 };
 
 export type UserCreateWithoutFeedItemLikeInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5257,7 +5559,7 @@ export type UserCreateWithoutFeedItemLikeInput = {
 };
 
 export type UserCreateWithoutFollowedByInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5287,7 +5589,7 @@ export type UserCreateWithoutFollowedByInput = {
 };
 
 export type UserCreateWithoutFollowingInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5317,7 +5619,7 @@ export type UserCreateWithoutFollowingInput = {
 };
 
 export type UserCreateWithoutInterestsInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5347,7 +5649,7 @@ export type UserCreateWithoutInterestsInput = {
 };
 
 export type UserCreateWithoutIssueInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5377,7 +5679,7 @@ export type UserCreateWithoutIssueInput = {
 };
 
 export type UserCreateWithoutMemberOfBandsInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5407,7 +5709,7 @@ export type UserCreateWithoutMemberOfBandsInput = {
 };
 
 export type UserCreateWithoutMemberOfProjectsInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5437,7 +5739,7 @@ export type UserCreateWithoutMemberOfProjectsInput = {
 };
 
 export type UserCreateWithoutMixdownInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5467,7 +5769,7 @@ export type UserCreateWithoutMixdownInput = {
 };
 
 export type UserCreateWithoutOwnsBandsInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5497,7 +5799,7 @@ export type UserCreateWithoutOwnsBandsInput = {
 };
 
 export type UserCreateWithoutOwnsProjectsInput = {
-  AudioAsset?: Maybe<AudioAssetCreateNestedManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetCreateNestedManyWithoutOwnerInput>;
   Comment?: Maybe<CommentCreateNestedManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeCreateNestedManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeCreateNestedManyWithoutClaimedByInput>;
@@ -5632,7 +5934,7 @@ export type UserSignUpInput = {
 };
 
 export type UserUpdateInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -5803,14 +6105,14 @@ export type UserUpdateOneRequiredWithoutOwnsProjectsInput = {
   upsert?: Maybe<UserUpsertWithoutOwnsProjectsInput>;
 };
 
-export type UserUpdateOneWithoutAudioAssetInput = {
+export type UserUpdateOneWithoutAssetInput = {
   connect?: Maybe<UserWhereUniqueInput>;
-  connectOrCreate?: Maybe<UserCreateOrConnectWithoutAudioAssetInput>;
-  create?: Maybe<UserCreateWithoutAudioAssetInput>;
+  connectOrCreate?: Maybe<UserCreateOrConnectWithoutAssetInput>;
+  create?: Maybe<UserCreateWithoutAssetInput>;
   delete?: Maybe<Scalars['Boolean']>;
   disconnect?: Maybe<Scalars['Boolean']>;
-  update?: Maybe<UserUpdateWithoutAudioAssetInput>;
-  upsert?: Maybe<UserUpsertWithoutAudioAssetInput>;
+  update?: Maybe<UserUpdateWithoutAssetInput>;
+  upsert?: Maybe<UserUpsertWithoutAssetInput>;
 };
 
 export type UserUpdateOneWithoutInterestsInput = {
@@ -5849,7 +6151,7 @@ export type UserUpdateWithWhereUniqueWithoutFollowingInput = {
 };
 
 export type UserUpdateWithoutAddressInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -5878,7 +6180,7 @@ export type UserUpdateWithoutAddressInput = {
   website?: Maybe<NullableStringFieldUpdateOperationsInput>;
 };
 
-export type UserUpdateWithoutAudioAssetInput = {
+export type UserUpdateWithoutAssetInput = {
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -5909,7 +6211,7 @@ export type UserUpdateWithoutAudioAssetInput = {
 };
 
 export type UserUpdateWithoutCommentInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
@@ -5939,7 +6241,7 @@ export type UserUpdateWithoutCommentInput = {
 };
 
 export type UserUpdateWithoutCommentLikeInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
   FeedItemLike?: Maybe<FeedItemLikeUpdateManyWithoutUserInput>;
@@ -5969,7 +6271,7 @@ export type UserUpdateWithoutCommentLikeInput = {
 };
 
 export type UserUpdateWithoutFeedInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -5999,7 +6301,7 @@ export type UserUpdateWithoutFeedInput = {
 };
 
 export type UserUpdateWithoutFeedItemLikeInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -6029,7 +6331,7 @@ export type UserUpdateWithoutFeedItemLikeInput = {
 };
 
 export type UserUpdateWithoutFollowedByInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -6059,7 +6361,7 @@ export type UserUpdateWithoutFollowedByInput = {
 };
 
 export type UserUpdateWithoutFollowingInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -6089,7 +6391,7 @@ export type UserUpdateWithoutFollowingInput = {
 };
 
 export type UserUpdateWithoutInterestsInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -6119,7 +6421,7 @@ export type UserUpdateWithoutInterestsInput = {
 };
 
 export type UserUpdateWithoutIssueInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -6149,7 +6451,7 @@ export type UserUpdateWithoutIssueInput = {
 };
 
 export type UserUpdateWithoutMemberOfBandsInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -6179,7 +6481,7 @@ export type UserUpdateWithoutMemberOfBandsInput = {
 };
 
 export type UserUpdateWithoutMemberOfProjectsInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -6209,7 +6511,7 @@ export type UserUpdateWithoutMemberOfProjectsInput = {
 };
 
 export type UserUpdateWithoutMixdownInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -6239,7 +6541,7 @@ export type UserUpdateWithoutMixdownInput = {
 };
 
 export type UserUpdateWithoutOwnsBandsInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -6269,7 +6571,7 @@ export type UserUpdateWithoutOwnsBandsInput = {
 };
 
 export type UserUpdateWithoutOwnsProjectsInput = {
-  AudioAsset?: Maybe<AudioAssetUpdateManyWithoutOwnerInput>;
+  Asset?: Maybe<AssetUpdateManyWithoutOwnerInput>;
   Comment?: Maybe<CommentUpdateManyWithoutAuthorInput>;
   CommentLike?: Maybe<CommentLikeUpdateManyWithoutUserInput>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeUpdateManyWithoutClaimedByInput>;
@@ -6316,9 +6618,9 @@ export type UserUpsertWithWhereUniqueWithoutFollowingInput = {
   where: UserWhereUniqueInput;
 };
 
-export type UserUpsertWithoutAudioAssetInput = {
-  create: UserCreateWithoutAudioAssetInput;
-  update: UserUpdateWithoutAudioAssetInput;
+export type UserUpsertWithoutAssetInput = {
+  create: UserCreateWithoutAssetInput;
+  update: UserUpdateWithoutAssetInput;
 };
 
 export type UserUpsertWithoutCommentInput = {
@@ -6378,7 +6680,7 @@ export type UserUpsertWithoutOwnsProjectsInput = {
 
 export type UserWhereInput = {
   AND?: Maybe<Array<UserWhereInput>>;
-  AudioAsset?: Maybe<AudioAssetListRelationFilter>;
+  Asset?: Maybe<AssetListRelationFilter>;
   Comment?: Maybe<CommentListRelationFilter>;
   CommentLike?: Maybe<CommentLikeListRelationFilter>;
   EarlyAccessCode?: Maybe<EarlyAccessCodeListRelationFilter>;
@@ -7004,14 +7306,14 @@ export type UnlikeFeedItemMutation = { __typename?: 'Mutation' } & {
 };
 
 export type FeedMixdownFragment = { __typename?: 'Mixdown' } & Pick<Mixdown, 'id' | 'listens' | 'createdAt'> & {
-    audio: { __typename?: 'AudioAsset' } & Pick<AudioAsset, 'location'>;
+    audio: { __typename?: 'Asset' } & Pick<Asset, 'location'>;
     project: { __typename?: 'Project' } & Pick<Project, 'id' | 'name' | 'isPrivate'>;
   };
 
 export type PreviewMixdownFragment = { __typename?: 'Mixdown' } & Pick<
   Mixdown,
   'id' | 'version' | 'name' | 'createdAt' | 'listens'
-> & { audio: { __typename?: 'AudioAsset' } & Pick<AudioAsset, 'id' | 'isPublic' | 'location'> };
+> & { audio: { __typename?: 'Asset' } & Pick<Asset, 'id' | 'isPublic' | 'location'> };
 
 export type MyMixdownsQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -7032,7 +7334,7 @@ export type MixdownQueryVariables = Exact<{
 export type MixdownQuery = { __typename?: 'Query' } & {
   mixdown?: Maybe<
     { __typename?: 'Mixdown' } & Pick<Mixdown, 'id' | 'listens' | 'createdAt' | 'name' | 'version'> & {
-        audio: { __typename?: 'AudioAsset' } & Pick<AudioAsset, 'id' | 'isPublic' | 'location'>;
+        audio: { __typename?: 'Asset' } & Pick<Asset, 'id' | 'isPublic' | 'location'>;
         project: { __typename?: 'Project' } & Pick<Project, 'name'> & {
             owner: { __typename?: 'User' } & Pick<User, 'id' | 'avatar' | 'name'>;
           };
@@ -7374,17 +7676,19 @@ export const FirstLevelCommentsDocument = gql`
 export function useFirstLevelCommentsQuery(
   baseOptions: Apollo.QueryHookOptions<FirstLevelCommentsQuery, FirstLevelCommentsQueryVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<FirstLevelCommentsQuery, FirstLevelCommentsQueryVariables>(
     FirstLevelCommentsDocument,
-    baseOptions,
+    options,
   );
 }
 export function useFirstLevelCommentsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<FirstLevelCommentsQuery, FirstLevelCommentsQueryVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<FirstLevelCommentsQuery, FirstLevelCommentsQueryVariables>(
     FirstLevelCommentsDocument,
-    baseOptions,
+    options,
   );
 }
 export type FirstLevelCommentsQueryHookResult = ReturnType<typeof useFirstLevelCommentsQuery>;
@@ -7421,17 +7725,19 @@ export const SecondLevelCommentsDocument = gql`
 export function useSecondLevelCommentsQuery(
   baseOptions: Apollo.QueryHookOptions<SecondLevelCommentsQuery, SecondLevelCommentsQueryVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<SecondLevelCommentsQuery, SecondLevelCommentsQueryVariables>(
     SecondLevelCommentsDocument,
-    baseOptions,
+    options,
   );
 }
 export function useSecondLevelCommentsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<SecondLevelCommentsQuery, SecondLevelCommentsQueryVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<SecondLevelCommentsQuery, SecondLevelCommentsQueryVariables>(
     SecondLevelCommentsDocument,
-    baseOptions,
+    options,
   );
 }
 export type SecondLevelCommentsQueryHookResult = ReturnType<typeof useSecondLevelCommentsQuery>;
@@ -7476,9 +7782,10 @@ export type PostCommentToFeedItemMutationFn = Apollo.MutationFunction<
 export function usePostCommentToFeedItemMutation(
   baseOptions?: Apollo.MutationHookOptions<PostCommentToFeedItemMutation, PostCommentToFeedItemMutationVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<PostCommentToFeedItemMutation, PostCommentToFeedItemMutationVariables>(
     PostCommentToFeedItemDocument,
-    baseOptions,
+    options,
   );
 }
 export type PostCommentToFeedItemMutationHookResult = ReturnType<typeof usePostCommentToFeedItemMutation>;
@@ -7524,9 +7831,10 @@ export type PostCommentToCommentMutationFn = Apollo.MutationFunction<
 export function usePostCommentToCommentMutation(
   baseOptions?: Apollo.MutationHookOptions<PostCommentToCommentMutation, PostCommentToCommentMutationVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<PostCommentToCommentMutation, PostCommentToCommentMutationVariables>(
     PostCommentToCommentDocument,
-    baseOptions,
+    options,
   );
 }
 export type PostCommentToCommentMutationHookResult = ReturnType<typeof usePostCommentToCommentMutation>;
@@ -7565,7 +7873,8 @@ export type LikeCommentMutationFn = Apollo.MutationFunction<LikeCommentMutation,
 export function useLikeCommentMutation(
   baseOptions?: Apollo.MutationHookOptions<LikeCommentMutation, LikeCommentMutationVariables>,
 ) {
-  return Apollo.useMutation<LikeCommentMutation, LikeCommentMutationVariables>(LikeCommentDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<LikeCommentMutation, LikeCommentMutationVariables>(LikeCommentDocument, options);
 }
 export type LikeCommentMutationHookResult = ReturnType<typeof useLikeCommentMutation>;
 export type LikeCommentMutationResult = Apollo.MutationResult<LikeCommentMutation>;
@@ -7600,7 +7909,8 @@ export type UnlikeCommentMutationFn = Apollo.MutationFunction<UnlikeCommentMutat
 export function useUnlikeCommentMutation(
   baseOptions?: Apollo.MutationHookOptions<UnlikeCommentMutation, UnlikeCommentMutationVariables>,
 ) {
-  return Apollo.useMutation<UnlikeCommentMutation, UnlikeCommentMutationVariables>(UnlikeCommentDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UnlikeCommentMutation, UnlikeCommentMutationVariables>(UnlikeCommentDocument, options);
 }
 export type UnlikeCommentMutationHookResult = ReturnType<typeof useUnlikeCommentMutation>;
 export type UnlikeCommentMutationResult = Apollo.MutationResult<UnlikeCommentMutation>;
@@ -7636,10 +7946,8 @@ export const NewCommentDocument = gql`
 export function useNewCommentSubscription(
   baseOptions: Apollo.SubscriptionHookOptions<NewCommentSubscription, NewCommentSubscriptionVariables>,
 ) {
-  return Apollo.useSubscription<NewCommentSubscription, NewCommentSubscriptionVariables>(
-    NewCommentDocument,
-    baseOptions,
-  );
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSubscription<NewCommentSubscription, NewCommentSubscriptionVariables>(NewCommentDocument, options);
 }
 export type NewCommentSubscriptionHookResult = ReturnType<typeof useNewCommentSubscription>;
 export type NewCommentSubscriptionResult = Apollo.SubscriptionResult<NewCommentSubscription>;
@@ -7676,17 +7984,16 @@ export const FeedItemsByHandleDocument = gql`
 export function useFeedItemsByHandleQuery(
   baseOptions: Apollo.QueryHookOptions<FeedItemsByHandleQuery, FeedItemsByHandleQueryVariables>,
 ) {
-  return Apollo.useQuery<FeedItemsByHandleQuery, FeedItemsByHandleQueryVariables>(
-    FeedItemsByHandleDocument,
-    baseOptions,
-  );
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<FeedItemsByHandleQuery, FeedItemsByHandleQueryVariables>(FeedItemsByHandleDocument, options);
 }
 export function useFeedItemsByHandleLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<FeedItemsByHandleQuery, FeedItemsByHandleQueryVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<FeedItemsByHandleQuery, FeedItemsByHandleQueryVariables>(
     FeedItemsByHandleDocument,
-    baseOptions,
+    options,
   );
 }
 export type FeedItemsByHandleQueryHookResult = ReturnType<typeof useFeedItemsByHandleQuery>;
@@ -7726,10 +8033,12 @@ export const MyFeedDocument = gql`
  * });
  */
 export function useMyFeedQuery(baseOptions?: Apollo.QueryHookOptions<MyFeedQuery, MyFeedQueryVariables>) {
-  return Apollo.useQuery<MyFeedQuery, MyFeedQueryVariables>(MyFeedDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MyFeedQuery, MyFeedQueryVariables>(MyFeedDocument, options);
 }
 export function useMyFeedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyFeedQuery, MyFeedQueryVariables>) {
-  return Apollo.useLazyQuery<MyFeedQuery, MyFeedQueryVariables>(MyFeedDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MyFeedQuery, MyFeedQueryVariables>(MyFeedDocument, options);
 }
 export type MyFeedQueryHookResult = ReturnType<typeof useMyFeedQuery>;
 export type MyFeedLazyQueryHookResult = ReturnType<typeof useMyFeedLazyQuery>;
@@ -7762,12 +8071,14 @@ export const FeedItemByIdDocument = gql`
 export function useFeedItemByIdQuery(
   baseOptions: Apollo.QueryHookOptions<FeedItemByIdQuery, FeedItemByIdQueryVariables>,
 ) {
-  return Apollo.useQuery<FeedItemByIdQuery, FeedItemByIdQueryVariables>(FeedItemByIdDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<FeedItemByIdQuery, FeedItemByIdQueryVariables>(FeedItemByIdDocument, options);
 }
 export function useFeedItemByIdLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<FeedItemByIdQuery, FeedItemByIdQueryVariables>,
 ) {
-  return Apollo.useLazyQuery<FeedItemByIdQuery, FeedItemByIdQueryVariables>(FeedItemByIdDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<FeedItemByIdQuery, FeedItemByIdQueryVariables>(FeedItemByIdDocument, options);
 }
 export type FeedItemByIdQueryHookResult = ReturnType<typeof useFeedItemByIdQuery>;
 export type FeedItemByIdLazyQueryHookResult = ReturnType<typeof useFeedItemByIdLazyQuery>;
@@ -7797,10 +8108,12 @@ export const MyLikesDocument = gql`
  * });
  */
 export function useMyLikesQuery(baseOptions?: Apollo.QueryHookOptions<MyLikesQuery, MyLikesQueryVariables>) {
-  return Apollo.useQuery<MyLikesQuery, MyLikesQueryVariables>(MyLikesDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MyLikesQuery, MyLikesQueryVariables>(MyLikesDocument, options);
 }
 export function useMyLikesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyLikesQuery, MyLikesQueryVariables>) {
-  return Apollo.useLazyQuery<MyLikesQuery, MyLikesQueryVariables>(MyLikesDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MyLikesQuery, MyLikesQueryVariables>(MyLikesDocument, options);
 }
 export type MyLikesQueryHookResult = ReturnType<typeof useMyLikesQuery>;
 export type MyLikesLazyQueryHookResult = ReturnType<typeof useMyLikesLazyQuery>;
@@ -7840,10 +8153,8 @@ export type CreateFeedItemMutationFn = Apollo.MutationFunction<CreateFeedItemMut
 export function useCreateFeedItemMutation(
   baseOptions?: Apollo.MutationHookOptions<CreateFeedItemMutation, CreateFeedItemMutationVariables>,
 ) {
-  return Apollo.useMutation<CreateFeedItemMutation, CreateFeedItemMutationVariables>(
-    CreateFeedItemDocument,
-    baseOptions,
-  );
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateFeedItemMutation, CreateFeedItemMutationVariables>(CreateFeedItemDocument, options);
 }
 export type CreateFeedItemMutationHookResult = ReturnType<typeof useCreateFeedItemMutation>;
 export type CreateFeedItemMutationResult = Apollo.MutationResult<CreateFeedItemMutation>;
@@ -7892,9 +8203,10 @@ export type CreateTextFeedItemMutationFn = Apollo.MutationFunction<
 export function useCreateTextFeedItemMutation(
   baseOptions?: Apollo.MutationHookOptions<CreateTextFeedItemMutation, CreateTextFeedItemMutationVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<CreateTextFeedItemMutation, CreateTextFeedItemMutationVariables>(
     CreateTextFeedItemDocument,
-    baseOptions,
+    options,
   );
 }
 export type CreateTextFeedItemMutationHookResult = ReturnType<typeof useCreateTextFeedItemMutation>;
@@ -7933,7 +8245,8 @@ export type LikeFeedItemMutationFn = Apollo.MutationFunction<LikeFeedItemMutatio
 export function useLikeFeedItemMutation(
   baseOptions?: Apollo.MutationHookOptions<LikeFeedItemMutation, LikeFeedItemMutationVariables>,
 ) {
-  return Apollo.useMutation<LikeFeedItemMutation, LikeFeedItemMutationVariables>(LikeFeedItemDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<LikeFeedItemMutation, LikeFeedItemMutationVariables>(LikeFeedItemDocument, options);
 }
 export type LikeFeedItemMutationHookResult = ReturnType<typeof useLikeFeedItemMutation>;
 export type LikeFeedItemMutationResult = Apollo.MutationResult<LikeFeedItemMutation>;
@@ -7971,10 +8284,8 @@ export type UnlikeFeedItemMutationFn = Apollo.MutationFunction<UnlikeFeedItemMut
 export function useUnlikeFeedItemMutation(
   baseOptions?: Apollo.MutationHookOptions<UnlikeFeedItemMutation, UnlikeFeedItemMutationVariables>,
 ) {
-  return Apollo.useMutation<UnlikeFeedItemMutation, UnlikeFeedItemMutationVariables>(
-    UnlikeFeedItemDocument,
-    baseOptions,
-  );
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UnlikeFeedItemMutation, UnlikeFeedItemMutationVariables>(UnlikeFeedItemDocument, options);
 }
 export type UnlikeFeedItemMutationHookResult = ReturnType<typeof useUnlikeFeedItemMutation>;
 export type UnlikeFeedItemMutationResult = Apollo.MutationResult<UnlikeFeedItemMutation>;
@@ -8016,12 +8327,14 @@ export const MyMixdownsDocument = gql`
  * });
  */
 export function useMyMixdownsQuery(baseOptions?: Apollo.QueryHookOptions<MyMixdownsQuery, MyMixdownsQueryVariables>) {
-  return Apollo.useQuery<MyMixdownsQuery, MyMixdownsQueryVariables>(MyMixdownsDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MyMixdownsQuery, MyMixdownsQueryVariables>(MyMixdownsDocument, options);
 }
 export function useMyMixdownsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<MyMixdownsQuery, MyMixdownsQueryVariables>,
 ) {
-  return Apollo.useLazyQuery<MyMixdownsQuery, MyMixdownsQueryVariables>(MyMixdownsDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MyMixdownsQuery, MyMixdownsQueryVariables>(MyMixdownsDocument, options);
 }
 export type MyMixdownsQueryHookResult = ReturnType<typeof useMyMixdownsQuery>;
 export type MyMixdownsLazyQueryHookResult = ReturnType<typeof useMyMixdownsLazyQuery>;
@@ -8068,10 +8381,12 @@ export const MixdownDocument = gql`
  * });
  */
 export function useMixdownQuery(baseOptions: Apollo.QueryHookOptions<MixdownQuery, MixdownQueryVariables>) {
-  return Apollo.useQuery<MixdownQuery, MixdownQueryVariables>(MixdownDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MixdownQuery, MixdownQueryVariables>(MixdownDocument, options);
 }
 export function useMixdownLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MixdownQuery, MixdownQueryVariables>) {
-  return Apollo.useLazyQuery<MixdownQuery, MixdownQueryVariables>(MixdownDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MixdownQuery, MixdownQueryVariables>(MixdownDocument, options);
 }
 export type MixdownQueryHookResult = ReturnType<typeof useMixdownQuery>;
 export type MixdownLazyQueryHookResult = ReturnType<typeof useMixdownLazyQuery>;
@@ -8105,12 +8420,14 @@ export const MyProjectsDocument = gql`
  * });
  */
 export function useMyProjectsQuery(baseOptions?: Apollo.QueryHookOptions<MyProjectsQuery, MyProjectsQueryVariables>) {
-  return Apollo.useQuery<MyProjectsQuery, MyProjectsQueryVariables>(MyProjectsDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MyProjectsQuery, MyProjectsQueryVariables>(MyProjectsDocument, options);
 }
 export function useMyProjectsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<MyProjectsQuery, MyProjectsQueryVariables>,
 ) {
-  return Apollo.useLazyQuery<MyProjectsQuery, MyProjectsQueryVariables>(MyProjectsDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MyProjectsQuery, MyProjectsQueryVariables>(MyProjectsDocument, options);
 }
 export type MyProjectsQueryHookResult = ReturnType<typeof useMyProjectsQuery>;
 export type MyProjectsLazyQueryHookResult = ReturnType<typeof useMyProjectsLazyQuery>;
@@ -8143,17 +8460,19 @@ export const PublicProjectsByHandleDocument = gql`
 export function usePublicProjectsByHandleQuery(
   baseOptions: Apollo.QueryHookOptions<PublicProjectsByHandleQuery, PublicProjectsByHandleQueryVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<PublicProjectsByHandleQuery, PublicProjectsByHandleQueryVariables>(
     PublicProjectsByHandleDocument,
-    baseOptions,
+    options,
   );
 }
 export function usePublicProjectsByHandleLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<PublicProjectsByHandleQuery, PublicProjectsByHandleQueryVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<PublicProjectsByHandleQuery, PublicProjectsByHandleQueryVariables>(
     PublicProjectsByHandleDocument,
-    baseOptions,
+    options,
   );
 }
 export type PublicProjectsByHandleQueryHookResult = ReturnType<typeof usePublicProjectsByHandleQuery>;
@@ -8201,7 +8520,8 @@ export type CreateProjectMutationFn = Apollo.MutationFunction<CreateProjectMutat
 export function useCreateProjectMutation(
   baseOptions?: Apollo.MutationHookOptions<CreateProjectMutation, CreateProjectMutationVariables>,
 ) {
-  return Apollo.useMutation<CreateProjectMutation, CreateProjectMutationVariables>(CreateProjectDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateProjectMutation, CreateProjectMutationVariables>(CreateProjectDocument, options);
 }
 export type CreateProjectMutationHookResult = ReturnType<typeof useCreateProjectMutation>;
 export type CreateProjectMutationResult = Apollo.MutationResult<CreateProjectMutation>;
@@ -8234,10 +8554,12 @@ export const MeDocument = gql`
  * });
  */
 export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
-  return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, options);
 }
 export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
-  return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options);
 }
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
@@ -8270,17 +8592,19 @@ export const UserProfileByHandleDocument = gql`
 export function useUserProfileByHandleQuery(
   baseOptions: Apollo.QueryHookOptions<UserProfileByHandleQuery, UserProfileByHandleQueryVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<UserProfileByHandleQuery, UserProfileByHandleQueryVariables>(
     UserProfileByHandleDocument,
-    baseOptions,
+    options,
   );
 }
 export function useUserProfileByHandleLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<UserProfileByHandleQuery, UserProfileByHandleQueryVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<UserProfileByHandleQuery, UserProfileByHandleQueryVariables>(
     UserProfileByHandleDocument,
-    baseOptions,
+    options,
   );
 }
 export type UserProfileByHandleQueryHookResult = ReturnType<typeof useUserProfileByHandleQuery>;
@@ -8319,10 +8643,12 @@ export const UserDocument = gql`
  * });
  */
 export function useUserQuery(baseOptions: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>) {
-  return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, options);
 }
 export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>) {
-  return Apollo.useLazyQuery<UserQuery, UserQueryVariables>(UserDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<UserQuery, UserQueryVariables>(UserDocument, options);
 }
 export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
 export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
@@ -8357,12 +8683,14 @@ export const MyFollowersDocument = gql`
 export function useMyFollowersQuery(
   baseOptions?: Apollo.QueryHookOptions<MyFollowersQuery, MyFollowersQueryVariables>,
 ) {
-  return Apollo.useQuery<MyFollowersQuery, MyFollowersQueryVariables>(MyFollowersDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MyFollowersQuery, MyFollowersQueryVariables>(MyFollowersDocument, options);
 }
 export function useMyFollowersLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<MyFollowersQuery, MyFollowersQueryVariables>,
 ) {
-  return Apollo.useLazyQuery<MyFollowersQuery, MyFollowersQueryVariables>(MyFollowersDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MyFollowersQuery, MyFollowersQueryVariables>(MyFollowersDocument, options);
 }
 export type MyFollowersQueryHookResult = ReturnType<typeof useMyFollowersQuery>;
 export type MyFollowersLazyQueryHookResult = ReturnType<typeof useMyFollowersLazyQuery>;
@@ -8397,12 +8725,14 @@ export const MeFollowingDocument = gql`
 export function useMeFollowingQuery(
   baseOptions?: Apollo.QueryHookOptions<MeFollowingQuery, MeFollowingQueryVariables>,
 ) {
-  return Apollo.useQuery<MeFollowingQuery, MeFollowingQueryVariables>(MeFollowingDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MeFollowingQuery, MeFollowingQueryVariables>(MeFollowingDocument, options);
 }
 export function useMeFollowingLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<MeFollowingQuery, MeFollowingQueryVariables>,
 ) {
-  return Apollo.useLazyQuery<MeFollowingQuery, MeFollowingQueryVariables>(MeFollowingDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MeFollowingQuery, MeFollowingQueryVariables>(MeFollowingDocument, options);
 }
 export type MeFollowingQueryHookResult = ReturnType<typeof useMeFollowingQuery>;
 export type MeFollowingLazyQueryHookResult = ReturnType<typeof useMeFollowingLazyQuery>;
@@ -8435,12 +8765,14 @@ export const MyFriendsDocument = gql`
  * });
  */
 export function useMyFriendsQuery(baseOptions?: Apollo.QueryHookOptions<MyFriendsQuery, MyFriendsQueryVariables>) {
-  return Apollo.useQuery<MyFriendsQuery, MyFriendsQueryVariables>(MyFriendsDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MyFriendsQuery, MyFriendsQueryVariables>(MyFriendsDocument, options);
 }
 export function useMyFriendsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<MyFriendsQuery, MyFriendsQueryVariables>,
 ) {
-  return Apollo.useLazyQuery<MyFriendsQuery, MyFriendsQueryVariables>(MyFriendsDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MyFriendsQuery, MyFriendsQueryVariables>(MyFriendsDocument, options);
 }
 export type MyFriendsQueryHookResult = ReturnType<typeof useMyFriendsQuery>;
 export type MyFriendsLazyQueryHookResult = ReturnType<typeof useMyFriendsLazyQuery>;
@@ -8474,17 +8806,19 @@ export const FollowRecommendationsDocument = gql`
 export function useFollowRecommendationsQuery(
   baseOptions?: Apollo.QueryHookOptions<FollowRecommendationsQuery, FollowRecommendationsQueryVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<FollowRecommendationsQuery, FollowRecommendationsQueryVariables>(
     FollowRecommendationsDocument,
-    baseOptions,
+    options,
   );
 }
 export function useFollowRecommendationsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<FollowRecommendationsQuery, FollowRecommendationsQueryVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<FollowRecommendationsQuery, FollowRecommendationsQueryVariables>(
     FollowRecommendationsDocument,
-    baseOptions,
+    options,
   );
 }
 export type FollowRecommendationsQueryHookResult = ReturnType<typeof useFollowRecommendationsQuery>;
@@ -8536,10 +8870,12 @@ export const SearchDocument = gql`
  * });
  */
 export function useSearchQuery(baseOptions: Apollo.QueryHookOptions<SearchQuery, SearchQueryVariables>) {
-  return Apollo.useQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<SearchQuery, SearchQueryVariables>(SearchDocument, options);
 }
 export function useSearchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchQuery, SearchQueryVariables>) {
-  return Apollo.useLazyQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<SearchQuery, SearchQueryVariables>(SearchDocument, options);
 }
 export type SearchQueryHookResult = ReturnType<typeof useSearchQuery>;
 export type SearchLazyQueryHookResult = ReturnType<typeof useSearchLazyQuery>;
@@ -8578,7 +8914,8 @@ export type SignUpUserMutationFn = Apollo.MutationFunction<SignUpUserMutation, S
 export function useSignUpUserMutation(
   baseOptions?: Apollo.MutationHookOptions<SignUpUserMutation, SignUpUserMutationVariables>,
 ) {
-  return Apollo.useMutation<SignUpUserMutation, SignUpUserMutationVariables>(SignUpUserDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<SignUpUserMutation, SignUpUserMutationVariables>(SignUpUserDocument, options);
 }
 export type SignUpUserMutationHookResult = ReturnType<typeof useSignUpUserMutation>;
 export type SignUpUserMutationResult = Apollo.MutationResult<SignUpUserMutation>;
@@ -8613,7 +8950,8 @@ export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, U
 export function useUpdateUserMutation(
   baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>,
 ) {
-  return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
 }
 export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
@@ -8648,7 +8986,8 @@ export type FollowUserMutationFn = Apollo.MutationFunction<FollowUserMutation, F
 export function useFollowUserMutation(
   baseOptions?: Apollo.MutationHookOptions<FollowUserMutation, FollowUserMutationVariables>,
 ) {
-  return Apollo.useMutation<FollowUserMutation, FollowUserMutationVariables>(FollowUserDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<FollowUserMutation, FollowUserMutationVariables>(FollowUserDocument, options);
 }
 export type FollowUserMutationHookResult = ReturnType<typeof useFollowUserMutation>;
 export type FollowUserMutationResult = Apollo.MutationResult<FollowUserMutation>;
@@ -8683,7 +9022,8 @@ export type UnfollowUserMutationFn = Apollo.MutationFunction<UnfollowUserMutatio
 export function useUnfollowUserMutation(
   baseOptions?: Apollo.MutationHookOptions<UnfollowUserMutation, UnfollowUserMutationVariables>,
 ) {
-  return Apollo.useMutation<UnfollowUserMutation, UnfollowUserMutationVariables>(UnfollowUserDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UnfollowUserMutation, UnfollowUserMutationVariables>(UnfollowUserDocument, options);
 }
 export type UnfollowUserMutationHookResult = ReturnType<typeof useUnfollowUserMutation>;
 export type UnfollowUserMutationResult = Apollo.MutationResult<UnfollowUserMutation>;
@@ -8716,9 +9056,10 @@ export const OnlineStatusDocument = gql`
 export function useOnlineStatusSubscription(
   baseOptions: Apollo.SubscriptionHookOptions<OnlineStatusSubscription, OnlineStatusSubscriptionVariables>,
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSubscription<OnlineStatusSubscription, OnlineStatusSubscriptionVariables>(
     OnlineStatusDocument,
-    baseOptions,
+    options,
   );
 }
 export type OnlineStatusSubscriptionHookResult = ReturnType<typeof useOnlineStatusSubscription>;

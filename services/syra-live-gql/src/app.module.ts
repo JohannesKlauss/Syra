@@ -74,6 +74,7 @@ import { BullModule } from '@nestjs/bull';
 import { AudioModule } from './audio/audio.module';
 import { PubSubModule } from './pub-sub/pub-sub.module';
 import { PubSubService } from "./pub-sub/pub-sub.service";
+import { OpenFaasModule } from './open-faas/open-faas.module';
 
 @Module({
   imports: [
@@ -188,6 +189,7 @@ import { PubSubService } from "./pub-sub/pub-sub.service";
       },
     }),
     AudioModule,
+    OpenFaasModule,
   ],
   controllers: [AppController],
   providers: [

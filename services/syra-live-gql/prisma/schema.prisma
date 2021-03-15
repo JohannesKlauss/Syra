@@ -31,29 +31,27 @@ model VersionInformation {
   description String
 }
 
-model AudioAsset {
+model Asset {
   id             String                  @id @default(cuid())
   location       String
   name           String
-  usedInProjects AudioAssetsOnProjects[]
+  usedInProjects AssetsOnProjects[]
   isPublic       Boolean?                @default(false)
   /// @TypeGraphQL.omit(output: true)
   owner          User?                   @relation(fields: [userId], references: [id])
-  parentAssetId  String?
-  parentAsset    AudioAsset?             @relation("ParentChildrenAssets", fields: [parentAssetId], references: [id])
-  AudioAsset     AudioAsset[]            @relation("ParentChildrenAssets")
   Mixdown        Mixdown[]
   userId         String?
+  mimeType       String
 }
 
-model AudioAssetsOnProjects {
-  audioAsset   AudioAsset @relation(fields: [audioAssetId], references: [id])
-  audioAssetId String
+model AssetsOnProjects {
+  asset        Asset      @relation(fields: [assetId], references: [id])
+  assetId      String
   project      Project    @relation(fields: [projectId], references: [id])
   projectId    String
   createdAt    DateTime   @default(now())
 
-  @@id([audioAssetId, projectId])
+  @@id([assetId, projectId])
 }
 
 model User {
@@ -80,7 +78,7 @@ model User {
   feed             FeedItem[]
   interests        Tag[]
   Issue            Issue[]
-  AudioAsset       AudioAsset[]
+  Asset            Asset[]
   EarlyAccessCode  EarlyAccessCode[]
   Mixdown          Mixdown[]
   Comment          Comment[]
@@ -145,7 +143,7 @@ model Project {
   updatedAt     DateTime                @updatedAt
   content       Json
   members       UsersOnProjects[]
-  audioAssets   AudioAssetsOnProjects[]
+  assets   AssetsOnProjects[]
   mixdowns      Mixdown[]
   isInitialized Boolean                 @default(false)
 }
@@ -157,14 +155,14 @@ model Mixdown {
   listens      Int        @default(0)
   name         String?
   triggerdBy   User       @relation(fields: [userId], references: [id])
-  audio        AudioAsset @relation(fields: [audioAssetId], references: [id])
+  audio        Asset      @relation(fields: [assetId], references: [id])
   isPusblished Boolean?   @default(false)
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   FeedItem     FeedItem[]
   projectId    String
   userId       String
-  audioAssetId String
+  assetId String
 }
 
 model UsersOnProjects {

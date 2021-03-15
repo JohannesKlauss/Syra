@@ -7,6 +7,8 @@ import { FilesService } from "../files/files.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { SpacesService } from "../files/spaces.service";
 import { PubSubModule } from "../pub-sub/pub-sub.module";
+import { OpenFaasService } from "../open-faas/open-faas.service";
+import { OpenFaasModule } from "../open-faas/open-faas.module";
 
 @Module({
   imports: [
@@ -15,9 +17,10 @@ import { PubSubModule } from "../pub-sub/pub-sub.module";
     }),
     FilesModule,
     PubSubModule,
+    OpenFaasModule,
     HttpModule,
   ],
   controllers: [AudioController],
-  providers: [AudioProcessor, FilesService, PrismaService, SpacesService],
+  providers: [AudioProcessor, FilesService, PrismaService, SpacesService, OpenFaasService],
 })
 export class AudioModule {}

@@ -1,25 +1,26 @@
-import { Process, Processor } from '@nestjs/bull';
-import { HttpService, Logger } from '@nestjs/common';
-import { Job } from 'bull';
-import { SpacesService } from '../files/spaces.service';
-import { AudioTranscodeJob } from '../../types/AudioTranscodeJob';
-import * as fs from 'fs';
-import * as ffmpeg from 'fluent-ffmpeg';
-import { pipeline } from 'stream';
-import { PrismaService } from '../prisma/prisma.service';
-import { MD5 } from 'crypto-js';
-import { PubSubService } from '../pub-sub/pub-sub.service';
-import { Subscriptions } from '../../types/Subscriptions';
+import { InjectQueue, Process, Processor } from "@nestjs/bull";
+import { Logger } from "@nestjs/common";
+import { Job, Queue } from "bull";
+import { SpacesService } from "../files/spaces.service";
+import { AudioTranscodeJob } from "../../types/AudioTranscodeJob";
+import * as fs from "fs";
+import { PrismaService } from "../prisma/prisma.service";
+import { MD5 } from "crypto-js";
+import { PubSubService } from "../pub-sub/pub-sub.service";
+import { Subscriptions } from "../../types/Subscriptions";
+import { OpenFaasFunction } from "../../types/OpenFaas";
+import { OpenFaasService } from "../open-faas/open-faas.service";
 
 // TODO: THIS IS UGLY AS HELL AND ERROR PRONE. CLEAN THIS UP!
 
 @Processor('audio')
 export class AudioProcessor {
   constructor(
+    @InjectQueue('audio') private readonly audioQueue: Queue<AudioTranscodeJob>,
     private readonly spacesService: SpacesService,
     private readonly prismaService: PrismaService,
     private readonly pubSubService: PubSubService,
-    private readonly httpService: HttpService,
+    private readonly openFaasService: OpenFaasService,
   ) {}
 
   private readonly logger = new Logger(AudioProcessor.name);
@@ -29,48 +30,49 @@ export class AudioProcessor {
     this.logger.debug('Start transcoding...');
     this.logger.debug(job.data);
 
-    const { spacesObject, targetFormat, projectId } = job.data;
+    const { tmpFileName, originalMimeType } = job.data;
 
-    this.logger.debug('Pull info from DB');
+    this.logger.debug('Get file from tmp');
 
-    const originalAsset = await this.prismaService.audioAsset.findUnique({
-      where: { id: spacesObject.id },
-      select: { isPublic: true, owner: true, id: true },
-    });
-
-    this.logger.debug('Pull file from S3 space');
-
-    const fileStream = await this.spacesService.getFile(spacesObject.location);
+    const fileStream = await fs.createReadStream(`${__dirname}/tmp/${tmpFileName}`);
 
     this.logger.debug(`Run transcoder`);
 
-    const response = await this.httpService.post('https://faas.syra.live/function/ffmpeg', fileStream.stream, {
-      headers: { 'Content-Type': 'text/plain' },
-      responseType: 'stream',
-    }).toPromise();
+    const transcodeStream = originalMimeType !== 'audio/flac' ? this.openFaasService.invokeFunction(OpenFaasFunction.FFMPEG, fileStream) : null;
+    const peakWaveform = this.openFaasService.invokeFunction(OpenFaasFunction.AUDIO_WAVEFORM, fileStream);
+
+    transcodeStream && transcodeStream.then(stream => this.uploadTranscodedFile(stream.data, job.data));
+    peakWaveform.then(stream => this.uploadPeakWaveformFile(stream.data, job.data));
+
+    Promise.all([transcodeStream, peakWaveform]).finally(() => {
+      fs.unlinkSync(`${__dirname}/tmp/${tmpFileName}`);
+    });
+  }
+
+  async uploadTranscodedFile(readableStream: NodeJS.ReadableStream, jobData: AudioTranscodeJob) {
+    const { tmpFileName, userId, projectId, originalName, originalMimeType } = jobData;
 
     this.logger.debug(`Transcoder finished`);
 
     this.logger.debug(`Upload transcoded file`);
 
     const location = await this.spacesService.putFile(
-      MD5(originalAsset.owner.id).toString(),
-      spacesObject.name.replace(/\.[0-9a-z]+$/i, `.${targetFormat}`),
+      MD5(userId).toString(),
+      `${tmpFileName}.flac`,
       'audio/flac',
-      response.data,
-      true,
+      readableStream
     );
 
     this.logger.debug(`S3 Space location: ${location}`);
 
-    const createdAsset = await this.prismaService.audioAsset.create({
+    const createdAsset = await this.prismaService.asset.create({
       data: {
-        isPublic: originalAsset.isPublic,
+        isPublic: false,
         location,
-        parentAssetId: spacesObject.id,
-        userId: originalAsset.owner.id,
+        owner: {connect: {id: userId}},
         usedInProjects: { create: { projectId } },
-        name: spacesObject.name.replace(/\.[0-9a-z]+$/i, `.${targetFormat}`),
+        mimeType: originalMimeType,
+        name: originalName.replace(/\.[0-9a-z]+$/i, `.flac`),
       },
       select: {
         id: true,
@@ -79,10 +81,47 @@ export class AudioProcessor {
 
     await this.pubSubService.getPubSub().publish(Subscriptions.UPLOADED_FILE_PROCESSED, {
       id: createdAsset.id,
-      parentAssetId: originalAsset.id,
       projectId,
     });
 
-    this.logger.debug('Published sub.');
+    this.logger.debug('Published transcoded file.');
+  }
+
+  async uploadPeakWaveformFile(readableStream: NodeJS.ReadableStream, jobData: AudioTranscodeJob) {
+    const { tmpFileName, userId, projectId, originalName, originalMimeType } = jobData;
+
+    this.logger.debug(`Peak Waveform analyzing finished`);
+
+    this.logger.debug(`Upload waveform file`);
+
+    const location = await this.spacesService.putFile(
+      MD5(userId).toString(),
+      `${tmpFileName}.dat`,
+      'application/dat',
+      readableStream
+    );
+
+    this.logger.debug(`S3 Space location: ${location}`);
+
+    const createdAsset = await this.prismaService.asset.create({
+      data: {
+        isPublic: false,
+        location,
+        owner: {connect: {id: userId}},
+        usedInProjects: { create: { projectId } },
+        mimeType: originalMimeType,
+        name: originalName.replace(/\.[0-9a-z]+$/i, `.dat`),
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    await this.pubSubService.getPubSub().publish(Subscriptions.PEAK_WAVEFORM_ANALYZED, {
+      id: createdAsset.id,
+      projectId,
+    });
+
+    this.logger.debug('Published peak waveform file.');
   }
 }
