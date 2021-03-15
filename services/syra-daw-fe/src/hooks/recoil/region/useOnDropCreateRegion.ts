@@ -1,5 +1,5 @@
 import { useCallback, useContext } from "react";
-import useCreateAudioRegion from "./useCreateAudioRegion";
+import useCreateAudioRegionFromFile from "./useCreateAudioRegionFromFile";
 import usePixelToQuarter from "../../ui/usePixelToQuarter";
 import { ChannelContext } from "../../../providers/ChannelContext";
 import * as Tone from 'tone';
@@ -7,7 +7,7 @@ import useSnapPixelValue from "../../ui/useSnapPixelValue";
 
 export default function useOnDropCreateRegion() {
   const channelId = useContext(ChannelContext);
-  const createRegion = useCreateAudioRegion();
+  const createRegion = useCreateAudioRegionFromFile();
   const pixelToQuarter = usePixelToQuarter();
   const snapPixelValue = useSnapPixelValue();
 

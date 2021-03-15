@@ -10,5 +10,5 @@ export class TranscodedAssetSubscriptionArgs {
   @TypeGraphQL.Field(type => String, {
     nullable: false
   })
-  assetId!: string;
+  jobId!: string;
 }

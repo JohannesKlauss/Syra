@@ -87,9 +87,22 @@ const name = atomFamilyWithEffects<string, string>({
   ]
 });
 
+/**
+ * This saves the reference id for the transcoding job on the server side.
+ * Each time we create a new buffer it gets send to the server to transcode
+ * it to flac and analyze the content. This is the transcode to flac job id.
+ * A GQL subscription then waits for a response from the server matching this
+ * id and sending along the actual database id.
+ */
+const transcodeJobId = atomFamily<string, string>({
+  key: 'audioBuffer/transcodeJobId',
+  default: '',
+});
+
 // This id is used to reference the file on local storage and on the server.
 // Use this to load the wanted file.
 // This is identical to the database ID of the transcoded asset.
+// This gets stored after the the transcode job finishes and the GQL sub triggers.
 const storedBufferId = atomFamilyWithEffects<string, string>({
   key: 'audioBuffer/storedBufferId',
   default: '',
@@ -133,5 +146,6 @@ export const audioBufferStore = {
   storedBufferId,
   isInSyncWithDb,
   hasTranscodedFile,
+  transcodeJobId,
   durationInTicks
 };

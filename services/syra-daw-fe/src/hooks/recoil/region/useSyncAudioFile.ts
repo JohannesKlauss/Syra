@@ -1,7 +1,7 @@
 import { RegionContext } from "../../../providers/RegionContext";
 import { useContext, useEffect } from "react";
 import { regionStore } from "../../../recoil/regionStore";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { audioBufferStore } from "../../../recoil/audioBufferStore";
 import { useAssetTranscodedSubscription } from "../../../gql/generated";
 import { projectStore } from "../../../recoil/projectStore";
@@ -14,16 +14,15 @@ export default function useSyncAudioFile() {
   const audioBufferPointer = useRecoilValue(regionStore.audioBufferPointer(regionId));
   const [hasTranscodedFile, setHasTranscodedFile] = useRecoilState(audioBufferStore.hasTranscodedFile(audioBufferPointer));
   const isInSyncWithDb = useRecoilValue(audioBufferStore.isInSyncWithDb(audioBufferPointer));
-  const [storedBufferId, setStoredBufferId] = useRecoilState(audioBufferStore.storedBufferId(audioBufferPointer));
-
-  console.log('bufferId', storedBufferId);
+  const transcodeJobId = useRecoilValue(audioBufferStore.transcodeJobId(audioBufferPointer));
+  const setStoredBufferId = useSetRecoilState(audioBufferStore.storedBufferId(audioBufferPointer));
 
   const {data} = useAssetTranscodedSubscription({
     variables: {
-      assetId: storedBufferId,
+      jobId: transcodeJobId,
       projectId,
     },
-    skip: storedBufferId.length === 0 && hasTranscodedFile && isInSyncWithDb
+    skip: transcodeJobId.length === 0 && hasTranscodedFile && isInSyncWithDb
   });
 
   useEffect(() => {

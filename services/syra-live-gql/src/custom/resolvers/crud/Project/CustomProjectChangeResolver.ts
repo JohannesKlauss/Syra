@@ -50,7 +50,7 @@ export class CustomProjectChangeResolver {
       payload,
       args,
     }: ResolverFilterData<PublishTranscodedAssetArgs, TranscodedAssetSubscriptionArgs, GraphQLContext>) => {
-      return payload.projectId === args.projectId && payload.parentAssetId === args.assetId;
+      return payload.projectId === args.projectId && payload.jobId === args.jobId;
     },
   })
   assetTranscoded(

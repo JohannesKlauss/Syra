@@ -28,10 +28,11 @@ export class AudioController {
   @UseGuards(CookieAuthGuard)
   async upload(@Req() req, @Query() query, @Param('projectId') projectId) {
     const parts: Multipart[] = await req.parts();
+    let jobId: string = uniqid();
 
     for await (const part of parts) {
       if (part.file) {
-        const tmpFileName = uniqid('audio-transcode-');
+        const tmpFileName = `audio-transcode-${jobId}`;
 
         if (!fs.existsSync(`${__dirname}/tmp`)) {
           fs.mkdirSync(`${__dirname}/tmp`);
@@ -41,6 +42,7 @@ export class AudioController {
           this.audioQueue.add(
             'transcode',
             {
+              jobId,
               originalMimeType: part.mimetype,
               originalName: part.filename,
               userId: req.user.id,
@@ -56,5 +58,7 @@ export class AudioController {
         break;
       }
     }
+
+    return {jobId};
   }
 }

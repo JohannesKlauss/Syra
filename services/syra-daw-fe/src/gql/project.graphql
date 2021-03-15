@@ -55,8 +55,8 @@ subscription changes($projectId: String!) {
     }
 }
 
-subscription assetTranscoded($projectId: String!, $assetId: String!) {
-    assetTranscoded(projectId: $projectId, assetId: $assetId) {
+subscription assetTranscoded($projectId: String!, $jobId: String!) {
+    assetTranscoded(projectId: $projectId, jobId: $jobId) {
         id
     }
 }

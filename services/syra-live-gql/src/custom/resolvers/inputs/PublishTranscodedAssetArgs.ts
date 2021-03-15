@@ -16,5 +16,5 @@ export class PublishTranscodedAssetArgs {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  parentAssetId!: string;
+  jobId!: string;
 }

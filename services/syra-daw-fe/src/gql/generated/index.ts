@@ -4283,7 +4283,7 @@ export type PublishProjectChangesArgs = {
 export type PublishTranscodedAssetArgs = {
   __typename?: 'PublishTranscodedAssetArgs';
   id: Scalars['String'];
-  parentAssetId: Scalars['String'];
+  jobId: Scalars['String'];
   projectId: Scalars['String'];
 };
 
@@ -4836,7 +4836,7 @@ export type Subscription = {
 };
 
 export type SubscriptionAssetTranscodedArgs = {
-  assetId: Scalars['String'];
+  jobId: Scalars['String'];
   projectId: Scalars['String'];
 };
 
@@ -7222,7 +7222,7 @@ export type ChangesSubscription = { __typename?: 'Subscription' } & {
 
 export type AssetTranscodedSubscriptionVariables = Exact<{
   projectId: Scalars['String'];
-  assetId: Scalars['String'];
+  jobId: Scalars['String'];
 }>;
 
 export type AssetTranscodedSubscription = { __typename?: 'Subscription' } & {
@@ -7581,8 +7581,8 @@ export function useChangesSubscription(
 export type ChangesSubscriptionHookResult = ReturnType<typeof useChangesSubscription>;
 export type ChangesSubscriptionResult = Apollo.SubscriptionResult<ChangesSubscription>;
 export const AssetTranscodedDocument = gql`
-  subscription assetTranscoded($projectId: String!, $assetId: String!) {
-    assetTranscoded(projectId: $projectId, assetId: $assetId) {
+  subscription assetTranscoded($projectId: String!, $jobId: String!) {
+    assetTranscoded(projectId: $projectId, jobId: $jobId) {
       id
     }
   }
@@ -7601,7 +7601,7 @@ export const AssetTranscodedDocument = gql`
  * const { data, loading, error } = useAssetTranscodedSubscription({
  *   variables: {
  *      projectId: // value for 'projectId'
- *      assetId: // value for 'assetId'
+ *      jobId: // value for 'jobId'
  *   },
  * });
  */

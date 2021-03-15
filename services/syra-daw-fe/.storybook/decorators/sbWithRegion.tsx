@@ -3,7 +3,7 @@ import * as React from 'react';
 import useCreateChannel from '../../src/hooks/recoil/channel/useCreateChannel';
 import { ChannelType } from '../../src/types/Channel';
 import { RegionContext } from '../../src/providers/RegionContext';
-import useCreateAudioRegion from '../../src/hooks/recoil/region/useCreateAudioRegion';
+import useCreateAudioRegionFromFile from '../../src/hooks/recoil/region/useCreateAudioRegionFromFile';
 import { useEffect } from 'react';
 import useAudioContext from '../../src/hooks/audio/useAudioContext';
 
@@ -12,7 +12,7 @@ const regionId = 'sb-region-1';
 
 export default function sbWithRegion(Story, context) {
   const createChannel = useCreateChannel();
-  const createRegion = useCreateAudioRegion();
+  const createRegion = useCreateAudioRegionFromFile();
   const ctx = useAudioContext();
 
   useEffect(() => {

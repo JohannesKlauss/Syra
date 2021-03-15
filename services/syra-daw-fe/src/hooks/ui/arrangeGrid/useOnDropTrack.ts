@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import { ChannelType } from '../../../types/Channel';
 import useCreateChannel from '../../recoil/channel/useCreateChannel';
-import useCreateAudioRegion from '../../recoil/region/useCreateAudioRegion';
+import useCreateAudioRegionFromFile from '../../recoil/region/useCreateAudioRegionFromFile';
 import useImportMidiFile from "../../fileImport/useImportMidiFile";
 import * as Tone from 'tone';
 
 export default function useOnDropTrack() {
   const createChannel = useCreateChannel();
-  const createAudioRegion = useCreateAudioRegion();
+  const createAudioRegion = useCreateAudioRegionFromFile();
   const importMidiFile = useImportMidiFile();
 
   return useCallback(async (files: File[]) => {

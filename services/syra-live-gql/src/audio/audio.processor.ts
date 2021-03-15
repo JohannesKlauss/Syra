@@ -37,6 +37,7 @@ export class AudioProcessor {
     const fileStream = await fs.createReadStream(`${__dirname}/tmp/${tmpFileName}`);
 
     this.logger.debug(`Run transcoder`);
+    this.logger.debug(`Run Peak Waveform analyzer`);
 
     const transcodeStream = originalMimeType !== 'audio/flac' ? this.openFaasService.invokeFunction(OpenFaasFunction.FFMPEG, fileStream) : null;
     const peakWaveform = this.openFaasService.invokeFunction(OpenFaasFunction.AUDIO_WAVEFORM, fileStream);
@@ -50,7 +51,7 @@ export class AudioProcessor {
   }
 
   async uploadTranscodedFile(readableStream: NodeJS.ReadableStream, jobData: AudioTranscodeJob) {
-    const { tmpFileName, userId, projectId, originalName, originalMimeType } = jobData;
+    const { tmpFileName, userId, projectId, originalName, originalMimeType, jobId } = jobData;
 
     this.logger.debug(`Transcoder finished`);
 
@@ -81,6 +82,7 @@ export class AudioProcessor {
 
     await this.pubSubService.getPubSub().publish(Subscriptions.UPLOADED_FILE_PROCESSED, {
       id: createdAsset.id,
+      jobId,
       projectId,
     });
 
@@ -88,7 +90,7 @@ export class AudioProcessor {
   }
 
   async uploadPeakWaveformFile(readableStream: NodeJS.ReadableStream, jobData: AudioTranscodeJob) {
-    const { tmpFileName, userId, projectId, originalName, originalMimeType } = jobData;
+    const { tmpFileName, userId, projectId, originalName, originalMimeType, jobId } = jobData;
 
     this.logger.debug(`Peak Waveform analyzing finished`);
 
@@ -119,6 +121,7 @@ export class AudioProcessor {
 
     await this.pubSubService.getPubSub().publish(Subscriptions.PEAK_WAVEFORM_ANALYZED, {
       id: createdAsset.id,
+      jobId,
       projectId,
     });
 

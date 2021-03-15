@@ -9,15 +9,13 @@ import { projectStore } from '../../../recoil/projectStore';
 import * as Tone from 'tone';
 import useUploadAudioFile from "../../audio/useUploadAudioFile";
 
-export default function useCreateAudioRegion() {
+export default function useCreateAudioRegionFromFile() {
   const audioContext = useAudioContext();
   const uploadFile = useUploadAudioFile();
 
   return useRecoilCallback(({ set, snapshot }) => async (channelId: string, file: File, start: Tone.TimeClass = Tone.Ticks(0), analyzeTempo: boolean = false, regionId?: string) => {
     const newRegionId = regionId ?? createNewId(REGION_ID_PREFIX);
     const newBufferId = createNewId(BUFFER_ID_PREFIX);
-
-    console.log('DECODE FILE', file);
 
     const audioBuffer = await audioContext.decodeAudioData(await file.arrayBuffer());
 

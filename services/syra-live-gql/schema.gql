@@ -3708,7 +3708,7 @@ type PublishProjectChangesArgs {
 
 type PublishTranscodedAssetArgs {
   id: String!
-  parentAssetId: String!
+  jobId: String!
   projectId: String!
 }
 
@@ -3832,7 +3832,7 @@ input StringNullableListFilter {
 }
 
 type Subscription {
-  assetTranscoded(assetId: String!, projectId: String!): PublishTranscodedAssetArgs!
+  assetTranscoded(jobId: String!, projectId: String!): PublishTranscodedAssetArgs!
   changes(projectId: String!): PublishProjectChangesArgs!
   newComment(feedItemId: String!): Comment!
   onlineStatus(userId: String!): Boolean!
