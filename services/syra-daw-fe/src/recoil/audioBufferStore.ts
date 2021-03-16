@@ -56,26 +56,12 @@ const storedPeakWaveformId = atomFamilyWithEffects<string, string>({
   effects: [...syncEffectsComb],
 });
 
-const hasTranscodedFile = atomFamilyWithEffects<boolean, string>({
-  key: 'audioBuffer/hasTranscodedFile',
-  default: false,
-  effects: [...syncEffectsComb],
-});
-
-const hasPeakWaveformFile = atomFamilyWithEffects<boolean, string>({
-  key: 'audioBuffer/hasPeakWaveformFile',
-  default: false,
-  effects: [...syncEffectsComb],
-});
-
 const isInSyncWithDb = selectorFamily<boolean, string>({
   key: 'audioBuffer/isInSyncWithDb',
   get: (bufferId) => ({ get }) => {
     return (
-      get(hasTranscodedFile(bufferId)) &&
       get(storedBufferId(bufferId)).length > 0 &&
       get(buffer(bufferId)) !== null &&
-      get(hasPeakWaveformFile(bufferId)) &&
       get(storedPeakWaveformId(bufferId)).length > 0
     );
   },
@@ -101,7 +87,6 @@ const buffer = selectorFamily<AudioBuffer | null, string>({
   get: makeFileBufferSelector(
     internalBuffer,
     storedBufferId,
-    hasTranscodedFile,
     '.flac',
   )(async arrayBuffer => await Tone.getContext().decodeAudioData(arrayBuffer)),
   set: (bufferId) => ({ set }, buffer) => set(internalBuffer(bufferId), buffer),
@@ -112,7 +97,6 @@ const peakWaveform = selectorFamily<WaveformData | null, string>({
   get: makeFileBufferSelector(
     internalPeakWaveform,
     storedPeakWaveformId,
-    hasPeakWaveformFile,
     '.dat',
   )(arrayBuffer => Promise.resolve(WaveformData.create(arrayBuffer))),
   set: (bufferId) => ({ set }, buffer) => set(internalPeakWaveform(bufferId), buffer),
@@ -126,8 +110,6 @@ export const audioBufferStore = {
   storedBufferId,
   storedPeakWaveformId,
   isInSyncWithDb,
-  hasTranscodedFile,
-  hasPeakWaveformFile,
   transcodeJobId,
   durationInTicks,
 };

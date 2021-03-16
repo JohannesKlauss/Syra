@@ -8,7 +8,6 @@ type SelectorFamilyGet<P, T> = (param: P) => (opts: { get: GetRecoilValue }) => 
 export function makeFileBufferSelector<T>(
   internalBuffer: AtomFamily<T | null, string>,
   storedDbId: AtomFamily<string, string>,
-  hasFile: AtomFamily<boolean, string>,
   fileExtension: string,
 ) {
   return (asyncBufferCreator: (arrayBuffer: ArrayBuffer) => Promise<T>): SelectorFamilyGet<string, T | null> => {
@@ -26,7 +25,7 @@ export function makeFileBufferSelector<T>(
 
       const storedId = get(storedDbId(id));
 
-      if (storedId.length === 0 || !get(hasFile(id))) {
+      if (storedId.length === 0) {
         return null;
       }
 

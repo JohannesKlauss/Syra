@@ -12,8 +12,6 @@ export default function useSyncAudioFile() {
   const regionId = useContext(RegionContext);
   const projectId = useRecoilValue(projectStore.id);
   const audioBufferPointer = useRecoilValue(regionStore.audioBufferPointer(regionId));
-  const setHasTranscodedFile = useSetRecoilState(audioBufferStore.hasTranscodedFile(audioBufferPointer));
-  const setHasPeakWaveformFile = useSetRecoilState(audioBufferStore.hasPeakWaveformFile(audioBufferPointer));
   const isInSyncWithDb = useRecoilValue(audioBufferStore.isInSyncWithDb(audioBufferPointer));
   const transcodeJobId = useRecoilValue(audioBufferStore.transcodeJobId(audioBufferPointer));
   const setStoredBufferId = useSetRecoilState(audioBufferStore.storedBufferId(audioBufferPointer));
@@ -32,12 +30,10 @@ export default function useSyncAudioFile() {
       switch (data?.assetAvailable.mimeType) {
         case 'audio/flac':
           setStoredBufferId(data.assetAvailable.id);
-          setHasTranscodedFile(true);
 
           break;
         case 'application/dat':
           setStoredPeakWaveformId(data.assetAvailable.id);
-          setHasPeakWaveformFile(true);
 
           break;
       }
