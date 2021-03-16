@@ -64,7 +64,7 @@ const readArrayBufferFromFile = async (assetId: string) => {
     try {
       fileHandle = await rootHandle.getFileHandle(assetId);
     } catch (e) {
-      console.log('could not get file handle');
+      console.log('could not get file handle', assetId);
     }
 
     if (fileHandle) {

@@ -2,7 +2,6 @@ import axios from "axios";
 import { useRecoilCallback, useRecoilValue } from "recoil";
 import { audioBufferStore } from "../../recoil/audioBufferStore";
 import { projectStore } from "../../recoil/projectStore";
-import { fileSystem } from "../../utils/fileSystem";
 
 export default function useUploadAudioFile() {
   const projectId = useRecoilValue(projectStore.id);
@@ -20,8 +19,6 @@ export default function useUploadAudioFile() {
 
     if (res.status === 201) {
       set(audioBufferStore.transcodeJobId(bufferId), res.data.jobId);
-
-      await fileSystem.writeFile(res.data.id, file);
     }
   }, [projectId]);
 }

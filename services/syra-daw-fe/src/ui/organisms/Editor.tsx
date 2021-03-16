@@ -27,7 +27,6 @@ const Editor: React.FC = () => {
   const setIsCycleActive = useSetRecoilState(transportStore.isCycleActive);
 
   useHotkeys('shift+d', () => setShowDebugMenu((currVal) => !currVal));
-
   useHotkeys('c', () => setIsCycleActive(currVal => !currVal), [setIsCycleActive]);
 
   useBlockWindowLeave();

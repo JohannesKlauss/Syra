@@ -5,6 +5,7 @@ import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
 import { syncEffectsComb } from "./effects/syncEffectsComb";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
 import * as Tone from 'tone';
+import WaveformData from "waveform-data";
 
 // Parameter is channelId. This basically stores all regionIds for a channelId.
 const ids = atomFamilyWithEffects<string[], string>({
@@ -123,6 +124,15 @@ const audioBuffer = selectorFamily<AudioBuffer | null, string>({
   }
 });
 
+const peakWaveform = selectorFamily<WaveformData | null, string>({
+  key: 'region/audioBuffer',
+  get: regionId => ({get}) => {
+    const pointer = get(audioBufferPointer(regionId));
+
+    return pointer !== null ? get(audioBufferStore.peakWaveform(pointer)): null;
+  }
+});
+
 const isInSync = selectorFamily<boolean, string>({
   key: 'region/isInSync',
   get: regionId => ({get}) => {
@@ -220,6 +230,7 @@ export const regionStore = {
   name,
   midiNotes,
   audioBuffer,
+  peakWaveform,
   audioBufferPointer,
   isSolo,
   isMuted,

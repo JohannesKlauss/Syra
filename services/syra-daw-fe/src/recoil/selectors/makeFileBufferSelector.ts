@@ -12,6 +12,10 @@ export function makeFileBufferSelector<T>(
 ) {
   return (asyncBufferCreator: (arrayBuffer: ArrayBuffer) => Promise<T>): SelectorFamilyGet<string, T | null> => {
     return (id) => async ({ get }) => {
+      if (fileExtension === 'dat') {
+        console.log('___LOAD PEAKS FOR BUFFER ID____', id);
+      }
+
       if (id.length === 0) {
         return null;
       }
@@ -24,6 +28,8 @@ export function makeFileBufferSelector<T>(
       }
 
       const storedId = get(storedDbId(id));
+
+      console.log(`has ${id} a stored DB id?`, storedId.length !== 0);
 
       if (storedId.length === 0) {
         return null;

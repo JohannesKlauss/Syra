@@ -65,8 +65,6 @@ const MidiNote: React.FC<Props> = ({ note }) => {
   };
 
   const onDuplicateMidiNote = (x: number, y: number) => {
-    console.log('duplicate');
-
     duplicateMidiNote(focusedMidiRegionId, note.id, Tone.Ticks(pixelToTicks(x)), -(y / PIANO_ROLL_MIDI_TRACK_HEIGHT));
   };
 

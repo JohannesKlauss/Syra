@@ -1,11 +1,9 @@
 import { RegionContext } from "../../../providers/RegionContext";
 import { useContext, useEffect } from "react";
 import { regionStore } from "../../../recoil/regionStore";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { audioBufferStore } from "../../../recoil/audioBufferStore";
 import { projectStore } from "../../../recoil/projectStore";
-import axios from "axios";
-import { fileSystem } from "../../../utils/fileSystem";
 import { useAssetAvailableSubscription } from "../../../gql/generated";
 
 export default function useSyncAudioFile() {

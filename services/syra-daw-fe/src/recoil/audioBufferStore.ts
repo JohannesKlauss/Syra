@@ -59,11 +59,7 @@ const storedPeakWaveformId = atomFamilyWithEffects<string, string>({
 const isInSyncWithDb = selectorFamily<boolean, string>({
   key: 'audioBuffer/isInSyncWithDb',
   get: (bufferId) => ({ get }) => {
-    return (
-      get(storedBufferId(bufferId)).length > 0 &&
-      get(buffer(bufferId)) !== null &&
-      get(storedPeakWaveformId(bufferId)).length > 0
-    );
+    return get(storedPeakWaveformId(bufferId)).length > 0 && get(storedBufferId(bufferId)).length > 0;
   },
 });
 
@@ -87,8 +83,8 @@ const buffer = selectorFamily<AudioBuffer | null, string>({
   get: makeFileBufferSelector(
     internalBuffer,
     storedBufferId,
-    '.flac',
-  )(async arrayBuffer => await Tone.getContext().decodeAudioData(arrayBuffer)),
+    'flac',
+  )(async (arrayBuffer) => await Tone.getContext().decodeAudioData(arrayBuffer)),
   set: (bufferId) => ({ set }, buffer) => set(internalBuffer(bufferId), buffer),
 });
 
@@ -97,8 +93,8 @@ const peakWaveform = selectorFamily<WaveformData | null, string>({
   get: makeFileBufferSelector(
     internalPeakWaveform,
     storedPeakWaveformId,
-    '.dat',
-  )(arrayBuffer => Promise.resolve(WaveformData.create(arrayBuffer))),
+    'dat',
+  )((arrayBuffer) => Promise.resolve(WaveformData.create(arrayBuffer))),
   set: (bufferId) => ({ set }, buffer) => set(internalPeakWaveform(bufferId), buffer),
 });
 

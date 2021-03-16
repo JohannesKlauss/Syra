@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import tinycolor from "tinycolor2";
 import { Box } from "@chakra-ui/react";
 import { RegionContext } from "../../../providers/RegionContext";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { regionStore } from "../../../recoil/regionStore";
 import useRegionColor from "../../../hooks/ui/region/useRegionColor";
 import useOpenPianoRoll from "../../../hooks/ui/views/pianoRoll/useOpenPianoRoll";

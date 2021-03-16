@@ -37,6 +37,7 @@ const Region: React.FC<Props> = ({}) => {
   const isInSync = useRecoilValue(regionStore.isInSync(regionId));
   const type = useRecoilValue(channelStore.type(channelId));
   const audioBuffer = useRecoilValue(regionStore.audioBuffer(type === ChannelType.AUDIO ? regionId : ''));
+  const peakWaveform = useRecoilValue(regionStore.peakWaveform(type === ChannelType.AUDIO ? regionId : ''));
   const audioBufferPointer = useRecoilValue(regionStore.audioBufferPointer(regionId));
   const durationInTicks = useRecoilValue(audioBufferStore.durationInTicks(audioBufferPointer));
   const trackHeight = useRecoilValue(arrangeWindowStore.trackHeight);
@@ -56,8 +57,6 @@ const Region: React.FC<Props> = ({}) => {
   type === ChannelType.INSTRUMENT ? useMidiRegionScheduler() : useAudioRegionScheduler();
 
   const onPositionChanged = (start: number, duration: number, offsetDelta: number) => {
-    console.log('start', start);
-
     updatePosition(pixelToTicks(start), pixelToTicks(duration), pixelToTicks(offsetDelta));
   };
 
@@ -75,7 +74,7 @@ const Region: React.FC<Props> = ({}) => {
   if (type === ChannelType.AUDIO) {
     if (!isInSync) {
       cloudIcon = MdCloudUpload;
-    } else if (audioBuffer === null || audioBuffer.duration === 0) {
+    } else if (audioBuffer === null || audioBuffer.duration === 0 || peakWaveform === null) {
       cloudIcon = MdCloudDownload;
     }
   }

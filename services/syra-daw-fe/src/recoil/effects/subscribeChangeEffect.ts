@@ -55,7 +55,7 @@ export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: 
       const changesToApply = filterChangesList<T>(data.data?.changes.changes.list ?? [], key, id);
 
       if (changesToApply.length > 0) {
-        console.log('apply change', changesToApply[changesToApply.length - 1]);
+        // console.log('apply change', changesToApply[changesToApply.length - 1]);
 
         setSelf(changesToApply[changesToApply.length - 1].newValue);
       }

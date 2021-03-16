@@ -19,12 +19,12 @@ export const undoRedoEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): Ato
 
   onSet((newValue, oldValue) => {
     const undoRedoPair = {
-      label: `${labelKey}: ${JSON.stringify(oldValue)} -> ${JSON.stringify(newValue)}`,
+      label: `Undo ${labelKey}: ${JSON.stringify(oldValue)} -> ${JSON.stringify(newValue)}`,
       trigger: () => {
         setSelf(oldValue);
 
         redoHistory.push({
-          label: `${labelKey}: ${JSON.stringify(newValue)} -> ${JSON.stringify(oldValue)}`,
+          label: `Redo ${labelKey}: ${JSON.stringify(newValue)} -> ${JSON.stringify(oldValue)}`,
           trigger: () => {
             setSelf(newValue);
 

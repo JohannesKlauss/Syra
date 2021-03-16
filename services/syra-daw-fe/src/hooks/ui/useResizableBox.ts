@@ -84,15 +84,9 @@ export default function useResizableBox(
   };
 
   const onDragEnd = () => {
-    console.log('x', x.get());
-
     if (x.get() < 0) {
-
-      console.log('set x to 0');
       x.set(0);
     }
-
-    console.log('x', x.get());
 
     onPositionChanged(x.get(), width.get(), snapPixelValue(boxOffset.current));
     oldWidth.set(width.get());

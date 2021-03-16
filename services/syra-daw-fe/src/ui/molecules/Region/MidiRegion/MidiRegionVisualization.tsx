@@ -51,8 +51,6 @@ const MidiRegionVisualization: React.FC = () => {
   let noteHeight = Math.min(trackHeight / (maxMidiValue + 1 - minMidiValue), trackHeight / 10);
 
   if (width < 0) {
-    console.log('below 0');
-
     return null;
   }
 
