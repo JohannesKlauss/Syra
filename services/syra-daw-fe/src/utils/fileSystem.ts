@@ -37,7 +37,7 @@ const getFiles = async () => {
   return files;
 }
 
-const writeAudioFile = async (assetId: string, file: File | Blob) => {
+const writeFile = async (assetId: string, file: File | Blob) => {
   if (rootHandle) {
     let fileExtension = '';
 
@@ -48,7 +48,7 @@ const writeAudioFile = async (assetId: string, file: File | Blob) => {
         fileExtension = r[1];
       }
     } else {
-      fileExtension = file.type.split('/')[1].replace('x-', '');
+      fileExtension = file.type.split('/')[1];
     }
 
     const fileHandle = await rootHandle.getFileHandle(`${assetId}.${fileExtension}`, {create: true});
@@ -89,7 +89,7 @@ const readArrayBufferFromFile = async (assetId: string) => {
 
 export const fileSystem = {
   init,
-  writeAudioFile,
+  writeFile,
   readArrayBufferFromFile,
   clearDirectory,
   getFiles

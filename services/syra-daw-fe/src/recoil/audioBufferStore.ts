@@ -1,17 +1,15 @@
-import { atomFamily, selectorFamily } from "recoil";
-import atomWithEffects from "./proxy/atomWithEffects";
-import { syncEffectsComb } from "./effects/syncEffectsComb";
-import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
-import { fileSystem } from "../utils/fileSystem";
+import { atomFamily, selectorFamily } from 'recoil';
+import atomWithEffects from './proxy/atomWithEffects';
+import { syncEffectsComb } from './effects/syncEffectsComb';
+import atomFamilyWithEffects from './proxy/atomFamilyWithEffects';
 import * as Tone from 'tone';
-import axios from "axios";
+import WaveformData from 'waveform-data';
+import { makeFileBufferSelector } from './selectors/makeFileBufferSelector';
 
 const ids = atomWithEffects<string[]>({
   key: 'audioBuffer/ids',
   default: [],
-  effects: [
-    ...syncEffectsComb,
-  ]
+  effects: [...syncEffectsComb],
 });
 
 const internalBuffer = atomFamily<AudioBuffer | null, string>({
@@ -19,72 +17,15 @@ const internalBuffer = atomFamily<AudioBuffer | null, string>({
   default: null,
 });
 
-// In this family we store all the available audio buffers. A region then can point to a buffer and reference it.
-// This way multiple regions can reference the same buffer without having to recreate it every time.
-const buffer = selectorFamily<AudioBuffer | null, string>({
-  key: 'audioBuffer/buffer',
-  get: bufferId => async ({get}) => {
-    if (bufferId.length === 0) {
-      return null;
-    }
-
-    console.log('load buffer', bufferId);
-
-    let audioBuffer = get(internalBuffer(bufferId));
-
-    // Buffer is in memory.
-    if (audioBuffer) {
-      return audioBuffer;
-    }
-
-    const storedId = get(storedBufferId(bufferId));
-    const extension = get(hasTranscodedFile(bufferId)) ? 'flac' : 'wav';
-
-    if (storedId.length === 0 || !get(hasTranscodedFile(bufferId))) {
-      return null;
-    }
-
-    console.log('stored ID', storedId);
-    console.log('extension', extension);
-
-    // Try to read the file from local file system
-    const arrayBuffer = await fileSystem.readArrayBufferFromFile(`${storedId}.${extension}`);
-
-    if (arrayBuffer) {
-      try {
-        return await Tone.getContext().decodeAudioData(arrayBuffer.slice(0));
-      } catch (e) {
-      }
-    }
-
-    // Load file from server
-    const res = await axios.get(`${process.env.REACT_APP_LIVE_GQL_URL}/audio/${storedId}`, {
-      withCredentials: true,
-      responseType: 'blob',
-    });
-
-    if (res.status === 200) {
-      try {
-        await fileSystem.writeAudioFile(storedId, res.data);
-
-        return await Tone.getContext().decodeAudioData(await res.data.arrayBuffer());
-      } catch (e) {
-        // TODO: Show error to user.
-        console.log('could not write transcoded file', e);
-      }
-    }
-
-    return null;
-  },
-  set: bufferId => async ({set}, buffer) => set(internalBuffer(bufferId), buffer)
+const internalPeakWaveform = atomFamily<WaveformData | null, string>({
+  key: 'audioBuffer/internalPeakWaveform',
+  default: null,
 });
 
 const name = atomFamilyWithEffects<string, string>({
   key: 'audioBuffer/name',
   default: '',
-  effects: [
-    ...syncEffectsComb
-  ]
+  effects: [...syncEffectsComb],
 });
 
 /**
@@ -106,29 +47,43 @@ const transcodeJobId = atomFamily<string, string>({
 const storedBufferId = atomFamilyWithEffects<string, string>({
   key: 'audioBuffer/storedBufferId',
   default: '',
-  effects: [
-    ...syncEffectsComb,
-  ]
+  effects: [...syncEffectsComb],
+});
+
+const storedPeakWaveformId = atomFamilyWithEffects<string, string>({
+  key: 'audioBuffer/storedPeakWaveformId',
+  default: '',
+  effects: [...syncEffectsComb],
 });
 
 const hasTranscodedFile = atomFamilyWithEffects<boolean, string>({
   key: 'audioBuffer/hasTranscodedFile',
   default: false,
-  effects: [
-    ...syncEffectsComb,
-  ]
+  effects: [...syncEffectsComb],
+});
+
+const hasPeakWaveformFile = atomFamilyWithEffects<boolean, string>({
+  key: 'audioBuffer/hasPeakWaveformFile',
+  default: false,
+  effects: [...syncEffectsComb],
 });
 
 const isInSyncWithDb = selectorFamily<boolean, string>({
   key: 'audioBuffer/isInSyncWithDb',
-  get: bufferId => ({get}) => {
-    return get(hasTranscodedFile(bufferId)) && get(storedBufferId(bufferId)).length > 0 && get(buffer(bufferId)) !== null
+  get: (bufferId) => ({ get }) => {
+    return (
+      get(hasTranscodedFile(bufferId)) &&
+      get(storedBufferId(bufferId)).length > 0 &&
+      get(buffer(bufferId)) !== null &&
+      get(hasPeakWaveformFile(bufferId)) &&
+      get(storedPeakWaveformId(bufferId)).length > 0
+    );
   },
 });
 
 const durationInTicks = selectorFamily<number, string>({
   key: 'audioBuffer/durationInTicks',
-  get: bufferId => ({get}) => {
+  get: (bufferId) => ({ get }) => {
     const audioBuffer = get(buffer(bufferId));
 
     if (audioBuffer === null) {
@@ -136,16 +91,43 @@ const durationInTicks = selectorFamily<number, string>({
     }
 
     return Tone.Ticks(audioBuffer.duration, 's').toTicks();
-  }
+  },
+});
+
+// In this family we store all the available audio buffers. A region then can point to a buffer and reference it.
+// This way multiple regions can reference the same buffer without having to recreate it every time.
+const buffer = selectorFamily<AudioBuffer | null, string>({
+  key: 'audioBuffer/buffer',
+  get: makeFileBufferSelector(
+    internalBuffer,
+    storedBufferId,
+    hasTranscodedFile,
+    '.flac',
+  )(async arrayBuffer => await Tone.getContext().decodeAudioData(arrayBuffer)),
+  set: (bufferId) => ({ set }, buffer) => set(internalBuffer(bufferId), buffer),
+});
+
+const peakWaveform = selectorFamily<WaveformData | null, string>({
+  key: 'audioBuffer/peakWaveform',
+  get: makeFileBufferSelector(
+    internalPeakWaveform,
+    storedPeakWaveformId,
+    hasPeakWaveformFile,
+    '.dat',
+  )(arrayBuffer => Promise.resolve(WaveformData.create(arrayBuffer))),
+  set: (bufferId) => ({ set }, buffer) => set(internalPeakWaveform(bufferId), buffer),
 });
 
 export const audioBufferStore = {
   buffer,
+  peakWaveform,
   name,
   ids,
   storedBufferId,
+  storedPeakWaveformId,
   isInSyncWithDb,
   hasTranscodedFile,
+  hasPeakWaveformFile,
   transcodeJobId,
-  durationInTicks
+  durationInTicks,
 };

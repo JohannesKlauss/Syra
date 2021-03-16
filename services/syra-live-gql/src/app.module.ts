@@ -4,7 +4,7 @@ import { TypeGraphQLModule } from 'typegraphql-nestjs';
 import {
   Address,
   AddressCrudResolver,
-  AddressRelationsResolver,
+  AddressRelationsResolver, Asset, AssetRelationsResolver,
   Band,
   BandCrudResolver,
   BandRelationsResolver,
@@ -42,8 +42,8 @@ import {
   UsersOnProjects,
   UsersOnProjectsCrudResolver,
   UsersOnProjectsRelationsResolver,
-  VersionInformationCrudResolver,
-} from '../prisma/generated/type-graphql';
+  VersionInformationCrudResolver
+} from "../prisma/generated/type-graphql";
 import { SessionModule } from './session/session.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLContext } from '../types/GraphQLContext';
@@ -75,6 +75,7 @@ import { AudioModule } from './audio/audio.module';
 import { PubSubModule } from './pub-sub/pub-sub.module';
 import { PubSubService } from "./pub-sub/pub-sub.service";
 import { OpenFaasModule } from './open-faas/open-faas.module';
+import { CustomAssetResolver } from "./custom/resolvers/crud/Asset/CustomAssetResolver";
 
 @Module({
   imports: [
@@ -195,6 +196,7 @@ import { OpenFaasModule } from './open-faas/open-faas.module';
   providers: [
     // TYPE GRAPHQL
     // Models,
+    Asset,
     User,
     Address,
     EarlyAccessCode,
@@ -210,6 +212,7 @@ import { OpenFaasModule } from './open-faas/open-faas.module';
     Band,
     Issue,
     // Relations
+    AssetRelationsResolver,
     UserRelationsResolver,
     AddressRelationsResolver,
     ProjectRelationsResolver,
@@ -243,6 +246,7 @@ import { OpenFaasModule } from './open-faas/open-faas.module';
     CustomFeedItemResolver,
     CustomCommentResolver,
     CustomProjectChangeResolver,
+    CustomAssetResolver,
   ],
 })
 export class AppModule {}

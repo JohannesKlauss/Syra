@@ -55,12 +55,6 @@ subscription changes($projectId: String!) {
     }
 }
 
-subscription assetTranscoded($projectId: String!, $jobId: String!) {
-    assetTranscoded(projectId: $projectId, jobId: $jobId) {
-        id
-    }
-}
-
 mutation publishChange($changeId: String!, $projectId: String!, $date: Timestamp!, $changes: JSONObject!, $me: String) {
     publishChange(id: $changeId, date: $date, projectId: $projectId, changes: $changes, authorId: $me) {
         id

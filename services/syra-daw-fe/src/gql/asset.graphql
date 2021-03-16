@@ -1,0 +1,7 @@
+subscription assetAvailable($projectId: String!, $jobId: String!) {
+    assetAvailable(projectId: $projectId, jobId: $jobId) {
+        id
+        jobId
+        mimeType
+    }
+}

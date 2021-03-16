@@ -21,7 +21,7 @@ export default function useUploadAudioFile() {
     if (res.status === 201) {
       set(audioBufferStore.transcodeJobId(bufferId), res.data.jobId);
 
-      await fileSystem.writeAudioFile(res.data.id, file);
+      await fileSystem.writeFile(res.data.id, file);
     }
   }, [projectId]);
 }

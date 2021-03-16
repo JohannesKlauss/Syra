@@ -338,12 +338,32 @@ export type AggregateVersionInformation = {
 
 export type Asset = {
   __typename?: 'Asset';
+  Mixdown: Array<Mixdown>;
   id: Scalars['String'];
   isPublic?: Maybe<Scalars['Boolean']>;
   location: Scalars['String'];
   mimeType: Scalars['String'];
   name: Scalars['String'];
+  usedInProjects: Array<AssetsOnProjects>;
   userId?: Maybe<Scalars['String']>;
+};
+
+export type AssetMixdownArgs = {
+  cursor?: Maybe<MixdownWhereUniqueInput>;
+  distinct?: Maybe<Array<MixdownScalarFieldEnum>>;
+  orderBy?: Maybe<Array<MixdownOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<MixdownWhereInput>;
+};
+
+export type AssetUsedInProjectsArgs = {
+  cursor?: Maybe<AssetsOnProjectsWhereUniqueInput>;
+  distinct?: Maybe<Array<AssetsOnProjectsScalarFieldEnum>>;
+  orderBy?: Maybe<Array<AssetsOnProjectsOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<AssetsOnProjectsWhereInput>;
 };
 
 export type AssetCreateNestedManyWithoutOwnerInput = {
@@ -4271,19 +4291,20 @@ export type ProjectWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type PublishAssetArgs = {
+  __typename?: 'PublishAssetArgs';
+  id: Scalars['String'];
+  jobId: Scalars['String'];
+  mimeType: Scalars['String'];
+  projectId: Scalars['String'];
+};
+
 export type PublishProjectChangesArgs = {
   __typename?: 'PublishProjectChangesArgs';
   authorId?: Maybe<Scalars['String']>;
   changes: Scalars['JSONObject'];
   date: Scalars['Timestamp'];
   id: Scalars['String'];
-  projectId: Scalars['String'];
-};
-
-export type PublishTranscodedAssetArgs = {
-  __typename?: 'PublishTranscodedAssetArgs';
-  id: Scalars['String'];
-  jobId: Scalars['String'];
   projectId: Scalars['String'];
 };
 
@@ -4829,13 +4850,13 @@ export type StringNullableListFilter = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  assetTranscoded: PublishTranscodedAssetArgs;
+  assetAvailable: PublishAssetArgs;
   changes: PublishProjectChangesArgs;
   newComment: Comment;
   onlineStatus: Scalars['Boolean'];
 };
 
-export type SubscriptionAssetTranscodedArgs = {
+export type SubscriptionAssetAvailableArgs = {
   jobId: Scalars['String'];
   projectId: Scalars['String'];
 };
@@ -7147,6 +7168,15 @@ export type VersionInformationWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type AssetAvailableSubscriptionVariables = Exact<{
+  projectId: Scalars['String'];
+  jobId: Scalars['String'];
+}>;
+
+export type AssetAvailableSubscription = { __typename?: 'Subscription' } & {
+  assetAvailable: { __typename?: 'PublishAssetArgs' } & Pick<PublishAssetArgs, 'id' | 'jobId' | 'mimeType'>;
+};
+
 export type CreateIssueMutationVariables = Exact<{
   description: Scalars['String'];
   screenshotIds: Array<Scalars['String']> | Scalars['String'];
@@ -7218,15 +7248,6 @@ export type ChangesSubscription = { __typename?: 'Subscription' } & {
     PublishProjectChangesArgs,
     'id' | 'authorId' | 'changes'
   >;
-};
-
-export type AssetTranscodedSubscriptionVariables = Exact<{
-  projectId: Scalars['String'];
-  jobId: Scalars['String'];
-}>;
-
-export type AssetTranscodedSubscription = { __typename?: 'Subscription' } & {
-  assetTranscoded: { __typename?: 'PublishTranscodedAssetArgs' } & Pick<PublishTranscodedAssetArgs, 'id'>;
 };
 
 export type PublishChangeMutationVariables = Exact<{
@@ -7301,6 +7322,44 @@ export const BaseUserFragmentDoc = gql`
     isOnline
   }
 `;
+export const AssetAvailableDocument = gql`
+  subscription assetAvailable($projectId: String!, $jobId: String!) {
+    assetAvailable(projectId: $projectId, jobId: $jobId) {
+      id
+      jobId
+      mimeType
+    }
+  }
+`;
+
+/**
+ * __useAssetAvailableSubscription__
+ *
+ * To run a query within a React component, call `useAssetAvailableSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useAssetAvailableSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAssetAvailableSubscription({
+ *   variables: {
+ *      projectId: // value for 'projectId'
+ *      jobId: // value for 'jobId'
+ *   },
+ * });
+ */
+export function useAssetAvailableSubscription(
+  baseOptions: Apollo.SubscriptionHookOptions<AssetAvailableSubscription, AssetAvailableSubscriptionVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSubscription<AssetAvailableSubscription, AssetAvailableSubscriptionVariables>(
+    AssetAvailableDocument,
+    options,
+  );
+}
+export type AssetAvailableSubscriptionHookResult = ReturnType<typeof useAssetAvailableSubscription>;
+export type AssetAvailableSubscriptionResult = Apollo.SubscriptionResult<AssetAvailableSubscription>;
 export const CreateIssueDocument = gql`
   mutation createIssue($description: String!, $screenshotIds: [String!]!, $me: String) {
     createIssue(
@@ -7580,42 +7639,6 @@ export function useChangesSubscription(
 }
 export type ChangesSubscriptionHookResult = ReturnType<typeof useChangesSubscription>;
 export type ChangesSubscriptionResult = Apollo.SubscriptionResult<ChangesSubscription>;
-export const AssetTranscodedDocument = gql`
-  subscription assetTranscoded($projectId: String!, $jobId: String!) {
-    assetTranscoded(projectId: $projectId, jobId: $jobId) {
-      id
-    }
-  }
-`;
-
-/**
- * __useAssetTranscodedSubscription__
- *
- * To run a query within a React component, call `useAssetTranscodedSubscription` and pass it any options that fit your needs.
- * When your component renders, `useAssetTranscodedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAssetTranscodedSubscription({
- *   variables: {
- *      projectId: // value for 'projectId'
- *      jobId: // value for 'jobId'
- *   },
- * });
- */
-export function useAssetTranscodedSubscription(
-  baseOptions: Apollo.SubscriptionHookOptions<AssetTranscodedSubscription, AssetTranscodedSubscriptionVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSubscription<AssetTranscodedSubscription, AssetTranscodedSubscriptionVariables>(
-    AssetTranscodedDocument,
-    options,
-  );
-}
-export type AssetTranscodedSubscriptionHookResult = ReturnType<typeof useAssetTranscodedSubscription>;
-export type AssetTranscodedSubscriptionResult = Apollo.SubscriptionResult<AssetTranscodedSubscription>;
 export const PublishChangeDocument = gql`
   mutation publishChange(
     $changeId: String!

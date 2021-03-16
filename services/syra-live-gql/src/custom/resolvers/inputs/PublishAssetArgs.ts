@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 
 @TypeGraphQL.ArgsType()
 @TypeGraphQL.ObjectType()
-export class PublishTranscodedAssetArgs {
+export class PublishAssetArgs {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
@@ -17,4 +17,9 @@ export class PublishTranscodedAssetArgs {
     nullable: false
   })
   jobId!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  mimeType!: string;
 }

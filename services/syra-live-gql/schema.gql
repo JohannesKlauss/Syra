@@ -290,11 +290,13 @@ type AggregateVersionInformation {
 }
 
 type Asset {
+  Mixdown(cursor: MixdownWhereUniqueInput, distinct: [MixdownScalarFieldEnum!], orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [Mixdown!]!
   id: String!
   isPublic: Boolean
   location: String!
   mimeType: String!
   name: String!
+  usedInProjects(cursor: AssetsOnProjectsWhereUniqueInput, distinct: [AssetsOnProjectsScalarFieldEnum!], orderBy: [AssetsOnProjectsOrderByInput!], skip: Int, take: Int, where: AssetsOnProjectsWhereInput): [AssetsOnProjects!]!
   userId: String
 }
 
@@ -3698,17 +3700,18 @@ input ProjectWhereUniqueInput {
   id: String
 }
 
+type PublishAssetArgs {
+  id: String!
+  jobId: String!
+  mimeType: String!
+  projectId: String!
+}
+
 type PublishProjectChangesArgs {
   authorId: String
   changes: JSONObject!
   date: Timestamp!
   id: String!
-  projectId: String!
-}
-
-type PublishTranscodedAssetArgs {
-  id: String!
-  jobId: String!
   projectId: String!
 }
 
@@ -3832,7 +3835,7 @@ input StringNullableListFilter {
 }
 
 type Subscription {
-  assetTranscoded(jobId: String!, projectId: String!): PublishTranscodedAssetArgs!
+  assetAvailable(jobId: String!, projectId: String!): PublishAssetArgs!
   changes(projectId: String!): PublishProjectChangesArgs!
   newComment(feedItemId: String!): Comment!
   onlineStatus(userId: String!): Boolean!

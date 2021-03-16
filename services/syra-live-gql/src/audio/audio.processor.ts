@@ -51,7 +51,9 @@ export class AudioProcessor {
   }
 
   async uploadTranscodedFile(readableStream: NodeJS.ReadableStream, jobData: AudioTranscodeJob) {
-    const { tmpFileName, userId, projectId, originalName, originalMimeType, jobId } = jobData;
+    const { tmpFileName, userId, projectId, originalName, jobId } = jobData;
+
+    const mimeType = 'audio/flac';
 
     this.logger.debug(`Transcoder finished`);
 
@@ -60,7 +62,7 @@ export class AudioProcessor {
     const location = await this.spacesService.putFile(
       MD5(userId).toString(),
       `${tmpFileName}.flac`,
-      'audio/flac',
+      mimeType,
       readableStream
     );
 
@@ -72,7 +74,7 @@ export class AudioProcessor {
         location,
         owner: {connect: {id: userId}},
         usedInProjects: { create: { projectId } },
-        mimeType: originalMimeType,
+        mimeType,
         name: originalName.replace(/\.[0-9a-z]+$/i, `.flac`),
       },
       select: {
@@ -84,13 +86,16 @@ export class AudioProcessor {
       id: createdAsset.id,
       jobId,
       projectId,
+      mimeType,
     });
 
     this.logger.debug('Published transcoded file.');
   }
 
   async uploadPeakWaveformFile(readableStream: NodeJS.ReadableStream, jobData: AudioTranscodeJob) {
-    const { tmpFileName, userId, projectId, originalName, originalMimeType, jobId } = jobData;
+    const { tmpFileName, userId, projectId, originalName, jobId } = jobData;
+
+    const mimeType = 'application/dat';
 
     this.logger.debug(`Peak Waveform analyzing finished`);
 
@@ -99,7 +104,7 @@ export class AudioProcessor {
     const location = await this.spacesService.putFile(
       MD5(userId).toString(),
       `${tmpFileName}.dat`,
-      'application/dat',
+      mimeType,
       readableStream
     );
 
@@ -111,7 +116,7 @@ export class AudioProcessor {
         location,
         owner: {connect: {id: userId}},
         usedInProjects: { create: { projectId } },
-        mimeType: originalMimeType,
+        mimeType,
         name: originalName.replace(/\.[0-9a-z]+$/i, `.dat`),
       },
       select: {
@@ -123,6 +128,7 @@ export class AudioProcessor {
       id: createdAsset.id,
       jobId,
       projectId,
+      mimeType,
     });
 
     this.logger.debug('Published peak waveform file.');

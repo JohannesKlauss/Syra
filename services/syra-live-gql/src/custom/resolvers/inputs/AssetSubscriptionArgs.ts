@@ -1,7 +1,7 @@
 import * as TypeGraphQL from "type-graphql";
 
 @TypeGraphQL.ArgsType()
-export class TranscodedAssetSubscriptionArgs {
+export class AssetSubscriptionArgs {
   @TypeGraphQL.Field(type => String, {
     nullable: false
   })

@@ -7,8 +7,6 @@ import { Publisher, ResolverFilterData } from 'type-graphql';
 import { PublishProjectChangesArgs } from '../../inputs/PublishProjectChangesArgs';
 import { Prisma } from '@prisma/client';
 import { isEqual } from 'lodash';
-import { PublishTranscodedAssetArgs } from '../../inputs/PublishTranscodedAssetArgs';
-import { TranscodedAssetSubscriptionArgs } from '../../inputs/TranscodedAssetSubscriptionArgs';
 
 @TypeGraphQL.Resolver((_of) => Project)
 export class CustomProjectChangeResolver {
@@ -42,23 +40,6 @@ export class CustomProjectChangeResolver {
     @TypeGraphQL.Args() args: ProjectChangesSubscriptionArgs,
   ) {
     return projectChanges;
-  }
-
-  @TypeGraphQL.Subscription((_returns) => PublishTranscodedAssetArgs, {
-    topics: Subscriptions.UPLOADED_FILE_PROCESSED,
-    filter: async ({
-      payload,
-      args,
-    }: ResolverFilterData<PublishTranscodedAssetArgs, TranscodedAssetSubscriptionArgs, GraphQLContext>) => {
-      return payload.projectId === args.projectId && payload.jobId === args.jobId;
-    },
-  })
-  assetTranscoded(
-    @TypeGraphQL.Root() transcodedAsset: PublishTranscodedAssetArgs,
-    @TypeGraphQL.Ctx() ctx: GraphQLContext,
-    @TypeGraphQL.Args() args: TranscodedAssetSubscriptionArgs,
-  ) {
-    return transcodedAsset;
   }
 
   @TypeGraphQL.Mutation((_returns) => Project, {
