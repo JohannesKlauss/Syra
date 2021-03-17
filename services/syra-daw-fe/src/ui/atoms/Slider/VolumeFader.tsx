@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { mapDbToVolumeFaderVal, mapVolumeFaderValToDb } from '../../../utils/volumeFaderMapping';
 import { Flex, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from '@chakra-ui/react';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
-import { ChannelNode } from '../../../types/Channel';
+import useSyraEngineChannel from "../../../hooks/engine/useSyraEngineChannel";
 
 interface Props {
   onChange: (newVal: number) => void;
@@ -13,13 +12,13 @@ const reverseValueMapper = mapDbToVolumeFaderVal();
 
 function VolumeFader({ onChange }: Props) {
   const channelId = useContext(ChannelContext);
-  const { volume } = useBackboneChannel(channelId);
-  const [volumeValue, setVolumeValue] = useState(volume.get().volume);
+  const channel = useSyraEngineChannel(channelId);
+  const [volumeValue, setVolumeValue] = useState(channel.volume);
   
   useEffect(() => {
-    volume.set({ volume: volumeValue });
+    channel.volume = volumeValue;
     onChange(volumeValue);
-  }, [volume, volumeValue, onChange]);
+  }, [channel, volumeValue, onChange]);
 
   return (
     <Flex h={200} p={8} justify={'center'}>

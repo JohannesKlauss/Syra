@@ -2,13 +2,13 @@ import { useContext, useEffect } from 'react';
 import { RegionContext } from '../../providers/RegionContext';
 import { useRecoilValue } from 'recoil';
 import { regionStore } from '../../recoil/regionStore';
-import useBackboneChannel from './BackboneMixer/useBackboneChannel';
 import { ChannelContext } from '../../providers/ChannelContext';
-import * as Tone from 'tone';
+import useSyraEngineChannel from "../engine/useSyraEngineChannel";
+import { AudioChannel } from "../../engine/channels/AudioChannel";
 
 export default function useAudioRegionScheduler() {
   const channelId = useContext(ChannelContext);
-  const { players } = useBackboneChannel(channelId);
+  const channel = useSyraEngineChannel(channelId) as AudioChannel;
   const regionId = useContext(RegionContext);
   const { start, audioBuffer, isRecording, isMuted, duration, offset } = useRecoilValue(regionStore.regionState(regionId));
 
@@ -18,17 +18,11 @@ export default function useAudioRegionScheduler() {
       return;
     }
 
-    if (audioBuffer && !players.has(regionId)) {
-      players.add(regionId, audioBuffer);
+    if (audioBuffer) {
+      channel.regionManager.schedule(regionId, audioBuffer, {start, duration, offset});
     }
-
-    players.player(regionId)
-      .set({mute: isMuted})
-      .unsync().sync()
-      .start(Tone.Ticks(start).toSeconds(), Tone.Ticks(offset).toSeconds(), Tone.Ticks(duration).toSeconds());
-
     return () => {
-      players.player(regionId).unsync();
+      channel.regionManager.cleanUp(regionId);
     }
-  }, [start, audioBuffer, players, isRecording, isMuted, regionId, duration, offset]);
+  }, [start, audioBuffer, channel, isRecording, isMuted, regionId, duration, offset]);
 }

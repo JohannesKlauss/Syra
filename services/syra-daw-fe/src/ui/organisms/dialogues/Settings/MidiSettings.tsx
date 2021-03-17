@@ -10,16 +10,11 @@ const MidiSettings: React.FC = () => {
 
   const browser = detect();
 
-  const updateSelectedMidiDevice = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedMidiDevice(e.target.value);
-    localStorage.setItem('lastMidiDevice', e.target.value);
-  };
-
   return (
     <>
       <FormControl marginY={4}>
         <FormLabel>Active MIDI Device</FormLabel>
-        <Select placeholder="Select MIDI Device" value={selectedMidiDevice ?? ''} onChange={updateSelectedMidiDevice}>
+        <Select placeholder="Select MIDI Device" value={selectedMidiDevice ?? ''} onChange={e => setSelectedMidiDevice(e.target.value)}>
           {WebMidi.inputs.map((device) => (
             <option key={device.id} value={device.name}>
               {device.name}

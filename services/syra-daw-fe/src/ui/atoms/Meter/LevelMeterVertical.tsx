@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import Konva from 'konva';
 import { mapDbToUiMeterVal } from '../../../utils/levelMeterMapping';
-import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { Box, useTheme } from '@chakra-ui/react';
+import useSyraEngineChannel from "../../../hooks/engine/useSyraEngineChannel";
 
 const uniqid = require('uniqid');
 const METER_WIDTH = 24;
@@ -13,7 +13,7 @@ function LevelMeterVertical() {
   const canvas = useRef<HTMLDivElement>(null);
   const channelId = useContext(ChannelContext);
   const theme = useTheme();
-  const { rmsMeter } = useBackboneChannel(channelId);
+  const channel = useSyraEngineChannel(channelId);
 
   useEffect(() => {
     // TODO: WRITE THIS IS A CLEANER WAY, THIS IS JUST HACKED IN HERE AS A Poc.
@@ -39,7 +39,7 @@ function LevelMeterVertical() {
       stage.add(layer);
 
       const anim = new Konva.Animation(() => {
-        const val = rmsMeter.getValue() as number;
+        const val = channel.rmsValue as number;
 
         let rmsHeight = mapDbToUiMeterVal(val);
 
@@ -54,7 +54,7 @@ function LevelMeterVertical() {
 
       anim.start();
     }
-  }, [canvas, containerId, rmsMeter, theme.colors.red, theme.colors.yellow, theme.colors.green]);
+  }, [canvas, containerId, channel, theme.colors.red, theme.colors.yellow, theme.colors.green]);
 
   return <Box id={containerId.current} ref={canvas} w={'100%'} h={160} mt={8} overflow={'hidden'} pos={'relative'} />;
 }

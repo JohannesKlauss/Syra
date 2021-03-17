@@ -7,7 +7,7 @@ import sbLoadAudioFile from "../../../../../.storybook/loaders/sbLoadAudioFile";
 const Template = (args) => <AudioRegion {...args} />;
 
 export default {
-  title: "molecules/Track/AudioRegion",
+  title: "molecules/Track/AudioRegionManager",
   component: AudioRegion,
   decorators: [sbWithRegion],
   loaders: [sbLoadAudioFile]

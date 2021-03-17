@@ -1,22 +1,22 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import { transportStore } from '../../../recoil/transportStore';
 import { useRecoilValue } from 'recoil';
 import { Box, Text } from "@chakra-ui/react";
+import useSyraEngineChannel from "../../../hooks/engine/useSyraEngineChannel";
 
 function LevelMeterText() {
   const channelId = useContext(ChannelContext);
   const isPlaying = useRecoilValue(transportStore.isPlaying);
   const isRecording = useRecoilValue(transportStore.isRecording);
-  const {rmsMeter} = useBackboneChannel(channelId);
+  const channel = useSyraEngineChannel(channelId);
   const [level, setLevel] = useState(-95);
   const intervalRef = useRef<any>();
 
   const anim = () => {
     setLevel(currVal => {
-      if (currVal < (rmsMeter.getValue() as number)) {
-        return rmsMeter.getValue() as number;
+      if (currVal < (channel.rmsValue as number)) {
+        return channel.rmsValue as number;
       }
 
       return currVal;

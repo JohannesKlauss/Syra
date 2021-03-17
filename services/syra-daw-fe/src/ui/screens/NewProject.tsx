@@ -26,12 +26,14 @@ function NewProject() {
   });
 
   const handleCreate = useCallback(async (channelType: ChannelType, numChannels: number) => {
-    await setupProject(channelType, numChannels);
-    await executeMutation();
     await audioSetup();
 
-    setProjectId(id);
     setIsEngineRunning(true);
+
+    await setupProject(channelType, numChannels);
+    await executeMutation();
+
+    setProjectId(id);
     setIsSetupFinished(true);
 
     history.push(routes.EditorShell.replace(':id', id));

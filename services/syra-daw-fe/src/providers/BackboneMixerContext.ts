@@ -1,7 +1,7 @@
-import React from "react";
-import * as Tone from "tone";
-import { ChannelNode } from "../types/Channel";
-import { createNewId } from "../utils/createNewId";
+import React from 'react';
+import * as Tone from 'tone';
+import { ChannelNode } from '../types/Channel';
+import { createNewId } from '../utils/createNewId';
 
 // TODO: this is all very prototypal. refactor this as soon as we have a working version.
 function mixerNodeFactory<T extends Tone.ToneAudioNode>(
@@ -29,19 +29,33 @@ function recorderFactory(nodes: Map<string, any>): AudioWorkletNode | null {
   return nodes.get('recorder') as AudioWorkletNode | null;
 }
 
+async function audioInFactory(nodes: Map<string, any>) {
+  if (!nodes.has('audioIn') || nodes.get('audioIn') === null) {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({audio: true, video: false});
+
+      nodes.set('audioIn', Tone.getContext().createMediaStreamSource(stream));
+    } catch (e) {
+      nodes.set('audioIn', null);
+    }
+  }
+
+  return nodes.get('audioIn') as MediaStreamAudioSourceNode | null;
+}
+
 interface RecorderMetaInfo {
   transportStartedAt: number;
   transportStoppedAt: number;
 }
 
-function audioNodesFactory(nodes: Map<string, any>) {
+async function audioNodesFactory(nodes: Map<string, any>) {
   return {
     _ID: nodes.get('_ID'),
-    audioIn: mixerNodeFactory(nodes, ChannelNode.AUDIO_IN, Tone.UserMedia) as Tone.UserMedia,
+    audioIn: await audioInFactory(nodes) as MediaStreamAudioSourceNode,
     merge: mixerNodeFactory(nodes, ChannelNode.MERGE, Tone.Merge) as Tone.Merge,
     players: mixerNodeFactory(nodes, ChannelNode.PLAYERS, Tone.Players) as Tone.Players,
     volume: mixerNodeFactory(nodes, ChannelNode.VOLUME, Tone.Volume) as Tone.Volume,
-    pan: mixerNodeFactory(nodes, ChannelNode.PAN, Tone.Panner, {channelCount: 2}) as Tone.Panner,
+    pan: mixerNodeFactory(nodes, ChannelNode.PAN, Tone.Panner, { channelCount: 2 }) as Tone.Panner,
     solo: mixerNodeFactory(nodes, ChannelNode.SOLO, Tone.Solo) as Tone.Solo,
     rmsMeter: mixerNodeFactory(nodes, ChannelNode.METER, Tone.Meter, { smoothing: 0.9 }) as Tone.Meter,
     recorder: recorderFactory(nodes),
@@ -64,10 +78,10 @@ export function instantiateMixer() {
     return channels.get(channelId)!;
   };
 
-  const channel = (channelId: string) => {
+  const channel = async (channelId: string) => {
     const nodes = getNodesByChannelId(channelId);
 
-    const retNodes = audioNodesFactory(nodes);
+    const retNodes = await audioNodesFactory(nodes);
 
     const disconnect = (virtualInstrumentNode?: AudioWorkletNode) => {
       if (virtualInstrumentNode) {
@@ -108,34 +122,10 @@ export function instantiateMixer() {
       }
     };
 
-    const updateArming = async (isArmed: boolean = false) => {
-      try {
-        if (isArmed) {
-          await retNodes.audioIn.open();
-        } else {
-          retNodes.audioIn.close();
-        }
-      } catch (e) {
-        console.error('Could not open Audio Input', e);
-      }
-    };
-
-    const updateInputMonitoring = (isInputMonitoringActive: boolean) => {
-      if (retNodes.recorder) {
-        if (isInputMonitoringActive) {
-          Tone.connect(retNodes.recorder, Tone.Destination);
-        } else {
-          Tone.disconnect(retNodes.recorder);
-        }
-      }
-    };
-
     return {
       ...retNodes,
       rewireAudio,
       disconnect,
-      updateArming,
-      updateInputMonitoring,
     };
   };
 

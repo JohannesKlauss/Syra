@@ -19,3 +19,8 @@ export enum ChannelNode {
   PAN = 'pan',
   SOLO = 'solo',
 }
+
+export enum ChannelMode {
+  MONO,
+  STEREO,
+}

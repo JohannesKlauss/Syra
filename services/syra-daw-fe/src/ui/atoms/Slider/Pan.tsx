@@ -1,17 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Box, Slider, SliderThumb, SliderTrack } from '@chakra-ui/react';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import { ChannelNode } from '../../../types/Channel';
 
 function Pan() {
   const channelId = useContext(ChannelContext);
-  const { pan } = useBackboneChannel(channelId);
-  const [panValue, setPanValue] = useState(pan.get().pan * 100);
+  //const { pan } = useBackboneChannel(channelId);
+  const [panValue, setPanValue] = useState(/*pan.get().pan*/ 0 * 100);
   
-  useEffect(() => {
+  /*useEffect(() => {
     pan.set({pan: panValue / 100});
-  }, [panValue, pan]);
+  }, [panValue, pan]);*/
   
   return (
     <Box px={2} bg={'transparent'}>

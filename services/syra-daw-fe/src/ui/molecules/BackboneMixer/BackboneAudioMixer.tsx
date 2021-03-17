@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
-import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
-import useRecorder from '../../../hooks/audio/useRecorder';
 import { channelStore } from '../../../recoil/channelStore';
 import { useRecoilValue } from 'recoil';
 import useConnectMidiWithInstrumentChannel from '../../../hooks/audio/useConnectMidiWithInstrumentChannel';
 import { ChannelType } from '../../../types/Channel';
 import useSyncTransportToSoul from "../../../hooks/soul/useSyncTransportToSoul";
 import useRecordExternalMidi from "../../../hooks/recoil/region/useRecordExternalMidi";
+import useSyraEngineChannel from "../../../hooks/engine/useSyraEngineChannel";
 
 interface Props {
   channelId: string;
@@ -14,7 +13,7 @@ interface Props {
 
 // This component does all the heavy lifting connecting channels, syncing recoil to tonejs, etc.. It doesn't render anything nor should it.
 function BackboneAudioMixer({channelId}: Props) {
-  const mixerChannelStrip = useBackboneChannel(channelId);
+  const channel = useSyraEngineChannel(channelId);
 
   const isMuted = useRecoilValue(channelStore.isMuted(channelId));
   const isArmed = useRecoilValue(channelStore.isArmed(channelId));
@@ -30,31 +29,32 @@ function BackboneAudioMixer({channelId}: Props) {
   useRecordExternalMidi();
 
   useEffect(() => {
-    // TODO: WE COULD PROBABLY JUST CREATE A INSTANCE LIKE Tone.Solo, BUT FOR MUTING. THIS WOULD SAVE US A REWIRING CALL.
-    isMuted ? mixerChannelStrip.disconnect(soulInstance?.audioNode) : mixerChannelStrip.rewireAudio(plugins.map(plugin => plugin.audioNode), soulInstance?.audioNode);
-  }, [isMuted, plugins, soulInstance]);
+    channel.mute = isMuted;
+  }, [isMuted]);
 
   useEffect(() => {
     (async () => {
-      await mixerChannelStrip.updateArming(isArmed);
+      //await channel.updateArming(isArmed);
     })();
   }, [isArmed]);
 
   useEffect(() => {
-    mixerChannelStrip.updateInputMonitoring(isInputMonitoringActive);
+    (async () => {
+      //await  mixerChannelStrip.updateInputMonitoring(isInputMonitoringActive);
+    })();
   }, [isInputMonitoringActive]);
 
   useEffect(() => {
-    mixerChannelStrip.solo.set({ solo: isSolo });
+    channel.solo = isSolo;
   }, [isSolo]);
 
   useEffect(() => {
-    mixerChannelStrip.disconnect(soulInstance?.audioNode);
-    mixerChannelStrip.rewireAudio(plugins.map(plugin => plugin.audioNode), soulInstance?.audioNode)
+    /*mixerChannelStrip.disconnect(soulInstance?.audioNode);
+    mixerChannelStrip.rewireAudio(plugins.map(plugin => plugin.audioNode), soulInstance?.audioNode)*/
   }, [soulInstance, plugins]);
 
   // TODO: THIS MIGHT CAUSE SOME TROUBLE BECAUSE THIS IS RUNNING FOR EVERY CHANNEL ON EVERY CHANNEL CHANGE. ALSO THIS IS NOT NEEDED FOR MIDI.
-  useRecorder(channelId);
+  //useRecorder(channelId);
 
   useEffect(() => {
     if (channelType === ChannelType.INSTRUMENT) {

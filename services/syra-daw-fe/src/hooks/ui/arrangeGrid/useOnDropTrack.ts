@@ -17,6 +17,11 @@ export default function useOnDropTrack() {
           await importMidiFile(file, i);
         } else {
           const channelId = await createChannel(ChannelType.AUDIO, i, file.name.split('.')[0]);
+
+          if (!channelId) {
+            return;
+          }
+
           await createAudioRegion(channelId, file, Tone.Ticks(0), i === 0);
         }
       })();

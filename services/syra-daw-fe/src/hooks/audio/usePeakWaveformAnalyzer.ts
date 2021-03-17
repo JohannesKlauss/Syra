@@ -15,11 +15,6 @@ export default function usePeakWaveformAnalyzer(bufferId: string) {
 
   const correlation = waveTicksPerPixel / ticksPerPixel;
 
-  console.log('waveform', peakWaveform);
-  console.log('waveTicksPerPixel', waveTicksPerPixel);
-  console.log('ticksPerPixel', ticksPerPixel);
-  console.log('correlation', correlation);
-
   return {
     peakWaveform,
     correlation,

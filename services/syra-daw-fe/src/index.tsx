@@ -3,7 +3,6 @@ import React, { StrictMode } from 'react';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { RecoilRoot } from 'recoil';
-import { BackboneMixerContext, instantiateMixer } from './providers/BackboneMixerContext';
 import { initializeApollo } from './apollo/client';
 import { ApolloProvider } from '@apollo/client';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
@@ -34,11 +33,9 @@ ReactDOM.render(
   <StrictMode>
     <ApolloProvider client={apolloClient}>
       <RecoilRoot>
-        <BackboneMixerContext.Provider value={instantiateMixer()}>
           <ChakraProvider theme={customTheme}>
             <App />
           </ChakraProvider>
-        </BackboneMixerContext.Provider>
       </RecoilRoot>
     </ApolloProvider>
   </StrictMode>,

@@ -3,8 +3,6 @@ import { BackboneMixerContext, instantiateMixer } from "../../src/providers/Back
 
 export default function sbWithBackboneMixer(Story) {
   return (
-    <BackboneMixerContext.Provider value={instantiateMixer()}>
       <Story/>
-    </BackboneMixerContext.Provider>
   )
 }
