@@ -20704,7 +20704,7 @@ standard-as-callback@^2.0.1:
   resolved "https://registry.yarnpkg.com/standard-as-callback/-/standard-as-callback-2.0.1.tgz#ed8bb25648e15831759b6023bdb87e6b60b38126"
   integrity sha512-NQOxSeB8gOI5WjSaxjBgog2QFw55FV8TkS6Y07BiB3VJ8xNTvUYm0wl0s8ObgQ5NhdpnNfigMIKjgPESzgr4tg==
 
-standardized-audio-context@^25.1.12:
+standardized-audio-context@25.1.12, standardized-audio-context@^25.1.12:
   version "25.1.12"
   resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.1.12.tgz#7582fffeed2543e34ec780b0bdeb8f30d124ed8b"
   integrity sha512-lMN3whmiB8tjxi6y7OJBJ07hUXJtD4xobcVi/NEtPNiuLa2vqCQHJAp/MqpcRFa0raqvVfR5BFzp503N6vh1yA==

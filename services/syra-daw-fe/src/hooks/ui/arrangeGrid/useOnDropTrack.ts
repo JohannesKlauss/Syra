@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { ChannelType } from '../../../types/Channel';
+import { ChannelMode, ChannelType } from "../../../types/Channel";
 import useCreateChannel from '../../recoil/channel/useCreateChannel';
 import useCreateAudioRegionFromFile from '../../recoil/region/useCreateAudioRegionFromFile';
 import useImportMidiFile from "../../fileImport/useImportMidiFile";
@@ -16,7 +16,7 @@ export default function useOnDropTrack() {
         if (file.type === 'audio/midi') {
           await importMidiFile(file, i);
         } else {
-          const channelId = await createChannel(ChannelType.AUDIO, i, file.name.split('.')[0]);
+          const channelId = await createChannel(ChannelType.AUDIO, ChannelMode.MONO, i, file.name.split('.')[0]);
 
           if (!channelId) {
             return;

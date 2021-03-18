@@ -1,9 +1,9 @@
-import { useRecoilCallback } from 'recoil';
-import { createNewId } from '../../../utils/createNewId';
-import { CHANNEL_ID_PREFIX } from '../../../const/ids';
-import { channelStore } from '../../../recoil/channelStore';
+import { useRecoilCallback } from "recoil";
+import { createNewId } from "../../../utils/createNewId";
+import { CHANNEL_ID_PREFIX } from "../../../const/ids";
+import { channelStore } from "../../../recoil/channelStore";
 import { ChannelMode, ChannelType } from "../../../types/Channel";
-import { channelColors } from '../../../utils/channelColors';
+import { channelColors } from "../../../utils/channelColors";
 import useSyraEngine from "../../engine/useSyraEngine";
 import { useToast } from "@chakra-ui/react";
 
@@ -16,6 +16,7 @@ export default function useCreateChannel() {
   return useRecoilCallback(
     ({ set, snapshot }) => async (
       type: ChannelType,
+      channelMode: ChannelMode = ChannelMode.MONO,
       queueIndex: number = 0,
       channelName?: string,
       channelId?: string,
@@ -24,10 +25,8 @@ export default function useCreateChannel() {
       const channelIds = (await snapshot.getLoadable(channelStore.ids).contents) as string[];
 
       try {
-        await syraEngine.channels.createChannel(newChannelId, type, ChannelMode.MONO, channelName ?? 'Unnamed Channel');
+        await syraEngine.channels.createChannel(newChannelId, type, channelMode, channelName ?? 'Unnamed Channel');
       } catch (e) {
-        throw e;
-
         toast({
           title: 'Could not create channel!',
           description: 'An error occurred during channel creation',
@@ -37,10 +36,13 @@ export default function useCreateChannel() {
           isClosable: true,
         });
 
+        console.log('Could not create Channel', e);
+
         return;
       }
 
       set(channelStore.type(newChannelId), type);
+      set(channelStore.mode(newChannelId), channelMode);
       set(channelStore.selectedId, newChannelId);
       set(channelStore.isRecorderActive(newChannelId), type === ChannelType.AUDIO);
       set(channelStore.color(newChannelId), channelColors[(channelIds.length + queueIndex + 1) % channelColors.length]);

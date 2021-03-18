@@ -3,7 +3,6 @@ import { ChannelMode, ChannelType } from '../../types/Channel';
 import { channelFactory } from '../factory/channelFactory';
 import { removeItemAtIndex } from '../../utils/recoil';
 
-
 export const ChannelGraphManager = () => {
   let nodes: AbstractChannel[] = [];
   const edges: any[] = [];
@@ -15,7 +14,7 @@ export const ChannelGraphManager = () => {
       channelMode: ChannelMode,
       label: string,
     ): Promise<void> => {
-      const channel = await (await channelFactory(id, channelType, channelMode))();
+      const channel = await channelFactory(id, channelType, channelMode);
 
       if (channel === null) {
         throw new Error('Could not create channel!');

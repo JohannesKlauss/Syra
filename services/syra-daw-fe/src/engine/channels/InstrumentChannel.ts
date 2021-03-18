@@ -15,17 +15,11 @@ export class InstrumentChannel extends AbstractRecordableChannel {
     this.connectInternalNodes();
   }
 
-  protected connectInternalNodes() {
-    Tone.connectSeries(this.inputNode, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.outputNode);
-  }
-
   protected updateArming() {
   }
 
   protected updateInputMonitoring() {
   }
-
-  protected updateChannelMode(mode: ChannelMode): void {}
 
   get regionManager(): AudioRegionManager {
     return this.inputNode;

@@ -1,5 +1,6 @@
 import { ChannelMode, ChannelType } from '../../types/Channel';
 import * as Tone from 'tone';
+import { connectInternalSeries } from "./connectInternalSeries";
 
 export abstract class AbstractChannel {
   private _label: string = ''; // Set this to have a better debugging experience.
@@ -14,11 +15,35 @@ export abstract class AbstractChannel {
   protected abstract inputNode: Tone.ToneAudioNode;
   protected abstract outputNode: Tone.ToneAudioNode;
 
-  protected constructor(private _id: string, protected channelMode: ChannelMode = ChannelMode.MONO) {}
+  protected constructor(private _id: string, protected _channelMode: ChannelMode = ChannelMode.MONO) {}
 
-  protected abstract updateChannelMode(mode: ChannelMode): void;
+  protected updateChannelMode(mode: ChannelMode): void {
+    this.disconnectInternalNodes();
 
-  protected abstract connectInternalNodes(): void;
+    const channelCount = mode === ChannelMode.MONO ? 1 : 2;
+
+    this.inputNode.channelCount = channelCount;
+    this.volumeNode.channelCount = channelCount;
+    this.rmsNode.channelCount = channelCount;
+    this.soloNode.channelCount = channelCount;
+    this.muteNode.channelCount = channelCount;
+
+    this.connectInternalNodes();
+  };
+
+  protected connectInternalNodes() {
+    Tone.connectSeries(this.inputNode, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.outputNode);
+  }
+
+  protected disconnectInternalNodes() {
+    try {
+      this.inputNode.disconnect();
+      this.volumeNode.disconnect();
+      this.soloNode.disconnect();
+      this.muteNode.disconnect();
+      this.rmsNode.disconnect();
+    } catch (e) {}
+  }
 
   public dispose(): void {
     this.inputNode.dispose();
@@ -27,6 +52,14 @@ export abstract class AbstractChannel {
     this.soloNode.dispose();
     this.muteNode.dispose();
     this.outputNode.dispose();
+  }
+
+  get input() {
+    return this.inputNode;
+  }
+
+  get output() {
+    return this.outputNode;
   }
 
   get mute(): boolean {
@@ -55,6 +88,18 @@ export abstract class AbstractChannel {
 
   get rmsValue(): number | number[] {
     return this.rmsNode.getValue();
+  }
+
+  get channelMode(): ChannelMode {
+    return this._channelMode;
+  }
+
+  set channelMode(mode: ChannelMode) {
+    if (this._channelMode !== mode) {
+      this.updateChannelMode(mode);
+    }
+
+    this._channelMode = mode;
   }
 
   get id() {

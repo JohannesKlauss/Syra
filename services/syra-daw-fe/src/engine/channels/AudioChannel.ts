@@ -2,10 +2,11 @@ import { ChannelMode, ChannelType } from '../../types/Channel';
 import * as Tone from 'tone';
 import { AudioRegionManager } from '../region/AudioRegionManager';
 import { AbstractRecordableChannel } from './AbstractRecordableChannel';
+import { MasterChannel } from "./MasterChannel";
 
 export class AudioChannel extends AbstractRecordableChannel {
   protected inputNode = new AudioRegionManager();
-  protected outputNode = Tone.Destination;
+  protected outputNode = MasterChannel.getInstance().input;
   protected type: ChannelType = ChannelType.AUDIO;
 
   protected recorderNode: AudioNode = Tone.getContext().createAudioWorkletNode('recorder-worklet');
@@ -14,10 +15,6 @@ export class AudioChannel extends AbstractRecordableChannel {
     super(id, channelMode);
 
     this.connectInternalNodes();
-  }
-
-  protected connectInternalNodes() {
-    Tone.connectSeries(this.inputNode, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.outputNode);
   }
 
   protected updateArming() {
@@ -54,8 +51,6 @@ export class AudioChannel extends AbstractRecordableChannel {
     this.audioInNode.disconnect();
     this.recorderNode.disconnect();
   }
-
-  protected updateChannelMode(mode: ChannelMode): void {}
 
   get regionManager(): AudioRegionManager {
     return this.inputNode;

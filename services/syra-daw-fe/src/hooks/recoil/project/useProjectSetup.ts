@@ -1,4 +1,4 @@
-import { ChannelType } from '../../../types/Channel';
+import { ChannelMode, ChannelType } from "../../../types/Channel";
 import useCreateChannel from '../channel/useCreateChannel';
 
 export default function useProjectSetup() {
@@ -8,7 +8,7 @@ export default function useProjectSetup() {
     const label = channelType === ChannelType.AUDIO ? 'Audio' : 'Instrument';
 
     for(let i = 1; i <= numberChannels; i++) {
-      await createChannel(channelType, 0, `${label} ${i}`);
+      await createChannel(channelType, ChannelMode.MONO, 0, `${label} ${i}`);
     }
   }
 }

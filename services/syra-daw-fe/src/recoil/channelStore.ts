@@ -1,6 +1,6 @@
 import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 import { SoulInstance, SoulPatchDescriptor, SoulPatchParameter } from '../types/Soul';
-import { ChannelType } from '../types/Channel';
+import { ChannelMode, ChannelType } from "../types/Channel";
 import { RegionState, regionStore } from './regionStore';
 import atomFamilyWithEffects from './proxy/atomFamilyWithEffects';
 import atomWithEffects from './proxy/atomWithEffects';
@@ -27,6 +27,14 @@ const name = atomFamilyWithEffects<string, string>({
 const type = atomFamilyWithEffects<ChannelType, string>({
   key: 'channel/type',
   default: ChannelType.INSTRUMENT,
+  effects: [
+    ...syncEffectsComb,
+  ]
+});
+
+const mode = atomFamilyWithEffects<ChannelMode, string>({
+  key: 'channel/mode',
+  default: ChannelMode.MONO,
   effects: [
     ...syncEffectsComb
   ]
@@ -282,6 +290,7 @@ const findByRegionId = selectorFamily<string, string>({
 export const channelStore = {
   name,
   type,
+  mode,
   color,
   volume,
   pan,
