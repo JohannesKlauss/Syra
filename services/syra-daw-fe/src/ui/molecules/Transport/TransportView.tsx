@@ -11,12 +11,11 @@ import MemberSettings from "../Social/MemberSettings";
 import VersionInformation from '../Platform/VersionInformation';
 import { useHotkeys } from "react-hotkeys-hook";
 import { fileSystem } from "../../../utils/fileSystem";
+import { useResetProjectMutation } from "../../../gql/generated";
+import { projectStore } from "../../../recoil/projectStore";
+import { useRecoilValue } from "recoil";
 
 function TransportView() {
-  const [count, setCount] = useState(0);
-
-  useHotkeys('shift+y', () => setCount(prevState => prevState + 1));
-
   return (
     <Flex justify={'space-between'} align={'center'} py={4} borderTop={'1px solid #4FD1C5'} bg={'gray.800'} userSelect={'none'}>
       <Flex w={'33%'} justify={'center'}>
@@ -35,7 +34,6 @@ function TransportView() {
         <Click />
         <MemberSettings/>
         <VersionInformation/>
-        {count >= 3 && <Button onClick={() => fileSystem.clearDirectory()}>cFS</Button>}
       </Flex>
     </Flex>
   );

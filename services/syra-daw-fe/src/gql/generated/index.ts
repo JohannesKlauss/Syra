@@ -7271,6 +7271,14 @@ export type UpdateProjectContentMutation = { __typename?: 'Mutation' } & {
   updateProject?: Maybe<{ __typename?: 'Project' } & Pick<Project, 'id'>>;
 };
 
+export type ResetProjectMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+export type ResetProjectMutation = { __typename?: 'Mutation' } & {
+  updateProject?: Maybe<{ __typename?: 'Project' } & Pick<Project, 'id'>>;
+};
+
 export type BaseUserFragment = { __typename?: 'User' } & Pick<User, 'id' | 'name' | 'handle' | 'avatar' | 'isOnline'>;
 
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
@@ -7731,6 +7739,44 @@ export type UpdateProjectContentMutationResult = Apollo.MutationResult<UpdatePro
 export type UpdateProjectContentMutationOptions = Apollo.BaseMutationOptions<
   UpdateProjectContentMutation,
   UpdateProjectContentMutationVariables
+>;
+export const ResetProjectDocument = gql`
+  mutation resetProject($id: String!) {
+    updateProject(where: { id: $id }, data: { content: {}, isInitialized: { set: false } }) {
+      id
+    }
+  }
+`;
+export type ResetProjectMutationFn = Apollo.MutationFunction<ResetProjectMutation, ResetProjectMutationVariables>;
+
+/**
+ * __useResetProjectMutation__
+ *
+ * To run a mutation, you first call `useResetProjectMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResetProjectMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resetProjectMutation, { data, loading, error }] = useResetProjectMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useResetProjectMutation(
+  baseOptions?: Apollo.MutationHookOptions<ResetProjectMutation, ResetProjectMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<ResetProjectMutation, ResetProjectMutationVariables>(ResetProjectDocument, options);
+}
+export type ResetProjectMutationHookResult = ReturnType<typeof useResetProjectMutation>;
+export type ResetProjectMutationResult = Apollo.MutationResult<ResetProjectMutation>;
+export type ResetProjectMutationOptions = Apollo.BaseMutationOptions<
+  ResetProjectMutation,
+  ResetProjectMutationVariables
 >;
 export const MeDocument = gql`
   query me {

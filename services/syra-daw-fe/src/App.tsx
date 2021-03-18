@@ -5,6 +5,7 @@ import { FpsView } from 'react-fps';
 import 'focus-visible/dist/focus-visible';
 import useFaviconWatcher from './hooks/ui/global/useFaviconWatcher';
 import useWebMidi from './hooks/midi/useWebMidi';
+import DebugShortcuts from './ui/debug/Floating/DebugShortcuts';
 
 function App() {
   const [showFpsMeter, setShowFpsMeter] = useState(false);
@@ -16,6 +17,7 @@ function App() {
     <>
       <AppRouter />
       {showFpsMeter && <FpsView />}
+      {process.env.NODE_ENV !== 'production' && <DebugShortcuts/>}
     </>
   );
 }

@@ -12,10 +12,15 @@ export class AudioChannel extends AbstractChannel {
 
   constructor(id: string, channelMode: ChannelMode = ChannelMode.MONO, protected audioInNode: AudioNode) {
     super(id, channelMode);
+
+    console.log('inputnode', this.inputNode);
+    console.log('outputnode', this.outputNode);
+
+    this.connectInternalNodes();
   }
 
   protected connectInternalNodes() {
-    super.connectInternalNodes();
+    Tone.connectSeries(this.inputNode, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.outputNode);
 
     //Tone.connectSeries(this.audioInNode, this.recorderNode);
     //Tone.connectSeries(this.audioInNode, this.volumeNode);

@@ -28,7 +28,7 @@ function ChannelName({ backgroundColor, channelPrefix, px, ...props }: Props) {
         fontWeight={'600'}
         py={2}
         isTruncated
-        onDblClick={() => ref.current?.click()}
+        onDoubleClick={() => ref.current?.click()}
         color={backgroundColor ? determineTextColor(backgroundColor) : 'gray.50'}
       >
         {channelPrefix}

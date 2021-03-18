@@ -9,21 +9,16 @@ export abstract class AbstractChannel {
   protected muteNode = new Tone.Volume();
   protected volumeNode = new Tone.Volume();
 
-  protected outputNode: Tone.ToneAudioNode = Tone.Destination;
-
   protected abstract type: ChannelType;
 
   protected abstract inputNode: Tone.ToneAudioNode;
+  protected abstract outputNode: Tone.ToneAudioNode;
 
-  constructor(private _id: string, protected channelMode: ChannelMode = ChannelMode.MONO) {
-    this.connectInternalNodes();
-  }
+  protected constructor(private _id: string, protected channelMode: ChannelMode = ChannelMode.MONO) {}
 
   protected abstract updateChannelMode(mode: ChannelMode): void;
 
-  protected connectInternalNodes(): void {
-    Tone.connectSeries(this.inputNode, this.outputNode);
-  }
+  protected abstract connectInternalNodes(): void;
 
   public dispose(): void {
     this.inputNode.dispose();
