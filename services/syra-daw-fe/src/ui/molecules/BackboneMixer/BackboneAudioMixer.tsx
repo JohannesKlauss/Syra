@@ -6,6 +6,7 @@ import { ChannelType } from '../../../types/Channel';
 import useSyncTransportToSoul from "../../../hooks/soul/useSyncTransportToSoul";
 import useRecordExternalMidi from "../../../hooks/recoil/region/useRecordExternalMidi";
 import useSyraEngineChannel from "../../../hooks/engine/useSyraEngineChannel";
+import { AbstractRecordableChannel } from "../../../engine/channels/AbstractRecordableChannel";
 
 interface Props {
   channelId: string;
@@ -13,7 +14,7 @@ interface Props {
 
 // This component does all the heavy lifting connecting channels, syncing recoil to tonejs, etc.. It doesn't render anything nor should it.
 function BackboneAudioMixer({channelId}: Props) {
-  const channel = useSyraEngineChannel(channelId);
+  const channel = useSyraEngineChannel(channelId) as AbstractRecordableChannel;
 
   const isMuted = useRecoilValue(channelStore.isMuted(channelId));
   const isArmed = useRecoilValue(channelStore.isArmed(channelId));
@@ -25,36 +26,25 @@ function BackboneAudioMixer({channelId}: Props) {
   const plugins = useRecoilValue(channelStore.findActivePluginsByIds(pluginIds));
   const [connect, disconnect] = useConnectMidiWithInstrumentChannel(channelId);
 
+
   useSyncTransportToSoul();
   useRecordExternalMidi();
 
   useEffect(() => {
     channel.mute = isMuted;
-  }, [isMuted]);
+  }, [isMuted, channel]);
 
   useEffect(() => {
-    (async () => {
-      //await channel.updateArming(isArmed);
-    })();
-  }, [isArmed]);
+    channel.isArmed = isArmed;
+  }, [isArmed, channel]);
 
   useEffect(() => {
-    (async () => {
-      //await  mixerChannelStrip.updateInputMonitoring(isInputMonitoringActive);
-    })();
-  }, [isInputMonitoringActive]);
+    channel.isInputMonitoringActive = isInputMonitoringActive;
+  }, [isInputMonitoringActive, channel]);
 
   useEffect(() => {
     channel.solo = isSolo;
-  }, [isSolo]);
-
-  useEffect(() => {
-    /*mixerChannelStrip.disconnect(soulInstance?.audioNode);
-    mixerChannelStrip.rewireAudio(plugins.map(plugin => plugin.audioNode), soulInstance?.audioNode)*/
-  }, [soulInstance, plugins]);
-
-  // TODO: THIS MIGHT CAUSE SOME TROUBLE BECAUSE THIS IS RUNNING FOR EVERY CHANNEL ON EVERY CHANNEL CHANGE. ALSO THIS IS NOT NEEDED FOR MIDI.
-  //useRecorder(channelId);
+  }, [isSolo, channel]);
 
   useEffect(() => {
     if (channelType === ChannelType.INSTRUMENT) {

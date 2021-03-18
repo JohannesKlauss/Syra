@@ -4,7 +4,7 @@ import { useMemo } from "react";
 export default function useSyraEngineChannel(channelId: string) {
   const engine = useSyraEngine();
 
-  const channel = useMemo(() => {
+  return useMemo(() => {
     const tmp = engine.channels.getChannel(channelId);
 
     if (!tmp) {
@@ -13,6 +13,4 @@ export default function useSyraEngineChannel(channelId: string) {
 
     return tmp;
   }, [channelId]);
-
-  return channel;
 }

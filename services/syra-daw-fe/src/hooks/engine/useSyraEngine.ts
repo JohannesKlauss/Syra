@@ -1,5 +1,6 @@
-import { syraEngine } from "../../engine/SyraEngine";
+import { useContext } from "react";
+import { SyraEngineContext } from "../../providers/SyraEngineContext";
 
 export default function useSyraEngine() {
-  return syraEngine;
+  return useContext(SyraEngineContext);
 }

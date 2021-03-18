@@ -1,22 +1,19 @@
-import { atom, atomFamily, selector, selectorFamily } from "recoil";
-import { SoulInstance, SoulPatchDescriptor, SoulPatchParameter } from "../types/Soul";
+import { atom, atomFamily, selector, selectorFamily } from 'recoil';
+import { SoulInstance, SoulPatchDescriptor, SoulPatchParameter } from '../types/Soul';
 import { ChannelType } from '../types/Channel';
 import { RegionState, regionStore } from './regionStore';
-import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
-import atomWithEffects from "./proxy/atomWithEffects";
-import { syncEffectsComb } from "./effects/syncEffectsComb";
-import { createSoulInstance } from "../soul/createSoulInstance";
-import { soulPluginStore } from "./soulPluginStore";
-import { projectStore } from "./projectStore";
-import { undoRedoEffect } from "./effects/undoRedoEffect";
+import atomFamilyWithEffects from './proxy/atomFamilyWithEffects';
+import atomWithEffects from './proxy/atomWithEffects';
+import { syncEffectsComb } from './effects/syncEffectsComb';
+import { createSoulInstance } from '../soul/createSoulInstance';
+import { soulPluginStore } from './soulPluginStore';
+import { projectStore } from './projectStore';
+import { undoRedoEffect } from './effects/undoRedoEffect';
 
 const ids = atomWithEffects<string[]>({
   key: 'channel/ids',
   default: [],
-  effects: [
-    ...syncEffectsComb,
-    undoRedoEffect,
-  ]
+  effects: [...syncEffectsComb, undoRedoEffect],
 });
 
 const name = atomFamilyWithEffects<string, string>({

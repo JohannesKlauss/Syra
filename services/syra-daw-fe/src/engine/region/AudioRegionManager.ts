@@ -7,8 +7,6 @@ export class AudioRegionManager extends Tone.Players {
       this.add(regionId, audioBuffer);
     }
 
-    console.log('sync player');
-
     this.player(regionId)
       .unsync().sync()
       .start(Tone.Ticks(info.start).toSeconds(), Tone.Ticks(info.offset).toSeconds(), Tone.Ticks(info.duration).toSeconds());

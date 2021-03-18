@@ -1,9 +1,9 @@
-import { AbstractChannel } from './AbstractChannel';
-import { ChannelMode, ChannelType } from "../../types/Channel";
-import * as Tone from "tone";
-import { AudioRegionManager } from "../region/AudioRegionManager";
+import { ChannelMode, ChannelType } from '../../types/Channel';
+import * as Tone from 'tone';
+import { AudioRegionManager } from '../region/AudioRegionManager';
+import { AbstractRecordableChannel } from './AbstractRecordableChannel';
 
-export class AudioChannel extends AbstractChannel {
+export class AudioChannel extends AbstractRecordableChannel {
   protected inputNode = new AudioRegionManager();
   protected outputNode = Tone.Destination;
   protected type: ChannelType = ChannelType.AUDIO;
@@ -13,17 +13,39 @@ export class AudioChannel extends AbstractChannel {
   constructor(id: string, channelMode: ChannelMode = ChannelMode.MONO, protected audioInNode: AudioNode) {
     super(id, channelMode);
 
-    console.log('inputnode', this.inputNode);
-    console.log('outputnode', this.outputNode);
-
     this.connectInternalNodes();
   }
 
   protected connectInternalNodes() {
     Tone.connectSeries(this.inputNode, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.outputNode);
+  }
 
-    //Tone.connectSeries(this.audioInNode, this.recorderNode);
-    //Tone.connectSeries(this.audioInNode, this.volumeNode);
+  protected updateArming() {
+    if (!this.audioInNode || !this.recorderNode) {
+      return;
+    }
+
+    try {
+      Tone.disconnect(this.audioInNode, this.recorderNode);
+    } catch (e) {}
+
+    if (this.isArmed) {
+      Tone.connectSeries(this.audioInNode, this.recorderNode);
+    }
+  }
+
+  protected updateInputMonitoring() {
+    if (!this.audioInNode || !this.volumeNode) {
+      return;
+    }
+
+    try {
+      Tone.disconnect(this.audioInNode, this.volumeNode);
+    } catch (e) {}
+
+    if (this.isInputMonitoringActive) {
+      Tone.connectSeries(this.audioInNode, this.volumeNode);
+    }
   }
 
   public dispose() {
