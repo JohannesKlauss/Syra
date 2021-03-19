@@ -11,8 +11,6 @@ function ChannelHeader() {
   const channelId = useContext(ChannelContext);
   const channelType = useRecoilValue(channelStore.type(channelId));
 
-  console.log(channelId, channelType);
-
   const Component = useMemo(() => {
     switch(channelType) {
       case ChannelType.AUDIO:

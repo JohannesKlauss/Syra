@@ -18,7 +18,7 @@ const DebugShortcuts: React.FC<Props> = ({}) => {
   useHotkeys('d', () => setDisplayShortcuts(prevState => !prevState));
 
   return (
-    <Box pos={'fixed'} bottom={4} left={4} zIndex={100000}>
+    <Box pos={'fixed'} bottom={4} right={4} zIndex={100000}>
       {displayShortcuts && (
         <Alert status="warning" variant={'left-accent'} justifyContent="center">
           <AlertIcon />

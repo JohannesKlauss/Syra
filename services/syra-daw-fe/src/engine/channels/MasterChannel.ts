@@ -10,11 +10,10 @@ export class MasterChannel extends AbstractChannel {
 
   private static instance: MasterChannel;
 
-  private constructor(id: string, channelMode: ChannelMode = ChannelMode.STEREO) {
-    super(id, channelMode);
+  private constructor(id: string) {
+    super(id, ChannelMode.STEREO);
 
-    this.updateChannelMode(channelMode);
-    this.connectInternalNodes();
+    this.updateChannelMode(ChannelMode.STEREO);
   }
 
   // We are omitting the solo node for the master channel, since solo activation on a different channel will mute the master channel.
@@ -34,5 +33,7 @@ export class MasterChannel extends AbstractChannel {
     if (mode === ChannelMode.MONO) {
       throw new Error('Cannot change channelMode of Master Channel!');
     }
+
+    super.updateChannelMode(mode);
   }
 }

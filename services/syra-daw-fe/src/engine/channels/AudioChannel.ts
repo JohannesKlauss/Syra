@@ -14,7 +14,7 @@ export class AudioChannel extends AbstractRecordableChannel {
   constructor(id: string, channelMode: ChannelMode = ChannelMode.MONO, protected audioInNode: AudioNode) {
     super(id, channelMode);
 
-    this.connectInternalNodes();
+    this.updateChannelMode(channelMode);
   }
 
   protected updateArming() {

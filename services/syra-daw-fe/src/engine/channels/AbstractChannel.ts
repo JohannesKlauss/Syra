@@ -21,11 +21,8 @@ export abstract class AbstractChannel {
 
     const channelCount = mode === ChannelMode.MONO ? 1 : 2;
 
-    this.inputNode.channelCount = channelCount;
-    this.volumeNode.channelCount = channelCount;
-    this.rmsNode.channelCount = channelCount;
-    this.soloNode.channelCount = channelCount;
-    this.muteNode.channelCount = channelCount;
+    this.volumeNode.channelCountMode = this.rmsNode.channelCountMode = this.soloNode.channelCountMode = this.muteNode.channelCountMode = 'explicit';
+    this.volumeNode.channelCount = this.rmsNode.channelCount = this.soloNode.channelCount = this.muteNode.channelCount = channelCount;
 
     this.connectInternalNodes();
   };
