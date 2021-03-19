@@ -15,7 +15,7 @@ import { gridStore } from '../../../recoil/gridStore';
 function GridTracks() {
   const { view } = useContext(ViewContext);
   const totalWidth = useRecoilValue(gridStore.totalWidth(view));
-  const channelIds = useRecoilValue(channelStore.ids);
+  const channelIds = useRecoilValue(channelStore.idsWithoutMaster);
   const onSelect = useSelectRegions();
   const analyzeTempo = useAnalyzeTempoForSelectedRegion();
 

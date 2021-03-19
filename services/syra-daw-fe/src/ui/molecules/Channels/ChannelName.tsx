@@ -1,10 +1,11 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef } from 'react';
 import { determineTextColor } from '../../../utils/color';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
 import { useRecoilState } from 'recoil';
 import { Flex, Text, TextProps } from '@chakra-ui/react';
 import ChannelSettings from './ChannelSettings';
+import { ChannelType } from '../../../types/Channel';
 
 interface Props extends TextProps {
   backgroundColor?: string;
@@ -14,6 +15,7 @@ interface Props extends TextProps {
 function ChannelName({ backgroundColor, channelPrefix, px, ...props }: Props) {
   const channelId = useContext(ChannelContext);
   const [name] = useRecoilState(channelStore.name(channelId));
+  const [channelType] = useRecoilState(channelStore.type(channelId));
   const ref = useRef<HTMLButtonElement>(null);
 
   return (
@@ -31,9 +33,13 @@ function ChannelName({ backgroundColor, channelPrefix, px, ...props }: Props) {
         onDoubleClick={() => ref.current?.click()}
         color={backgroundColor ? determineTextColor(backgroundColor) : 'gray.50'}
       >
-        {channelPrefix}
-        {channelPrefix && ' - '}
-        {name}
+        {channelType !== ChannelType.MASTER ? (
+          <>
+            {channelPrefix}
+            {channelPrefix && ' - '}
+            {name}
+          </>
+        ) : 'Stereo Out'}
       </Text>
       <ChannelSettings ref={ref}/>
     </Flex>

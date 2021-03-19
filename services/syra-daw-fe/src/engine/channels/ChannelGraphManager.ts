@@ -2,9 +2,10 @@ import { AbstractChannel } from './AbstractChannel';
 import { ChannelMode, ChannelType } from '../../types/Channel';
 import { channelFactory } from '../factory/channelFactory';
 import { removeItemAtIndex } from '../../utils/recoil';
+import { MasterChannel } from "./MasterChannel";
 
 export const ChannelGraphManager = () => {
-  let nodes: AbstractChannel[] = [];
+  let nodes: AbstractChannel[] = [MasterChannel.getInstance()];
   const edges: any[] = [];
 
   return {

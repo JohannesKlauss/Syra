@@ -39,7 +39,7 @@ function LevelMeterVertical() {
       stage.add(layer);
 
       const anim = new Konva.Animation(() => {
-        const val = channel.peakValue as number;
+        const val = channel.rmsValue as number;
 
         let rmsHeight = mapDbToUiMeterVal(val);
 

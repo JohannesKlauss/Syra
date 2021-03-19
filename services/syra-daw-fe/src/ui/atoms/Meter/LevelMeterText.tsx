@@ -15,8 +15,8 @@ function LevelMeterText() {
 
   const anim = () => {
     setLevel(currVal => {
-      if (currVal < (channel.peakValue as number)) {
-        return channel.peakValue as number;
+      if (currVal < (channel.rmsValue as number)) {
+        return channel.rmsValue as number;
       }
 
       return currVal;

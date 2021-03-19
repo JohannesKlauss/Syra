@@ -5,10 +5,10 @@ import VerticalChannel from './VerticalChannel';
 import { ChannelContext } from '../../../../providers/ChannelContext';
 import VerticalChannelListHeader from './VerticalChannelListHeader';
 import useDeleteChannelHotkey from '../../../../hooks/hotkeys/channel/useDeleteChannelHotkey';
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 function VerticalChannelList() {
-  const channels = useRecoilValue(channelStore.ids);
+  const channels = useRecoilValue(channelStore.idsWithoutMaster);
   useDeleteChannelHotkey();
 
   return (

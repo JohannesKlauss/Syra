@@ -9,6 +9,8 @@ import { createSoulInstance } from '../soul/createSoulInstance';
 import { soulPluginStore } from './soulPluginStore';
 import { projectStore } from './projectStore';
 import { undoRedoEffect } from './effects/undoRedoEffect';
+import { MASTER_CHANNEL } from "../engine/const/ids";
+import { removeItemAtIndex } from "../utils/recoil";
 
 const ids = atomWithEffects<string[]>({
   key: 'channel/ids',
@@ -287,6 +289,24 @@ const findByRegionId = selectorFamily<string, string>({
   }
 });
 
+const idsWithMasterAtEnd = selector<string[]>({
+  key: 'channel/idsWithMasterAtEnd',
+  get: ({get}) => {
+    const tmp = get(ids).slice();
+
+    return [...removeItemAtIndex(tmp, tmp.indexOf(MASTER_CHANNEL)), MASTER_CHANNEL];
+  }
+});
+
+const idsWithoutMaster = selector<string[]>({
+  key: 'channel/idsWithoutMaster',
+  get: ({get}) => {
+    const tmp = get(ids).slice();
+
+    return removeItemAtIndex(tmp, tmp.indexOf(MASTER_CHANNEL));
+  }
+})
+
 export const channelStore = {
   name,
   type,
@@ -311,4 +331,6 @@ export const channelStore = {
   findActivePluginsByIds,
   findSelectedChannel,
   findByRegionId,
+  idsWithMasterAtEnd,
+  idsWithoutMaster,
 };
