@@ -1,11 +1,10 @@
 import { ChannelMode, ChannelType } from '../../types/Channel';
 import * as Tone from 'tone';
-import { connectInternalSeries } from "./connectInternalSeries";
 
 export abstract class AbstractChannel {
   private _label: string = ''; // Set this to have a better debugging experience.
 
-  protected rmsNode = new Tone.Meter({ smoothing: 0.9 });
+  protected peakNode = new Tone.Meter({ smoothing: 0.9 });
   protected soloNode = new Tone.Solo();
   protected muteNode = new Tone.Volume();
   protected volumeNode = new Tone.Volume();
@@ -24,7 +23,7 @@ export abstract class AbstractChannel {
 
     this.inputNode.channelCount = channelCount;
     this.volumeNode.channelCount = channelCount;
-    this.rmsNode.channelCount = channelCount;
+    this.peakNode.channelCount = channelCount;
     this.soloNode.channelCount = channelCount;
     this.muteNode.channelCount = channelCount;
 
@@ -32,7 +31,7 @@ export abstract class AbstractChannel {
   };
 
   protected connectInternalNodes() {
-    Tone.connectSeries(this.inputNode, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.outputNode);
+    Tone.connectSeries(this.inputNode, this.volumeNode, this.soloNode, this.muteNode, this.peakNode, this.outputNode);
   }
 
   protected disconnectInternalNodes() {
@@ -41,14 +40,14 @@ export abstract class AbstractChannel {
       this.volumeNode.disconnect();
       this.soloNode.disconnect();
       this.muteNode.disconnect();
-      this.rmsNode.disconnect();
+      this.peakNode.disconnect();
     } catch (e) {}
   }
 
   public dispose(): void {
     this.inputNode.dispose();
     this.volumeNode.dispose();
-    this.rmsNode.dispose();
+    this.peakNode.dispose();
     this.soloNode.dispose();
     this.muteNode.dispose();
     this.outputNode.dispose();
@@ -86,8 +85,8 @@ export abstract class AbstractChannel {
     this.volumeNode.set({ volume });
   }
 
-  get rmsValue(): number | number[] {
-    return this.rmsNode.getValue();
+  get peakValue(): number | number[] {
+    return this.peakNode.getValue();
   }
 
   get channelMode(): ChannelMode {
