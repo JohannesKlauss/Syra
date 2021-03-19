@@ -50,7 +50,7 @@
     "@typescript-eslint/eslint-plugin": "4.18.0",
     "@typescript-eslint/parser": "4.18.0",
     "eslint": "7.22.0",
-    "framer-motion": "4.0.0",
+    "framer-motion": "3.10.6",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "recoil": "0.1.3"
