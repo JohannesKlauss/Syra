@@ -12,7 +12,7 @@ export abstract class AbstractChannel {
 
   protected abstract type: ChannelType;
 
-  protected abstract inputNode: Tone.InputNode | null;
+  protected abstract inputNode: Tone.InputNode | undefined;
   protected abstract outputNode: Tone.OutputNode | Tone.InputNode;
 
   protected constructor(private _id: string, protected _channelMode: ChannelMode = ChannelMode.MONO) {}

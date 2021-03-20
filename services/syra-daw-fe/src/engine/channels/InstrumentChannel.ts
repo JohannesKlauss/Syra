@@ -3,7 +3,7 @@ import * as Tone from "tone";
 import { AbstractRecordableChannel } from "./AbstractRecordableChannel";
 
 export class InstrumentChannel extends AbstractRecordableChannel {
-  protected inputNode: AudioWorkletNode | null = null;
+  protected inputNode: AudioWorkletNode | undefined;
   protected outputNode = Tone.Destination
 
   protected type: ChannelType = ChannelType.INSTRUMENT;
@@ -20,7 +20,7 @@ export class InstrumentChannel extends AbstractRecordableChannel {
   protected updateInputMonitoring() {
   }
 
-  set instrument(node: AudioWorkletNode | null) {
+  set instrument(node: AudioWorkletNode | undefined) {
     this.disconnectInternalNodes();
 
     this.inputNode = node;
@@ -28,7 +28,7 @@ export class InstrumentChannel extends AbstractRecordableChannel {
     this.connectInternalNodes();
   }
 
-  get instrument(): AudioWorkletNode | null {
+  get instrument(): AudioWorkletNode | undefined {
     return this.inputNode;
   }
 }
