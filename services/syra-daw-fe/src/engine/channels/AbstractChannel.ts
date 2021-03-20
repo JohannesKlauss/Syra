@@ -5,14 +5,15 @@ export abstract class AbstractChannel {
   private _label: string = ''; // Set this to have a better debugging experience.
 
   protected rmsNode = new Tone.Meter({ smoothing: 0.9, channels: this._channelMode === ChannelMode.STEREO ? 2 : 1 });
+  protected panNode = new Tone.Panner({ channelCount: this._channelMode === ChannelMode.STEREO ? 2 : 1 });
   protected soloNode = new Tone.Solo();
   protected muteNode = new Tone.Volume();
   protected volumeNode = new Tone.Volume();
 
   protected abstract type: ChannelType;
 
-  protected abstract inputNode: Tone.ToneAudioNode;
-  protected abstract outputNode: Tone.ToneAudioNode;
+  protected abstract inputNode: Tone.InputNode | null;
+  protected abstract outputNode: Tone.OutputNode | Tone.InputNode;
 
   protected constructor(private _id: string, protected _channelMode: ChannelMode = ChannelMode.MONO) {}
 
@@ -24,20 +25,21 @@ export abstract class AbstractChannel {
     // TODO: SINCE Tone.js uses the Web Audio Analyzer node we have to reconstruct this
     this.rmsNode = new Tone.Meter({ smoothing: 0.9, channels: channelCount });
 
-    this.volumeNode.channelCountMode = this.rmsNode.channelCountMode = this.soloNode.channelCountMode = this.muteNode.channelCountMode =
+    this.volumeNode.channelCountMode = this.rmsNode.channelCountMode = this.soloNode.channelCountMode = this.muteNode.channelCountMode = this.panNode.channelCountMode =
       'explicit';
-    this.volumeNode.channelCount = this.rmsNode.channelCount = this.soloNode.channelCount = this.muteNode.channelCount = channelCount;
+    this.volumeNode.channelCount = this.rmsNode.channelCount = this.soloNode.channelCount = this.muteNode.channelCount = this.panNode.channelCount = channelCount;
 
     this.connectInternalNodes();
   }
 
   protected connectInternalNodes() {
-    Tone.connectSeries(this.inputNode, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.outputNode);
+    if (this.inputNode) {
+      Tone.connectSeries(this.inputNode, this.panNode, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.outputNode);
+    }
   }
 
   protected disconnectInternalNodes() {
     try {
-      this.inputNode.disconnect();
       this.volumeNode.disconnect();
       this.soloNode.disconnect();
       this.muteNode.disconnect();
@@ -46,12 +48,10 @@ export abstract class AbstractChannel {
   }
 
   public dispose(): void {
-    this.inputNode.dispose();
     this.volumeNode.dispose();
     this.rmsNode.dispose();
     this.soloNode.dispose();
     this.muteNode.dispose();
-    this.outputNode.dispose();
   }
 
   get input() {
@@ -84,6 +84,14 @@ export abstract class AbstractChannel {
 
   set volume(volume: number) {
     this.volumeNode.set({ volume });
+  }
+
+  get pan() {
+    return this.panNode.pan.value;
+  }
+
+  set pan(pan: number) {
+    this.panNode.set({pan});
   }
 
   get rmsValue(): number | number[] {

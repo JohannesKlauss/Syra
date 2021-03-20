@@ -6,16 +6,19 @@ import { MasterChannel } from "./MasterChannel";
 
 export const ChannelGraphManager = () => {
   let nodes: AbstractChannel[] = [MasterChannel.getInstance()];
-  const edges: any[] = [];
 
   return {
-    createChannel: async (
+    createChannel: (
       id: string,
       channelType: ChannelType,
       channelMode: ChannelMode,
       label: string,
-    ): Promise<void> => {
-      const channel = await channelFactory(id, channelType, channelMode);
+    ): AbstractChannel => {
+      if (nodes.findIndex(node => node.id === id) > -1) {
+        return nodes[nodes.findIndex(node => node.id === id)];
+      }
+
+      const channel = channelFactory(id, channelType, channelMode);
 
       if (channel === null) {
         throw new Error('Could not create channel!');
@@ -24,6 +27,8 @@ export const ChannelGraphManager = () => {
       channel.label = label;
 
       nodes.push(channel);
+
+      return channel;
     },
     removeChannel: (id: string): void => {
       const index = nodes.findIndex((node) => node.id === id);

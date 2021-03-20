@@ -1,10 +1,9 @@
 import { ChannelMode, ChannelType } from "../../types/Channel";
 import * as Tone from "tone";
-import { AudioRegionManager } from "../region/AudioRegionManager";
 import { AbstractRecordableChannel } from "./AbstractRecordableChannel";
 
 export class InstrumentChannel extends AbstractRecordableChannel {
-  protected inputNode = new AudioRegionManager();
+  protected inputNode: AudioWorkletNode | null = null;
   protected outputNode = Tone.Destination
 
   protected type: ChannelType = ChannelType.INSTRUMENT;
@@ -21,7 +20,15 @@ export class InstrumentChannel extends AbstractRecordableChannel {
   protected updateInputMonitoring() {
   }
 
-  get regionManager(): AudioRegionManager {
+  set instrument(node: AudioWorkletNode | null) {
+    this.disconnectInternalNodes();
+
+    this.inputNode = node;
+
+    this.connectInternalNodes();
+  }
+
+  get instrument(): AudioWorkletNode | null {
     return this.inputNode;
   }
 }

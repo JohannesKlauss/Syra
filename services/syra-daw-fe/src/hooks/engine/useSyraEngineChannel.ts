@@ -14,7 +14,7 @@ export default function useSyraEngineChannel(channelId: string) {
 
     if (!tmp) {
       // Throwing a promise instead of returning it causes the hook to suspense.
-      throw engine.channels.createChannel(channelId, type, mode, name ?? 'Unnamed Channel');
+      return engine.channels.createChannel(channelId, type, mode, name ?? 'Unnamed Channel');
     }
 
     return tmp;
