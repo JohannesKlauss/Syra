@@ -8,7 +8,7 @@ export default function useSyraEngineChannel(channelId: string) {
     const tmp = engine.channels.getChannel(channelId);
 
     if (!tmp) {
-      throw new Error('Could not find channel in SYRA_ENGINE');
+      throw new Error(`Could not find channel ${channelId} in SYRA_ENGINE!`);
     }
 
     return tmp;

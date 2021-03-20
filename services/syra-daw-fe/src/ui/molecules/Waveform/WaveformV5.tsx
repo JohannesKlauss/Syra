@@ -1,8 +1,6 @@
 import React from 'react';
 import { PixiComponent, Stage } from '@inlet/react-pixi';
 import { Graphics } from 'pixi.js';
-import { DPR } from '../../../const/ui';
-import { Box } from '@chakra-ui/react';
 import { colorToHexNumber, determineTextColor } from '../../../utils/color';
 import usePeakWaveformAnalyzer from '../../../hooks/audio/usePeakWaveformAnalyzer';
 import WaveformData from 'waveform-data';

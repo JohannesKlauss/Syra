@@ -6,11 +6,11 @@ import ChannelLetterButtons from '../../ChannelLetterButtons';
 import { ChannelContext } from '../../../../../providers/ChannelContext';
 import { channelStore } from '../../../../../recoil/channelStore';
 import { useRecoilValue } from 'recoil';
-import LevelMeterVertical from '../../../../atoms/Meter/LevelMeterVertical';
 import ChannelName from '../../ChannelName';
 import LevelMeterText from '../../../../atoms/Meter/LevelMeterText';
 import { Box, Divider, Flex } from '@chakra-ui/react';
 import VolumeFaderText from '../../../../atoms/Slider/VolumeFaderText';
+import LevelMeterBarV2 from "../../../../atoms/Meter/LevelMeterBarV2";
 
 const ChannelBody: React.FC = React.memo(() => {
   const channelId = useContext(ChannelContext);
@@ -38,9 +38,9 @@ const ChannelBody: React.FC = React.memo(() => {
         <VolumeFaderText value={volumeFaderValue} />
         <LevelMeterText />
       </Flex>
-      <Flex justify={'space-around'} align={'center'}>
+      <Flex justify={'space-around'} align={'center'} pos={'relative'}>
         <VolumeFader onChange={onChangeVolume} />
-        <LevelMeterVertical />
+        <LevelMeterBarV2 />
       </Flex>
 
       <Divider borderColor={channelColor} />

@@ -4,7 +4,7 @@ import * as Tone from 'tone';
 export abstract class AbstractChannel {
   private _label: string = ''; // Set this to have a better debugging experience.
 
-  protected rmsNode = new Tone.Meter({ smoothing: 0.9 });
+  protected rmsNode = new Tone.Meter({ smoothing: 0.9, channels: this._channelMode === ChannelMode.STEREO ? 2 : 1 });
   protected soloNode = new Tone.Solo();
   protected muteNode = new Tone.Volume();
   protected volumeNode = new Tone.Volume();
@@ -21,11 +21,15 @@ export abstract class AbstractChannel {
 
     const channelCount = mode === ChannelMode.MONO ? 1 : 2;
 
-    this.volumeNode.channelCountMode = this.rmsNode.channelCountMode = this.soloNode.channelCountMode = this.muteNode.channelCountMode = 'explicit';
+    // TODO: SINCE Tone.js uses the Web Audio Analyzer node we have to reconstruct this
+    this.rmsNode = new Tone.Meter({ smoothing: 0.9, channels: channelCount });
+
+    this.volumeNode.channelCountMode = this.rmsNode.channelCountMode = this.soloNode.channelCountMode = this.muteNode.channelCountMode =
+      'explicit';
     this.volumeNode.channelCount = this.rmsNode.channelCount = this.soloNode.channelCount = this.muteNode.channelCount = channelCount;
 
     this.connectInternalNodes();
-  };
+  }
 
   protected connectInternalNodes() {
     Tone.connectSeries(this.inputNode, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.outputNode);
