@@ -1,7 +1,7 @@
 import React from 'react';
 import useAvailableChannels from '../../../../../hooks/ui/channels/useAvailableChannels';
 import useCreateChannel from '../../../../../hooks/recoil/channel/useCreateChannel';
-import { ChannelType } from '../../../../../types/Channel';
+import { ChannelMode, ChannelType } from '../../../../../types/Channel';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
 import { IoIosAdd } from 'react-icons/io';
@@ -18,7 +18,7 @@ function AddChannelMenu() {
     (async () => await createChannel(ChannelType.AUDIO))();
   });
   useHotkeys('alt+cmd+s', () => {
-    (async () => await createChannel(ChannelType.INSTRUMENT))();
+    (async () => await createChannel(ChannelType.INSTRUMENT, ChannelMode.STEREO))();
   });
 
   return (
@@ -39,7 +39,9 @@ function AddChannelMenu() {
           <MenuItem onClick={() => onClick(action.type)} key={action.type}>
             <Flex align={'center'}>
               {action.icon}
-              <Text ml={2} fontSize={'xs'}>{action.name}</Text>
+              <Text ml={2} fontSize={'xs'}>
+                {action.name}
+              </Text>
             </Flex>
           </MenuItem>
         ))}

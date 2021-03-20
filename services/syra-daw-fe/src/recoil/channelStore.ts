@@ -257,6 +257,15 @@ const findActivePluginsByIds = selectorFamily<SoulInstance[], string[]>({
   key: 'channel/findActivePluginsByIds',
   get: ids => ({get}) =>
     ids.filter(id => get(isPluginActive(id))).map(id => get(soulInstance(id))).filter(patch => patch !== undefined) as SoulInstance[],
+});
+
+const findActivePluginsForChannelId = selectorFamily<SoulInstance[], string>({
+  key: 'channel/findActivePluginsForChannelId',
+  get: channelId => ({get}) => {
+    const ids = get(pluginIds(channelId));
+
+    return ids.filter(id => get(isPluginActive(id))).map(id => get(soulInstance(id))).filter(patch => patch !== undefined) as SoulInstance[];
+  }
 })
 
 const findSelectedChannel = selector({
@@ -329,6 +338,7 @@ export const channelStore = {
   soulInstance,
   findPluginsByIds,
   findActivePluginsByIds,
+  findActivePluginsForChannelId,
   findSelectedChannel,
   findByRegionId,
   idsWithMasterAtEnd,

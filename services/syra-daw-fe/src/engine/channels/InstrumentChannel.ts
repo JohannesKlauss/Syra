@@ -1,10 +1,10 @@
 import { ChannelMode, ChannelType } from "../../types/Channel";
-import * as Tone from "tone";
 import { AbstractRecordableChannel } from "./AbstractRecordableChannel";
+import { MasterChannel } from "./MasterChannel";
 
 export class InstrumentChannel extends AbstractRecordableChannel {
   protected inputNode: AudioWorkletNode | undefined;
-  protected outputNode = Tone.Destination
+  protected outputNode = MasterChannel.getInstance().input as AudioNode;
 
   protected type: ChannelType = ChannelType.INSTRUMENT;
 

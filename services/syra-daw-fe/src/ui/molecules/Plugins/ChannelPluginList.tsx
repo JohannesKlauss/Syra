@@ -1,16 +1,23 @@
-import React, { Suspense, useContext } from 'react';
+import React, { Suspense, useContext, useEffect } from "react";
 import { ChannelContext } from '../../../providers/ChannelContext';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from "recoil";
 import SoulPlugin from '../SoulPlugin/SoulPlugin';
 import { channelStore } from '../../../recoil/channelStore';
 import { List as MovableList, arrayMove } from 'react-movable';
 import { Box, Button } from '@chakra-ui/react';
 import useAddPlugin from '../../../hooks/recoil/channel/useAddPlugin';
+import useSyraEngineChannel from "../../../hooks/engine/useSyraEngineChannel";
 
 function ChannelPluginList() {
   const channelId = useContext(ChannelContext);
+  const channel = useSyraEngineChannel(channelId);
+  const activePluginsForChannelId = useRecoilValue(channelStore.findActivePluginsForChannelId(channelId));
   const [soulPluginIds, setSoulPluginIds] = useRecoilState(channelStore.pluginIds(channelId));
   const addPlugin = useAddPlugin();
+
+  useEffect(() => {
+    channel.setActivePlugins(activePluginsForChannelId.map(plugin => plugin.audioNode));
+  }, [activePluginsForChannelId]);
 
   return (
     <MovableList
@@ -29,7 +36,7 @@ function ChannelPluginList() {
         </>
       )}
       renderItem={({ value, props }) => (
-        <Box {...props}>
+        <Box {...props} style={{...props, zIndex: 'unset'}}>
           <Suspense fallback={<Button size={"xs"} disabled colorScheme={"gray"} isLoading/>}>
             <SoulPlugin key={props.key} id={value} />
           </Suspense>

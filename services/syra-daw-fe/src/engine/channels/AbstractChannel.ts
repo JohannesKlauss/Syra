@@ -9,6 +9,7 @@ export abstract class AbstractChannel {
   protected soloNode = new Tone.Solo();
   protected muteNode = new Tone.Volume();
   protected volumeNode = new Tone.Volume();
+  private plugins: AudioNode[] = [];
 
   protected abstract type: ChannelType;
 
@@ -34,7 +35,7 @@ export abstract class AbstractChannel {
 
   protected connectInternalNodes() {
     if (this.inputNode) {
-      Tone.connectSeries(this.inputNode, this.panNode, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.outputNode);
+      Tone.connectSeries(this.inputNode, ...this.plugins, this.panNode, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.outputNode);
     }
   }
 
@@ -44,6 +45,8 @@ export abstract class AbstractChannel {
       this.soloNode.disconnect();
       this.muteNode.disconnect();
       this.rmsNode.disconnect();
+
+      this.plugins.forEach(plugin => plugin.disconnect());
     } catch (e) {}
   }
 
@@ -52,6 +55,13 @@ export abstract class AbstractChannel {
     this.rmsNode.dispose();
     this.soloNode.dispose();
     this.muteNode.dispose();
+  }
+
+  public setActivePlugins(plugins: AudioNode[]) {
+    this.plugins = plugins;
+
+    this.disconnectInternalNodes();
+    this.connectInternalNodes();
   }
 
   get input() {
