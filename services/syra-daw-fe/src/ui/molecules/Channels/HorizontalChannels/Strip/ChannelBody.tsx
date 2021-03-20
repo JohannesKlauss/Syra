@@ -26,30 +26,25 @@ const ChannelBody: React.FC = React.memo(() => {
 
   return (
     <Box>
-      <Divider mb={2} />
-
-      <ChannelPluginList />
-
-      <Divider my={2} />
-
-      <Pan />
-
-      <Flex justify={'space-around'} align={'center'}>
-        <VolumeFaderText value={volumeFaderValue} />
-        <LevelMeterText />
-      </Flex>
-      <Flex justify={'space-around'} align={'center'} pos={'relative'}>
-        <VolumeFader onChange={onChangeVolume} />
-        <LevelMeterBarV2 />
-      </Flex>
-
-      <Divider borderColor={channelColor} />
-
-      <Box p={4} bg={'transparent'}>
-        <ChannelLetterButtons />
-      </Box>
-
-      <ChannelName backgroundColor={channelColor} px={2} />
+      <React.Suspense fallback={null}>
+        <Divider mb={2} />
+        <ChannelPluginList />
+        <Divider my={2} />
+        <Pan />
+        <Flex justify={'space-around'} align={'center'}>
+          <VolumeFaderText value={volumeFaderValue} />
+          <LevelMeterText />
+        </Flex>
+        <Flex justify={'space-around'} align={'center'} pos={'relative'}>
+          <VolumeFader onChange={onChangeVolume} />
+          <LevelMeterBarV2 />
+        </Flex>
+        <Divider borderColor={channelColor} />
+        <Box p={4} bg={'transparent'}>
+          <ChannelLetterButtons />
+        </Box>
+        <ChannelName backgroundColor={channelColor} px={2} />
+      </React.Suspense>
     </Box>
   );
 });
