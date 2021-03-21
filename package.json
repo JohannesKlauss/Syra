@@ -43,7 +43,7 @@
     "prettier": "2.2.1"
   },
   "resolutions": {
-    "@chakra-ui/react": "1.4.0",
+    "@chakra-ui/react": "1.4.1",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
     "@types/react": "17.0.3",
