@@ -40,8 +40,6 @@ export const ChannelGraphManager = () => {
         nodes.findIndex((node) => node.id === id),
       );
     },
-    getChannel: (id: string) => {
-      return nodes.find((node) => node.id === id);
-    },
+    getChannel: (id: string) => nodes.find((node) => node.id === id),
   }
 };

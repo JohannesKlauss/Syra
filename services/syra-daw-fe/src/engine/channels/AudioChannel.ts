@@ -12,13 +12,6 @@ export class AudioChannel extends AbstractRecordableChannel {
   protected audioInNode: AudioNode | null = null;
   protected recorderNode: AudioNode = Tone.getContext().createAudioWorkletNode('recorder-worklet');
 
-  constructor(id: string, channelMode: ChannelMode = ChannelMode.MONO) {
-    super(id, channelMode);
-
-    this.createAudioInNode();
-    this.updateChannelMode(channelMode);
-  }
-
   protected updateArming() {
     if (!this.audioInNode || !this.recorderNode) {
       return;

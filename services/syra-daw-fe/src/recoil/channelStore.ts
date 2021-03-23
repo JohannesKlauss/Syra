@@ -116,15 +116,6 @@ const isPluginActive = atomFamilyWithEffects<boolean, string>({
   ]
 });
 
-const isRecorderActive = atomFamilyWithEffects<boolean, string>({
-  key: 'channel/isRecorderActive',
-  default: true,
-  effects: [
-    ...syncEffectsComb,
-    undoRedoEffect,
-  ]
-})
-
 const pluginIds = atomFamilyWithEffects<string[], string>({
   key: 'channel/pluginIds',
   default: [],
@@ -329,7 +320,6 @@ export const channelStore = {
   isMuted,
   isInputMonitoringActive,
   isPluginActive,
-  isRecorderActive,
   pluginIds,
   state,
   ids,

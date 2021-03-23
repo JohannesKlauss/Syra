@@ -18,7 +18,7 @@ function LevelMeterText() {
   const intervalRef = useRef<any>();
 
   const anim = () => {
-    const currentPeak = getPeakMeterValue(channel.rmsValue);
+    const currentPeak = getPeakMeterValue(channel.rmsValue || -Infinity);
 
     setLevel(prevState => {
       if (prevState < currentPeak) {

@@ -2,10 +2,10 @@ import { ChannelMode, ChannelType } from '../../types/Channel';
 import * as Tone from 'tone';
 
 export abstract class AbstractChannel {
-  private _label: string = ''; // Set this to have a better debugging experience.
+  private _label: string = '';
 
-  protected rmsNode = new Tone.Meter({ smoothing: 0.9, channels: this._channelMode === ChannelMode.STEREO ? 2 : 1 });
-  protected panNode = new Tone.Panner({ channelCount: this._channelMode === ChannelMode.STEREO ? 2 : 1 });
+  protected rmsNode = new Tone.Meter({ smoothing: 0.9, channels: 2 });
+  protected panNode = new Tone.Panner();
   protected soloNode = new Tone.Solo();
   protected muteNode = new Tone.Volume();
   protected volumeNode = new Tone.Volume();
@@ -16,26 +16,26 @@ export abstract class AbstractChannel {
   protected abstract inputNode: Tone.InputNode | undefined;
   protected abstract outputNode: Tone.OutputNode | Tone.InputNode;
 
-  protected constructor(private _id: string, protected _channelMode: ChannelMode = ChannelMode.MONO) {}
+  constructor(private _id: string, protected _channelMode: ChannelMode = ChannelMode.MONO) {
+    this.updateChannelMode(this._channelMode);
+  }
 
   protected updateChannelMode(mode: ChannelMode): void {
     this.disconnectInternalNodes();
 
     const channelCount = mode === ChannelMode.MONO ? 1 : 2;
 
-    // TODO: SINCE Tone.js uses the Web Audio Analyzer node we have to reconstruct this
-    this.rmsNode = new Tone.Meter({ smoothing: 0.9, channels: channelCount });
-
     this.volumeNode.channelCountMode = this.rmsNode.channelCountMode = this.soloNode.channelCountMode = this.muteNode.channelCountMode = this.panNode.channelCountMode =
       'explicit';
-    this.volumeNode.channelCount = this.rmsNode.channelCount = this.soloNode.channelCount = this.muteNode.channelCount = this.panNode.channelCount = channelCount;
+    this.volumeNode.channelCount = this.rmsNode.channelCount = this.soloNode.channelCount = this.muteNode.channelCount = channelCount;
 
     this.connectInternalNodes();
   }
 
   protected connectInternalNodes() {
     if (this.inputNode) {
-      Tone.connectSeries(this.inputNode, ...this.plugins, this.panNode, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.outputNode);
+      this.disconnectInternalNodes();
+      Tone.connectSeries(this.inputNode, ...this.plugins, this.volumeNode, this.soloNode, this.muteNode, this.panNode, this.rmsNode, this.outputNode);
     }
   }
 

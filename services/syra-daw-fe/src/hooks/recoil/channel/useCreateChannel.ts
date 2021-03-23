@@ -44,7 +44,6 @@ export default function useCreateChannel() {
       set(channelStore.type(newChannelId), type);
       set(channelStore.mode(newChannelId), channelMode);
       set(channelStore.selectedId, newChannelId);
-      set(channelStore.isRecorderActive(newChannelId), type === ChannelType.AUDIO);
       set(channelStore.color(newChannelId), channelColors[(channelIds.length + queueIndex + 1) % channelColors.length]);
 
       if (channelName) {

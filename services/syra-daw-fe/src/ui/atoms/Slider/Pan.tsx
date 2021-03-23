@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Box, Slider, SliderThumb, SliderTrack } from '@chakra-ui/react';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import { ChannelNode } from '../../../types/Channel';
 import useSyraEngineChannel from '../../../hooks/engine/useSyraEngineChannel';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
+import { useRecoilState } from "recoil";
+import { channelStore } from "../../../recoil/channelStore";
 
 function Pan() {
   const channelId = useContext(ChannelContext);
   const channel = useSyraEngineChannel(channelId);
-  const [panValue, setPanValue] = useState(channel.pan);
+  const [panValue, setPanValue] = useRecoilState(channelStore.pan(channelId));
   const isPressed = useIsHotkeyPressed();
 
   const resetFader = () => setPanValue(0);
