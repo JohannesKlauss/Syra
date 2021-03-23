@@ -6,7 +6,7 @@ import { MasterChannel } from './MasterChannel';
 
 export class AudioChannel extends AbstractRecordableChannel {
   protected inputNode = new AudioRegionManager();
-  protected outputNode = MasterChannel.getInstance().input as AudioNode;
+  protected outputNode = MasterChannel.getInstance().input as Tone.ToneAudioNode;
   protected type: ChannelType = ChannelType.AUDIO;
 
   protected audioInNode: AudioNode | null = null;

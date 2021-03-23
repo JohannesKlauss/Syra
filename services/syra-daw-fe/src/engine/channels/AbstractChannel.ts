@@ -5,15 +5,15 @@ export abstract class AbstractChannel {
   private _label: string = '';
 
   protected rmsNode = new Tone.Meter({ smoothing: 0.9, channels: 2 });
-  protected panNode = new Tone.Panner();
+  protected panNode = new Tone.Panner({channelCount: 2});
   protected soloNode = new Tone.Solo();
   protected muteNode = new Tone.Volume();
   protected volumeNode = new Tone.Volume();
-  private plugins: AudioNode[] = [];
+  protected plugins: AudioNode[] = [];
 
   protected abstract type: ChannelType;
 
-  protected abstract inputNode: Tone.InputNode | undefined;
+  protected abstract inputNode: Tone.ToneAudioNode | AudioWorkletNode | undefined;
   protected abstract outputNode: Tone.OutputNode | Tone.InputNode;
 
   constructor(private _id: string, protected _channelMode: ChannelMode = ChannelMode.MONO) {
@@ -25,17 +25,28 @@ export abstract class AbstractChannel {
 
     const channelCount = mode === ChannelMode.MONO ? 1 : 2;
 
+    this.plugins.forEach((plugin) => {
+      plugin.channelCount = channelCount;
+      plugin.channelCountMode = 'explicit';
+    });
+
+    this.rmsNode.dispose();
+    this.rmsNode = new Tone.Meter({ smoothing: 0.9, channels: channelCount });
+
     this.volumeNode.channelCountMode = this.rmsNode.channelCountMode = this.soloNode.channelCountMode = this.muteNode.channelCountMode = this.panNode.channelCountMode =
       'explicit';
-    this.volumeNode.channelCount = this.rmsNode.channelCount = this.soloNode.channelCount = this.muteNode.channelCount = channelCount;
+
+    this.volumeNode.channelCount = this.soloNode.channelCount = this.muteNode.channelCount = this.rmsNode.channelCount = channelCount;
 
     this.connectInternalNodes();
   }
 
   protected connectInternalNodes() {
+    console.log('rewire', this.inputNode);
+
     if (this.inputNode) {
       this.disconnectInternalNodes();
-      Tone.connectSeries(this.inputNode, ...this.plugins, this.volumeNode, this.soloNode, this.muteNode, this.panNode, this.rmsNode, this.outputNode);
+      Tone.connectSeries(this.inputNode, ...this.plugins, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.panNode, this.outputNode);
     }
   }
 
@@ -46,7 +57,11 @@ export abstract class AbstractChannel {
       this.muteNode.disconnect();
       this.rmsNode.disconnect();
 
-      this.plugins.forEach(plugin => plugin.disconnect());
+      this.plugins.forEach((plugin) => plugin.disconnect());
+
+      if (this.inputNode?.disconnect) {
+        this.inputNode.disconnect();
+      }
     } catch (e) {}
   }
 
@@ -58,9 +73,10 @@ export abstract class AbstractChannel {
   }
 
   public setActivePlugins(plugins: AudioNode[]) {
+    this.disconnectInternalNodes();
+
     this.plugins = plugins;
 
-    this.disconnectInternalNodes();
     this.connectInternalNodes();
   }
 
@@ -101,7 +117,7 @@ export abstract class AbstractChannel {
   }
 
   set pan(pan: number) {
-    this.panNode.set({pan});
+    this.panNode.set({ pan });
   }
 
   get rmsValue(): number | number[] {
