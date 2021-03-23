@@ -6,6 +6,7 @@ export abstract class AbstractChannel {
 
   protected rmsNode = new Tone.Meter({ smoothing: 0.9, channels: 2 });
   protected panNode = new Tone.Panner({channelCount: 2});
+  protected mixerNode = new Tone.Volume();
   protected soloNode = new Tone.Solo();
   protected muteNode = new Tone.Volume();
   protected volumeNode = new Tone.Volume();
@@ -25,18 +26,13 @@ export abstract class AbstractChannel {
 
     const channelCount = mode === ChannelMode.MONO ? 1 : 2;
 
-    this.plugins.forEach((plugin) => {
-      plugin.channelCount = channelCount;
-      plugin.channelCountMode = 'explicit';
-    });
-
     this.rmsNode.dispose();
     this.rmsNode = new Tone.Meter({ smoothing: 0.9, channels: channelCount });
 
-    this.volumeNode.channelCountMode = this.rmsNode.channelCountMode = this.soloNode.channelCountMode = this.muteNode.channelCountMode = this.panNode.channelCountMode =
+    this.mixerNode.channelCountMode = this.volumeNode.channelCountMode = this.rmsNode.channelCountMode = this.soloNode.channelCountMode = this.muteNode.channelCountMode = this.panNode.channelCountMode =
       'explicit';
 
-    this.volumeNode.channelCount = this.soloNode.channelCount = this.muteNode.channelCount = this.rmsNode.channelCount = channelCount;
+    this.mixerNode.channelCount = this.volumeNode.channelCount = this.soloNode.channelCount = this.muteNode.channelCount = this.rmsNode.channelCount = channelCount;
 
     this.connectInternalNodes();
   }
@@ -46,7 +42,7 @@ export abstract class AbstractChannel {
 
     if (this.inputNode) {
       this.disconnectInternalNodes();
-      Tone.connectSeries(this.inputNode, ...this.plugins, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.panNode, this.outputNode);
+      Tone.connectSeries(this.inputNode, this.mixerNode, ...this.plugins, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.panNode, this.outputNode);
     }
   }
 
