@@ -55,7 +55,7 @@
     "@types/node": "14.14.35",
     "@types/nprogress": "0.2.0",
     "@types/react": "17.0.3",
-    "@types/react-dom": "17.0.2",
+    "@types/react-dom": "17.0.3",
     "@types/wavesurfer.js": "3.3.2",
     "react-is": "17.0.1",
     "storybook-addon-apollo-client": "4.0.6",
