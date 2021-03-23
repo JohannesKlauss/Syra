@@ -7,7 +7,7 @@
     "@chakra-ui/react": "1.4.1",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
-    "@inlet/react-pixi": "6.3.0",
+    "@inlet/react-pixi": "6.4.1",
     "@tonaljs/tonal": "4.6.0",
     "@tonejs/midi": "2.0.27",
     "axios": "0.21.1",
