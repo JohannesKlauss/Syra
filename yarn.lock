@@ -22027,12 +22027,12 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typegraphql-nestjs@0.2.5:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/typegraphql-nestjs/-/typegraphql-nestjs-0.2.5.tgz#02f66db30e2d88b0eeb9782bade4924c8678953e"
-  integrity sha512-0nKWgCdfuFNHqgD2f3YKG+GNNqWdQ4LzJComaP8v0i95dQtuWLJ/Xwq1zwH5yF51LqJlD4PSPbGMahfjq8GZAA==
+typegraphql-nestjs@0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/typegraphql-nestjs/-/typegraphql-nestjs-0.3.1.tgz#9cf23cad4e49abef0b165fd8ea285c33855fe397"
+  integrity sha512-ifaxnBUggykASaNhCJvDeRcoUXA0neJdOkp3evzE930tR7SecMwONtr8RuuG2I1Uzz2kQmCCNdNy9pPOH4YXTw==
   dependencies:
-    tslib "^2.0.1"
+    tslib "^2.1.0"
 
 typegraphql-prisma@0.12.0:
   version "0.12.0"
