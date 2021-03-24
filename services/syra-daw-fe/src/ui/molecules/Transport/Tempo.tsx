@@ -28,6 +28,9 @@ function Tempo() {
   const onDragEnd = () => {
     lastOffset.set(0);
     x.set(0);
+
+    console.log('set tempo map', tempoCopy);
+
     setTempoMap({0: tempoCopy});
   };
 

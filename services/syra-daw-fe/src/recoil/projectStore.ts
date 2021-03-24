@@ -88,6 +88,8 @@ const currentTempo = atom<number>({
       const keys = getSortedKeysOfEventMap(map).reverse();
       const index = keys.findIndex((changeAtQuarter) => changeAtQuarter <= currentQuarter);
 
+      console.log('recalc tempo');
+
       return map[keys[index]];
     },
   }),

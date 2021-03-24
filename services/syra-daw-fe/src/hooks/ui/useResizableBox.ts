@@ -58,8 +58,6 @@ export default function useResizableBox(
       return;
     }
 
-    y.set(snap(snapToY, offset.y));
-
     switch (dragMode.current) {
       case DragMode.END_HANDLE:
         const w = Math.max(minWidth, snapPixelValue(oldWidth.get() + offset.x));
@@ -78,6 +76,7 @@ export default function useResizableBox(
         }
         break;
       case DragMode.MOVE:
+        y.set(snap(snapToY, offset.y));
         x.set(snapPixelValue(oldX.get() + offset.x));
         break;
     }
