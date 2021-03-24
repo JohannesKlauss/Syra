@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import useResizableBox from '../../hooks/ui/useResizableBox';
 import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from '../../const/ui';
+import { ResizableBoxContext } from '../../providers/ResizableBoxContext';
 
 interface Props extends BoxProps {
   dragHandleWidth?: number;
@@ -91,7 +92,9 @@ const ResizableBox: React.FC<Props> = ({
           zIndex: 1,
         }}
       >
-        {children}
+        <ResizableBoxContext.Provider value={{x, y, width, boxOffset}}>
+          {children}
+        </ResizableBoxContext.Provider>
       </Box>
     </motion.div>
   );

@@ -6,7 +6,6 @@ import { Box, Text } from '@chakra-ui/react';
 import useSyraEngineChannel from '../../../hooks/engine/useSyraEngineChannel';
 import { channelStore } from "../../../recoil/channelStore";
 import { getPeakMeterValue } from "../../../utils/audio";
-import useInterval from '../../../hooks/core/useInterval';
 
 function LevelMeterText() {
   const channelId = useContext(ChannelContext);

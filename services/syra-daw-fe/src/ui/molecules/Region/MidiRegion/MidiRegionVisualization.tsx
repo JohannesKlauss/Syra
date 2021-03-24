@@ -9,6 +9,9 @@ import useRegionWidth from '../../../../hooks/ui/region/useRegionWidth';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
 import useTicksToPixel from '../../../../hooks/tone/useTicksToPixel';
 import { arrangeWindowStore } from "../../../../recoil/arrangeWindowStore";
+import { motion, useTransform } from "framer-motion";
+import useSnapPixelValue from "../../../../hooks/ui/useSnapPixelValue";
+import { ResizableBoxContext } from "../../../../providers/ResizableBoxContext";
 
 interface PixiProps {
   x: number;
@@ -38,6 +41,9 @@ const MidiRegionVisualization: React.FC = () => {
   const width = useRegionWidth();
   const color = useRegionColor(false);
   const ticksToPixel = useTicksToPixel();
+  const snapPixel = useSnapPixelValue();
+  const { boxOffset } = useContext(ResizableBoxContext);
+  const negativeX = useTransform(boxOffset, boxOffset => -snapPixel(boxOffset));
 
   const {minMidiValue, maxMidiValue} = useMemo(() => {
     const midiValues = midiNotesInsideBoundaries.map(note => note.midi);
@@ -55,18 +61,20 @@ const MidiRegionVisualization: React.FC = () => {
   }
 
   return (
-    <Stage width={width} height={trackHeight} options={{transparent: true, resolution: 1}}>
-      {midiNotesInsideBoundaries.map((note) => (
-        <MidiNoteVis
-          key={note.id}
-          backgroundColor={color}
-          height={noteHeight}
-          width={ticksToPixel(note.durationTicks)}
-          x={ticksToPixel(note.ticks - offset)}
-          y={noteHeight * (maxMidiValue - note.midi)}
-        />
-      ))}
-    </Stage>
+    <motion.div style={{ x: negativeX }}>
+      <Stage width={width} height={trackHeight} options={{transparent: true, resolution: 1}}>
+        {midiNotesInsideBoundaries.map((note) => (
+          <MidiNoteVis
+            key={note.id}
+            backgroundColor={color}
+            height={noteHeight}
+            width={ticksToPixel(note.durationTicks)}
+            x={ticksToPixel(note.ticks - offset)}
+            y={noteHeight * (maxMidiValue - note.midi)}
+          />
+        ))}
+      </Stage>
+    </motion.div>
   );
 };
 

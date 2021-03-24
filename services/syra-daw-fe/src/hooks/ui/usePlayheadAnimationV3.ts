@@ -8,7 +8,7 @@ import useTicksToPixel from "../tone/useTicksToPixel";
 import {gridStore} from "../../recoil/gridStore";
 
 export default function usePlayheadAnimationV3() {
-  const { view, viewRef, gridRef } = useContext(ViewContext);
+  const { view, viewRef } = useContext(ViewContext);
   const transport = useToneJsTransport();
   const isRecording = useRecoilValue(transportStore.isRecording);
   const isPlaying = useRecoilValue(transportStore.isPlaying);
@@ -18,8 +18,6 @@ export default function usePlayheadAnimationV3() {
   const ticksToPixel = useTicksToPixel();
   const hasScrolled = useRef<boolean>(false);
   const seconds = useRecoilValue(transportStore.seconds);
-
-  console.log('viewport widht', viewportWidth);
 
   useEffect(() => {
     x.set(ticksToPixel(transport.ticks));
@@ -31,7 +29,6 @@ export default function usePlayheadAnimationV3() {
     x.set(pixelPosition);
 
     const boundary = viewportWidth - 280;
-
     const mod = pixelPosition % boundary;
 
     if (mod - boundary >= -10 && !hasScrolled.current) {
