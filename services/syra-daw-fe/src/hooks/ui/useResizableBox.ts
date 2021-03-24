@@ -21,8 +21,8 @@ export default function useResizableBox(
   const x = useMotionValue(baseX);
   const oldX = useMotionValue(baseX);
   const y = useMotionValue(0);
-  const boxOffset = useRef(0);
-  const oldBoxOffset = useRef(0);
+  const boxOffset = useMotionValue(0);
+  const oldBoxOffset = useMotionValue(0);
   const ref = useRef<HTMLDivElement>(null);
   const dragMode = useRef(DragMode.MOVE);
   const snapPixelValue = useSnapPixelValue();
@@ -64,17 +64,17 @@ export default function useResizableBox(
       case DragMode.END_HANDLE:
         const w = Math.max(minWidth, snapPixelValue(oldWidth.get() + offset.x));
 
-        width.set(Math.min(maxWidth ? maxWidth - boxOffset.current : w, w));
+        width.set(Math.min(maxWidth ? maxWidth - boxOffset.get() : w, w));
         x.set(oldX.get());
         break;
       case DragMode.START_HANDLE:
-        if (snapPixelValue(oldBoxOffset.current + offset.x) >= 0 || allowOverExtendingStart) {
+        if (snapPixelValue(oldBoxOffset.get() + offset.x) >= 0 || allowOverExtendingStart) {
           const newX = snapPixelValue(oldX.get() + offset.x)
 
           x.set(newX);
           width.set(Math.max(minWidth, oldWidth.get() + (oldX.get() - newX)));
 
-          boxOffset.current = oldBoxOffset.current + offset.x;
+          boxOffset.set(oldBoxOffset.get() + offset.x);
         }
         break;
       case DragMode.MOVE:
@@ -88,15 +88,15 @@ export default function useResizableBox(
       x.set(0);
     }
 
-    onPositionChanged(x.get(), width.get(), snapPixelValue(boxOffset.current));
+    onPositionChanged(x.get(), width.get(), snapPixelValue(boxOffset.get()));
     oldWidth.set(width.get());
     oldX.set(x.get());
-    oldBoxOffset.current = snapPixelValue(boxOffset.current);
+    oldBoxOffset.set(snapPixelValue(boxOffset.get()));
 
     if (y.get() !== 0 && onYChanged && !lockDrag) {
       onYChanged(y.get());
     }
   };
 
-  return {onMouseDown, onDrag, onDragEnd, x, y, width, ref};
+  return {onMouseDown, onDrag, onDragEnd, x, y, boxOffset, width, ref};
 }

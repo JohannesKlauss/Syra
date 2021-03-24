@@ -21,7 +21,7 @@ interface Props {
 const PianoRoll: React.FC<Props> = ({ minNote, maxNote, showView }) => {
   const theme = useTheme();
   const selectedChannelId = useRecoilValue(pianoRollStore.selectedChannelId);
-  const ref = useRef<HTMLDivElement>(null);
+  const viewRef = useRef<HTMLDivElement>(null);
 
   return (
     <ChannelContext.Provider value={selectedChannelId}>
@@ -32,9 +32,9 @@ const PianoRoll: React.FC<Props> = ({ minNote, maxNote, showView }) => {
         display={showView ? 'block' : 'none'}
       >
         <PianoRollSettings />
-        <SplitScroller ref={ref}>
+        <SplitScroller ref={viewRef}>
           <VerticalPiano min={minNote} max={maxNote} />
-          <Grid view={View.PIANO_ROLL} additionalRulerContent={<MidiRegionIndicatorList />} splitScrollerRef={ref}>
+          <Grid view={View.PIANO_ROLL} viewRef={viewRef} additionalRulerContent={<MidiRegionIndicatorList />}>
             <MidiTrackList min={minNote} max={maxNote} />
             <BackgroundGridV2 />
           </Grid>

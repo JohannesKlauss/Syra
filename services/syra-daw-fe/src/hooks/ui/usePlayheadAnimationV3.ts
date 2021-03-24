@@ -8,7 +8,7 @@ import useTicksToPixel from "../tone/useTicksToPixel";
 import {gridStore} from "../../recoil/gridStore";
 
 export default function usePlayheadAnimationV3() {
-  const { view, viewRef } = useContext(ViewContext);
+  const { view, viewRef, gridRef } = useContext(ViewContext);
   const transport = useToneJsTransport();
   const isRecording = useRecoilValue(transportStore.isRecording);
   const isPlaying = useRecoilValue(transportStore.isPlaying);
@@ -19,6 +19,8 @@ export default function usePlayheadAnimationV3() {
   const hasScrolled = useRef<boolean>(false);
   const seconds = useRecoilValue(transportStore.seconds);
 
+  console.log('viewport widht', viewportWidth);
+
   useEffect(() => {
     x.set(ticksToPixel(transport.ticks));
   }, [seconds, x, ticksToPixel]);
@@ -28,16 +30,18 @@ export default function usePlayheadAnimationV3() {
 
     x.set(pixelPosition);
 
-    const mod = pixelPosition % viewportWidth;
+    const boundary = viewportWidth - 280;
 
-    if (mod > viewportWidth - 30 && !hasScrolled.current) {
+    const mod = pixelPosition % boundary;
+
+    if (mod - boundary >= -10 && !hasScrolled.current) {
       viewRef?.current?.scrollTo({
-        left: (viewRef?.current?.scrollLeft ?? 0) + viewportWidth,
+        left: (viewRef?.current?.scrollLeft ?? 0) + boundary,
       });
 
       hasScrolled.current = true;
     }
-    else if (mod < 30 && hasScrolled.current) {
+    else if (mod - boundary < -10 && hasScrolled.current) {
       hasScrolled.current = false;
     }
 

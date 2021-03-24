@@ -11,7 +11,7 @@ import useSnapPixelValue from "../../../hooks/ui/useSnapPixelValue";
 import useBarAtPixelV2 from "../../../hooks/ui/transportCursor/useBarAtPixelV2";
 
 const RulerTransportCursorV2: React.FC = ({children}) => {
-  const { view, viewRef } = useContext(ViewContext);
+  const { view, gridRef, viewRef } = useContext(ViewContext);
   const setTransportQuarters = useSetRecoilState(transportStore.currentQuarter);
   const windowWidth = useRecoilValue(gridStore.totalWidth(view));
   const playheadPosition = useRecoilValue(gridStore.playheadPosition(view));
@@ -23,7 +23,7 @@ const RulerTransportCursorV2: React.FC = ({children}) => {
   const isSnapActive = useRecoilValue(gridStore.isSnapActive(view));
 
   const onMouseInteraction = useCallback(e => {
-    const rawPosition = Math.max(e.clientX - (viewRef.current?.getBoundingClientRect().left ?? 0), 0);
+    const rawPosition = Math.max(e.clientX - (gridRef.current?.getBoundingClientRect().left ?? 0), 0);
     const position = snapPixelValue(rawPosition);
 
     if (playheadPosition !== position) {

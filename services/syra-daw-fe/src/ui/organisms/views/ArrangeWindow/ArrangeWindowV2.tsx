@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import SplitScroller from "../../../atoms/Layout/SplitScroller";
 import Grid from "../../../molecules/Grid/Grid";
 import { View } from "../../../../types/View";
-import { Box, BoxProps, Flex, Image } from "@chakra-ui/react";
+import { Box, BoxProps, Image } from "@chakra-ui/react";
 import RulerSettings from "../../../molecules/Ruler/Settings/RulerSettings";
 import VerticalChannelList from "../../../molecules/Channels/VerticalChannels/VerticalChannelList";
 import GridTracks from "../../../molecules/ArrangeWindow/GridTracks";
@@ -17,6 +17,8 @@ interface Props extends BoxProps {
 }
 
 const ArrangeWindowV2: React.FC<Props> = (props) => {
+  const viewRef = useRef<HTMLDivElement>(null);
+
   return (
     <Box {...props} w={'100%'} pos={'fixed'}>
       <RulerSettings>
@@ -28,9 +30,9 @@ const ArrangeWindowV2: React.FC<Props> = (props) => {
         <ReportIssue/>
       </RulerSettings>
 
-      <SplitScroller>
+      <SplitScroller ref={viewRef}>
         <VerticalChannelList/>
-        <Grid view={View.ARRANGE_WINDOW}>
+        <Grid view={View.ARRANGE_WINDOW} viewRef={viewRef}>
           <GridTracks/>
           <DropTrack/>
         </Grid>

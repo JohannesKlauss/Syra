@@ -9,11 +9,10 @@ import BackgroundGridV2 from '../Grid/BackgroundGridV2';
 import RulerCycleV2 from './CycleV2/RulerCycleV2';
 
 interface Props {
-  splitScrollerRef?: React.RefObject<HTMLDivElement>;
   additionalRulerContent?: JSX.Element;
 }
 
-const RulerV2: React.FC<Props> = ({additionalRulerContent, splitScrollerRef}) => {
+const RulerV2: React.FC<Props> = ({additionalRulerContent}) => {
   const { view } = useContext(ViewContext);
   const windowWidth = useRecoilValue(gridStore.totalWidth(view));
 

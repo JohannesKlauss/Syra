@@ -5,6 +5,7 @@ import atomFamilyWithEffects from './proxy/atomFamilyWithEffects';
 import * as Tone from 'tone';
 import WaveformData from 'waveform-data';
 import { makeFileBufferSelector } from './selectors/makeFileBufferSelector';
+import { projectStore } from "./projectStore";
 
 const ids = atomWithEffects<string[]>({
   key: 'audioBuffer/ids',
@@ -71,6 +72,10 @@ const durationInTicks = selectorFamily<number, string>({
     if (audioBuffer === null) {
       return 0;
     }
+
+    get(projectStore.currentTempo);
+
+    console.log('recalc');
 
     return Tone.Ticks(audioBuffer.duration, 's').toTicks();
   },

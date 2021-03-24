@@ -52,9 +52,9 @@ const PlayheadIndicator: React.FC<PlayheadProps> = ({ x, height, isRecording }) 
 function RulerPlayheadV2() {
   const isRecording = useRecoilValue(transportStore.isRecording);
   const x = usePlayheadAnimationV3();
-  const { viewRef } = useContext(ViewContext);
+  const { gridRef } = useContext(ViewContext);
 
-  return <PlayheadIndicator x={x} height={`${viewRef.current?.clientHeight ? viewRef.current?.clientHeight - 40 : 0}px`} isRecording={isRecording} />;
+  return <PlayheadIndicator x={x} height={`${gridRef.current?.clientHeight ? gridRef.current?.clientHeight - 40 : 0}px`} isRecording={isRecording} />;
 }
 
 export default RulerPlayheadV2;

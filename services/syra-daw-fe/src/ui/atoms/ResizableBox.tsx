@@ -1,8 +1,8 @@
 import { Box, BoxProps } from '@chakra-ui/react';
-import React from "react";
+import React from 'react';
 import { motion } from 'framer-motion';
 import useResizableBox from '../../hooks/ui/useResizableBox';
-import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from "../../const/ui";
+import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from '../../const/ui';
 
 interface Props extends BoxProps {
   dragHandleWidth?: number;
@@ -38,7 +38,7 @@ const ResizableBox: React.FC<Props> = ({
   onYChanged,
   ...props
 }) => {
-  const { onDragEnd, onMouseDown, onDrag, width, x, y, ref } = useResizableBox(
+  const { onDragEnd, onMouseDown, onDrag, width, x, y, boxOffset, ref } = useResizableBox(
     baseWidth,
     baseX,
     dragHandleWidth,
