@@ -1,15 +1,15 @@
-import { PixiComponent, Stage, useTick } from '@inlet/react-pixi';
+import { PixiComponent, useTick } from '@inlet/react-pixi';
 import React, { useContext, useState } from "react";
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { Flex, useTheme } from '@chakra-ui/react';
 import { channelStore } from '../../../recoil/channelStore';
-import { useRecoilValue } from 'recoil';
+import { useRecoilBridgeAcrossReactRoots_UNSTABLE, useRecoilValue } from "recoil";
 import { Graphics } from 'pixi.js';
 import { colorToHexNumber } from "../../../utils/color";
 import { ChannelMode } from '../../../types/Channel';
 import useSyraEngineChannel from "../../../hooks/engine/useSyraEngineChannel";
 import { mapDbToUiMeterVal } from "../../../utils/levelMeterMapping";
-import { AbstractChannel } from "../../../engine/channels/AbstractChannel";
+import LevelMeterStage from "./LevelMeterStage";
 
 const BAR_HEIGHT = 160;
 
@@ -39,12 +39,13 @@ interface StripProps {
   safeColor: number;
   dangerColor: number;
   clippingColor: number;
-  channel: AbstractChannel;
+  channelId: string;
 }
 
-const Strip: React.FC<StripProps> = ({ channelCount, index, channel, safeColor, dangerColor, clippingColor }) => {
+const Strip: React.FC<StripProps> = ({ channelCount, index, channelId, safeColor, dangerColor, clippingColor }) => {
   const [height, setHeight] = useState(160);
   const [color, setColor] = useState(safeColor);
+  const channel = useSyraEngineChannel(channelId);
 
   const determineColor = (dbValue: number) => {
     if (dbValue < -2) {
@@ -57,16 +58,14 @@ const Strip: React.FC<StripProps> = ({ channelCount, index, channel, safeColor, 
   };
 
   useTick(() => {
-    if (!channel.rmsValue) {
-      return;
-    }
+    const val = channel.rmsValue;
 
-    if (channelCount === 1 && !(channel.rmsValue as number[]).length) {
-      setHeight(mapDbToUiMeterVal(channel.rmsValue as number));
-      determineColor(channel.rmsValue as number);
-    } else if (channelCount === 2 && (channel.rmsValue as number[]).length) {
-      setHeight(mapDbToUiMeterVal((channel.rmsValue as number[])[index]));
-      determineColor((channel.rmsValue as number[])[index]);
+    if (channelCount === 1 && !(val as number[]).length) {
+      setHeight(mapDbToUiMeterVal(val as number));
+      determineColor(val as number);
+    } else if (channelCount === 2 && (val as number[]).length) {
+      setHeight(mapDbToUiMeterVal((val as number[])[index]));
+      determineColor((val as number[])[index]);
     }
   });
 
@@ -84,44 +83,44 @@ const Strip: React.FC<StripProps> = ({ channelCount, index, channel, safeColor, 
 const LevelMeterBarV2: React.FC = () => {
   const theme = useTheme();
   const channelId = useContext(ChannelContext);
-  const channel = useSyraEngineChannel(channelId);
   const mode = useRecoilValue(channelStore.mode(channelId));
-
-  console.log('channelCount', mode);
+  const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
 
   return (
     <Flex w={'100%'} h={BAR_HEIGHT} mt={8} pos={'relative'} overflow={'hidden'} justify={'center'}>
-      <Stage width={28} height={BAR_HEIGHT} options={{ transparent: true, resolution: 1 }}>
-        {mode === ChannelMode.STEREO ? (
-          <>
+      <LevelMeterStage width={28} height={BAR_HEIGHT} options={{ transparent: true, resolution: 1 }}>
+        <RecoilBridge>
+          {mode === ChannelMode.STEREO ? (
+            <>
+              <Strip
+                channelCount={2}
+                index={0}
+                channelId={channelId}
+                safeColor={colorToHexNumber(theme.colors.green[200])}
+                dangerColor={colorToHexNumber(theme.colors.yellow[200])}
+                clippingColor={colorToHexNumber(theme.colors.red[200])}
+              />
+              <Strip
+                channelCount={2}
+                index={1}
+                channelId={channelId}
+                safeColor={colorToHexNumber(theme.colors.green[200])}
+                dangerColor={colorToHexNumber(theme.colors.yellow[200])}
+                clippingColor={colorToHexNumber(theme.colors.red[200])}
+              />
+            </>
+          ) : (
             <Strip
-              channelCount={2}
+              channelCount={1}
               index={0}
-              channel={channel}
+              channelId={channelId}
               safeColor={colorToHexNumber(theme.colors.green[200])}
               dangerColor={colorToHexNumber(theme.colors.yellow[200])}
               clippingColor={colorToHexNumber(theme.colors.red[200])}
             />
-            <Strip
-              channelCount={2}
-              index={1}
-              channel={channel}
-              safeColor={colorToHexNumber(theme.colors.green[200])}
-              dangerColor={colorToHexNumber(theme.colors.yellow[200])}
-              clippingColor={colorToHexNumber(theme.colors.red[200])}
-            />
-          </>
-        ) : (
-          <Strip
-            channelCount={1}
-            index={0}
-            channel={channel}
-            safeColor={colorToHexNumber(theme.colors.green[200])}
-            dangerColor={colorToHexNumber(theme.colors.yellow[200])}
-            clippingColor={colorToHexNumber(theme.colors.red[200])}
-          />
-        )}
-      </Stage>
+          )}
+        </RecoilBridge>
+      </LevelMeterStage>
     </Flex>
   );
 };

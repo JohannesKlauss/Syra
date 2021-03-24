@@ -1,4 +1,4 @@
-import { ChannelMode, ChannelType } from '../../types/Channel';
+import { ChannelType } from '../../types/Channel';
 import * as Tone from 'tone';
 import { AudioRegionManager } from '../region/AudioRegionManager';
 import { AbstractRecordableChannel } from './AbstractRecordableChannel';
@@ -12,9 +12,9 @@ export class AudioChannel extends AbstractRecordableChannel {
   protected audioInNode: AudioNode | null = null;
   protected recorderNode: AudioNode = Tone.getContext().createAudioWorkletNode('recorder-worklet');
 
-  protected updateArming() {
-    if (!this.audioInNode || !this.recorderNode) {
-      return;
+  protected async updateArming() {
+    if (!this.audioInNode) {
+      this.audioInNode = await this.createAudioInNode();
     }
 
     try {
@@ -26,17 +26,17 @@ export class AudioChannel extends AbstractRecordableChannel {
     }
   }
 
-  protected updateInputMonitoring() {
-    if (!this.audioInNode || !this.volumeNode) {
-      return;
+  protected async updateInputMonitoring() {
+    if (!this.audioInNode) {
+      this.audioInNode = await this.createAudioInNode();
     }
 
     try {
-      Tone.disconnect(this.audioInNode, this.volumeNode);
+      Tone.disconnect(this.audioInNode, this.rmsNode);
     } catch (e) {}
 
     if (this.isInputMonitoringActive) {
-      Tone.connectSeries(this.audioInNode, this.volumeNode);
+      Tone.connectSeries(this.audioInNode, this.rmsNode);
     }
   }
 
@@ -51,9 +51,9 @@ export class AudioChannel extends AbstractRecordableChannel {
     return this.inputNode;
   }
 
-  private createAudioInNode() {
-    navigator.mediaDevices
-      .getUserMedia({ audio: true, video: false })
-      .then((stream) => (this.audioInNode = Tone.getContext().createMediaStreamSource(stream)));
+  private async createAudioInNode() {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+
+    return Tone.getContext().createMediaStreamSource(stream);
   }
 }

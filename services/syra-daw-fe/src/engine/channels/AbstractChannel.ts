@@ -4,7 +4,7 @@ import * as Tone from 'tone';
 export abstract class AbstractChannel {
   private _label: string = '';
 
-  protected rmsNode = new Tone.Meter({ smoothing: 0.9, channels: 2 });
+  protected rmsNode = new Tone.Meter({smoothing: 0.9, channels: 2});
   protected panNode = new Tone.Panner({channelCount: 2});
   protected mixerNode = new Tone.Volume();
   protected soloNode = new Tone.Solo();
@@ -17,7 +17,9 @@ export abstract class AbstractChannel {
   protected abstract inputNode: Tone.ToneAudioNode | AudioWorkletNode | undefined;
   protected abstract outputNode: Tone.OutputNode | Tone.InputNode;
 
-  constructor(private _id: string, protected _channelMode: ChannelMode = ChannelMode.MONO) {
+  constructor(private _id: string, protected _channelMode: ChannelMode = ChannelMode.STEREO) {
+    this.connectInternalNodes();
+
     this.updateChannelMode(this._channelMode);
   }
 
@@ -41,17 +43,20 @@ export abstract class AbstractChannel {
     console.log('rewire', this.inputNode);
 
     if (this.inputNode) {
+      const channels = this._channelMode === ChannelMode.MONO ? 1 : 2;
+
       this.disconnectInternalNodes();
-      Tone.connectSeries(this.inputNode, this.mixerNode, ...this.plugins, this.volumeNode, this.soloNode, this.muteNode, this.rmsNode, this.panNode, this.outputNode);
+
+      Tone.connectSeries(this.inputNode, this.mixerNode, ...this.plugins, this.volumeNode, this.rmsNode, this.soloNode, this.muteNode, this.panNode, this.outputNode);
     }
   }
 
   protected disconnectInternalNodes() {
     try {
+      // We DO NOT disconnect the rmsNode, because once we disconnect it, the internal used analyser is GC'ed.
       this.volumeNode.disconnect();
       this.soloNode.disconnect();
       this.muteNode.disconnect();
-      this.rmsNode.disconnect();
 
       this.plugins.forEach((plugin) => plugin.disconnect());
 

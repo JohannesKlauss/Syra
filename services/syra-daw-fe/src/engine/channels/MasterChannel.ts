@@ -16,7 +16,7 @@ export class MasterChannel extends AbstractChannel {
 
   // We are omitting the solo node for the master channel, since solo activation on a different channel will mute the master channel.
   protected connectInternalNodes() {
-    Tone.connectSeries(this.inputNode, ...this.plugins, this.volumeNode, this.muteNode, this.rmsNode, this.panNode, Tone.Destination);
+    Tone.connectSeries(this.inputNode, ...this.plugins, this.volumeNode, this.muteNode, this.panNode, this.rmsNode, Tone.Destination);
   }
 
   public static getInstance(): MasterChannel {
