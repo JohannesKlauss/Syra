@@ -6,8 +6,8 @@ import { replaceItemAtIndex } from "../../utils/recoil";
 
 export default function useUpdateMidiNoteValue(isRelative?: boolean) {
   return useRecoilCallback(({set, snapshot}) => (midiNoteValue: number, noteId: string) => {
-    const focusedMidiRegionId = snapshot.getLoadable(pianoRollStore.focusedMidiRegionId).contents as string;
-    const notes = snapshot.getLoadable(regionStore.midiNotes(focusedMidiRegionId)).contents as MidiNote[];
+    const focusedMidiRegionId = snapshot.getLoadable(pianoRollStore.focusedMidiRegionId).getValue();
+    const notes = snapshot.getLoadable(regionStore.midiNotes(focusedMidiRegionId)).getValue();
 
     const noteIndex = notes.findIndex(note => note.id === noteId);
 
