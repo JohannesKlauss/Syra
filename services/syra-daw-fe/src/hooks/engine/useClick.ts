@@ -1,9 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { projectStore } from '../../recoil/projectStore';
 import { useRecoilValue } from 'recoil';
-import useToneJsTransport from './useToneJsTransport';
+import useToneJsTransport from '../tone/useToneJsTransport';
 import * as Tone from 'tone';
-import { getBeatCountForTransportSeconds } from '../../utils/time';
 import { gridStore } from '../../recoil/gridStore';
 import { View } from '../../types/View';
 
@@ -19,7 +18,7 @@ export default function useClick() {
   const beats = useRef(1);
 
   useEffect(() => {
-    beats.current = getBeatCountForTransportSeconds(timeSignatureMap, transport.seconds);
+    //beats.current = getBeatCountForTransportSeconds(timeSignatureMap, transport.seconds);
   }, [playheadPosition, beats, timeSignatureMap, transport]);
 
   useEffect(() => {

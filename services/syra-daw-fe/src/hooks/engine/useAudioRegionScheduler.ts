@@ -3,7 +3,7 @@ import { RegionContext } from '../../providers/RegionContext';
 import { useRecoilValue } from 'recoil';
 import { regionStore } from '../../recoil/regionStore';
 import { ChannelContext } from '../../providers/ChannelContext';
-import useSyraEngineChannel from "../engine/useSyraEngineChannel";
+import useSyraEngineChannel from "./useSyraEngineChannel";
 import { AudioChannel } from "../../engine/channels/AudioChannel";
 
 export default function useAudioRegionScheduler() {

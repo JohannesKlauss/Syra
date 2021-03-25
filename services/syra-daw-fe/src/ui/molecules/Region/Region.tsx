@@ -11,7 +11,7 @@ import useUpdateRegionPosition from "../../../hooks/recoil/region/useUpdateRegio
 import useDuplicateRegion from "../../../hooks/recoil/region/useDuplicateRegion";
 import useChangeChannelOfRegion from "../../../hooks/recoil/region/useChangeChannelOfRegion";
 import useRegionDawRecordingSync from "../../../hooks/ui/region/useRegionDawRecordingSync";
-import useMidiRegionScheduler from "../../../hooks/tone/useMidiRegionScheduler";
+import useMidiRegionScheduler from "../../../hooks/engine/useMidiRegionScheduler";
 import ClonableResizableBox from "../../atoms/ClonableResizableBox";
 import BaseRegion from "./BaseRegion";
 import { RegionName, TopBar } from "./AudioRegion/AudioRegion.styled";
@@ -22,7 +22,7 @@ import { channelStore } from "../../../recoil/channelStore";
 import { ChannelContext } from "../../../providers/ChannelContext";
 import { channelTypeMap } from "../../../const/channels";
 import { ChannelType } from "../../../types/Channel";
-import useAudioRegionScheduler from "../../../hooks/tone/useAudioRegionScheduler";
+import useAudioRegionScheduler from "../../../hooks/engine/useAudioRegionScheduler";
 import { MdCloudDone, MdCloudDownload, MdCloudUpload } from "react-icons/md";
 import AudioRegion from "./AudioRegion/AudioRegion";
 import { audioBufferStore } from "../../../recoil/audioBufferStore";

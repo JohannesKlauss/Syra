@@ -1,6 +1,5 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import { transportStore } from './transportStore';
-import { getSortedKeysOfEventMap } from '../utils/eventMap';
 import * as Tone from 'tone';
 import atomWithEffects from './proxy/atomWithEffects';
 import { syncEffectsComb } from './effects/syncEffectsComb';
@@ -69,14 +68,15 @@ const tempoMap = atomWithEffects<{ [name: number]: number }>({
   effects: [
     ...syncEffectsComb,
     () => ({ onSet }) => {
-      onSet((newValue, oldValue) => {
+      onSet((newValue) => {
         const transport = getToneJsTransport();
 
-        console.log('set tempo map');
+        // @ts-ignore Reset all automation.
+        transport.bpm.value = newValue[0];
 
         Object.keys(newValue).forEach((key) => {
           // @ts-ignore
-          transport.bpm.setValueAtTime(newValue[key], Tone.Time({ '4n': key + 1 }).valueOf());
+          transport.bpm.setValueAtTime(newValue[key], Tone.Time({ '4n': key }).valueOf());
         });
       });
     },
@@ -87,17 +87,6 @@ const tempoAtQuarter = selectorFamily<number, number>({
   key: 'project/tempoAtQuarter',
   get: quarter => () => {
     return getToneJsTransport().bpm.getValueAtTime(Tone.Time({ '4n': quarter }).valueOf());
-  },
-});
-
-const currentTempo = selector<number>({
-  key: 'project/currentTempo',
-  get: ({ get }) => {
-    const currentQuarter = get(transportStore.currentQuarter);
-
-    console.log('current Quarter', currentQuarter);
-
-    return getToneJsTransport().bpm.getValueAtTime(Tone.Time({ '4n': currentQuarter }).valueOf());
   },
 });
 
@@ -148,14 +137,9 @@ const lengthInTicks = atomWithEffects({
   effects: [...syncEffectsComb],
 });
 
-const beatsPerSecond = selector({
-  key: 'project/beatsPerSecond',
-  get: ({ get }) => 1 / get(currentTempo) / 60,
-});
-
 const secondsPerBeat = selector({
   key: 'project/secondsPerBeat',
-  get: ({ get }) => 60 / get(currentTempo),
+  get: ({ get }) => 60 / get(transportStore.currentTempo),
 });
 
 const isClickMuted = atomWithEffects<boolean>({
@@ -170,12 +154,10 @@ export const projectStore = {
   id,
   name,
   tempoMap,
-  currentTempo,
   tempoAtQuarter,
   timeSignatureMap,
   timeSignatureAtQuarter,
   currentTimeSignature,
-  beatsPerSecond,
   secondsPerBeat,
   lengthInQuarters,
   lengthInTicks,

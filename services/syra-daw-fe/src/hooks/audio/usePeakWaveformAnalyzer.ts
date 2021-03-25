@@ -5,12 +5,13 @@ import * as Tone from 'tone';
 import { ViewContext } from '../../providers/ViewContext';
 import { gridStore } from '../../recoil/gridStore';
 import { projectStore } from "../../recoil/projectStore";
+import { transportStore } from "../../recoil/transportStore";
 
 export default function usePeakWaveformAnalyzer(bufferId: string) {
   const peakWaveform = useRecoilValue(audioBufferStore.peakWaveform(bufferId));
   const { view } = useContext(ViewContext);
   const ticksPerPixel = useRecoilValue(gridStore.ticksPerPixel(view));
-  const currentTempo = useRecoilValue(projectStore.currentTempo);
+  const currentTempo = useRecoilValue(transportStore.currentTempo);
   const [correlation, setCorrelation] = useState(1);
 
   useEffect(() => {

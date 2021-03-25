@@ -7,7 +7,7 @@ import { channelStore } from "../../recoil/channelStore";
 import { createPreScheduledMidiMessage } from "../../utils/midi";
 import { MIDI_MSG } from "../../types/Midi";
 import * as Tone from "tone";
-import { projectStore } from "../../recoil/projectStore";
+import { transportStore } from "../../recoil/transportStore";
 
 export default function useMidiRegionScheduler() {
   const regionId = useContext(RegionContext);
@@ -17,7 +17,7 @@ export default function useMidiRegionScheduler() {
   const offset = useRecoilValue(regionStore.offset(regionId));
   const duration = useRecoilValue(regionStore.duration(regionId));
   const soulInstance = useRecoilValue(channelStore.soulInstance(channelId));
-  const currentTempo = useRecoilValue(projectStore.currentTempo);
+  const currentTempo = useRecoilValue(transportStore.currentTempo);
 
   const messagesToSchedule = useMemo(() => {
     const filteredNotes = notes.filter((note) => note.ticks >= offset && note.ticks < offset + duration);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import { projectStore } from '../../../recoil/projectStore';
-import useClick from '../../../hooks/tone/useClick';
+import useClick from '../../../hooks/engine/useClick';
 import { IconButton } from '@chakra-ui/react';
 import { RiPulseFill } from 'react-icons/ri';
 

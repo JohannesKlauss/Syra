@@ -102,6 +102,11 @@ const isCycleActive = selector<boolean>({
   }
 });
 
+const currentTempo = atom<number>({
+  key: 'transport/currentTempo',
+  default: 120,
+});
+
 const isRecording = atom<boolean>({
   key: 'transport/isRecording',
   default: false,
@@ -204,6 +209,7 @@ export const transportStore = {
   cycleStart,
   cycleEnd,
   isCycleActive,
+  currentTempo,
   isRecording,
   isPlaying,
   playButtonModes,

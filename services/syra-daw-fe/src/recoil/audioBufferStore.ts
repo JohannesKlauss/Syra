@@ -6,6 +6,7 @@ import * as Tone from 'tone';
 import WaveformData from 'waveform-data';
 import { makeFileBufferSelector } from './selectors/makeFileBufferSelector';
 import { projectStore } from "./projectStore";
+import { transportStore } from "./transportStore";
 
 const ids = atomWithEffects<string[]>({
   key: 'audioBuffer/ids',
@@ -75,7 +76,7 @@ const durationInTicks = selectorFamily<number, string>({
       return 0;
     }
 
-    get(projectStore.currentTempo);
+    get(transportStore.currentTempo);
 
     console.log('recalc');
 
