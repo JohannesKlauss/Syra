@@ -71,14 +71,10 @@ const durationInTicks = selectorFamily<number, string>({
     const audioBuffer = get(buffer(bufferId));
 
     if (audioBuffer === null) {
-      console.log('return 0');
-
       return 0;
     }
 
     get(transportStore.currentTempo);
-
-    console.log('recalc');
 
     return Tone.Ticks(audioBuffer.duration, 's').toTicks();
   },
