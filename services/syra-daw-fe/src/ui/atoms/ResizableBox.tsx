@@ -18,7 +18,7 @@ interface Props extends BoxProps {
   offset?: number;
   lockDrag?: boolean;
   allowOverExtendingStart?: boolean;
-  onYChanged?: (offset: number) => void;
+  onYChanged?: (offset: number) => boolean;
 }
 
 // TODO: CURRENTLY We HAVE NO MAX WIDTH (like a audio region has a max width) AND NO MECHANISM TO SNAP BACK TO AN EXACT OFFSET OF 0.

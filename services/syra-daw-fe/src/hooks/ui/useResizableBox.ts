@@ -11,16 +11,18 @@ export default function useResizableBox(
   minWidth: number,
   onPositionChanged: (x: number, width: number, offsetDelta: number) => void,
   snapToY: number,
-  onYChanged?: (y: number) => void,
+  onYChanged?: (y: number) => boolean,
   lockDrag?: boolean,
   allowOverExtendingStart?: boolean,
   maxWidth?: number,
+  minY?: number,
 ) {
   const width = useMotionValue(baseWidth);
   const oldWidth = useMotionValue(baseWidth);
   const x = useMotionValue(baseX);
   const oldX = useMotionValue(baseX);
   const y = useMotionValue(0);
+  const oldY = useMotionValue(0);
   const boxOffset = useMotionValue(0);
   const oldBoxOffset = useMotionValue(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -76,8 +78,16 @@ export default function useResizableBox(
         }
         break;
       case DragMode.MOVE:
-        y.set(snap(snapToY, offset.y));
         x.set(snapPixelValue(oldX.get() + offset.x));
+
+        const snappedY = snap(snapToY, offset.y);
+
+        if (minY && snappedY < minY) {
+          break;
+        }
+
+        y.set(snappedY);
+
         break;
     }
   };
@@ -93,7 +103,9 @@ export default function useResizableBox(
     oldBoxOffset.set(snapPixelValue(boxOffset.get()));
 
     if (y.get() !== 0 && onYChanged && !lockDrag) {
-      onYChanged(y.get());
+      const isValid = onYChanged(y.get());
+
+      isValid ? oldY.set(y.get()) : y.set(oldY.get());
     }
   };
 

@@ -19,6 +19,10 @@ export default function useUpdateMidiVelocity(isRelative?: boolean) {
         ...note,
         velocity: clamp(isRelative ? note.velocity + velocity : velocity, 0, 127),
       }));
+
+      return true;
     }
+
+    return false;
   }, [isRelative]);
 }

@@ -46,16 +46,14 @@ const MidiNote: React.FC<Props> = ({ note }) => {
   const onYChanged = (offset: number) => {
     // If mouse mode is not velocity a changing Y value means that ne note was transposed.
     if (mouseMode !== GridMouseMode.VELOCITY) {
-      updateMidiNoteValue(-(offset / PIANO_ROLL_MIDI_TRACK_HEIGHT), note.id);
-
-      return;
+      return updateMidiNoteValue(-(offset / PIANO_ROLL_MIDI_TRACK_HEIGHT), note.id);
     }
 
     const velocity = Math.round(-((offset - lastVelocityOffset.current) / 2.5));
 
     lastVelocityOffset.current = offset;
 
-    updateVelocity(velocity, note.id);
+    return updateVelocity(velocity, note.id);
   };
 
   const onClick = () => {

@@ -60,13 +60,13 @@ const Region: React.FC<Props> = ({}) => {
     updatePosition(pixelToTicks(start), pixelToTicks(duration), pixelToTicks(offsetDelta));
   };
 
-  const onYChanged = (y: number) => {
-    updateAssignedChannel(regionId, y / trackHeight);
+  const onYChanged = (y: number): boolean => {
+    return updateAssignedChannel(regionId, y / trackHeight);
   };
 
   const onClonedRegion = (x: number, y: number) => {
     duplicateRegion(regionId, pixelToTicks(x));
-    updateAssignedChannel(regionId, y / trackHeight);
+    return updateAssignedChannel(regionId, y / trackHeight);
   };
   
   let cloudIcon = MdCloudDone;
