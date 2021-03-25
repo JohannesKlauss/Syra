@@ -33,7 +33,7 @@ function Tempo() {
     <Box pos={'relative'}>
       <motion.div drag={'x'} onDrag={onXChanged} onDragEnd={onDragEnd} dragMomentum={false} dragElastic={0} style={{x}}>
         <Button variant={'ghost'} size={'sm'} cursor={'ew-resize'}>
-          {tempoCopy} BPM
+          {Math.round(tempoCopy)} BPM
         </Button>
       </motion.div>
     </Box>
