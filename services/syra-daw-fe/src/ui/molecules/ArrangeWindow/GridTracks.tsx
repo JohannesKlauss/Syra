@@ -11,6 +11,7 @@ import useAnalyzeTempoForSelectedRegion from '../../../hooks/recoil/region/useAn
 import { Box } from '@chakra-ui/react';
 import { ViewContext } from '../../../providers/ViewContext';
 import { gridStore } from '../../../recoil/gridStore';
+import DropTrack from "./Track/DropTrack";
 
 function GridTracks() {
   const { view } = useContext(ViewContext);
@@ -31,6 +32,7 @@ function GridTracks() {
           <Track bg={i % 2 === 0 ? 'gray.800' : 'gray.900'} />
         </ChannelContext.Provider>
       ))}
+      <Box h={'68px'} w={'2px'}></Box>
     </Box>
   );
 }

@@ -41,12 +41,13 @@ function DropTrack() {
         {...getRootProps()}
         data-cy={'drop-track-zone'}
         ref={ref}
-        w={'calc(100vw - 262px)'}
-        h={'70px'}
+        w={'100vw'}
+        h={'66px'}
         justify={'center'}
         align={'center'}
-        zIndex={1}
-        pos={'fixed'}
+        zIndex={100}
+        pos={'absolute'}
+        bottom={'-46px'}
         bg={'gray.900'}
         border={'1px dashed gray.700'}
         userSelect={'none'}
