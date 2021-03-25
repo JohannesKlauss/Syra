@@ -5,6 +5,21 @@ import axios from 'axios';
 type AtomFamily<T, P> = (param: P) => RecoilState<T>;
 type SelectorFamilyGet<P, T> = (param: P) => (opts: { get: GetRecoilValue }) => Promise<T> | RecoilValue<T> | T;
 
+/**
+ * This function creates a selector that serves a requested file.
+ * The selector checks if there is a local file system available and then tries
+ * to load it from there, otherwise it will try to fetch the file from the server.
+ * If the files is loaded from the server, the selector will try to save it to
+ * the local file system for further reference.
+ *
+ * Once the file is available, we read it as an ArrayBuffer and give it to the
+ * async function that can decode an audio file or create a peak array for the
+ * waveform, etc.
+ *
+ * @param internalBuffer
+ * @param storedDbId
+ * @param fileExtension
+ */
 export function makeFileBufferSelector<T>(
   internalBuffer: AtomFamily<T | null, string>,
   storedDbId: AtomFamily<string, string>,

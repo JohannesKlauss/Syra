@@ -45,7 +45,7 @@ const name = atom({
   ]
 });
 
-const id = atom({
+const id = atom<string>({
   key: 'project/id',
   default: '',
   effects_UNSTABLE: [
@@ -57,14 +57,29 @@ const id = atom({
   ]
 });
 
-// The tempo map of the project. The key is elapsed quarters and the value a tempo. It should actually be a tempo ramp
-// but we don't know how to support this yet.
+/**
+ * Key is quarter in project, value is bpm.
+ * TODO: We have to change this data structure to allow linear and exponential ramp ups.
+ */
 const tempoMap = atomWithEffects<{ [name: number]: number }>({
   key: 'project/tempoMap',
   default: {
     0: 240,
   },
-  effects: [...syncEffectsComb],
+  effects: [
+    ...syncEffectsComb,
+    () => ({onSet}) => {
+      onSet((newValue, oldValue) => {
+        const transport = getToneJsTransport();
+
+        Object.keys(newValue).forEach((key) => {
+          transport.bpm.setValueAtTime(newValue[key], Tone.Time({'4n': key}))
+        });
+
+
+      });
+    }
+  ],
 });
 
 const tempoAtQuarter = selectorFamily<number, number>({
@@ -78,28 +93,17 @@ const tempoAtQuarter = selectorFamily<number, number>({
   },
 });
 
-const currentTempo = atom<number>({
+const currentTempo = selector<number>({
   key: 'project/currentTempo',
-  default: selector({
-    key: 'project/currentTempo/Default',
-    get: ({ get }) => {
+  get: ({ get }) => {
       const currentQuarter = get(transportStore.currentQuarter);
-      const map = get(tempoMap);
-      const keys = getSortedKeysOfEventMap(map).reverse();
-      const index = keys.findIndex((changeAtQuarter) => changeAtQuarter <= currentQuarter);
 
-      console.log('recalc tempo');
+      const tempo = getToneJsTransport().bpm.getValueAtTime(Tone.Time({'4n': currentQuarter}).valueOf());
 
-      return map[keys[index]];
-    },
-  }),
-  effects_UNSTABLE: [
-    ({ onSet }) => {
-      onSet((newValue) => {
-        getToneJsTransport().bpm.value = newValue as number;
-      });
-    }
-  ],
+      console.log('recalc tempo', tempo);
+
+      return tempo;
+  },
 });
 
 // The time signature map of the project. The key is quarters and the value num of beats over division (7/4, 3/4, etc.).

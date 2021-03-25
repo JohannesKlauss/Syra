@@ -44,7 +44,7 @@ function PlayRecord() {
         setTransportSeconds(cycleStart);
       }
 
-      transport.start('+0.1'); // TODO: THIS VALUE WILL DIFFER FROM MACHINE TO MACHINE. WE NEED A WAY TO CALCULATE THE NEEDED OFFSET.
+      transport.start('+0.1');
 
       stopScheduleId.current = transport.scheduleOnce(() => {
         const pos = getToneJsPositionInQuarter();

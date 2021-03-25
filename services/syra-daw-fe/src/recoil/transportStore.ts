@@ -40,7 +40,6 @@ const currentQuarter = selector<number>({
     set(internalQuarter, newValue as number);
     set(internalSeconds, Tone.getTransport().seconds);
 
-    set(projectStore.currentTempo, get(projectStore.tempoAtQuarter(newValue as number)));
     set(projectStore.currentTimeSignature, get(projectStore.timeSignatureAtQuarter(newValue as number)));
   }
 });

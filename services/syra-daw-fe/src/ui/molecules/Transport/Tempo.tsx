@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import useTempoMapScheduler from '../../../hooks/tone/useTempoMapScheduler';
 import { Box, Button } from '@chakra-ui/react';
 import { motion, PanInfo, useMotionValue } from "framer-motion";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { projectStore } from "../../../recoil/projectStore";
 
 function Tempo() {
   const setTempoMap = useSetRecoilState(projectStore.tempoMap);
-  const currentTempo = useTempoMapScheduler();
+  const currentTempo = useRecoilValue(projectStore.currentTempo);
   const x = useMotionValue(0);
   const lastOffset = useMotionValue(0);
   const [tempoCopy, setTempoCopy] = useState(currentTempo);

@@ -2,7 +2,7 @@ import { atom, AtomOptions, RecoilState } from "recoil";
 import { RecoilAtomEffect } from "../../types/Recoil";
 
 interface AtomWithEffectsOptions<T> extends AtomOptions<T> {
-  effects: ReadonlyArray<RecoilAtomEffect>;
+  effects: ReadonlyArray<RecoilAtomEffect<string, T>>;
 }
 
 export default function atomWithEffects<T>(options: AtomWithEffectsOptions<T>): RecoilState<T> {
