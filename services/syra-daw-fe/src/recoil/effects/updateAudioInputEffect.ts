@@ -1,7 +1,6 @@
 import { RecoilAtomEffect } from "../../types/Recoil";
-import { AtomEffect } from "recoil";
 
-export const updateAudioInputEffect: RecoilAtomEffect = <P, T>(key: string): AtomEffect<T> => ({ onSet }) => {
+export const updateAudioInputEffect: RecoilAtomEffect<string, any> = (key) => ({ onSet }) => {
   onSet((newValue, oldValue) => {
 
   });

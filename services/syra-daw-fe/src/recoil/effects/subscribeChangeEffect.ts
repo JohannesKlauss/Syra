@@ -49,10 +49,10 @@ const filterChangesList = <T>(
   });
 };
 
-export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ setSelf }) => {
+export const subscribeChangeEffect: RecoilAtomEffect<string | Record<string, any>, any> = (key, id) => ({ setSelf }) => {
   if (observable) {
     observable.subscribe((data) => {
-      const changesToApply = filterChangesList<T>(data.data?.changes.changes.list ?? [], key, id);
+      const changesToApply = filterChangesList<any>(data.data?.changes.changes.list ?? [], key, id);
 
       if (changesToApply.length > 0) {
         setSelf(changesToApply[changesToApply.length - 1].newValue);

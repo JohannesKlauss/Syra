@@ -14,7 +14,7 @@ export const redoHistory: UndoRedoHistory = [];
 
 export const onFirstPushToUndoStack = (callback: () => void) => onFirstPushToUndoStackExternalCallback = callback;
 
-export const undoRedoEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ setSelf, onSet }) => {
+export const undoRedoEffect: RecoilAtomEffect<string, any> = (key, id) => ({ setSelf, onSet }) => {
   const labelKey = `${key}${id ? `-${id}` : null}`;
 
   onSet((newValue, oldValue) => {

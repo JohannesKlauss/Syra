@@ -1,7 +1,6 @@
 import { RecoilAtomEffect } from '../../types/Recoil';
-import { AtomEffect } from 'recoil';
 
-export const saveToLocalStorageEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ onSet }) => {
+export const saveToLocalStorageEffect: RecoilAtomEffect<string | number, any> = (key, id) => ({ onSet }) => {
   onSet((value) =>
     localStorage.setItem(
       key,

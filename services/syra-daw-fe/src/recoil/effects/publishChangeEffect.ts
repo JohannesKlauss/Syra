@@ -1,4 +1,3 @@
-import { AtomEffect } from 'recoil';
 import { getApolloClient } from '../../apollo/client';
 import { PublishChangeDocument, PublishChangeMutation, PublishChangeMutationVariables } from '../../gql/generated';
 import { RecoilAtomEffect } from '../../types/Recoil';
@@ -40,7 +39,7 @@ export const publishChangesToClients = async (projectId: string) => {
   });
 };
 
-export const publishChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ onSet }) => {
+export const publishChangeEffect: RecoilAtomEffect<string | Record<string, any>, any> = (key, id) => ({ onSet }) => {
   onSet(async (newValue) => {
     changes.push({
       key,

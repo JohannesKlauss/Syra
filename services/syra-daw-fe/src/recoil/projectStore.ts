@@ -5,9 +5,9 @@ import * as Tone from 'tone';
 import atomWithEffects from './proxy/atomWithEffects';
 import { syncEffectsComb } from './effects/syncEffectsComb';
 import { getToneJsTransport } from '../utils/tonejs';
-import { getApolloClient } from "../apollo/client";
-import { UpdateNameDocument, UpdateNameMutation, UpdateNameMutationVariables } from "../gql/generated";
-import { updateDocumentTitle } from "../utils/window";
+import { getApolloClient } from '../apollo/client';
+import { UpdateNameDocument, UpdateNameMutation, UpdateNameMutationVariables } from '../gql/generated';
+import { updateDocumentTitle } from '../utils/window';
 
 const client = getApolloClient();
 
@@ -21,7 +21,7 @@ const isEngineRunning = atom({
 const isSetupFinished = atom({
   key: 'project/isSetupFinished',
   default: false,
-})
+});
 
 const name = atom({
   key: 'project/name',
@@ -37,12 +37,12 @@ const name = atom({
             variables: {
               name: newValue as string,
               projectId,
-            }
+            },
           });
         }
       });
-    }
-  ]
+    },
+  ],
 });
 
 const id = atom<string>({
@@ -53,8 +53,8 @@ const id = atom<string>({
       onSet((newValue) => {
         projectId = newValue as string;
       });
-    }
-  ]
+    },
+  ],
 });
 
 /**
@@ -68,41 +68,36 @@ const tempoMap = atomWithEffects<{ [name: number]: number }>({
   },
   effects: [
     ...syncEffectsComb,
-    () => ({onSet}) => {
+    () => ({ onSet }) => {
       onSet((newValue, oldValue) => {
         const transport = getToneJsTransport();
 
+        console.log('set tempo map');
+
         Object.keys(newValue).forEach((key) => {
-          transport.bpm.setValueAtTime(newValue[key], Tone.Time({'4n': key}))
+          // @ts-ignore
+          transport.bpm.setValueAtTime(newValue[key], Tone.Time({ '4n': key + 1 }).valueOf());
         });
-
-
       });
-    }
+    },
   ],
 });
 
 const tempoAtQuarter = selectorFamily<number, number>({
   key: 'project/tempoAtQuarter',
-  get: (quarter) => ({ get }) => {
-    const map = get(tempoMap);
-    const keys = getSortedKeysOfEventMap(map).reverse();
-    const index = keys.findIndex((changeAtQuarter) => changeAtQuarter <= quarter);
-
-    return map[keys[index]];
+  get: quarter => () => {
+    return getToneJsTransport().bpm.getValueAtTime(Tone.Time({ '4n': quarter }).valueOf());
   },
 });
 
 const currentTempo = selector<number>({
   key: 'project/currentTempo',
   get: ({ get }) => {
-      const currentQuarter = get(transportStore.currentQuarter);
+    const currentQuarter = get(transportStore.currentQuarter);
 
-      const tempo = getToneJsTransport().bpm.getValueAtTime(Tone.Time({'4n': currentQuarter}).valueOf());
+    console.log('current Quarter', currentQuarter);
 
-      console.log('recalc tempo', tempo);
-
-      return tempo;
+    return getToneJsTransport().bpm.getValueAtTime(Tone.Time({ '4n': currentQuarter }).valueOf());
   },
 });
 

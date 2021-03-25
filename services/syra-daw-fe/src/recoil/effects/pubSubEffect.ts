@@ -1,11 +1,10 @@
 import { RecoilAtomEffect } from "../../types/Recoil";
-import { AtomEffect } from "recoil";
 import { subscribeChangeEffect } from "./subscribeChangeEffect";
 import { publishChangeEffect } from "./publishChangeEffect";
 
-export const pubSubEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => (param) => {
-  const pubEffect = publishChangeEffect<P, T>(key, id);
-  const subEffect = subscribeChangeEffect<P, T>(key, id);
+export const pubSubEffect: RecoilAtomEffect<string | Record<string, any>, any> = (key, id) => (param) => {
+  const pubEffect = publishChangeEffect(key, id);
+  const subEffect = subscribeChangeEffect(key, id);
 
   pubEffect(param);
   subEffect(param);

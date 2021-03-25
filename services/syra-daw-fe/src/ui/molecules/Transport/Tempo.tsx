@@ -12,6 +12,8 @@ function Tempo() {
   const [tempoCopy, setTempoCopy] = useState(currentTempo);
 
   useEffect(() => {
+    console.log('set current TEmpo', currentTempo);
+
     setTempoCopy(currentTempo);
   }, [currentTempo, setTempoCopy]);
 

@@ -31,7 +31,7 @@ export const saveToDb = async (projectId: string) => {
   }
 };
 
-export const saveToDatabaseEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ onSet }) => {
+export const saveToDatabaseEffect: RecoilAtomEffect<string | Record<string, any>, any> = (key, id) => ({ onSet }) => {
   onSet((value) => {
     const prevValue = changesToSave[key];
 
@@ -39,7 +39,7 @@ export const saveToDatabaseEffect: RecoilAtomEffect = <P, T>(key: string, id?: P
       changesToSave[key] = id ? [{ id, value }] : value;
     } else {
       if (changesToSave[key] instanceof Array && id !== undefined) {
-        const j = changesToSave[key].findIndex((val: { id: P; value: any }) => isEqual(val.id, id));
+        const j = changesToSave[key].findIndex((val: { id: string; value: any }) => isEqual(val.id, id));
 
         if (j < 0) {
           changesToSave[key] = [...changesToSave[key], { id, value }];

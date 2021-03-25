@@ -1,12 +1,12 @@
 import { RecoilAtomEffect } from '../../types/Recoil';
-import { AtomEffect, DefaultValue } from 'recoil';
+import { DefaultValue } from 'recoil';
 import { isEqual } from 'lodash';
 
 let dbContent: Record<string, any> = {};
 
 export const populateFromDb = (content: Record<string, any>) => dbContent = content;
 
-export const loadInitialStateEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({
+export const loadInitialStateEffect: RecoilAtomEffect<string | Record<string, any> | number, any> = (key, id) => ({
   trigger,
   setSelf,
 }) => {
