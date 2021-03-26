@@ -65,7 +65,7 @@
     "uniqid": "5.3.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "7.5.6",
+    "@nestjs/cli": "7.6.0",
     "@nestjs/schematics": "7.3.0",
     "@nestjs/testing": "7.6.15",
     "@prisma/cli": "2.19.0",
