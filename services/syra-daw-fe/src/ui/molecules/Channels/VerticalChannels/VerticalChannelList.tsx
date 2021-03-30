@@ -12,7 +12,7 @@ function VerticalChannelList() {
   useDeleteChannelHotkey();
 
   return (
-      <Flex w={'250px'} h={'100%'} flexDirection={'column'}>
+      <Flex w={'250px'} h={'100%'} flexDirection={'column'} bgColor={'gray.900'}>
         <VerticalChannelListHeader/>
           {channels.map((id, i) => (
             <ChannelContext.Provider key={id} value={id}>

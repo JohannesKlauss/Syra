@@ -12,6 +12,7 @@ import { AiFillStepBackward } from 'react-icons/ai';
 import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
 import { MdFiberManualRecord } from 'react-icons/md';
 import { RiStopFill } from 'react-icons/ri';
+import encapsulateHotkeysCallback from "../../../utils/hotkeys";
 
 function PlayRecord() {
   const ctx = useAudioContext();
@@ -26,11 +27,7 @@ function PlayRecord() {
   const stopScheduleId = useRef<null | number>(null);
 
   const onClickPlayPause = useCallback(() => {
-    if (isRecording) {
-      return;
-    }
-
-    if (isPlaying) {
+    if (isPlaying || isRecording) {
       const pos = getToneJsPositionInQuarter();
       transport.stop();
 
@@ -38,6 +35,7 @@ function PlayRecord() {
         transport.clear(stopScheduleId.current);
       }
 
+      setIsRecording(false);
       setCurrentTransportQuarter(pos);
     } else {
       if (isCycleActive) {
@@ -72,9 +70,9 @@ function PlayRecord() {
     }
   }, [setIsRecording, isRecording, transport, ctx]);
 
-  useHotkeys('space', onClickPlayPause, [onClickPlayPause]);
-  useHotkeys('r', onClickRecord, [onClickRecord]);
-  useHotkeys('return', onClickReset, [onClickReset]);
+  useHotkeys('space', encapsulateHotkeysCallback(onClickPlayPause), [onClickPlayPause]);
+  useHotkeys('r', encapsulateHotkeysCallback(onClickRecord), [onClickRecord]);
+  useHotkeys('return', encapsulateHotkeysCallback(onClickReset), [onClickReset]);
 
   return (
     <Flex>

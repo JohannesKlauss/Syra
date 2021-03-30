@@ -16,15 +16,17 @@ function DropTrack() {
       {...getRootProps()}
       data-cy={'drop-track-zone'}
       ref={ref}
-      w={'100vw'}
+      w={'calc(100vw - 250px)'}
       h={'66px'}
       justify={'center'}
       align={'center'}
-      zIndex={100}
       pos={'absolute'}
+      left={'250px'}
       bottom={'-46px'}
-      bg={'gray.900'}
-      border={'1px dashed gray.700'}
+      bg={'gray.800'}
+      border={'2px dashed'}
+      borderColor={'gray.600'}
+      rounded={4}
       userSelect={'none'}
     >
       <input {...getInputProps()} data-cy={'drop-track-input'} />

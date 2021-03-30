@@ -17,7 +17,7 @@ function GridTracks() {
   useHotkeys('ctrl+m', useMuteSelectedRegions());
 
   return (
-    <Box bg={'gray.800'} pos={'relative'} w={totalWidth} zIndex={0}>
+    <Box bg={'gray.800'} pos={'relative'} minH={'100vh'} w={totalWidth} zIndex={0}>
       {channelIds.map((id, i) => (
         <ChannelContext.Provider key={id} value={id}>
           <Track bg={i % 2 === 0 ? 'gray.800' : 'gray.900'} />

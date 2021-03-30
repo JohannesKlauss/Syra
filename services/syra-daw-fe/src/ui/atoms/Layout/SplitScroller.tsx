@@ -7,7 +7,7 @@ interface Props {
 
 const SplitScroller: React.ForwardRefRenderFunction<HTMLDivElement, Props> = ({ children }, ref) => {
   return (
-    <Flex maxW={'100%'} maxH={'100%'} pos={'relative'} overflow={'auto'} ref={ref}>
+    <Flex maxW={'100%'} h={'100%'} pos={'relative'} overflow={'auto'} ref={ref}>
       <Box flexDir={'column'} pos={'sticky'} left={0} float={'left'} zIndex={2}>
         {children[0]}
       </Box>
