@@ -19,7 +19,7 @@ export default function usePeakWaveformAnalyzer(bufferId: string) {
     const waveTicksPerPixel = 1 / wavePixelPerTick;
 
     setCorrelation(waveTicksPerPixel / ticksPerPixel);
-  }, [currentTempo]);
+  }, [currentTempo, peakWaveform, setCorrelation, ticksPerPixel]);
 
   return {
     peakWaveform,
