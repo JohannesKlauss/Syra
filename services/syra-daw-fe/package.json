@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "3.3.13",
-    "@chakra-ui/react": "1.4.1",
+    "@chakra-ui/react": "1.4.2",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
     "@inlet/react-pixi": "6.4.1",
@@ -76,7 +76,7 @@
     "@testing-library/jest-dom": "5.11.10",
     "@testing-library/react": "11.2.6",
     "@testing-library/react-hooks": "5.1.1",
-    "@testing-library/user-event": "13.1.0",
+    "@testing-library/user-event": "13.1.1",
     "@welldone-software/why-did-you-render": "6.1.1",
     "storybook-addon-apollo-client": "4.0.6",
     "typescript": "4.2.3"
