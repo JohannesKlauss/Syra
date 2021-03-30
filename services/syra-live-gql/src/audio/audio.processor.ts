@@ -39,8 +39,21 @@ export class AudioProcessor {
     this.logger.debug(`Run transcoder`);
     this.logger.debug(`Run Peak Waveform analyzer`);
 
-    const transcodeStream = originalMimeType !== 'audio/flac' ? this.openFaasService.invokeFunction(OpenFaasFunction.FFMPEG, fileStream) : null;
+    let transcodeStream;
+
+    if (!['audio/flac', 'audio/mpeg'].includes(originalMimeType)) {
+      transcodeStream = this.openFaasService.invokeFunction(OpenFaasFunction.FFMPEG, fileStream);
+    } else if (originalMimeType === 'audio/mpeg') {
+      transcodeStream = this.openFaasService.invokeFunction(OpenFaasFunction.FFMPEG_MP3, fileStream);
+    }
+
     const peakWaveform = this.openFaasService.invokeFunction(OpenFaasFunction.AUDIO_WAVEFORM, fileStream);
+
+    if (transcodeStream) {
+      transcodeStream.then(stream => this.uploadTranscodedFile(stream.data, job.data));
+    } else {
+      transcodeStream = this.uploadTranscodedFile(fileStream, job.data)
+    }
 
     transcodeStream && transcodeStream.then(stream => this.uploadTranscodedFile(stream.data, job.data));
     peakWaveform.then(stream => this.uploadPeakWaveformFile(stream.data, job.data));
@@ -66,7 +79,7 @@ export class AudioProcessor {
       readableStream
     );
 
-    this.logger.debug(`S3 Space location: ${location}`);
+    this.logger.debug(`S3 Space location for transcoded file: ${location}`);
 
     const createdAsset = await this.prismaService.asset.create({
       data: {
@@ -108,7 +121,7 @@ export class AudioProcessor {
       readableStream
     );
 
-    this.logger.debug(`S3 Space location: ${location}`);
+    this.logger.debug(`S3 Space location for waveform file: ${location}`);
 
     const createdAsset = await this.prismaService.asset.create({
       data: {

@@ -375,7 +375,6 @@ input AssetOrderByInput {
   location: SortOrder
   mimeType: SortOrder
   name: SortOrder
-  owner: UserOrderByInput
   userId: SortOrder
 }
 
@@ -567,10 +566,8 @@ input AssetsOnProjectsListRelationFilter {
 }
 
 input AssetsOnProjectsOrderByInput {
-  asset: AssetOrderByInput
   assetId: SortOrder
   createdAt: SortOrder
-  project: ProjectOrderByInput
   projectId: SortOrder
 }
 
@@ -773,7 +770,6 @@ type BandMinAggregate {
 
 input BandOrderByInput {
   createdAt: SortOrder
-  createdBy: UserOrderByInput
   id: SortOrder
   isPublic: SortOrder
   name: SortOrder
@@ -1140,10 +1136,8 @@ type CommentLikeMinAggregate {
 }
 
 input CommentLikeOrderByInput {
-  comment: CommentOrderByInput
   commentId: SortOrder
   createdAt: SortOrder
-  user: UserOrderByInput
   userId: SortOrder
 }
 
@@ -1287,13 +1281,10 @@ type CommentMinAggregate {
 }
 
 input CommentOrderByInput {
-  author: UserOrderByInput
   authorId: SortOrder
   createdAt: SortOrder
-  feedItem: FeedItemOrderByInput
   feedItemId: SortOrder
   id: SortOrder
-  parentComment: CommentOrderByInput
   parentCommentId: SortOrder
   text: SortOrder
   updatedAt: SortOrder
@@ -1599,7 +1590,6 @@ input EarlyAccessCodeListRelationFilter {
 }
 
 input EarlyAccessCodeOrderByInput {
-  claimedBy: UserOrderByInput
   code: SortOrder
   createdAt: SortOrder
   id: SortOrder
@@ -1941,9 +1931,7 @@ type FeedItemLikeMinAggregate {
 
 input FeedItemLikeOrderByInput {
   createdAt: SortOrder
-  feedItem: FeedItemOrderByInput
   feedItemId: SortOrder
-  user: UserOrderByInput
   userId: SortOrder
 }
 
@@ -2089,12 +2077,10 @@ type FeedItemMinAggregate {
 }
 
 input FeedItemOrderByInput {
-  author: UserOrderByInput
   authorId: SortOrder
   createdAt: SortOrder
   id: SortOrder
   isPublished: SortOrder
-  mixdown: MixdownOrderByInput
   mixdownId: SortOrder
   publishAt: SortOrder
   text: SortOrder
@@ -2176,7 +2162,6 @@ input FeedItemRevisionOrderByInput {
   createdAt: SortOrder
   feedItemId: SortOrder
   id: SortOrder
-  parentItem: FeedItemOrderByInput
   text: SortOrder
   updatedAt: SortOrder
 }
@@ -2596,7 +2581,6 @@ type IssueMinAggregate {
 
 input IssueOrderByInput {
   createdAt: SortOrder
-  createdBy: UserOrderByInput
   description: SortOrder
   id: SortOrder
   resolved: SortOrder
@@ -2895,15 +2879,12 @@ type MixdownMinAggregate {
 
 input MixdownOrderByInput {
   assetId: SortOrder
-  audio: AssetOrderByInput
   createdAt: SortOrder
   id: SortOrder
   isPusblished: SortOrder
   listens: SortOrder
   name: SortOrder
-  project: ProjectOrderByInput
   projectId: SortOrder
-  triggerdBy: UserOrderByInput
   updatedAt: SortOrder
   userId: SortOrder
   version: SortOrder
@@ -3499,7 +3480,6 @@ input ProjectOrderByInput {
   isInitialized: SortOrder
   isPrivate: SortOrder
   name: SortOrder
-  owner: UserOrderByInput
   ownerId: SortOrder
   updatedAt: SortOrder
 }
@@ -3895,7 +3875,6 @@ type TagMinAggregate {
 }
 
 input TagOrderByInput {
-  User: UserOrderByInput
   id: SortOrder
   userId: SortOrder
   value: SortOrder
@@ -4720,7 +4699,6 @@ type UserMinAggregate {
 }
 
 input UserOrderByInput {
-  address: AddressOrderByInput
   addressId: SortOrder
   avatar: SortOrder
   bio: SortOrder
@@ -5615,10 +5593,8 @@ input UsersOnBandsListRelationFilter {
 }
 
 input UsersOnBandsOrderByInput {
-  band: BandOrderByInput
   bandId: SortOrder
   createdAt: SortOrder
-  user: UserOrderByInput
   userId: SortOrder
 }
 
@@ -5802,9 +5778,7 @@ type UsersOnProjectsMinAggregate {
 
 input UsersOnProjectsOrderByInput {
   createdAt: SortOrder
-  project: ProjectOrderByInput
   projectId: SortOrder
-  user: UserOrderByInput
   userId: SortOrder
 }
 

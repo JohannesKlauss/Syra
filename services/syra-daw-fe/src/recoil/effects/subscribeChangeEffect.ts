@@ -6,7 +6,6 @@ import {
   MeDocument,
   MeQuery,
 } from '../../gql/generated';
-import { AtomEffect } from 'recoil';
 import { RecoilAtomEffect } from '../../types/Recoil';
 import { isEqual } from 'lodash';
 import { FetchResult, Observable } from '@apollo/client';

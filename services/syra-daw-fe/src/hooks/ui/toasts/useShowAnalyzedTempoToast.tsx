@@ -31,7 +31,10 @@ export default function useShowAnalyzedTempoToast() {
               <AlertDescription display={'block'}>
                 <Flex>
                   <Text>The file contains a tempo of {analyzedTempo} BPM. Do you want to change the project tempo?</Text>
-                  <IconButton aria-label={'Yes'} title={'Yes'} icon={<BiCheck/>} onClick={() => setTempoMap({0: analyzedTempo})} />
+                  <IconButton aria-label={'Yes'} title={'Yes'} icon={<BiCheck/>} onClick={() => {
+                    setTempoMap({0: analyzedTempo});
+                    toast.close(id!);
+                  }} />
                   <IconButton aria-label={'Yes'} title={'Yes'} icon={<BiX/>} ml={2} onClick={() => toast.close(id!)} />
                 </Flex>
               </AlertDescription>

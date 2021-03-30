@@ -25,7 +25,7 @@ function DropTrack() {
       bottom={'-46px'}
       bg={'gray.800'}
       border={'2px dashed'}
-      borderColor={'gray.600'}
+      borderColor={isDragOnDocument ? 'teal.500' : 'gray.500'}
       rounded={4}
       userSelect={'none'}
     >

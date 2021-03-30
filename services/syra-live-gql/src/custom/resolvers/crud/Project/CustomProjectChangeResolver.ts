@@ -49,6 +49,16 @@ export class CustomProjectChangeResolver {
     @TypeGraphQL.Ctx() ctx: any,
     @TypeGraphQL.Args() args: UpdateProjectArgs,
   ): Promise<Project | null> {
+    if (args.data.isInitialized?.set === false) {
+      return ctx.prisma.project.update({
+        where: args.where,
+        data: {
+          ...args.data,
+          content: {}
+        }
+      });
+    }
+
     if (args.data.content) {
       const project = await ctx.prisma.project.findUnique({
         where: args.where,

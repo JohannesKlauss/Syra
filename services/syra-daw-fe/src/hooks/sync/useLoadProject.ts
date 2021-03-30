@@ -61,7 +61,7 @@ export default function useLoadProject(id: string) {
           } else {
             increase();
 
-            populateFromDb(projectData.project.content);
+            populateFromDb(projectData.project.content || {});
 
             increase();
           }
@@ -80,7 +80,7 @@ export default function useLoadProject(id: string) {
         if (!projectData.project.isInitialized) {
           history.push(routes.NewProject.replace(':id', id));
         } else {
-          populateFromDb(projectData.project.content);
+          populateFromDb(projectData.project.content || {});
 
           increase();
         }
