@@ -76,7 +76,7 @@
     "@testing-library/jest-dom": "5.11.10",
     "@testing-library/react": "11.2.5",
     "@testing-library/react-hooks": "5.1.1",
-    "@testing-library/user-event": "13.0.16",
+    "@testing-library/user-event": "13.1.0",
     "@welldone-software/why-did-you-render": "6.1.1",
     "storybook-addon-apollo-client": "4.0.6",
     "typescript": "4.2.3"
