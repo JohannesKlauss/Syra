@@ -11,11 +11,13 @@ import useUploadAudioFile from '../../audio/useUploadAudioFile';
 import { channelStore } from '../../../recoil/channelStore';
 import { ChannelMode } from '../../../types/Channel';
 import useSyraEngine from '../../engine/useSyraEngine';
+import useShowAnalyzedTempoToast from "../../ui/toasts/useShowAnalyzedTempoToast";
 
 export default function useCreateAudioRegionFromFile() {
   const audioContext = useAudioContext();
   const uploadFile = useUploadAudioFile();
   const engine = useSyraEngine();
+  const showToast = useShowAnalyzedTempoToast();
 
   return useRecoilCallback(
     ({ set, snapshot }) => async (
@@ -48,8 +50,6 @@ export default function useCreateAudioRegionFromFile() {
 
         set(regionStore.staticCounter(channelId), staticCounter + 1);
 
-        console.log('buffer n', audioBuffer.numberOfChannels);
-
         if (audioBuffer.numberOfChannels === 2 && channelMode === ChannelMode.MONO) {
           set(channelStore.mode(channelId), ChannelMode.STEREO);
 
@@ -71,7 +71,7 @@ export default function useCreateAudioRegionFromFile() {
             // Trim the analyzed tempo to two decimal points.
             analyzedTempo = Math.round(analyzedTempo * 100) / 100;
 
-            set(projectStore.lastAnalyzedBpmFromImport, analyzedTempo);
+            showToast(analyzedTempo);
           }
         }
       } else {
@@ -80,6 +80,6 @@ export default function useCreateAudioRegionFromFile() {
 
       return newRegionId;
     },
-    [audioContext, engine],
+    [audioContext, engine, showToast],
   );
 }

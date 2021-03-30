@@ -121,11 +121,6 @@ const currentTimeSignature = atom<[number, number]>({
   }),
 });
 
-const lastAnalyzedBpmFromImport = atom<number | null>({
-  key: 'project/lastAnalyzedBpmFromImport',
-  default: null,
-});
-
 const lengthInQuarters = selector({
   key: 'project/lengthInQuarters',
   get: ({ get }) => parseInt(Tone.Ticks(get(lengthInTicks)).toBarsBeatsSixteenths()),
@@ -162,5 +157,4 @@ export const projectStore = {
   lengthInQuarters,
   lengthInTicks,
   isClickMuted,
-  lastAnalyzedBpmFromImport,
 };
