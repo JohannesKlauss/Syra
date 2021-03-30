@@ -36,29 +36,38 @@ export class AudioProcessor {
 
     const fileStream = await fs.createReadStream(`${__dirname}/tmp/${tmpFileName}`);
 
-    this.logger.debug(`Run transcoder`);
-    this.logger.debug(`Run Peak Waveform analyzer`);
-
     let transcodeStream;
+    let peakWaveformStream;
 
     if (!['audio/flac', 'audio/mpeg'].includes(originalMimeType)) {
+      this.logger.debug(`Run transcoder from wav to flac`);
+
       transcodeStream = this.openFaasService.invokeFunction(OpenFaasFunction.FFMPEG, fileStream);
     } else if (originalMimeType === 'audio/mpeg') {
+      this.logger.debug(`Run transcoder from mp3 to flac`);
+
       transcodeStream = this.openFaasService.invokeFunction(OpenFaasFunction.FFMPEG_MP3, fileStream);
     }
 
-    const peakWaveform = this.openFaasService.invokeFunction(OpenFaasFunction.AUDIO_WAVEFORM, fileStream);
-
     if (transcodeStream) {
-      transcodeStream.then(stream => this.uploadTranscodedFile(stream.data, job.data));
+      transcodeStream.then(stream => {
+        this.uploadTranscodedFile(stream.data, job.data);
+
+        this.logger.debug(`Run Peak Waveform analyzer with converted file`);
+
+        peakWaveformStream = this.openFaasService.invokeFunction(OpenFaasFunction.AUDIO_WAVEFORM, stream.data);
+        peakWaveformStream.then(stream => this.uploadPeakWaveformFile(stream.data, job.data));
+      });
     } else {
-      transcodeStream = this.uploadTranscodedFile(fileStream, job.data)
+      transcodeStream = this.uploadTranscodedFile(fileStream, job.data);
+
+      this.logger.debug(`Run Peak Waveform analyzer with original file`);
+
+      peakWaveformStream = this.openFaasService.invokeFunction(OpenFaasFunction.AUDIO_WAVEFORM, fileStream);
+      peakWaveformStream.then(stream => this.uploadPeakWaveformFile(stream.data, job.data));
     }
 
-    transcodeStream && transcodeStream.then(stream => this.uploadTranscodedFile(stream.data, job.data));
-    peakWaveform.then(stream => this.uploadPeakWaveformFile(stream.data, job.data));
-
-    Promise.all([transcodeStream, peakWaveform]).finally(() => {
+    Promise.all([transcodeStream, peakWaveformStream]).finally(() => {
       fs.unlinkSync(`${__dirname}/tmp/${tmpFileName}`);
     });
   }
