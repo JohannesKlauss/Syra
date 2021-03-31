@@ -8241,6 +8241,14 @@ automation-events@^3.0.8:
     "@babel/runtime" "^7.13.10"
     tslib "^2.1.0"
 
+automation-events@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/automation-events/-/automation-events-3.0.9.tgz#271bdb92b2760427161d52d7827ea5a467decdae"
+  integrity sha512-xuszf5MhINXYKe6VCyceSq26CuGq4K5qXBWosCPaxCBRiTQUxYE/zH/PIafqXrHjsrX15XE87IsmF61PbvMMRw==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    tslib "^2.1.0"
+
 autoprefixer@^9.6.1, autoprefixer@^9.8.6:
   version "9.8.6"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.8.6.tgz#3b73594ca1bf9266320c5acf1588d74dea74210f"
@@ -21603,7 +21611,16 @@ standard-as-callback@^2.1.0:
   resolved "https://registry.yarnpkg.com/standard-as-callback/-/standard-as-callback-2.1.0.tgz#8953fc05359868a77b5b9739a665c5977bb7df45"
   integrity sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==
 
-standardized-audio-context@25.1.12, standardized-audio-context@^25.1.12:
+standardized-audio-context@25.1.13:
+  version "25.1.13"
+  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.1.13.tgz#c00ba2a2309f81bdb249ce14fb5ea8c2ad730966"
+  integrity sha512-mOwqM8ffC1fg4oFcqpr+YK7OIcYF97DOD9rQ6bN7GVIHABRZThlLlmfn6jvMQrxeFimodOH12EuyNIH0w33pUA==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    automation-events "^3.0.9"
+    tslib "^2.1.0"
+
+standardized-audio-context@^25.1.12:
   version "25.1.12"
   resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.1.12.tgz#7582fffeed2543e34ec780b0bdeb8f30d124ed8b"
   integrity sha512-lMN3whmiB8tjxi6y7OJBJ07hUXJtD4xobcVi/NEtPNiuLa2vqCQHJAp/MqpcRFa0raqvVfR5BFzp503N6vh1yA==
