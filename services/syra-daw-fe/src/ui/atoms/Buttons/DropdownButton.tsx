@@ -6,7 +6,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  MenuListProps,
 } from '@chakra-ui/react';
 import { VscChevronDown } from 'react-icons/vsc';
 

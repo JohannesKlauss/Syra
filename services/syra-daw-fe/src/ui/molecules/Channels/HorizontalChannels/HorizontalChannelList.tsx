@@ -12,7 +12,7 @@ function HorizontalChannelList({ showView }: Props) {
   const channels = useRecoilValue(channelStore.idsWithMasterAtEnd);
 
   return (
-    <Box overflowX={'scroll'} transform={'translateZ(0)'} display={showView ? 'block' : 'none'}>
+    <Box overflowX={'scroll'} transform={'translateZ(0)'} display={showView ? 'block' : 'none'} pos={'absolute'} bottom={0}>
       <Flex align={'flex-start'} zIndex={1} w={'100%'}>
         {channels.map((id, i) => (
           <BaseChannel key={id} channelId={id} index={i} />

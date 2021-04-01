@@ -4,7 +4,6 @@ import { audioBufferStore } from '../../recoil/audioBufferStore';
 import * as Tone from 'tone';
 import { ViewContext } from '../../providers/ViewContext';
 import { gridStore } from '../../recoil/gridStore';
-import { projectStore } from "../../recoil/projectStore";
 import { transportStore } from "../../recoil/transportStore";
 
 export default function usePeakWaveformAnalyzer(bufferId: string) {

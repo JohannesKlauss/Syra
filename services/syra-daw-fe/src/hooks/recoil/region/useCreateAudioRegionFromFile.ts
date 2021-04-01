@@ -5,7 +5,6 @@ import useAudioContext from '../../audio/useAudioContext';
 import { regionStore } from '../../../recoil/regionStore';
 import { audioBufferStore } from '../../../recoil/audioBufferStore';
 import { analyze } from 'web-audio-beat-detector';
-import { projectStore } from '../../../recoil/projectStore';
 import * as Tone from 'tone';
 import useUploadAudioFile from '../../audio/useUploadAudioFile';
 import { channelStore } from '../../../recoil/channelStore';

@@ -1,4 +1,3 @@
-import { AtomEffect } from "recoil";
 import { RecoilAtomEffect } from "../../types/Recoil";
 
 type UndoRedoHistory = Array<{

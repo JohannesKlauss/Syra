@@ -1,7 +1,7 @@
 import React from "react";
 import { IconButton } from "@chakra-ui/react";
 import { IoIosPower } from 'react-icons/io';
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { channelStore } from "../../../recoil/channelStore";
 
 interface Props {

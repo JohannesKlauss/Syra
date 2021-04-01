@@ -1,6 +1,5 @@
 import {useRecoilCallback} from "recoil";
 import {regionStore} from "../../recoil/regionStore";
-import {MidiNote} from "../../types/Midi";
 import * as Tone from 'tone';
 import {replaceItemAtIndex} from "../../utils/recoil";
 import {pianoRollStore} from "../../recoil/pianoRollStore";

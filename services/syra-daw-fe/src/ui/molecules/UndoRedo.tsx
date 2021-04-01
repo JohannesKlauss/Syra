@@ -7,7 +7,7 @@ interface Props {
 
 }
 
-const UndoRedo: React.FC<Props> = ({}) => {
+const UndoRedo: React.FC<Props> = () => {
   const {hasUndoStack, hasRedoStack, undo, redo} = useUndoRedo();
 
   return (

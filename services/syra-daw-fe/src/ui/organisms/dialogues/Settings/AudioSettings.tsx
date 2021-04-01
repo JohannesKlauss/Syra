@@ -7,7 +7,7 @@ interface Props {
 
 }
 
-const AudioSettings: React.FC<Props> = ({}) => {
+const AudioSettings: React.FC<Props> = () => {
   const [activeInputDeviceId, setActiveInputDeviceId] = useRecoilState(audioRoutingStore.activeInputDeviceId);
   const [activeOutputDeviceId, setActiveOutputDeviceId] = useRecoilState(audioRoutingStore.activeOutputDeviceId);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);

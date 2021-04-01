@@ -16,7 +16,7 @@ function AudioChannelInput() {
 
   useEffect(() => {
     channel.channelMode = mode;
-  }, [mode]);
+  }, [mode, channel]);
 
   return (
     <Flex align={'center'} w={'100%'} mt={'2px'}>

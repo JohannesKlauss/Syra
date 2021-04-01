@@ -17,7 +17,7 @@ function ChannelPluginList() {
 
   useEffect(() => {
     channel.setActivePlugins(activePluginsForChannelId.map(plugin => plugin.audioNode));
-  }, [activePluginsForChannelId]);
+  }, [activePluginsForChannelId, channel]);
 
   return (
     <MovableList

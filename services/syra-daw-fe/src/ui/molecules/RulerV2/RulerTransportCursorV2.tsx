@@ -33,7 +33,7 @@ const RulerTransportCursorV2: React.FC = ({children}) => {
         setTransportQuarters((isSnapActive ? position : rawPosition) / zoomedQuarterPixelWidth);
       }
     }
-  }, [snapPixelValue, setTransportQuarters, playheadPosition, zoomedQuarterPixelWidth, barAtPixel, snapValue, isSnapActive, view]);
+  }, [snapPixelValue, setTransportQuarters, playheadPosition, zoomedQuarterPixelWidth, barAtPixel, snapValue, isSnapActive, gridRef]);
 
   const onMovableTrigger = useMovable(onMouseInteraction, onMouseInteraction);
 

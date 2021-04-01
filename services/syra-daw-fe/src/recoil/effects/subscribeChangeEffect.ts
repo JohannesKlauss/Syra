@@ -51,6 +51,10 @@ const filterChangesList = <T>(
 export const subscribeChangeEffect: RecoilAtomEffect<string | Record<string, any>, any> = (key, id) => ({ setSelf }) => {
   if (observable) {
     observable.subscribe((data) => {
+      if (data.data?.changes.authorId === userId) {
+        return;
+      }
+
       const changesToApply = filterChangesList<any>(data.data?.changes.changes.list ?? [], key, id);
 
       if (changesToApply.length > 0) {

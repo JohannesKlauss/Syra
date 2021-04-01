@@ -21,9 +21,7 @@ function BackboneAudioMixer({channelId}: Props) {
   const isSolo = useRecoilValue(channelStore.isSolo(channelId));
   const channelType = useRecoilValue(channelStore.type(channelId));
   const isInputMonitoringActive = useRecoilValue(channelStore.isInputMonitoringActive(channelId));
-  const pluginIds = useRecoilValue(channelStore.pluginIds(channelId));
   const soulInstance = useRecoilValue(channelStore.soulInstance(channelId));
-  const plugins = useRecoilValue(channelStore.findActivePluginsByIds(pluginIds));
   const [connect, disconnect] = useConnectMidiWithInstrumentChannel(channelId);
 
 

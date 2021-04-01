@@ -1,6 +1,5 @@
 import React from 'react';
 import {Box} from "@chakra-ui/react";
-import tinycolor from "tinycolor2";
 
 interface Props {
   color: string;

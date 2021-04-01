@@ -22,7 +22,10 @@ export default function useCreateChannel() {
       channelId?: string,
     ) => {
       const newChannelId = channelId ?? createNewId(CHANNEL_ID_PREFIX);
-      const channelIds = (await snapshot.getLoadable(channelStore.ids).contents) as string[];
+      const channelIds = snapshot.getLoadable(channelStore.ids).getValue();
+
+      console.log('current ids', channelIds);
+      console.log('add channelId', newChannelId);
 
       try {
         await syraEngine.channels.createChannel(newChannelId, type, channelMode, channelName ?? 'Unnamed Channel');
@@ -50,11 +53,15 @@ export default function useCreateChannel() {
         set(channelStore.name(newChannelId), channelName);
       }
 
-      set(channelStore.ids, (currVal) => [...currVal, newChannelId]);
+      set(channelStore.ids, (currVal) => {
+        console.log('NEW IDS', [...currVal, newChannelId]);
+
+        return [...currVal, newChannelId];
+      });
       set(channelStore.selectedId, newChannelId);
 
       return newChannelId;
     },
-    [syraEngine],
+    [syraEngine, toast],
   );
 }

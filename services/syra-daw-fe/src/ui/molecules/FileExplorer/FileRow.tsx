@@ -2,7 +2,6 @@ import { Td, Tr } from '@chakra-ui/react';
 import React, { CSSProperties } from "react";
 import { formatBytesForDisplay } from '../../../utils/binary';
 import {format} from 'date-fns';
-import { TiDelete } from "react-icons/all";
 
 interface Props {
   file: File;

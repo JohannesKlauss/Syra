@@ -34,6 +34,6 @@ export default function useUpdateView() {
           break;
       }
     },
-    [showPianoRoll, setShowPianoRoll, setShowMixer, selectedId, ids, openPianoRoll],
+    [showPianoRoll, setShowPianoRoll, setShowMixer, selectedId, ids, openPianoRoll, type],
   );
 }

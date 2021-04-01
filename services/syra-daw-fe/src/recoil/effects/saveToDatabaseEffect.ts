@@ -1,5 +1,4 @@
 import { RecoilAtomEffect } from '../../types/Recoil';
-import { AtomEffect } from 'recoil';
 import { replaceItemAtIndex } from '../../utils/recoil';
 import { getApolloClient } from '../../apollo/client';
 import { isEqual } from 'lodash';

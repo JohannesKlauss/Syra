@@ -1,7 +1,7 @@
 import { RegionContext } from "../../../providers/RegionContext";
 import { useContext, useEffect } from "react";
 import { regionStore } from "../../../recoil/regionStore";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { audioBufferStore } from "../../../recoil/audioBufferStore";
 import { projectStore } from "../../../recoil/projectStore";
 import { useAssetAvailableSubscription } from "../../../gql/generated";
@@ -36,5 +36,5 @@ export default function useSyncAudioFile() {
           break;
       }
     }
-  }, [data]);
+  }, [data, setStoredPeakWaveformId, setStoredBufferId]);
 }

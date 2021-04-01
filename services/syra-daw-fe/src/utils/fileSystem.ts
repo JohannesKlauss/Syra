@@ -27,7 +27,7 @@ const getFiles = async () => {
   const files: File[] = [];
 
   if (rootHandle) {
-    for await (let [name, handle] of rootHandle.entries()) {
+    for await (let [, handle] of rootHandle.entries()) {
       if (handle.kind === 'file') {
         files.push(await handle.getFile());
       }

@@ -28,10 +28,12 @@ const ContextMenu: React.FC<Props> = ({ children, hotkey }) => {
   }, [onOpen, setOffset, setLayerOffset]);
 
   useEffect(() => {
-    ref.current?.addEventListener('contextmenu', onContextMenu);
+    const refCopy = ref.current;
+
+    refCopy?.addEventListener('contextmenu', onContextMenu);
 
     return () => {
-      ref.current?.removeEventListener('contextmenu', onContextMenu);
+      refCopy?.removeEventListener('contextmenu', onContextMenu);
     }
   }, [ref, onContextMenu]);
 

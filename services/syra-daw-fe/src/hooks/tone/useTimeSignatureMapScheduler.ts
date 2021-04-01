@@ -22,6 +22,7 @@ export default function useTimeSignatureMapScheduler() {
     });
 
     return () => {
+      // eslint-disable-next-line
       scheduleIds.current.forEach(id => transport.clear(id));
     };
   }, [timeSignatureMap, scheduleIds, transport, setCurrentTimeSignature]);

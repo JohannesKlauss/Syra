@@ -13,7 +13,7 @@ function InstrumentChannelInput() {
 
   useEffect(() => {
     (channel as InstrumentChannel).instrument = soulInstance?.audioNode;
-  }, [soulInstance]);
+  }, [soulInstance, channel]);
 
   return (
     <SoulPlugin id={channelId} isInstrument={true}/>

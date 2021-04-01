@@ -44,7 +44,7 @@ export default function useMidiRegionScheduler() {
     ];
 
     return messages.sort((msgA, msgB) => msgA[3] - msgB[3]);
-  }, [notes, offset, duration, start, currentTempo]);
+  }, [notes, offset, duration, start, currentTempo /* This is here to force trigger an update */]);
 
   useEffect(() => {
     soulInstance?.audioNode.port.postMessage({

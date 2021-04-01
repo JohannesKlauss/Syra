@@ -23,7 +23,7 @@ interface Props {
 
 }
 
-const ChannelSettings = React.forwardRef<HTMLButtonElement, Props>(({}, ref) => {
+const ChannelSettings = React.forwardRef<HTMLButtonElement, Props>((_, ref) => {
   const channelId = useContext(ChannelContext);
   const [name, setName] = useRecoilState(channelStore.name(channelId));
   const [oldName] = useState(name);

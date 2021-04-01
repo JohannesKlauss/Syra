@@ -2,14 +2,12 @@ import React, { useContext } from 'react';
 import { useRecoilState } from 'recoil';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { channelStore } from '../../../recoil/channelStore';
-import { channelTypeMap } from '../../../const/channels';
 import ChannelColorPicker from '../../molecules/Channels/ChannelMenu/ChannelColorPicker';
 import { Text, Button, Checkbox, Input, SimpleGrid } from '@chakra-ui/react';
 
 function DebugChannel() {
   const channelId = useContext(ChannelContext);
   const [name, setName] = useRecoilState(channelStore.name(channelId));
-  const [type] = useRecoilState(channelStore.type(channelId));
   const [color, setColor] = useRecoilState(channelStore.color(channelId));
   const [isArmed, setIsArmed] = useRecoilState(channelStore.isArmed(channelId));
   const [isSolo, setIsSolo] = useRecoilState(channelStore.isSolo(channelId));

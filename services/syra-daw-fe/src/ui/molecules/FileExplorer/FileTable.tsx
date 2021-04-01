@@ -7,8 +7,8 @@ interface Props {
 
 }
 
-const FileTable: React.FC<Props> = ({}) => {
-  const {isReady, localFiles, serverFiles} = useAggregateProjectFiles();
+const FileTable: React.FC<Props> = () => {
+  const {isReady, localFiles} = useAggregateProjectFiles();
 
   return (
     <Table ml={-6} width={'calc(100% + var(--chakra-space-12))'} variant="striped" colorScheme="teal" size={'sm'}>

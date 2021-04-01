@@ -5,10 +5,10 @@ interface Props {
 
 }
 
-const DrawerContainer: React.FC<Props> = ({}) => {
+const DrawerContainer: React.FC<Props> = () => {
   return (
     <>
-      <FileExplorer></FileExplorer>
+      <FileExplorer/>
     </>
   );
 };

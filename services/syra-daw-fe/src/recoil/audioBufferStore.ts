@@ -5,7 +5,6 @@ import atomFamilyWithEffects from './proxy/atomFamilyWithEffects';
 import * as Tone from 'tone';
 import WaveformData from 'waveform-data';
 import { makeFileBufferSelector } from './selectors/makeFileBufferSelector';
-import { projectStore } from "./projectStore";
 import { transportStore } from "./transportStore";
 
 const ids = atomWithEffects<string[]>({

@@ -8,7 +8,7 @@ import { useHotkeys } from "react-hotkeys-hook";
 
 interface Props {}
 
-const DebugShortcuts: React.FC<Props> = ({}) => {
+const DebugShortcuts: React.FC<Props> = () => {
   const [displayShortcuts, setDisplayShortcuts] = useState(true);
   const id = useRecoilValue(projectStore.id);
   const [executeReset] = useResetProjectMutation({

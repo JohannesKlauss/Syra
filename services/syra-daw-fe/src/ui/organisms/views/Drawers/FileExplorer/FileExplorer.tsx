@@ -21,9 +21,9 @@ interface Props {}
 const FileExplorer: React.FC<Props> = () => {
   const [showFileExplorer, setShowFileExplorer] = useRecoilState(editorStore.showFileExplorer);
 
-  const { onOpen, isOpen } = useDisclosure();
+  const { isOpen } = useDisclosure();
 
-  const onClose = (confirmed?: boolean) => {};
+  const onClose = () => {};
 
   return (
     <>

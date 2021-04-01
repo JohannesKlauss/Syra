@@ -29,7 +29,7 @@ import { audioBufferStore } from "../../../recoil/audioBufferStore";
 
 interface Props {}
 
-const Region: React.FC<Props> = ({}) => {
+const Region: React.FC<Props> = () => {
   const channelId = useContext(ChannelContext);
   const regionId = useContext(RegionContext);
   const name = useRecoilValue(regionStore.name(regionId));

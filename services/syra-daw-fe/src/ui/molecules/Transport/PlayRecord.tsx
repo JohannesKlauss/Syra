@@ -4,7 +4,6 @@ import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { transportStore } from '../../../recoil/transportStore';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { buttonInfo } from '../../../utils/text';
-import useAudioContext from '../../../hooks/audio/useAudioContext';
 import { projectStore } from '../../../recoil/projectStore';
 import { getToneJsPositionInQuarter } from '../../../utils/tonejs';
 import { Flex, IconButton } from '@chakra-ui/react';
@@ -15,7 +14,6 @@ import { RiStopFill } from 'react-icons/ri';
 import encapsulateHotkeysCallback from "../../../utils/hotkeys";
 
 function PlayRecord() {
-  const ctx = useAudioContext();
   const [isRecording, setIsRecording] = useRecoilState(transportStore.isRecording);
   const [isPlaying, setIsPlaying] = useRecoilState(transportStore.isPlaying);
   const setCurrentTransportQuarter = useSetRecoilState(transportStore.currentQuarter);
@@ -54,7 +52,7 @@ function PlayRecord() {
     }
 
     setIsPlaying((currVal) => !currVal);
-  }, [setIsPlaying, transport, isPlaying, isRecording, cycleStart, isCycleActive, lengthInQuarters, setCurrentTransportQuarter, setTransportSeconds]);
+  }, [setIsPlaying, setIsRecording, transport, isPlaying, isRecording, cycleStart, isCycleActive, lengthInQuarters, setCurrentTransportQuarter, setTransportSeconds]);
 
   const onClickReset = useCallback(() => {
     setTransportSeconds(0);
@@ -68,7 +66,7 @@ function PlayRecord() {
       setIsRecording(true);
       transport.start('+0.1');
     }
-  }, [setIsRecording, isRecording, transport, ctx]);
+  }, [setIsRecording, isRecording, transport]);
 
   useHotkeys('space', encapsulateHotkeysCallback(onClickPlayPause), [onClickPlayPause]);
   useHotkeys('r', encapsulateHotkeysCallback(onClickRecord), [onClickRecord]);

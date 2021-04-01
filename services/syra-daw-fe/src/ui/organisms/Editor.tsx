@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import HorizontalChannelList from '../molecules/Channels/HorizontalChannels/HorizontalChannelList';
 import { editorStore } from '../../recoil/editorStore';
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { Box, Input, useTheme } from "@chakra-ui/react";
+import { Box, useTheme } from "@chakra-ui/react";
 import TransportView from '../molecules/Transport/TransportView';
 import Settings from '../organisms/dialogues/Settings/Settings';
 import PianoRoll from '../organisms/views/PianoRoll/PianoRoll';

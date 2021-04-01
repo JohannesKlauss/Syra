@@ -14,5 +14,5 @@ export default function useEnableFileSystem(projectId: string) {
         setHasAccess(true);
       })();
     }
-  }, [projectId, hasAccess]);
+  }, [projectId, hasAccess, setHasAccess]);
 }

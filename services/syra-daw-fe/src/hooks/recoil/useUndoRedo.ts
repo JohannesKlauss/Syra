@@ -11,14 +11,14 @@ export default function useUndoRedo() {
 
     setHasUndoStack(undoHistory.length > 0);
     setHasRedoStack(redoHistory.length > 0);
-  }, [undoHistory, redoHistory, setHasRedoStack, setHasUndoStack]);
+  }, [setHasRedoStack, setHasUndoStack]);
 
   const redo = useCallback(() => {
     redoHistory.pop()?.trigger();
 
     setHasUndoStack(undoHistory.length > 0);
     setHasRedoStack(redoHistory.length > 0);
-  }, [undoHistory, redoHistory, setHasRedoStack, setHasUndoStack]);
+  }, [setHasRedoStack, setHasUndoStack]);
 
   useHotkeys('cmd+z', e => {
     e.preventDefault();
