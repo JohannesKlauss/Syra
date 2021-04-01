@@ -16,8 +16,6 @@ function ChannelPluginList() {
   const addPlugin = useAddPlugin();
 
   useEffect(() => {
-    console.log('active plugins', activePluginsForChannelId);
-
     channel.setActivePlugins(activePluginsForChannelId.map(plugin => plugin.audioNode));
   }, [activePluginsForChannelId]);
 

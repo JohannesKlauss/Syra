@@ -40,7 +40,7 @@ const currentQuarter = selector<number>({
     set(internalQuarter, newValue as number);
     set(internalSeconds, Tone.getTransport().seconds);
 
-    set(projectStore.currentTimeSignature, get(projectStore.timeSignatureAtQuarter(newValue as number)));
+    set(currentTimeSignature, get(timeSignatureAtQuarter(newValue as number)));
   }
 });
 
@@ -104,7 +104,19 @@ const isCycleActive = selector<boolean>({
 
 const currentTempo = atom<number>({
   key: 'transport/currentTempo',
-  default: 120,
+  default: selector<number>({
+    key: 'transport/currentTempo/Default',
+    get: ({get}) => {
+      const map = get(projectStore.tempoMap);
+
+      return map[0];
+    }
+  }),
+});
+
+const secondsPerBeat = selector({
+  key: 'transport/secondsPerBeat',
+  get: ({ get }) => 60 / get(currentTempo),
 });
 
 const isRecording = atom<boolean>({
@@ -179,7 +191,7 @@ const filteredBars = selector<Bar[]>({
 });
 
 const currentBar = selector<Bar | undefined>({
-  key: 'transport/timeSignatureAtQuarter',
+  key: 'transport/currentBar',
   get: ({get}) => {
     const quarter = get(currentQuarter);
 
@@ -203,6 +215,25 @@ const barAtQuarter = selectorFamily<Bar | undefined, number>({
   }
 });
 
+const timeSignatureAtQuarter = selectorFamily<[number, number], number>({
+  key: 'transport/timeSignatureAtQuarter',
+  get: (quarter) => ({ get }) => {
+    const bar = get(barAtQuarter(quarter));
+
+    return bar?.timeSignature || get(projectStore.timeSignatureMap)[0];
+  },
+});
+
+const currentTimeSignature = atom<[number, number]>({
+  key: 'transport/currentTimeSignature',
+  default: selector({
+    key: 'transport/currentTimeSignature/Default',
+    get: ({ get }) => {
+      return get(currentBar)?.timeSignature || get(projectStore.timeSignatureMap)[0];
+    },
+  }),
+});
+
 export const transportStore = {
   seconds,
   currentQuarter,
@@ -217,4 +248,7 @@ export const transportStore = {
   filteredBars,
   currentBar,
   barAtQuarter,
+  secondsPerBeat,
+  timeSignatureAtQuarter,
+  currentTimeSignature,
 };

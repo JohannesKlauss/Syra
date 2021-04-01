@@ -39,7 +39,7 @@ class Encoder {
     this.numSamples += bufferLength;
   }
 
-  finish(mimeType) {
+  finish() {
     const dataSize = this._numChannels * this.numSamples * 2;
     const view = new DataView(new ArrayBuffer(44));
 

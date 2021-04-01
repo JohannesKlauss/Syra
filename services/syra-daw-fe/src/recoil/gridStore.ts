@@ -86,7 +86,7 @@ const isSnapActive = atomFamilyWithEffects<boolean, View>({
 
 const pixelPerSecond = selectorFamily<number, View>({
   key: 'grid/pixelPerSecond',
-  get: view => ({get}) => get(zoomedQuarterPixelWidth(view)) / get(projectStore.secondsPerBeat),
+  get: view => ({get}) => get(zoomedQuarterPixelWidth(view)) / get(transportStore.secondsPerBeat),
 });
 
 const filteredBars = selectorFamily<Bar[], View>({

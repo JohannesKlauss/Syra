@@ -40,11 +40,7 @@ export abstract class AbstractChannel {
   }
 
   protected connectInternalNodes() {
-    console.log('rewire', this.inputNode);
-
     if (this.inputNode) {
-      const channels = this._channelMode === ChannelMode.MONO ? 1 : 2;
-
       this.disconnectInternalNodes();
 
       Tone.connectSeries(this.inputNode, this.mixerNode, ...this.plugins, this.volumeNode, this.rmsNode, this.soloNode, this.muteNode, this.panNode, this.outputNode);

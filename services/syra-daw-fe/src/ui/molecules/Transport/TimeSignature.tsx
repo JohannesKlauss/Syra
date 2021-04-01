@@ -1,11 +1,11 @@
 import React from 'react';
-import { projectStore } from '../../../recoil/projectStore';
 import { useRecoilValue } from 'recoil';
 import useTimeSignatureMapScheduler from '../../../hooks/tone/useTimeSignatureMapScheduler';
 import { Box, Text } from '@chakra-ui/react';
+import { transportStore } from "../../../recoil/transportStore";
 
 function TimeSignature() {
-  const currentTimeSignature = useRecoilValue(projectStore.currentTimeSignature);
+  const currentTimeSignature = useRecoilValue(transportStore.currentTimeSignature);
 
   useTimeSignatureMapScheduler();
 

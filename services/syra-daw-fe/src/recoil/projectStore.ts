@@ -1,5 +1,4 @@
 import { atom, selector, selectorFamily } from 'recoil';
-import { transportStore } from './transportStore';
 import * as Tone from 'tone';
 import atomWithEffects from './proxy/atomWithEffects';
 import { syncEffectsComb } from './effects/syncEffectsComb';
@@ -63,7 +62,7 @@ const id = atom<string>({
 const tempoMap = atomWithEffects<{ [name: number]: number }>({
   key: 'project/tempoMap',
   default: {
-    0: 240,
+    0: 120,
   },
   effects: [
     ...syncEffectsComb,
@@ -100,27 +99,6 @@ const timeSignatureMap = atomWithEffects<{ [name: number]: [number, number] }>({
   effects: [...syncEffectsComb],
 });
 
-const timeSignatureAtQuarter = selectorFamily<[number, number], number>({
-  key: 'project/timeSignatureAtQuarter',
-  get: (quarter) => ({ get }) => {
-    const bar = get(transportStore.barAtQuarter(quarter));
-
-    return bar?.timeSignature || get(timeSignatureMap)[0];
-  },
-});
-
-const currentTimeSignature = atom<[number, number]>({
-  key: 'project/currentTimeSignature',
-  default: selector({
-    key: 'project/currentTimeSignature/Default',
-    get: ({ get }) => {
-      const currentBar = get(transportStore.currentBar);
-
-      return currentBar?.timeSignature || get(timeSignatureMap)[0];
-    },
-  }),
-});
-
 const lengthInQuarters = selector({
   key: 'project/lengthInQuarters',
   get: ({ get }) => parseInt(Tone.Ticks(get(lengthInTicks)).toBarsBeatsSixteenths()),
@@ -130,11 +108,6 @@ const lengthInTicks = atomWithEffects({
   key: 'project/lengthInTicks',
   default: Tone.Ticks(`${60}:0:0`).toTicks(), // TODO: THIS DEFAULT SETTING IS A BIT WEIRD, BECAUSE THIS EVALUATION HAPPENS __BEFORE__ WE SET TONE JS TO 1/4 Time Signature. We have to figure out a better way to handle this.
   effects: [...syncEffectsComb],
-});
-
-const secondsPerBeat = selector({
-  key: 'project/secondsPerBeat',
-  get: ({ get }) => 60 / get(transportStore.currentTempo),
 });
 
 const isClickMuted = atomWithEffects<boolean>({
@@ -151,9 +124,6 @@ export const projectStore = {
   tempoMap,
   tempoAtQuarter,
   timeSignatureMap,
-  timeSignatureAtQuarter,
-  currentTimeSignature,
-  secondsPerBeat,
   lengthInQuarters,
   lengthInTicks,
   isClickMuted,
