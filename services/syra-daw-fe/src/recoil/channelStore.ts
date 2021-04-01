@@ -292,7 +292,7 @@ const findByRegionId = selectorFamily<string, string>({
 const idsWithMasterAtEnd = selector<string[]>({
   key: 'channel/idsWithMasterAtEnd',
   get: ({get}) => {
-    const tmp = get(ids).slice();
+    const tmp = get(ids);
 
     return [...removeItemAtIndex(tmp, tmp.indexOf(MASTER_CHANNEL)), MASTER_CHANNEL];
   }
@@ -301,11 +301,13 @@ const idsWithMasterAtEnd = selector<string[]>({
 const idsWithoutMaster = selector<string[]>({
   key: 'channel/idsWithoutMaster',
   get: ({get}) => {
-    const tmp = get(ids).slice();
+    const tmp = get(ids);
+
+    console.log('channelIds', tmp);
 
     return removeItemAtIndex(tmp, tmp.indexOf(MASTER_CHANNEL));
   }
-})
+});
 
 export const channelStore = {
   name,

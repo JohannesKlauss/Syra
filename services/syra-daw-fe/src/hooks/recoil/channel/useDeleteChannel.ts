@@ -25,5 +25,5 @@ export default function useDeleteChannel() {
 
       set(channelStore.ids, (currVal) => removeItemAtIndex(currVal, index));
     }
-  });
+  }, []);
 }

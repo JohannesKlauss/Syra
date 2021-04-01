@@ -22,7 +22,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev && prisma migrate deploy",
     "session:gen-key": "secure-session-gen-key > src/session-key && cp src/session-key dist/src/session-key",
-    "docker:build": "yarn prisma:generate && yarn build && yarn session:gen-key"
+    "docker:build": "yarn prisma:generate && yarn build && yarn session:gen-key && yarn prisma:migrate"
   },
   "dependencies": {
     "@apollo/gateway": "0.25.1",

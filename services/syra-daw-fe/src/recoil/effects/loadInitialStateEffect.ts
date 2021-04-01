@@ -15,12 +15,20 @@ export const loadInitialStateEffect: RecoilAtomEffect<string | Record<string, an
       return;
     }
 
+    if (key === 'channel/ids') {
+      console.log(key, dbContent[key]);
+    }
+
     let val = dbContent[key] || JSON.parse(localStorage.getItem(key) ?? 'null');
 
     if (val != null) {
       if (id && val instanceof Array) {
         setSelf(val.find(v => isEqual(v.id, id))?.value ?? new DefaultValue());
       } else {
+        if (key === 'channel/ids') {
+          console.log('set atom', val);
+        }
+
         setSelf(val);
       }
 
