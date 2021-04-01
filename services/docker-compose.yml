@@ -5,9 +5,6 @@ services:
     container_name: syra-postgres-dev
     image: library/postgres:12-alpine
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: syra-dev
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
