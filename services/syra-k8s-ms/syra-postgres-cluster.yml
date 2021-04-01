@@ -1,0 +1,31 @@
+kind: "postgresql"
+apiVersion: "acid.zalan.do/v1"
+
+metadata:
+  name: "syra-live"
+  namespace: "default"
+  labels:
+    team: syra
+
+spec:
+  teamId: "acid"
+  postgresql:
+    version: "13"
+  numberOfInstances: 1
+  enableConnectionPooler: true
+  volume:
+    size: "10Gi"
+  users:
+    syra_admin: []
+  databases:
+    syra_live: syra_admin
+  allowedSourceRanges:
+  # IP ranges to access your cluster go here
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 500Mi
