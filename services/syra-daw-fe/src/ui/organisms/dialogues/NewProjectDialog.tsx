@@ -57,6 +57,7 @@ function NewProjectDialog({ onCreate, open, onCancel }: Props) {
   }, [tappedTempo, setTempoMap]);
 
   useEffect(() => {
+    // Fail safe check if the time signature hasn't been set to 1/4 yet.
     if (Tone.getTransport().timeSignature === 4) {
       setLength(Tone.Ticks(`${projectLength}:0:0`).toTicks());
     } else {

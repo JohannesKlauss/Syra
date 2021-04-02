@@ -2,7 +2,7 @@ import React, { Suspense, useMemo } from "react";
 import { useRecoilState } from "recoil";
 import { ChannelContext } from "../../../../providers/ChannelContext";
 import { channelStore } from "../../../../recoil/channelStore";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from '@chakra-ui/react';
 import HorizontalChannelSuspenseFallback from "./HorizontalChannelSuspenseFallback";
 import ChannelHeader from "./Strip/ChannelHeader";
 import ChannelBody from "./Strip/ChannelBody";
@@ -24,12 +24,15 @@ function BaseChannel({ channelId, index }: Props) {
           <Box
             maxW={'150px'}
             w={'150px'}
+            minH={'100%'}
             bg={backgroundColor}
             onClick={() => setSelectedChannelId(channelId)}
           >
             <Suspense fallback={<HorizontalChannelSuspenseFallback/>}>
-              <ChannelHeader/>
-              <ChannelBody/>
+              <Flex flexDir={'column'} h={'100%'} justify={'flex-start'}>
+                <ChannelHeader/>
+                <ChannelBody/>
+              </Flex>
             </Suspense>
           </Box>
     </ChannelContext.Provider>

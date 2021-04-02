@@ -22,7 +22,7 @@ export default function useCreateChannel() {
       channelId?: string,
     ) => {
       const newChannelId = channelId ?? createNewId(CHANNEL_ID_PREFIX);
-      const channelIds = snapshot.getLoadable(channelStore.ids).getValue();
+      const channelIds = await snapshot.getLoadable(channelStore.ids).toPromise();
 
       console.log('current ids', channelIds);
       console.log('add channelId', newChannelId);

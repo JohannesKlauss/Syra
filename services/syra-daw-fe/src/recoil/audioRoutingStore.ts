@@ -1,6 +1,6 @@
 import { selector } from "recoil";
 import atomWithEffects from "./proxy/atomWithEffects";
-import { saveToLocalStorageEffect } from "./effects/saveToLocalStorageEffect";
+import { localStorageEffect } from "./effects/localStorageEffect";
 
 const activeInputDeviceId = atomWithEffects<string>({
   key: 'audioRouting/activeInputDeviceId',
@@ -19,7 +19,7 @@ const activeInputDeviceId = atomWithEffects<string>({
     }
   }),
   effects: [
-    saveToLocalStorageEffect,
+    localStorageEffect,
   ]
 });
 
@@ -40,7 +40,7 @@ const activeOutputDeviceId = atomWithEffects<string>({
     }
   }),
   effects: [
-    saveToLocalStorageEffect,
+    localStorageEffect,
   ]
 });
 

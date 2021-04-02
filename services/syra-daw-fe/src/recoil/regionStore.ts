@@ -2,49 +2,73 @@ import { atom, atomFamily, selectorFamily } from "recoil";
 import { audioBufferStore } from "./audioBufferStore";
 import { MidiNote } from "../types/Midi";
 import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
-import { syncEffectsComb } from "./effects/syncEffectsComb";
 import { undoRedoEffect } from "./effects/undoRedoEffect";
 import * as Tone from 'tone';
 import WaveformData from "waveform-data";
+import { pubSubEffect } from "./effects/pubSubEffect";
+import { saveToDatabaseEffect } from "./effects/saveToDatabaseEffect";
+import makeInitialStateSelectorFamily from "./selectors/makeInitialStateSelectorFamily";
 
 // Parameter is channelId. This basically stores all regionIds for a channelId.
 const ids = atomFamilyWithEffects<string[], string>({
   key: 'region/ids',
-  default: [],
-  effects: [...syncEffectsComb, undoRedoEffect],
+  default: makeInitialStateSelectorFamily('region/ids', []),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+    undoRedoEffect,
+  ],
 });
 
 // Sets the amount of ticks that region plays in relation to the transport. This now measured in quarters, not seconds!
 const start = atomFamilyWithEffects<number, string>({
   key: 'region/start',
-  default: 0, // This value is referring to the transport, not the audio buffer.
-  effects: [...syncEffectsComb, undoRedoEffect],
+  default: makeInitialStateSelectorFamily('region/start', 0), // This value is referring to the transport, not the audio buffer.
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+    undoRedoEffect
+  ],
 });
 
 // This will replace trimEnd. This is measured in ticks
 const duration = atomFamilyWithEffects<number, string>({
   key: 'region/duration',
-  default: Tone.Ticks(4, 'm').toTicks(),
-  effects: [...syncEffectsComb, undoRedoEffect],
+  default: makeInitialStateSelectorFamily('region/duration', Tone.Ticks(4, 'm').toTicks()),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+    undoRedoEffect,
+  ],
 });
 
 // The amount of ticks that the region gets trimmed at the beginning (this is basically the offset in relation to the audio buffer or first midi note)
 const offset = atomFamilyWithEffects<number, string>({
   key: 'region/offset',
-  default: 0,
-  effects: [...syncEffectsComb, undoRedoEffect],
+  default: makeInitialStateSelectorFamily('region/offset', 0),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+    undoRedoEffect
+  ],
 });
 
 const isMuted = atomFamilyWithEffects<boolean, string>({
   key: 'region/isMuted',
-  default: false,
-  effects: [...syncEffectsComb],
+  default: makeInitialStateSelectorFamily('region/isMuted', false),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const isSolo = atomFamilyWithEffects<boolean, string>({
   key: 'region/isSolo',
-  default: false,
-  effects: [...syncEffectsComb],
+  default: makeInitialStateSelectorFamily('region/isSolo', false),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 // Determines if the region is in a recording state. If so, no player gets connected and no scheduling happens.
@@ -55,26 +79,39 @@ const isRecording = atomFamily<boolean, string>({
 
 const isMidi = atomFamilyWithEffects<boolean, string>({
   key: 'region/isMidi',
-  default: false,
-  effects: [...syncEffectsComb],
+  default: makeInitialStateSelectorFamily('region/isMidi', false),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const name = atomFamilyWithEffects<string, string>({
   key: 'region/name',
-  default: '',
-  effects: [...syncEffectsComb],
+  default: makeInitialStateSelectorFamily('region/name', ''),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const audioBufferPointer = atomFamilyWithEffects<string, string>({
   key: 'region/audioBufferPointer',
-  default: '',
-  effects: [...syncEffectsComb],
+  default: makeInitialStateSelectorFamily('region/audioBufferPointer', ''),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const midiNotes = atomFamilyWithEffects<MidiNote[], string>({
   key: 'region/midiNotes',
-  default: [],
-  effects: [...syncEffectsComb, undoRedoEffect],
+  default: makeInitialStateSelectorFamily('region/midiNotes', []),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+    undoRedoEffect
+  ],
 });
 
 export interface RegionState {

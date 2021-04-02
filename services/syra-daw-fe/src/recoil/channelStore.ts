@@ -4,123 +4,134 @@ import { ChannelMode, ChannelType } from "../types/Channel";
 import { RegionState, regionStore } from './regionStore';
 import atomFamilyWithEffects from './proxy/atomFamilyWithEffects';
 import atomWithEffects from './proxy/atomWithEffects';
-import { syncEffectsComb } from './effects/syncEffectsComb';
 import { createSoulInstance } from '../soul/createSoulInstance';
 import { soulPluginStore } from './soulPluginStore';
 import { projectStore } from './projectStore';
 import { undoRedoEffect } from './effects/undoRedoEffect';
 import { MASTER_CHANNEL } from "../engine/const/ids";
 import { removeItemAtIndex } from "../utils/recoil";
+import { pubSubEffect } from "./effects/pubSubEffect";
+import { saveToDatabaseEffect } from "./effects/saveToDatabaseEffect";
+import makeInitialStateSelector from "./selectors/makeInitialStateSelector";
+import makeInitialStateSelectorFamily from "./selectors/makeInitialStateSelectorFamily";
 
 const ids = atomWithEffects<string[]>({
   key: 'channel/ids',
-  default: [],
-  effects: [...syncEffectsComb, undoRedoEffect],
+  default: makeInitialStateSelector('channel/ids', []),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+    undoRedoEffect,
+  ],
 });
 
 const name = atomFamilyWithEffects<string, string>({
   key: 'channel/name',
-  default: 'New Channel',
+  default: makeInitialStateSelectorFamily('channel/name', 'New Channel'),
   effects: [
-    ...syncEffectsComb
-  ]
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const type = atomFamilyWithEffects<ChannelType, string>({
   key: 'channel/type',
-  default: ChannelType.INSTRUMENT,
+  default: makeInitialStateSelectorFamily('channel/type', ChannelType.INSTRUMENT),
   effects: [
-    ...syncEffectsComb,
-  ]
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const mode = atomFamilyWithEffects<ChannelMode, string>({
   key: 'channel/mode',
-  default: ChannelMode.MONO,
+  default: makeInitialStateSelectorFamily('channel/mode', ChannelMode.MONO),
   effects: [
-    ...syncEffectsComb
-  ]
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const color = atomFamilyWithEffects<string, string>({
   key: 'channel/color',
-  default: 'cyan.400',
+  default: makeInitialStateSelectorFamily('channel/color', 'cyan.400'),
   effects: [
-    ...syncEffectsComb
-  ]
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const volume = atomFamilyWithEffects<number, string>({
   key: 'channel/volume',
-  default: 0,
+  default: makeInitialStateSelectorFamily('channel/volume', 0),
   effects: [
-    ...syncEffectsComb
+    pubSubEffect,
+    saveToDatabaseEffect,
   ]
 });
 
 const pan = atomFamilyWithEffects<number, string>({
   key: 'channel/pan',
-  default: 0,
+  default: makeInitialStateSelectorFamily('channel/pan', 0),
   effects: [
-    ...syncEffectsComb
-  ]
-});
-
-const isStereo = atomFamilyWithEffects<boolean, string>({
-  key: 'channel/isStereo',
-  default: false,
-  effects: [
-    ...syncEffectsComb,
+    pubSubEffect,
+    saveToDatabaseEffect,
   ]
 });
 
 // Whether the user clicked the record button the channel or not.
 const isArmed = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isArmed',
-  default: false,
+  default: makeInitialStateSelectorFamily('channel/isArmed', false),
   effects: [
-    ...syncEffectsComb
+    pubSubEffect,
+    saveToDatabaseEffect,
   ]
 });
 
 const isSolo = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isSolo',
-  default: false,
+  default: makeInitialStateSelectorFamily('channel/isSolo', false),
   effects: [
-    ...syncEffectsComb
+    pubSubEffect,
+    saveToDatabaseEffect,
   ]
 });
 
 const isMuted = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isMuted',
-  default: false,
+  default: makeInitialStateSelectorFamily('channel/isMuted', false),
   effects: [
-    ...syncEffectsComb,
+    pubSubEffect,
+    saveToDatabaseEffect,
   ]
 });
 
 const isInputMonitoringActive = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isInputMonitoringActive',
-  default: false,
+  default: makeInitialStateSelectorFamily('channel/isInputMonitoringActive', false),
   effects: [
-    ...syncEffectsComb
+    pubSubEffect,
+    saveToDatabaseEffect,
   ]
 });
 
 // Whether an instrument or plugin is active or bypassed.
 const isPluginActive = atomFamilyWithEffects<boolean, string>({
   key: 'channel/isPluginActive',
-  default: false,
+  default: makeInitialStateSelectorFamily('channel/isPluginActive', false),
   effects: [
-    ...syncEffectsComb,
+    pubSubEffect,
+    saveToDatabaseEffect,
   ]
 });
 
 const pluginIds = atomFamilyWithEffects<string[], string>({
   key: 'channel/pluginIds',
-  default: [],
+  default: makeInitialStateSelectorFamily('channel/pluginIds', []),
   effects: [
-    ...syncEffectsComb,
+    pubSubEffect,
+    saveToDatabaseEffect,
     undoRedoEffect,
   ]
 });
@@ -134,9 +145,35 @@ const soulInstanceCache = atomFamily<SoulInstance | undefined, string>({
 
 const soulPatchDescriptor = atomFamilyWithEffects<SoulPatchDescriptor | undefined, string>({
   key: 'channel/soulPatchDescriptor',
-  default: undefined,
+  default: makeInitialStateSelectorFamily('channel/soulPatchDescriptor', undefined),
   effects: [
-    ...syncEffectsComb,
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ]
+});
+
+const soulPatchParameter = atomFamilyWithEffects<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
+  key: 'channel/soulPatchParameter',
+  default: selectorFamily({
+    key: 'channel/soulPatchParameter/Default',
+    get: ({soulInstanceId, parameterId}) => ({get}) => {
+      const instance = get(soulInstance(soulInstanceId));
+
+      const param = instance?.soulPatch.descriptor.parameters.find(param => param.id === parameterId);
+
+      if (param === undefined) {
+        throw new Error(`Trying to create a patchParameter atom for "${parameterId}" parameter in patch "${soulInstanceId}". Either the patch or the parameter does not exist.`);
+      }
+
+      return {
+        ...param,
+        value: param.initialValue,
+      };
+    }
+  }),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
   ]
 });
 
@@ -170,28 +207,6 @@ const soulInstance = selectorFamily<SoulInstance | undefined, string>({
     set(soulInstanceCache(pluginId), instance);
     set(soulPatchDescriptor(pluginId), (instance as SoulInstance).soulPatch.descriptor);
   },
-});
-
-const soulPatchParameter = atomFamilyWithEffects<SoulPatchParameter, {soulInstanceId: string, parameterId: string}>({
-  key: 'channel/soulPatchParameter',
-  default: selectorFamily({
-    key: 'channel/soulPatchParameter/Default',
-    get: ({soulInstanceId, parameterId}) => ({get}) => {
-      const instance = get(soulInstance(soulInstanceId));
-
-      const param = instance?.soulPatch.descriptor.parameters.find(param => param.id === parameterId);
-
-      if (param === undefined) {
-        throw new Error(`Trying to create a patchParameter atom for "${parameterId}" parameter in patch "${soulInstanceId}". Either the patch or the parameter does not exist.`);
-      }
-
-      return {
-        ...param,
-        value: param.initialValue,
-      };
-    }
-  }),
-  effects: [...syncEffectsComb]
 });
 
 interface ChannelState {
@@ -303,8 +318,6 @@ const idsWithoutMaster = selector<string[]>({
   get: ({get}) => {
     const tmp = get(ids);
 
-    console.log('channelIds', tmp);
-
     return removeItemAtIndex(tmp, tmp.indexOf(MASTER_CHANNEL));
   }
 });
@@ -316,7 +329,6 @@ export const channelStore = {
   color,
   volume,
   pan,
-  isStereo,
   isArmed,
   isSolo,
   isMuted,

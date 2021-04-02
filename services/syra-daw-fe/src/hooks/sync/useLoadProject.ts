@@ -1,16 +1,13 @@
 import { useMeQuery, useProjectQuery } from "../../gql/generated";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { projectStore } from "../../recoil/projectStore";
 import useDocumentTitle from "../ui/useDocumentTitle";
 import { useToast } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { routes } from "../../const/routes";
-import { populateFromDb } from "../../recoil/effects/loadInitialStateEffect";
 import { initSubscription } from "../../recoil/effects/subscribeChangeEffect";
 import useEnableFileSystem from "../core/useEnableFileSystem";
-
-const steps = 4;
 
 // TODO: THIS HAS TO BE WAY CLEANER. FOR NOW IT'S OKAY, BUT AS LOADING COMPLEXITY GROWS WE HAVE TO MODULARIZE THIS.
 export default function useLoadProject(id: string) {
@@ -18,7 +15,6 @@ export default function useLoadProject(id: string) {
   const history = useHistory();
   useEnableFileSystem(id);
 
-  const [loadingProgress, setLoadingProgress] = useState(0);
   const {data: meData, loading: meLoading} = useMeQuery();
   const {data: projectData, loading: projectLoading} = useProjectQuery({
     variables: {
@@ -29,7 +25,6 @@ export default function useLoadProject(id: string) {
   const setProjectName = useSetRecoilState(projectStore.name);
 
   const setDocumentTitle = useDocumentTitle();
-  const increase = useCallback(() => setLoadingProgress(prevState => prevState + 100 / steps), [setLoadingProgress]);
 
   useEffect(() => {
     initSubscription(id);
@@ -37,16 +32,9 @@ export default function useLoadProject(id: string) {
   }, [id]);
 
   useEffect(() => {
-    if (!meLoading && meData?.me) {
-      increase();
-    }
-  }, [meData, meLoading, increase]);
-
-  useEffect(() => {
     if (!projectLoading && !meLoading && projectData?.project && meData?.me) {
       setProjectName(projectData.project.name);
       setDocumentTitle(`S Y R A | ${projectData.project.name}`);
-      increase();
 
       if (projectData.project.owner.id !== meData.me.id) {
         if (projectData.project.members?.find(member => member.user.id === meData.me.id) !== undefined) {
@@ -58,12 +46,6 @@ export default function useLoadProject(id: string) {
               status: "warning",
               isClosable: false,
             });
-          } else {
-            increase();
-
-            populateFromDb(projectData.project.content || {});
-
-            increase();
           }
         } else {
           console.log('No access to load project.');
@@ -74,16 +56,8 @@ export default function useLoadProject(id: string) {
             isClosable: false,
           });
         }
-      } else {
-        increase();
-
-        if (!projectData.project.isInitialized) {
-          history.push(routes.NewProject.replace(':id', id));
-        } else {
-          populateFromDb(projectData.project.content || {});
-
-          increase();
-        }
+      } else if (!projectData.project.isInitialized) {
+        history.push(routes.NewProject.replace(':id', id));
       }
     } else if (projectData === undefined && !projectLoading) {
       console.log('unable to load project.');
@@ -94,7 +68,7 @@ export default function useLoadProject(id: string) {
         isClosable: false,
       });
     }
-  }, [projectData, meData, projectLoading, meLoading, increase, setDocumentTitle, toast, history, setProjectName, id]);
+  }, [projectData, meData, projectLoading, meLoading, setDocumentTitle, toast, history, setProjectName, id]);
 
-  return {loadingProgress, projectData};
+  return {projectData};
 }

@@ -1,16 +1,22 @@
 import { atomFamily, selectorFamily } from 'recoil';
 import atomWithEffects from './proxy/atomWithEffects';
-import { syncEffectsComb } from './effects/syncEffectsComb';
 import atomFamilyWithEffects from './proxy/atomFamilyWithEffects';
 import * as Tone from 'tone';
 import WaveformData from 'waveform-data';
 import { makeFileBufferSelector } from './selectors/makeFileBufferSelector';
 import { transportStore } from "./transportStore";
+import { pubSubEffect } from "./effects/pubSubEffect";
+import { saveToDatabaseEffect } from "./effects/saveToDatabaseEffect";
+import makeInitialStateSelector from "./selectors/makeInitialStateSelector";
+import makeInitialStateSelectorFamily from "./selectors/makeInitialStateSelectorFamily";
 
 const ids = atomWithEffects<string[]>({
   key: 'audioBuffer/ids',
-  default: [],
-  effects: [...syncEffectsComb],
+  default: makeInitialStateSelector('audioBuffer/id', []),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const internalBuffer = atomFamily<AudioBuffer | null, string>({
@@ -25,8 +31,11 @@ const internalPeakWaveform = atomFamily<WaveformData | null, string>({
 
 const name = atomFamilyWithEffects<string, string>({
   key: 'audioBuffer/name',
-  default: '',
-  effects: [...syncEffectsComb],
+  default: makeInitialStateSelectorFamily('audioBuffer/name', ''),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 /**
@@ -47,14 +56,20 @@ const transcodeJobId = atomFamily<string, string>({
 // This gets stored after the the transcode job finishes and the GQL sub triggers.
 const storedBufferId = atomFamilyWithEffects<string, string>({
   key: 'audioBuffer/storedBufferId',
-  default: '',
-  effects: [...syncEffectsComb],
+  default: makeInitialStateSelectorFamily('audioBuffer/storedBufferId', ''),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const storedPeakWaveformId = atomFamilyWithEffects<string, string>({
   key: 'audioBuffer/storedPeakWaveformId',
-  default: '',
-  effects: [...syncEffectsComb],
+  default: makeInitialStateSelectorFamily('audioBuffer/storedPeakWaveformId', ''),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const isInSyncWithDb = selectorFamily<boolean, string>({

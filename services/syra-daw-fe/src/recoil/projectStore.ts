@@ -1,13 +1,20 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import * as Tone from 'tone';
 import atomWithEffects from './proxy/atomWithEffects';
-import { syncEffectsComb } from './effects/syncEffectsComb';
 import { getToneJsTransport } from '../utils/tonejs';
 import { getApolloClient } from '../apollo/client';
-import { UpdateNameDocument, UpdateNameMutation, UpdateNameMutationVariables } from '../gql/generated';
+import {
+  ProjectDocument,
+  ProjectQuery,
+  ProjectQueryVariables,
+  UpdateNameDocument,
+  UpdateNameMutation,
+  UpdateNameMutationVariables
+} from "../gql/generated";
 import { updateDocumentTitle } from '../utils/window';
-
-const client = getApolloClient();
+import { pubSubEffect } from "./effects/pubSubEffect";
+import { saveToDatabaseEffect } from "./effects/saveToDatabaseEffect";
+import makeInitialStateSelector from "./selectors/makeInitialStateSelector";
 
 let projectId: string;
 
@@ -30,7 +37,7 @@ const name = atom({
         updateDocumentTitle(newValue as string);
 
         if (projectId != null) {
-          client.mutate<UpdateNameMutation, UpdateNameMutationVariables>({
+          getApolloClient().mutate<UpdateNameMutation, UpdateNameMutationVariables>({
             mutation: UpdateNameDocument,
             variables: {
               name: newValue as string,
@@ -61,11 +68,10 @@ const id = atom<string>({
  */
 const tempoMap = atomWithEffects<{ [name: number]: number }>({
   key: 'project/tempoMap',
-  default: {
-    0: 120,
-  },
+  default: makeInitialStateSelector('project/tempoMap', {0: 120}),
   effects: [
-    ...syncEffectsComb,
+    pubSubEffect,
+    saveToDatabaseEffect,
     () => ({ onSet }) => {
       onSet((newValue) => {
         const transport = getToneJsTransport();
@@ -93,10 +99,11 @@ const tempoAtQuarter = selectorFamily<number, number>({
 // So 8: [7, 4] means after 8 elapsed quarters, change the time signature to 7/4.
 const timeSignatureMap = atomWithEffects<{ [name: number]: [number, number] }>({
   key: 'project/timeSignatureMap',
-  default: {
-    0: [4, 4],
-  },
-  effects: [...syncEffectsComb],
+  default: makeInitialStateSelector('project/timeSignatureMap', {0: [4, 4]}),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const lengthInQuarters = selector({
@@ -104,16 +111,44 @@ const lengthInQuarters = selector({
   get: ({ get }) => parseInt(Tone.Ticks(get(lengthInTicks)).toBarsBeatsSixteenths()),
 });
 
+// TODO: THIS DEFAULT SETTING IS A BIT WEIRD, BECAUSE THIS EVALUATION HAPPENS __BEFORE__ WE SET TONE JS TO 1/4 Time Signature.
+//  We have to figure out a better way to handle this.
 const lengthInTicks = atomWithEffects({
   key: 'project/lengthInTicks',
-  default: Tone.Ticks(`${60}:0:0`).toTicks(), // TODO: THIS DEFAULT SETTING IS A BIT WEIRD, BECAUSE THIS EVALUATION HAPPENS __BEFORE__ WE SET TONE JS TO 1/4 Time Signature. We have to figure out a better way to handle this.
-  effects: [...syncEffectsComb],
+  default: makeInitialStateSelector('project/lengthInTicks', Tone.Ticks(`${60}:0:0`).toTicks()),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
 });
 
 const isClickMuted = atomWithEffects<boolean>({
   key: 'project/isClickMuted',
-  default: true,
-  effects: [...syncEffectsComb],
+  default: makeInitialStateSelector('project/isClickMuted', true),
+  effects: [
+    pubSubEffect,
+    saveToDatabaseEffect,
+  ],
+});
+
+const initialState = selector<Record<string, any>>({
+  key: 'project/initialState',
+  get: async ({get}) => {
+    const projectId = get(id);
+
+    if (projectId.length > 0 && get(isSetupFinished) && get(isEngineRunning)) {
+      const res = await getApolloClient().query<ProjectQuery, ProjectQueryVariables>({
+        variables: {id: projectId},
+        query: ProjectDocument,
+      });
+
+      return res.data.project?.content;
+    } else if (projectId.length === 0) {
+      throw new Error('The initial State object is empty, but an atom or atomFamily tries to access it before a projectId has been set.');
+    }
+
+    return {};
+  }
 });
 
 export const projectStore = {
@@ -127,4 +162,5 @@ export const projectStore = {
   lengthInQuarters,
   lengthInTicks,
   isClickMuted,
+  initialState,
 };

@@ -5,8 +5,7 @@ import { transportStore } from "./transportStore";
 import { Bar } from "../types/Ui";
 import { ZOOM_LEVEL_ARRANGE_WINDOW_TRACK_HEIGHT } from "../const/ui";
 import atomFamilyWithEffects from "./proxy/atomFamilyWithEffects";
-import { loadInitialStateEffect } from "./effects/loadInitialStateEffect";
-import { saveToLocalStorageEffect } from "./effects/saveToLocalStorageEffect";
+import { localStorageEffect } from "./effects/localStorageEffect";
 
 // This is the width of the specific window viewport (i.e. arrange view, piano roll view, etc.), not the whole browser screen.
 const viewWidth = atomFamily<number, View>({
@@ -19,7 +18,7 @@ const viewWidth = atomFamily<number, View>({
 const horizontalZoomLevel = atomFamilyWithEffects<number, View>({
   key: 'grid/horizontalZoomLevel',
   default: 6,
-  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
+  effects: [localStorageEffect]
 });
 
 // This is the zoom level. The zoom level defines how many tracks are visible in the arrange window.
@@ -27,7 +26,7 @@ const horizontalZoomLevel = atomFamilyWithEffects<number, View>({
 const verticalZoomLevel = atomFamilyWithEffects<number, View>({
   key: 'grid/verticalZoomLevel',
   default: 6,
-  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
+  effects: [localStorageEffect]
 });
 
 const trackHeight = selectorFamily<number, View>({
@@ -70,7 +69,7 @@ const playheadPosition = selectorFamily<number, View>({
 const snapValue = atomFamilyWithEffects<number, View>({
   key: 'grid/snapValue',
   default: 4,
-  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
+  effects: [localStorageEffect]
 });
 
 const snapValueWidthInPixels = selectorFamily<number, View>({
@@ -81,7 +80,7 @@ const snapValueWidthInPixels = selectorFamily<number, View>({
 const isSnapActive = atomFamilyWithEffects<boolean, View>({
   key: 'grid/isSnapActive',
   default: true,
-  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
+  effects: [localStorageEffect]
 });
 
 const pixelPerSecond = selectorFamily<number, View>({

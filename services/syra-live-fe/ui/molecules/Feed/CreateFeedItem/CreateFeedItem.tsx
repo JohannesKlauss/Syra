@@ -68,9 +68,8 @@ function CreateFeedItem({}: Props) {
               <FormControl>
                 <AutoResizeTextarea
                   id="text"
-                  name={'text'}
                   w={'100%'}
-                  ref={register({ required: true })}
+                  {...register('text', { required: true })}
                   placeholder={t('Share your work, {{name}}', { name: data.me.name })}/>
               </FormControl>
             </Box>
