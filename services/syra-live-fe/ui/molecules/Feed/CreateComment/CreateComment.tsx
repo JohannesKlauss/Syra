@@ -43,14 +43,13 @@ function CreateComment({ feedItemId }: Props) {
         <FormControl ml={4} w={'100%'}>
           <AutoResizeTextarea
             id={`${feedItemId}-comment-text`}
-            name={'text'}
             size={'sm'}
             w={'100%'}
             isFullWidth
             isDisabled={isSending}
             onKeyDown={e => e.keyCode === 13 && !e.shiftKey && formRef.current.requestSubmit()}
-            ref={register({ required: true })}
             placeholder={t('Write a comment...')}
+            {...register('text', { required: true })}
           />
         </FormControl>
       </Flex>

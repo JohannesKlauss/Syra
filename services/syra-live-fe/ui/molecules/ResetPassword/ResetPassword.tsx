@@ -67,8 +67,7 @@ function ResetPassword({ isOpen, onClose }: Props) {
               <Input
                 type="email"
                 id="email"
-                name={'email'}
-                ref={register({
+                {...register('email', {
                   required: true,
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
