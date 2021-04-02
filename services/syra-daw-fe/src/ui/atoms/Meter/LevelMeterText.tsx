@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { transportStore } from '../../../recoil/transportStore';
 import { useRecoilValue } from 'recoil';
 import { Box, Text } from '@chakra-ui/react';
 import useSyraEngineChannel from '../../../hooks/engine/useSyraEngineChannel';
-import { channelStore } from "../../../recoil/channelStore";
-import { getPeakMeterValue } from "../../../utils/audio";
+import { channelStore } from '../../../recoil/channelStore';
+import { getPeakMeterValue } from '../../../utils/audio';
 
 function LevelMeterText() {
   const channelId = useContext(ChannelContext);
@@ -20,9 +20,9 @@ function LevelMeterText() {
   const anim = () => {
     const currentPeak = getPeakMeterValue(channel.rmsValue || 0);
 
-    setLevel(prevState => {
+    setLevel((prevState) => {
       if (prevState < currentPeak) {
-        return currentPeak
+        return currentPeak;
       }
 
       return prevState;
@@ -41,8 +41,15 @@ function LevelMeterText() {
   }, [isPlaying, isRecording, isArmed, isInputMonitoringActive, intervalRef, setLevel]);
 
   return (
-    <Box w={'35%'} bg={'gray.800'} boxShadow={'inner'} p={2} rounded={'md'}>
-      <Text textAlign={'center'} fontSize={'xs'}>
+    <Box
+      w={'35%'}
+      bg={level < -2 ? 'gray.800' : level < 0 ? 'yellow.800' : 'red.800'}
+      boxShadow={'inner'}
+      p={2}
+      rounded={'md'}
+      onDoubleClick={() => setLevel(-95)}
+    >
+      <Text textAlign={'center'} fontSize={'xs'} userSelect={'none'}>
         {level <= -95 ? '-∞' : level.toFixed(1)}
       </Text>
     </Box>
