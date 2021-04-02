@@ -4,7 +4,7 @@ import {transportStore} from "../../recoil/transportStore";
 import {useMotionValue} from "framer-motion";
 import {useContext, useEffect, useRef} from "react";
 import {ViewContext} from "../../providers/ViewContext";
-import useTicksToPixel from "../tone/useTicksToPixel";
+import useTicksToPixel from "./useTicksToPixel";
 import {gridStore} from "../../recoil/gridStore";
 
 export default function usePlayheadAnimationV3() {

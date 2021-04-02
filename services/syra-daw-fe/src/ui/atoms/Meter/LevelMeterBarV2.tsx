@@ -18,7 +18,7 @@ interface StripProps {
 
 const Strip: React.FC<StripProps> = ({ channelCount, index, channelId }) => {
   const theme = useTheme();
-  const height = useMotionValue(160);
+  const height = useMotionValue(0);
   const y = useTransform(height, (height) => BAR_HEIGHT - height);
   const backgroundColor = useTransform(
     height,
@@ -47,7 +47,7 @@ const Strip: React.FC<StripProps> = ({ channelCount, index, channelId }) => {
     return () => {
       cancelAnimationFrame(id);
     }
-  }, [channel]);
+  }, [channel, height, index, channelCount]);
 
   return (
     <Box width={channelCount === 1 ? '28px' : '12px'} pos={'absolute'} left={`${index * 16}px`}>

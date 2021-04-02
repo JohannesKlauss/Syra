@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import useCreateMidiRegion from "../../../../hooks/recoil/region/useCreateMidiRegion";
 import { ChannelContext } from "../../../../providers/ChannelContext";
 import * as Tone from 'tone';
-import usePixelToTicks from "../../../../hooks/tone/usePixelToTicks";
+import usePixelToTicks from "../../../../hooks/ui/usePixelToTicks";
 import useSnapPixelValue from "../../../../hooks/ui/useSnapPixelValue";
 
 interface Props {

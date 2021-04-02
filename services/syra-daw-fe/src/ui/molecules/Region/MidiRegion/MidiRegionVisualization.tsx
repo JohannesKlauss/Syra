@@ -7,7 +7,7 @@ import { regionStore } from '../../../../recoil/regionStore';
 import { useRecoilValue } from 'recoil';
 import useRegionWidth from '../../../../hooks/ui/region/useRegionWidth';
 import useRegionColor from '../../../../hooks/ui/region/useRegionColor';
-import useTicksToPixel from '../../../../hooks/tone/useTicksToPixel';
+import useTicksToPixel from '../../../../hooks/ui/useTicksToPixel';
 import { arrangeWindowStore } from "../../../../recoil/arrangeWindowStore";
 import { motion, useTransform } from "framer-motion";
 import useSnapPixelValue from "../../../../hooks/ui/useSnapPixelValue";

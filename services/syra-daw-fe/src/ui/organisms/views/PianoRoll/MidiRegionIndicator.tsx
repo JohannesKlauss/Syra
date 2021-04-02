@@ -7,7 +7,7 @@ import {SiMidi} from 'react-icons/si';
 import useRegionColor from "../../../../hooks/ui/region/useRegionColor";
 import {RegionContext} from "../../../../providers/RegionContext";
 import useRegionWidth from "../../../../hooks/ui/region/useRegionWidth";
-import useTicksToPixel from "../../../../hooks/tone/useTicksToPixel";
+import useTicksToPixel from "../../../../hooks/ui/useTicksToPixel";
 
 interface Props {
 }

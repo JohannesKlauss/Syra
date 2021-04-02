@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { regionStore } from "../../../recoil/regionStore";
 import useRegionColor from "../../../hooks/ui/region/useRegionColor";
 import useRegionWidth from "../../../hooks/ui/region/useRegionWidth";
-import useTicksToPixel from "../../../hooks/tone/useTicksToPixel";
+import useTicksToPixel from "../../../hooks/ui/useTicksToPixel";
 import ResizableBox from "../../atoms/ResizableBox";
 import BaseRegion from "./BaseRegion";
 import { RegionName, TopBar } from "./AudioRegion/AudioRegion.styled";

@@ -2,7 +2,7 @@ import {useContext} from "react";
 import {RegionContext} from "../../../providers/RegionContext";
 import {useRecoilValue} from "recoil";
 import {regionStore} from "../../../recoil/regionStore";
-import useTicksToPixel from "../../tone/useTicksToPixel";
+import useTicksToPixel from "../useTicksToPixel";
 
 export default function useRegionWidth(regionId?: string) {
   const id = useContext(RegionContext);
