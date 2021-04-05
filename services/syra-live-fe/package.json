@@ -46,9 +46,9 @@
   },
   "devDependencies": {
     "@babel/core": "7.13.14",
-    "@storybook/addon-actions": "6.2.2",
+    "@storybook/addon-actions": "6.2.3",
     "@storybook/addon-essentials": "6.2.2",
-    "@storybook/addon-links": "6.2.2",
+    "@storybook/addon-links": "6.2.3",
     "@storybook/react": "6.2.2",
     "@types/cookie": "0.4.0",
     "@types/mixpanel-browser": "2.35.6",
