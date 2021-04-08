@@ -45,7 +45,7 @@
   "resolutions": {
     "@chakra-ui/react": "1.5.0",
     "@emotion/react": "11.1.5",
-    "@emotion/styled": "11.1.5",
+    "@emotion/styled": "11.3.0",
     "@types/react": "17.0.3",
     "@typescript-eslint/eslint-plugin": "4.21.0",
     "@typescript-eslint/parser": "4.21.0",

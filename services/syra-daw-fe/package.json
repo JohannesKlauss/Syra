@@ -6,7 +6,7 @@
     "@apollo/client": "3.3.14",
     "@chakra-ui/react": "1.5.0",
     "@emotion/react": "11.1.5",
-    "@emotion/styled": "11.1.5",
+    "@emotion/styled": "11.3.0",
     "@tonaljs/tonal": "4.6.0",
     "@tonejs/midi": "2.0.27",
     "axios": "0.21.1",
