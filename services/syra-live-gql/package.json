@@ -40,7 +40,7 @@
     "@types/busboy": "0.2.3",
     "@types/passport-local": "1.0.33",
     "apollo-server-fastify": "2.22.2",
-    "aws-sdk": "2.882.0",
+    "aws-sdk": "2.884.0",
     "bcrypt": "5.0.1",
     "bull": "3.22.0",
     "class-validator": "0.13.1",
