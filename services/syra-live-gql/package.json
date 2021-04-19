@@ -42,7 +42,7 @@
     "apollo-server-fastify": "2.23.0",
     "aws-sdk": "2.888.0",
     "bcrypt": "5.0.1",
-    "bull": "3.22.0",
+    "bull": "3.22.1",
     "class-validator": "0.13.1",
     "crypto-js": "4.0.0",
     "fastify-multipart": "4.0.3",
