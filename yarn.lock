@@ -22470,10 +22470,10 @@ typegraphql-nestjs@0.3.1:
   dependencies:
     tslib "^2.1.0"
 
-typegraphql-prisma@0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/typegraphql-prisma/-/typegraphql-prisma-0.13.0.tgz#2ab206ac71243fd5f94ed9e533d39d6d33583a8a"
-  integrity sha512-2VEYjPLqPbSaGHG0VcjAzjQSYjPQMJsS/teUAaZ69bnH/c60hE5UH+DeSD+gLHB0IfNyXBnZel6axxYhIzQYxA==
+typegraphql-prisma@0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/typegraphql-prisma/-/typegraphql-prisma-0.13.1.tgz#9e9e7c780138c53fbed5ca33d8e39541fb7aeb50"
+  integrity sha512-2m9FQQoSaz0BVY3tbdTovPH7X8Ee5XDQ0gZjhtb0oiEaC4MXjT9lCxXeMAwaPJWN+s3IbstVmt94WxLWze1Wvw==
   dependencies:
     "@prisma/generator-helper" "~2.20.1"
     "@prisma/sdk" "~2.20.1"
