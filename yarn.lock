@@ -4016,10 +4016,10 @@
     tslib "2.1.0"
     uuid "8.3.2"
 
-"@nestjs/graphql@7.10.4":
-  version "7.10.4"
-  resolved "https://registry.yarnpkg.com/@nestjs/graphql/-/graphql-7.10.4.tgz#f3ad6be5afd63423ddda7d98e8858a685f31fe01"
-  integrity sha512-I3rOMtGGLoJwCt4OTUHqaWDrQxoJCgmi7D1DVlzAaqTdVB1TAmWwn+2D6cggkMiPd2btT/kfLdp089/oNIg2vA==
+"@nestjs/graphql@7.10.6":
+  version "7.10.6"
+  resolved "https://registry.yarnpkg.com/@nestjs/graphql/-/graphql-7.10.6.tgz#e56e1b84d52b38a07118a602d3773b805582ded3"
+  integrity sha512-xJgdkSM16hnG2SVZOquNjJKV/35MEyx86yIUiueVMt3L1lym/ku6ObQzkgKt4eqyaeTzOQ202ptzZ88hhVMP7w==
   dependencies:
     "@graphql-tools/merge" "6.2.12"
     "@graphql-tools/schema" "7.1.3"
