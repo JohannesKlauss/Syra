@@ -50,7 +50,7 @@
     "generate-password": "1.6.0",
     "graphql": "15.5.0",
     "graphql-redis-subscriptions": "2.3.1",
-    "graphql-scalars": "1.9.0",
+    "graphql-scalars": "1.9.1",
     "graphql-subscriptions": "1.2.1",
     "graphql-type-json": "0.3.2",
     "lodash": "4.17.21",
