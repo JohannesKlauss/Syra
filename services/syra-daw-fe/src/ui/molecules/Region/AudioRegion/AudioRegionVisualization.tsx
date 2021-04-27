@@ -37,7 +37,6 @@ const AudioRegionVisualization: React.FC = () => {
       <motion.div
         style={{
           width: '100%',
-          backgroundRepeat: 'none',
           height: trackHeight,
         }}
       >
