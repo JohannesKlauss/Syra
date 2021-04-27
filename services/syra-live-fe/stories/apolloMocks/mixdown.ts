@@ -10,7 +10,7 @@ export const MixdownMock: MixdownQuery = {
     createdAt: 1603406790,
     name: 'Final release',
     audio: {
-      __typename: 'AudioAsset',
+      __typename: 'Asset',
       id: 'dhdhfdgh',
       location,
       isPublic: true,

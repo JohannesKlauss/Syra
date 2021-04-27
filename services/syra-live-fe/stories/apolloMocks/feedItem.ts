@@ -34,7 +34,7 @@ export const FeedItemByIdMockFoo: FeedItemByIdQuery = {
       listens: 45,
       id: 'foo',
       audio: {
-        __typename: 'AudioAsset',
+        __typename: 'Asset',
         location: 'https://syra-dev-audio-static-1.fra1.digitaloceanspaces.com/9b6ada5b16dce699c59125735d80a828/ee57326a7e155e0dc706364ad390e528',
       },
       project: {
@@ -71,7 +71,7 @@ export const FeedItemByIdMockBar: FeedItemByIdQuery = {
       listens: 45,
       id: 'foo',
       audio: {
-        __typename: 'AudioAsset',
+        __typename: 'Asset',
         location: 'https://syra-dev-audio-static-1.fra1.digitaloceanspaces.com/9b6ada5b16dce699c59125735d80a828/ee57326a7e155e0dc706364ad390e528',
       },
       project: {
