@@ -63,10 +63,6 @@ export default function usePeakWaveformImageGenerator(bufferId: string) {
 
     const imageUrl = URL.createObjectURL(await canvas.convertToBlob());
 
-    console.log('time', performance.now() - t);
-
-    console.log('image data', imageUrl);
-
     return imageUrl;
   }, [peakWaveform, correlation, width]);
 }

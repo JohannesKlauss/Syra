@@ -3,7 +3,6 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { projectStore } from '../../recoil/projectStore';
 import { useEffect } from 'react';
 import useToneJsTransport from './useToneJsTransport';
-import * as Tone from 'tone';
 import { useInterval } from 'react-interval-hook';
 
 export default function useTempoWatcher() {
@@ -11,7 +10,6 @@ export default function useTempoWatcher() {
   const [currentTempo, setCurrentTempo] = useRecoilState(transportStore.currentTempo);
   const setTempoMap = useSetRecoilState(projectStore.tempoMap);
   const tempoMap = useRecoilValue(projectStore.tempoMap);
-  const currentQuarter = useRecoilValue(transportStore.currentQuarter);
   const isPlaying = useRecoilValue(transportStore.isPlaying);
   const isRecording = useRecoilValue(transportStore.isRecording);
 
@@ -20,8 +18,11 @@ export default function useTempoWatcher() {
   });
 
   useEffect(() => {
-    setCurrentTempo(transport.bpm.getValueAtTime(Tone.Time({ '4n': currentQuarter }).valueOf()));
-  }, [tempoMap, currentQuarter, setCurrentTempo]);
+    // We will use this for later, when there are multiple tempi possible.
+    //setCurrentTempo(transport.bpm.getValueAtTime(Tone.Time({ '4n': currentQuarter }).valueOf()));
+
+    setCurrentTempo(tempoMap[0]);
+  }, [tempoMap, setCurrentTempo]);
 
   useEffect(() => {
     if (isPlaying || isRecording) {
