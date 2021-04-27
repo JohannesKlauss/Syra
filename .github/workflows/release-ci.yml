@@ -31,9 +31,6 @@ jobs:
         run: |
           REF=$(git rev-parse --short HEAD)
           COMPONENTS=$(find services/syra-*/Dockerfile)
-          NEXT_PUBLIC_LIVE_GQL_URL=$NEXT_PUBLIC_LIVE_GQL_URL
-          NEXT_PUBLIC_DAW_URL=$NEXT_PUBLIC_DAW_URL
-          LIVE_DB_URL=${{ secrets.LIVE_DB_URL }}
 
           for CMP in $COMPONENTS
           do
@@ -41,7 +38,7 @@ jobs:
 
             echo build $IMAGE_NAME:$REF
 
-            docker build $IMAGE_NAME --tag $REF
+            docker build $IMAGE_NAME --tag $REF --build-arg LIVE_DB_URL ${{ secrets.LIVE_DB_URL }}
 
             echo "$IMAGE_NAME done! \n\n"
           done
