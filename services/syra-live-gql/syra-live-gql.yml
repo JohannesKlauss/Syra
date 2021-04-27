@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: syra-live-gql
-          image: registry.digitalocean.com/syra-do/services/syra-live-gql:v0.0.17
+          image: registry.digitalocean.com/syra-do/services/syra-live-gql:0.0.18
           imagePullPolicy: Always
           ports:
             - containerPort: 4000
