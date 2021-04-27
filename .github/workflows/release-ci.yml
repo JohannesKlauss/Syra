@@ -38,7 +38,7 @@ jobs:
 
             echo build $IMAGE_NAME:$REF
 
-            docker build --build-arg LIVE_DB_URL ${{ secrets.LIVE_DB_URL }} $IMAGE_NAME --tag $REF
+            docker build $IMAGE_NAME --tag $REF --build-arg LIVE_DB_URL=${{ secrets.LIVE_DB_URL }}
 
             echo "$IMAGE_NAME done! \n\n"
           done
