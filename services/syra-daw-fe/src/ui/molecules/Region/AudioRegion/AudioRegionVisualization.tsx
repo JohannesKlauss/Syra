@@ -37,12 +37,19 @@ const AudioRegionVisualization: React.FC = () => {
       <motion.div
         style={{
           width: '100%',
-          backgroundPositionX: negativeX,
-          backgroundImage: `url(${imageUrl})`,
           backgroundRepeat: 'none',
           height: trackHeight,
         }}
-      />
+      >
+        <motion.div
+          style={{
+            marginLeft: negativeX,
+            backgroundImage: `url(${imageUrl})`,
+            backgroundRepeat: 'none',
+            height: trackHeight,
+          }}
+        />
+      </motion.div>
     </React.Suspense>
   );
 };

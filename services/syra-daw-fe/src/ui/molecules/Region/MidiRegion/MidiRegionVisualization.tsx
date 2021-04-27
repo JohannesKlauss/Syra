@@ -1,7 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { Graphics } from 'pixi.js';
-import { PixiComponent, Stage } from '@inlet/react-pixi';
-import { colorToHexNumber, determineTextColor } from '../../../../utils/color';
+import { determineTextColor } from '../../../../utils/color';
 import { RegionContext } from '../../../../providers/RegionContext';
 import { regionStore } from '../../../../recoil/regionStore';
 import { useRecoilValue } from 'recoil';
@@ -12,26 +10,7 @@ import { arrangeWindowStore } from "../../../../recoil/arrangeWindowStore";
 import { motion, useTransform } from "framer-motion";
 import useSnapPixelValue from "../../../../hooks/ui/useSnapPixelValue";
 import { ResizableBoxContext } from "../../../../providers/ResizableBoxContext";
-
-interface PixiProps {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  backgroundColor: string;
-}
-
-const MidiNoteVis = PixiComponent<PixiProps, Graphics>('MidiNotesDisplay', {
-  create: () => new Graphics(),
-  applyProps: (instance, _, props) => {
-    const { x, y, width, height, backgroundColor } = props;
-
-    instance.clear();
-    instance.beginFill(colorToHexNumber(determineTextColor(backgroundColor, true)));
-    instance.drawRect(x, y, width - 1, height);
-    instance.endFill();
-  },
-});
+import { Rect, Stage } from 'react-konva';
 
 const MidiRegionVisualization: React.FC = () => {
   const regionId = useContext(RegionContext);
@@ -62,15 +41,15 @@ const MidiRegionVisualization: React.FC = () => {
 
   return (
     <motion.div style={{ x: negativeX }}>
-      <Stage width={width} height={trackHeight} options={{transparent: true, resolution: 1}}>
+      <Stage width={width} height={trackHeight}>
         {midiNotesInsideBoundaries.map((note) => (
-          <MidiNoteVis
+          <Rect
             key={note.id}
-            backgroundColor={color}
-            height={noteHeight}
-            width={ticksToPixel(note.durationTicks)}
             x={ticksToPixel(note.ticks - offset)}
             y={noteHeight * (maxMidiValue - note.midi)}
+            width={ticksToPixel(note.durationTicks)}
+            height={noteHeight}
+            fill={determineTextColor(color, true)}
           />
         ))}
       </Stage>
