@@ -29,7 +29,6 @@ jobs:
       - name: Build and push Docker images to GH Registry
         if: ${{ env.GITHUB_REF_SLUG }} === "release"
         run: |
-          REF=$(git rev-parse --short HEAD)
           COMPONENTS=$(find services/syra-*/Dockerfile)
 
           for CMP in $COMPONENTS
@@ -38,7 +37,7 @@ jobs:
 
             echo build $IMAGE_NAME:$REF
 
-            docker build $IMAGE_NAME --tag $REF --build-arg LIVE_DB_URL ${{ secrets.LIVE_DB_URL }}
+            docker build $IMAGE_NAME --build-arg LIVE_DB_URL ${{ secrets.LIVE_DB_URL }}
 
             echo "$IMAGE_NAME done! \n\n"
           done
