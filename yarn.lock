@@ -22959,10 +22959,10 @@ watchpack@^2.0.0:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
 
-waveform-data@3.3.4:
-  version "3.3.4"
-  resolved "https://registry.yarnpkg.com/waveform-data/-/waveform-data-3.3.4.tgz#613fb81bf8974a9e2a328f70d2e954a08096f958"
-  integrity sha512-mE7455avSygHPXt3QJ0+fmpkWxWAxYVaXrInhIEksLd98NvDpxSoKDCFFM/xcSR+f7fr2OzJ5xUBZiT8ZbdBRA==
+waveform-data@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/waveform-data/-/waveform-data-4.1.0.tgz#2bdc204709be67fa66d11e059e58c17f86a6bcdd"
+  integrity sha512-+6GnizLq9Al2CRGtudYL7F5aHi9RB0sqFbHwnU966DuUZwgVT3fSffQv1k4OGpGCn5BhUaq9CmBNnKk1E4LDuw==
   dependencies:
     inline-worker "~1.1.0"
 
