@@ -2277,6 +2277,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.14.0":
+  version "7.14.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.0.tgz#46794bc20b612c5f75e62dd071e24dfd95f1cbe6"
+  integrity sha512-JELkvo/DlpNdJ7dlyw/eY7E0suy5i5GQH+Vlxaq1nsNJ+H7f4Vtv3jMeCEgRhZZQFXTjldYfQgv2qmM6M1v5wA==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/template@^7.10.4", "@babel/template@^7.12.7", "@babel/template@^7.3.3":
   version "7.12.7"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.12.7.tgz#c817233696018e39fbb6c491d2fb684e05ed43bc"
@@ -7855,6 +7862,14 @@ automation-events@^3.0.12:
   integrity sha512-HLX4bf3fNQU17ur0nTasqWGxcgZXLLWtWKZN4mfyNXZYxYZb501hshj1MwxObfVkd76MwobtTr8XdGmuTm34xQ==
   dependencies:
     "@babel/runtime" "^7.13.17"
+    tslib "^2.2.0"
+
+automation-events@^3.0.13:
+  version "3.0.13"
+  resolved "https://registry.yarnpkg.com/automation-events/-/automation-events-3.0.13.tgz#d389d3d1d4db54f9ca574bbdb700b28c9890e562"
+  integrity sha512-9V51BbdJiwMEeN8efkCwcMEWP+X7w7+TcJPqiugYLhw6wrYvd5QXQO2Py0xbXW0lZDEUhrWKZbkeCz0yOHbyyQ==
+  dependencies:
+    "@babel/runtime" "^7.14.0"
     tslib "^2.2.0"
 
 automation-events@^3.0.2:
@@ -21008,7 +21023,16 @@ standard-as-callback@^2.1.0:
   resolved "https://registry.yarnpkg.com/standard-as-callback/-/standard-as-callback-2.1.0.tgz#8953fc05359868a77b5b9739a665c5977bb7df45"
   integrity sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==
 
-standardized-audio-context@25.1.16, standardized-audio-context@^25.1.16:
+standardized-audio-context@25.1.17:
+  version "25.1.17"
+  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.1.17.tgz#c42d9040623b324ad87678dd44ee3dc195466ce4"
+  integrity sha512-KZwU9OfgMkzy1XYPmiFNfdWVx3yTuvEjA4ByYWWIowzmU6asgQrK2ThyW//muk8Q7dADF20BROQGO17VQAzWdQ==
+  dependencies:
+    "@babel/runtime" "^7.14.0"
+    automation-events "^3.0.13"
+    tslib "^2.2.0"
+
+standardized-audio-context@^25.1.16:
   version "25.1.16"
   resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.1.16.tgz#d7a423b4a4703d2b2ade0094d24dbc656087366a"
   integrity sha512-G48JHE7Tt25bVbqV5Az5PLB+mT6nOv1sOwf7V/kISFV8z/RSsFyQ7f76rJ/9THaOIJxWU/oowMX+Mz7kqF6Ivg==
