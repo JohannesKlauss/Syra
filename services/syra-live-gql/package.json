@@ -62,7 +62,7 @@
     "pug": "3.0.2",
     "type-graphql": "1.1.1",
     "typegraphql-nestjs": "0.3.1",
-    "typegraphql-prisma": "0.13.1",
+    "typegraphql-prisma": "0.14.0",
     "uniqid": "5.3.0"
   },
   "devDependencies": {
