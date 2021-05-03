@@ -23248,10 +23248,10 @@ waveform-data@4.1.0:
   dependencies:
     inline-worker "~1.1.0"
 
-wavesurfer.js@4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-4.6.0.tgz#3dc26748b2200978afe802582a2085f46eb0ce0d"
-  integrity sha512-+nn6VD86pTtRu9leVNXoIGOCMJyaTNsKNy9v+SfUsYo+SxLCQvEzrZZ/eKMImqspsk+BX1V1xlY4FRkHswu3fA==
+wavesurfer.js@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-5.0.0.tgz#1610f8ddd3c4f2708ebb74c9ac5485485c5377bc"
+  integrity sha512-wGhrWtLYxbWuajl72PNcf9UTls/8skaFYfcEQUmZFLBuKvoqrWOOmL36F86esrWxlImGiT62GC5kBJ57xsPj1g==
 
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"
