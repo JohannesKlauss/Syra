@@ -6481,10 +6481,10 @@
   resolved "https://registry.yarnpkg.com/@types/warning/-/warning-3.0.0.tgz#0d2501268ad8f9962b740d387c4654f5f8e23e52"
   integrity sha1-DSUBJorY+ZYrdA04fEZU9fjiPlI=
 
-"@types/wavesurfer.js@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@types/wavesurfer.js/-/wavesurfer.js-5.0.0.tgz#030f0a7a49c037bd73c513c2af27e95d56f07b31"
-  integrity sha512-J8fAhXb0abWMV3GDdrCfubLzXBk/m9xP1CeGI9gFlsm5zmX0kncz05pkbQ+J9bMjz05uBlP+mksos47Y9U5V+A==
+"@types/wavesurfer.js@5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@types/wavesurfer.js/-/wavesurfer.js-5.0.1.tgz#5f0f77a4dbbe842114f60b7add06d82f99a471be"
+  integrity sha512-BSIsRxbXR+gZxSdW3/WSgucjt2njpGi21BCcBAmV+Fif4Qhe6/Od0RnTmM5Fbq9U1VZLmbWOCTwakdSCGP88og==
 
 "@types/webpack-env@^1.16.0":
   version "1.16.0"
