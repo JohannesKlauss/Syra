@@ -21287,10 +21287,10 @@ standard-as-callback@^2.1.0:
   resolved "https://registry.yarnpkg.com/standard-as-callback/-/standard-as-callback-2.1.0.tgz#8953fc05359868a77b5b9739a665c5977bb7df45"
   integrity sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==
 
-standardized-audio-context@25.1.18:
-  version "25.1.18"
-  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.1.18.tgz#2eef3e2cd95325e883012258a83545fd545c05d0"
-  integrity sha512-GAyrrmr9Ym3Va6ASd/OgN19+cP/BH9z1llC2so/8EtRRwrYyp25DvvK5chG+WfTepzEo3IHlmhOwdNq7ekI0tQ==
+standardized-audio-context@25.1.19:
+  version "25.1.19"
+  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.1.19.tgz#54bab38df4404e3e3cdcc30c864dddf618922455"
+  integrity sha512-D8bVM1KFYiIP/+adyXgry/NRMrLUtZ+s908/UXkILWEK5BfApnIHZ+FZ4jbGVmbIGzrQrt+I7nGHZHIzyG/IBg==
   dependencies:
     "@babel/runtime" "^7.14.0"
     automation-events "^3.0.13"
