@@ -43,7 +43,7 @@
     "react-split": "2.0.11",
     "react-virtualized": "9.22.3",
     "recoil": "0.2.0",
-    "standardized-audio-context": "25.2.0",
+    "standardized-audio-context": "25.2.1",
     "subscriptions-transport-ws": "0.9.18",
     "tinycolor2": "1.4.2",
     "tone": "14.7.77",

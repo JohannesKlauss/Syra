@@ -8023,6 +8023,14 @@ automation-events@^3.0.2:
     "@babel/runtime" "^7.12.5"
     tslib "^2.0.3"
 
+automation-events@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/automation-events/-/automation-events-4.0.0.tgz#80a8c2f4e6c44755a21975ed13d0affc0f19dd97"
+  integrity sha512-DcS6qMkMFlh5ebcJG8/fbVDOC8iyXiltVWk1lBzjmwmpFIvc4eoF2fzSlYoMuBKUI+Adx2NNNKIHO1mHlr3XiA==
+  dependencies:
+    "@babel/runtime" "^7.14.0"
+    tslib "^2.2.0"
+
 autoprefixer@^9.6.1, autoprefixer@^9.8.6:
   version "9.8.6"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.8.6.tgz#3b73594ca1bf9266320c5acf1588d74dea74210f"
@@ -21268,13 +21276,13 @@ standard-as-callback@^2.1.0:
   resolved "https://registry.yarnpkg.com/standard-as-callback/-/standard-as-callback-2.1.0.tgz#8953fc05359868a77b5b9739a665c5977bb7df45"
   integrity sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==
 
-standardized-audio-context@25.2.0, standardized-audio-context@^25.2.0:
-  version "25.2.0"
-  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.2.0.tgz#62110cccec019d3ff72cda9e4b2f4d58d5e9b06b"
-  integrity sha512-EnUloaqmd+ovLt0dTXEq750WhGCQmyKY1SwbvqCiBv+iqrzQSn7eKdZKrRE+28+tJWaG1+GhENUDTIqXl/zwaA==
+standardized-audio-context@25.2.1:
+  version "25.2.1"
+  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.2.1.tgz#9eed61885cb273a3f438b1711a78a0a1ccbd2510"
+  integrity sha512-s5N3EV5lHDCCruwGEGtcrLVGUzopAZb5PZ1GTjKSmYa00ZIJtJMc3D4x82hnB7v+X9huJQi1QA+10VCxMqi0pQ==
   dependencies:
     "@babel/runtime" "^7.14.0"
-    automation-events "^3.0.13"
+    automation-events "^4.0.0"
     tslib "^2.2.0"
 
 standardized-audio-context@^25.1.8:
@@ -21285,6 +21293,15 @@ standardized-audio-context@^25.1.8:
     "@babel/runtime" "^7.12.5"
     automation-events "^3.0.2"
     tslib "^2.1.0"
+
+standardized-audio-context@^25.2.0:
+  version "25.2.0"
+  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.2.0.tgz#62110cccec019d3ff72cda9e4b2f4d58d5e9b06b"
+  integrity sha512-EnUloaqmd+ovLt0dTXEq750WhGCQmyKY1SwbvqCiBv+iqrzQSn7eKdZKrRE+28+tJWaG1+GhENUDTIqXl/zwaA==
+  dependencies:
+    "@babel/runtime" "^7.14.0"
+    automation-events "^3.0.13"
+    tslib "^2.2.0"
 
 state-toggle@^1.0.0:
   version "1.0.3"
