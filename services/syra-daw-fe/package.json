@@ -76,7 +76,7 @@
     "@testing-library/react": "11.2.7",
     "@testing-library/react-hooks": "5.1.2",
     "@testing-library/user-event": "13.1.9",
-    "@welldone-software/why-did-you-render": "6.1.1",
+    "@welldone-software/why-did-you-render": "6.1.2",
     "storybook-addon-apollo-client": "4.0.8",
     "typescript": "4.2.4"
   },
