@@ -39,7 +39,7 @@
     "@prisma/client": "2.22.1",
     "@types/busboy": "0.2.3",
     "@types/passport-local": "1.0.33",
-    "apollo-server-fastify": "2.24.0",
+    "apollo-server-fastify": "2.24.1",
     "aws-sdk": "2.908.0",
     "bcrypt": "5.0.1",
     "bull": "3.22.6",
