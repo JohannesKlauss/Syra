@@ -25,7 +25,7 @@
     "docker:build": "yarn prisma:generate && yarn build && yarn session:gen-key && yarn prisma:migrate"
   },
   "dependencies": {
-    "@apollo/gateway": "0.28.1",
+    "@apollo/gateway": "0.28.2",
     "@nestjs-modules/mailer": "1.6.0",
     "@nestjs/bull": "0.3.1",
     "@nestjs/common": "7.6.17",
