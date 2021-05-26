@@ -78,7 +78,7 @@
     "@testing-library/user-event": "13.1.9",
     "@welldone-software/why-did-you-render": "6.1.4",
     "storybook-addon-apollo-client": "4.0.8",
-    "typescript": "4.2.4"
+    "typescript": "4.3.2"
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true HOST=bar.local.syra.live HTTPS=true SSL_CRT_FILE=../../local.syra.live.crt SSL_KEY_FILE=../../local.syra.live.key react-scripts start",
