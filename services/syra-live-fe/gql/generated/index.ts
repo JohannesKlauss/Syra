@@ -44,25 +44,37 @@ export type AddressUserArgs = {
 
 export type AddressAvgAggregate = {
   __typename?: 'AddressAvgAggregate';
-  zip: Scalars['Float'];
+  zip?: Maybe<Scalars['Float']>;
 };
 
 export type AddressCountAggregate = {
   __typename?: 'AddressCountAggregate';
   _all: Scalars['Int'];
-  addressLine1?: Maybe<Scalars['Int']>;
-  addressLine2?: Maybe<Scalars['Int']>;
-  city?: Maybe<Scalars['Int']>;
-  country?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  state?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['Int']>;
+  addressLine1: Scalars['Int'];
+  addressLine2: Scalars['Int'];
+  city: Scalars['Int'];
+  country: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  id: Scalars['Int'];
+  state: Scalars['Int'];
+  updatedAt: Scalars['Int'];
   zip: Scalars['Int'];
 };
 
 export type AddressCreateInput = {
   User?: Maybe<UserCreateNestedManyWithoutAddressInput>;
+  addressLine1: Scalars['String'];
+  addressLine2?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  country: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  state: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+  zip: Scalars['Int'];
+};
+
+export type AddressCreateManyInput = {
   addressLine1: Scalars['String'];
   addressLine2?: Maybe<Scalars['String']>;
   city: Scalars['String'];
@@ -97,6 +109,24 @@ export type AddressCreateWithoutUserInput = {
   zip: Scalars['Int'];
 };
 
+export type AddressGroupBy = {
+  __typename?: 'AddressGroupBy';
+  _avg?: Maybe<AddressAvgAggregate>;
+  _count?: Maybe<AddressCountAggregate>;
+  _max?: Maybe<AddressMaxAggregate>;
+  _min?: Maybe<AddressMinAggregate>;
+  _sum?: Maybe<AddressSumAggregate>;
+  addressLine1: Scalars['String'];
+  addressLine2?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  country: Scalars['String'];
+  createdAt: Scalars['Timestamp'];
+  id: Scalars['String'];
+  state: Scalars['String'];
+  updatedAt: Scalars['Timestamp'];
+  zip: Scalars['Int'];
+};
+
 export type AddressMaxAggregate = {
   __typename?: 'AddressMaxAggregate';
   addressLine1?: Maybe<Scalars['String']>;
@@ -107,7 +137,7 @@ export type AddressMaxAggregate = {
   id?: Maybe<Scalars['String']>;
   state?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
-  zip: Scalars['Int'];
+  zip?: Maybe<Scalars['Int']>;
 };
 
 export type AddressMinAggregate = {
@@ -120,7 +150,7 @@ export type AddressMinAggregate = {
   id?: Maybe<Scalars['String']>;
   state?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
-  zip: Scalars['Int'];
+  zip?: Maybe<Scalars['Int']>;
 };
 
 export type AddressOrderByInput = {
@@ -152,9 +182,24 @@ export enum AddressScalarFieldEnum {
   Zip = 'zip',
 }
 
+export type AddressScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<AddressScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<AddressScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<AddressScalarWhereWithAggregatesInput>>;
+  addressLine1?: Maybe<StringWithAggregatesFilter>;
+  addressLine2?: Maybe<StringNullableWithAggregatesFilter>;
+  city?: Maybe<StringWithAggregatesFilter>;
+  country?: Maybe<StringWithAggregatesFilter>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  id?: Maybe<StringWithAggregatesFilter>;
+  state?: Maybe<StringWithAggregatesFilter>;
+  updatedAt?: Maybe<DateTimeWithAggregatesFilter>;
+  zip?: Maybe<IntWithAggregatesFilter>;
+};
+
 export type AddressSumAggregate = {
   __typename?: 'AddressSumAggregate';
-  zip: Scalars['Int'];
+  zip?: Maybe<Scalars['Int']>;
 };
 
 export type AddressUpdateInput = {
@@ -236,120 +281,154 @@ export type AffectedRowsOutput = {
 
 export type AggregateAddress = {
   __typename?: 'AggregateAddress';
-  avg?: Maybe<AddressAvgAggregate>;
-  count?: Maybe<AddressCountAggregate>;
-  max?: Maybe<AddressMaxAggregate>;
-  min?: Maybe<AddressMinAggregate>;
-  sum?: Maybe<AddressSumAggregate>;
+  _avg?: Maybe<AddressAvgAggregate>;
+  _count?: Maybe<AddressCountAggregate>;
+  _max?: Maybe<AddressMaxAggregate>;
+  _min?: Maybe<AddressMinAggregate>;
+  _sum?: Maybe<AddressSumAggregate>;
 };
 
 export type AggregateBand = {
   __typename?: 'AggregateBand';
-  count?: Maybe<BandCountAggregate>;
-  max?: Maybe<BandMaxAggregate>;
-  min?: Maybe<BandMinAggregate>;
+  _count?: Maybe<BandCountAggregate>;
+  _max?: Maybe<BandMaxAggregate>;
+  _min?: Maybe<BandMinAggregate>;
 };
 
 export type AggregateComment = {
   __typename?: 'AggregateComment';
-  count?: Maybe<CommentCountAggregate>;
-  max?: Maybe<CommentMaxAggregate>;
-  min?: Maybe<CommentMinAggregate>;
+  _count?: Maybe<CommentCountAggregate>;
+  _max?: Maybe<CommentMaxAggregate>;
+  _min?: Maybe<CommentMinAggregate>;
 };
 
 export type AggregateCommentLike = {
   __typename?: 'AggregateCommentLike';
-  count?: Maybe<CommentLikeCountAggregate>;
-  max?: Maybe<CommentLikeMaxAggregate>;
-  min?: Maybe<CommentLikeMinAggregate>;
+  _count?: Maybe<CommentLikeCountAggregate>;
+  _max?: Maybe<CommentLikeMaxAggregate>;
+  _min?: Maybe<CommentLikeMinAggregate>;
 };
 
 export type AggregateFeedItem = {
   __typename?: 'AggregateFeedItem';
-  count?: Maybe<FeedItemCountAggregate>;
-  max?: Maybe<FeedItemMaxAggregate>;
-  min?: Maybe<FeedItemMinAggregate>;
+  _count?: Maybe<FeedItemCountAggregate>;
+  _max?: Maybe<FeedItemMaxAggregate>;
+  _min?: Maybe<FeedItemMinAggregate>;
 };
 
 export type AggregateFeedItemLike = {
   __typename?: 'AggregateFeedItemLike';
-  count?: Maybe<FeedItemLikeCountAggregate>;
-  max?: Maybe<FeedItemLikeMaxAggregate>;
-  min?: Maybe<FeedItemLikeMinAggregate>;
+  _count?: Maybe<FeedItemLikeCountAggregate>;
+  _max?: Maybe<FeedItemLikeMaxAggregate>;
+  _min?: Maybe<FeedItemLikeMinAggregate>;
 };
 
 export type AggregateFeedItemRevision = {
   __typename?: 'AggregateFeedItemRevision';
-  count?: Maybe<FeedItemRevisionCountAggregate>;
-  max?: Maybe<FeedItemRevisionMaxAggregate>;
-  min?: Maybe<FeedItemRevisionMinAggregate>;
+  _count?: Maybe<FeedItemRevisionCountAggregate>;
+  _max?: Maybe<FeedItemRevisionMaxAggregate>;
+  _min?: Maybe<FeedItemRevisionMinAggregate>;
 };
 
 export type AggregateIssue = {
   __typename?: 'AggregateIssue';
-  count?: Maybe<IssueCountAggregate>;
-  max?: Maybe<IssueMaxAggregate>;
-  min?: Maybe<IssueMinAggregate>;
+  _count?: Maybe<IssueCountAggregate>;
+  _max?: Maybe<IssueMaxAggregate>;
+  _min?: Maybe<IssueMinAggregate>;
 };
 
 export type AggregateMixdown = {
   __typename?: 'AggregateMixdown';
-  avg?: Maybe<MixdownAvgAggregate>;
-  count?: Maybe<MixdownCountAggregate>;
-  max?: Maybe<MixdownMaxAggregate>;
-  min?: Maybe<MixdownMinAggregate>;
-  sum?: Maybe<MixdownSumAggregate>;
+  _avg?: Maybe<MixdownAvgAggregate>;
+  _count?: Maybe<MixdownCountAggregate>;
+  _max?: Maybe<MixdownMaxAggregate>;
+  _min?: Maybe<MixdownMinAggregate>;
+  _sum?: Maybe<MixdownSumAggregate>;
 };
 
 export type AggregateProject = {
   __typename?: 'AggregateProject';
-  count?: Maybe<ProjectCountAggregate>;
-  max?: Maybe<ProjectMaxAggregate>;
-  min?: Maybe<ProjectMinAggregate>;
+  _count?: Maybe<ProjectCountAggregate>;
+  _max?: Maybe<ProjectMaxAggregate>;
+  _min?: Maybe<ProjectMinAggregate>;
 };
 
 export type AggregateTag = {
   __typename?: 'AggregateTag';
-  count?: Maybe<TagCountAggregate>;
-  max?: Maybe<TagMaxAggregate>;
-  min?: Maybe<TagMinAggregate>;
+  _count?: Maybe<TagCountAggregate>;
+  _max?: Maybe<TagMaxAggregate>;
+  _min?: Maybe<TagMinAggregate>;
 };
 
 export type AggregateUser = {
   __typename?: 'AggregateUser';
-  count?: Maybe<UserCountAggregate>;
-  max?: Maybe<UserMaxAggregate>;
-  min?: Maybe<UserMinAggregate>;
+  _count?: Maybe<UserCountAggregate>;
+  _max?: Maybe<UserMaxAggregate>;
+  _min?: Maybe<UserMinAggregate>;
 };
 
 export type AggregateUsersOnProjects = {
   __typename?: 'AggregateUsersOnProjects';
-  count?: Maybe<UsersOnProjectsCountAggregate>;
-  max?: Maybe<UsersOnProjectsMaxAggregate>;
-  min?: Maybe<UsersOnProjectsMinAggregate>;
+  _count?: Maybe<UsersOnProjectsCountAggregate>;
+  _max?: Maybe<UsersOnProjectsMaxAggregate>;
+  _min?: Maybe<UsersOnProjectsMinAggregate>;
 };
 
 export type AggregateVersionInformation = {
   __typename?: 'AggregateVersionInformation';
-  count?: Maybe<VersionInformationCountAggregate>;
-  max?: Maybe<VersionInformationMaxAggregate>;
-  min?: Maybe<VersionInformationMinAggregate>;
+  _count?: Maybe<VersionInformationCountAggregate>;
+  _max?: Maybe<VersionInformationMaxAggregate>;
+  _min?: Maybe<VersionInformationMinAggregate>;
 };
 
 export type Asset = {
   __typename?: 'Asset';
+  Mixdown: Array<Mixdown>;
   id: Scalars['String'];
   isPublic?: Maybe<Scalars['Boolean']>;
   location: Scalars['String'];
   mimeType: Scalars['String'];
   name: Scalars['String'];
+  usedInProjects: Array<AssetsOnProjects>;
   userId?: Maybe<Scalars['String']>;
+};
+
+export type AssetMixdownArgs = {
+  cursor?: Maybe<MixdownWhereUniqueInput>;
+  distinct?: Maybe<Array<MixdownScalarFieldEnum>>;
+  orderBy?: Maybe<Array<MixdownOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<MixdownWhereInput>;
+};
+
+export type AssetUsedInProjectsArgs = {
+  cursor?: Maybe<AssetsOnProjectsWhereUniqueInput>;
+  distinct?: Maybe<Array<AssetsOnProjectsScalarFieldEnum>>;
+  orderBy?: Maybe<Array<AssetsOnProjectsOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<AssetsOnProjectsWhereInput>;
+};
+
+export type AssetCreateManyOwnerInput = {
+  id?: Maybe<Scalars['String']>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+  location: Scalars['String'];
+  mimeType: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type AssetCreateManyOwnerInputEnvelope = {
+  data: Array<AssetCreateManyOwnerInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
 };
 
 export type AssetCreateNestedManyWithoutOwnerInput = {
   connect?: Maybe<Array<AssetWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<AssetCreateOrConnectWithoutOwnerInput>>;
   create?: Maybe<Array<AssetCreateWithoutOwnerInput>>;
+  createMany?: Maybe<AssetCreateManyOwnerInputEnvelope>;
 };
 
 export type AssetCreateNestedOneWithoutMixdownInput = {
@@ -421,7 +500,6 @@ export type AssetOrderByInput = {
   location?: Maybe<SortOrder>;
   mimeType?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
-  owner?: Maybe<UserOrderByInput>;
   userId?: Maybe<SortOrder>;
 };
 
@@ -468,6 +546,7 @@ export type AssetUpdateManyWithoutOwnerInput = {
   connect?: Maybe<Array<AssetWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<AssetCreateOrConnectWithoutOwnerInput>>;
   create?: Maybe<Array<AssetCreateWithoutOwnerInput>>;
+  createMany?: Maybe<AssetCreateManyOwnerInputEnvelope>;
   delete?: Maybe<Array<AssetWhereUniqueInput>>;
   deleteMany?: Maybe<Array<AssetScalarWhereInput>>;
   disconnect?: Maybe<Array<AssetWhereUniqueInput>>;
@@ -575,16 +654,38 @@ export type AssetsOnProjectsAssetIdProjectIdCompoundUniqueInput = {
   projectId: Scalars['String'];
 };
 
+export type AssetsOnProjectsCreateManyAssetInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  projectId: Scalars['String'];
+};
+
+export type AssetsOnProjectsCreateManyAssetInputEnvelope = {
+  data: Array<AssetsOnProjectsCreateManyAssetInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type AssetsOnProjectsCreateManyProjectInput = {
+  assetId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type AssetsOnProjectsCreateManyProjectInputEnvelope = {
+  data: Array<AssetsOnProjectsCreateManyProjectInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
 export type AssetsOnProjectsCreateNestedManyWithoutAssetInput = {
   connect?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<AssetsOnProjectsCreateOrConnectWithoutAssetInput>>;
   create?: Maybe<Array<AssetsOnProjectsCreateWithoutAssetInput>>;
+  createMany?: Maybe<AssetsOnProjectsCreateManyAssetInputEnvelope>;
 };
 
 export type AssetsOnProjectsCreateNestedManyWithoutProjectInput = {
   connect?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<AssetsOnProjectsCreateOrConnectWithoutProjectInput>>;
   create?: Maybe<Array<AssetsOnProjectsCreateWithoutProjectInput>>;
+  createMany?: Maybe<AssetsOnProjectsCreateManyProjectInputEnvelope>;
 };
 
 export type AssetsOnProjectsCreateOrConnectWithoutAssetInput = {
@@ -614,10 +715,8 @@ export type AssetsOnProjectsListRelationFilter = {
 };
 
 export type AssetsOnProjectsOrderByInput = {
-  asset?: Maybe<AssetOrderByInput>;
   assetId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
-  project?: Maybe<ProjectOrderByInput>;
   projectId?: Maybe<SortOrder>;
 };
 
@@ -654,6 +753,7 @@ export type AssetsOnProjectsUpdateManyWithoutAssetInput = {
   connect?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<AssetsOnProjectsCreateOrConnectWithoutAssetInput>>;
   create?: Maybe<Array<AssetsOnProjectsCreateWithoutAssetInput>>;
+  createMany?: Maybe<AssetsOnProjectsCreateManyAssetInputEnvelope>;
   delete?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
   deleteMany?: Maybe<Array<AssetsOnProjectsScalarWhereInput>>;
   disconnect?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
@@ -667,6 +767,7 @@ export type AssetsOnProjectsUpdateManyWithoutProjectInput = {
   connect?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<AssetsOnProjectsCreateOrConnectWithoutProjectInput>>;
   create?: Maybe<Array<AssetsOnProjectsCreateWithoutProjectInput>>;
+  createMany?: Maybe<AssetsOnProjectsCreateManyProjectInputEnvelope>;
   delete?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
   deleteMany?: Maybe<Array<AssetsOnProjectsScalarWhereInput>>;
   disconnect?: Maybe<Array<AssetsOnProjectsWhereUniqueInput>>;
@@ -747,12 +848,12 @@ export type BandMembersArgs = {
 export type BandCountAggregate = {
   __typename?: 'BandCountAggregate';
   _all: Scalars['Int'];
-  createdAt?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  isPublic?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
+  createdAt: Scalars['Int'];
+  id: Scalars['Int'];
+  isPublic: Scalars['Int'];
+  name: Scalars['Int'];
+  updatedAt: Scalars['Int'];
+  userId: Scalars['Int'];
 };
 
 export type BandCreateInput = {
@@ -765,10 +866,33 @@ export type BandCreateInput = {
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
+export type BandCreateManyCreatedByInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+  name: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type BandCreateManyCreatedByInputEnvelope = {
+  data: Array<BandCreateManyCreatedByInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type BandCreateManyInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+  name: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+  userId: Scalars['String'];
+};
+
 export type BandCreateNestedManyWithoutCreatedByInput = {
   connect?: Maybe<Array<BandWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<BandCreateOrConnectWithoutCreatedByInput>>;
   create?: Maybe<Array<BandCreateWithoutCreatedByInput>>;
+  createMany?: Maybe<BandCreateManyCreatedByInputEnvelope>;
 };
 
 export type BandCreateNestedOneWithoutMembersInput = {
@@ -805,6 +929,19 @@ export type BandCreateWithoutMembersInput = {
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
+export type BandGroupBy = {
+  __typename?: 'BandGroupBy';
+  _count?: Maybe<BandCountAggregate>;
+  _max?: Maybe<BandMaxAggregate>;
+  _min?: Maybe<BandMinAggregate>;
+  createdAt: Scalars['Timestamp'];
+  id: Scalars['String'];
+  isPublic: Scalars['Boolean'];
+  name: Scalars['String'];
+  updatedAt: Scalars['Timestamp'];
+  userId: Scalars['String'];
+};
+
 export type BandListRelationFilter = {
   every?: Maybe<BandWhereInput>;
   none?: Maybe<BandWhereInput>;
@@ -833,7 +970,6 @@ export type BandMinAggregate = {
 
 export type BandOrderByInput = {
   createdAt?: Maybe<SortOrder>;
-  createdBy?: Maybe<UserOrderByInput>;
   id?: Maybe<SortOrder>;
   isPublic?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
@@ -867,6 +1003,18 @@ export type BandScalarWhereInput = {
   userId?: Maybe<StringFilter>;
 };
 
+export type BandScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<BandScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<BandScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<BandScalarWhereWithAggregatesInput>>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  id?: Maybe<StringWithAggregatesFilter>;
+  isPublic?: Maybe<BoolWithAggregatesFilter>;
+  name?: Maybe<StringWithAggregatesFilter>;
+  updatedAt?: Maybe<DateTimeWithAggregatesFilter>;
+  userId?: Maybe<StringWithAggregatesFilter>;
+};
+
 export type BandUpdateInput = {
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   createdBy?: Maybe<UserUpdateOneRequiredWithoutOwnsBandsInput>;
@@ -894,6 +1042,7 @@ export type BandUpdateManyWithoutCreatedByInput = {
   connect?: Maybe<Array<BandWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<BandCreateOrConnectWithoutCreatedByInput>>;
   create?: Maybe<Array<BandCreateWithoutCreatedByInput>>;
+  createMany?: Maybe<BandCreateManyCreatedByInputEnvelope>;
   delete?: Maybe<Array<BandWhereUniqueInput>>;
   deleteMany?: Maybe<Array<BandScalarWhereInput>>;
   disconnect?: Maybe<Array<BandWhereUniqueInput>>;
@@ -977,6 +1126,22 @@ export type BoolNullableFilter = {
   not?: Maybe<NestedBoolNullableFilter>;
 };
 
+export type BoolNullableWithAggregatesFilter = {
+  _count?: Maybe<NestedIntNullableFilter>;
+  _max?: Maybe<NestedBoolNullableFilter>;
+  _min?: Maybe<NestedBoolNullableFilter>;
+  equals?: Maybe<Scalars['Boolean']>;
+  not?: Maybe<NestedBoolNullableWithAggregatesFilter>;
+};
+
+export type BoolWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedBoolFilter>;
+  _min?: Maybe<NestedBoolFilter>;
+  equals?: Maybe<Scalars['Boolean']>;
+  not?: Maybe<NestedBoolWithAggregatesFilter>;
+};
+
 export type Comment = {
   __typename?: 'Comment';
   author: User;
@@ -1017,13 +1182,13 @@ export type CommentSubCommentsArgs = {
 export type CommentCountAggregate = {
   __typename?: 'CommentCountAggregate';
   _all: Scalars['Int'];
-  authorId?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['Int']>;
-  feedItemId?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  parentCommentId?: Maybe<Scalars['Int']>;
-  text?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['Int']>;
+  authorId: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  feedItemId: Scalars['Int'];
+  id: Scalars['Int'];
+  parentCommentId: Scalars['Int'];
+  text: Scalars['Int'];
+  updatedAt: Scalars['Int'];
 };
 
 export type CommentCreateInput = {
@@ -1038,22 +1203,77 @@ export type CommentCreateInput = {
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
+export type CommentCreateManyAuthorInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  feedItemId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  parentCommentId?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type CommentCreateManyAuthorInputEnvelope = {
+  data: Array<CommentCreateManyAuthorInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type CommentCreateManyFeedItemInput = {
+  authorId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  parentCommentId?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type CommentCreateManyFeedItemInputEnvelope = {
+  data: Array<CommentCreateManyFeedItemInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type CommentCreateManyInput = {
+  authorId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  feedItemId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  parentCommentId?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type CommentCreateManyParentCommentInput = {
+  authorId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  feedItemId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type CommentCreateManyParentCommentInputEnvelope = {
+  data: Array<CommentCreateManyParentCommentInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
 export type CommentCreateNestedManyWithoutAuthorInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutAuthorInput>>;
   create?: Maybe<Array<CommentCreateWithoutAuthorInput>>;
+  createMany?: Maybe<CommentCreateManyAuthorInputEnvelope>;
 };
 
 export type CommentCreateNestedManyWithoutFeedItemInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutFeedItemInput>>;
   create?: Maybe<Array<CommentCreateWithoutFeedItemInput>>;
+  createMany?: Maybe<CommentCreateManyFeedItemInputEnvelope>;
 };
 
 export type CommentCreateNestedManyWithoutParentCommentInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutParentCommentInput>>;
   create?: Maybe<Array<CommentCreateWithoutParentCommentInput>>;
+  createMany?: Maybe<CommentCreateManyParentCommentInputEnvelope>;
 };
 
 export type CommentCreateNestedOneWithoutLikesInput = {
@@ -1148,6 +1368,20 @@ export type CommentCreateWithoutSubCommentsInput = {
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
+export type CommentGroupBy = {
+  __typename?: 'CommentGroupBy';
+  _count?: Maybe<CommentCountAggregate>;
+  _max?: Maybe<CommentMaxAggregate>;
+  _min?: Maybe<CommentMinAggregate>;
+  authorId: Scalars['String'];
+  createdAt: Scalars['Timestamp'];
+  feedItemId?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  parentCommentId?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  updatedAt: Scalars['Timestamp'];
+};
+
 export type CommentLike = {
   __typename?: 'CommentLike';
   comment: Comment;
@@ -1160,9 +1394,9 @@ export type CommentLike = {
 export type CommentLikeCountAggregate = {
   __typename?: 'CommentLikeCountAggregate';
   _all: Scalars['Int'];
-  commentId?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
+  commentId: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  userId: Scalars['Int'];
 };
 
 export type CommentLikeCreateInput = {
@@ -1171,16 +1405,44 @@ export type CommentLikeCreateInput = {
   user: UserCreateNestedOneWithoutCommentLikeInput;
 };
 
+export type CommentLikeCreateManyCommentInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  userId: Scalars['String'];
+};
+
+export type CommentLikeCreateManyCommentInputEnvelope = {
+  data: Array<CommentLikeCreateManyCommentInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type CommentLikeCreateManyInput = {
+  commentId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  userId: Scalars['String'];
+};
+
+export type CommentLikeCreateManyUserInput = {
+  commentId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type CommentLikeCreateManyUserInputEnvelope = {
+  data: Array<CommentLikeCreateManyUserInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
 export type CommentLikeCreateNestedManyWithoutCommentInput = {
   connect?: Maybe<Array<CommentLikeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutCommentInput>>;
   create?: Maybe<Array<CommentLikeCreateWithoutCommentInput>>;
+  createMany?: Maybe<CommentLikeCreateManyCommentInputEnvelope>;
 };
 
 export type CommentLikeCreateNestedManyWithoutUserInput = {
   connect?: Maybe<Array<CommentLikeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<CommentLikeCreateWithoutUserInput>>;
+  createMany?: Maybe<CommentLikeCreateManyUserInputEnvelope>;
 };
 
 export type CommentLikeCreateOrConnectWithoutCommentInput = {
@@ -1201,6 +1463,16 @@ export type CommentLikeCreateWithoutCommentInput = {
 export type CommentLikeCreateWithoutUserInput = {
   comment: CommentCreateNestedOneWithoutLikesInput;
   createdAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type CommentLikeGroupBy = {
+  __typename?: 'CommentLikeGroupBy';
+  _count?: Maybe<CommentLikeCountAggregate>;
+  _max?: Maybe<CommentLikeMaxAggregate>;
+  _min?: Maybe<CommentLikeMinAggregate>;
+  commentId: Scalars['String'];
+  createdAt: Scalars['Timestamp'];
+  userId: Scalars['String'];
 };
 
 export type CommentLikeListRelationFilter = {
@@ -1224,10 +1496,8 @@ export type CommentLikeMinAggregate = {
 };
 
 export type CommentLikeOrderByInput = {
-  comment?: Maybe<CommentOrderByInput>;
   commentId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
-  user?: Maybe<UserOrderByInput>;
   userId?: Maybe<SortOrder>;
 };
 
@@ -1244,6 +1514,15 @@ export type CommentLikeScalarWhereInput = {
   commentId?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   userId?: Maybe<StringFilter>;
+};
+
+export type CommentLikeScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<CommentLikeScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<CommentLikeScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<CommentLikeScalarWhereWithAggregatesInput>>;
+  commentId?: Maybe<StringWithAggregatesFilter>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  userId?: Maybe<StringWithAggregatesFilter>;
 };
 
 export type CommentLikeUpdateInput = {
@@ -1270,6 +1549,7 @@ export type CommentLikeUpdateManyWithoutCommentInput = {
   connect?: Maybe<Array<CommentLikeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutCommentInput>>;
   create?: Maybe<Array<CommentLikeCreateWithoutCommentInput>>;
+  createMany?: Maybe<CommentLikeCreateManyCommentInputEnvelope>;
   delete?: Maybe<Array<CommentLikeWhereUniqueInput>>;
   deleteMany?: Maybe<Array<CommentLikeScalarWhereInput>>;
   disconnect?: Maybe<Array<CommentLikeWhereUniqueInput>>;
@@ -1283,6 +1563,7 @@ export type CommentLikeUpdateManyWithoutUserInput = {
   connect?: Maybe<Array<CommentLikeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentLikeCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<CommentLikeCreateWithoutUserInput>>;
+  createMany?: Maybe<CommentLikeCreateManyUserInputEnvelope>;
   delete?: Maybe<Array<CommentLikeWhereUniqueInput>>;
   deleteMany?: Maybe<Array<CommentLikeScalarWhereInput>>;
   disconnect?: Maybe<Array<CommentLikeWhereUniqueInput>>;
@@ -1373,13 +1654,10 @@ export type CommentMinAggregate = {
 };
 
 export type CommentOrderByInput = {
-  author?: Maybe<UserOrderByInput>;
   authorId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
-  feedItem?: Maybe<FeedItemOrderByInput>;
   feedItemId?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
-  parentComment?: Maybe<CommentOrderByInput>;
   parentCommentId?: Maybe<SortOrder>;
   text?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
@@ -1411,6 +1689,19 @@ export type CommentScalarWhereInput = {
   parentCommentId?: Maybe<StringNullableFilter>;
   text?: Maybe<StringFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
+};
+
+export type CommentScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<CommentScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<CommentScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<CommentScalarWhereWithAggregatesInput>>;
+  authorId?: Maybe<StringWithAggregatesFilter>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  feedItemId?: Maybe<StringNullableWithAggregatesFilter>;
+  id?: Maybe<StringWithAggregatesFilter>;
+  parentCommentId?: Maybe<StringNullableWithAggregatesFilter>;
+  text?: Maybe<StringWithAggregatesFilter>;
+  updatedAt?: Maybe<DateTimeWithAggregatesFilter>;
 };
 
 export type CommentUpdateInput = {
@@ -1451,6 +1742,7 @@ export type CommentUpdateManyWithoutAuthorInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutAuthorInput>>;
   create?: Maybe<Array<CommentCreateWithoutAuthorInput>>;
+  createMany?: Maybe<CommentCreateManyAuthorInputEnvelope>;
   delete?: Maybe<Array<CommentWhereUniqueInput>>;
   deleteMany?: Maybe<Array<CommentScalarWhereInput>>;
   disconnect?: Maybe<Array<CommentWhereUniqueInput>>;
@@ -1464,6 +1756,7 @@ export type CommentUpdateManyWithoutFeedItemInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutFeedItemInput>>;
   create?: Maybe<Array<CommentCreateWithoutFeedItemInput>>;
+  createMany?: Maybe<CommentCreateManyFeedItemInputEnvelope>;
   delete?: Maybe<Array<CommentWhereUniqueInput>>;
   deleteMany?: Maybe<Array<CommentScalarWhereInput>>;
   disconnect?: Maybe<Array<CommentWhereUniqueInput>>;
@@ -1477,6 +1770,7 @@ export type CommentUpdateManyWithoutParentCommentInput = {
   connect?: Maybe<Array<CommentWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<CommentCreateOrConnectWithoutParentCommentInput>>;
   create?: Maybe<Array<CommentCreateWithoutParentCommentInput>>;
+  createMany?: Maybe<CommentCreateManyParentCommentInputEnvelope>;
   delete?: Maybe<Array<CommentWhereUniqueInput>>;
   deleteMany?: Maybe<Array<CommentScalarWhereInput>>;
   disconnect?: Maybe<Array<CommentWhereUniqueInput>>;
@@ -1650,6 +1944,34 @@ export type DateTimeNullableFilter = {
   notIn?: Maybe<Array<Scalars['Timestamp']>>;
 };
 
+export type DateTimeNullableWithAggregatesFilter = {
+  _count?: Maybe<NestedIntNullableFilter>;
+  _max?: Maybe<NestedDateTimeNullableFilter>;
+  _min?: Maybe<NestedDateTimeNullableFilter>;
+  equals?: Maybe<Scalars['Timestamp']>;
+  gt?: Maybe<Scalars['Timestamp']>;
+  gte?: Maybe<Scalars['Timestamp']>;
+  in?: Maybe<Array<Scalars['Timestamp']>>;
+  lt?: Maybe<Scalars['Timestamp']>;
+  lte?: Maybe<Scalars['Timestamp']>;
+  not?: Maybe<NestedDateTimeNullableWithAggregatesFilter>;
+  notIn?: Maybe<Array<Scalars['Timestamp']>>;
+};
+
+export type DateTimeWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedDateTimeFilter>;
+  _min?: Maybe<NestedDateTimeFilter>;
+  equals?: Maybe<Scalars['Timestamp']>;
+  gt?: Maybe<Scalars['Timestamp']>;
+  gte?: Maybe<Scalars['Timestamp']>;
+  in?: Maybe<Array<Scalars['Timestamp']>>;
+  lt?: Maybe<Scalars['Timestamp']>;
+  lte?: Maybe<Scalars['Timestamp']>;
+  not?: Maybe<NestedDateTimeWithAggregatesFilter>;
+  notIn?: Maybe<Array<Scalars['Timestamp']>>;
+};
+
 export type EarlyAccessCode = {
   __typename?: 'EarlyAccessCode';
   claimedBy?: Maybe<User>;
@@ -1660,10 +1982,24 @@ export type EarlyAccessCode = {
   userId?: Maybe<Scalars['String']>;
 };
 
+export type EarlyAccessCodeCreateManyClaimedByInput = {
+  code: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isValid?: Maybe<Scalars['Boolean']>;
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type EarlyAccessCodeCreateManyClaimedByInputEnvelope = {
+  data: Array<EarlyAccessCodeCreateManyClaimedByInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
 export type EarlyAccessCodeCreateNestedManyWithoutClaimedByInput = {
   connect?: Maybe<Array<EarlyAccessCodeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<EarlyAccessCodeCreateOrConnectWithoutClaimedByInput>>;
   create?: Maybe<Array<EarlyAccessCodeCreateWithoutClaimedByInput>>;
+  createMany?: Maybe<EarlyAccessCodeCreateManyClaimedByInputEnvelope>;
 };
 
 export type EarlyAccessCodeCreateOrConnectWithoutClaimedByInput = {
@@ -1686,7 +2022,6 @@ export type EarlyAccessCodeListRelationFilter = {
 };
 
 export type EarlyAccessCodeOrderByInput = {
-  claimedBy?: Maybe<UserOrderByInput>;
   code?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
@@ -1733,6 +2068,7 @@ export type EarlyAccessCodeUpdateManyWithoutClaimedByInput = {
   connect?: Maybe<Array<EarlyAccessCodeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<EarlyAccessCodeCreateOrConnectWithoutClaimedByInput>>;
   create?: Maybe<Array<EarlyAccessCodeCreateWithoutClaimedByInput>>;
+  createMany?: Maybe<EarlyAccessCodeCreateManyClaimedByInputEnvelope>;
   delete?: Maybe<Array<EarlyAccessCodeWhereUniqueInput>>;
   deleteMany?: Maybe<Array<EarlyAccessCodeScalarWhereInput>>;
   disconnect?: Maybe<Array<EarlyAccessCodeWhereUniqueInput>>;
@@ -1790,6 +2126,16 @@ export type EnumRoleFilter = {
   notIn?: Maybe<Array<Role>>;
 };
 
+export type EnumRoleWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedEnumRoleFilter>;
+  _min?: Maybe<NestedEnumRoleFilter>;
+  equals?: Maybe<Role>;
+  in?: Maybe<Array<Role>>;
+  not?: Maybe<NestedEnumRoleWithAggregatesFilter>;
+  notIn?: Maybe<Array<Role>>;
+};
+
 export type FeedItem = {
   __typename?: 'FeedItem';
   author: User;
@@ -1840,14 +2186,14 @@ export type FeedItemRevisionsArgs = {
 export type FeedItemCountAggregate = {
   __typename?: 'FeedItemCountAggregate';
   _all: Scalars['Int'];
-  authorId?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  isPublished?: Maybe<Scalars['Int']>;
-  mixdownId?: Maybe<Scalars['Int']>;
-  publishAt?: Maybe<Scalars['Int']>;
-  text?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['Int']>;
+  authorId: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  id: Scalars['Int'];
+  isPublished: Scalars['Int'];
+  mixdownId: Scalars['Int'];
+  publishAt: Scalars['Int'];
+  text: Scalars['Int'];
+  updatedAt: Scalars['Int'];
 };
 
 export type FeedItemCreateInput = {
@@ -1864,16 +2210,59 @@ export type FeedItemCreateInput = {
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
+export type FeedItemCreateManyAuthorInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isPublished?: Maybe<Scalars['Boolean']>;
+  mixdownId?: Maybe<Scalars['String']>;
+  publishAt?: Maybe<Scalars['Timestamp']>;
+  text?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type FeedItemCreateManyAuthorInputEnvelope = {
+  data: Array<FeedItemCreateManyAuthorInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type FeedItemCreateManyInput = {
+  authorId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isPublished?: Maybe<Scalars['Boolean']>;
+  mixdownId?: Maybe<Scalars['String']>;
+  publishAt?: Maybe<Scalars['Timestamp']>;
+  text?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type FeedItemCreateManyMixdownInput = {
+  authorId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isPublished?: Maybe<Scalars['Boolean']>;
+  publishAt?: Maybe<Scalars['Timestamp']>;
+  text?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type FeedItemCreateManyMixdownInputEnvelope = {
+  data: Array<FeedItemCreateManyMixdownInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
 export type FeedItemCreateNestedManyWithoutAuthorInput = {
   connect?: Maybe<Array<FeedItemWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutAuthorInput>>;
   create?: Maybe<Array<FeedItemCreateWithoutAuthorInput>>;
+  createMany?: Maybe<FeedItemCreateManyAuthorInputEnvelope>;
 };
 
 export type FeedItemCreateNestedManyWithoutMixdownInput = {
   connect?: Maybe<Array<FeedItemWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutMixdownInput>>;
   create?: Maybe<Array<FeedItemCreateWithoutMixdownInput>>;
+  createMany?: Maybe<FeedItemCreateManyMixdownInputEnvelope>;
 };
 
 export type FeedItemCreateNestedOneWithoutCommentsInput = {
@@ -1984,6 +2373,21 @@ export type FeedItemCreateWithoutRevisionsInput = {
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
+export type FeedItemGroupBy = {
+  __typename?: 'FeedItemGroupBy';
+  _count?: Maybe<FeedItemCountAggregate>;
+  _max?: Maybe<FeedItemMaxAggregate>;
+  _min?: Maybe<FeedItemMinAggregate>;
+  authorId: Scalars['String'];
+  createdAt: Scalars['Timestamp'];
+  id: Scalars['String'];
+  isPublished: Scalars['Boolean'];
+  mixdownId?: Maybe<Scalars['String']>;
+  publishAt?: Maybe<Scalars['Timestamp']>;
+  text?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['Timestamp'];
+};
+
 export type FeedItemLike = {
   __typename?: 'FeedItemLike';
   createdAt: Scalars['Timestamp'];
@@ -1996,9 +2400,9 @@ export type FeedItemLike = {
 export type FeedItemLikeCountAggregate = {
   __typename?: 'FeedItemLikeCountAggregate';
   _all: Scalars['Int'];
-  createdAt?: Maybe<Scalars['Int']>;
-  feedItemId?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
+  createdAt: Scalars['Int'];
+  feedItemId: Scalars['Int'];
+  userId: Scalars['Int'];
 };
 
 export type FeedItemLikeCreateInput = {
@@ -2007,16 +2411,44 @@ export type FeedItemLikeCreateInput = {
   user: UserCreateNestedOneWithoutFeedItemLikeInput;
 };
 
+export type FeedItemLikeCreateManyFeedItemInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  userId: Scalars['String'];
+};
+
+export type FeedItemLikeCreateManyFeedItemInputEnvelope = {
+  data: Array<FeedItemLikeCreateManyFeedItemInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type FeedItemLikeCreateManyInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  feedItemId: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+export type FeedItemLikeCreateManyUserInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  feedItemId: Scalars['String'];
+};
+
+export type FeedItemLikeCreateManyUserInputEnvelope = {
+  data: Array<FeedItemLikeCreateManyUserInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
 export type FeedItemLikeCreateNestedManyWithoutFeedItemInput = {
   connect?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutFeedItemInput>>;
   create?: Maybe<Array<FeedItemLikeCreateWithoutFeedItemInput>>;
+  createMany?: Maybe<FeedItemLikeCreateManyFeedItemInputEnvelope>;
 };
 
 export type FeedItemLikeCreateNestedManyWithoutUserInput = {
   connect?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<FeedItemLikeCreateWithoutUserInput>>;
+  createMany?: Maybe<FeedItemLikeCreateManyUserInputEnvelope>;
 };
 
 export type FeedItemLikeCreateOrConnectWithoutFeedItemInput = {
@@ -2037,6 +2469,16 @@ export type FeedItemLikeCreateWithoutFeedItemInput = {
 export type FeedItemLikeCreateWithoutUserInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
   feedItem: FeedItemCreateNestedOneWithoutLikesInput;
+};
+
+export type FeedItemLikeGroupBy = {
+  __typename?: 'FeedItemLikeGroupBy';
+  _count?: Maybe<FeedItemLikeCountAggregate>;
+  _max?: Maybe<FeedItemLikeMaxAggregate>;
+  _min?: Maybe<FeedItemLikeMinAggregate>;
+  createdAt: Scalars['Timestamp'];
+  feedItemId: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type FeedItemLikeListRelationFilter = {
@@ -2061,9 +2503,7 @@ export type FeedItemLikeMinAggregate = {
 
 export type FeedItemLikeOrderByInput = {
   createdAt?: Maybe<SortOrder>;
-  feedItem?: Maybe<FeedItemOrderByInput>;
   feedItemId?: Maybe<SortOrder>;
-  user?: Maybe<UserOrderByInput>;
   userId?: Maybe<SortOrder>;
 };
 
@@ -2080,6 +2520,15 @@ export type FeedItemLikeScalarWhereInput = {
   createdAt?: Maybe<DateTimeFilter>;
   feedItemId?: Maybe<StringFilter>;
   userId?: Maybe<StringFilter>;
+};
+
+export type FeedItemLikeScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<FeedItemLikeScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<FeedItemLikeScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<FeedItemLikeScalarWhereWithAggregatesInput>>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  feedItemId?: Maybe<StringWithAggregatesFilter>;
+  userId?: Maybe<StringWithAggregatesFilter>;
 };
 
 export type FeedItemLikeUpdateInput = {
@@ -2106,6 +2555,7 @@ export type FeedItemLikeUpdateManyWithoutFeedItemInput = {
   connect?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutFeedItemInput>>;
   create?: Maybe<Array<FeedItemLikeCreateWithoutFeedItemInput>>;
+  createMany?: Maybe<FeedItemLikeCreateManyFeedItemInputEnvelope>;
   delete?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
   deleteMany?: Maybe<Array<FeedItemLikeScalarWhereInput>>;
   disconnect?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
@@ -2119,6 +2569,7 @@ export type FeedItemLikeUpdateManyWithoutUserInput = {
   connect?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemLikeCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<FeedItemLikeCreateWithoutUserInput>>;
+  createMany?: Maybe<FeedItemLikeCreateManyUserInputEnvelope>;
   delete?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
   deleteMany?: Maybe<Array<FeedItemLikeScalarWhereInput>>;
   disconnect?: Maybe<Array<FeedItemLikeWhereUniqueInput>>;
@@ -2211,12 +2662,10 @@ export type FeedItemMinAggregate = {
 };
 
 export type FeedItemOrderByInput = {
-  author?: Maybe<UserOrderByInput>;
   authorId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
   isPublished?: Maybe<SortOrder>;
-  mixdown?: Maybe<MixdownOrderByInput>;
   mixdownId?: Maybe<SortOrder>;
   publishAt?: Maybe<SortOrder>;
   text?: Maybe<SortOrder>;
@@ -2241,11 +2690,11 @@ export type FeedItemRevision = {
 export type FeedItemRevisionCountAggregate = {
   __typename?: 'FeedItemRevisionCountAggregate';
   _all: Scalars['Int'];
-  createdAt?: Maybe<Scalars['Int']>;
-  feedItemId?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  text?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['Int']>;
+  createdAt: Scalars['Int'];
+  feedItemId: Scalars['Int'];
+  id: Scalars['Int'];
+  text: Scalars['Int'];
+  updatedAt: Scalars['Int'];
 };
 
 export type FeedItemRevisionCreateInput = {
@@ -2256,10 +2705,31 @@ export type FeedItemRevisionCreateInput = {
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
+export type FeedItemRevisionCreateManyInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  feedItemId: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type FeedItemRevisionCreateManyParentItemInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type FeedItemRevisionCreateManyParentItemInputEnvelope = {
+  data: Array<FeedItemRevisionCreateManyParentItemInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
 export type FeedItemRevisionCreateNestedManyWithoutParentItemInput = {
   connect?: Maybe<Array<FeedItemRevisionWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemRevisionCreateOrConnectWithoutParentItemInput>>;
   create?: Maybe<Array<FeedItemRevisionCreateWithoutParentItemInput>>;
+  createMany?: Maybe<FeedItemRevisionCreateManyParentItemInputEnvelope>;
 };
 
 export type FeedItemRevisionCreateOrConnectWithoutParentItemInput = {
@@ -2272,6 +2742,18 @@ export type FeedItemRevisionCreateWithoutParentItemInput = {
   id?: Maybe<Scalars['String']>;
   text: Scalars['String'];
   updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type FeedItemRevisionGroupBy = {
+  __typename?: 'FeedItemRevisionGroupBy';
+  _count?: Maybe<FeedItemRevisionCountAggregate>;
+  _max?: Maybe<FeedItemRevisionMaxAggregate>;
+  _min?: Maybe<FeedItemRevisionMinAggregate>;
+  createdAt: Scalars['Timestamp'];
+  feedItemId: Scalars['String'];
+  id: Scalars['String'];
+  text: Scalars['String'];
+  updatedAt: Scalars['Timestamp'];
 };
 
 export type FeedItemRevisionListRelationFilter = {
@@ -2302,7 +2784,6 @@ export type FeedItemRevisionOrderByInput = {
   createdAt?: Maybe<SortOrder>;
   feedItemId?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
-  parentItem?: Maybe<FeedItemOrderByInput>;
   text?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -2324,6 +2805,17 @@ export type FeedItemRevisionScalarWhereInput = {
   id?: Maybe<StringFilter>;
   text?: Maybe<StringFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
+};
+
+export type FeedItemRevisionScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<FeedItemRevisionScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<FeedItemRevisionScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<FeedItemRevisionScalarWhereWithAggregatesInput>>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  feedItemId?: Maybe<StringWithAggregatesFilter>;
+  id?: Maybe<StringWithAggregatesFilter>;
+  text?: Maybe<StringWithAggregatesFilter>;
+  updatedAt?: Maybe<DateTimeWithAggregatesFilter>;
 };
 
 export type FeedItemRevisionUpdateInput = {
@@ -2350,6 +2842,7 @@ export type FeedItemRevisionUpdateManyWithoutParentItemInput = {
   connect?: Maybe<Array<FeedItemRevisionWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemRevisionCreateOrConnectWithoutParentItemInput>>;
   create?: Maybe<Array<FeedItemRevisionCreateWithoutParentItemInput>>;
+  createMany?: Maybe<FeedItemRevisionCreateManyParentItemInputEnvelope>;
   delete?: Maybe<Array<FeedItemRevisionWhereUniqueInput>>;
   deleteMany?: Maybe<Array<FeedItemRevisionScalarWhereInput>>;
   disconnect?: Maybe<Array<FeedItemRevisionWhereUniqueInput>>;
@@ -2418,6 +2911,20 @@ export type FeedItemScalarWhereInput = {
   updatedAt?: Maybe<DateTimeFilter>;
 };
 
+export type FeedItemScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<FeedItemScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<FeedItemScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<FeedItemScalarWhereWithAggregatesInput>>;
+  authorId?: Maybe<StringWithAggregatesFilter>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  id?: Maybe<StringWithAggregatesFilter>;
+  isPublished?: Maybe<BoolWithAggregatesFilter>;
+  mixdownId?: Maybe<StringNullableWithAggregatesFilter>;
+  publishAt?: Maybe<DateTimeNullableWithAggregatesFilter>;
+  text?: Maybe<StringNullableWithAggregatesFilter>;
+  updatedAt?: Maybe<DateTimeWithAggregatesFilter>;
+};
+
 export type FeedItemUpdateInput = {
   author?: Maybe<UserUpdateOneRequiredWithoutFeedInput>;
   comments?: Maybe<CommentUpdateManyWithoutFeedItemInput>;
@@ -2455,6 +2962,7 @@ export type FeedItemUpdateManyWithoutAuthorInput = {
   connect?: Maybe<Array<FeedItemWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutAuthorInput>>;
   create?: Maybe<Array<FeedItemCreateWithoutAuthorInput>>;
+  createMany?: Maybe<FeedItemCreateManyAuthorInputEnvelope>;
   delete?: Maybe<Array<FeedItemWhereUniqueInput>>;
   deleteMany?: Maybe<Array<FeedItemScalarWhereInput>>;
   disconnect?: Maybe<Array<FeedItemWhereUniqueInput>>;
@@ -2468,6 +2976,7 @@ export type FeedItemUpdateManyWithoutMixdownInput = {
   connect?: Maybe<Array<FeedItemWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<FeedItemCreateOrConnectWithoutMixdownInput>>;
   create?: Maybe<Array<FeedItemCreateWithoutMixdownInput>>;
+  createMany?: Maybe<FeedItemCreateManyMixdownInputEnvelope>;
   delete?: Maybe<Array<FeedItemWhereUniqueInput>>;
   deleteMany?: Maybe<Array<FeedItemScalarWhereInput>>;
   disconnect?: Maybe<Array<FeedItemWhereUniqueInput>>;
@@ -2647,6 +3156,22 @@ export type IntFilter = {
   notIn?: Maybe<Array<Scalars['Int']>>;
 };
 
+export type IntWithAggregatesFilter = {
+  _avg?: Maybe<NestedFloatFilter>;
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedIntFilter>;
+  _min?: Maybe<NestedIntFilter>;
+  _sum?: Maybe<NestedIntFilter>;
+  equals?: Maybe<Scalars['Int']>;
+  gt?: Maybe<Scalars['Int']>;
+  gte?: Maybe<Scalars['Int']>;
+  in?: Maybe<Array<Scalars['Int']>>;
+  lt?: Maybe<Scalars['Int']>;
+  lte?: Maybe<Scalars['Int']>;
+  not?: Maybe<NestedIntWithAggregatesFilter>;
+  notIn?: Maybe<Array<Scalars['Int']>>;
+};
+
 export type Issue = {
   __typename?: 'Issue';
   createdAt: Scalars['Timestamp'];
@@ -2660,12 +3185,12 @@ export type Issue = {
 export type IssueCountAggregate = {
   __typename?: 'IssueCountAggregate';
   _all: Scalars['Int'];
-  createdAt?: Maybe<Scalars['Int']>;
-  description?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  resolved?: Maybe<Scalars['Int']>;
-  screenshotIds?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
+  createdAt: Scalars['Int'];
+  description: Scalars['Int'];
+  id: Scalars['Int'];
+  resolved: Scalars['Int'];
+  screenshotIds: Scalars['Int'];
+  userId: Scalars['Int'];
 };
 
 export type IssueCreateInput = {
@@ -2677,10 +3202,37 @@ export type IssueCreateInput = {
   screenshotIds?: Maybe<IssueCreatescreenshotIdsInput>;
 };
 
+export type IssueCreateManyCreatedByInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  description: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+  resolved?: Maybe<Scalars['Boolean']>;
+  screenshotIds?: Maybe<IssueCreateManyscreenshotIdsInput>;
+};
+
+export type IssueCreateManyCreatedByInputEnvelope = {
+  data: Array<IssueCreateManyCreatedByInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type IssueCreateManyInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  description: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+  resolved?: Maybe<Scalars['Boolean']>;
+  screenshotIds?: Maybe<IssueCreateManyscreenshotIdsInput>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type IssueCreateManyscreenshotIdsInput = {
+  set: Array<Scalars['String']>;
+};
+
 export type IssueCreateNestedManyWithoutCreatedByInput = {
   connect?: Maybe<Array<IssueWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<IssueCreateOrConnectWithoutCreatedByInput>>;
   create?: Maybe<Array<IssueCreateWithoutCreatedByInput>>;
+  createMany?: Maybe<IssueCreateManyCreatedByInputEnvelope>;
 };
 
 export type IssueCreateOrConnectWithoutCreatedByInput = {
@@ -2698,6 +3250,19 @@ export type IssueCreateWithoutCreatedByInput = {
 
 export type IssueCreatescreenshotIdsInput = {
   set: Array<Scalars['String']>;
+};
+
+export type IssueGroupBy = {
+  __typename?: 'IssueGroupBy';
+  _count?: Maybe<IssueCountAggregate>;
+  _max?: Maybe<IssueMaxAggregate>;
+  _min?: Maybe<IssueMinAggregate>;
+  createdAt: Scalars['Timestamp'];
+  description: Scalars['String'];
+  id: Scalars['String'];
+  resolved: Scalars['Boolean'];
+  screenshotIds?: Maybe<Array<Scalars['String']>>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type IssueListRelationFilter = {
@@ -2726,7 +3291,6 @@ export type IssueMinAggregate = {
 
 export type IssueOrderByInput = {
   createdAt?: Maybe<SortOrder>;
-  createdBy?: Maybe<UserOrderByInput>;
   description?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
   resolved?: Maybe<SortOrder>;
@@ -2755,6 +3319,18 @@ export type IssueScalarWhereInput = {
   userId?: Maybe<StringNullableFilter>;
 };
 
+export type IssueScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<IssueScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<IssueScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<IssueScalarWhereWithAggregatesInput>>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  description?: Maybe<StringWithAggregatesFilter>;
+  id?: Maybe<StringWithAggregatesFilter>;
+  resolved?: Maybe<BoolWithAggregatesFilter>;
+  screenshotIds?: Maybe<StringNullableListFilter>;
+  userId?: Maybe<StringNullableWithAggregatesFilter>;
+};
+
 export type IssueUpdateInput = {
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   createdBy?: Maybe<UserUpdateOneWithoutIssueInput>;
@@ -2781,6 +3357,7 @@ export type IssueUpdateManyWithoutCreatedByInput = {
   connect?: Maybe<Array<IssueWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<IssueCreateOrConnectWithoutCreatedByInput>>;
   create?: Maybe<Array<IssueCreateWithoutCreatedByInput>>;
+  createMany?: Maybe<IssueCreateManyCreatedByInputEnvelope>;
   delete?: Maybe<Array<IssueWhereUniqueInput>>;
   deleteMany?: Maybe<Array<IssueScalarWhereInput>>;
   disconnect?: Maybe<Array<IssueWhereUniqueInput>>;
@@ -2804,7 +3381,8 @@ export type IssueUpdateWithoutCreatedByInput = {
 };
 
 export type IssueUpdatescreenshotIdsInput = {
-  set: Array<Scalars['String']>;
+  push?: Maybe<Array<Scalars['String']>>;
+  set?: Maybe<Array<Scalars['String']>>;
 };
 
 export type IssueUpsertWithWhereUniqueWithoutCreatedByInput = {
@@ -2831,6 +3409,14 @@ export type IssueWhereUniqueInput = {
 };
 
 export type JsonFilter = {
+  equals?: Maybe<Scalars['JSON']>;
+  not?: Maybe<Scalars['JSON']>;
+};
+
+export type JsonWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedJsonFilter>;
+  _min?: Maybe<NestedJsonFilter>;
   equals?: Maybe<Scalars['JSON']>;
   not?: Maybe<Scalars['JSON']>;
 };
@@ -2864,22 +3450,22 @@ export type MixdownFeedItemArgs = {
 
 export type MixdownAvgAggregate = {
   __typename?: 'MixdownAvgAggregate';
-  listens: Scalars['Float'];
-  version: Scalars['Float'];
+  listens?: Maybe<Scalars['Float']>;
+  version?: Maybe<Scalars['Float']>;
 };
 
 export type MixdownCountAggregate = {
   __typename?: 'MixdownCountAggregate';
   _all: Scalars['Int'];
-  assetId?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  isPusblished?: Maybe<Scalars['Int']>;
+  assetId: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  id: Scalars['Int'];
+  isPusblished: Scalars['Int'];
   listens: Scalars['Int'];
-  name?: Maybe<Scalars['Int']>;
-  projectId?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
+  name: Scalars['Int'];
+  projectId: Scalars['Int'];
+  updatedAt: Scalars['Int'];
+  userId: Scalars['Int'];
   version: Scalars['Int'];
 };
 
@@ -2897,22 +3483,89 @@ export type MixdownCreateInput = {
   version: Scalars['Int'];
 };
 
+export type MixdownCreateManyAudioInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isPusblished?: Maybe<Scalars['Boolean']>;
+  listens?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  projectId: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+  userId: Scalars['String'];
+  version: Scalars['Int'];
+};
+
+export type MixdownCreateManyAudioInputEnvelope = {
+  data: Array<MixdownCreateManyAudioInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MixdownCreateManyInput = {
+  assetId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isPusblished?: Maybe<Scalars['Boolean']>;
+  listens?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  projectId: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+  userId: Scalars['String'];
+  version: Scalars['Int'];
+};
+
+export type MixdownCreateManyProjectInput = {
+  assetId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isPusblished?: Maybe<Scalars['Boolean']>;
+  listens?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+  userId: Scalars['String'];
+  version: Scalars['Int'];
+};
+
+export type MixdownCreateManyProjectInputEnvelope = {
+  data: Array<MixdownCreateManyProjectInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MixdownCreateManyTriggerdByInput = {
+  assetId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isPusblished?: Maybe<Scalars['Boolean']>;
+  listens?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  projectId: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+  version: Scalars['Int'];
+};
+
+export type MixdownCreateManyTriggerdByInputEnvelope = {
+  data: Array<MixdownCreateManyTriggerdByInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
 export type MixdownCreateNestedManyWithoutAudioInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutAudioInput>>;
   create?: Maybe<Array<MixdownCreateWithoutAudioInput>>;
+  createMany?: Maybe<MixdownCreateManyAudioInputEnvelope>;
 };
 
 export type MixdownCreateNestedManyWithoutProjectInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutProjectInput>>;
   create?: Maybe<Array<MixdownCreateWithoutProjectInput>>;
+  createMany?: Maybe<MixdownCreateManyProjectInputEnvelope>;
 };
 
 export type MixdownCreateNestedManyWithoutTriggerdByInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutTriggerdByInput>>;
   create?: Maybe<Array<MixdownCreateWithoutTriggerdByInput>>;
+  createMany?: Maybe<MixdownCreateManyTriggerdByInputEnvelope>;
 };
 
 export type MixdownCreateNestedOneWithoutFeedItemInput = {
@@ -2993,6 +3646,25 @@ export type MixdownCreateWithoutTriggerdByInput = {
   version: Scalars['Int'];
 };
 
+export type MixdownGroupBy = {
+  __typename?: 'MixdownGroupBy';
+  _avg?: Maybe<MixdownAvgAggregate>;
+  _count?: Maybe<MixdownCountAggregate>;
+  _max?: Maybe<MixdownMaxAggregate>;
+  _min?: Maybe<MixdownMinAggregate>;
+  _sum?: Maybe<MixdownSumAggregate>;
+  assetId: Scalars['String'];
+  createdAt: Scalars['Timestamp'];
+  id: Scalars['String'];
+  isPusblished?: Maybe<Scalars['Boolean']>;
+  listens: Scalars['Int'];
+  name?: Maybe<Scalars['String']>;
+  projectId: Scalars['String'];
+  updatedAt: Scalars['Timestamp'];
+  userId: Scalars['String'];
+  version: Scalars['Int'];
+};
+
 export type MixdownListRelationFilter = {
   every?: Maybe<MixdownWhereInput>;
   none?: Maybe<MixdownWhereInput>;
@@ -3005,12 +3677,12 @@ export type MixdownMaxAggregate = {
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
-  listens: Scalars['Int'];
+  listens?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   projectId?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
   userId?: Maybe<Scalars['String']>;
-  version: Scalars['Int'];
+  version?: Maybe<Scalars['Int']>;
 };
 
 export type MixdownMinAggregate = {
@@ -3019,25 +3691,22 @@ export type MixdownMinAggregate = {
   createdAt?: Maybe<Scalars['Timestamp']>;
   id?: Maybe<Scalars['String']>;
   isPusblished?: Maybe<Scalars['Boolean']>;
-  listens: Scalars['Int'];
+  listens?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   projectId?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Timestamp']>;
   userId?: Maybe<Scalars['String']>;
-  version: Scalars['Int'];
+  version?: Maybe<Scalars['Int']>;
 };
 
 export type MixdownOrderByInput = {
   assetId?: Maybe<SortOrder>;
-  audio?: Maybe<AssetOrderByInput>;
   createdAt?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
   isPusblished?: Maybe<SortOrder>;
   listens?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
-  project?: Maybe<ProjectOrderByInput>;
   projectId?: Maybe<SortOrder>;
-  triggerdBy?: Maybe<UserOrderByInput>;
   updatedAt?: Maybe<SortOrder>;
   userId?: Maybe<SortOrder>;
   version?: Maybe<SortOrder>;
@@ -3077,10 +3746,26 @@ export type MixdownScalarWhereInput = {
   version?: Maybe<IntFilter>;
 };
 
+export type MixdownScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<MixdownScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<MixdownScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<MixdownScalarWhereWithAggregatesInput>>;
+  assetId?: Maybe<StringWithAggregatesFilter>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  id?: Maybe<StringWithAggregatesFilter>;
+  isPusblished?: Maybe<BoolNullableWithAggregatesFilter>;
+  listens?: Maybe<IntWithAggregatesFilter>;
+  name?: Maybe<StringNullableWithAggregatesFilter>;
+  projectId?: Maybe<StringWithAggregatesFilter>;
+  updatedAt?: Maybe<DateTimeWithAggregatesFilter>;
+  userId?: Maybe<StringWithAggregatesFilter>;
+  version?: Maybe<IntWithAggregatesFilter>;
+};
+
 export type MixdownSumAggregate = {
   __typename?: 'MixdownSumAggregate';
-  listens: Scalars['Int'];
-  version: Scalars['Int'];
+  listens?: Maybe<Scalars['Int']>;
+  version?: Maybe<Scalars['Int']>;
 };
 
 export type MixdownUpdateInput = {
@@ -3126,6 +3811,7 @@ export type MixdownUpdateManyWithoutAudioInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutAudioInput>>;
   create?: Maybe<Array<MixdownCreateWithoutAudioInput>>;
+  createMany?: Maybe<MixdownCreateManyAudioInputEnvelope>;
   delete?: Maybe<Array<MixdownWhereUniqueInput>>;
   deleteMany?: Maybe<Array<MixdownScalarWhereInput>>;
   disconnect?: Maybe<Array<MixdownWhereUniqueInput>>;
@@ -3139,6 +3825,7 @@ export type MixdownUpdateManyWithoutProjectInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutProjectInput>>;
   create?: Maybe<Array<MixdownCreateWithoutProjectInput>>;
+  createMany?: Maybe<MixdownCreateManyProjectInputEnvelope>;
   delete?: Maybe<Array<MixdownWhereUniqueInput>>;
   deleteMany?: Maybe<Array<MixdownScalarWhereInput>>;
   disconnect?: Maybe<Array<MixdownWhereUniqueInput>>;
@@ -3152,6 +3839,7 @@ export type MixdownUpdateManyWithoutTriggerdByInput = {
   connect?: Maybe<Array<MixdownWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<MixdownCreateOrConnectWithoutTriggerdByInput>>;
   create?: Maybe<Array<MixdownCreateWithoutTriggerdByInput>>;
+  createMany?: Maybe<MixdownCreateManyTriggerdByInputEnvelope>;
   delete?: Maybe<Array<MixdownWhereUniqueInput>>;
   deleteMany?: Maybe<Array<MixdownScalarWhereInput>>;
   disconnect?: Maybe<Array<MixdownWhereUniqueInput>>;
@@ -3295,6 +3983,20 @@ export type Mutation = {
   createFeedItemLike: FeedItemLike;
   createFeedItemRevision: FeedItemRevision;
   createIssue: Issue;
+  createManyAddress: AffectedRowsOutput;
+  createManyBand: AffectedRowsOutput;
+  createManyComment: AffectedRowsOutput;
+  createManyCommentLike: AffectedRowsOutput;
+  createManyFeedItem: AffectedRowsOutput;
+  createManyFeedItemLike: AffectedRowsOutput;
+  createManyFeedItemRevision: AffectedRowsOutput;
+  createManyIssue: AffectedRowsOutput;
+  createManyMixdown: AffectedRowsOutput;
+  createManyProject: AffectedRowsOutput;
+  createManyTag: AffectedRowsOutput;
+  createManyUser: AffectedRowsOutput;
+  createManyUsersOnProjects: AffectedRowsOutput;
+  createManyVersionInformation: AffectedRowsOutput;
   createMixdown: Mixdown;
   createProject: Project;
   createTag: Tag;
@@ -3405,6 +4107,76 @@ export type MutationCreateFeedItemRevisionArgs = {
 
 export type MutationCreateIssueArgs = {
   data: IssueCreateInput;
+};
+
+export type MutationCreateManyAddressArgs = {
+  data: Array<AddressCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyBandArgs = {
+  data: Array<BandCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyCommentArgs = {
+  data: Array<CommentCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyCommentLikeArgs = {
+  data: Array<CommentLikeCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyFeedItemArgs = {
+  data: Array<FeedItemCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyFeedItemLikeArgs = {
+  data: Array<FeedItemLikeCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyFeedItemRevisionArgs = {
+  data: Array<FeedItemRevisionCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyIssueArgs = {
+  data: Array<IssueCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyMixdownArgs = {
+  data: Array<MixdownCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyProjectArgs = {
+  data: Array<ProjectCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyTagArgs = {
+  data: Array<TagCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyUserArgs = {
+  data: Array<UserCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyUsersOnProjectsArgs = {
+  data: Array<UsersOnProjectsCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationCreateManyVersionInformationArgs = {
+  data: Array<VersionInformationCreateManyInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
 };
 
 export type MutationCreateMixdownArgs = {
@@ -3789,6 +4561,22 @@ export type NestedBoolNullableFilter = {
   not?: Maybe<NestedBoolNullableFilter>;
 };
 
+export type NestedBoolNullableWithAggregatesFilter = {
+  _count?: Maybe<NestedIntNullableFilter>;
+  _max?: Maybe<NestedBoolNullableFilter>;
+  _min?: Maybe<NestedBoolNullableFilter>;
+  equals?: Maybe<Scalars['Boolean']>;
+  not?: Maybe<NestedBoolNullableWithAggregatesFilter>;
+};
+
+export type NestedBoolWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedBoolFilter>;
+  _min?: Maybe<NestedBoolFilter>;
+  equals?: Maybe<Scalars['Boolean']>;
+  not?: Maybe<NestedBoolWithAggregatesFilter>;
+};
+
 export type NestedDateTimeFilter = {
   equals?: Maybe<Scalars['Timestamp']>;
   gt?: Maybe<Scalars['Timestamp']>;
@@ -3811,11 +4599,60 @@ export type NestedDateTimeNullableFilter = {
   notIn?: Maybe<Array<Scalars['Timestamp']>>;
 };
 
+export type NestedDateTimeNullableWithAggregatesFilter = {
+  _count?: Maybe<NestedIntNullableFilter>;
+  _max?: Maybe<NestedDateTimeNullableFilter>;
+  _min?: Maybe<NestedDateTimeNullableFilter>;
+  equals?: Maybe<Scalars['Timestamp']>;
+  gt?: Maybe<Scalars['Timestamp']>;
+  gte?: Maybe<Scalars['Timestamp']>;
+  in?: Maybe<Array<Scalars['Timestamp']>>;
+  lt?: Maybe<Scalars['Timestamp']>;
+  lte?: Maybe<Scalars['Timestamp']>;
+  not?: Maybe<NestedDateTimeNullableWithAggregatesFilter>;
+  notIn?: Maybe<Array<Scalars['Timestamp']>>;
+};
+
+export type NestedDateTimeWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedDateTimeFilter>;
+  _min?: Maybe<NestedDateTimeFilter>;
+  equals?: Maybe<Scalars['Timestamp']>;
+  gt?: Maybe<Scalars['Timestamp']>;
+  gte?: Maybe<Scalars['Timestamp']>;
+  in?: Maybe<Array<Scalars['Timestamp']>>;
+  lt?: Maybe<Scalars['Timestamp']>;
+  lte?: Maybe<Scalars['Timestamp']>;
+  not?: Maybe<NestedDateTimeWithAggregatesFilter>;
+  notIn?: Maybe<Array<Scalars['Timestamp']>>;
+};
+
 export type NestedEnumRoleFilter = {
   equals?: Maybe<Role>;
   in?: Maybe<Array<Role>>;
   not?: Maybe<NestedEnumRoleFilter>;
   notIn?: Maybe<Array<Role>>;
+};
+
+export type NestedEnumRoleWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedEnumRoleFilter>;
+  _min?: Maybe<NestedEnumRoleFilter>;
+  equals?: Maybe<Role>;
+  in?: Maybe<Array<Role>>;
+  not?: Maybe<NestedEnumRoleWithAggregatesFilter>;
+  notIn?: Maybe<Array<Role>>;
+};
+
+export type NestedFloatFilter = {
+  equals?: Maybe<Scalars['Float']>;
+  gt?: Maybe<Scalars['Float']>;
+  gte?: Maybe<Scalars['Float']>;
+  in?: Maybe<Array<Scalars['Float']>>;
+  lt?: Maybe<Scalars['Float']>;
+  lte?: Maybe<Scalars['Float']>;
+  not?: Maybe<NestedFloatFilter>;
+  notIn?: Maybe<Array<Scalars['Float']>>;
 };
 
 export type NestedIntFilter = {
@@ -3827,6 +4664,38 @@ export type NestedIntFilter = {
   lte?: Maybe<Scalars['Int']>;
   not?: Maybe<NestedIntFilter>;
   notIn?: Maybe<Array<Scalars['Int']>>;
+};
+
+export type NestedIntNullableFilter = {
+  equals?: Maybe<Scalars['Int']>;
+  gt?: Maybe<Scalars['Int']>;
+  gte?: Maybe<Scalars['Int']>;
+  in?: Maybe<Array<Scalars['Int']>>;
+  lt?: Maybe<Scalars['Int']>;
+  lte?: Maybe<Scalars['Int']>;
+  not?: Maybe<NestedIntNullableFilter>;
+  notIn?: Maybe<Array<Scalars['Int']>>;
+};
+
+export type NestedIntWithAggregatesFilter = {
+  _avg?: Maybe<NestedFloatFilter>;
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedIntFilter>;
+  _min?: Maybe<NestedIntFilter>;
+  _sum?: Maybe<NestedIntFilter>;
+  equals?: Maybe<Scalars['Int']>;
+  gt?: Maybe<Scalars['Int']>;
+  gte?: Maybe<Scalars['Int']>;
+  in?: Maybe<Array<Scalars['Int']>>;
+  lt?: Maybe<Scalars['Int']>;
+  lte?: Maybe<Scalars['Int']>;
+  not?: Maybe<NestedIntWithAggregatesFilter>;
+  notIn?: Maybe<Array<Scalars['Int']>>;
+};
+
+export type NestedJsonFilter = {
+  equals?: Maybe<Scalars['JSON']>;
+  not?: Maybe<Scalars['JSON']>;
 };
 
 export type NestedStringFilter = {
@@ -3853,6 +4722,40 @@ export type NestedStringNullableFilter = {
   lt?: Maybe<Scalars['String']>;
   lte?: Maybe<Scalars['String']>;
   not?: Maybe<NestedStringNullableFilter>;
+  notIn?: Maybe<Array<Scalars['String']>>;
+  startsWith?: Maybe<Scalars['String']>;
+};
+
+export type NestedStringNullableWithAggregatesFilter = {
+  _count?: Maybe<NestedIntNullableFilter>;
+  _max?: Maybe<NestedStringNullableFilter>;
+  _min?: Maybe<NestedStringNullableFilter>;
+  contains?: Maybe<Scalars['String']>;
+  endsWith?: Maybe<Scalars['String']>;
+  equals?: Maybe<Scalars['String']>;
+  gt?: Maybe<Scalars['String']>;
+  gte?: Maybe<Scalars['String']>;
+  in?: Maybe<Array<Scalars['String']>>;
+  lt?: Maybe<Scalars['String']>;
+  lte?: Maybe<Scalars['String']>;
+  not?: Maybe<NestedStringNullableWithAggregatesFilter>;
+  notIn?: Maybe<Array<Scalars['String']>>;
+  startsWith?: Maybe<Scalars['String']>;
+};
+
+export type NestedStringWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedStringFilter>;
+  _min?: Maybe<NestedStringFilter>;
+  contains?: Maybe<Scalars['String']>;
+  endsWith?: Maybe<Scalars['String']>;
+  equals?: Maybe<Scalars['String']>;
+  gt?: Maybe<Scalars['String']>;
+  gte?: Maybe<Scalars['String']>;
+  in?: Maybe<Array<Scalars['String']>>;
+  lt?: Maybe<Scalars['String']>;
+  lte?: Maybe<Scalars['String']>;
+  not?: Maybe<NestedStringWithAggregatesFilter>;
   notIn?: Maybe<Array<Scalars['String']>>;
   startsWith?: Maybe<Scalars['String']>;
 };
@@ -3915,14 +4818,14 @@ export type ProjectMixdownsArgs = {
 export type ProjectCountAggregate = {
   __typename?: 'ProjectCountAggregate';
   _all: Scalars['Int'];
-  content?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  isInitialized?: Maybe<Scalars['Int']>;
-  isPrivate?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['Int']>;
-  ownerId?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['Int']>;
+  content: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  id: Scalars['Int'];
+  isInitialized: Scalars['Int'];
+  isPrivate: Scalars['Int'];
+  name: Scalars['Int'];
+  ownerId: Scalars['Int'];
+  updatedAt: Scalars['Int'];
 };
 
 export type ProjectCreateInput = {
@@ -3939,10 +4842,37 @@ export type ProjectCreateInput = {
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
+export type ProjectCreateManyInput = {
+  content: Scalars['JSON'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isInitialized?: Maybe<Scalars['Boolean']>;
+  isPrivate?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  ownerId: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type ProjectCreateManyOwnerInput = {
+  content: Scalars['JSON'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  id?: Maybe<Scalars['String']>;
+  isInitialized?: Maybe<Scalars['Boolean']>;
+  isPrivate?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type ProjectCreateManyOwnerInputEnvelope = {
+  data: Array<ProjectCreateManyOwnerInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
 export type ProjectCreateNestedManyWithoutOwnerInput = {
   connect?: Maybe<Array<ProjectWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<ProjectCreateOrConnectWithoutOwnerInput>>;
   create?: Maybe<Array<ProjectCreateWithoutOwnerInput>>;
+  createMany?: Maybe<ProjectCreateManyOwnerInputEnvelope>;
 };
 
 export type ProjectCreateNestedOneWithoutAssetsInput = {
@@ -4035,6 +4965,21 @@ export type ProjectCreateWithoutOwnerInput = {
   updatedAt?: Maybe<Scalars['Timestamp']>;
 };
 
+export type ProjectGroupBy = {
+  __typename?: 'ProjectGroupBy';
+  _count?: Maybe<ProjectCountAggregate>;
+  _max?: Maybe<ProjectMaxAggregate>;
+  _min?: Maybe<ProjectMinAggregate>;
+  content: Scalars['JSON'];
+  createdAt: Scalars['Timestamp'];
+  id: Scalars['String'];
+  isInitialized: Scalars['Boolean'];
+  isPrivate: Scalars['Boolean'];
+  name: Scalars['String'];
+  ownerId: Scalars['String'];
+  updatedAt: Scalars['Timestamp'];
+};
+
 export type ProjectListRelationFilter = {
   every?: Maybe<ProjectWhereInput>;
   none?: Maybe<ProjectWhereInput>;
@@ -4070,7 +5015,6 @@ export type ProjectOrderByInput = {
   isInitialized?: Maybe<SortOrder>;
   isPrivate?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
-  owner?: Maybe<UserOrderByInput>;
   ownerId?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -4103,6 +5047,20 @@ export type ProjectScalarWhereInput = {
   name?: Maybe<StringFilter>;
   ownerId?: Maybe<StringFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
+};
+
+export type ProjectScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<ProjectScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<ProjectScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<ProjectScalarWhereWithAggregatesInput>>;
+  content?: Maybe<JsonWithAggregatesFilter>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  id?: Maybe<StringWithAggregatesFilter>;
+  isInitialized?: Maybe<BoolWithAggregatesFilter>;
+  isPrivate?: Maybe<BoolWithAggregatesFilter>;
+  name?: Maybe<StringWithAggregatesFilter>;
+  ownerId?: Maybe<StringWithAggregatesFilter>;
+  updatedAt?: Maybe<DateTimeWithAggregatesFilter>;
 };
 
 export type ProjectUpdateInput = {
@@ -4138,6 +5096,7 @@ export type ProjectUpdateManyWithoutOwnerInput = {
   connect?: Maybe<Array<ProjectWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<ProjectCreateOrConnectWithoutOwnerInput>>;
   create?: Maybe<Array<ProjectCreateWithoutOwnerInput>>;
+  createMany?: Maybe<ProjectCreateManyOwnerInputEnvelope>;
   delete?: Maybe<Array<ProjectWhereUniqueInput>>;
   deleteMany?: Maybe<Array<ProjectScalarWhereInput>>;
   disconnect?: Maybe<Array<ProjectWhereUniqueInput>>;
@@ -4271,19 +5230,20 @@ export type ProjectWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type PublishAssetArgs = {
+  __typename?: 'PublishAssetArgs';
+  id: Scalars['String'];
+  jobId: Scalars['String'];
+  mimeType: Scalars['String'];
+  projectId: Scalars['String'];
+};
+
 export type PublishProjectChangesArgs = {
   __typename?: 'PublishProjectChangesArgs';
   authorId?: Maybe<Scalars['String']>;
   changes: Scalars['JSONObject'];
   date: Scalars['Timestamp'];
   id: Scalars['String'];
-  projectId: Scalars['String'];
-};
-
-export type PublishTranscodedAssetArgs = {
-  __typename?: 'PublishTranscodedAssetArgs';
-  id: Scalars['String'];
-  parentAssetId: Scalars['String'];
   projectId: Scalars['String'];
 };
 
@@ -4334,6 +5294,20 @@ export type Query = {
   findManyUsersOnProjects: Array<UsersOnProjects>;
   findUniqueUsersOnProjects?: Maybe<UsersOnProjects>;
   followRecommendations: Array<User>;
+  groupByAddress: Array<AddressGroupBy>;
+  groupByBand: Array<BandGroupBy>;
+  groupByComment: Array<CommentGroupBy>;
+  groupByCommentLike: Array<CommentLikeGroupBy>;
+  groupByFeedItem: Array<FeedItemGroupBy>;
+  groupByFeedItemLike: Array<FeedItemLikeGroupBy>;
+  groupByFeedItemRevision: Array<FeedItemRevisionGroupBy>;
+  groupByIssue: Array<IssueGroupBy>;
+  groupByMixdown: Array<MixdownGroupBy>;
+  groupByProject: Array<ProjectGroupBy>;
+  groupByTag: Array<TagGroupBy>;
+  groupByUser: Array<UserGroupBy>;
+  groupByUsersOnProjects: Array<UsersOnProjectsGroupBy>;
+  groupByVersionInformation: Array<VersionInformationGroupBy>;
   issue?: Maybe<Issue>;
   issues: Array<Issue>;
   me: User;
@@ -4691,6 +5665,132 @@ export type QueryFindUniqueUsersOnProjectsArgs = {
   where: UsersOnProjectsWhereUniqueInput;
 };
 
+export type QueryGroupByAddressArgs = {
+  by: Array<AddressScalarFieldEnum>;
+  having?: Maybe<AddressScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<AddressOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<AddressWhereInput>;
+};
+
+export type QueryGroupByBandArgs = {
+  by: Array<BandScalarFieldEnum>;
+  having?: Maybe<BandScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<BandOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<BandWhereInput>;
+};
+
+export type QueryGroupByCommentArgs = {
+  by: Array<CommentScalarFieldEnum>;
+  having?: Maybe<CommentScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<CommentOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<CommentWhereInput>;
+};
+
+export type QueryGroupByCommentLikeArgs = {
+  by: Array<CommentLikeScalarFieldEnum>;
+  having?: Maybe<CommentLikeScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<CommentLikeOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<CommentLikeWhereInput>;
+};
+
+export type QueryGroupByFeedItemArgs = {
+  by: Array<FeedItemScalarFieldEnum>;
+  having?: Maybe<FeedItemScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<FeedItemOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<FeedItemWhereInput>;
+};
+
+export type QueryGroupByFeedItemLikeArgs = {
+  by: Array<FeedItemLikeScalarFieldEnum>;
+  having?: Maybe<FeedItemLikeScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<FeedItemLikeOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<FeedItemLikeWhereInput>;
+};
+
+export type QueryGroupByFeedItemRevisionArgs = {
+  by: Array<FeedItemRevisionScalarFieldEnum>;
+  having?: Maybe<FeedItemRevisionScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<FeedItemRevisionOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<FeedItemRevisionWhereInput>;
+};
+
+export type QueryGroupByIssueArgs = {
+  by: Array<IssueScalarFieldEnum>;
+  having?: Maybe<IssueScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<IssueOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<IssueWhereInput>;
+};
+
+export type QueryGroupByMixdownArgs = {
+  by: Array<MixdownScalarFieldEnum>;
+  having?: Maybe<MixdownScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<MixdownOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<MixdownWhereInput>;
+};
+
+export type QueryGroupByProjectArgs = {
+  by: Array<ProjectScalarFieldEnum>;
+  having?: Maybe<ProjectScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<ProjectOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<ProjectWhereInput>;
+};
+
+export type QueryGroupByTagArgs = {
+  by: Array<TagScalarFieldEnum>;
+  having?: Maybe<TagScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<TagOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<TagWhereInput>;
+};
+
+export type QueryGroupByUserArgs = {
+  by: Array<UserScalarFieldEnum>;
+  having?: Maybe<UserScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<UserOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<UserWhereInput>;
+};
+
+export type QueryGroupByUsersOnProjectsArgs = {
+  by: Array<UsersOnProjectsScalarFieldEnum>;
+  having?: Maybe<UsersOnProjectsScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<UsersOnProjectsOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<UsersOnProjectsWhereInput>;
+};
+
+export type QueryGroupByVersionInformationArgs = {
+  by: Array<VersionInformationScalarFieldEnum>;
+  having?: Maybe<VersionInformationScalarWhereWithAggregatesInput>;
+  orderBy?: Maybe<Array<VersionInformationOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<VersionInformationWhereInput>;
+};
+
 export type QueryIssueArgs = {
   where: IssueWhereUniqueInput;
 };
@@ -4827,16 +5927,52 @@ export type StringNullableListFilter = {
   isEmpty?: Maybe<Scalars['Boolean']>;
 };
 
+export type StringNullableWithAggregatesFilter = {
+  _count?: Maybe<NestedIntNullableFilter>;
+  _max?: Maybe<NestedStringNullableFilter>;
+  _min?: Maybe<NestedStringNullableFilter>;
+  contains?: Maybe<Scalars['String']>;
+  endsWith?: Maybe<Scalars['String']>;
+  equals?: Maybe<Scalars['String']>;
+  gt?: Maybe<Scalars['String']>;
+  gte?: Maybe<Scalars['String']>;
+  in?: Maybe<Array<Scalars['String']>>;
+  lt?: Maybe<Scalars['String']>;
+  lte?: Maybe<Scalars['String']>;
+  mode?: Maybe<QueryMode>;
+  not?: Maybe<NestedStringNullableWithAggregatesFilter>;
+  notIn?: Maybe<Array<Scalars['String']>>;
+  startsWith?: Maybe<Scalars['String']>;
+};
+
+export type StringWithAggregatesFilter = {
+  _count?: Maybe<NestedIntFilter>;
+  _max?: Maybe<NestedStringFilter>;
+  _min?: Maybe<NestedStringFilter>;
+  contains?: Maybe<Scalars['String']>;
+  endsWith?: Maybe<Scalars['String']>;
+  equals?: Maybe<Scalars['String']>;
+  gt?: Maybe<Scalars['String']>;
+  gte?: Maybe<Scalars['String']>;
+  in?: Maybe<Array<Scalars['String']>>;
+  lt?: Maybe<Scalars['String']>;
+  lte?: Maybe<Scalars['String']>;
+  mode?: Maybe<QueryMode>;
+  not?: Maybe<NestedStringWithAggregatesFilter>;
+  notIn?: Maybe<Array<Scalars['String']>>;
+  startsWith?: Maybe<Scalars['String']>;
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
-  assetTranscoded: PublishTranscodedAssetArgs;
+  assetAvailable: PublishAssetArgs;
   changes: PublishProjectChangesArgs;
   newComment: Comment;
   onlineStatus: Scalars['Boolean'];
 };
 
-export type SubscriptionAssetTranscodedArgs = {
-  assetId: Scalars['String'];
+export type SubscriptionAssetAvailableArgs = {
+  jobId: Scalars['String'];
   projectId: Scalars['String'];
 };
 
@@ -4862,9 +5998,9 @@ export type Tag = {
 export type TagCountAggregate = {
   __typename?: 'TagCountAggregate';
   _all: Scalars['Int'];
-  id?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
-  value?: Maybe<Scalars['Int']>;
+  id: Scalars['Int'];
+  userId: Scalars['Int'];
+  value: Scalars['Int'];
 };
 
 export type TagCreateInput = {
@@ -4873,10 +6009,27 @@ export type TagCreateInput = {
   value: Scalars['String'];
 };
 
+export type TagCreateManyInput = {
+  id?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  value: Scalars['String'];
+};
+
+export type TagCreateManyUserInput = {
+  id?: Maybe<Scalars['String']>;
+  value: Scalars['String'];
+};
+
+export type TagCreateManyUserInputEnvelope = {
+  data: Array<TagCreateManyUserInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
 export type TagCreateNestedManyWithoutUserInput = {
   connect?: Maybe<Array<TagWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<TagCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<TagCreateWithoutUserInput>>;
+  createMany?: Maybe<TagCreateManyUserInputEnvelope>;
 };
 
 export type TagCreateOrConnectWithoutUserInput = {
@@ -4886,6 +6039,16 @@ export type TagCreateOrConnectWithoutUserInput = {
 
 export type TagCreateWithoutUserInput = {
   id?: Maybe<Scalars['String']>;
+  value: Scalars['String'];
+};
+
+export type TagGroupBy = {
+  __typename?: 'TagGroupBy';
+  _count?: Maybe<TagCountAggregate>;
+  _max?: Maybe<TagMaxAggregate>;
+  _min?: Maybe<TagMinAggregate>;
+  id: Scalars['String'];
+  userId?: Maybe<Scalars['String']>;
   value: Scalars['String'];
 };
 
@@ -4910,7 +6073,6 @@ export type TagMinAggregate = {
 };
 
 export type TagOrderByInput = {
-  User?: Maybe<UserOrderByInput>;
   id?: Maybe<SortOrder>;
   userId?: Maybe<SortOrder>;
   value?: Maybe<SortOrder>;
@@ -4929,6 +6091,15 @@ export type TagScalarWhereInput = {
   id?: Maybe<StringFilter>;
   userId?: Maybe<StringNullableFilter>;
   value?: Maybe<StringFilter>;
+};
+
+export type TagScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<TagScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<TagScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<TagScalarWhereWithAggregatesInput>>;
+  id?: Maybe<StringWithAggregatesFilter>;
+  userId?: Maybe<StringNullableWithAggregatesFilter>;
+  value?: Maybe<StringWithAggregatesFilter>;
 };
 
 export type TagUpdateInput = {
@@ -4951,6 +6122,7 @@ export type TagUpdateManyWithoutUserInput = {
   connect?: Maybe<Array<TagWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<TagCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<TagCreateWithoutUserInput>>;
+  createMany?: Maybe<TagCreateManyUserInputEnvelope>;
   delete?: Maybe<Array<TagWhereUniqueInput>>;
   deleteMany?: Maybe<Array<TagScalarWhereInput>>;
   disconnect?: Maybe<Array<TagWhereUniqueInput>>;
@@ -5167,19 +6339,19 @@ export type UserOwnsProjectsArgs = {
 export type UserCountAggregate = {
   __typename?: 'UserCountAggregate';
   _all: Scalars['Int'];
-  addressId?: Maybe<Scalars['Int']>;
-  avatar?: Maybe<Scalars['Int']>;
-  bio?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['Int']>;
-  email?: Maybe<Scalars['Int']>;
-  handle?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  isOnline?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['Int']>;
-  password?: Maybe<Scalars['Int']>;
-  role?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['Int']>;
-  website?: Maybe<Scalars['Int']>;
+  addressId: Scalars['Int'];
+  avatar: Scalars['Int'];
+  bio: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  email: Scalars['Int'];
+  handle: Scalars['Int'];
+  id: Scalars['Int'];
+  isOnline: Scalars['Int'];
+  name: Scalars['Int'];
+  password: Scalars['Int'];
+  role: Scalars['Int'];
+  updatedAt: Scalars['Int'];
+  website: Scalars['Int'];
 };
 
 export type UserCreateInput = {
@@ -5213,10 +6385,47 @@ export type UserCreateInput = {
   website?: Maybe<Scalars['String']>;
 };
 
+export type UserCreateManyAddressInput = {
+  avatar?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  email: Scalars['String'];
+  handle: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+  isOnline?: Maybe<Scalars['Boolean']>;
+  name: Scalars['String'];
+  password: Scalars['String'];
+  role?: Maybe<Role>;
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+  website?: Maybe<Scalars['String']>;
+};
+
+export type UserCreateManyAddressInputEnvelope = {
+  data: Array<UserCreateManyAddressInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type UserCreateManyInput = {
+  addressId?: Maybe<Scalars['String']>;
+  avatar?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  email: Scalars['String'];
+  handle: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+  isOnline?: Maybe<Scalars['Boolean']>;
+  name: Scalars['String'];
+  password: Scalars['String'];
+  role?: Maybe<Role>;
+  updatedAt?: Maybe<Scalars['Timestamp']>;
+  website?: Maybe<Scalars['String']>;
+};
+
 export type UserCreateNestedManyWithoutAddressInput = {
   connect?: Maybe<Array<UserWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutAddressInput>>;
   create?: Maybe<Array<UserCreateWithoutAddressInput>>;
+  createMany?: Maybe<UserCreateManyAddressInputEnvelope>;
 };
 
 export type UserCreateNestedManyWithoutFollowedByInput = {
@@ -5828,6 +7037,26 @@ export type UserCreateWithoutOwnsProjectsInput = {
   website?: Maybe<Scalars['String']>;
 };
 
+export type UserGroupBy = {
+  __typename?: 'UserGroupBy';
+  _count?: Maybe<UserCountAggregate>;
+  _max?: Maybe<UserMaxAggregate>;
+  _min?: Maybe<UserMinAggregate>;
+  addressId?: Maybe<Scalars['String']>;
+  avatar?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Timestamp'];
+  email: Scalars['String'];
+  handle: Scalars['String'];
+  id: Scalars['String'];
+  isOnline: Scalars['Boolean'];
+  name: Scalars['String'];
+  password: Scalars['String'];
+  role: Role;
+  updatedAt: Scalars['Timestamp'];
+  website?: Maybe<Scalars['String']>;
+};
+
 export type UserListRelationFilter = {
   every?: Maybe<UserWhereInput>;
   none?: Maybe<UserWhereInput>;
@@ -5869,7 +7098,6 @@ export type UserMinAggregate = {
 };
 
 export type UserOrderByInput = {
-  address?: Maybe<AddressOrderByInput>;
   addressId?: Maybe<SortOrder>;
   avatar?: Maybe<SortOrder>;
   bio?: Maybe<SortOrder>;
@@ -5923,6 +7151,25 @@ export type UserScalarWhereInput = {
   role?: Maybe<EnumRoleFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
   website?: Maybe<StringNullableFilter>;
+};
+
+export type UserScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<UserScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<UserScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<UserScalarWhereWithAggregatesInput>>;
+  addressId?: Maybe<StringNullableWithAggregatesFilter>;
+  avatar?: Maybe<StringNullableWithAggregatesFilter>;
+  bio?: Maybe<StringNullableWithAggregatesFilter>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  email?: Maybe<StringWithAggregatesFilter>;
+  handle?: Maybe<StringWithAggregatesFilter>;
+  id?: Maybe<StringWithAggregatesFilter>;
+  isOnline?: Maybe<BoolWithAggregatesFilter>;
+  name?: Maybe<StringWithAggregatesFilter>;
+  password?: Maybe<StringWithAggregatesFilter>;
+  role?: Maybe<EnumRoleWithAggregatesFilter>;
+  updatedAt?: Maybe<DateTimeWithAggregatesFilter>;
+  website?: Maybe<StringNullableWithAggregatesFilter>;
 };
 
 export type UserSignUpInput = {
@@ -5998,6 +7245,7 @@ export type UserUpdateManyWithoutAddressInput = {
   connect?: Maybe<Array<UserWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UserCreateOrConnectWithoutAddressInput>>;
   create?: Maybe<Array<UserCreateWithoutAddressInput>>;
+  createMany?: Maybe<UserCreateManyAddressInputEnvelope>;
   delete?: Maybe<Array<UserWhereUniqueInput>>;
   deleteMany?: Maybe<Array<UserScalarWhereInput>>;
   disconnect?: Maybe<Array<UserWhereUniqueInput>>;
@@ -6726,16 +7974,38 @@ export type UsersOnBands = {
   userId: Scalars['String'];
 };
 
+export type UsersOnBandsCreateManyBandInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  userId: Scalars['String'];
+};
+
+export type UsersOnBandsCreateManyBandInputEnvelope = {
+  data: Array<UsersOnBandsCreateManyBandInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type UsersOnBandsCreateManyUserInput = {
+  bandId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Timestamp']>;
+};
+
+export type UsersOnBandsCreateManyUserInputEnvelope = {
+  data: Array<UsersOnBandsCreateManyUserInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
 export type UsersOnBandsCreateNestedManyWithoutBandInput = {
   connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutBandInput>>;
   create?: Maybe<Array<UsersOnBandsCreateWithoutBandInput>>;
+  createMany?: Maybe<UsersOnBandsCreateManyBandInputEnvelope>;
 };
 
 export type UsersOnBandsCreateNestedManyWithoutUserInput = {
   connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<UsersOnBandsCreateWithoutUserInput>>;
+  createMany?: Maybe<UsersOnBandsCreateManyUserInputEnvelope>;
 };
 
 export type UsersOnBandsCreateOrConnectWithoutBandInput = {
@@ -6765,10 +8035,8 @@ export type UsersOnBandsListRelationFilter = {
 };
 
 export type UsersOnBandsOrderByInput = {
-  band?: Maybe<BandOrderByInput>;
   bandId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
-  user?: Maybe<UserOrderByInput>;
   userId?: Maybe<SortOrder>;
 };
 
@@ -6805,6 +8073,7 @@ export type UsersOnBandsUpdateManyWithoutBandInput = {
   connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutBandInput>>;
   create?: Maybe<Array<UsersOnBandsCreateWithoutBandInput>>;
+  createMany?: Maybe<UsersOnBandsCreateManyBandInputEnvelope>;
   delete?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
   deleteMany?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
   disconnect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
@@ -6818,6 +8087,7 @@ export type UsersOnBandsUpdateManyWithoutUserInput = {
   connect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UsersOnBandsCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<UsersOnBandsCreateWithoutUserInput>>;
+  createMany?: Maybe<UsersOnBandsCreateManyUserInputEnvelope>;
   delete?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
   deleteMany?: Maybe<Array<UsersOnBandsScalarWhereInput>>;
   disconnect?: Maybe<Array<UsersOnBandsWhereUniqueInput>>;
@@ -6891,9 +8161,9 @@ export type UsersOnProjects = {
 export type UsersOnProjectsCountAggregate = {
   __typename?: 'UsersOnProjectsCountAggregate';
   _all: Scalars['Int'];
-  createdAt?: Maybe<Scalars['Int']>;
-  projectId?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
+  createdAt: Scalars['Int'];
+  projectId: Scalars['Int'];
+  userId: Scalars['Int'];
 };
 
 export type UsersOnProjectsCreateInput = {
@@ -6902,16 +8172,44 @@ export type UsersOnProjectsCreateInput = {
   user: UserCreateNestedOneWithoutMemberOfProjectsInput;
 };
 
+export type UsersOnProjectsCreateManyInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  projectId: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+export type UsersOnProjectsCreateManyProjectInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  userId: Scalars['String'];
+};
+
+export type UsersOnProjectsCreateManyProjectInputEnvelope = {
+  data: Array<UsersOnProjectsCreateManyProjectInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type UsersOnProjectsCreateManyUserInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  projectId: Scalars['String'];
+};
+
+export type UsersOnProjectsCreateManyUserInputEnvelope = {
+  data: Array<UsersOnProjectsCreateManyUserInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
 export type UsersOnProjectsCreateNestedManyWithoutProjectInput = {
   connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutProjectInput>>;
   create?: Maybe<Array<UsersOnProjectsCreateWithoutProjectInput>>;
+  createMany?: Maybe<UsersOnProjectsCreateManyProjectInputEnvelope>;
 };
 
 export type UsersOnProjectsCreateNestedManyWithoutUserInput = {
   connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<UsersOnProjectsCreateWithoutUserInput>>;
+  createMany?: Maybe<UsersOnProjectsCreateManyUserInputEnvelope>;
 };
 
 export type UsersOnProjectsCreateOrConnectWithoutProjectInput = {
@@ -6932,6 +8230,16 @@ export type UsersOnProjectsCreateWithoutProjectInput = {
 export type UsersOnProjectsCreateWithoutUserInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
   project: ProjectCreateNestedOneWithoutMembersInput;
+};
+
+export type UsersOnProjectsGroupBy = {
+  __typename?: 'UsersOnProjectsGroupBy';
+  _count?: Maybe<UsersOnProjectsCountAggregate>;
+  _max?: Maybe<UsersOnProjectsMaxAggregate>;
+  _min?: Maybe<UsersOnProjectsMinAggregate>;
+  createdAt: Scalars['Timestamp'];
+  projectId: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type UsersOnProjectsListRelationFilter = {
@@ -6956,9 +8264,7 @@ export type UsersOnProjectsMinAggregate = {
 
 export type UsersOnProjectsOrderByInput = {
   createdAt?: Maybe<SortOrder>;
-  project?: Maybe<ProjectOrderByInput>;
   projectId?: Maybe<SortOrder>;
-  user?: Maybe<UserOrderByInput>;
   userId?: Maybe<SortOrder>;
 };
 
@@ -6975,6 +8281,15 @@ export type UsersOnProjectsScalarWhereInput = {
   createdAt?: Maybe<DateTimeFilter>;
   projectId?: Maybe<StringFilter>;
   userId?: Maybe<StringFilter>;
+};
+
+export type UsersOnProjectsScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<UsersOnProjectsScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<UsersOnProjectsScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<UsersOnProjectsScalarWhereWithAggregatesInput>>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  projectId?: Maybe<StringWithAggregatesFilter>;
+  userId?: Maybe<StringWithAggregatesFilter>;
 };
 
 export type UsersOnProjectsUpdateInput = {
@@ -7001,6 +8316,7 @@ export type UsersOnProjectsUpdateManyWithoutProjectInput = {
   connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutProjectInput>>;
   create?: Maybe<Array<UsersOnProjectsCreateWithoutProjectInput>>;
+  createMany?: Maybe<UsersOnProjectsCreateManyProjectInputEnvelope>;
   delete?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
   deleteMany?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
   disconnect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
@@ -7014,6 +8330,7 @@ export type UsersOnProjectsUpdateManyWithoutUserInput = {
   connect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
   connectOrCreate?: Maybe<Array<UsersOnProjectsCreateOrConnectWithoutUserInput>>;
   create?: Maybe<Array<UsersOnProjectsCreateWithoutUserInput>>;
+  createMany?: Maybe<UsersOnProjectsCreateManyUserInputEnvelope>;
   delete?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
   deleteMany?: Maybe<Array<UsersOnProjectsScalarWhereInput>>;
   disconnect?: Maybe<Array<UsersOnProjectsWhereUniqueInput>>;
@@ -7085,15 +8402,31 @@ export type VersionInformation = {
 export type VersionInformationCountAggregate = {
   __typename?: 'VersionInformationCountAggregate';
   _all: Scalars['Int'];
-  createdAt?: Maybe<Scalars['Int']>;
-  description?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
+  createdAt: Scalars['Int'];
+  description: Scalars['Int'];
+  id: Scalars['Int'];
 };
 
 export type VersionInformationCreateInput = {
   createdAt?: Maybe<Scalars['Timestamp']>;
   description: Scalars['String'];
   id?: Maybe<Scalars['String']>;
+};
+
+export type VersionInformationCreateManyInput = {
+  createdAt?: Maybe<Scalars['Timestamp']>;
+  description: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+};
+
+export type VersionInformationGroupBy = {
+  __typename?: 'VersionInformationGroupBy';
+  _count?: Maybe<VersionInformationCountAggregate>;
+  _max?: Maybe<VersionInformationMaxAggregate>;
+  _min?: Maybe<VersionInformationMinAggregate>;
+  createdAt: Scalars['Timestamp'];
+  description: Scalars['String'];
+  id: Scalars['String'];
 };
 
 export type VersionInformationMaxAggregate = {
@@ -7121,6 +8454,15 @@ export enum VersionInformationScalarFieldEnum {
   Description = 'description',
   Id = 'id',
 }
+
+export type VersionInformationScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<VersionInformationScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<VersionInformationScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<VersionInformationScalarWhereWithAggregatesInput>>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  description?: Maybe<StringWithAggregatesFilter>;
+  id?: Maybe<StringWithAggregatesFilter>;
+};
 
 export type VersionInformationUpdateInput = {
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;

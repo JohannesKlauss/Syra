@@ -16,24 +16,36 @@ type Address {
 }
 
 type AddressAvgAggregate {
-  zip: Float!
+  zip: Float
 }
 
 type AddressCountAggregate {
   _all: Int!
-  addressLine1: Int
-  addressLine2: Int
-  city: Int
-  country: Int
-  createdAt: Int
-  id: Int
-  state: Int
-  updatedAt: Int
+  addressLine1: Int!
+  addressLine2: Int!
+  city: Int!
+  country: Int!
+  createdAt: Int!
+  id: Int!
+  state: Int!
+  updatedAt: Int!
   zip: Int!
 }
 
 input AddressCreateInput {
   User: UserCreateNestedManyWithoutAddressInput
+  addressLine1: String!
+  addressLine2: String
+  city: String!
+  country: String!
+  createdAt: Timestamp
+  id: String
+  state: String!
+  updatedAt: Timestamp
+  zip: Int!
+}
+
+input AddressCreateManyInput {
   addressLine1: String!
   addressLine2: String
   city: String!
@@ -68,6 +80,23 @@ input AddressCreateWithoutUserInput {
   zip: Int!
 }
 
+type AddressGroupBy {
+  _avg: AddressAvgAggregate
+  _count: AddressCountAggregate
+  _max: AddressMaxAggregate
+  _min: AddressMinAggregate
+  _sum: AddressSumAggregate
+  addressLine1: String!
+  addressLine2: String
+  city: String!
+  country: String!
+  createdAt: Timestamp!
+  id: String!
+  state: String!
+  updatedAt: Timestamp!
+  zip: Int!
+}
+
 type AddressMaxAggregate {
   addressLine1: String
   addressLine2: String
@@ -77,7 +106,7 @@ type AddressMaxAggregate {
   id: String
   state: String
   updatedAt: Timestamp
-  zip: Int!
+  zip: Int
 }
 
 type AddressMinAggregate {
@@ -89,7 +118,7 @@ type AddressMinAggregate {
   id: String
   state: String
   updatedAt: Timestamp
-  zip: Int!
+  zip: Int
 }
 
 input AddressOrderByInput {
@@ -121,8 +150,23 @@ enum AddressScalarFieldEnum {
   zip
 }
 
+input AddressScalarWhereWithAggregatesInput {
+  AND: [AddressScalarWhereWithAggregatesInput!]
+  NOT: [AddressScalarWhereWithAggregatesInput!]
+  OR: [AddressScalarWhereWithAggregatesInput!]
+  addressLine1: StringWithAggregatesFilter
+  addressLine2: StringNullableWithAggregatesFilter
+  city: StringWithAggregatesFilter
+  country: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  state: StringWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  zip: IntWithAggregatesFilter
+}
+
 type AddressSumAggregate {
-  zip: Int!
+  zip: Int
 }
 
 input AddressUpdateInput {
@@ -202,91 +246,91 @@ type AffectedRowsOutput {
 }
 
 type AggregateAddress {
-  avg: AddressAvgAggregate
-  count: AddressCountAggregate
-  max: AddressMaxAggregate
-  min: AddressMinAggregate
-  sum: AddressSumAggregate
+  _avg: AddressAvgAggregate
+  _count: AddressCountAggregate
+  _max: AddressMaxAggregate
+  _min: AddressMinAggregate
+  _sum: AddressSumAggregate
 }
 
 type AggregateBand {
-  count: BandCountAggregate
-  max: BandMaxAggregate
-  min: BandMinAggregate
+  _count: BandCountAggregate
+  _max: BandMaxAggregate
+  _min: BandMinAggregate
 }
 
 type AggregateComment {
-  count: CommentCountAggregate
-  max: CommentMaxAggregate
-  min: CommentMinAggregate
+  _count: CommentCountAggregate
+  _max: CommentMaxAggregate
+  _min: CommentMinAggregate
 }
 
 type AggregateCommentLike {
-  count: CommentLikeCountAggregate
-  max: CommentLikeMaxAggregate
-  min: CommentLikeMinAggregate
+  _count: CommentLikeCountAggregate
+  _max: CommentLikeMaxAggregate
+  _min: CommentLikeMinAggregate
 }
 
 type AggregateFeedItem {
-  count: FeedItemCountAggregate
-  max: FeedItemMaxAggregate
-  min: FeedItemMinAggregate
+  _count: FeedItemCountAggregate
+  _max: FeedItemMaxAggregate
+  _min: FeedItemMinAggregate
 }
 
 type AggregateFeedItemLike {
-  count: FeedItemLikeCountAggregate
-  max: FeedItemLikeMaxAggregate
-  min: FeedItemLikeMinAggregate
+  _count: FeedItemLikeCountAggregate
+  _max: FeedItemLikeMaxAggregate
+  _min: FeedItemLikeMinAggregate
 }
 
 type AggregateFeedItemRevision {
-  count: FeedItemRevisionCountAggregate
-  max: FeedItemRevisionMaxAggregate
-  min: FeedItemRevisionMinAggregate
+  _count: FeedItemRevisionCountAggregate
+  _max: FeedItemRevisionMaxAggregate
+  _min: FeedItemRevisionMinAggregate
 }
 
 type AggregateIssue {
-  count: IssueCountAggregate
-  max: IssueMaxAggregate
-  min: IssueMinAggregate
+  _count: IssueCountAggregate
+  _max: IssueMaxAggregate
+  _min: IssueMinAggregate
 }
 
 type AggregateMixdown {
-  avg: MixdownAvgAggregate
-  count: MixdownCountAggregate
-  max: MixdownMaxAggregate
-  min: MixdownMinAggregate
-  sum: MixdownSumAggregate
+  _avg: MixdownAvgAggregate
+  _count: MixdownCountAggregate
+  _max: MixdownMaxAggregate
+  _min: MixdownMinAggregate
+  _sum: MixdownSumAggregate
 }
 
 type AggregateProject {
-  count: ProjectCountAggregate
-  max: ProjectMaxAggregate
-  min: ProjectMinAggregate
+  _count: ProjectCountAggregate
+  _max: ProjectMaxAggregate
+  _min: ProjectMinAggregate
 }
 
 type AggregateTag {
-  count: TagCountAggregate
-  max: TagMaxAggregate
-  min: TagMinAggregate
+  _count: TagCountAggregate
+  _max: TagMaxAggregate
+  _min: TagMinAggregate
 }
 
 type AggregateUser {
-  count: UserCountAggregate
-  max: UserMaxAggregate
-  min: UserMinAggregate
+  _count: UserCountAggregate
+  _max: UserMaxAggregate
+  _min: UserMinAggregate
 }
 
 type AggregateUsersOnProjects {
-  count: UsersOnProjectsCountAggregate
-  max: UsersOnProjectsMaxAggregate
-  min: UsersOnProjectsMinAggregate
+  _count: UsersOnProjectsCountAggregate
+  _max: UsersOnProjectsMaxAggregate
+  _min: UsersOnProjectsMinAggregate
 }
 
 type AggregateVersionInformation {
-  count: VersionInformationCountAggregate
-  max: VersionInformationMaxAggregate
-  min: VersionInformationMinAggregate
+  _count: VersionInformationCountAggregate
+  _max: VersionInformationMaxAggregate
+  _min: VersionInformationMinAggregate
 }
 
 type Asset {
@@ -300,10 +344,24 @@ type Asset {
   userId: String
 }
 
+input AssetCreateManyOwnerInput {
+  id: String
+  isPublic: Boolean
+  location: String!
+  mimeType: String!
+  name: String!
+}
+
+input AssetCreateManyOwnerInputEnvelope {
+  data: [AssetCreateManyOwnerInput!]!
+  skipDuplicates: Boolean
+}
+
 input AssetCreateNestedManyWithoutOwnerInput {
   connect: [AssetWhereUniqueInput!]
   connectOrCreate: [AssetCreateOrConnectWithoutOwnerInput!]
   create: [AssetCreateWithoutOwnerInput!]
+  createMany: AssetCreateManyOwnerInputEnvelope
 }
 
 input AssetCreateNestedOneWithoutMixdownInput {
@@ -421,6 +479,7 @@ input AssetUpdateManyWithoutOwnerInput {
   connect: [AssetWhereUniqueInput!]
   connectOrCreate: [AssetCreateOrConnectWithoutOwnerInput!]
   create: [AssetCreateWithoutOwnerInput!]
+  createMany: AssetCreateManyOwnerInputEnvelope
   delete: [AssetWhereUniqueInput!]
   deleteMany: [AssetScalarWhereInput!]
   disconnect: [AssetWhereUniqueInput!]
@@ -527,16 +586,38 @@ input AssetsOnProjectsAssetIdProjectIdCompoundUniqueInput {
   projectId: String!
 }
 
+input AssetsOnProjectsCreateManyAssetInput {
+  createdAt: Timestamp
+  projectId: String!
+}
+
+input AssetsOnProjectsCreateManyAssetInputEnvelope {
+  data: [AssetsOnProjectsCreateManyAssetInput!]!
+  skipDuplicates: Boolean
+}
+
+input AssetsOnProjectsCreateManyProjectInput {
+  assetId: String!
+  createdAt: Timestamp
+}
+
+input AssetsOnProjectsCreateManyProjectInputEnvelope {
+  data: [AssetsOnProjectsCreateManyProjectInput!]!
+  skipDuplicates: Boolean
+}
+
 input AssetsOnProjectsCreateNestedManyWithoutAssetInput {
   connect: [AssetsOnProjectsWhereUniqueInput!]
   connectOrCreate: [AssetsOnProjectsCreateOrConnectWithoutAssetInput!]
   create: [AssetsOnProjectsCreateWithoutAssetInput!]
+  createMany: AssetsOnProjectsCreateManyAssetInputEnvelope
 }
 
 input AssetsOnProjectsCreateNestedManyWithoutProjectInput {
   connect: [AssetsOnProjectsWhereUniqueInput!]
   connectOrCreate: [AssetsOnProjectsCreateOrConnectWithoutProjectInput!]
   create: [AssetsOnProjectsCreateWithoutProjectInput!]
+  createMany: AssetsOnProjectsCreateManyProjectInputEnvelope
 }
 
 input AssetsOnProjectsCreateOrConnectWithoutAssetInput {
@@ -604,6 +685,7 @@ input AssetsOnProjectsUpdateManyWithoutAssetInput {
   connect: [AssetsOnProjectsWhereUniqueInput!]
   connectOrCreate: [AssetsOnProjectsCreateOrConnectWithoutAssetInput!]
   create: [AssetsOnProjectsCreateWithoutAssetInput!]
+  createMany: AssetsOnProjectsCreateManyAssetInputEnvelope
   delete: [AssetsOnProjectsWhereUniqueInput!]
   deleteMany: [AssetsOnProjectsScalarWhereInput!]
   disconnect: [AssetsOnProjectsWhereUniqueInput!]
@@ -617,6 +699,7 @@ input AssetsOnProjectsUpdateManyWithoutProjectInput {
   connect: [AssetsOnProjectsWhereUniqueInput!]
   connectOrCreate: [AssetsOnProjectsCreateOrConnectWithoutProjectInput!]
   create: [AssetsOnProjectsCreateWithoutProjectInput!]
+  createMany: AssetsOnProjectsCreateManyProjectInputEnvelope
   delete: [AssetsOnProjectsWhereUniqueInput!]
   deleteMany: [AssetsOnProjectsScalarWhereInput!]
   disconnect: [AssetsOnProjectsWhereUniqueInput!]
@@ -686,12 +769,12 @@ type Band {
 
 type BandCountAggregate {
   _all: Int!
-  createdAt: Int
-  id: Int
-  isPublic: Int
-  name: Int
-  updatedAt: Int
-  userId: Int
+  createdAt: Int!
+  id: Int!
+  isPublic: Int!
+  name: Int!
+  updatedAt: Int!
+  userId: Int!
 }
 
 input BandCreateInput {
@@ -704,10 +787,33 @@ input BandCreateInput {
   updatedAt: Timestamp
 }
 
+input BandCreateManyCreatedByInput {
+  createdAt: Timestamp
+  id: String
+  isPublic: Boolean
+  name: String!
+  updatedAt: Timestamp
+}
+
+input BandCreateManyCreatedByInputEnvelope {
+  data: [BandCreateManyCreatedByInput!]!
+  skipDuplicates: Boolean
+}
+
+input BandCreateManyInput {
+  createdAt: Timestamp
+  id: String
+  isPublic: Boolean
+  name: String!
+  updatedAt: Timestamp
+  userId: String!
+}
+
 input BandCreateNestedManyWithoutCreatedByInput {
   connect: [BandWhereUniqueInput!]
   connectOrCreate: [BandCreateOrConnectWithoutCreatedByInput!]
   create: [BandCreateWithoutCreatedByInput!]
+  createMany: BandCreateManyCreatedByInputEnvelope
 }
 
 input BandCreateNestedOneWithoutMembersInput {
@@ -742,6 +848,18 @@ input BandCreateWithoutMembersInput {
   isPublic: Boolean
   name: String!
   updatedAt: Timestamp
+}
+
+type BandGroupBy {
+  _count: BandCountAggregate
+  _max: BandMaxAggregate
+  _min: BandMinAggregate
+  createdAt: Timestamp!
+  id: String!
+  isPublic: Boolean!
+  name: String!
+  updatedAt: Timestamp!
+  userId: String!
 }
 
 input BandListRelationFilter {
@@ -803,6 +921,18 @@ input BandScalarWhereInput {
   userId: StringFilter
 }
 
+input BandScalarWhereWithAggregatesInput {
+  AND: [BandScalarWhereWithAggregatesInput!]
+  NOT: [BandScalarWhereWithAggregatesInput!]
+  OR: [BandScalarWhereWithAggregatesInput!]
+  createdAt: DateTimeWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  isPublic: BoolWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  userId: StringWithAggregatesFilter
+}
+
 input BandUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   createdBy: UserUpdateOneRequiredWithoutOwnsBandsInput
@@ -830,6 +960,7 @@ input BandUpdateManyWithoutCreatedByInput {
   connect: [BandWhereUniqueInput!]
   connectOrCreate: [BandCreateOrConnectWithoutCreatedByInput!]
   create: [BandCreateWithoutCreatedByInput!]
+  createMany: BandCreateManyCreatedByInputEnvelope
   delete: [BandWhereUniqueInput!]
   deleteMany: [BandScalarWhereInput!]
   disconnect: [BandWhereUniqueInput!]
@@ -913,6 +1044,22 @@ input BoolNullableFilter {
   not: NestedBoolNullableFilter
 }
 
+input BoolNullableWithAggregatesFilter {
+  _count: NestedIntNullableFilter
+  _max: NestedBoolNullableFilter
+  _min: NestedBoolNullableFilter
+  equals: Boolean
+  not: NestedBoolNullableWithAggregatesFilter
+}
+
+input BoolWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedBoolFilter
+  _min: NestedBoolFilter
+  equals: Boolean
+  not: NestedBoolWithAggregatesFilter
+}
+
 type Comment {
   author: User!
   authorId: String!
@@ -933,13 +1080,13 @@ type Comment {
 
 type CommentCountAggregate {
   _all: Int!
-  authorId: Int
-  createdAt: Int
-  feedItemId: Int
-  id: Int
-  parentCommentId: Int
-  text: Int
-  updatedAt: Int
+  authorId: Int!
+  createdAt: Int!
+  feedItemId: Int!
+  id: Int!
+  parentCommentId: Int!
+  text: Int!
+  updatedAt: Int!
 }
 
 input CommentCreateInput {
@@ -954,22 +1101,77 @@ input CommentCreateInput {
   updatedAt: Timestamp
 }
 
+input CommentCreateManyAuthorInput {
+  createdAt: Timestamp
+  feedItemId: String
+  id: String
+  parentCommentId: String
+  text: String!
+  updatedAt: Timestamp
+}
+
+input CommentCreateManyAuthorInputEnvelope {
+  data: [CommentCreateManyAuthorInput!]!
+  skipDuplicates: Boolean
+}
+
+input CommentCreateManyFeedItemInput {
+  authorId: String!
+  createdAt: Timestamp
+  id: String
+  parentCommentId: String
+  text: String!
+  updatedAt: Timestamp
+}
+
+input CommentCreateManyFeedItemInputEnvelope {
+  data: [CommentCreateManyFeedItemInput!]!
+  skipDuplicates: Boolean
+}
+
+input CommentCreateManyInput {
+  authorId: String!
+  createdAt: Timestamp
+  feedItemId: String
+  id: String
+  parentCommentId: String
+  text: String!
+  updatedAt: Timestamp
+}
+
+input CommentCreateManyParentCommentInput {
+  authorId: String!
+  createdAt: Timestamp
+  feedItemId: String
+  id: String
+  text: String!
+  updatedAt: Timestamp
+}
+
+input CommentCreateManyParentCommentInputEnvelope {
+  data: [CommentCreateManyParentCommentInput!]!
+  skipDuplicates: Boolean
+}
+
 input CommentCreateNestedManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput!]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput!]
   create: [CommentCreateWithoutAuthorInput!]
+  createMany: CommentCreateManyAuthorInputEnvelope
 }
 
 input CommentCreateNestedManyWithoutFeedItemInput {
   connect: [CommentWhereUniqueInput!]
   connectOrCreate: [CommentCreateOrConnectWithoutFeedItemInput!]
   create: [CommentCreateWithoutFeedItemInput!]
+  createMany: CommentCreateManyFeedItemInputEnvelope
 }
 
 input CommentCreateNestedManyWithoutParentCommentInput {
   connect: [CommentWhereUniqueInput!]
   connectOrCreate: [CommentCreateOrConnectWithoutParentCommentInput!]
   create: [CommentCreateWithoutParentCommentInput!]
+  createMany: CommentCreateManyParentCommentInputEnvelope
 }
 
 input CommentCreateNestedOneWithoutLikesInput {
@@ -1064,6 +1266,19 @@ input CommentCreateWithoutSubCommentsInput {
   updatedAt: Timestamp
 }
 
+type CommentGroupBy {
+  _count: CommentCountAggregate
+  _max: CommentMaxAggregate
+  _min: CommentMinAggregate
+  authorId: String!
+  createdAt: Timestamp!
+  feedItemId: String
+  id: String!
+  parentCommentId: String
+  text: String!
+  updatedAt: Timestamp!
+}
+
 type CommentLike {
   comment: Comment!
   commentId: String!
@@ -1074,9 +1289,9 @@ type CommentLike {
 
 type CommentLikeCountAggregate {
   _all: Int!
-  commentId: Int
-  createdAt: Int
-  userId: Int
+  commentId: Int!
+  createdAt: Int!
+  userId: Int!
 }
 
 input CommentLikeCreateInput {
@@ -1085,16 +1300,44 @@ input CommentLikeCreateInput {
   user: UserCreateNestedOneWithoutCommentLikeInput!
 }
 
+input CommentLikeCreateManyCommentInput {
+  createdAt: Timestamp
+  userId: String!
+}
+
+input CommentLikeCreateManyCommentInputEnvelope {
+  data: [CommentLikeCreateManyCommentInput!]!
+  skipDuplicates: Boolean
+}
+
+input CommentLikeCreateManyInput {
+  commentId: String!
+  createdAt: Timestamp
+  userId: String!
+}
+
+input CommentLikeCreateManyUserInput {
+  commentId: String!
+  createdAt: Timestamp
+}
+
+input CommentLikeCreateManyUserInputEnvelope {
+  data: [CommentLikeCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
 input CommentLikeCreateNestedManyWithoutCommentInput {
   connect: [CommentLikeWhereUniqueInput!]
   connectOrCreate: [CommentLikeCreateOrConnectWithoutCommentInput!]
   create: [CommentLikeCreateWithoutCommentInput!]
+  createMany: CommentLikeCreateManyCommentInputEnvelope
 }
 
 input CommentLikeCreateNestedManyWithoutUserInput {
   connect: [CommentLikeWhereUniqueInput!]
   connectOrCreate: [CommentLikeCreateOrConnectWithoutUserInput!]
   create: [CommentLikeCreateWithoutUserInput!]
+  createMany: CommentLikeCreateManyUserInputEnvelope
 }
 
 input CommentLikeCreateOrConnectWithoutCommentInput {
@@ -1115,6 +1358,15 @@ input CommentLikeCreateWithoutCommentInput {
 input CommentLikeCreateWithoutUserInput {
   comment: CommentCreateNestedOneWithoutLikesInput!
   createdAt: Timestamp
+}
+
+type CommentLikeGroupBy {
+  _count: CommentLikeCountAggregate
+  _max: CommentLikeMaxAggregate
+  _min: CommentLikeMinAggregate
+  commentId: String!
+  createdAt: Timestamp!
+  userId: String!
 }
 
 input CommentLikeListRelationFilter {
@@ -1156,6 +1408,15 @@ input CommentLikeScalarWhereInput {
   userId: StringFilter
 }
 
+input CommentLikeScalarWhereWithAggregatesInput {
+  AND: [CommentLikeScalarWhereWithAggregatesInput!]
+  NOT: [CommentLikeScalarWhereWithAggregatesInput!]
+  OR: [CommentLikeScalarWhereWithAggregatesInput!]
+  commentId: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  userId: StringWithAggregatesFilter
+}
+
 input CommentLikeUpdateInput {
   comment: CommentUpdateOneRequiredWithoutLikesInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -1180,6 +1441,7 @@ input CommentLikeUpdateManyWithoutCommentInput {
   connect: [CommentLikeWhereUniqueInput!]
   connectOrCreate: [CommentLikeCreateOrConnectWithoutCommentInput!]
   create: [CommentLikeCreateWithoutCommentInput!]
+  createMany: CommentLikeCreateManyCommentInputEnvelope
   delete: [CommentLikeWhereUniqueInput!]
   deleteMany: [CommentLikeScalarWhereInput!]
   disconnect: [CommentLikeWhereUniqueInput!]
@@ -1193,6 +1455,7 @@ input CommentLikeUpdateManyWithoutUserInput {
   connect: [CommentLikeWhereUniqueInput!]
   connectOrCreate: [CommentLikeCreateOrConnectWithoutUserInput!]
   create: [CommentLikeCreateWithoutUserInput!]
+  createMany: CommentLikeCreateManyUserInputEnvelope
   delete: [CommentLikeWhereUniqueInput!]
   deleteMany: [CommentLikeScalarWhereInput!]
   disconnect: [CommentLikeWhereUniqueInput!]
@@ -1318,6 +1581,19 @@ input CommentScalarWhereInput {
   updatedAt: DateTimeFilter
 }
 
+input CommentScalarWhereWithAggregatesInput {
+  AND: [CommentScalarWhereWithAggregatesInput!]
+  NOT: [CommentScalarWhereWithAggregatesInput!]
+  OR: [CommentScalarWhereWithAggregatesInput!]
+  authorId: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  feedItemId: StringNullableWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  parentCommentId: StringNullableWithAggregatesFilter
+  text: StringWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+}
+
 input CommentUpdateInput {
   author: UserUpdateOneRequiredWithoutCommentInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -1356,6 +1632,7 @@ input CommentUpdateManyWithoutAuthorInput {
   connect: [CommentWhereUniqueInput!]
   connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput!]
   create: [CommentCreateWithoutAuthorInput!]
+  createMany: CommentCreateManyAuthorInputEnvelope
   delete: [CommentWhereUniqueInput!]
   deleteMany: [CommentScalarWhereInput!]
   disconnect: [CommentWhereUniqueInput!]
@@ -1369,6 +1646,7 @@ input CommentUpdateManyWithoutFeedItemInput {
   connect: [CommentWhereUniqueInput!]
   connectOrCreate: [CommentCreateOrConnectWithoutFeedItemInput!]
   create: [CommentCreateWithoutFeedItemInput!]
+  createMany: CommentCreateManyFeedItemInputEnvelope
   delete: [CommentWhereUniqueInput!]
   deleteMany: [CommentScalarWhereInput!]
   disconnect: [CommentWhereUniqueInput!]
@@ -1382,6 +1660,7 @@ input CommentUpdateManyWithoutParentCommentInput {
   connect: [CommentWhereUniqueInput!]
   connectOrCreate: [CommentCreateOrConnectWithoutParentCommentInput!]
   create: [CommentCreateWithoutParentCommentInput!]
+  createMany: CommentCreateManyParentCommentInputEnvelope
   delete: [CommentWhereUniqueInput!]
   deleteMany: [CommentScalarWhereInput!]
   disconnect: [CommentWhereUniqueInput!]
@@ -1555,6 +1834,34 @@ input DateTimeNullableFilter {
   notIn: [Timestamp!]
 }
 
+input DateTimeNullableWithAggregatesFilter {
+  _count: NestedIntNullableFilter
+  _max: NestedDateTimeNullableFilter
+  _min: NestedDateTimeNullableFilter
+  equals: Timestamp
+  gt: Timestamp
+  gte: Timestamp
+  in: [Timestamp!]
+  lt: Timestamp
+  lte: Timestamp
+  not: NestedDateTimeNullableWithAggregatesFilter
+  notIn: [Timestamp!]
+}
+
+input DateTimeWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedDateTimeFilter
+  _min: NestedDateTimeFilter
+  equals: Timestamp
+  gt: Timestamp
+  gte: Timestamp
+  in: [Timestamp!]
+  lt: Timestamp
+  lte: Timestamp
+  not: NestedDateTimeWithAggregatesFilter
+  notIn: [Timestamp!]
+}
+
 type EarlyAccessCode {
   claimedBy: User
   code: String!
@@ -1564,10 +1871,24 @@ type EarlyAccessCode {
   userId: String
 }
 
+input EarlyAccessCodeCreateManyClaimedByInput {
+  code: String!
+  createdAt: Timestamp
+  id: String
+  isValid: Boolean
+  updatedAt: Timestamp
+}
+
+input EarlyAccessCodeCreateManyClaimedByInputEnvelope {
+  data: [EarlyAccessCodeCreateManyClaimedByInput!]!
+  skipDuplicates: Boolean
+}
+
 input EarlyAccessCodeCreateNestedManyWithoutClaimedByInput {
   connect: [EarlyAccessCodeWhereUniqueInput!]
   connectOrCreate: [EarlyAccessCodeCreateOrConnectWithoutClaimedByInput!]
   create: [EarlyAccessCodeCreateWithoutClaimedByInput!]
+  createMany: EarlyAccessCodeCreateManyClaimedByInputEnvelope
 }
 
 input EarlyAccessCodeCreateOrConnectWithoutClaimedByInput {
@@ -1636,6 +1957,7 @@ input EarlyAccessCodeUpdateManyWithoutClaimedByInput {
   connect: [EarlyAccessCodeWhereUniqueInput!]
   connectOrCreate: [EarlyAccessCodeCreateOrConnectWithoutClaimedByInput!]
   create: [EarlyAccessCodeCreateWithoutClaimedByInput!]
+  createMany: EarlyAccessCodeCreateManyClaimedByInputEnvelope
   delete: [EarlyAccessCodeWhereUniqueInput!]
   deleteMany: [EarlyAccessCodeScalarWhereInput!]
   disconnect: [EarlyAccessCodeWhereUniqueInput!]
@@ -1693,6 +2015,16 @@ input EnumRoleFilter {
   notIn: [Role!]
 }
 
+input EnumRoleWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedEnumRoleFilter
+  _min: NestedEnumRoleFilter
+  equals: Role
+  in: [Role!]
+  not: NestedEnumRoleWithAggregatesFilter
+  notIn: [Role!]
+}
+
 type FeedItem {
   author: User!
   authorId: String!
@@ -1714,14 +2046,14 @@ type FeedItem {
 
 type FeedItemCountAggregate {
   _all: Int!
-  authorId: Int
-  createdAt: Int
-  id: Int
-  isPublished: Int
-  mixdownId: Int
-  publishAt: Int
-  text: Int
-  updatedAt: Int
+  authorId: Int!
+  createdAt: Int!
+  id: Int!
+  isPublished: Int!
+  mixdownId: Int!
+  publishAt: Int!
+  text: Int!
+  updatedAt: Int!
 }
 
 input FeedItemCreateInput {
@@ -1738,16 +2070,59 @@ input FeedItemCreateInput {
   updatedAt: Timestamp
 }
 
+input FeedItemCreateManyAuthorInput {
+  createdAt: Timestamp
+  id: String
+  isPublished: Boolean
+  mixdownId: String
+  publishAt: Timestamp
+  text: String
+  updatedAt: Timestamp
+}
+
+input FeedItemCreateManyAuthorInputEnvelope {
+  data: [FeedItemCreateManyAuthorInput!]!
+  skipDuplicates: Boolean
+}
+
+input FeedItemCreateManyInput {
+  authorId: String!
+  createdAt: Timestamp
+  id: String
+  isPublished: Boolean
+  mixdownId: String
+  publishAt: Timestamp
+  text: String
+  updatedAt: Timestamp
+}
+
+input FeedItemCreateManyMixdownInput {
+  authorId: String!
+  createdAt: Timestamp
+  id: String
+  isPublished: Boolean
+  publishAt: Timestamp
+  text: String
+  updatedAt: Timestamp
+}
+
+input FeedItemCreateManyMixdownInputEnvelope {
+  data: [FeedItemCreateManyMixdownInput!]!
+  skipDuplicates: Boolean
+}
+
 input FeedItemCreateNestedManyWithoutAuthorInput {
   connect: [FeedItemWhereUniqueInput!]
   connectOrCreate: [FeedItemCreateOrConnectWithoutAuthorInput!]
   create: [FeedItemCreateWithoutAuthorInput!]
+  createMany: FeedItemCreateManyAuthorInputEnvelope
 }
 
 input FeedItemCreateNestedManyWithoutMixdownInput {
   connect: [FeedItemWhereUniqueInput!]
   connectOrCreate: [FeedItemCreateOrConnectWithoutMixdownInput!]
   create: [FeedItemCreateWithoutMixdownInput!]
+  createMany: FeedItemCreateManyMixdownInputEnvelope
 }
 
 input FeedItemCreateNestedOneWithoutCommentsInput {
@@ -1858,6 +2233,20 @@ input FeedItemCreateWithoutRevisionsInput {
   updatedAt: Timestamp
 }
 
+type FeedItemGroupBy {
+  _count: FeedItemCountAggregate
+  _max: FeedItemMaxAggregate
+  _min: FeedItemMinAggregate
+  authorId: String!
+  createdAt: Timestamp!
+  id: String!
+  isPublished: Boolean!
+  mixdownId: String
+  publishAt: Timestamp
+  text: String
+  updatedAt: Timestamp!
+}
+
 type FeedItemLike {
   createdAt: Timestamp!
   feedItem: FeedItem!
@@ -1868,9 +2257,9 @@ type FeedItemLike {
 
 type FeedItemLikeCountAggregate {
   _all: Int!
-  createdAt: Int
-  feedItemId: Int
-  userId: Int
+  createdAt: Int!
+  feedItemId: Int!
+  userId: Int!
 }
 
 input FeedItemLikeCreateInput {
@@ -1879,16 +2268,44 @@ input FeedItemLikeCreateInput {
   user: UserCreateNestedOneWithoutFeedItemLikeInput!
 }
 
+input FeedItemLikeCreateManyFeedItemInput {
+  createdAt: Timestamp
+  userId: String!
+}
+
+input FeedItemLikeCreateManyFeedItemInputEnvelope {
+  data: [FeedItemLikeCreateManyFeedItemInput!]!
+  skipDuplicates: Boolean
+}
+
+input FeedItemLikeCreateManyInput {
+  createdAt: Timestamp
+  feedItemId: String!
+  userId: String!
+}
+
+input FeedItemLikeCreateManyUserInput {
+  createdAt: Timestamp
+  feedItemId: String!
+}
+
+input FeedItemLikeCreateManyUserInputEnvelope {
+  data: [FeedItemLikeCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
 input FeedItemLikeCreateNestedManyWithoutFeedItemInput {
   connect: [FeedItemLikeWhereUniqueInput!]
   connectOrCreate: [FeedItemLikeCreateOrConnectWithoutFeedItemInput!]
   create: [FeedItemLikeCreateWithoutFeedItemInput!]
+  createMany: FeedItemLikeCreateManyFeedItemInputEnvelope
 }
 
 input FeedItemLikeCreateNestedManyWithoutUserInput {
   connect: [FeedItemLikeWhereUniqueInput!]
   connectOrCreate: [FeedItemLikeCreateOrConnectWithoutUserInput!]
   create: [FeedItemLikeCreateWithoutUserInput!]
+  createMany: FeedItemLikeCreateManyUserInputEnvelope
 }
 
 input FeedItemLikeCreateOrConnectWithoutFeedItemInput {
@@ -1909,6 +2326,15 @@ input FeedItemLikeCreateWithoutFeedItemInput {
 input FeedItemLikeCreateWithoutUserInput {
   createdAt: Timestamp
   feedItem: FeedItemCreateNestedOneWithoutLikesInput!
+}
+
+type FeedItemLikeGroupBy {
+  _count: FeedItemLikeCountAggregate
+  _max: FeedItemLikeMaxAggregate
+  _min: FeedItemLikeMinAggregate
+  createdAt: Timestamp!
+  feedItemId: String!
+  userId: String!
 }
 
 input FeedItemLikeListRelationFilter {
@@ -1950,6 +2376,15 @@ input FeedItemLikeScalarWhereInput {
   userId: StringFilter
 }
 
+input FeedItemLikeScalarWhereWithAggregatesInput {
+  AND: [FeedItemLikeScalarWhereWithAggregatesInput!]
+  NOT: [FeedItemLikeScalarWhereWithAggregatesInput!]
+  OR: [FeedItemLikeScalarWhereWithAggregatesInput!]
+  createdAt: DateTimeWithAggregatesFilter
+  feedItemId: StringWithAggregatesFilter
+  userId: StringWithAggregatesFilter
+}
+
 input FeedItemLikeUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   feedItem: FeedItemUpdateOneRequiredWithoutLikesInput
@@ -1974,6 +2409,7 @@ input FeedItemLikeUpdateManyWithoutFeedItemInput {
   connect: [FeedItemLikeWhereUniqueInput!]
   connectOrCreate: [FeedItemLikeCreateOrConnectWithoutFeedItemInput!]
   create: [FeedItemLikeCreateWithoutFeedItemInput!]
+  createMany: FeedItemLikeCreateManyFeedItemInputEnvelope
   delete: [FeedItemLikeWhereUniqueInput!]
   deleteMany: [FeedItemLikeScalarWhereInput!]
   disconnect: [FeedItemLikeWhereUniqueInput!]
@@ -1987,6 +2423,7 @@ input FeedItemLikeUpdateManyWithoutUserInput {
   connect: [FeedItemLikeWhereUniqueInput!]
   connectOrCreate: [FeedItemLikeCreateOrConnectWithoutUserInput!]
   create: [FeedItemLikeCreateWithoutUserInput!]
+  createMany: FeedItemLikeCreateManyUserInputEnvelope
   delete: [FeedItemLikeWhereUniqueInput!]
   deleteMany: [FeedItemLikeScalarWhereInput!]
   disconnect: [FeedItemLikeWhereUniqueInput!]
@@ -2103,11 +2540,11 @@ type FeedItemRevision {
 
 type FeedItemRevisionCountAggregate {
   _all: Int!
-  createdAt: Int
-  feedItemId: Int
-  id: Int
-  text: Int
-  updatedAt: Int
+  createdAt: Int!
+  feedItemId: Int!
+  id: Int!
+  text: Int!
+  updatedAt: Int!
 }
 
 input FeedItemRevisionCreateInput {
@@ -2118,10 +2555,31 @@ input FeedItemRevisionCreateInput {
   updatedAt: Timestamp
 }
 
+input FeedItemRevisionCreateManyInput {
+  createdAt: Timestamp
+  feedItemId: String!
+  id: String
+  text: String!
+  updatedAt: Timestamp
+}
+
+input FeedItemRevisionCreateManyParentItemInput {
+  createdAt: Timestamp
+  id: String
+  text: String!
+  updatedAt: Timestamp
+}
+
+input FeedItemRevisionCreateManyParentItemInputEnvelope {
+  data: [FeedItemRevisionCreateManyParentItemInput!]!
+  skipDuplicates: Boolean
+}
+
 input FeedItemRevisionCreateNestedManyWithoutParentItemInput {
   connect: [FeedItemRevisionWhereUniqueInput!]
   connectOrCreate: [FeedItemRevisionCreateOrConnectWithoutParentItemInput!]
   create: [FeedItemRevisionCreateWithoutParentItemInput!]
+  createMany: FeedItemRevisionCreateManyParentItemInputEnvelope
 }
 
 input FeedItemRevisionCreateOrConnectWithoutParentItemInput {
@@ -2134,6 +2592,17 @@ input FeedItemRevisionCreateWithoutParentItemInput {
   id: String
   text: String!
   updatedAt: Timestamp
+}
+
+type FeedItemRevisionGroupBy {
+  _count: FeedItemRevisionCountAggregate
+  _max: FeedItemRevisionMaxAggregate
+  _min: FeedItemRevisionMinAggregate
+  createdAt: Timestamp!
+  feedItemId: String!
+  id: String!
+  text: String!
+  updatedAt: Timestamp!
 }
 
 input FeedItemRevisionListRelationFilter {
@@ -2185,6 +2654,17 @@ input FeedItemRevisionScalarWhereInput {
   updatedAt: DateTimeFilter
 }
 
+input FeedItemRevisionScalarWhereWithAggregatesInput {
+  AND: [FeedItemRevisionScalarWhereWithAggregatesInput!]
+  NOT: [FeedItemRevisionScalarWhereWithAggregatesInput!]
+  OR: [FeedItemRevisionScalarWhereWithAggregatesInput!]
+  createdAt: DateTimeWithAggregatesFilter
+  feedItemId: StringWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  text: StringWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+}
+
 input FeedItemRevisionUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
@@ -2209,6 +2689,7 @@ input FeedItemRevisionUpdateManyWithoutParentItemInput {
   connect: [FeedItemRevisionWhereUniqueInput!]
   connectOrCreate: [FeedItemRevisionCreateOrConnectWithoutParentItemInput!]
   create: [FeedItemRevisionCreateWithoutParentItemInput!]
+  createMany: FeedItemRevisionCreateManyParentItemInputEnvelope
   delete: [FeedItemRevisionWhereUniqueInput!]
   deleteMany: [FeedItemRevisionScalarWhereInput!]
   disconnect: [FeedItemRevisionWhereUniqueInput!]
@@ -2277,6 +2758,20 @@ input FeedItemScalarWhereInput {
   updatedAt: DateTimeFilter
 }
 
+input FeedItemScalarWhereWithAggregatesInput {
+  AND: [FeedItemScalarWhereWithAggregatesInput!]
+  NOT: [FeedItemScalarWhereWithAggregatesInput!]
+  OR: [FeedItemScalarWhereWithAggregatesInput!]
+  authorId: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  isPublished: BoolWithAggregatesFilter
+  mixdownId: StringNullableWithAggregatesFilter
+  publishAt: DateTimeNullableWithAggregatesFilter
+  text: StringNullableWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+}
+
 input FeedItemUpdateInput {
   author: UserUpdateOneRequiredWithoutFeedInput
   comments: CommentUpdateManyWithoutFeedItemInput
@@ -2314,6 +2809,7 @@ input FeedItemUpdateManyWithoutAuthorInput {
   connect: [FeedItemWhereUniqueInput!]
   connectOrCreate: [FeedItemCreateOrConnectWithoutAuthorInput!]
   create: [FeedItemCreateWithoutAuthorInput!]
+  createMany: FeedItemCreateManyAuthorInputEnvelope
   delete: [FeedItemWhereUniqueInput!]
   deleteMany: [FeedItemScalarWhereInput!]
   disconnect: [FeedItemWhereUniqueInput!]
@@ -2327,6 +2823,7 @@ input FeedItemUpdateManyWithoutMixdownInput {
   connect: [FeedItemWhereUniqueInput!]
   connectOrCreate: [FeedItemCreateOrConnectWithoutMixdownInput!]
   create: [FeedItemCreateWithoutMixdownInput!]
+  createMany: FeedItemCreateManyMixdownInputEnvelope
   delete: [FeedItemWhereUniqueInput!]
   deleteMany: [FeedItemScalarWhereInput!]
   disconnect: [FeedItemWhereUniqueInput!]
@@ -2506,6 +3003,22 @@ input IntFilter {
   notIn: [Int!]
 }
 
+input IntWithAggregatesFilter {
+  _avg: NestedFloatFilter
+  _count: NestedIntFilter
+  _max: NestedIntFilter
+  _min: NestedIntFilter
+  _sum: NestedIntFilter
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntWithAggregatesFilter
+  notIn: [Int!]
+}
+
 type Issue {
   createdAt: Timestamp!
   description: String!
@@ -2517,12 +3030,12 @@ type Issue {
 
 type IssueCountAggregate {
   _all: Int!
-  createdAt: Int
-  description: Int
-  id: Int
-  resolved: Int
-  screenshotIds: Int
-  userId: Int
+  createdAt: Int!
+  description: Int!
+  id: Int!
+  resolved: Int!
+  screenshotIds: Int!
+  userId: Int!
 }
 
 input IssueCreateInput {
@@ -2534,10 +3047,37 @@ input IssueCreateInput {
   screenshotIds: IssueCreatescreenshotIdsInput
 }
 
+input IssueCreateManyCreatedByInput {
+  createdAt: Timestamp
+  description: String!
+  id: String
+  resolved: Boolean
+  screenshotIds: IssueCreateManyscreenshotIdsInput
+}
+
+input IssueCreateManyCreatedByInputEnvelope {
+  data: [IssueCreateManyCreatedByInput!]!
+  skipDuplicates: Boolean
+}
+
+input IssueCreateManyInput {
+  createdAt: Timestamp
+  description: String!
+  id: String
+  resolved: Boolean
+  screenshotIds: IssueCreateManyscreenshotIdsInput
+  userId: String
+}
+
+input IssueCreateManyscreenshotIdsInput {
+  set: [String!]!
+}
+
 input IssueCreateNestedManyWithoutCreatedByInput {
   connect: [IssueWhereUniqueInput!]
   connectOrCreate: [IssueCreateOrConnectWithoutCreatedByInput!]
   create: [IssueCreateWithoutCreatedByInput!]
+  createMany: IssueCreateManyCreatedByInputEnvelope
 }
 
 input IssueCreateOrConnectWithoutCreatedByInput {
@@ -2555,6 +3095,18 @@ input IssueCreateWithoutCreatedByInput {
 
 input IssueCreatescreenshotIdsInput {
   set: [String!]!
+}
+
+type IssueGroupBy {
+  _count: IssueCountAggregate
+  _max: IssueMaxAggregate
+  _min: IssueMinAggregate
+  createdAt: Timestamp!
+  description: String!
+  id: String!
+  resolved: Boolean!
+  screenshotIds: [String!]
+  userId: String
 }
 
 input IssueListRelationFilter {
@@ -2609,6 +3161,18 @@ input IssueScalarWhereInput {
   userId: StringNullableFilter
 }
 
+input IssueScalarWhereWithAggregatesInput {
+  AND: [IssueScalarWhereWithAggregatesInput!]
+  NOT: [IssueScalarWhereWithAggregatesInput!]
+  OR: [IssueScalarWhereWithAggregatesInput!]
+  createdAt: DateTimeWithAggregatesFilter
+  description: StringWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  resolved: BoolWithAggregatesFilter
+  screenshotIds: StringNullableListFilter
+  userId: StringNullableWithAggregatesFilter
+}
+
 input IssueUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   createdBy: UserUpdateOneWithoutIssueInput
@@ -2635,6 +3199,7 @@ input IssueUpdateManyWithoutCreatedByInput {
   connect: [IssueWhereUniqueInput!]
   connectOrCreate: [IssueCreateOrConnectWithoutCreatedByInput!]
   create: [IssueCreateWithoutCreatedByInput!]
+  createMany: IssueCreateManyCreatedByInputEnvelope
   delete: [IssueWhereUniqueInput!]
   deleteMany: [IssueScalarWhereInput!]
   disconnect: [IssueWhereUniqueInput!]
@@ -2658,7 +3223,8 @@ input IssueUpdateWithoutCreatedByInput {
 }
 
 input IssueUpdatescreenshotIdsInput {
-  set: [String!]!
+  push: [String!]
+  set: [String!]
 }
 
 input IssueUpsertWithWhereUniqueWithoutCreatedByInput {
@@ -2687,7 +3253,7 @@ input IssueWhereUniqueInput {
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
-scalar JSON
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
 """
 The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
@@ -2695,6 +3261,14 @@ The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](
 scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
 input JsonFilter {
+  equals: JSON
+  not: JSON
+}
+
+input JsonWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedJsonFilter
+  _min: NestedJsonFilter
   equals: JSON
   not: JSON
 }
@@ -2717,21 +3291,21 @@ type Mixdown {
 }
 
 type MixdownAvgAggregate {
-  listens: Float!
-  version: Float!
+  listens: Float
+  version: Float
 }
 
 type MixdownCountAggregate {
   _all: Int!
-  assetId: Int
-  createdAt: Int
-  id: Int
-  isPusblished: Int
+  assetId: Int!
+  createdAt: Int!
+  id: Int!
+  isPusblished: Int!
   listens: Int!
-  name: Int
-  projectId: Int
-  updatedAt: Int
-  userId: Int
+  name: Int!
+  projectId: Int!
+  updatedAt: Int!
+  userId: Int!
   version: Int!
 }
 
@@ -2749,22 +3323,89 @@ input MixdownCreateInput {
   version: Int!
 }
 
+input MixdownCreateManyAudioInput {
+  createdAt: Timestamp
+  id: String
+  isPusblished: Boolean
+  listens: Int
+  name: String
+  projectId: String!
+  updatedAt: Timestamp
+  userId: String!
+  version: Int!
+}
+
+input MixdownCreateManyAudioInputEnvelope {
+  data: [MixdownCreateManyAudioInput!]!
+  skipDuplicates: Boolean
+}
+
+input MixdownCreateManyInput {
+  assetId: String!
+  createdAt: Timestamp
+  id: String
+  isPusblished: Boolean
+  listens: Int
+  name: String
+  projectId: String!
+  updatedAt: Timestamp
+  userId: String!
+  version: Int!
+}
+
+input MixdownCreateManyProjectInput {
+  assetId: String!
+  createdAt: Timestamp
+  id: String
+  isPusblished: Boolean
+  listens: Int
+  name: String
+  updatedAt: Timestamp
+  userId: String!
+  version: Int!
+}
+
+input MixdownCreateManyProjectInputEnvelope {
+  data: [MixdownCreateManyProjectInput!]!
+  skipDuplicates: Boolean
+}
+
+input MixdownCreateManyTriggerdByInput {
+  assetId: String!
+  createdAt: Timestamp
+  id: String
+  isPusblished: Boolean
+  listens: Int
+  name: String
+  projectId: String!
+  updatedAt: Timestamp
+  version: Int!
+}
+
+input MixdownCreateManyTriggerdByInputEnvelope {
+  data: [MixdownCreateManyTriggerdByInput!]!
+  skipDuplicates: Boolean
+}
+
 input MixdownCreateNestedManyWithoutAudioInput {
   connect: [MixdownWhereUniqueInput!]
   connectOrCreate: [MixdownCreateOrConnectWithoutAudioInput!]
   create: [MixdownCreateWithoutAudioInput!]
+  createMany: MixdownCreateManyAudioInputEnvelope
 }
 
 input MixdownCreateNestedManyWithoutProjectInput {
   connect: [MixdownWhereUniqueInput!]
   connectOrCreate: [MixdownCreateOrConnectWithoutProjectInput!]
   create: [MixdownCreateWithoutProjectInput!]
+  createMany: MixdownCreateManyProjectInputEnvelope
 }
 
 input MixdownCreateNestedManyWithoutTriggerdByInput {
   connect: [MixdownWhereUniqueInput!]
   connectOrCreate: [MixdownCreateOrConnectWithoutTriggerdByInput!]
   create: [MixdownCreateWithoutTriggerdByInput!]
+  createMany: MixdownCreateManyTriggerdByInputEnvelope
 }
 
 input MixdownCreateNestedOneWithoutFeedItemInput {
@@ -2845,6 +3486,24 @@ input MixdownCreateWithoutTriggerdByInput {
   version: Int!
 }
 
+type MixdownGroupBy {
+  _avg: MixdownAvgAggregate
+  _count: MixdownCountAggregate
+  _max: MixdownMaxAggregate
+  _min: MixdownMinAggregate
+  _sum: MixdownSumAggregate
+  assetId: String!
+  createdAt: Timestamp!
+  id: String!
+  isPusblished: Boolean
+  listens: Int!
+  name: String
+  projectId: String!
+  updatedAt: Timestamp!
+  userId: String!
+  version: Int!
+}
+
 input MixdownListRelationFilter {
   every: MixdownWhereInput
   none: MixdownWhereInput
@@ -2856,12 +3515,12 @@ type MixdownMaxAggregate {
   createdAt: Timestamp
   id: String
   isPusblished: Boolean
-  listens: Int!
+  listens: Int
   name: String
   projectId: String
   updatedAt: Timestamp
   userId: String
-  version: Int!
+  version: Int
 }
 
 type MixdownMinAggregate {
@@ -2869,12 +3528,12 @@ type MixdownMinAggregate {
   createdAt: Timestamp
   id: String
   isPusblished: Boolean
-  listens: Int!
+  listens: Int
   name: String
   projectId: String
   updatedAt: Timestamp
   userId: String
-  version: Int!
+  version: Int
 }
 
 input MixdownOrderByInput {
@@ -2924,9 +3583,25 @@ input MixdownScalarWhereInput {
   version: IntFilter
 }
 
+input MixdownScalarWhereWithAggregatesInput {
+  AND: [MixdownScalarWhereWithAggregatesInput!]
+  NOT: [MixdownScalarWhereWithAggregatesInput!]
+  OR: [MixdownScalarWhereWithAggregatesInput!]
+  assetId: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  isPusblished: BoolNullableWithAggregatesFilter
+  listens: IntWithAggregatesFilter
+  name: StringNullableWithAggregatesFilter
+  projectId: StringWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  userId: StringWithAggregatesFilter
+  version: IntWithAggregatesFilter
+}
+
 type MixdownSumAggregate {
-  listens: Int!
-  version: Int!
+  listens: Int
+  version: Int
 }
 
 input MixdownUpdateInput {
@@ -2972,6 +3647,7 @@ input MixdownUpdateManyWithoutAudioInput {
   connect: [MixdownWhereUniqueInput!]
   connectOrCreate: [MixdownCreateOrConnectWithoutAudioInput!]
   create: [MixdownCreateWithoutAudioInput!]
+  createMany: MixdownCreateManyAudioInputEnvelope
   delete: [MixdownWhereUniqueInput!]
   deleteMany: [MixdownScalarWhereInput!]
   disconnect: [MixdownWhereUniqueInput!]
@@ -2985,6 +3661,7 @@ input MixdownUpdateManyWithoutProjectInput {
   connect: [MixdownWhereUniqueInput!]
   connectOrCreate: [MixdownCreateOrConnectWithoutProjectInput!]
   create: [MixdownCreateWithoutProjectInput!]
+  createMany: MixdownCreateManyProjectInputEnvelope
   delete: [MixdownWhereUniqueInput!]
   deleteMany: [MixdownScalarWhereInput!]
   disconnect: [MixdownWhereUniqueInput!]
@@ -2998,6 +3675,7 @@ input MixdownUpdateManyWithoutTriggerdByInput {
   connect: [MixdownWhereUniqueInput!]
   connectOrCreate: [MixdownCreateOrConnectWithoutTriggerdByInput!]
   create: [MixdownCreateWithoutTriggerdByInput!]
+  createMany: MixdownCreateManyTriggerdByInputEnvelope
   delete: [MixdownWhereUniqueInput!]
   deleteMany: [MixdownScalarWhereInput!]
   disconnect: [MixdownWhereUniqueInput!]
@@ -3140,6 +3818,20 @@ type Mutation {
   createFeedItemLike(data: FeedItemLikeCreateInput!): FeedItemLike!
   createFeedItemRevision(data: FeedItemRevisionCreateInput!): FeedItemRevision!
   createIssue(data: IssueCreateInput!): Issue!
+  createManyAddress(data: [AddressCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyBand(data: [BandCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyComment(data: [CommentCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyCommentLike(data: [CommentLikeCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyFeedItem(data: [FeedItemCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyFeedItemLike(data: [FeedItemLikeCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyFeedItemRevision(data: [FeedItemRevisionCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyIssue(data: [IssueCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyMixdown(data: [MixdownCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyProject(data: [ProjectCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyTag(data: [TagCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyUser(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyUsersOnProjects(data: [UsersOnProjectsCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyVersionInformation(data: [VersionInformationCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createMixdown(data: MixdownCreateInput!): Mixdown!
   createProject(data: ProjectCreateInput!): Project!
   createTag(data: TagCreateInput!): Tag!
@@ -3230,6 +3922,22 @@ input NestedBoolNullableFilter {
   not: NestedBoolNullableFilter
 }
 
+input NestedBoolNullableWithAggregatesFilter {
+  _count: NestedIntNullableFilter
+  _max: NestedBoolNullableFilter
+  _min: NestedBoolNullableFilter
+  equals: Boolean
+  not: NestedBoolNullableWithAggregatesFilter
+}
+
+input NestedBoolWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedBoolFilter
+  _min: NestedBoolFilter
+  equals: Boolean
+  not: NestedBoolWithAggregatesFilter
+}
+
 input NestedDateTimeFilter {
   equals: Timestamp
   gt: Timestamp
@@ -3252,11 +3960,60 @@ input NestedDateTimeNullableFilter {
   notIn: [Timestamp!]
 }
 
+input NestedDateTimeNullableWithAggregatesFilter {
+  _count: NestedIntNullableFilter
+  _max: NestedDateTimeNullableFilter
+  _min: NestedDateTimeNullableFilter
+  equals: Timestamp
+  gt: Timestamp
+  gte: Timestamp
+  in: [Timestamp!]
+  lt: Timestamp
+  lte: Timestamp
+  not: NestedDateTimeNullableWithAggregatesFilter
+  notIn: [Timestamp!]
+}
+
+input NestedDateTimeWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedDateTimeFilter
+  _min: NestedDateTimeFilter
+  equals: Timestamp
+  gt: Timestamp
+  gte: Timestamp
+  in: [Timestamp!]
+  lt: Timestamp
+  lte: Timestamp
+  not: NestedDateTimeWithAggregatesFilter
+  notIn: [Timestamp!]
+}
+
 input NestedEnumRoleFilter {
   equals: Role
   in: [Role!]
   not: NestedEnumRoleFilter
   notIn: [Role!]
+}
+
+input NestedEnumRoleWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedEnumRoleFilter
+  _min: NestedEnumRoleFilter
+  equals: Role
+  in: [Role!]
+  not: NestedEnumRoleWithAggregatesFilter
+  notIn: [Role!]
+}
+
+input NestedFloatFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatFilter
+  notIn: [Float!]
 }
 
 input NestedIntFilter {
@@ -3268,6 +4025,38 @@ input NestedIntFilter {
   lte: Int
   not: NestedIntFilter
   notIn: [Int!]
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+input NestedIntWithAggregatesFilter {
+  _avg: NestedFloatFilter
+  _count: NestedIntFilter
+  _max: NestedIntFilter
+  _min: NestedIntFilter
+  _sum: NestedIntFilter
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntWithAggregatesFilter
+  notIn: [Int!]
+}
+
+input NestedJsonFilter {
+  equals: JSON
+  not: JSON
 }
 
 input NestedStringFilter {
@@ -3294,6 +4083,40 @@ input NestedStringNullableFilter {
   lt: String
   lte: String
   not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NestedStringNullableWithAggregatesFilter {
+  _count: NestedIntNullableFilter
+  _max: NestedStringNullableFilter
+  _min: NestedStringNullableFilter
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableWithAggregatesFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NestedStringWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedStringFilter
+  _min: NestedStringFilter
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringWithAggregatesFilter
   notIn: [String!]
   startsWith: String
 }
@@ -3327,14 +4150,14 @@ type Project {
 
 type ProjectCountAggregate {
   _all: Int!
-  content: Int
-  createdAt: Int
-  id: Int
-  isInitialized: Int
-  isPrivate: Int
-  name: Int
-  ownerId: Int
-  updatedAt: Int
+  content: Int!
+  createdAt: Int!
+  id: Int!
+  isInitialized: Int!
+  isPrivate: Int!
+  name: Int!
+  ownerId: Int!
+  updatedAt: Int!
 }
 
 input ProjectCreateInput {
@@ -3351,10 +4174,37 @@ input ProjectCreateInput {
   updatedAt: Timestamp
 }
 
+input ProjectCreateManyInput {
+  content: JSON!
+  createdAt: Timestamp
+  id: String
+  isInitialized: Boolean
+  isPrivate: Boolean
+  name: String
+  ownerId: String!
+  updatedAt: Timestamp
+}
+
+input ProjectCreateManyOwnerInput {
+  content: JSON!
+  createdAt: Timestamp
+  id: String
+  isInitialized: Boolean
+  isPrivate: Boolean
+  name: String
+  updatedAt: Timestamp
+}
+
+input ProjectCreateManyOwnerInputEnvelope {
+  data: [ProjectCreateManyOwnerInput!]!
+  skipDuplicates: Boolean
+}
+
 input ProjectCreateNestedManyWithoutOwnerInput {
   connect: [ProjectWhereUniqueInput!]
   connectOrCreate: [ProjectCreateOrConnectWithoutOwnerInput!]
   create: [ProjectCreateWithoutOwnerInput!]
+  createMany: ProjectCreateManyOwnerInputEnvelope
 }
 
 input ProjectCreateNestedOneWithoutAssetsInput {
@@ -3447,6 +4297,20 @@ input ProjectCreateWithoutOwnerInput {
   updatedAt: Timestamp
 }
 
+type ProjectGroupBy {
+  _count: ProjectCountAggregate
+  _max: ProjectMaxAggregate
+  _min: ProjectMinAggregate
+  content: JSON!
+  createdAt: Timestamp!
+  id: String!
+  isInitialized: Boolean!
+  isPrivate: Boolean!
+  name: String!
+  ownerId: String!
+  updatedAt: Timestamp!
+}
+
 input ProjectListRelationFilter {
   every: ProjectWhereInput
   none: ProjectWhereInput
@@ -3514,6 +4378,20 @@ input ProjectScalarWhereInput {
   updatedAt: DateTimeFilter
 }
 
+input ProjectScalarWhereWithAggregatesInput {
+  AND: [ProjectScalarWhereWithAggregatesInput!]
+  NOT: [ProjectScalarWhereWithAggregatesInput!]
+  OR: [ProjectScalarWhereWithAggregatesInput!]
+  content: JsonWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  isInitialized: BoolWithAggregatesFilter
+  isPrivate: BoolWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  ownerId: StringWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+}
+
 input ProjectUpdateInput {
   assets: AssetsOnProjectsUpdateManyWithoutProjectInput
   content: JSON
@@ -3547,6 +4425,7 @@ input ProjectUpdateManyWithoutOwnerInput {
   connect: [ProjectWhereUniqueInput!]
   connectOrCreate: [ProjectCreateOrConnectWithoutOwnerInput!]
   create: [ProjectCreateWithoutOwnerInput!]
+  createMany: ProjectCreateManyOwnerInputEnvelope
   delete: [ProjectWhereUniqueInput!]
   deleteMany: [ProjectScalarWhereInput!]
   disconnect: [ProjectWhereUniqueInput!]
@@ -3741,6 +4620,20 @@ type Query {
   findManyUsersOnProjects(cursor: UsersOnProjectsWhereUniqueInput, distinct: [UsersOnProjectsScalarFieldEnum!], orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjects!]!
   findUniqueUsersOnProjects(where: UsersOnProjectsWhereUniqueInput!): UsersOnProjects
   followRecommendations: [User!]!
+  groupByAddress(by: [AddressScalarFieldEnum!]!, having: AddressScalarWhereWithAggregatesInput, orderBy: [AddressOrderByInput!], skip: Int, take: Int, where: AddressWhereInput): [AddressGroupBy!]!
+  groupByBand(by: [BandScalarFieldEnum!]!, having: BandScalarWhereWithAggregatesInput, orderBy: [BandOrderByInput!], skip: Int, take: Int, where: BandWhereInput): [BandGroupBy!]!
+  groupByComment(by: [CommentScalarFieldEnum!]!, having: CommentScalarWhereWithAggregatesInput, orderBy: [CommentOrderByInput!], skip: Int, take: Int, where: CommentWhereInput): [CommentGroupBy!]!
+  groupByCommentLike(by: [CommentLikeScalarFieldEnum!]!, having: CommentLikeScalarWhereWithAggregatesInput, orderBy: [CommentLikeOrderByInput!], skip: Int, take: Int, where: CommentLikeWhereInput): [CommentLikeGroupBy!]!
+  groupByFeedItem(by: [FeedItemScalarFieldEnum!]!, having: FeedItemScalarWhereWithAggregatesInput, orderBy: [FeedItemOrderByInput!], skip: Int, take: Int, where: FeedItemWhereInput): [FeedItemGroupBy!]!
+  groupByFeedItemLike(by: [FeedItemLikeScalarFieldEnum!]!, having: FeedItemLikeScalarWhereWithAggregatesInput, orderBy: [FeedItemLikeOrderByInput!], skip: Int, take: Int, where: FeedItemLikeWhereInput): [FeedItemLikeGroupBy!]!
+  groupByFeedItemRevision(by: [FeedItemRevisionScalarFieldEnum!]!, having: FeedItemRevisionScalarWhereWithAggregatesInput, orderBy: [FeedItemRevisionOrderByInput!], skip: Int, take: Int, where: FeedItemRevisionWhereInput): [FeedItemRevisionGroupBy!]!
+  groupByIssue(by: [IssueScalarFieldEnum!]!, having: IssueScalarWhereWithAggregatesInput, orderBy: [IssueOrderByInput!], skip: Int, take: Int, where: IssueWhereInput): [IssueGroupBy!]!
+  groupByMixdown(by: [MixdownScalarFieldEnum!]!, having: MixdownScalarWhereWithAggregatesInput, orderBy: [MixdownOrderByInput!], skip: Int, take: Int, where: MixdownWhereInput): [MixdownGroupBy!]!
+  groupByProject(by: [ProjectScalarFieldEnum!]!, having: ProjectScalarWhereWithAggregatesInput, orderBy: [ProjectOrderByInput!], skip: Int, take: Int, where: ProjectWhereInput): [ProjectGroupBy!]!
+  groupByTag(by: [TagScalarFieldEnum!]!, having: TagScalarWhereWithAggregatesInput, orderBy: [TagOrderByInput!], skip: Int, take: Int, where: TagWhereInput): [TagGroupBy!]!
+  groupByUser(by: [UserScalarFieldEnum!]!, having: UserScalarWhereWithAggregatesInput, orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [UserGroupBy!]!
+  groupByUsersOnProjects(by: [UsersOnProjectsScalarFieldEnum!]!, having: UsersOnProjectsScalarWhereWithAggregatesInput, orderBy: [UsersOnProjectsOrderByInput!], skip: Int, take: Int, where: UsersOnProjectsWhereInput): [UsersOnProjectsGroupBy!]!
+  groupByVersionInformation(by: [VersionInformationScalarFieldEnum!]!, having: VersionInformationScalarWhereWithAggregatesInput, orderBy: [VersionInformationOrderByInput!], skip: Int, take: Int, where: VersionInformationWhereInput): [VersionInformationGroupBy!]!
   issue(where: IssueWhereUniqueInput!): Issue
   issues(cursor: IssueWhereUniqueInput, distinct: [IssueScalarFieldEnum!], orderBy: [IssueOrderByInput!], skip: Int, take: Int, where: IssueWhereInput): [Issue!]!
   me: User!
@@ -3814,6 +4707,42 @@ input StringNullableListFilter {
   isEmpty: Boolean
 }
 
+input StringNullableWithAggregatesFilter {
+  _count: NestedIntNullableFilter
+  _max: NestedStringNullableFilter
+  _min: NestedStringNullableFilter
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringNullableWithAggregatesFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedStringFilter
+  _min: NestedStringFilter
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringWithAggregatesFilter
+  notIn: [String!]
+  startsWith: String
+}
+
 type Subscription {
   assetAvailable(jobId: String!, projectId: String!): PublishAssetArgs!
   changes(projectId: String!): PublishProjectChangesArgs!
@@ -3829,9 +4758,9 @@ type Tag {
 
 type TagCountAggregate {
   _all: Int!
-  id: Int
-  userId: Int
-  value: Int
+  id: Int!
+  userId: Int!
+  value: Int!
 }
 
 input TagCreateInput {
@@ -3840,10 +4769,27 @@ input TagCreateInput {
   value: String!
 }
 
+input TagCreateManyInput {
+  id: String
+  userId: String
+  value: String!
+}
+
+input TagCreateManyUserInput {
+  id: String
+  value: String!
+}
+
+input TagCreateManyUserInputEnvelope {
+  data: [TagCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
 input TagCreateNestedManyWithoutUserInput {
   connect: [TagWhereUniqueInput!]
   connectOrCreate: [TagCreateOrConnectWithoutUserInput!]
   create: [TagCreateWithoutUserInput!]
+  createMany: TagCreateManyUserInputEnvelope
 }
 
 input TagCreateOrConnectWithoutUserInput {
@@ -3853,6 +4799,15 @@ input TagCreateOrConnectWithoutUserInput {
 
 input TagCreateWithoutUserInput {
   id: String
+  value: String!
+}
+
+type TagGroupBy {
+  _count: TagCountAggregate
+  _max: TagMaxAggregate
+  _min: TagMinAggregate
+  id: String!
+  userId: String
   value: String!
 }
 
@@ -3895,6 +4850,15 @@ input TagScalarWhereInput {
   value: StringFilter
 }
 
+input TagScalarWhereWithAggregatesInput {
+  AND: [TagScalarWhereWithAggregatesInput!]
+  NOT: [TagScalarWhereWithAggregatesInput!]
+  OR: [TagScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  userId: StringNullableWithAggregatesFilter
+  value: StringWithAggregatesFilter
+}
+
 input TagUpdateInput {
   User: UserUpdateOneWithoutInterestsInput
   id: StringFieldUpdateOperationsInput
@@ -3915,6 +4879,7 @@ input TagUpdateManyWithoutUserInput {
   connect: [TagWhereUniqueInput!]
   connectOrCreate: [TagCreateOrConnectWithoutUserInput!]
   create: [TagCreateWithoutUserInput!]
+  createMany: TagCreateManyUserInputEnvelope
   delete: [TagWhereUniqueInput!]
   deleteMany: [TagScalarWhereInput!]
   disconnect: [TagWhereUniqueInput!]
@@ -3999,19 +4964,19 @@ type User {
 
 type UserCountAggregate {
   _all: Int!
-  addressId: Int
-  avatar: Int
-  bio: Int
-  createdAt: Int
-  email: Int
-  handle: Int
-  id: Int
-  isOnline: Int
-  name: Int
-  password: Int
-  role: Int
-  updatedAt: Int
-  website: Int
+  addressId: Int!
+  avatar: Int!
+  bio: Int!
+  createdAt: Int!
+  email: Int!
+  handle: Int!
+  id: Int!
+  isOnline: Int!
+  name: Int!
+  password: Int!
+  role: Int!
+  updatedAt: Int!
+  website: Int!
 }
 
 input UserCreateInput {
@@ -4045,10 +5010,47 @@ input UserCreateInput {
   website: String
 }
 
+input UserCreateManyAddressInput {
+  avatar: String
+  bio: String
+  createdAt: Timestamp
+  email: String!
+  handle: String!
+  id: String
+  isOnline: Boolean
+  name: String!
+  password: String!
+  role: Role
+  updatedAt: Timestamp
+  website: String
+}
+
+input UserCreateManyAddressInputEnvelope {
+  data: [UserCreateManyAddressInput!]!
+  skipDuplicates: Boolean
+}
+
+input UserCreateManyInput {
+  addressId: String
+  avatar: String
+  bio: String
+  createdAt: Timestamp
+  email: String!
+  handle: String!
+  id: String
+  isOnline: Boolean
+  name: String!
+  password: String!
+  role: Role
+  updatedAt: Timestamp
+  website: String
+}
+
 input UserCreateNestedManyWithoutAddressInput {
   connect: [UserWhereUniqueInput!]
   connectOrCreate: [UserCreateOrConnectWithoutAddressInput!]
   create: [UserCreateWithoutAddressInput!]
+  createMany: UserCreateManyAddressInputEnvelope
 }
 
 input UserCreateNestedManyWithoutFollowedByInput {
@@ -4660,6 +5662,25 @@ input UserCreateWithoutOwnsProjectsInput {
   website: String
 }
 
+type UserGroupBy {
+  _count: UserCountAggregate
+  _max: UserMaxAggregate
+  _min: UserMinAggregate
+  addressId: String
+  avatar: String
+  bio: String
+  createdAt: Timestamp!
+  email: String!
+  handle: String!
+  id: String!
+  isOnline: Boolean!
+  name: String!
+  password: String!
+  role: Role!
+  updatedAt: Timestamp!
+  website: String
+}
+
 input UserListRelationFilter {
   every: UserWhereInput
   none: UserWhereInput
@@ -4754,6 +5775,25 @@ input UserScalarWhereInput {
   website: StringNullableFilter
 }
 
+input UserScalarWhereWithAggregatesInput {
+  AND: [UserScalarWhereWithAggregatesInput!]
+  NOT: [UserScalarWhereWithAggregatesInput!]
+  OR: [UserScalarWhereWithAggregatesInput!]
+  addressId: StringNullableWithAggregatesFilter
+  avatar: StringNullableWithAggregatesFilter
+  bio: StringNullableWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  email: StringWithAggregatesFilter
+  handle: StringWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  isOnline: BoolWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  password: StringWithAggregatesFilter
+  role: EnumRoleWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  website: StringNullableWithAggregatesFilter
+}
+
 input UserSignUpInput {
   accessCode: String!
   email: String!
@@ -4827,6 +5867,7 @@ input UserUpdateManyWithoutAddressInput {
   connect: [UserWhereUniqueInput!]
   connectOrCreate: [UserCreateOrConnectWithoutAddressInput!]
   create: [UserCreateWithoutAddressInput!]
+  createMany: UserCreateManyAddressInputEnvelope
   delete: [UserWhereUniqueInput!]
   deleteMany: [UserScalarWhereInput!]
   disconnect: [UserWhereUniqueInput!]
@@ -5554,16 +6595,38 @@ type UsersOnBands {
   userId: String!
 }
 
+input UsersOnBandsCreateManyBandInput {
+  createdAt: Timestamp
+  userId: String!
+}
+
+input UsersOnBandsCreateManyBandInputEnvelope {
+  data: [UsersOnBandsCreateManyBandInput!]!
+  skipDuplicates: Boolean
+}
+
+input UsersOnBandsCreateManyUserInput {
+  bandId: String!
+  createdAt: Timestamp
+}
+
+input UsersOnBandsCreateManyUserInputEnvelope {
+  data: [UsersOnBandsCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
 input UsersOnBandsCreateNestedManyWithoutBandInput {
   connect: [UsersOnBandsWhereUniqueInput!]
   connectOrCreate: [UsersOnBandsCreateOrConnectWithoutBandInput!]
   create: [UsersOnBandsCreateWithoutBandInput!]
+  createMany: UsersOnBandsCreateManyBandInputEnvelope
 }
 
 input UsersOnBandsCreateNestedManyWithoutUserInput {
   connect: [UsersOnBandsWhereUniqueInput!]
   connectOrCreate: [UsersOnBandsCreateOrConnectWithoutUserInput!]
   create: [UsersOnBandsCreateWithoutUserInput!]
+  createMany: UsersOnBandsCreateManyUserInputEnvelope
 }
 
 input UsersOnBandsCreateOrConnectWithoutBandInput {
@@ -5631,6 +6694,7 @@ input UsersOnBandsUpdateManyWithoutBandInput {
   connect: [UsersOnBandsWhereUniqueInput!]
   connectOrCreate: [UsersOnBandsCreateOrConnectWithoutBandInput!]
   create: [UsersOnBandsCreateWithoutBandInput!]
+  createMany: UsersOnBandsCreateManyBandInputEnvelope
   delete: [UsersOnBandsWhereUniqueInput!]
   deleteMany: [UsersOnBandsScalarWhereInput!]
   disconnect: [UsersOnBandsWhereUniqueInput!]
@@ -5644,6 +6708,7 @@ input UsersOnBandsUpdateManyWithoutUserInput {
   connect: [UsersOnBandsWhereUniqueInput!]
   connectOrCreate: [UsersOnBandsCreateOrConnectWithoutUserInput!]
   create: [UsersOnBandsCreateWithoutUserInput!]
+  createMany: UsersOnBandsCreateManyUserInputEnvelope
   delete: [UsersOnBandsWhereUniqueInput!]
   deleteMany: [UsersOnBandsScalarWhereInput!]
   disconnect: [UsersOnBandsWhereUniqueInput!]
@@ -5715,9 +6780,9 @@ type UsersOnProjects {
 
 type UsersOnProjectsCountAggregate {
   _all: Int!
-  createdAt: Int
-  projectId: Int
-  userId: Int
+  createdAt: Int!
+  projectId: Int!
+  userId: Int!
 }
 
 input UsersOnProjectsCreateInput {
@@ -5726,16 +6791,44 @@ input UsersOnProjectsCreateInput {
   user: UserCreateNestedOneWithoutMemberOfProjectsInput!
 }
 
+input UsersOnProjectsCreateManyInput {
+  createdAt: Timestamp
+  projectId: String!
+  userId: String!
+}
+
+input UsersOnProjectsCreateManyProjectInput {
+  createdAt: Timestamp
+  userId: String!
+}
+
+input UsersOnProjectsCreateManyProjectInputEnvelope {
+  data: [UsersOnProjectsCreateManyProjectInput!]!
+  skipDuplicates: Boolean
+}
+
+input UsersOnProjectsCreateManyUserInput {
+  createdAt: Timestamp
+  projectId: String!
+}
+
+input UsersOnProjectsCreateManyUserInputEnvelope {
+  data: [UsersOnProjectsCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
 input UsersOnProjectsCreateNestedManyWithoutProjectInput {
   connect: [UsersOnProjectsWhereUniqueInput!]
   connectOrCreate: [UsersOnProjectsCreateOrConnectWithoutProjectInput!]
   create: [UsersOnProjectsCreateWithoutProjectInput!]
+  createMany: UsersOnProjectsCreateManyProjectInputEnvelope
 }
 
 input UsersOnProjectsCreateNestedManyWithoutUserInput {
   connect: [UsersOnProjectsWhereUniqueInput!]
   connectOrCreate: [UsersOnProjectsCreateOrConnectWithoutUserInput!]
   create: [UsersOnProjectsCreateWithoutUserInput!]
+  createMany: UsersOnProjectsCreateManyUserInputEnvelope
 }
 
 input UsersOnProjectsCreateOrConnectWithoutProjectInput {
@@ -5756,6 +6849,15 @@ input UsersOnProjectsCreateWithoutProjectInput {
 input UsersOnProjectsCreateWithoutUserInput {
   createdAt: Timestamp
   project: ProjectCreateNestedOneWithoutMembersInput!
+}
+
+type UsersOnProjectsGroupBy {
+  _count: UsersOnProjectsCountAggregate
+  _max: UsersOnProjectsMaxAggregate
+  _min: UsersOnProjectsMinAggregate
+  createdAt: Timestamp!
+  projectId: String!
+  userId: String!
 }
 
 input UsersOnProjectsListRelationFilter {
@@ -5797,6 +6899,15 @@ input UsersOnProjectsScalarWhereInput {
   userId: StringFilter
 }
 
+input UsersOnProjectsScalarWhereWithAggregatesInput {
+  AND: [UsersOnProjectsScalarWhereWithAggregatesInput!]
+  NOT: [UsersOnProjectsScalarWhereWithAggregatesInput!]
+  OR: [UsersOnProjectsScalarWhereWithAggregatesInput!]
+  createdAt: DateTimeWithAggregatesFilter
+  projectId: StringWithAggregatesFilter
+  userId: StringWithAggregatesFilter
+}
+
 input UsersOnProjectsUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   project: ProjectUpdateOneRequiredWithoutMembersInput
@@ -5821,6 +6932,7 @@ input UsersOnProjectsUpdateManyWithoutProjectInput {
   connect: [UsersOnProjectsWhereUniqueInput!]
   connectOrCreate: [UsersOnProjectsCreateOrConnectWithoutProjectInput!]
   create: [UsersOnProjectsCreateWithoutProjectInput!]
+  createMany: UsersOnProjectsCreateManyProjectInputEnvelope
   delete: [UsersOnProjectsWhereUniqueInput!]
   deleteMany: [UsersOnProjectsScalarWhereInput!]
   disconnect: [UsersOnProjectsWhereUniqueInput!]
@@ -5834,6 +6946,7 @@ input UsersOnProjectsUpdateManyWithoutUserInput {
   connect: [UsersOnProjectsWhereUniqueInput!]
   connectOrCreate: [UsersOnProjectsCreateOrConnectWithoutUserInput!]
   create: [UsersOnProjectsCreateWithoutUserInput!]
+  createMany: UsersOnProjectsCreateManyUserInputEnvelope
   delete: [UsersOnProjectsWhereUniqueInput!]
   deleteMany: [UsersOnProjectsScalarWhereInput!]
   disconnect: [UsersOnProjectsWhereUniqueInput!]
@@ -5903,15 +7016,30 @@ type VersionInformation {
 
 type VersionInformationCountAggregate {
   _all: Int!
-  createdAt: Int
-  description: Int
-  id: Int
+  createdAt: Int!
+  description: Int!
+  id: Int!
 }
 
 input VersionInformationCreateInput {
   createdAt: Timestamp
   description: String!
   id: String
+}
+
+input VersionInformationCreateManyInput {
+  createdAt: Timestamp
+  description: String!
+  id: String
+}
+
+type VersionInformationGroupBy {
+  _count: VersionInformationCountAggregate
+  _max: VersionInformationMaxAggregate
+  _min: VersionInformationMinAggregate
+  createdAt: Timestamp!
+  description: String!
+  id: String!
 }
 
 type VersionInformationMaxAggregate {
@@ -5936,6 +7064,15 @@ enum VersionInformationScalarFieldEnum {
   createdAt
   description
   id
+}
+
+input VersionInformationScalarWhereWithAggregatesInput {
+  AND: [VersionInformationScalarWhereWithAggregatesInput!]
+  NOT: [VersionInformationScalarWhereWithAggregatesInput!]
+  OR: [VersionInformationScalarWhereWithAggregatesInput!]
+  createdAt: DateTimeWithAggregatesFilter
+  description: StringWithAggregatesFilter
+  id: StringWithAggregatesFilter
 }
 
 input VersionInformationUpdateInput {
