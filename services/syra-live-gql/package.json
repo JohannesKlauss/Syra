@@ -22,7 +22,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev && prisma migrate deploy",
     "session:gen-key": "secure-session-gen-key > src/session-key && cp src/session-key dist/src/session-key",
-    "docker:build": "yarn prisma:generate && yarn build && yarn session:gen-key && yarn prisma:migrate",
+    "docker:build": "yarn prisma:generate && yarn build && yarn session:gen-key && yarn docker:postinstall",
     "docker:postinstall": "if test \"$LIVE_DB_URL\" != \"\" ; then yarn prisma:migrate ; fi"
   },
   "dependencies": {
