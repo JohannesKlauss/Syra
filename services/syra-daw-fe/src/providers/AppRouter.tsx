@@ -4,6 +4,7 @@ import EditorShell from '../ui/screens/EditorShell';
 import NewProject from '../ui/screens/NewProject';
 import { routes } from '../const/routes';
 import { Flex, Text } from '@chakra-ui/react';
+import LoadingScreen from "../ui/atoms/LoadingScreen";
 
 function AppRouter() {
   return (
@@ -15,7 +16,9 @@ function AppRouter() {
           </Flex>
         </Route>
         <Route path={routes.NewProject} exact>
-          <NewProject />
+          <React.Suspense fallback={<LoadingScreen isLoading={true}/>}>
+            <NewProject />
+          </React.Suspense>
         </Route>
         <Route path={routes.EditorShell} exact>
           <EditorShell />
