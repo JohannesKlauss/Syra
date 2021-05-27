@@ -20475,10 +20475,10 @@ react-helmet-async@^1.0.7:
     react-fast-compare "^3.2.0"
     shallowequal "^1.1.0"
 
-react-hook-form@7.6.7:
-  version "7.6.7"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.6.7.tgz#77f1b47ebf072e222d11707bb14750498f471d40"
-  integrity sha512-HzYgmUyWdhQRYEuKHOWybVF/anM9s2sPVIoskUvGdMjJaIBOiFIhNVNZuBMSg81LN7tt9Z4A/jFwbMi/kmaZ5A==
+react-hook-form@7.6.8:
+  version "7.6.8"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.6.8.tgz#d47308b04e98a2beed73059125bdff84412d8194"
+  integrity sha512-Ri+XImhd/2bY4rV+aME0ij3G1L3cyhAErlhKmhDkgJx3NjCNQ+5et2Y1qp87mSDIyZq5UOFtRm0tDXEaTP3DPw==
 
 react-hotkeys-hook@3.3.1:
   version "3.3.1"
@@ -22314,10 +22314,10 @@ standard-as-callback@^2.1.0:
   resolved "https://registry.yarnpkg.com/standard-as-callback/-/standard-as-callback-2.1.0.tgz#8953fc05359868a77b5b9739a665c5977bb7df45"
   integrity sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==
 
-standardized-audio-context@25.2.3, standardized-audio-context@^25.2.3:
-  version "25.2.3"
-  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.2.3.tgz#575e4ba9a35bd4e78ea3d7bebe9924a4dc7a986e"
-  integrity sha512-Kg41iOaPk9gRjyXOPXUvWNdMo4B0HW4xRCQCINfdl80cfAbp+2chNGWfAlLgaxHH2Ac+fLkLS7qT0kWkJBkA6A==
+standardized-audio-context@25.2.4:
+  version "25.2.4"
+  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.2.4.tgz#d64dbdd70615171ec90d1b7151a0d945af94cf3d"
+  integrity sha512-uQKZXRnXrPVO1V6SwZ7PiV3RkQqRY3n7i6Q8nbTXYvoz8NftRNzfOIlwefpuC8LVLUUs9dhbKTpP+WOA82dkBw==
   dependencies:
     "@babel/runtime" "^7.14.0"
     automation-events "^4.0.1"
@@ -22331,6 +22331,15 @@ standardized-audio-context@^25.1.8:
     "@babel/runtime" "^7.12.5"
     automation-events "^3.0.2"
     tslib "^2.1.0"
+
+standardized-audio-context@^25.2.3:
+  version "25.2.3"
+  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.2.3.tgz#575e4ba9a35bd4e78ea3d7bebe9924a4dc7a986e"
+  integrity sha512-Kg41iOaPk9gRjyXOPXUvWNdMo4B0HW4xRCQCINfdl80cfAbp+2chNGWfAlLgaxHH2Ac+fLkLS7qT0kWkJBkA6A==
+  dependencies:
+    "@babel/runtime" "^7.14.0"
+    automation-events "^4.0.1"
+    tslib "^2.2.0"
 
 state-toggle@^1.0.0:
   version "1.0.3"
