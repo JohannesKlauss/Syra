@@ -4,8 +4,8 @@ import { Queue } from 'bull';
 import { CookieAuthGuard } from '../auth/cookie-auth.guard';
 import { Multipart } from 'fastify-multipart';
 import { AudioTranscodeJob } from '../../types/AudioTranscodeJob';
-import * as uniqid from 'uniqid';
 import * as fs from "fs";
+import uniqid from 'uniqid';
 
 @Controller('audio')
 export class AudioController {
