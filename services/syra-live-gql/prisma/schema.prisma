@@ -16,193 +16,229 @@ generator typegraphql {
 }
 
 model Issue {
-  id                String      @id @default(cuid())
-  createdAt         DateTime    @default(now())
-  createdBy         User?
-  resolved          Boolean     @default(false)
-  description       String
-  screenshotIds     String[]
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  createdBy     User?    @relation(fields: [userId], references: [id])
+  resolved      Boolean  @default(false)
+  description   String
+  screenshotIds String[]
+  userId        String?
 }
 
 model VersionInformation {
-  id                String      @id @default(cuid())
-  createdAt         DateTime    @default(now())
-  description       String
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  description String
 }
 
-model AudioAsset {
-  id                String      @id @default(cuid())
-  location          String
-  name              String
-  isPublic          Boolean?    @default(false)
+model Asset {
+  id             String                  @id @default(cuid())
+  location       String
+  name           String
+  usedInProjects AssetsOnProjects[]
+  isPublic       Boolean?                @default(false)
   /// @TypeGraphQL.omit(output: true)
-  owner             User?
+  owner          User?                   @relation(fields: [userId], references: [id])
+  Mixdown        Mixdown[]
+  userId         String?
+  mimeType       String
+}
+
+model AssetsOnProjects {
+  asset        Asset      @relation(fields: [assetId], references: [id])
+  assetId      String
+  project      Project    @relation(fields: [projectId], references: [id])
+  projectId    String
+  createdAt    DateTime   @default(now())
+
+  @@id([assetId, projectId])
 }
 
 model User {
-  id                String      @id @default(cuid())
-  name              String
-  handle            String      @unique
-  email             String      @unique
+  id               String            @id @default(cuid())
+  name             String
+  handle           String            @unique
+  email            String            @unique
   /// @TypeGraphQL.omit(output: true)
-  password          String
-  avatar            String?
-  bio               String?
-  website           String?
-  isOnline          Boolean     @default(false)
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
-  address           Address?
-  role              Role        @default(USER)
-  followedBy        User[]      @relation("UserFollows", references: [id])
-  following         User[]      @relation("UserFollows", references: [id])
-  memberOfProjects  UsersOnProjects[]
-  memberOfBands     UsersOnBands[]
-  ownsBands         Band[]
-  ownsProjects      Project[]
-  feed              FeedItem[]
-  interests         Tag[]
+  password         String
+  avatar           String?
+  bio              String?
+  website          String?
+  isOnline         Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  address          Address?          @relation(fields: [addressId], references: [id])
+  role             Role              @default(USER)
+  followedBy       User[]            @relation("UserFollows", references: [id])
+  following        User[]            @relation("UserFollows", references: [id])
+  memberOfProjects UsersOnProjects[]
+  memberOfBands    UsersOnBands[]
+  ownsBands        Band[]
+  ownsProjects     Project[]
+  feed             FeedItem[]
+  interests        Tag[]
+  Issue            Issue[]
+  Asset            Asset[]
+  EarlyAccessCode  EarlyAccessCode[]
+  Mixdown          Mixdown[]
+  Comment          Comment[]
+  FeedItemLike     FeedItemLike[]
+  CommentLike      CommentLike[]
+  addressId        String?
 }
 
 model Band {
-  id                String      @id @default(cuid())
-  name              String
-  isPublic          Boolean     @default(true)
-  createdBy         User
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
-  members           UsersOnBands[]
+  id        String         @id @default(cuid())
+  name      String
+  isPublic  Boolean        @default(true)
+  createdBy User           @relation(fields: [userId], references: [id])
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  members   UsersOnBands[]
+  userId    String
 }
 
 model UsersOnBands {
-  band          Band        @relation(fields: [bandId], references: [id])
-  bandId        String
-  user          User        @relation(fields: [userId], references: [id])
-  userId        String
-  createdAt     DateTime    @default(now())
+  band      Band     @relation(fields: [bandId], references: [id])
+  bandId    String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
 
   @@id([userId, bandId])
 }
 
 model Address {
   /// @TypeGraphQL.omit(output: true)
-  id            String      @id @default(cuid())
-  addressLine1  String
-  addressLine2  String?
-  zip           Int
-  city          String
-  state         String
-  country       String
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  id           String   @id @default(cuid())
+  addressLine1 String
+  addressLine2 String?
+  zip          Int
+  city         String
+  state        String
+  country      String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  User         User[]
 }
 
 model EarlyAccessCode {
   /// @TypeGraphQL.omit(output: true)
-  id            String      @id @default(cuid())
-  code          String      @unique
-  isValid       Boolean     @default(true)
-  claimedBy     User?
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  id        String   @id @default(cuid())
+  code      String   @unique
+  isValid   Boolean  @default(true)
+  claimedBy User?    @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String?
 }
 
 model Project {
-  id            String      @id @default(cuid())
-  owner         User        @relation(fields: [ownerId], references: [id])
+  id            String                  @id @default(cuid())
+  owner         User                    @relation(fields: [ownerId], references: [id])
   ownerId       String
-  name          String      @default("New Syra Project")
-  isPrivate     Boolean     @default(false)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  name          String                  @default("New Syra Project")
+  isPrivate     Boolean                 @default(false)
+  createdAt     DateTime                @default(now())
+  updatedAt     DateTime                @updatedAt
   content       Json
   members       UsersOnProjects[]
+  assets   AssetsOnProjects[]
   mixdowns      Mixdown[]
-  isInitialized Boolean     @default(false)
+  isInitialized Boolean                 @default(false)
 }
 
 model Mixdown {
-  id            String      @id @default(cuid())
-  version       Int
-  project       Project
-  listens       Int         @default(0)
-  name          String?
-  triggerdBy    User
-  audio         AudioAsset
-  isPusblished  Boolean?    @default(false)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  id           String     @id @default(cuid())
+  version      Int
+  project      Project    @relation(fields: [projectId], references: [id])
+  listens      Int        @default(0)
+  name         String?
+  triggerdBy   User       @relation(fields: [userId], references: [id])
+  audio        Asset      @relation(fields: [assetId], references: [id])
+  isPusblished Boolean?   @default(false)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  FeedItem     FeedItem[]
+  projectId    String
+  userId       String
+  assetId String
 }
 
 model UsersOnProjects {
-  project       Project     @relation(fields: [projectId], references: [id])
-  projectId     String
-  user          User        @relation(fields: [userId], references: [id])
-  userId        String
-  createdAt     DateTime    @default(now())
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
 
   @@id([userId, projectId])
 }
 
 model Tag {
   /// @TypeGraphQL.omit(output: true)
-  id            String      @id @default(cuid())
-  value         String      @unique()
+  id     String  @id @default(cuid())
+  value  String  @unique
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
 }
 
 model FeedItem {
-  id            String      @id @default(cuid())
-  text          String?
-  author        User        @relation(fields: [authorId], references: [id])
-  authorId      String
-  comments      Comment[]
-  likes         FeedItemLike[]
-  revisions     FeedItemRevision[]
-  mixdown       Mixdown?
-  isPublished   Boolean     @default(true)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  publishAt     DateTime?   @default(now())
+  id          String             @id @default(cuid())
+  text        String?
+  author      User               @relation(fields: [authorId], references: [id])
+  authorId    String
+  comments    Comment[]
+  likes       FeedItemLike[]
+  revisions   FeedItemRevision[]
+  mixdown     Mixdown?           @relation(fields: [mixdownId], references: [id])
+  isPublished Boolean            @default(true)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  publishAt   DateTime?          @default(now())
+  mixdownId   String?
 }
 
 model FeedItemRevision {
-  id            String      @id @default(cuid())
-  text          String
-  parentItem    FeedItem
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  id         String   @id @default(cuid())
+  text       String
+  parentItem FeedItem @relation(fields: [feedItemId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  feedItemId String
 }
 
 model Comment {
-  id                String      @id @default(cuid())
-  text              String
-  feedItem          FeedItem?
-  parentCommentId   String?
-  parentComment     Comment?    @relation("ParentChildrenComments", fields: [parentCommentId], references: [id])
-  subComments       Comment[]   @relation("ParentChildrenComments")
-  likes             CommentLike[]
-  author            User        @relation(fields: [authorId], references: [id])
-  authorId          String
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
+  id              String        @id @default(cuid())
+  text            String
+  feedItem        FeedItem?     @relation(fields: [feedItemId], references: [id])
+  parentCommentId String?
+  parentComment   Comment?      @relation("ParentChildrenComments", fields: [parentCommentId], references: [id])
+  subComments     Comment[]     @relation("ParentChildrenComments")
+  likes           CommentLike[]
+  author          User          @relation(fields: [authorId], references: [id])
+  authorId        String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  feedItemId      String?
 }
 
 model FeedItemLike {
-  feedItem      FeedItem    @relation(fields: [feedItemId], references: [id])
-  feedItemId    String
-  user          User        @relation(fields: [userId], references: [id])
-  userId        String
-  createdAt     DateTime    @default(now())
+  feedItem   FeedItem @relation(fields: [feedItemId], references: [id])
+  feedItemId String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  createdAt  DateTime @default(now())
 
   @@id([userId, feedItemId])
 }
 
 model CommentLike {
-  comment       Comment     @relation(fields: [commentId], references: [id])
-  commentId     String
-  user          User        @relation(fields: [userId], references: [id])
-  userId        String
-  createdAt     DateTime    @default(now())
+  comment   Comment  @relation(fields: [commentId], references: [id])
+  commentId String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
 
   @@id([userId, commentId])
 }

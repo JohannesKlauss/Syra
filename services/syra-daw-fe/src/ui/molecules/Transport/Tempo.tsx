@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import useTempoMapScheduler from '../../../hooks/tone/useTempoMapScheduler';
 import { Box, Button } from '@chakra-ui/react';
 import { motion, PanInfo, useMotionValue } from "framer-motion";
-import { useSetRecoilState } from "recoil";
-import { projectStore } from "../../../recoil/projectStore";
+import useTempoWatcher from "../../../hooks/tone/useTempoWatcher";
 
 function Tempo() {
-  const setTempoMap = useSetRecoilState(projectStore.tempoMap);
-  const currentTempo = useTempoMapScheduler();
+  const {currentTempo, setTempoMap} = useTempoWatcher();
   const x = useMotionValue(0);
   const lastOffset = useMotionValue(0);
   const [tempoCopy, setTempoCopy] = useState(currentTempo);
@@ -28,6 +25,7 @@ function Tempo() {
   const onDragEnd = () => {
     lastOffset.set(0);
     x.set(0);
+
     setTempoMap({0: tempoCopy});
   };
 
@@ -35,7 +33,7 @@ function Tempo() {
     <Box pos={'relative'}>
       <motion.div drag={'x'} onDrag={onXChanged} onDragEnd={onDragEnd} dragMomentum={false} dragElastic={0} style={{x}}>
         <Button variant={'ghost'} size={'sm'} cursor={'ew-resize'}>
-          {tempoCopy} BPM
+          {Math.round(tempoCopy)} BPM
         </Button>
       </motion.div>
     </Box>

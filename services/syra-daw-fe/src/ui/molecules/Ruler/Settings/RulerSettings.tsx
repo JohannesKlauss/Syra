@@ -1,9 +1,5 @@
 import React from 'react';
-import RulerZoomInOut from './RulerZoomInOut';
-import RulerSnapSettings from './RulerSnapSettings';
-import RulerCycleSettings from './RulerCycleSettings';
-import { Flex, Image } from "@chakra-ui/react";
-import { View } from "../../../../types/View";
+import { Flex } from "@chakra-ui/react";
 
 interface Props {
 }

@@ -11,7 +11,7 @@ export default function useDeleteSelectedRegions() {
   return useCallback(() => {
     const tmpCopy = selectedRegionIds.slice();
 
-    tmpCopy.map((regionId) => {
+    tmpCopy.forEach((regionId) => {
       deleteRegion(regionId);
 
       setSelectedRegionIds(currVal => removeItemAtIndex(currVal, currVal.findIndex(val => val === regionId)))

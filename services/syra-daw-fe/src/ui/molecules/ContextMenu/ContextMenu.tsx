@@ -28,10 +28,12 @@ const ContextMenu: React.FC<Props> = ({ children, hotkey }) => {
   }, [onOpen, setOffset, setLayerOffset]);
 
   useEffect(() => {
-    ref.current?.addEventListener('contextmenu', onContextMenu);
+    const refCopy = ref.current;
+
+    refCopy?.addEventListener('contextmenu', onContextMenu);
 
     return () => {
-      ref.current?.removeEventListener('contextmenu', onContextMenu);
+      refCopy?.removeEventListener('contextmenu', onContextMenu);
     }
   }, [ref, onContextMenu]);
 
@@ -43,20 +45,13 @@ const ContextMenu: React.FC<Props> = ({ children, hotkey }) => {
     }
   }, [isOpen, setIsContextMenuOpen]);
 
-  const onClickAway = (e: MouseEvent | TouchEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    onClose();
-  };
-
   return (
     <>
       <div ref={ref}>{children[0]}</div>
-      <ClickAwayListener onClickAway={onClickAway} mouseEvent="mousedown">
+      <ClickAwayListener onClickAway={onClose}>
         <Menu isLazy isOpen={isOpen} size={'xs'}>
           <Portal>
-            <MenuList onClick={onClose} onMouseDown={e => e.stopPropagation()} fontSize={'xs'} pos={'fixed'} left={offset[0]} top={offset[1]}>
+            <MenuList onClick={onClose} fontSize={'xs'} pos={'fixed'} left={offset[0]} top={offset[1]}>
               {
                 // @ts-ignore TODO: For some reason the Children Types are incompatible. Check back to fix this.
                 React.cloneElement(children[1], { offset: layerOffset })

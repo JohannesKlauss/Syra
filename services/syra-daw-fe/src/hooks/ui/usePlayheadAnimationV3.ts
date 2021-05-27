@@ -4,7 +4,7 @@ import {transportStore} from "../../recoil/transportStore";
 import {useMotionValue} from "framer-motion";
 import {useContext, useEffect, useRef} from "react";
 import {ViewContext} from "../../providers/ViewContext";
-import useTicksToPixel from "../tone/useTicksToPixel";
+import useTicksToPixel from "./useTicksToPixel";
 import {gridStore} from "../../recoil/gridStore";
 
 export default function usePlayheadAnimationV3() {
@@ -28,16 +28,17 @@ export default function usePlayheadAnimationV3() {
 
     x.set(pixelPosition);
 
-    const mod = pixelPosition % viewportWidth;
+    const boundary = viewportWidth - 280;
+    const mod = pixelPosition % boundary;
 
-    if (mod > viewportWidth - 30 && !hasScrolled.current) {
+    if (mod - boundary >= -10 && !hasScrolled.current) {
       viewRef?.current?.scrollTo({
-        left: (viewRef?.current?.scrollLeft ?? 0) + viewportWidth,
+        left: (viewRef?.current?.scrollLeft ?? 0) + boundary,
       });
 
       hasScrolled.current = true;
     }
-    else if (mod < 30 && hasScrolled.current) {
+    else if (mod - boundary < -10 && hasScrolled.current) {
       hasScrolled.current = false;
     }
 

@@ -1,6 +1,18 @@
 version: "3.8"
 
 services:
+  syra-postgres-dev:
+    container_name: syra-postgres-dev
+    image: library/postgres:12-alpine
+    environment:
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
   syra-redis-cluster:
     container_name: syra-redis-cluster
     image: library/redis:latest
@@ -16,17 +28,12 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
-  syra-daw-fe:
-    container_name: syra-daw-fe
-    image: sha256:3f448852890d83aa0c9ff23c03ad8e4fb94b1c48f6f30e3d8aab8990f4fdd494
-    command: "nginx -g 'daemon off';"
-    ports:
-      - "8080:80"
-    networks:
-      - webnet
-
 networks:
   webnet:
+  postgres:
+    driver: bridge
 
 volumes:
   redis-data:
+  postgres:
+  pgadmin:

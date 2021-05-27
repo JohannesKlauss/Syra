@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { soulPluginStore } from "../../../recoil/soulPluginStore";
 import { createSoulInstance } from "../../../soul/createSoulInstance";
 import { channelStore } from "../../../recoil/channelStore";
@@ -9,11 +9,12 @@ import { VscChevronDown } from 'react-icons/vsc';
 interface Props {
   pluginId: string;
   isInstrument?: boolean;
+  isActive?: boolean;
 }
 
-const PluginMenuButton: React.FC<Props> = ({pluginId, isInstrument}) => {
+const PluginMenuButton: React.FC<Props> = ({pluginId, isInstrument, isActive}) => {
   const [, setActivePlugin] = useRecoilState(channelStore.soulInstance(pluginId));
-  const [isPluginActive, setIsPluginActive] = useRecoilState(channelStore.isPluginActive(pluginId));
+  const setIsPluginActive = useSetRecoilState(channelStore.isPluginActive(pluginId));
   const patchList = useRecoilValue(
     isInstrument ? soulPluginStore.availableSoulInstruments : soulPluginStore.availableSoulPlugins,
   );
@@ -46,7 +47,7 @@ const PluginMenuButton: React.FC<Props> = ({pluginId, isInstrument}) => {
         as={Button}
         roundedBottomLeft={0}
         roundedTopLeft={0}
-        colorScheme={isPluginActive ? 'teal': 'gray'}
+        colorScheme={isActive ? 'teal': 'gray'}
       >
         <VscChevronDown />
       </MenuButton>

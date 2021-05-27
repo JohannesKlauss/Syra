@@ -37,7 +37,7 @@ function EditProfileTab({}: Props) {
   const [optimisticAvatar, setOptimisticAvatar] = useState<string>(null);
   const { data: { me }, loading, error, refetch } = useMeQuery();
   const [executeUpdateUser, {loading: isMutationExecuting}] = useUpdateUserMutation();
-  const { register, handleSubmit, errors } = useForm<TEditProfileForm>();
+  const { register, handleSubmit, formState: { errors } } = useForm<TEditProfileForm>();
 
   const onSubmit = async (data: TEditProfileForm) => {
     const result = await executeUpdateUser({
@@ -71,38 +71,35 @@ function EditProfileTab({}: Props) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <GenFormInput
           placeholder={t('Name')}
-          name={'name'}
           label={t('Name')}
           helpText={t('accountEditNameHelpText')}
           isRequired
           isInvalid={errors.name != null}
           defaultValue={me.name}
-          ref={register({ required: true })}
+          {...register('name', { required: true })}
         />
         <GenFormInput
           placeholder={t('Handle')}
-          name={'handle'}
           label={t('Handle')}
           helpText={t('accountEditHandleHelpText')}
           isRequired
           isInvalid={errors.handle != null}
           defaultValue={me.handle}
-          ref={register({ required: true, minLength: 3, validate: val => !(/[\s/@]/g).test(val) })}
+          {...register('handle', { required: true, minLength: 3, validate: val => !(/[\s/@]/g).test(val) })}
         />
         <GenFormInput
           placeholder={t('Website')}
           name={'website'}
           label={t('Website')}
           defaultValue={me.website}
-          ref={register()}
+          {...register('website')}
         />
         <FormControl>
           <FormLabel htmlFor={'bio'}>{t('Bio')}</FormLabel>
           <AutoResizeTextarea
             id="text"
-            name={'bio'}
             w={'100%'}
-            ref={register()}
+            {...register('bio')}
             defaultValue={me.bio}
             placeholder={t('Short Bio')}/>
         </FormControl>
@@ -111,11 +108,10 @@ function EditProfileTab({}: Props) {
           <Input
             type="email"
             id="email"
-            name={'email'}
             defaultValue={me.email}
             isRequired
             isInvalid={errors.email != null}
-            ref={register({
+            {...register('email', {
               required: true,
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,

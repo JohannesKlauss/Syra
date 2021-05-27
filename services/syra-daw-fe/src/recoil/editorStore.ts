@@ -1,30 +1,35 @@
 import atomWithEffects from "./proxy/atomWithEffects";
-import { saveToLocalStorageEffect } from "./effects/saveToLocalStorageEffect";
-import { loadInitialStateEffect } from "./effects/loadInitialStateEffect";
+import { localStorageEffect } from "./effects/localStorageEffect";
 import { atom } from "recoil";
 
-const showMixer = atomWithEffects({
+const showMixer = atomWithEffects<boolean>({
   key: 'editor/showMixer',
   default: false,
-  effects: [saveToLocalStorageEffect, loadInitialStateEffect]
+  effects: [localStorageEffect]
 });
 
-const showPianoRoll = atomWithEffects({
+const showPianoRoll = atomWithEffects<boolean>({
   key: 'editor/showPianoRoll',
   default: false,
-  effects: [saveToLocalStorageEffect, loadInitialStateEffect]
+  effects: [localStorageEffect]
 });
 
-const showSettings = atomWithEffects({
+const showSettings = atomWithEffects<boolean>({
   key: 'editor/showSettings',
   default: false,
-  effects: [saveToLocalStorageEffect, loadInitialStateEffect]
+  effects: [localStorageEffect]
 });
 
-const showVideo = atomWithEffects({
+const showVideo = atomWithEffects<boolean>({
   key: 'editor/showVideo',
   default: true,
-  effects: [saveToLocalStorageEffect, loadInitialStateEffect]
+  effects: [localStorageEffect]
+});
+
+const showFileExplorer = atomWithEffects<boolean>({
+  key: 'editor/showFileExplorer',
+  default: false,
+  effects: [localStorageEffect]
 });
 
 const isContextMenuOpen = atom<boolean>({
@@ -38,4 +43,5 @@ export const editorStore = {
   showSettings,
   showVideo,
   isContextMenuOpen,
+  showFileExplorer,
 };

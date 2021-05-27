@@ -3,7 +3,6 @@ import { ApolloClient, ApolloLink, from, InMemoryCache, Observable, split } from
 import { injectUserId } from './injectUserId';
 import { setContext } from '@apollo/client/link/context';
 import { BatchHttpLink } from '@apollo/client/link/batch-http';
-import publicRuntimeConfig from '../const/config';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { isServer } from '../helpers/ssr/isServer';
@@ -37,7 +36,7 @@ function createApolloClient(cookie?: string) {
   const ssrMode = typeof window === 'undefined';
 
   const httpLink = new BatchHttpLink({
-    uri: `${publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL}`,
+    uri: `${process.env.NEXT_PUBLIC_LIVE_GQL_URL}`,
     credentials: 'include',
     fetchOptions: {
       agent: new https.Agent({
@@ -50,7 +49,7 @@ function createApolloClient(cookie?: string) {
   const wsLink = isServer
     ? httpLink
     : new WebSocketLink({
-        uri: `${publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL.replace('http', 'ws')}/subscriptions`,
+        uri: `${process.env.NEXT_PUBLIC_LIVE_GQL_URL.replace('http', 'ws')}/subscriptions`,
         options: {
           reconnect: true,
         }

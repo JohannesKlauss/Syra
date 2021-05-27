@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from "react";
 import NewProjectDialog from '../organisms/dialogues/NewProjectDialog';
 import useProjectSetup from '../../hooks/recoil/project/useProjectSetup';
 import { ChannelType } from '../../types/Channel';
 import { useHistory, useParams } from "react-router-dom";
-import { routes } from '../../const/routes';
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { projectStore } from "../../recoil/projectStore";
 import { useUpdateNameMutation } from "../../gql/generated";
 import { audioSetup } from "../../audioSetup";
+import { routes } from "../../const/routes";
 
 function NewProject() {
   const { id } = useParams<{ id: string }>();
@@ -25,13 +25,18 @@ function NewProject() {
     }
   });
 
+  useEffect(() => {
+    setProjectId(id);
+  }, []);
+
   const handleCreate = useCallback(async (channelType: ChannelType, numChannels: number) => {
-    await setupProject(channelType, numChannels);
     await executeMutation();
     await audioSetup();
 
-    setProjectId(id);
     setIsEngineRunning(true);
+
+    await setupProject(channelType, numChannels);
+
     setIsSetupFinished(true);
 
     history.push(routes.EditorShell.replace(':id', id));

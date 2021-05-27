@@ -1,13 +1,13 @@
 import ReactDOM from 'react-dom';
-import React from 'react';
+import React, { StrictMode } from 'react';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { RecoilRoot } from 'recoil';
-import { BackboneMixerContext, instantiateMixer } from './providers/BackboneMixerContext';
-import { initializeApollo } from "./apollo/client";
-import { ApolloProvider } from "@apollo/client";
+import { initializeApollo } from './apollo/client';
+import { ApolloProvider } from '@apollo/client';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
-if (process.env.NODE_ENV === 'development') {
+/*if (process.env.NODE_ENV === 'development') {
   const whyDidYouRender = require('@welldone-software/why-did-you-render');
 
   whyDidYouRender(React, {
@@ -16,20 +16,29 @@ if (process.env.NODE_ENV === 'development') {
     diffNameColor: 'aqua',
     trackAllPureComponents: false,
   });
-}
+}*/
+
+const config = {
+  useSystemColorMode: false,
+  initialColorMode: 'dark' as 'dark',
+};
+
+const customTheme = extendTheme({ config });
 
 const root = document.getElementById('app');
 
 const apolloClient = initializeApollo();
 
 ReactDOM.render(
-  <ApolloProvider client={apolloClient}>
-    <RecoilRoot>
-      <BackboneMixerContext.Provider value={instantiateMixer()}>
-        <App/>
-      </BackboneMixerContext.Provider>
-    </RecoilRoot>
-  </ApolloProvider>,
+  <StrictMode>
+    <ApolloProvider client={apolloClient}>
+      <RecoilRoot>
+          <ChakraProvider theme={customTheme}>
+            <App />
+          </ChakraProvider>
+      </RecoilRoot>
+    </ApolloProvider>
+  </StrictMode>,
   root,
 );
 

@@ -12,11 +12,12 @@ interface Props extends BoxProps {
   onMotionDragStart?: (width: number, x: number, offset: number) => void;
   onMotionDragEnd?: (width: number, x: number, offset: number) => void;
   minWidth?: number;
+  maxWidth?: number;
   snapToY?: number;
   offset?: number;
   lockDrag?: boolean;
   allowOverExtendingStart?: boolean;
-  onYChanged?: (offset: number) => void;
+  onYChanged?: (offset: number) => boolean;
 }
 
 const ClonableResizableBox: React.FC<Props> = ({
@@ -65,7 +66,7 @@ const ClonableResizableBox: React.FC<Props> = ({
         onMotionDragStart={onInternalMotionDragStart}
         onPositionChanged={onInternalPositionChanged}
         onMotionDragEnd={onInternalMotionDragEnd}
-        onYChanged={y => !isCloning && onYChanged && onYChanged(y)}
+        onYChanged={y => (!isCloning && onYChanged) ? onYChanged(y) : false}
       >
         {children}
       </ResizableBox>

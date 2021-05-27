@@ -18,7 +18,7 @@ export default function useDrawMidiNote(note: number) {
       return;
     }
 
-    const midiNotes = snapshot.getLoadable(regionStore.midiNotes(focusedMidiRegionId)).contents as MidiNote[];
+    const midiNotes = snapshot.getLoadable(regionStore.midiNotes(focusedMidiRegionId)).getValue();
 
     const newNote: MidiNote = {
       id: createNewId(MIDI_ID_PREFIX),

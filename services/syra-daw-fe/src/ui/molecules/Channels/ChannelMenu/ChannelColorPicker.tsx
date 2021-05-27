@@ -18,8 +18,9 @@ function ChannelColorPicker({ activeColor, onChangeColor }: Props) {
 
   return (
     <CirclePicker
+      width={'100%'}
       color={activeColor}
-      onChangeComplete={(colorResult) => onChangeColor(colorResult.hex)} circleSize={18}
+      onChangeComplete={(colorResult) => onChangeColor(colorResult.hex)} circleSize={18.6}
       colors={colors}
     />
   );

@@ -4,10 +4,7 @@ import { channelStore } from '../../../recoil/channelStore';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import Track from './Track/Track';
 import { useHotkeys } from 'react-hotkeys-hook';
-import SelectionTool from '../../atoms/SelectionTool';
-import useSelectRegions from '../../../hooks/ui/arrangeGrid/useSelectRegions';
 import useMuteSelectedRegions from '../../../hooks/recoil/region/useMuteSelectedRegions';
-import useAnalyzeTempoForSelectedRegion from '../../../hooks/recoil/region/useAnalyzeTempoForSelectedRegion';
 import { Box } from '@chakra-ui/react';
 import { ViewContext } from '../../../providers/ViewContext';
 import { gridStore } from '../../../recoil/gridStore';
@@ -15,22 +12,18 @@ import { gridStore } from '../../../recoil/gridStore';
 function GridTracks() {
   const { view } = useContext(ViewContext);
   const totalWidth = useRecoilValue(gridStore.totalWidth(view));
-  const channelIds = useRecoilValue(channelStore.ids);
-  const onSelect = useSelectRegions();
-  const analyzeTempo = useAnalyzeTempoForSelectedRegion();
+  const channelIds = useRecoilValue(channelStore.idsWithoutMaster);
 
   useHotkeys('ctrl+m', useMuteSelectedRegions());
-  useHotkeys('a', () => {
-    (async () => await analyzeTempo())();
-  });
 
   return (
-    <Box bg={'gray.800'} pos={'relative'} w={totalWidth} zIndex={0}>
+    <Box bg={'gray.800'} pos={'relative'} minH={'100vh'} w={totalWidth} zIndex={0}>
       {channelIds.map((id, i) => (
         <ChannelContext.Provider key={id} value={id}>
           <Track bg={i % 2 === 0 ? 'gray.800' : 'gray.900'} />
         </ChannelContext.Provider>
       ))}
+      <Box h={'68px'} w={'2px'}/>
     </Box>
   );
 }

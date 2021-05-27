@@ -11,17 +11,20 @@ export default function useResizableBox(
   minWidth: number,
   onPositionChanged: (x: number, width: number, offsetDelta: number) => void,
   snapToY: number,
-  onYChanged?: (y: number) => void,
+  onYChanged?: (y: number) => boolean,
   lockDrag?: boolean,
   allowOverExtendingStart?: boolean,
+  maxWidth?: number,
+  minY?: number,
 ) {
   const width = useMotionValue(baseWidth);
   const oldWidth = useMotionValue(baseWidth);
   const x = useMotionValue(baseX);
   const oldX = useMotionValue(baseX);
   const y = useMotionValue(0);
-  const boxOffset = useRef(0);
-  const oldBoxOffset = useRef(0);
+  const oldY = useMotionValue(0);
+  const boxOffset = useMotionValue(0);
+  const oldBoxOffset = useMotionValue(0);
   const ref = useRef<HTMLDivElement>(null);
   const dragMode = useRef(DragMode.MOVE);
   const snapPixelValue = useSnapPixelValue();
@@ -57,25 +60,34 @@ export default function useResizableBox(
       return;
     }
 
-    y.set(snap(snapToY, offset.y));
-
     switch (dragMode.current) {
       case DragMode.END_HANDLE:
-        width.set(Math.max(minWidth, snapPixelValue(oldWidth.get() + offset.x)));
+        const w = Math.max(minWidth, snapPixelValue(oldWidth.get() + offset.x));
+
+        width.set(Math.min(maxWidth ? maxWidth - boxOffset.get() : w, w));
         x.set(oldX.get());
         break;
       case DragMode.START_HANDLE:
-        if (snapPixelValue(oldBoxOffset.current + offset.x) >= 0 || allowOverExtendingStart) {
+        if (snapPixelValue(oldBoxOffset.get() + offset.x) >= 0 || allowOverExtendingStart) {
           const newX = snapPixelValue(oldX.get() + offset.x)
 
           x.set(newX);
           width.set(Math.max(minWidth, oldWidth.get() + (oldX.get() - newX)));
 
-          boxOffset.current = oldBoxOffset.current + offset.x;
+          boxOffset.set(oldBoxOffset.get() + offset.x);
         }
         break;
       case DragMode.MOVE:
         x.set(snapPixelValue(oldX.get() + offset.x));
+
+        const snappedY = snap(snapToY, offset.y);
+
+        if (minY && snappedY < minY) {
+          break;
+        }
+
+        y.set(snappedY);
+
         break;
     }
   };
@@ -85,15 +97,17 @@ export default function useResizableBox(
       x.set(0);
     }
 
-    onPositionChanged(x.get(), width.get(), snapPixelValue(boxOffset.current));
+    onPositionChanged(x.get(), width.get(), snapPixelValue(boxOffset.get()));
     oldWidth.set(width.get());
     oldX.set(x.get());
-    oldBoxOffset.current = snapPixelValue(boxOffset.current);
+    oldBoxOffset.set(snapPixelValue(boxOffset.get()));
 
     if (y.get() !== 0 && onYChanged && !lockDrag) {
-      onYChanged(y.get());
+      const isValid = onYChanged(y.get());
+
+      isValid ? oldY.set(y.get()) : y.set(oldY.get());
     }
   };
 
-  return {onMouseDown, onDrag, onDragEnd, x, y, width, ref};
+  return {onMouseDown, onDrag, onDragEnd, x, y, boxOffset, width, ref};
 }

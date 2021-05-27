@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 import GenFormInput from "../../../atoms/Form/GenFormInput";
 import useApiResToast from "../../../../hooks/ui/useApiResToast";
 import axios from "axios";
-import publicRuntimeConfig from "../../../../const/config";
 
 interface Props {
 
@@ -35,7 +34,7 @@ function ChangePasswordTab({}: Props) {
   const onSubmit = async (data: TChangePasswordForm) => {
     setIsSending(true);
 
-    const res = await axios.post(`${publicRuntimeConfig.NEXT_PUBLIC_LIVE_GQL_URL}/password/update`, data, {
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_LIVE_GQL_URL}/password/update`, data, {
       withCredentials: true
     });
 
@@ -60,13 +59,13 @@ function ChangePasswordTab({}: Props) {
       </Flex>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Text fontSize={"sm"} color={"gray.500"}>{t("Password needs to have a length of at least 6 characters!")}</Text>
-        <GenFormInput type={"password"} isRequired label={t("Current Password")} name={"currentPassword"}
-                      placeholder={t("Your current password")} ref={register({ required: true, minLength: 6 })}/>
-        <GenFormInput type={"password"} isRequired label={t("New Password")} name={"newPassword"}
-                      placeholder={t("Your new password")} ref={register({ required: true, minLength: 6 })}/>
-        <GenFormInput type={"password"} isRequired label={t("Confirm New Password")} name={"confirmNewPassword"}
+        <GenFormInput type={"password"} isRequired label={t("Current Password")}
+                      placeholder={t("Your current password")} {...register('currentPassword', { required: true, minLength: 6 })}/>
+        <GenFormInput type={"password"} isRequired label={t("New Password")}
+                      placeholder={t("Your new password")} {...register('newPassword', { required: true, minLength: 6 })}/>
+        <GenFormInput type={"password"} isRequired label={t("Confirm New Password")}
                       placeholder={t("Confirm your current password")}
-                      ref={register({ required: true, minLength: 6 })}/>
+                      {...register('confirmNewPassword', { required: true, minLength: 6 })}/>
         <Button isLoading={isSending} marginY={4} type={"submit"} isFullWidth
                 colorScheme={"teal"}>{t("Update")}</Button>
       </form>

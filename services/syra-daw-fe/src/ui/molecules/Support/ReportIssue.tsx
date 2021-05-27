@@ -88,7 +88,7 @@ const ReportIssue: React.FC = () => {
 
                 <FormControl isRequired marginY={4}>
                   <FormLabel htmlFor="description">Description</FormLabel>
-                  <Textarea id={'description'} ref={methods.register} name={'description'} />
+                  <Textarea id={'description'} {...methods.register('description')}/>
                   <FormHelperText id="accessCode-helper-text">
                     Please describe the issue or bug you are facing as detailed as possible.
                   </FormHelperText>

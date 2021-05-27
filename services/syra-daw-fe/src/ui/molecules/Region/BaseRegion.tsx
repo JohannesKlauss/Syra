@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import tinycolor from "tinycolor2";
 import { Box } from "@chakra-ui/react";
 import { RegionContext } from "../../../providers/RegionContext";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { regionStore } from "../../../recoil/regionStore";
 import useRegionColor from "../../../hooks/ui/region/useRegionColor";
 import useOpenPianoRoll from "../../../hooks/ui/views/pianoRoll/useOpenPianoRoll";
@@ -12,9 +12,10 @@ import useUpdateSelectedRegions from "../../../hooks/recoil/region/useUpdateSele
 import { useIsHotkeyPressed } from "react-hotkeys-hook";
 
 interface Props {
+  isSuspending?: boolean;
 }
 
-const BaseRegion: React.FC<Props> = ({ children }) => {
+const BaseRegion: React.FC<Props> = ({ isSuspending = false, children }) => {
   const regionId = useContext(RegionContext);
   const channelId = useContext(ChannelContext);
   const isMuted = useRecoilValue(regionStore.isMuted(regionId));
@@ -28,6 +29,7 @@ const BaseRegion: React.FC<Props> = ({ children }) => {
 
   return (
       <Box
+        filter={isSuspending ? 'opacity(60%) grayscale(80%)' : 'none'}
         h={`${trackHeight}px`}
         opacity={isMuted ? 0.35 : 1}
         rounded={4}

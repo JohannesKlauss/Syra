@@ -27,7 +27,7 @@ export type TSignUpForm = {
 };
 
 function SignUpForm({ hasError, onSubmit, isSending }: Props) {
-  const { register, handleSubmit, errors } = useForm<TSignUpForm>();
+  const { register, handleSubmit, formState: { errors } } = useForm<TSignUpForm>();
   const { t } = useTranslation();
 
   console.log('errors', errors);
@@ -39,8 +39,7 @@ function SignUpForm({ hasError, onSubmit, isSending }: Props) {
         <Input
           type="text"
           id="accessCode"
-          name={'accessCode'}
-          ref={register({
+          {...register('accessCode', {
             required: true,
             minLength: { value: 32, message: t('This is not a valid early access code.') },
             maxLength: { value: 32, message: t('This is not a valid early access code.') },
@@ -58,8 +57,7 @@ function SignUpForm({ hasError, onSubmit, isSending }: Props) {
         <Input
           type="text"
           id="name"
-          name={'name'}
-          ref={register({
+          {...register('name', {
             required: true,
             minLength: { value: 5, message: t('Your name must have at least 5 characters.') },
           })}
@@ -76,8 +74,7 @@ function SignUpForm({ hasError, onSubmit, isSending }: Props) {
           <Input
             type="text"
             id="handle"
-            name={'handle'}
-            ref={register({
+            {...register('handle', {
               required: true,
               minLength: { value: 5, message: t('Your name must have at least 5 characters.') },
               pattern: {
@@ -97,8 +94,7 @@ function SignUpForm({ hasError, onSubmit, isSending }: Props) {
         <Input
           type="email"
           id="email"
-          name={'email'}
-          ref={register({
+          {...register('email', {
             required: true,
             pattern: {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -116,8 +112,7 @@ function SignUpForm({ hasError, onSubmit, isSending }: Props) {
         <Input
           type="password"
           id="password"
-          name={'password'}
-          ref={register({
+          {...register('password', {
             required: true,
             minLength: { value: 6, message: t('Please choose a password with a minimum of 6 characters.') },
           })}

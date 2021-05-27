@@ -1,13 +1,11 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { MidiNumbers } from 'piano-utils';
 import * as Tone from 'tone';
 import AccidentalKey from './AccidentalKey';
 import NaturalKey from './NaturalKey';
 import KeyLabel from './KeyLabel';
 import { getRelativeKeyPosition, Range } from '../../../../utils/keyboardMidiHelper';
-import usePianoRoll from '../../../../hooks/ui/usePianoRoll';
 import { MidiEventCallable } from '../../../../types/Midi';
-import useUpdateMidiStore from '../../../../hooks/midi/useUpdateMidiStore';
 import { useRecoilValue } from 'recoil';
 import { keyboardMidiStore } from '../../../../recoil/keyboardMidiStore';
 

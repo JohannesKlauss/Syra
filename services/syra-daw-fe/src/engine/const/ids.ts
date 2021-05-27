@@ -1,0 +1,1 @@
+export const MASTER_CHANNEL = 'MASTER_CHANNEL';

@@ -4,12 +4,12 @@ import { useRecoilValue } from 'recoil';
 import { MidiNote as TMidiNote } from '../../../types/Midi';
 import useUpdateMidiPosition from '../../../hooks/midi/useUpdateMidiPosition';
 import * as Tone from 'tone';
-import usePixelToTicks from '../../../hooks/tone/usePixelToTicks';
+import usePixelToTicks from '../../../hooks/ui/usePixelToTicks';
 import useDeleteMidiNote from '../../../hooks/midi/useDeleteMidiNote';
 import { useIsHotkeyPressed } from 'react-hotkeys-hook';
 import { pianoRollStore } from '../../../recoil/pianoRollStore';
 import { regionStore } from '../../../recoil/regionStore';
-import useTicksToPixel from '../../../hooks/tone/useTicksToPixel';
+import useTicksToPixel from '../../../hooks/ui/useTicksToPixel';
 import { GridMouseMode } from '../../../types/GridMouseMode';
 import useUpdateMidiVelocity from '../../../hooks/midi/useUpdateMidiVelocity';
 import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from '../../../const/ui';
@@ -46,16 +46,14 @@ const MidiNote: React.FC<Props> = ({ note }) => {
   const onYChanged = (offset: number) => {
     // If mouse mode is not velocity a changing Y value means that ne note was transposed.
     if (mouseMode !== GridMouseMode.VELOCITY) {
-      updateMidiNoteValue(-(offset / PIANO_ROLL_MIDI_TRACK_HEIGHT), note.id);
-
-      return;
+      return updateMidiNoteValue(-(offset / PIANO_ROLL_MIDI_TRACK_HEIGHT), note.id);
     }
 
     const velocity = Math.round(-((offset - lastVelocityOffset.current) / 2.5));
 
     lastVelocityOffset.current = offset;
 
-    updateVelocity(velocity, note.id);
+    return updateVelocity(velocity, note.id);
   };
 
   const onClick = () => {
@@ -65,8 +63,6 @@ const MidiNote: React.FC<Props> = ({ note }) => {
   };
 
   const onDuplicateMidiNote = (x: number, y: number) => {
-    console.log('duplicate');
-
     duplicateMidiNote(focusedMidiRegionId, note.id, Tone.Ticks(pixelToTicks(x)), -(y / PIANO_ROLL_MIDI_TRACK_HEIGHT));
   };
 

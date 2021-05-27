@@ -1,6 +1,5 @@
 import { atom } from 'recoil';
-import { loadInitialStateEffect } from "./effects/loadInitialStateEffect";
-import { saveToLocalStorageEffect } from "./effects/saveToLocalStorageEffect";
+import { localStorageEffect } from "./effects/localStorageEffect";
 import atomWithEffects from "./proxy/atomWithEffects";
 
 const isMidiEnabled = atom({
@@ -16,7 +15,7 @@ const activeKeyboardMidiNotes = atom<number[]>({
 const selectedMidiDevice = atomWithEffects<string | null>({
   key: 'keyboardMidi/selectedMidiDevice',
   default: null,
-  effects: [loadInitialStateEffect, saveToLocalStorageEffect]
+  effects: [localStorageEffect]
 });
 
 export const keyboardMidiStore = {

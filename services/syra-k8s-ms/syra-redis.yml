@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: syra-redis-cluster
+spec:
+  selector:
+    app: syra-redis-cluster
+  ports:
+    - port: 6379
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: syra-redis-cluster
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: syra-redis-cluster
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: syra-redis-cluster
+    spec:
+      containers:
+        - name: syra-redis-cluster
+          image: redis:5-alpine
+          ports:
+            - containerPort: 6379
+          args: ["--requirepass", "$(REDIS_PASSWORD)"]
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: syra-live-secrets
+                  key: REDIS_PASSWORD

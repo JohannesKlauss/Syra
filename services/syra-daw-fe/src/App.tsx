@@ -1,21 +1,13 @@
-import React, { useState, StrictMode } from "react";
+import React, { useState } from 'react';
 import AppRouter from './providers/AppRouter';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { FpsView } from 'react-fps';
-import {
-  ChakraProvider,
-  extendTheme,
-} from '@chakra-ui/react';
 import 'focus-visible/dist/focus-visible';
-import useFaviconWatcher from "./hooks/ui/global/useFaviconWatcher";
-import useWebMidi from "./hooks/midi/useWebMidi";
-
-const config = {
-  useSystemColorMode: false,
-  initialColorMode: 'dark' as 'dark',
-};
-
-const customTheme = extendTheme({ config });
+import useFaviconWatcher from './hooks/ui/global/useFaviconWatcher';
+import useWebMidi from './hooks/midi/useWebMidi';
+import DebugShortcuts from './ui/debug/Floating/DebugShortcuts';
+import { SyraEngineContext } from './providers/SyraEngineContext';
+import { createSyraEngineInstance } from "./engine/SyraEngine";
 
 function App() {
   const [showFpsMeter, setShowFpsMeter] = useState(false);
@@ -24,12 +16,11 @@ function App() {
   useWebMidi();
 
   return (
-    <StrictMode>
-      <ChakraProvider theme={customTheme}>
-        <AppRouter />
-        {showFpsMeter && <FpsView />}
-      </ChakraProvider>
-    </StrictMode>
+    <SyraEngineContext.Provider value={createSyraEngineInstance()}>
+      <AppRouter />
+      {showFpsMeter && <FpsView />}
+      {process.env.NODE_ENV !== 'production' && <DebugShortcuts/>}
+    </SyraEngineContext.Provider>
   );
 }
 

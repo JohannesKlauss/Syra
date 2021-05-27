@@ -1,7 +1,6 @@
-import { Flex, Image } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import React from "react";
 import { View } from "../../../types/View";
-import ReportIssue from "../Support/ReportIssue";
 import RulerSettings from "../Ruler/Settings/RulerSettings";
 import RulerSnapSettings from "../Ruler/Settings/RulerSnapSettings";
 import RulerZoomInOut from "../Ruler/Settings/RulerZoomInOut";

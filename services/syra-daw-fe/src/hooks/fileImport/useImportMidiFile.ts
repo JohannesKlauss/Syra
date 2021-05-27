@@ -1,6 +1,6 @@
 import useCreateChannel from "../recoil/channel/useCreateChannel";
 import useCreateMidiRegion from "../recoil/region/useCreateMidiRegion";
-import { ChannelType } from "../../types/Channel";
+import { ChannelMode, ChannelType } from "../../types/Channel";
 import { Midi } from "@tonejs/midi";
 import useSetInstrument from "../recoil/channel/useSetInstrument";
 import { useCallback } from "react";
@@ -18,7 +18,11 @@ export default function useImportMidiFile() {
 
     for (const track of midi.tracks) {
       const channelName = midi.tracks.length > 1 ? `${file.name.split('.')[0] } - ${track.instrument.name}` : file.name.split('.')[0];
-      const channelId = await createChannel(ChannelType.INSTRUMENT, importIndex, channelName);
+      const channelId = await createChannel(ChannelType.INSTRUMENT, ChannelMode.MONO, importIndex, channelName);
+
+      if (!channelId) {
+        return;
+      }
 
       await setInstrument(channelId, 'com.yourcompany.ElectroPiano');
       

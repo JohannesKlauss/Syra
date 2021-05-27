@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, Image } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { IoMdAdd } from 'react-icons/io';
 import Link from 'next/link';
@@ -7,7 +7,6 @@ import Search from '../Search/Search';
 import AvatarMenu from '../Feed/AvatarMenu/AvatarMenu';
 import { useCreateProjectMutation } from '../../../gql/generated';
 import NewMessageNotifier from '../Notifications/NewMessageNotifier/NewMessageNotifier';
-import publicRuntimeConfig from '../../../const/config';
 import OnlineFollowersList from '../OnlineFollowersList/OnlineFollowersList';
 
 interface Props {}
@@ -23,7 +22,7 @@ function TopBar({}: Props) {
 
     if (errors == null) {
       setIsCreatingSession(false);
-      window && window.open(`${publicRuntimeConfig.NEXT_PUBLIC_DAW_URL}/editor/${data.createProject.id}`, '_blank');
+      window && window.open(`${process.env.NEXT_PUBLIC_DAW_URL}/editor/${data.createProject.id}`, '_blank');
     }
   };
 
@@ -41,7 +40,8 @@ function TopBar({}: Props) {
     >
       <Box h={'32px'}>
         <Flex alignItems={'center'} justify={'space-between'}>
-          <Box>
+          <Flex align={'center'}>
+            <Image src={"/assets/syra-logo.png"} alt={"Syra Live"} boxSize={'2rem'} />
             <Link href={'/feed'}>
               <Text cursor={'pointer'} fontSize="lg" as={'span'} marginLeft={8} marginRight={8}>
                 {t('S Y R A')} &nbsp; | &nbsp; {t('Live')}
@@ -63,7 +63,7 @@ function TopBar({}: Props) {
             <Button variant={'link'} marginX={4}>
               {t('Marketplace')}
             </Button>
-          </Box>
+          </Flex>
           <Box>
             <OnlineFollowersList />
           </Box>

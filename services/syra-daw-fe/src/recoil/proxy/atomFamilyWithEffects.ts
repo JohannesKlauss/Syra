@@ -2,7 +2,7 @@ import { atomFamily, AtomFamilyOptions, RecoilState, SerializableParam } from "r
 import { RecoilAtomEffect } from "../../types/Recoil";
 
 interface AtomFamilyWithEffectsOptions<T, P extends SerializableParam> extends AtomFamilyOptions<T, P> {
-  effects: ReadonlyArray<RecoilAtomEffect>;
+  effects: ReadonlyArray<RecoilAtomEffect<P, T>>;
 }
 
 export default function atomFamilyWithEffects<T, P extends SerializableParam>(

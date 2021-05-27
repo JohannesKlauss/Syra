@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { RegionContext } from '../../../providers/RegionContext';
 import { useRecoilValue } from 'recoil';
 import { regionStore } from '../../../recoil/regionStore';
-import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
 import { ChannelContext } from '../../../providers/ChannelContext';
 import { MdError } from 'react-icons/md';
 import {
@@ -16,7 +15,9 @@ import {
   Text,
   Flex,
 } from '@chakra-ui/react';
-import { IoIosCheckmarkCircle } from "react-icons/io/index";
+import { IoIosCheckmarkCircle } from "react-icons/io";
+import useSyraEngineChannel from "../../../hooks/engine/useSyraEngineChannel";
+import { AudioChannel } from "../../../engine/channels/AudioChannel";
 
 function DebugPlayers() {
   const regionId = useContext(RegionContext);
@@ -27,9 +28,9 @@ function DebugPlayers() {
   const audioBufferPointer = useRecoilValue(regionStore.audioBufferPointer(regionId));
   const audioBuffer = useRecoilValue(regionStore.audioBuffer(regionId));
 
-  const { players } = useBackboneChannel(channelId);
+  const { regionManager } = useSyraEngineChannel(channelId) as AudioChannel;
 
-  if (!players.has(regionId)) {
+  if (!regionManager.has(regionId)) {
     return (
       <Flex align={'center'}>
         <MdError color={'red'}/>
@@ -41,13 +42,13 @@ function DebugPlayers() {
   return (
     <SimpleGrid columns={2} spacing={4}>
       <Text>Actions</Text>
-      <Button isDisabled={!players.has(regionId)} onClick={() => {
+      <Button isDisabled={!regionManager.has(regionId)} onClick={() => {
         if (!isPlaying) {
-          players.player(regionId).unsync().start(0.001);
+          regionManager.player(regionId).unsync().start(0.001);
           setIsPlaying(true);
         }
         else {
-          players.player(regionId).stop().sync();
+          regionManager.player(regionId).stop().sync();
           setIsPlaying(false);
         }
       }}>
@@ -55,7 +56,7 @@ function DebugPlayers() {
       </Button>
 
       <Text>Id:</Text>
-      <Text>{players.name}</Text>
+      <Text>{regionManager.name}</Text>
 
       <Text>Has Buffer:</Text>
       {audioBuffer?.duration ? <IoIosCheckmarkCircle color={'teal'}/> : <MdError color={'red'}/>}
@@ -67,19 +68,19 @@ function DebugPlayers() {
       <Text>{audioBufferPointer}</Text>
 
       <Text>Tone.js Audio Buffer:</Text>
-      {players.player(regionId).buffer.duration ? <IoIosCheckmarkCircle color={'teal'}/> : <MdError color={'red'}/>}
+      {regionManager.player(regionId).buffer.duration ? <IoIosCheckmarkCircle color={'teal'}/> : <MdError color={'red'}/>}
 
       <Text>Tone.js Audio Buffer duration:</Text>
-      <Text>{players.player(regionId).buffer.duration ? `${players.player(regionId).buffer.duration} seconds` : '-'}</Text>
+      <Text>{regionManager.player(regionId).buffer.duration ? `${regionManager.player(regionId).buffer.duration} seconds` : '-'}</Text>
 
       <Text>Player state:</Text>
-      <Text>{players.player(regionId).state}</Text>
+      <Text>{regionManager.player(regionId).state}</Text>
 
       <Text>Is muted:</Text>
-      <Checkbox isChecked={players.player(regionId).mute} onChange={e => players.player(regionId).set({mute: e.target.checked})}/>
+      <Checkbox isChecked={regionManager.player(regionId).mute} onChange={e => regionManager.player(regionId).set({mute: e.target.checked})}/>
 
       <Text>Volume:</Text>
-      <Slider defaultValue={players.player(regionId).volume.value} min={-100} max={6} step={0.1} onChange={volume => players.player(regionId).set({volume})}>
+      <Slider defaultValue={regionManager.player(regionId).volume.value} min={-100} max={6} step={0.1} onChange={volume => regionManager.player(regionId).set({volume})}>
         <SliderTrack>
           <SliderFilledTrack />
         </SliderTrack>

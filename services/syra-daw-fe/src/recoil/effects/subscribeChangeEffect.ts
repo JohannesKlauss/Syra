@@ -6,10 +6,9 @@ import {
   MeDocument,
   MeQuery,
 } from '../../gql/generated';
-import { AtomEffect } from 'recoil';
 import { RecoilAtomEffect } from '../../types/Recoil';
 import { isEqual } from 'lodash';
-import { FetchResult, Observable } from "@apollo/client";
+import { FetchResult, Observable } from '@apollo/client';
 
 const client = getApolloClient();
 
@@ -32,24 +31,34 @@ export const initSubscription = (projectId: string) => {
       projectId,
     },
   });
-}
+};
 
-export const subscribeChangeEffect: RecoilAtomEffect = <P, T>(key: string, id?: P): AtomEffect<T> => ({ setSelf }) => {
+const filterChangesList = <T>(
+  changes: Array<{ key: string; id?: unknown; newValue: T }>,
+  key: string,
+  id?: unknown,
+) => {
+  return changes.filter((change) => {
+    return (
+      key === change.key &&
+      ((change.id === undefined && id === undefined) ||
+        (id !== undefined && typeof id === 'string' && id === change.id) ||
+        (id !== undefined && typeof id === 'object' && isEqual(id, change.id)))
+    );
+  });
+};
+
+export const subscribeChangeEffect: RecoilAtomEffect<string | Record<string, any>, any> = (key, id) => ({ setSelf }) => {
   if (observable) {
     observable.subscribe((data) => {
-      // If the user does not exist yet or the incoming change is from the user itself, we don't change anything.
-      // If the change key does not correspond with the atom key, we skip the effect.
-      if (userId == null || userId === data.data?.changes.authorId || key !== data.data?.changes.change.key) {
+      if (data.data?.changes.authorId === userId) {
         return;
       }
 
-      // TODO: CHECK IF THIS IF IS EVEN NEEDED...
-      if (
-        (data.data?.changes.change.id === undefined && id === undefined) ||
-        (id !== undefined && typeof id === 'string' && id === data.data?.changes.change.id) ||
-        (id !== undefined && typeof id === 'object' && isEqual(id, data.data?.changes.change.id))
-      ) {
-        setSelf(data.data?.changes.change.newValue);
+      const changesToApply = filterChangesList<any>(data.data?.changes.changes.list ?? [], key, id);
+
+      if (changesToApply.length > 0) {
+        setSelf(changesToApply[changesToApply.length - 1].newValue);
       }
     });
   }

@@ -18,7 +18,7 @@ const RulerSnapSettings: React.FC<Props> = ({view, baseSnapValue}) => {
 
   useEffect(() => {
     baseSnapValue && setGridSnapValue(baseSnapValue);
-  }, [baseSnapValue]);
+  }, [baseSnapValue, setGridSnapValue]);
 
   const snapValueItems = useMemo(
     () =>

@@ -15,6 +15,7 @@ import React from "react";
 import MidiSettings from "./MidiSettings";
 import { editorStore } from "../../../../recoil/editorStore";
 import { useRecoilState } from "recoil";
+import AudioSettings from "./AudioSettings";
 
 const Settings: React.FC = () => {
   const [showSettings, setShowSettings] = useRecoilState(editorStore.showSettings);
@@ -26,16 +27,22 @@ const Settings: React.FC = () => {
         <ModalHeader>Settings</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Tabs variant="soft-rounded" isFitted colorScheme="teal">
-            <TabList>
-              <Tab>MIDI</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel>
-                <MidiSettings/>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
+          <React.Suspense fallback={'loading...'}>
+            <Tabs variant="soft-rounded" isFitted colorScheme="teal">
+              <TabList>
+                <Tab>MIDI</Tab>
+                <Tab>Audio</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <MidiSettings/>
+                </TabPanel>
+                <TabPanel>
+                  <AudioSettings/>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </React.Suspense>
         </ModalBody>
       </ModalContent>
     </Modal>

@@ -1,8 +1,9 @@
 import { Box, BoxProps } from '@chakra-ui/react';
-import React from "react";
+import React from 'react';
 import { motion } from 'framer-motion';
 import useResizableBox from '../../hooks/ui/useResizableBox';
-import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from "../../const/ui";
+import { PIANO_ROLL_MIDI_TRACK_HEIGHT } from '../../const/ui';
+import { ResizableBoxContext } from '../../providers/ResizableBoxContext';
 
 interface Props extends BoxProps {
   dragHandleWidth?: number;
@@ -12,11 +13,12 @@ interface Props extends BoxProps {
   onMotionDragStart?: (width: number, x: number, y: number) => void;
   onMotionDragEnd?: (width: number, x: number, y: number) => void;
   minWidth?: number;
+  maxWidth?: number;
   snapToY?: number;
   offset?: number;
   lockDrag?: boolean;
   allowOverExtendingStart?: boolean;
-  onYChanged?: (offset: number) => void;
+  onYChanged?: (offset: number) => boolean;
 }
 
 // TODO: CURRENTLY We HAVE NO MAX WIDTH (like a audio region has a max width) AND NO MECHANISM TO SNAP BACK TO AN EXACT OFFSET OF 0.
@@ -24,6 +26,7 @@ const ResizableBox: React.FC<Props> = ({
   baseWidth,
   baseX,
   minWidth = 16,
+  maxWidth,
   dragHandleWidth = 8,
   children,
   onPositionChanged,
@@ -36,7 +39,7 @@ const ResizableBox: React.FC<Props> = ({
   onYChanged,
   ...props
 }) => {
-  const { onDragEnd, onMouseDown, onDrag, width, x, y, ref } = useResizableBox(
+  const { onDragEnd, onMouseDown, onDrag, width, x, y, boxOffset, ref } = useResizableBox(
     baseWidth,
     baseX,
     dragHandleWidth,
@@ -46,6 +49,7 @@ const ResizableBox: React.FC<Props> = ({
     onYChanged,
     lockDrag,
     allowOverExtendingStart,
+    maxWidth,
   );
 
   return (
@@ -88,7 +92,9 @@ const ResizableBox: React.FC<Props> = ({
           zIndex: 1,
         }}
       >
-        {children}
+        <ResizableBoxContext.Provider value={{x, y, width, boxOffset}}>
+          {children}
+        </ResizableBoxContext.Provider>
       </Box>
     </motion.div>
   );

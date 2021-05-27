@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { mapDbToVolumeFaderVal, mapVolumeFaderValToDb } from '../../../utils/volumeFaderMapping';
 import { Flex, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from '@chakra-ui/react';
 import { ChannelContext } from '../../../providers/ChannelContext';
-import useBackboneChannel from '../../../hooks/tone/BackboneMixer/useBackboneChannel';
-import { ChannelNode } from '../../../types/Channel';
+import useSyraEngineChannel from "../../../hooks/engine/useSyraEngineChannel";
+import { useIsHotkeyPressed } from "react-hotkeys-hook";
+import { useRecoilState } from "recoil";
+import { channelStore } from "../../../recoil/channelStore";
 
 interface Props {
   onChange: (newVal: number) => void;
@@ -13,14 +15,17 @@ const reverseValueMapper = mapDbToVolumeFaderVal();
 
 function VolumeFader({ onChange }: Props) {
   const channelId = useContext(ChannelContext);
-  const { volume, publishChange } = useBackboneChannel(channelId);
-  const [volumeValue, setVolumeValue] = useState(volume.get().volume);
-  
+  const channel = useSyraEngineChannel(channelId);
+  const [volumeValue, setVolumeValue] = useRecoilState(channelStore.volume(channelId));
+  const isPressed = useIsHotkeyPressed();
+
+  const resetFader = () => setVolumeValue(0);
+
+  // TODO: Currently this is super ugly. Since we cannot access a React context inside recoil effects, we have to double the assignment here.
   useEffect(() => {
-    volume.set({ volume: volumeValue });
-    publishChange(ChannelNode.VOLUME, volumeValue);
+    channel.volume = volumeValue;
     onChange(volumeValue);
-  }, [volume, volumeValue, publishChange, onChange]);
+  }, [channel, volumeValue, onChange]);
 
   return (
     <Flex h={200} p={8} justify={'center'}>
@@ -31,6 +36,8 @@ function VolumeFader({ onChange }: Props) {
         max={240}
         step={1}
         onChange={newValue => setVolumeValue(mapVolumeFaderValToDb(newValue))}
+        onMouseDown={() => isPressed('alt') && resetFader()}
+        onDoubleClick={resetFader}
       >
         <SliderTrack />
         <SliderFilledTrack />

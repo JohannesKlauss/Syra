@@ -1,11 +1,9 @@
-import React, { useCallback, useContext, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { transportStore } from '../../../recoil/transportStore';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { buttonInfo } from '../../../utils/text';
-import useAudioContext from '../../../hooks/audio/useAudioContext';
-import { BackboneMixerContext } from '../../../providers/BackboneMixerContext';
 import { projectStore } from '../../../recoil/projectStore';
 import { getToneJsPositionInQuarter } from '../../../utils/tonejs';
 import { Flex, IconButton } from '@chakra-ui/react';
@@ -13,9 +11,9 @@ import { AiFillStepBackward } from 'react-icons/ai';
 import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
 import { MdFiberManualRecord } from 'react-icons/md';
 import { RiStopFill } from 'react-icons/ri';
+import encapsulateHotkeysCallback from "../../../utils/hotkeys";
 
 function PlayRecord() {
-  const ctx = useAudioContext();
   const [isRecording, setIsRecording] = useRecoilState(transportStore.isRecording);
   const [isPlaying, setIsPlaying] = useRecoilState(transportStore.isPlaying);
   const setCurrentTransportQuarter = useSetRecoilState(transportStore.currentQuarter);
@@ -25,22 +23,9 @@ function PlayRecord() {
   const lengthInQuarters = useRecoilValue(projectStore.lengthInQuarters);
   const transport = useToneJsTransport();
   const stopScheduleId = useRef<null | number>(null);
-  const {
-    meta: { setTransportStart, setTransportStop },
-  } = useContext(BackboneMixerContext);
 
-  const onClickPlayPause = useCallback(e => {
-    if (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation && e.stopImmediatePropagation();
-      e.stopPropagation();
-    }
-
-    if (isRecording) {
-      return;
-    }
-
-    if (isPlaying) {
+  const onClickPlayPause = useCallback(() => {
+    if (isPlaying || isRecording) {
       const pos = getToneJsPositionInQuarter();
       transport.stop();
 
@@ -48,13 +33,14 @@ function PlayRecord() {
         transport.clear(stopScheduleId.current);
       }
 
+      setIsRecording(false);
       setCurrentTransportQuarter(pos);
     } else {
       if (isCycleActive) {
         setTransportSeconds(cycleStart);
       }
 
-      transport.start('+0.1'); // TODO: THIS VALUE WILL DIFFER FROM MACHINE TO MACHINE. WE NEED A WAY TO CALCULATE THE NEEDED OFFSET.
+      transport.start('+0.1');
 
       stopScheduleId.current = transport.scheduleOnce(() => {
         const pos = getToneJsPositionInQuarter();
@@ -66,15 +52,9 @@ function PlayRecord() {
     }
 
     setIsPlaying((currVal) => !currVal);
-  }, [setIsPlaying, transport, isPlaying, isRecording, cycleStart, isCycleActive, lengthInQuarters, setCurrentTransportQuarter, setTransportSeconds]);
+  }, [setIsPlaying, setIsRecording, transport, isPlaying, isRecording, cycleStart, isCycleActive, lengthInQuarters, setCurrentTransportQuarter, setTransportSeconds]);
 
-  const onClickReset = useCallback(e => {
-    if (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation && e.stopImmediatePropagation();
-      e.stopPropagation();
-    }
-
+  const onClickReset = useCallback(() => {
     setTransportSeconds(0);
   }, [setTransportSeconds]);
 
@@ -82,19 +62,15 @@ function PlayRecord() {
     if (isRecording) {
       setIsRecording(false);
       transport.stop();
-
-      setTransportStop(ctx.rawContext.currentTime);
     } else {
       setIsRecording(true);
       transport.start('+0.1');
-
-      setTransportStart(ctx.rawContext.currentTime + 0.05);
     }
-  }, [setIsRecording, isRecording, transport, setTransportStart, setTransportStop, ctx]);
+  }, [setIsRecording, isRecording, transport]);
 
-  useHotkeys('space', onClickPlayPause, [onClickPlayPause]);
-  useHotkeys('r', onClickRecord, [onClickRecord]);
-  useHotkeys('return', onClickReset, [onClickReset]);
+  useHotkeys('space', encapsulateHotkeysCallback(onClickPlayPause), [onClickPlayPause]);
+  useHotkeys('r', encapsulateHotkeysCallback(onClickRecord), [onClickRecord]);
+  useHotkeys('return', encapsulateHotkeysCallback(onClickReset), [onClickReset]);
 
   return (
     <Flex>

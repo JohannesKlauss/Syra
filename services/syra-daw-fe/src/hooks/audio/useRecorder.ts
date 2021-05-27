@@ -1,16 +1,16 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useMemo, useRef } from "react";
 import useCreateAudioRegionAsync from '../recoil/region/useCreateAudioRegionAsync';
 import { useRecoilValue } from 'recoil';
 import { channelStore } from '../../recoil/channelStore';
 import { transportStore } from '../../recoil/transportStore';
-import useBackboneChannel from '../tone/BackboneMixer/useBackboneChannel';
 import useAudioContext from './useAudioContext';
 import { BackboneMixerContext } from '../../providers/BackboneMixerContext';
 import { ChannelType } from '../../types/Channel';
+import useSyraEngineChannel from "../engine/useSyraEngineChannel";
 
 const BUFFER_SIZE = 2048;
 
-export default function useRecorder(channelId: string) {
+/*export default function useRecorder(channelId: string) {
   const backboneMixer = useContext(BackboneMixerContext);
   const ctx = useAudioContext();
   const isArmed = useRecoilValue(channelStore.isArmed(channelId));
@@ -21,7 +21,10 @@ export default function useRecorder(channelId: string) {
 
   const recordedChunks = useRef<Float32Array[]>([]);
 
-  const { recorder: recorderNode } = useBackboneChannel(channelId);
+  const channel = useSyraEngineChannel(channelId);
+  const recorderNode = useMemo(() => {
+    re
+  }, [channel]);
 
   useEffect(() => {
     if (type !== ChannelType.AUDIO) {
@@ -86,4 +89,4 @@ export default function useRecorder(channelId: string) {
       };
     }
   }, [recorderNode, recordedChunks, regionPushBuffer, ctx]);
-}
+}*/

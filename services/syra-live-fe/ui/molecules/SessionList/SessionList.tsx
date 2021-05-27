@@ -3,7 +3,6 @@ import { Box, Flex, List, ListItem, Text, Link as ChakraLink, AvatarGroup, IconB
 import Link from 'next/link';
 import { SessionListDataFragment } from '../../../gql/generated';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
-import publicRuntimeConfig from '../../../const/config';
 import AvatarWithOnlineStatus from '../Avatar/AvatarWithOnlineStatus';
 import { useTranslation } from "react-i18next";
 import { RiExternalLinkLine } from 'react-icons/ri';
@@ -23,7 +22,7 @@ const SessionList: React.FC<Props> = ({ sessions, size }) => {
           <Flex justify={'flex-start'} align={'center'}>
             <Flex align={'center'} w={'30%'}>
               <Box ml={4}>
-                <Link passHref href={`${publicRuntimeConfig.NEXT_PUBLIC_DAW_URL}/editor/${session.id}`}>
+                <Link passHref href={`${process.env.NEXT_PUBLIC_DAW_URL}/editor/${session.id}`}>
                   <ChakraLink fontWeight={600} fontSize={size} target={'_blank'}>
                     {session.name}
                   </ChakraLink>
@@ -45,7 +44,7 @@ const SessionList: React.FC<Props> = ({ sessions, size }) => {
                 date: formatDistanceToNow(fromUnixTime(session.updatedAt / 1000))
               })}
             </Text>
-            <Link passHref href={`${publicRuntimeConfig.NEXT_PUBLIC_DAW_URL}/editor/${session.id}`}>
+            <Link passHref href={`${process.env.NEXT_PUBLIC_DAW_URL}/editor/${session.id}`}>
               <ChakraLink fontWeight={600} fontSize={size} target={'_blank'}>
                 <IconButton icon={<RiExternalLinkLine/>} aria-label={'Open Session in DAW'} title={'Open Session in DAW'} colorScheme={'teal'}/>
               </ChakraLink>

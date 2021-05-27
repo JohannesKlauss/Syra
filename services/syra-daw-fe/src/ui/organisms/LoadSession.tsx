@@ -1,20 +1,11 @@
-import {
-  Text,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  Progress,
-  ModalFooter,
-  Button,
-} from '@chakra-ui/react';
+import { Text, Button, Flex } from '@chakra-ui/react';
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useLoadProject from "../../hooks/sync/useLoadProject";
 import { useSetRecoilState } from "recoil";
 import { projectStore } from "../../recoil/projectStore";
 import { audioSetup } from '../../audioSetup';
+import LoadingScreen from '../atoms/LoadingScreen';
 
 const LoadSession: React.FC = () => {
   const {id} = useParams<{id: string}>();
@@ -23,14 +14,14 @@ const LoadSession: React.FC = () => {
   const setIsSetupFinished = useSetRecoilState(projectStore.isSetupFinished);
   const setIsEngineRunning = useSetRecoilState(projectStore.isEngineRunning);
 
-  const {loadingProgress, projectData} = useLoadProject(id);
+  const {projectData} = useLoadProject(id);
 
   useEffect(() => {
-    if (Math.ceil(loadingProgress) >= 100 && projectData !== undefined && projectData.project?.id !== undefined) {
+    if (projectData !== undefined && projectData.project?.id !== undefined) {
       setProjectId(projectData.project.id);
       setShowStartButton(true);
     }
-  }, [loadingProgress, projectData, setProjectId, setShowStartButton]);
+  }, [projectData, setProjectId, setShowStartButton]);
 
   const onClickOpen = async () => {
     await audioSetup();
@@ -40,21 +31,15 @@ const LoadSession: React.FC = () => {
   }
 
   return (
-    <Modal onClose={() => null} isOpen={true} isCentered>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>S Y R A - Loading Session</ModalHeader>
-        <ModalBody>
-          <Text>{!showStartButton ? 'Loading session' : `Session "${projectData?.project?.name}" loaded.`}</Text>
-          <Progress my={4} isIndeterminate={!showStartButton} value={loadingProgress} />
-        </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="teal" mr={3} disabled={!showStartButton} onClick={onClickOpen}>
-            Open Session
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+    <LoadingScreen isLoading={!showStartButton}>
+      <Flex flexDir={'column'} justify={'center'} align={'center'} mt={4}>
+        <Text>{!showStartButton ? 'Loading session' : `${projectData?.project?.name} loaded.`}</Text>
+
+        <Button colorScheme="teal" mr={3} disabled={!showStartButton} onClick={onClickOpen} mt={4}>
+          Open Session
+        </Button>
+      </Flex>
+    </LoadingScreen>
   );
 };
 

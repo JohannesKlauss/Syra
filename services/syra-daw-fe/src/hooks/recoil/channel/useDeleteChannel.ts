@@ -6,16 +6,16 @@ import { ChannelType } from '../../../types/Channel';
 
 export default function useDeleteChannel() {
   return useRecoilCallback(({ set, snapshot }) => (channelId: string) => {
-    const channelIds = snapshot.getLoadable(channelStore.ids).contents as string[];
-    const selectedId = snapshot.getLoadable(channelStore.selectedId).contents as string;
-    const type = snapshot.getLoadable(channelStore.type(channelId)).contents as ChannelType;
+    const channelIds = snapshot.getLoadable(channelStore.ids).getValue();
+    const selectedId = snapshot.getLoadable(channelStore.selectedId).getValue();
+    const type = snapshot.getLoadable(channelStore.type(channelId)).getValue();
 
     if (channelId === selectedId && channelIds.length > 1) {
-      const regions = snapshot.getLoadable(regionStore.ids(channelId)).contents as string[];
+      const regions = snapshot.getLoadable(regionStore.ids(channelId)).getValue();
 
       if (type === ChannelType.AUDIO) {
         regions.forEach((regionId) => {
-          set(regionStore.audioBufferPointer(regionId), null);
+          set(regionStore.audioBufferPointer(regionId), '');
         });
       }
 
@@ -25,5 +25,5 @@ export default function useDeleteChannel() {
 
       set(channelStore.ids, (currVal) => removeItemAtIndex(currVal, index));
     }
-  });
+  }, []);
 }

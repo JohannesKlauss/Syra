@@ -25,20 +25,20 @@ function LogInForm({onSubmit, hasError, isSending}: Props) {
         <Input
           type="email"
           id="email"
-          name={'email'}
-          ref={register({ required: true })}
           aria-describedby="name-helper-text"
-          placeholder={"you@example.com"}/>
+          placeholder={"you@example.com"}
+          {...register('email', { required: true })}
+        />
       </FormControl>
       <FormControl isRequired marginY={4}>
         <FormLabel htmlFor="password">{t('Password')}</FormLabel>
         <Input
           type="password"
           id="password"
-          name={'password'}
-          ref={register({ required: true })}
           aria-describedby="password-helper-text"
-          placeholder={t('Password')}/>
+          placeholder={t('Password')}
+          {...register('password', { required: true })}
+        />
       </FormControl>
       <Button isLoading={isSending} marginY={4} type={"submit"} isFullWidth colorScheme={"teal"}>{t('L O G   I N')}</Button>
     </form>

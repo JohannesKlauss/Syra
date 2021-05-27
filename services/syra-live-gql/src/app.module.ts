@@ -4,7 +4,7 @@ import { TypeGraphQLModule } from 'typegraphql-nestjs';
 import {
   Address,
   AddressCrudResolver,
-  AddressRelationsResolver,
+  AddressRelationsResolver, Asset, AssetRelationsResolver,
   Band,
   BandCrudResolver,
   BandRelationsResolver,
@@ -41,7 +41,8 @@ import {
   UserRelationsResolver,
   UsersOnProjects,
   UsersOnProjectsCrudResolver,
-  UsersOnProjectsRelationsResolver, VersionInformationCrudResolver
+  UsersOnProjectsRelationsResolver,
+  VersionInformationCrudResolver
 } from "../prisma/generated/type-graphql";
 import { SessionModule } from './session/session.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -68,7 +69,13 @@ import { Subscriptions } from '../types/Subscriptions';
 import { PrismaModule } from './prisma/prisma.module';
 import { PrismaService } from './prisma/prisma.service';
 import { MailingService } from './mailing/mailing.service';
-import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/CustomProjectChangeResolver";
+import { CustomProjectChangeResolver } from './custom/resolvers/crud/Project/CustomProjectChangeResolver';
+import { BullModule } from '@nestjs/bull';
+import { AudioModule } from './audio/audio.module';
+import { PubSubModule } from './pub-sub/pub-sub.module';
+import { PubSubService } from "./pub-sub/pub-sub.service";
+import { OpenFaasModule } from './open-faas/open-faas.module';
+import { CustomAssetResolver } from "./custom/resolvers/crud/Asset/CustomAssetResolver";
 
 @Module({
   imports: [
@@ -78,19 +85,18 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
     AuthModule,
     SessionModule,
     PrismaModule,
+    PubSubModule,
     TypeGraphQLModule.forRootAsync({
-      imports: [AuthModule, DynamicRedisModule, PrismaModule, MailingModule],
-      inject: [CookieStrategy, RedisService, PrismaService, MailingService],
+      imports: [AuthModule, DynamicRedisModule, PrismaModule, MailingModule, PubSubModule],
+      inject: [CookieStrategy, RedisService, PrismaService, MailingService, PubSubService],
       useFactory: async (
         cookieStrategy: CookieStrategy,
         redisService: RedisService,
         prismaService: PrismaService,
         mailingService: MailingService,
+        pubSubService: PubSubService,
       ) => {
-        const pubSub = new RedisPubSub({
-          publisher: redisService.getClient('syra-publisher'),
-          subscriber: redisService.getClient('syra-subscriber'),
-        });
+        const pubSub = pubSubService.getPubSub();
 
         return {
           validate: true,
@@ -109,7 +115,12 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
               : await cookieStrategy.validate(ctx.request),
           }),
           cors: {
-            origin: ['https://local.syra.live:3000', 'https://bar.local.syra.live:3006', 'https://syra.live', 'https://daw.syra.live'],
+            origin: [
+              'https://local.syra.live:3000',
+              'https://bar.local.syra.live:3006',
+              'https://syra.live',
+              'https://daw.syra.live',
+            ],
             credentials: true,
           },
           pubSub,
@@ -133,11 +144,16 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
               const user = await cookieStrategy.validateSubscription(parseCookie(ctx.request.headers.cookie).session);
 
               if (user) {
-                const updatedUser = await prismaService.user.update({
-                  where: { id: user.id },
-                  data: { isOnline: false },
-                });
-                await pubSub.publish(Subscriptions.ONLINE_STATUS, updatedUser);
+                try {
+                  const updatedUser = await prismaService.user.update({
+                    where: { id: user.id },
+                    data: { isOnline: false },
+                  });
+
+                  await pubSub.publish(Subscriptions.ONLINE_STATUS, updatedUser);
+                } catch(e) {
+                  console.log('e', e);
+                }
               }
             },
           },
@@ -164,11 +180,23 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
     FilesModule,
     PasswordModule,
     ChatModule,
+    BullModule.forRootAsync({
+      imports: [DynamicRedisModule],
+      inject: [RedisService],
+      useFactory: async (redisService: RedisService) => {
+        return {
+          redis: redisService.getClient('syra-bull-queue').options,
+        };
+      },
+    }),
+    AudioModule,
+    OpenFaasModule,
   ],
   controllers: [AppController],
   providers: [
     // TYPE GRAPHQL
     // Models,
+    Asset,
     User,
     Address,
     EarlyAccessCode,
@@ -184,6 +212,7 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
     Band,
     Issue,
     // Relations
+    AssetRelationsResolver,
     UserRelationsResolver,
     AddressRelationsResolver,
     ProjectRelationsResolver,
@@ -217,6 +246,7 @@ import { CustomProjectChangeResolver } from "./custom/resolvers/crud/Project/Cus
     CustomFeedItemResolver,
     CustomCommentResolver,
     CustomProjectChangeResolver,
+    CustomAssetResolver,
   ],
 })
 export class AppModule {}

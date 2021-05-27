@@ -25,7 +25,7 @@ export default function useListenForExternalMidiIn(onMidiEvent: MidiEventCallabl
       input.addListener('noteon', 'all', onNoteOnEvent);
       input.addListener('noteoff', 'all', onNoteOffEvent);
     }
-  }, [midiDevice, onMidiEvent, onNoteOnEvent, onNoteOffEvent, isMidiEnabled]);
+  }, [midiDevice, onNoteOnEvent, onNoteOffEvent, isMidiEnabled]);
 
   const disconnect = useCallback(() => {
     if (midiDevice === null || !isMidiEnabled) {

@@ -5,8 +5,8 @@ import ResizableBox from '../../../atoms/ResizableBox';
 import { gridStore } from '../../../../recoil/gridStore';
 import { ViewContext } from '../../../../providers/ViewContext';
 import { Box } from '@chakra-ui/react';
-import usePixelToTicks from '../../../../hooks/tone/usePixelToTicks';
-import useTicksToPixel from '../../../../hooks/tone/useTicksToPixel';
+import usePixelToTicks from '../../../../hooks/ui/usePixelToTicks';
+import useTicksToPixel from '../../../../hooks/ui/useTicksToPixel';
 import * as Tone from 'tone';
 
 const RulerCycleV2: React.FC = () => {

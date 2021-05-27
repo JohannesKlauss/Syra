@@ -9,14 +9,14 @@ import useDimensions from '../../../hooks/ui/useDimensions';
 
 interface Props {
   view: View;
-  splitScrollerRef?: React.RefObject<HTMLDivElement>;
+  viewRef: React.RefObject<HTMLDivElement>;
   additionalRulerContent?: JSX.Element;
 }
 
-const Grid: React.FC<Props> = ({ view, additionalRulerContent, splitScrollerRef, children }) => {
-  const viewRef = useRef<HTMLDivElement | null>(null);
+const Grid: React.FC<Props> = ({ view, additionalRulerContent, viewRef, children }) => {
+  const gridRef = useRef<HTMLDivElement>(null);
   const setViewWidth = useSetRecoilState(gridStore.viewWidth(view));
-  const { width } = useDimensions(viewRef);
+  const { width } = useDimensions(gridRef);
 
   useLayoutEffect(() => {
     setViewWidth(width);
@@ -25,6 +25,7 @@ const Grid: React.FC<Props> = ({ view, additionalRulerContent, splitScrollerRef,
   const viewContextValue = useMemo(
     () => ({
       viewRef,
+      gridRef,
       view,
     }),
     [viewRef, view],
@@ -32,17 +33,14 @@ const Grid: React.FC<Props> = ({ view, additionalRulerContent, splitScrollerRef,
 
   return (
     <Box
-      overflowX={'scroll'}
-      overflowY={'hidden'}
-      pos={'relative'}
       bg={'gray.800'}
-      w={'100%'}
-      ref={viewRef}
+      ref={gridRef}
       userSelect={'none'}
+      data-id={'Grid container'}
     >
-      {viewRef.current !== null && (
+      {gridRef.current !== null && (
         <ViewContext.Provider value={viewContextValue}>
-          <RulerV2 additionalRulerContent={additionalRulerContent} splitScrollerRef={splitScrollerRef}/>
+          <RulerV2 additionalRulerContent={additionalRulerContent}/>
           {children}
         </ViewContext.Provider>
       )}

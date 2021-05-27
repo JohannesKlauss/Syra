@@ -6,7 +6,6 @@ import { ChannelContext } from '../../providers/ChannelContext';
 import { RegionContext } from '../../providers/RegionContext';
 import DebugNodes from './DebugNodes';
 import DebugChannel from './recoil/DebugChannel';
-import DebugRegion from './recoil/DebugRegion';
 import {
   Box,
   Heading,
@@ -52,7 +51,7 @@ function Debugger({onClose, showMenu}: Props) {
   }, []);
 
   const channelNames = channelCb();
-  const regionNames = regionCb(selectedChannelId);
+  regionCb(selectedChannelId);
 
   const selectedId = useRecoilValue(channelStore.selectedId);
 

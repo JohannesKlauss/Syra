@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { projectStore } from '../../../recoil/projectStore';
 import useToneJsTransport from '../../../hooks/tone/useToneJsTransport';
 import { transportStore } from '../../../recoil/transportStore';
 import { Box, Text } from '@chakra-ui/react';
@@ -13,7 +12,7 @@ function BarsAndBeats() {
 
   const isRecording = useRecoilValue(transportStore.isRecording);
   const isPlaying = useRecoilValue(transportStore.isPlaying);
-  const currentTimeSignature = useRecoilValue(projectStore.currentTimeSignature);
+  const currentTimeSignature = useRecoilValue(transportStore.currentTimeSignature);
   const currentQuarterPosition = useRecoilValue(transportStore.currentQuarter);
   const playheadPosition = useRecoilValue(gridStore.playheadPosition(View.ARRANGE_WINDOW));
   const currentBar = useRecoilValue(transportStore.currentBar);

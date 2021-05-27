@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import PlayRecord from './PlayRecord';
 import TimeSignature from './TimeSignature';
 import Click from './Click';
@@ -6,7 +6,7 @@ import ViewToggles from '../ViewToggles/ViewToggles';
 import TimeInformation from './TimeInformation';
 import Tempo from './Tempo';
 import BarsAndBeats from './BarsAndBeats';
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex } from '@chakra-ui/react';
 import MemberSettings from "../Social/MemberSettings";
 import VersionInformation from '../Platform/VersionInformation';
 

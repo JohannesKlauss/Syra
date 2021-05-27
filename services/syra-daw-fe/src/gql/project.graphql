@@ -17,6 +17,16 @@ query project($id: String!) {
     }
 }
 
+query projectFiles($id: String!) {
+    project(where: {id: $id}) {
+        id
+        assets {
+            assetId
+            createdAt
+        }
+    }
+}
+
 mutation updateName($projectId: String!, $name: String!) {
     updateProject(where: {id: $projectId}, data: {name: {set: $name}}) {
         id
@@ -41,18 +51,24 @@ subscription changes($projectId: String!) {
     changes(projectId: $projectId) {
         id
         authorId
-        change
+        changes
     }
 }
 
-mutation publishChange($changeId: String!, $projectId: String!, $date: Timestamp!, $change: JSONObject!, $me: String) {
-    publishChange(id: $changeId, date: $date, projectId: $projectId, change: $change, authorId: $me) {
+mutation publishChange($changeId: String!, $projectId: String!, $date: Timestamp!, $changes: JSONObject!, $me: String) {
+    publishChange(id: $changeId, date: $date, projectId: $projectId, changes: $changes, authorId: $me) {
         id
     }
 }
 
 mutation updateProjectContent($content: JSON!, $id: String!) {
     updateProject(where: {id: $id}, data: {content: $content, isInitialized: {set: true}}) {
+        id
+    }
+}
+
+mutation resetProject($id: String!) {
+    updateProject(where: {id: $id}, data: {content: {}, isInitialized: {set: false}}) {
         id
     }
 }

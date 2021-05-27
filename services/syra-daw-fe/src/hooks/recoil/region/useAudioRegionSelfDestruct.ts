@@ -15,7 +15,7 @@ export default function useAudioRegionSelfDestruct(regionId: string) {
   const deleteRegion = useDeleteRegion();
 
   const shouldSelfDestruct = useCallback((executeDestruction: boolean = false) => {
-      if (!isPlaying && !isRecording && audioBuffer === null && audioBufferPointer !== null) {
+      if (!isPlaying && !isRecording && audioBuffer === null && audioBufferPointer.length !== 0) {
         if (executeDestruction) {
           deleteRegion(regionId);
         }

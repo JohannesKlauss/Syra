@@ -88,7 +88,7 @@ class RecorderWorkletProcessor extends AudioWorkletProcessor {
         const shouldRecord = isRecordingValues[sampleParam ? i : 0] === 1;
 
         if (!shouldRecord && !this._isBufferEmpty()) {
-          this._recordingStoppedAt = currentTime;
+          this._recordingStoppedAt = currentFrame;
 
           this._flush();
           this._recordingStopped();
@@ -96,7 +96,7 @@ class RecorderWorkletProcessor extends AudioWorkletProcessor {
 
         if (shouldRecord) {
           if (this._recordingStartedAt === null) {
-            this._recordingStartedAt = currentTime;
+            this._recordingStartedAt = currentFrame;
           }
 
           this._appendToBuffer(inputChannel[i]);

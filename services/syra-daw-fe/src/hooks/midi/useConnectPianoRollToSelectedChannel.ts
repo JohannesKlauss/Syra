@@ -22,7 +22,7 @@ export default function useConnectPianoRollToSelectedChannel(sendMidiMode: SendM
     }
 
     return false;
-  }, [sendMidiMode]);
+  }, [sendMidiMode, isRecording, channel]);
 
   return useSendMidiToSoul(filter, channel.soulInstrument?.audioNode.port);
 }

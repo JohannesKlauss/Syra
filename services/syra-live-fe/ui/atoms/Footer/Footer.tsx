@@ -16,6 +16,7 @@ function Footer({}: Props) {
         <Link color={'gray.500'} href={'#'} display={'block'}>{t('First Steps')}</Link>
         <Link color={'gray.500'} href={'#'} display={'block'}>{t('Video Tutorials')}</Link>
         <Link color={'gray.500'} href={'#'} display={'block'}>{t('Documentation')}</Link>
+        <Link color={'gray.500'} href={'#'} display={'block'}>{t('Marketplace')}</Link>
       </Box>
       <Box flex={2}>
         <Flex justify={'space-between'}>
@@ -29,19 +30,18 @@ function Footer({}: Props) {
           </Box>
           <Box>
             <Text fontWeight={700} marginBottom={4}>{t('Community')}</Text>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Blog')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Instagram')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Facebook')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Twitter')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Discord')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Help')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Music Rights')}</Link>
+            <Link color={'gray.500'} isExternal href={'#'} display={'block'}>{t('Blog')}</Link>
+            <Link color={'gray.500'} isExternal href={'https://www.instagram.com/syra.audio/'} display={'block'}>{t('Instagram')}</Link>
+            <Link color={'gray.500'} isExternal href={'#'} display={'block'}>{t('Facebook')}</Link>
+            <Link color={'gray.500'} isExternal href={'#'} display={'block'}>{t('Twitter')}</Link>
+            <Link color={'gray.500'} isExternal href={'https://discord.gg/P465rC6m'} display={'block'}>{t('Discord')}</Link>
+            <Link color={'gray.500'} isExternal href={'#'} display={'block'}>{t('Help')}</Link>
+            <Link color={'gray.500'} isExternal href={'#'} display={'block'}>{t('Music Rights')}</Link>
           </Box>
           <Box>
             <Text fontWeight={700} marginBottom={4}>{t('Company')}</Text>
             <Link color={'gray.500'} href={'#'} display={'block'}>{t('About Us')}</Link>
             <Link color={'gray.500'} href={'#'} display={'block'}>{t('Store')}</Link>
-            <Link color={'gray.500'} href={'#'} display={'block'}>{t('Marketplace')}</Link>
             <Link color={'gray.500'} href={'#'} display={'block'}>{t('Career')}</Link>
             <Link color={'gray.500'} href={'#'} display={'block'}>{t('Press')}</Link>
             <Link color={'gray.500'} href={'#'} display={'block'}>{t('Terms of Use')}</Link>
