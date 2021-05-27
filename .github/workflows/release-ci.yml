@@ -23,10 +23,7 @@ jobs:
       - name: GitHub Slug Action
         uses: rlespinasse/github-slug-action@3.3.0
 
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
-
-      - name: Build and push Docker images to GH Registry
+      - name: Build Docker images
         if: ${{ env.GITHUB_REF_SLUG }} === "release"
         run: |
           REF=$(git rev-parse --short HEAD)
