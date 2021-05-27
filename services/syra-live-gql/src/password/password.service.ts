@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException, UnauthorizedExcepti
 import { compare, hash } from 'bcrypt';
 import { RedisService } from 'nestjs-redis';
 import { MD5 } from 'crypto-js';
-import * as uniqid from 'uniqid';
+import uniqid from 'uniqid';
 import { MailingService } from '../mailing/mailing.service';
 import { generate } from 'generate-password';
 import { PrismaService } from "../prisma/prisma.service";

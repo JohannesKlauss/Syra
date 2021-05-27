@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { S3 } from 'aws-sdk';
 import { PassThrough, Readable } from 'stream';
 import { MD5 } from 'crypto-js';
-import * as uniqid from 'uniqid';
+import uniqid from 'uniqid';
 
 @Injectable()
 export class SpacesService {
