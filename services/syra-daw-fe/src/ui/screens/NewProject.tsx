@@ -8,6 +8,7 @@ import { projectStore } from "../../recoil/projectStore";
 import { useUpdateNameMutation } from "../../gql/generated";
 import { audioSetup } from "../../audioSetup";
 import { routes } from "../../const/routes";
+import LoadingScreen from "../atoms/LoadingScreen";
 
 function NewProject() {
   const { id } = useParams<{ id: string }>();
@@ -43,7 +44,9 @@ function NewProject() {
   }, [setupProject, history, setProjectId, id, setIsSetupFinished, executeMutation, setIsEngineRunning]);
 
   return (
-    <NewProjectDialog open={true} onCreate={handleCreate} onCancel={() => window.close()}/>
+    <React.Suspense fallback={<LoadingScreen isLoading/>}>
+      <NewProjectDialog open={true} onCreate={handleCreate} onCancel={() => window.close()}/>
+    </React.Suspense>
   );
 }
 
