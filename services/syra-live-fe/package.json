@@ -18,7 +18,7 @@
     "@next/bundle-analyzer": "10.2.3",
     "axios": "0.21.1",
     "cookie": "0.4.1",
-    "date-fns": "2.22.0",
+    "date-fns": "2.22.1",
     "focus-visible": "5.2.0",
     "framer-motion": "3.10.6",
     "fuse.js": "6.4.6",
