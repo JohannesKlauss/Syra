@@ -16567,10 +16567,10 @@ klona@^2.0.4:
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
   integrity sha512-ZRbnvdg/NxqzC7L9Uyqzf4psi1OM4Cuc+sJAkQPjO6XkQIJTNbfK2Rsmbw8fx1p2mkZdp2FZYo2+LwXYY/uwIA==
 
-konva@8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/konva/-/konva-8.0.1.tgz#f34f483cdf62c36f966addc1a7484ed694313c2b"
-  integrity sha512-QDppGS1L5Dhod1zjwy9GVVjeyfPBHnPncL5oRh1NyjR1mEvhrLjzflrkdW+p73uFIW9hwCDZVLGxzzjQre9izw==
+konva@8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-8.0.2.tgz#8783b5bc905918934e9dc58f782472cbe661fe18"
+  integrity sha512-nQ4lsuyiuVt5Jk6MS761oMDoC0WZ/6ggYD6GBDFod0hwSUnBXSRYvrzKilc1snve19tr7kgXHjL1q+/dEAu73w==
 
 language-subtag-registry@~0.3.2:
   version "0.3.21"
@@ -20905,10 +20905,10 @@ rechoir@^0.6.2:
   dependencies:
     resolve "^1.1.6"
 
-recoil@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.3.1.tgz#40ef544160d19d76e25de8929d7e512eace13b90"
-  integrity sha512-KNA3DRqgxX4rRC8E7fc6uIw7BACmMPuraIYy+ejhE8tsw7w32CetMm8w7AMZa34wzanKKkev3vl3H7Z4s0QSiA==
+recoil@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.2.0.tgz#69344b5bec3129272560d8d9d6001ada3ee4d80c"
+  integrity sha512-VOJfYVQ3VgmfS7L5tV9QdOR+AJhvll8yGr1+3nJPCqADulImuScGZ2sJtejPps3zfTu/o98y5kO4lje8Tx6XHw==
   dependencies:
     hamt_plus "1.0.2"
 
