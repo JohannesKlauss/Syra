@@ -9,7 +9,7 @@ export class AppController {
 
   @Get('/v')
   version() {
-    return { version: '0.0.1' };
+    return { version: '0.0.18-4' };
   }
 
   @UseGuards(LocalAuthGuard)
