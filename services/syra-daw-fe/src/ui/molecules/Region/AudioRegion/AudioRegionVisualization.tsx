@@ -8,6 +8,7 @@ import { motion, useTransform } from 'framer-motion';
 import { ResizableBoxContext } from '../../../../providers/ResizableBoxContext';
 import useSnapPixelValue from '../../../../hooks/ui/useSnapPixelValue';
 import usePeakWaveformImageGenerator from '../../../../hooks/audio/usePeakWaveformImageGenerator';
+import { Flex, Spinner } from "@chakra-ui/react";
 
 const AudioRegionVisualization: React.FC = () => {
   const regionId = useContext(RegionContext);
@@ -29,7 +30,11 @@ const AudioRegionVisualization: React.FC = () => {
   }, [trackHeight, color, setImageUrl, generateWaveformImage]);
 
   if (imageUrl === null) {
-    return null;
+    return (
+      <Flex w={'100%'} h={'100%'} justify={'center'} align={'center'}>
+        <Spinner/>
+      </Flex>
+    );
   }
 
   return (

@@ -1,5 +1,4 @@
 import { InjectQueue, Process, Processor } from "@nestjs/bull";
-import { Logger } from "@nestjs/common";
 import { Job, Queue } from "bull";
 import { SpacesService } from "../files/spaces.service";
 import { AudioTranscodeJob } from "../../types/AudioTranscodeJob";
@@ -10,20 +9,21 @@ import { PubSubService } from "../pub-sub/pub-sub.service";
 import { Subscriptions } from "../../types/Subscriptions";
 import { OpenFaasFunction } from "../../types/OpenFaas";
 import { OpenFaasService } from "../open-faas/open-faas.service";
+import { BaseBullProcessor } from "../bull/BaseBullProcessor";
 
 // TODO: THIS IS UGLY AS HELL AND ERROR PRONE. CLEAN THIS UP!
 
 @Processor('audio')
-export class AudioProcessor {
+export class AudioProcessor extends BaseBullProcessor<AudioTranscodeJob> {
   constructor(
     @InjectQueue('audio') private readonly audioQueue: Queue<AudioTranscodeJob>,
     private readonly spacesService: SpacesService,
     private readonly prismaService: PrismaService,
     private readonly pubSubService: PubSubService,
     private readonly openFaasService: OpenFaasService,
-  ) {}
-
-  private readonly logger = new Logger(AudioProcessor.name);
+  ) {
+    super();
+  }
 
   @Process('transcode')
   async handleTranscode(job: Job<AudioTranscodeJob>) {

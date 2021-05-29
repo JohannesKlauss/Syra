@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: syra-daw-fe
-          image: registry.digitalocean.com/syra-do/services/syra-daw-fe:0.0.18-2
+          image: registry.digitalocean.com/syra-do/services/syra-daw-fe:0.0.18-3
           imagePullPolicy: Always
           ports:
             - containerPort: 80
