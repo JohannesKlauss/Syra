@@ -42,7 +42,7 @@ export class AudioController {
 
         this.logger.debug(`Write file to tmp folder`);
 
-        part.file.pipe(fs.createWriteStream(`${__dirname}/tmp/${tmpFileName}`)).on('finish', async () => {
+        part.file.on('end', async () => {
           this.logger.debug(`Add to queue`);
 
           try {
@@ -64,7 +64,7 @@ export class AudioController {
             this.logger.error(`Cannot add job to queue`);
             this.logger.error(e);
           }
-        });
+        }).pipe(fs.createWriteStream(`${__dirname}/tmp/${tmpFileName}`));
 
         break;
       }
