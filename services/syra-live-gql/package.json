@@ -89,7 +89,7 @@
     "eslint-plugin-import": "2.23.4",
     "graphql-fields": "2.0.3",
     "graphql-type-json": "0.3.2",
-    "jest": "27.0.3",
+    "jest": "27.0.4",
     "prettier": "2.3.1",
     "prisma": "2.23.0",
     "reflect-metadata": "0.1.13",
