@@ -52,7 +52,7 @@
     "graphql": "15.5.0",
     "graphql-fields": "2.0.3",
     "graphql-redis-subscriptions": "2.4.0",
-    "graphql-scalars": "1.9.3",
+    "graphql-scalars": "1.10.0",
     "graphql-subscriptions": "1.2.1",
     "graphql-type-json": "0.3.2",
     "lodash": "4.17.21",
