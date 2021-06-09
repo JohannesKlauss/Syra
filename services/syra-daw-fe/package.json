@@ -44,7 +44,7 @@
     "react-virtualized": "9.22.3",
     "recoil": "0.2.0",
     "standardized-audio-context": "25.2.5",
-    "subscriptions-transport-ws": "0.9.18",
+    "subscriptions-transport-ws": "0.9.19",
     "tinycolor2": "1.4.2",
     "tone": "14.7.77",
     "uniqid": "5.3.0",
