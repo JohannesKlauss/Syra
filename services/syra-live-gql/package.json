@@ -26,7 +26,7 @@
     "docker:postinstall": "if test \"$LIVE_DB_URL\" != \"\" ; then yarn prisma:migrate ; fi"
   },
   "dependencies": {
-    "@apollo/gateway": "0.28.2",
+    "@apollo/gateway": "0.28.3",
     "@nestjs-modules/mailer": "1.6.0",
     "@nestjs/bull": "0.3.1",
     "@nestjs/common": "7.6.17",
