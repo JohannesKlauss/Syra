@@ -26,7 +26,7 @@
     "docker:postinstall": "if test \"$LIVE_DB_URL\" != \"\" ; then yarn prisma:migrate ; fi"
   },
   "dependencies": {
-    "@apollo/gateway": "0.28.3",
+    "@apollo/gateway": "0.30.0",
     "@nestjs-modules/mailer": "1.6.0",
     "@nestjs/bull": "0.3.1",
     "@nestjs/common": "7.6.17",
@@ -40,7 +40,7 @@
     "@prisma/client": "2.24.1",
     "@types/busboy": "0.2.3",
     "@types/passport-local": "1.0.33",
-    "apollo-server-fastify": "2.25.1",
+    "apollo-server-fastify": "2.25.2",
     "aws-sdk": "2.927.0",
     "bcrypt": "5.0.1",
     "bull": "3.22.8",
