@@ -22666,13 +22666,13 @@ standard-as-callback@^2.1.0:
   resolved "https://registry.yarnpkg.com/standard-as-callback/-/standard-as-callback-2.1.0.tgz#8953fc05359868a77b5b9739a665c5977bb7df45"
   integrity sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==
 
-standardized-audio-context@25.2.7:
-  version "25.2.7"
-  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.2.7.tgz#b8e80b31a90d6c2f2cf643bced52f5815631438c"
-  integrity sha512-yndTpKPPLtz+8bkcrw/G8BXtF/wFEOwKsNXoJbBnpChfXBNxQaC/kqax1plMCqrVNhZUnj6KZ2THyKX4YNkUGw==
+standardized-audio-context@25.2.9:
+  version "25.2.9"
+  resolved "https://registry.yarnpkg.com/standardized-audio-context/-/standardized-audio-context-25.2.9.tgz#2c2cc6d753797165b9bdbc4974ac6c89f73e113c"
+  integrity sha512-8xRl8Cqv3j8UZdRvAYhgqSpVRntjxUBxute+9Zg8zeXTr+aRfDgbAu5FHzTLpUlu8uAJ9232CdOOMkTceSNAWA==
   dependencies:
-    "@babel/runtime" "^7.14.5"
-    automation-events "^4.0.2"
+    "@babel/runtime" "^7.14.6"
+    automation-events "^4.0.3"
     tslib "^2.3.0"
 
 standardized-audio-context@^25.1.8:
