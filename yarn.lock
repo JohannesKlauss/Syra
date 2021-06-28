@@ -7048,10 +7048,10 @@
   resolved "https://registry.yarnpkg.com/@types/warning/-/warning-3.0.0.tgz#0d2501268ad8f9962b740d387c4654f5f8e23e52"
   integrity sha1-DSUBJorY+ZYrdA04fEZU9fjiPlI=
 
-"@types/wavesurfer.js@5.0.2":
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/@types/wavesurfer.js/-/wavesurfer.js-5.0.2.tgz#9285a3ddcc96501493e0e301ed47daa14b049776"
-  integrity sha512-6SOscK+XxUgBeT9E/GmW1pNaayyrM/zRNc4elQ+GJ1y11K9PLwWr2JAP0C40atewL2b+4VIzXrD23zkQC/4umA==
+"@types/wavesurfer.js@5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@types/wavesurfer.js/-/wavesurfer.js-5.0.3.tgz#82d276da4725ab48c12a3d40631cf65e5e88624d"
+  integrity sha512-CTiYHJERRKciPUio9MZwx+Aw0rwTTwuTYCsz+O2F4HLHKQpKPdy1SRX/dr2K6XPNs+9ZVrP1AVcfn0OJ+HyF0w==
   dependencies:
     "@types/debounce" "*"
 
@@ -24702,10 +24702,10 @@ waveform-data@4.1.0:
   dependencies:
     inline-worker "~1.1.0"
 
-wavesurfer.js@5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-5.0.1.tgz#df48f39cfb15c106793a60d266bef64dd7ae0acd"
-  integrity sha512-N4Inb9dVOybLLY5vd4A8DGVINmyXaF7zUWQvOObKdLzVbFbegUGa+zesOW/E0rv4MVaec7K0FQ/wb7aP28Uy4g==
+wavesurfer.js@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-5.1.0.tgz#7155e76da76ab293b45c80e5c7feeba0a7a282cd"
+  integrity sha512-6qEhIopHwDpZl9otqopIH94gcu1xxbO4JZfjd0kH/s5c4p52BSx3p5/dBH4aappzvxbI+90fxKZKsoqaOUSn8Q==
 
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"
